@@ -1,0 +1,28 @@
+{
+  "company": "DemoBank SG",
+  "ticker": "SGX:DEMO",
+  "sector": "Financials — Banks",
+  "layer_a": {
+    "esg_score_static": "22.4 (Medium Risk)",
+    "as_of_date": "2023-09-30",
+    "note": "Risk score: LOWER = better. Stale baseline. PLACEHOLDER values — not real facts about any real company."
+  },
+  "layer_b": {
+    "momentum": {
+      "E": { "direction": "improving", "magnitude": "+8%" },
+      "S": { "direction": "flat", "magnitude": "0%" },
+      "G": { "direction": "improving", "magnitude": "+15%" }
+    },
+    "digital_ai_signal": {
+      "ai_governance_hiring_velocity": "+340% YoY",
+      "ai_disclosure_level": "none",
+      "gap_note": "Hiring for AI governance, disclosing nothing."
+    },
+    "conflicting_signals": {
+      "news_sentiment": "positive",
+      "behaviour_trend": "negative",
+      "conflict_note": "Press upbeat; behaviour says otherwise."
+    },
+    "near_term_catalyst": "MAS AI Risk Management Guidelines — finalising 2026, 12-month transition."
+  }
+}

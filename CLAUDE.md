@@ -23,11 +23,12 @@ It is NOT a stock picker / ranker. It disagrees with ratings; it never says buy/
 
 ---
 
-## ARCHITECTURE — foundation first, then 3 stage-agents
+## ARCHITECTURE — foundation first, then a 3-stage relay (pipeline)
 
-The three stages are a **sequential pipeline**, not independent modules. To build them in
-parallel safely: build the shared core FIRST and freeze the contracts, then each agent
-owns ONE file and codes against the frozen contracts using fixtures.
+The three stages form a **pipeline**: Stage 1's output feeds Stage 2, whose output feeds
+Stage 3. Build them as a **relay** — one agent per stage, in order — on top of a shared
+core that is built and FROZEN first. Each stage hands the next a *verified contract
+output* (the handoff baton).
 
 ```
 esg-momentum-radar/
@@ -39,15 +40,19 @@ esg-momentum-radar/
   stage2.py                 # AGENT 2 owns — reason over data
   stage3.py                 # AGENT 3 owns — render the answer (dashboard)
   data/hero_company.json    # Layer A + Layer B sample (PLACEHOLDER values)
-  fixtures/                 # frozen sample outputs so agents don't block each other
-    narrowed_question.json  #   Stage 1 output shape (for Agent 2 + 3 to build against)
-    stage2_answer.json      #   Stage 2 output shape (for Agent 3 to build against)
+  fixtures/                 # handoff batons: seeded in Phase 0, then REPLACED by each
+    narrowed_question.json  #   stage's real verified output as the relay proceeds.
+    stage2_answer.json      #   Each file = next stage's input + a regression check.
   docs/stage1.md docs/stage2.md docs/stage3.md   # detailed per-stage briefs
 ```
 
-**Build order:** Phase 0 (core + contracts + fixtures + app shell) → then Stages 1, 2, 3
-in parallel against the contracts → integrate in `app.py`. The existing
-`stage1_interrogation.py` gets refactored into `stage1.py` + `core.py` during Phase 0.
+**Build order (relay, in sequence):** Phase 0 — build & FREEZE `core.py`, `contracts.py`,
+the `app.py` shell, and seed `fixtures/`. Then **Stage 1 → Stage 2 → Stage 3 in order**:
+each agent owns ONE file, consumes the previous stage's verified output from `fixtures/`,
+and saves its own verified output there as the baton for the next. Integrate in `app.py`.
+The existing `stage1_interrogation.py` is refactored into `stage1.py` + `core.py` in
+Phase 0. Note: a fresh agent session has no memory of the last — this file + the contracts
++ the on-disk fixtures ARE the memory that travels down the pipe.
 
 ---
 
@@ -144,12 +149,14 @@ streamlit run app.py
 
 ---
 
-## HOW EACH AGENT WORKS
+## HOW EACH AGENT WORKS (relay)
 
 1. Read this file + your `docs/stageN.md`.
-2. Build against the **contracts** and the **fixtures** (don't wait on other stages).
+2. Take the previous stage's verified output in `fixtures/` as your concrete input. Build
+   ONLY your `stageN.py`, against the contracts.
 3. Propose your file plan and wait for OK before writing (use Plan Mode).
-4. Test your stage standalone against its fixture, then hand off via `app.py`.
-5. Acceptance = your stage produces/consumes its contract exactly, and the end-to-end
+4. Verify your stage produces its contract EXACTLY; save a real example of your output to
+   `fixtures/` as the baton for the next stage; wire into `app.py`.
+5. Acceptance = your stage consumes/produces its contract exactly, and the end-to-end
    demo chain runs: vague question → narrowed question → four-line competing answer that
    cites the Layer B gap + the MAS catalyst, with zero invented facts.

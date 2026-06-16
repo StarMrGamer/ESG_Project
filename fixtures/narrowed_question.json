@@ -1,0 +1,28 @@
+{
+  "narrowed_question": "Is DemoBank SG's undisclosed AI-governance gap a NEAR-TERM capital risk, given MAS's incoming AI Risk Management Guidelines?",
+  "mandate": "risk",
+  "sector": "Financials — Banks",
+  "horizon": "near_term",
+  "trail": [
+    {
+      "axis": "mandate",
+      "type": "question",
+      "text": "Are you asking because you want downside protection (risk), outperformance (return), or to satisfy an ESG mandate? Each points at a different signal."
+    },
+    {
+      "axis": "blind_spot",
+      "type": "question",
+      "text": "Hidden where? What do you suspect a standard ESG rating is NOT capturing about this bank?"
+    },
+    {
+      "axis": "time_horizon",
+      "type": "question",
+      "text": "Is the undisclosed-AI worry a near-term catalyst or a structural concern — is something forcing the issue soon?"
+    },
+    {
+      "axis": null,
+      "type": "narrowed",
+      "text": "Is DemoBank SG's undisclosed AI-governance gap a NEAR-TERM capital risk, given MAS's incoming AI Risk Management Guidelines?"
+    }
+  ]
+}
