@@ -39,34 +39,38 @@ Requires **Python 3.8+** and a **DeepSeek API key** (`DEEPSEEK_API_KEY`).
 
 ### 1. Set up a virtual environment
 
-Many Linux distros block `pip install` into system Python (PEP 668), so use a venv.
+Use a virtual environment so dependencies stay isolated.
 
-**fish** (this repo's shell):
-```fish
+**Windows — PowerShell:**
+```powershell
 python -m venv .venv
-source .venv/bin/activate.fish
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
+> If activation is blocked with a script-execution error, run once:
+> `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`, then activate again.
 
-**bash / zsh:**
-```bash
+**Windows — Command Prompt (cmd):**
+```bat
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
 ### 2. Set your API key
 
-```fish
-set -x DEEPSEEK_API_KEY "sk-..."        # fish
+**PowerShell:**
+```powershell
+$env:DEEPSEEK_API_KEY="sk-..."
 ```
-```bash
-export DEEPSEEK_API_KEY="sk-..."        # bash/zsh   (Windows: $env:DEEPSEEK_API_KEY="sk-...")
+**Command Prompt (cmd):**
+```bat
+set DEEPSEEK_API_KEY=sk-...
 ```
 
 ### 3. Run
 
-```bash
+```powershell
 streamlit run app.py
 ```
 
@@ -116,16 +120,17 @@ requirements.txt
 
 **Offline self-test** (no API key or network needed) — validates the contracts and the
 relay wiring with a mocked LLM:
-```bash
+```powershell
 python selftest.py
 ```
 
 **Probe the live endpoint** — shows exactly what DeepSeek returns (useful if Stage 1/2
 loop or come back empty):
-```bash
+```powershell
 python debug_llm.py      # needs DEEPSEEK_API_KEY set
 ```
-- `CALL FAILED: NotFoundError` → wrong model name → set `DEEPSEEK_MODEL=deepseek-chat`
+- `CALL FAILED: NotFoundError` → wrong model name → set a working model and re-run:
+  PowerShell `$env:DEEPSEEK_MODEL="deepseek-chat"` · cmd `set DEEPSEEK_MODEL=deepseek-chat`
 - `RAW REPR: ''` → empty content
 - `PARSED: {...}` → JSON works; the app should too
 
