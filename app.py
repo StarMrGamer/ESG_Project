@@ -10,7 +10,9 @@ verified contract baton:
       → Stage 3 renders the answer ...... the decision panel
 
 Stage 2 sees ONLY the NarrowedQuestion + CompanyData — never Stage 1's chat. This module
-owns all st.session_state; each stage owns its own logic/UI.
+owns all st.session_state; each stage owns its own logic/UI. It also owns the cross-cutting
+UX: a progress stepper, a first-load intro, clickable demos, a streaming Stage-2 status,
+friendly error recovery, and a light "ask another" reset.
 
     pip install -r requirements.txt
     export DEEPSEEK_API_KEY="sk-..."
@@ -23,6 +25,86 @@ import core
 import stage1
 import stage2
 import stage3
+
+# Stage-2 progress phases: as each Contract-C key appears in the streamed JSON, advance the
+# status. This narrates the multi-second wait against REAL progress (not a fake timer).
+_S2_PHASES = [
+    ("what_rating_sees", "📊 Reading the stale rating…"),
+    ("what_we_see", "🛰️ Checking the live signal the rating can't see…"),
+    ("check_before_monday", "✅ Framing the check for your mandate…"),
+    ("competes_summary", "⚔️ Forming the disagreement…"),
+]
+
+# Transient UI flags (not relay batons) that the Reset buttons should also clear.
+_TRANSIENT = ("pending_user_input", "s2_retry")
+
+
+def _stepper(ss):
+    """A simple Interrogate → Compete → Answer progress bar with the current step lit."""
+    if ss.get("answer") is not None:
+        active = 2
+    elif ss.get("s1_done"):
+        active = 1
+    else:
+        active = 0
+    labels = ["Interrogate", "Compete", "Answer"]
+    cells = []
+    for i, label in enumerate(labels):
+        if i < active:
+            cells.append(f":green[✅ {label}]")
+        elif i == active:
+            cells.append(f":blue[**🔵 {label}**]")
+        else:
+            cells.append(f":grey[⚪ {label}]")
+    st.markdown("  →  ".join(cells))
+
+
+def _intro(ss):
+    """A one-look orientation for a cold user — expanded only on first load."""
+    with st.expander("ℹ️ How this works (30-second read)", expanded=not ss.get("s1_msgs")):
+        st.markdown(
+            "- **It interrogates first.** Instead of a dashboard, it asks a few sharp "
+            "questions to pin down what you *really* want to know.\n"
+            "- **It challenges weak framing.** Worried about a bank's carbon? It will push "
+            "back — for a bank, governance & data security move value, not carbon.\n"
+            "- **Then it competes.** It disagrees with the stale ESG rating using a live "
+            "signal the rating can't see. 💡 The sharpest path steers toward the "
+            "**undisclosed-AI** blind-spot.\n"
+            "- It never says buy / sell / hold, and never gives a score."
+        )
+
+
+def _run_stage2(ss, nq, company):
+    """Run Stage 2 with a streaming status, recovering gracefully from a live flop."""
+    ok = False
+    try:
+        with st.status("Competing against the stale rating…", expanded=True) as status:
+            seen = set()
+
+            def on_delta(_delta, accumulated):
+                for key, label in _S2_PHASES:
+                    if key not in seen and f'"{key}"' in accumulated:
+                        seen.add(key)
+                        status.update(label=label)
+
+            ss.answer = stage2.reason(nq, company, on_delta=on_delta)
+            status.update(label="Done — here's where we compete.", state="complete")
+        ok = True
+    except core.LLMConfigError as e:
+        st.error(str(e))
+    except Exception as e:  # noqa: BLE001 — friendly recovery, never a raw traceback.
+        st.warning(
+            "⚠️ Something went wrong reaching the model — usually a network blip or a "
+            "wrong model name (try setting DEEPSEEK_MODEL)."
+        )
+        with st.expander("Details"):
+            st.code(f"{type(e).__name__}: {e}")
+        if st.button("↻ Retry", key="s2_retry_btn"):
+            ss["s2_retry"] = True
+            st.rerun()
+    if ok:
+        st.rerun()  # re-render cleanly into Stage 3 with the stepper advanced.
+
 
 st.set_page_config(page_title="ASEAN ESG Momentum Radar", page_icon="🛰️", layout="centered")
 
@@ -53,12 +135,18 @@ with st.sidebar:
         st.markdown(f"{icon} **{name}** — {desc}")
     st.divider()
     st.subheader("Demo inputs (vague on purpose)")
-    for d in stage1.DEMO_INPUTS:
-        st.markdown(f"- _{d}_")
+    st.caption("Tap one to start — the AI must NARROW it, not accept it.")
+    _demo_locked = bool(ss.s1_msgs) or ss.s1_done
+    for _i, _d in enumerate(stage1.DEMO_INPUTS):
+        if st.button(_d, key=f"demo_{_i}", use_container_width=True, disabled=_demo_locked):
+            ss["pending_user_input"] = _d
+            st.rerun()
+    if _demo_locked:
+        st.caption("_Reset to try a different opener._")
     st.divider()
     ss["debug"] = st.checkbox("🐞 Show raw model output", value=bool(ss.get("debug")))
     if st.button("↺ Reset"):
-        for _k in _DEFAULTS:
+        for _k in list(_DEFAULTS) + list(_TRANSIENT):
             ss.pop(_k, None)
         st.rerun()
 
@@ -68,10 +156,12 @@ st.caption(
     "It interrogates, then competes — disagreeing with the stale rating using a signal "
     "the rating can't see. It never says buy / sell / hold."
 )
+_stepper(ss)
 st.info(
     f"📍 Loaded company: **{company['company']}** ({company['sector']}). "
     "This radar analyses one company at a time — ask about this one."
 )
+_intro(ss)
 
 # --- Stage 1: interrogate --------------------------------------------------- #
 st.header("1 · Interrogate")
@@ -92,14 +182,15 @@ if ss.s1_done and ss.narrowed_q:
             "A FRESH DeepSeek agent now reasons over Layer A + Layer B. It sees only the "
             "narrowed-question baton above — not the interrogation chat."
         )
-        if st.button("Reason over the data →", type="primary"):
-            try:
-                with st.spinner("Competing against the stale rating…"):
-                    ss.answer = stage2.reason(nq, company)
-                st.rerun()
-            except core.LLMConfigError as e:
-                st.error(str(e))
+        st.markdown("👉 **Next:** reason over the data to see where we disagree with the rating.")
+        clicked = st.button("Reason over the data →", type="primary")
+        if clicked or ss.pop("s2_retry", False):
+            _run_stage2(ss, nq, company)
 
     if ss.answer is not None:
         st.header("3 · The competing answer")
         stage3.render_answer(ss.answer, company, debug=bool(ss.get("debug")))
+        if st.button("🔄 Ask another question about this company"):
+            for _k in list(_DEFAULTS) + list(_TRANSIENT):
+                ss.pop(_k, None)
+            st.rerun()

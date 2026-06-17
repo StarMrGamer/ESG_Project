@@ -72,10 +72,13 @@ def build_user_message(narrowed_question, company):
     )
 
 
-def reason(narrowed_question, company):
+def reason(narrowed_question, company, on_delta=None):
     """Run Stage 2. Returns a Stage2Answer (Contract C) dict.
 
     A fresh agent: its only context is the two JSON inputs, passed as one user turn.
+    Pass ``on_delta`` to stream the response (the UI uses it to narrate progress); the
+    parsed Contract C is identical either way. On a JSON parse-fail we retry ONCE, silently
+    (no streaming on the retry), before surfacing failure — smoothing a rare model fumble.
     """
     user_msg = build_user_message(narrowed_question, company)
     raw = core.call_llm(
@@ -84,8 +87,21 @@ def reason(narrowed_question, company):
         max_tokens=700,
         temperature=0.5,
         json_mode=True,
+        stream=bool(on_delta),
+        on_delta=on_delta,
     )
     parsed = core.parse_json(raw)
+    if parsed is None:  # silent single retry before giving up
+        retry_raw = core.call_llm(
+            [{"role": "user", "content": user_msg}],
+            SYSTEM_PROMPT,
+            max_tokens=700,
+            temperature=0.5,
+            json_mode=True,
+        )
+        retry_parsed = core.parse_json(retry_raw)
+        if retry_parsed is not None:
+            raw, parsed = retry_raw, retry_parsed
     answer = contracts.coerce_stage2_answer(parsed)
     # Non-contract debug fields (stripped from any on-disk baton; safe for the UI to read).
     answer["_raw"] = raw

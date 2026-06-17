@@ -7,8 +7,12 @@ framing, then restates the user's REAL question — emitting a NarrowedQuestion 
 as the baton for Stage 2. It NEVER answers the ESG question; that is Stage 2's job.
 
 This file owns the interrogation IP (SYSTEM_PROMPT). All LLM access goes through
-core.call_llm(); all Streamlit calls live inside render() so importing this module is
-side-effect-free (selftest imports it without a display).
+core.call_llm(); all Streamlit calls live inside render() (and its private _helpers) so
+importing this module is side-effect-free (selftest imports it without a display).
+
+UI affordances that make input effortless live here too: tappable quick-reply chips,
+undo-last-answer, and intake of a programmatic input (a sidebar demo button drops a
+question straight into the chat via ss.pending_user_input).
 """
 
 import core
@@ -30,6 +34,15 @@ DEMO_INPUTS = [
     "I want a sustainable tech stock.",
     "Should I worry about this company's carbon footprint?",
 ]
+
+# Tappable canned answers, keyed by the axis the AI just probed. They let a novice answer
+# in one tap instead of guessing what to type — they are ordinary user turns once clicked.
+QUICK_REPLIES = {
+    "mandate":      ["Risk — downside protection", "Return — outperformance", "Compliance"],
+    "time_horizon": ["A near-term catalyst", "A structural concern"],
+    "blind_spot":   ["Undisclosed AI / digital risk", "Not sure — what should I watch?"],
+    "materiality":  ["Yes, it's material here", "Maybe it's the wrong lens"],
+}
 
 # --------------------------------------------------------------------------- #
 #  THE HERO IP — the interrogation system prompt.
@@ -160,8 +173,14 @@ def ask_next(messages, turns, company=None):
     system = SYSTEM_PROMPT if not scope else SYSTEM_PROMPT + "\n\n" + scope
     raw = core.call_llm(call_messages, system, max_tokens=700, json_mode=True)
     parsed = core.parse_json(raw)
+    if parsed is None:  # silent single retry before degrading — smooths a rare model fumble.
+        retry_raw = core.call_llm(call_messages, system, max_tokens=700, json_mode=True)
+        retry_parsed = core.parse_json(retry_raw)
+        if retry_parsed is not None:
+            raw, parsed = retry_raw, retry_parsed
+
     if parsed is None:
-        # Couldn't parse JSON — degrade gracefully to a plain re-ask (defensive).
+        # Couldn't parse JSON even after a retry — degrade gracefully to a plain re-ask.
         text = (raw or "").strip() or (
             "Tell me a bit more so I can sharpen this — what's really driving the question?"
         )
@@ -241,10 +260,81 @@ def _commit_turn(st, ss, env, raw):
     st.rerun()
 
 
+def _undo_last(ss):
+    """Back one turn: drop the last AI envelope + the user answer that prompted it, so a
+    misspoken answer can be redone without a full reset (lighter than ↺ Reset)."""
+    if ss.s1_trail:
+        ss.s1_trail.pop()
+    if ss.s1_msgs and ss.s1_msgs[-1].get("role") == "assistant":
+        ss.s1_msgs.pop()
+    if ss.s1_msgs and ss.s1_msgs[-1].get("role") == "user":
+        ss.s1_msgs.pop()
+    if ss.s1_turns > 0:
+        ss.s1_turns -= 1
+    ss.s1_done = False
+    ss.narrowed_q = None
+
+
+def _submit_answer(st, ss, company, user_text):
+    """Process one user turn (typed, chip-tapped, or demo-seeded) → ask the next question."""
+    ss.s1_msgs.append({"role": "user", "content": user_text})
+    with st.spinner("Thinking about what to ask next…"):
+        try:
+            env, raw = ask_next(ss.s1_msgs, ss.s1_turns, company)
+        except core.LLMConfigError as e:
+            ss.s1_msgs.pop()  # roll back the unanswered turn
+            st.error(str(e))
+            return
+        except Exception as e:  # noqa: BLE001 — keep a live flop friendly, never a traceback.
+            ss.s1_msgs.pop()
+            st.warning("⚠️ Couldn't reach the model just now — usually a network blip or a "
+                       "wrong model name (try setting DEEPSEEK_MODEL). Please try again.")
+            with st.expander("Details"):
+                st.code(f"{type(e).__name__}: {e}")
+            return
+    _commit_turn(st, ss, env, raw)  # reruns
+
+
+def _force_narrow(st, ss, company):
+    """Force the 'I've said enough' path: narrow now regardless of the model's instinct."""
+    with st.spinner("Narrowing your question…"):
+        try:
+            env, raw = ask_next(ss.s1_msgs, core.MAX_QUESTIONS, company)
+        except core.LLMConfigError as e:
+            st.error(str(e))
+            return
+        except Exception as e:  # noqa: BLE001
+            st.warning("⚠️ Couldn't reach the model just now — please try again.")
+            with st.expander("Details"):
+                st.code(f"{type(e).__name__}: {e}")
+            return
+    _commit_turn(st, ss, env, raw)
+
+
+def _render_quick_replies(st, ss, company):
+    """Tappable canned answers under the latest question, chosen by the probed axis."""
+    if not ss.s1_trail:
+        return
+    last = ss.s1_trail[-1]
+    if last.get("type") not in ("question", "challenge"):
+        return
+    chips = QUICK_REPLIES.get(last.get("axis"))
+    if not chips:
+        return
+    st.caption("Quick replies:")
+    cols = st.columns(len(chips))
+    for i, chip in enumerate(chips):
+        with cols[i]:
+            if st.button(chip, key=f"chip_{ss.s1_turns}_{i}", use_container_width=True):
+                ss["pending_user_input"] = chip
+                st.rerun()
+
+
 def render(ss, company=None):
     """Run the Stage-1 interrogation UI. Sets ss.s1_done + ss.narrowed_q when finished.
 
-    Owns ss keys: s1_msgs, s1_trail, s1_turns, s1_done, narrowed_q. The app initialises them.
+    Owns ss keys: s1_msgs, s1_trail, s1_turns, s1_done, narrowed_q (the app initialises
+    them) plus the transient ss.pending_user_input (a demo/chip tap routed here as a turn).
     `company` anchors the interrogation to the one loaded company (scope only).
     """
     import streamlit as st
@@ -254,19 +344,28 @@ def render(ss, company=None):
     if ss.s1_done:
         return  # the app shows the narrowed-question card + the hand-off to Stage 2.
 
-    # Once the interrogation is underway, always offer a way through to the answer —
+    # A sidebar demo button or a quick-reply chip drops its text here; treat it as a turn.
+    pending = ss.pop("pending_user_input", None)
+    if pending:
+        _submit_answer(st, ss, company, pending)
+        return  # _submit_answer reruns on success; on error we've shown a message.
+
+    # Once the interrogation is underway, offer quick replies + undo + a way to finish —
     # so the user reaches Stage 2 even if the model keeps asking instead of narrowing.
     if ss.s1_trail:
+        _render_quick_replies(st, ss, company)
+        c_undo, c_done = st.columns([1, 2])
+        with c_undo:
+            if st.button("↩︎ Undo last answer", use_container_width=True,
+                         disabled=not ss.s1_msgs):
+                _undo_last(ss)
+                st.rerun()
+        with c_done:
+            if st.button("→ I've said enough — narrow it & continue",
+                         use_container_width=True):
+                _force_narrow(st, ss, company)
+                return
         st.caption(f"Question {ss.s1_turns} of up to {core.MAX_QUESTIONS}.")
-        if st.button("→ I've said enough — narrow it & continue"):
-            with st.spinner("Narrowing your question…"):
-                try:
-                    env, raw = ask_next(ss.s1_msgs, core.MAX_QUESTIONS, company)  # force narrow
-                except core.LLMConfigError as e:
-                    st.error(str(e))
-                    return
-            _commit_turn(st, ss, env, raw)
-            return
 
     if ss.s1_msgs:
         placeholder = "Your answer…"
@@ -275,15 +374,5 @@ def render(ss, company=None):
     else:
         placeholder = "What do you want to understand?"
     user_text = st.chat_input(placeholder)
-    if not user_text:
-        return
-
-    ss.s1_msgs.append({"role": "user", "content": user_text})
-    with st.spinner("Thinking about what to ask next…"):
-        try:
-            env, raw = ask_next(ss.s1_msgs, ss.s1_turns, company)
-        except core.LLMConfigError as e:
-            ss.s1_msgs.pop()  # roll back the unanswered turn
-            st.error(str(e))
-            return
-    _commit_turn(st, ss, env, raw)
+    if user_text:
+        _submit_answer(st, ss, company, user_text)

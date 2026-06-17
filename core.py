@@ -37,7 +37,8 @@ class LLMConfigError(RuntimeError):
 # --------------------------------------------------------------------------- #
 #  THE ONE LLM ENTRY POINT  (provider isolation — swap providers only here)
 # --------------------------------------------------------------------------- #
-def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=False):
+def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=False,
+             stream=False, on_delta=None):
     """Call DeepSeek. The ONLY place that imports the SDK / reads the API key.
 
     A fresh agent per call: ``system`` is this stage's system prompt and ``messages`` is
@@ -48,6 +49,10 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
         system:     the stage-specific system prompt string.
         json_mode:  ask the API to guarantee valid-JSON output. Falls back to a plain call
                     if the configured model/endpoint rejects it.
+        stream:     consume the response incrementally (added 2026-06-17 with sign-off).
+        on_delta:   optional callback(delta, accumulated) fired per streamed chunk so the UI
+                    can narrate progress. ADDITIVE only — the FULL assistant string is still
+                    returned in every mode, so JSON callers parse exactly as before.
     Returns:
         the raw assistant string ("" if empty; parse defensively with parse_json).
     """
@@ -69,6 +74,8 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
     )
     if json_mode:  # OpenAI-style JSON mode; DeepSeek supports it (prompt must say "json").
         kwargs["response_format"] = {"type": "json_object"}
+    if stream:
+        kwargs["stream"] = True
     try:
         resp = client.chat.completions.create(**kwargs)
     except Exception:
@@ -77,6 +84,18 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
             resp = client.chat.completions.create(**kwargs)
         else:
             raise
+    if stream:  # accumulate chunks; surface each via on_delta, still return the full text.
+        parts = []
+        for chunk in resp:
+            choices = getattr(chunk, "choices", None)
+            if not choices:
+                continue
+            delta = getattr(choices[0].delta, "content", "") or ""
+            if delta:
+                parts.append(delta)
+                if on_delta is not None:
+                    on_delta(delta, "".join(parts))
+        return "".join(parts)
     return resp.choices[0].message.content or ""
 
 
