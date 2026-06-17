@@ -1,0 +1,11 @@
+# Pitch-deck palette — navy text, mint secondary surface, purple (the AI-reasoning accent)
+# as the primary colour, with green used in the decision panels.
+# These are APPROXIMATED from the brief ("navy + green + mint, purple accent for the AI").
+# Replace the hex values with the deck's exact colours if you have them.
+[theme]
+base = "light"
+primaryColor = "#7C5CFC"              # purple — AI reasoning / primary buttons
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#EAF6F0"  # mint-tinted sidebar / secondary surfaces
+textColor = "#0B2545"                 # navy
+font = "sans serif"

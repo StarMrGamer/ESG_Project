@@ -53,9 +53,9 @@ def _stepper(ss):
         if i < active:
             cells.append(f":green[✅ {label}]")
         elif i == active:
-            cells.append(f":blue[**🔵 {label}**]")
+            cells.append(f":violet[**🔵 {label}**]")  # purple = the AI-reasoning accent
         else:
-            cells.append(f":grey[⚪ {label}]")
+            cells.append(f":gray[⚪ {label}]")
     st.markdown("  →  ".join(cells))
 
 
@@ -189,7 +189,7 @@ if ss.s1_done and ss.narrowed_q:
 
     if ss.answer is not None:
         st.header("3 · The competing answer")
-        stage3.render_answer(ss.answer, company, debug=bool(ss.get("debug")))
+        stage3.render_answer(ss.answer, company, debug=bool(ss.get("debug")), narrowed=ss.narrowed_q)
         if st.button("🔄 Ask another question about this company"):
             for _k in list(_DEFAULTS) + list(_TRANSIENT):
                 ss.pop(_k, None)

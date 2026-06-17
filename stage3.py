@@ -2,13 +2,17 @@
 stage3.py — STAGE 3: Render the answer (the decision tool).
 ===========================================================
 Takes a Stage2Answer (Contract C) and presents it as a clear decision tool, led by the
-VERDICT: the one-sentence disagreement, then question → "market view vs reality" → the one
-action to take. Render-only — NO LLM call here. Re-reasoning would risk re-wording or
-fabricating the verified baton (HARD RULE 2); Stage 3 just displays what Stage 2 verified.
+VERDICT: the one-sentence disagreement, then the question → "market view vs reality" → the
+one action to take, then the EVIDENCE the radar reasoned over (Layer B momentum cards, the
+unique AI gap, the near-term catalyst, and where the sources disagree). The 5-Whys
+interrogation chain is recapped alongside the answer. Render-only — NO LLM call here.
+Re-reasoning would risk re-wording or fabricating the verified baton (HARD RULE 2).
 
-Minimal but intentional polish — CGSI criterion 02 ("simple, clear output"). The coloured
-surfaces are custom panels (not stock st.error/info boxes) that wrap cleanly to one column
-on narrow screens. All st.* calls live inside render_answer() so the module imports cleanly.
+The verdict stays ONE clean line (the brief's weakest criterion is "simple, clear output");
+the supporting evidence sits below it. "Sophistication in how it thinks, simplicity in what
+it says." Coloured surfaces are custom panels in the pitch-deck palette (navy / green / mint
++ a purple AI accent) and wrap to one column on narrow screens. All st.* calls live inside
+render_answer() so the module imports cleanly.
 """
 
 import html
@@ -19,20 +23,39 @@ _FIELDS = (
     "check_before_monday", "competes_summary",
 )
 
-# Scoped styling for the decision panels. Left-accent + faint tint reads as designed rather
-# than stock-Streamlit; the .esg-vs flex container wraps to a single column under ~600px so
-# the "market view vs reality" pair stacks cleanly on a phone (no fixed columns to squish).
+# Axis → icon for the 5-Whys recap (kept local so stage3 stays decoupled from stage1).
+_AXIS_ICON = {
+    "materiality": "🎯", "time_horizon": "⏱️", "mandate": "🧭", "blind_spot": "🕳️",
+}
+
+# Scoped styling in the deck palette. Left-accent + faint tint reads as designed; .esg-vs and
+# .esg-mom are flex containers that wrap to a single column under ~600px (clean on a phone).
 _CSS = """
 <style>
 .esg-vs{display:flex;flex-wrap:wrap;gap:.75rem;margin:.35rem 0 .25rem;}
-.esg-panel{flex:1 1 280px;border-left:5px solid var(--c,#888);border-radius:10px;
-  padding:.8rem 1rem;background:var(--bg,rgba(136,136,136,.08));}
+.esg-panel{flex:1 1 280px;border-left:5px solid var(--c,#0B2545);border-radius:10px;
+  padding:.8rem 1rem;background:var(--bg,rgba(11,37,69,.06));}
 .esg-panel .esg-h{font-weight:600;font-size:.9rem;opacity:.85;margin-bottom:.3rem;}
 .esg-panel .esg-b{line-height:1.5;margin:0;white-space:pre-wrap;}
-.esg-verdict{--c:#e0584f;--bg:rgba(224,88,79,.10);border-left-width:7px;}
-.esg-rating {--c:#5b8def;--bg:rgba(91,141,239,.10);}
-.esg-we     {--c:#15a39a;--bg:rgba(21,163,154,.12);}
-.esg-check  {--c:#2faa5e;--bg:rgba(47,170,94,.12);}
+.esg-panel ol{margin:.2rem 0 0;padding-left:1.15rem;}
+.esg-panel ol li{margin:.18rem 0;line-height:1.4;}
+.esg-verdict{--c:#7C5CFC;--bg:rgba(124,92,252,.10);border-left-width:7px;}
+.esg-rating {--c:#0B2545;--bg:rgba(11,37,69,.06);}
+.esg-we     {--c:#2FA36B;--bg:rgba(47,163,107,.12);}
+.esg-check  {--c:#1F8A70;--bg:rgba(31,138,112,.12);}
+.esg-trail  {--c:#7C5CFC;--bg:rgba(124,92,252,.06);}
+.esg-conflict{--c:#E8A33D;--bg:rgba(232,163,61,.12);}
+.esg-mom{display:flex;flex-wrap:wrap;gap:.5rem;margin:.3rem 0 .6rem;}
+.esg-card{flex:1 1 130px;border:1px solid rgba(11,37,69,.18);border-radius:10px;
+  padding:.5rem .7rem;background:rgba(11,37,69,.03);}
+.esg-card .t{font-size:.72rem;opacity:.7;text-transform:uppercase;letter-spacing:.03em;}
+.esg-card .v{font-weight:700;font-size:1.05rem;line-height:1.3;}
+.esg-card .s{font-size:.78rem;opacity:.75;}
+.esg-card.up{border-color:#2FA36B;}
+.esg-card.flat{border-color:#9aa6b2;}
+.esg-card.down{border-color:#e0584f;}
+.esg-card.ai{border-color:#7C5CFC;background:rgba(124,92,252,.08);}
+.esg-evi{font-size:.9rem;line-height:1.65;margin:.2rem 0;}
 </style>
 """
 
@@ -44,6 +67,96 @@ def _panel(st, cls, head, body):
         f'<p class="esg-b">{html.escape(str(body or "unknown"))}</p></div>',
         unsafe_allow_html=True,
     )
+
+
+def _dir(direction):
+    """Map a momentum direction to a (css-class, arrow) pair."""
+    d = (direction or "").lower()
+    if d == "improving":
+        return "up", "↑"
+    if d == "declining":
+        return "down", "↓"
+    return "flat", "→"
+
+
+def _render_trail_recap(st, narrowed):
+    """Recap the ESG interrogation (the 5 Whys) packaged with the answer — visible thinking."""
+    trail = (narrowed or {}).get("trail") or []
+    steps = [t for t in trail if t.get("type") in ("question", "challenge")]
+    if not steps:
+        return
+    items = []
+    for t in steps:
+        icon = _AXIS_ICON.get(t.get("axis"), "🔍")
+        axis = (t.get("axis") or "").replace("_", " ")
+        items.append(
+            f"<li><b>{icon} {html.escape(axis)}</b> — {html.escape(str(t.get('text') or ''))}</li>"
+        )
+    st.markdown(
+        '<div class="esg-panel esg-trail"><div class="esg-h">🧭 How we narrowed your '
+        "question — the ESG interrogation</div><ol>" + "".join(items) + "</ol></div>",
+        unsafe_allow_html=True,
+    )
+
+
+def _render_evidence(st, company):
+    """The Layer B signal behind the verdict: momentum cards, the AI gap, the catalyst, and
+    where the sources disagree. All from the loaded data — nothing invented, no contract change."""
+    if not company:
+        return
+    lb = company.get("layer_b") or {}
+    la = company.get("layer_a") or {}
+    mom = lb.get("momentum") or {}
+    ai = lb.get("digital_ai_signal") or {}
+    conflict = lb.get("conflicting_signals") or {}
+    catalyst = lb.get("near_term_catalyst")
+
+    st.divider()
+    st.markdown("#### 📡 The evidence the radar reasoned over")
+    st.caption("The Layer B live signal behind the verdict — what a static rating can't see.")
+
+    cards = []
+    for key, name in (("E", "Environmental"), ("S", "Social"), ("G", "Governance")):
+        m = mom.get(key) or {}
+        cls, arrow = _dir(m.get("direction"))
+        cards.append(
+            f'<div class="esg-card {cls}"><div class="t">{name}</div>'
+            f'<div class="v">{arrow} {html.escape(str(m.get("magnitude", "—")))}</div>'
+            f'<div class="s">{html.escape(str(m.get("direction", "—")))}</div></div>'
+        )
+    cards.append(
+        '<div class="esg-card ai"><div class="t">Digital / AI</div>'
+        f'<div class="v">{html.escape(str(ai.get("ai_governance_hiring_velocity", "—")))}</div>'
+        f'<div class="s">disclosure: {html.escape(str(ai.get("ai_disclosure_level", "—")))}</div></div>'
+    )
+    st.markdown('<div class="esg-mom">' + "".join(cards) + "</div>", unsafe_allow_html=True)
+
+    bits = []
+    if ai.get("gap_note"):
+        bits.append(f"🕳️ <b>The gap:</b> {html.escape(str(ai['gap_note']))}")
+    if catalyst:
+        bits.append(f"📅 <b>Near-term catalyst:</b> {html.escape(str(catalyst))}")
+    if la.get("esg_score_static"):
+        bits.append(
+            f"🗄️ <b>Stale baseline (Layer A):</b> {html.escape(str(la['esg_score_static']))} "
+            f"(as of {html.escape(str(la.get('as_of_date', '—')))})"
+        )
+    if bits:
+        st.markdown('<div class="esg-evi">' + "<br>".join(bits) + "</div>", unsafe_allow_html=True)
+
+    # Tightening #5: surface where the signals CONFLICT — sharper than a confidence score.
+    if conflict:
+        note = html.escape(str(conflict.get("conflict_note", "")))
+        st.markdown(
+            '<div class="esg-panel esg-conflict"><div class="esg-h">🔀 Where the sources '
+            "disagree</div>"
+            f'<p class="esg-b">News sentiment: '
+            f'<b>{html.escape(str(conflict.get("news_sentiment", "—")))}</b> · '
+            f'Behaviour trend: <b>{html.escape(str(conflict.get("behaviour_trend", "—")))}</b>'
+            + (f"<br>{note}" if note else "")
+            + "</p></div>",
+            unsafe_allow_html=True,
+        )
 
 
 def _card_text(answer, company):
@@ -75,12 +188,13 @@ def _render_export(st, answer, company):
         )
 
 
-def render_answer(answer, company=None, debug=False):
+def render_answer(answer, company=None, debug=False, narrowed=None):
     """Render a Stage2Answer (Contract C) dict as the decision panel.
 
     Leads with the VERDICT (competes_summary) — criterion 03's "show me something I
-    don't know" moment — then question → what the rating sees → what we see → the check.
-    Render-only: it never re-words or re-reasons the verified baton (HARD RULE 2).
+    don't know" moment — then the 5-Whys recap, the question, market-view-vs-reality, the
+    check, and the Layer B evidence. Render-only: it never re-words or re-reasons the
+    verified baton (HARD RULE 2). ``narrowed`` (Contract A) supplies the interrogation trail.
     """
     import streamlit as st
 
@@ -116,6 +230,9 @@ def render_answer(answer, company=None, debug=False):
         _panel(st, "esg-verdict", "⚔️ Where we compete", answer.get("competes_summary", "unknown"))
         st.divider()
 
+    # The interrogation chain, packaged with the answer (visible thinking).
+    _render_trail_recap(st, narrowed)
+
     st.subheader("🎯 The question")
     st.write(answer.get("question_to_ask", "unknown"))
 
@@ -134,6 +251,9 @@ def render_answer(answer, company=None, debug=False):
     st.divider()
     st.markdown("#### ✅ Check before Monday")
     _panel(st, "esg-check", "✅ Do this first", answer.get("check_before_monday", "unknown"))
+
+    # The Layer B evidence behind the verdict (momentum cards, AI gap, catalyst, conflict).
+    _render_evidence(st, company)
 
     if not failed:
         _render_export(st, answer, company)
