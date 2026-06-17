@@ -18,19 +18,26 @@ _FIELDS = (
 
 
 def render_answer(answer, company=None, debug=False):
-    """Render a Stage2Answer (Contract C) dict as the decision panel."""
+    """Render a Stage2Answer (Contract C) dict as the decision panel.
+
+    Leads with the VERDICT (competes_summary) — criterion 03's "show me something I
+    don't know" moment — then question → what the rating sees → what we see → the check.
+    Render-only: it never re-words or re-reasons the verified baton (HARD RULE 2).
+    """
     import streamlit as st
 
     if company:
         st.caption(
             f"Subject: **{company.get('company', '—')}** · "
             f"`{company.get('ticker', '—')}` · {company.get('sector', '—')}  "
-            "·  ⚠️ placeholder data, not real facts."
+            "·  ⚠️ Illustrative scenario — placeholder data modelled on a real-world "
+            "pattern, not real facts about any real company."
         )
 
     # Surface a failed / empty Stage 2 instead of a wall of "unknown".
     all_unknown = all((answer.get(k) or "unknown") == "unknown" for k in _FIELDS)
-    if answer.get("_parse_failed") or all_unknown:
+    failed = bool(answer.get("_parse_failed") or all_unknown)
+    if failed:
         st.warning(
             "Stage 2 couldn't produce an answer from the data. This usually means the "
             f"narrowed question is about a company or issue the loaded data "
@@ -40,6 +47,14 @@ def render_answer(answer, company=None, debug=False):
     if (debug or answer.get("_parse_failed")) and answer.get("_raw") is not None:
         with st.expander("🐞 raw Stage 2 output"):
             st.code(answer["_raw"] or "<empty>")
+
+    # --- THE VERDICT, FIRST ------------------------------------------------- #
+    # A decision tool leads with the punchline. Skip it on failure — the warning
+    # above already explains why there's nothing to assert.
+    if not failed:
+        st.markdown("### ⚔️ The verdict — where we disagree with the rating")
+        st.error(answer.get("competes_summary", "unknown"))
+        st.divider()
 
     st.subheader("🎯 The question")
     st.write(answer.get("question_to_ask", "unknown"))
@@ -57,8 +72,5 @@ def render_answer(answer, company=None, debug=False):
     st.divider()
     st.markdown("#### ✅ Check before Monday")
     st.success(answer.get("check_before_monday", "unknown"))
-
-    st.markdown("#### ⚔️ Where we compete")
-    st.error(answer.get("competes_summary", "unknown"))
 
     st.caption("We disagree with the stale rating using a signal it can't see — we never say buy / sell / hold.")
