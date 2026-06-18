@@ -19,12 +19,27 @@ friendly error recovery, and a light "ask another" reset.
     streamlit run app.py
 """
 
+import json
+import os
+
 import streamlit as st
 
+import contracts
 import core
 import stage1
 import stage2
 import stage3
+
+# --- company catalogue (Feature 2) ------------------------------------------ #
+# label -> Contract-B filename in data/. Each file is validated OFFLINE by selftest.py.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+FIXTURES_DIR = os.path.join(BASE_DIR, "fixtures")
+HERO_FILE = "hero_company.json"
+COMPANIES = {
+    "DemoBank SG (illustrative)": HERO_FILE,
+    "GreenChip Semi (illustrative)": "company_2.json",
+}
 
 # Stage-2 progress phases: as each Contract-C key appears in the streamed JSON, advance the
 # status. This narrates the multi-second wait against REAL progress (not a fake timer).
@@ -121,11 +136,21 @@ ss = st.session_state
 for _k, _v in _DEFAULTS.items():
     ss.setdefault(_k, _v)
 
-company = core.load_company_data()
-
 # --- sidebar ---------------------------------------------------------------- #
 with st.sidebar:
+    # Company selector (Feature 2) — the FIRST control. Switching company invalidates the
+    # relay batons: a narrowed question + answer belong to the company that produced them,
+    # so we clear them on change (company_file is kept OUT of _DEFAULTS so it survives).
     st.subheader("Company under analysis")
+    choice = st.selectbox("Dataset", list(COMPANIES), index=0, label_visibility="collapsed")
+    chosen_file = COMPANIES[choice]
+    if ss.get("company_file") != chosen_file:
+        for _k in list(_DEFAULTS) + list(_TRANSIENT):
+            ss.pop(_k, None)
+        ss["company_file"] = chosen_file
+        st.rerun()
+    company = core.load_company_data(os.path.join(DATA_DIR, chosen_file))
+
     st.markdown(f"**{company['company']}** · `{company['ticker']}`")
     st.caption(company["sector"])
     st.caption("⚠️ Sample/placeholder data — not real facts about any real company.")
@@ -145,6 +170,19 @@ with st.sidebar:
         st.caption("_Reset to try a different opener._")
     st.divider()
     ss["debug"] = st.checkbox("🐞 Show raw model output", value=bool(ss.get("debug")))
+    # Feature 1 — offline demo-mode: render the full pipeline from the VERIFIED fixtures with
+    # zero network calls, so the Compete moment survives a dead API or venue Wi-Fi. Seeding
+    # BOTH batons skips Stage 1's live calls too. Gated to the hero company, since the
+    # fixtures are ITS verified batons (a second company would need its own fixture pair).
+    if chosen_file == HERO_FILE:
+        if st.button("🎬 Load verified demo (offline, no network)", use_container_width=True):
+            with open(os.path.join(FIXTURES_DIR, "narrowed_question.json"), encoding="utf-8") as _f:
+                ss.narrowed_q = contracts.coerce_narrowed_question(json.load(_f))
+            with open(os.path.join(FIXTURES_DIR, "stage2_answer.json"), encoding="utf-8") as _f:
+                ss.answer = contracts.coerce_stage2_answer(json.load(_f))
+            ss.s1_done = True
+            st.rerun()
+        st.caption("Renders the full pipeline from verified fixtures — bulletproof if the network drops.")
     if st.button("↺ Reset"):
         for _k in list(_DEFAULTS) + list(_TRANSIENT):
             ss.pop(_k, None)

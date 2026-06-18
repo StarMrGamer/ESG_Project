@@ -16,6 +16,7 @@ render_answer() so the module imports cleanly.
 """
 
 import html
+from datetime import date, datetime
 
 
 _FIELDS = (
@@ -40,6 +41,7 @@ _CSS = """
 .esg-panel ol{margin:.2rem 0 0;padding-left:1.15rem;}
 .esg-panel ol li{margin:.18rem 0;line-height:1.4;}
 .esg-verdict{--c:#7C5CFC;--bg:rgba(124,92,252,.10);border-left-width:7px;}
+.esg-flip   {--c:#9aa6b2;--bg:rgba(154,166,178,.10);}
 .esg-rating {--c:#0B2545;--bg:rgba(11,37,69,.06);}
 .esg-we     {--c:#2FA36B;--bg:rgba(47,163,107,.12);}
 .esg-check  {--c:#1F8A70;--bg:rgba(31,138,112,.12);}
@@ -79,8 +81,37 @@ def _dir(direction):
     return "flat", "→"
 
 
+def _months_stale(as_of):
+    """Whole months between an as-of date (YYYY-MM-DD) and today; None if unparseable.
+    Powers the one-line staleness call-out — no invented data, just the calendar."""
+    try:
+        d = datetime.strptime(str(as_of)[:10], "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return None
+    today = date.today()
+    months = (today.year - d.year) * 12 + (today.month - d.month) - (today.day < d.day)
+    return max(months, 0)
+
+
+def _falsifiability_line(company):
+    """A deterministic 'what would change our mind' line, derived ONLY from the loaded
+    Layer B data (no LLM, no invented facts) — the falsifiable flip-side of the verdict."""
+    ai = ((company or {}).get("layer_b") or {}).get("digital_ai_signal") or {}
+    disclosure = ai.get("ai_disclosure_level")
+    velocity = ai.get("ai_governance_hiring_velocity")
+    if not (disclosure and velocity):
+        return None
+    name = (company or {}).get("company") or "the company"
+    return (
+        f"{name} publishing a credible AI-governance disclosure (today: "
+        f"“{disclosure}”), or the {velocity} hiring signal reversing — "
+        "either would blunt our disagreement."
+    )
+
+
 def _render_trail_recap(st, narrowed):
-    """Recap the ESG interrogation (the 5 Whys) packaged with the answer — visible thinking."""
+    """Recap the ESG interrogation (the 5 Whys) packaged with the answer — visible thinking.
+    Tucked in a collapsed expander so the verdict stays on top (criterion 02: clear output)."""
     trail = (narrowed or {}).get("trail") or []
     steps = [t for t in trail if t.get("type") in ("question", "challenge")]
     if not steps:
@@ -92,11 +123,8 @@ def _render_trail_recap(st, narrowed):
         items.append(
             f"<li><b>{icon} {html.escape(axis)}</b> — {html.escape(str(t.get('text') or ''))}</li>"
         )
-    st.markdown(
-        '<div class="esg-panel esg-trail"><div class="esg-h">🧭 How we narrowed your '
-        "question — the ESG interrogation</div><ol>" + "".join(items) + "</ol></div>",
-        unsafe_allow_html=True,
-    )
+    with st.expander(f"🧭 How we narrowed your question — the ESG interrogation ({len(steps)} steps)"):
+        st.markdown("<ol>" + "".join(items) + "</ol>", unsafe_allow_html=True)
 
 
 def _render_evidence(st, company):
@@ -137,9 +165,12 @@ def _render_evidence(st, company):
     if catalyst:
         bits.append(f"📅 <b>Near-term catalyst:</b> {html.escape(str(catalyst))}")
     if la.get("esg_score_static"):
+        as_of = la.get("as_of_date")
+        stale = _months_stale(as_of)
+        stale_txt = f" — <b>{stale} months stale</b>" if stale is not None else ""
         bits.append(
             f"🗄️ <b>Stale baseline (Layer A):</b> {html.escape(str(la['esg_score_static']))} "
-            f"(as of {html.escape(str(la.get('as_of_date', '—')))})"
+            f"(as of {html.escape(str(as_of or '—'))}){stale_txt}"
         )
     if bits:
         st.markdown('<div class="esg-evi">' + "<br>".join(bits) + "</div>", unsafe_allow_html=True)
@@ -228,9 +259,12 @@ def render_answer(answer, company=None, debug=False, narrowed=None):
     if not failed:
         st.markdown("### ⚔️ The verdict — where we disagree with the rating")
         _panel(st, "esg-verdict", "⚔️ Where we compete", answer.get("competes_summary", "unknown"))
+        flip = _falsifiability_line(company)
+        if flip:
+            _panel(st, "esg-flip", "🔄 What would change our mind", flip)
         st.divider()
 
-    # The interrogation chain, packaged with the answer (visible thinking).
+    # The interrogation chain, packaged with the answer (visible thinking) — collapsed.
     _render_trail_recap(st, narrowed)
 
     st.subheader("🎯 The question")
@@ -253,9 +287,10 @@ def render_answer(answer, company=None, debug=False, narrowed=None):
     _panel(st, "esg-check", "✅ Do this first", answer.get("check_before_monday", "unknown"))
 
     # The Layer B evidence behind the verdict (momentum cards, AI gap, catalyst, conflict).
-    _render_evidence(st, company)
-
+    # Gated on success: under a Stage-2 failure the warning already explains the gap, so
+    # rendering Layer B cards beneath it reads as oddly contradictory.
     if not failed:
+        _render_evidence(st, company)
         _render_export(st, answer, company)
 
     st.caption("We disagree with the stale rating using a signal it can't see — we never say buy / sell / hold.")

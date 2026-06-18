@@ -1,0 +1,28 @@
+{
+  "company": "GreenChip Semi",
+  "ticker": "SGX:GCHP",
+  "sector": "Technology — Semiconductors",
+  "layer_a": {
+    "esg_score_static": "12.5 (Low Risk — Environmental Leader)",
+    "as_of_date": "2023-06-30",
+    "note": "Risk score: LOWER = better. Stale baseline rated chiefly on water & emissions disclosure — the material lens for a semiconductor firm — and it pre-dates the AI-governance build-out. PLACEHOLDER values — not real facts about any real company."
+  },
+  "layer_b": {
+    "momentum": {
+      "E": { "direction": "improving", "magnitude": "+12%" },
+      "S": { "direction": "flat", "magnitude": "0%" },
+      "G": { "direction": "declining", "magnitude": "-9%" }
+    },
+    "digital_ai_signal": {
+      "ai_governance_hiring_velocity": "+280% YoY",
+      "ai_disclosure_level": "minimal",
+      "gap_note": "Racing to automate its fabs with AI; governance disclosure lags far behind the build-out."
+    },
+    "conflicting_signals": {
+      "news_sentiment": "positive",
+      "behaviour_trend": "negative",
+      "conflict_note": "Celebrated as a green leader; the digital-governance build-out is invisible to that story."
+    },
+    "near_term_catalyst": "Illustrative scenario: a regional AI-governance disclosure rule for critical-tech exporters — transition window through 2026."
+  }
+}
