@@ -88,11 +88,25 @@ RULES
   naming the sector, time horizon, and mandate where known.
 - NEVER answer the ESG question itself. No verdicts, no buy/sell, no scores.
 
+BE CONCISE. `text` is ONE sharp sentence — never a paragraph, never a list.
+
+SHOW YOUR THINKING. Every turn includes a `rationale`: a SHORT (≤ 12 words) chain-of-thought
+note on WHY you chose this axis / this challenge right now, given what's still unclear. It is
+your visible reasoning, shown to the user beneath the question — keep it crisp, not a re-ask.
+
+SUGGEST ANSWERS. On every "question"/"challenge" turn, also return `suggested_replies`: 2–3
+SHORT (≤ 6 words) candidate answers the user could TAP — written in THEIR voice as a direct
+answer to THIS question, tailored to THIS company/sector (NOT generic boilerplate). Make them
+distinct and plausible, and — where it fits — include the sharp blind-spot option. On
+"narrowed" turns, return an empty list [].
+
 OUTPUT — respond with JSON ONLY. No prose, no markdown, no code fences.
 {
   "axis": "materiality" | "time_horizon" | "mandate" | "blind_spot" | null,
   "type": "question" | "challenge" | "narrowed",
   "text": "<your question, your challenge, or the final restated question>",
+  "rationale": "<≤12 words: why THIS axis now — your chain of thought>",
+  "suggested_replies": ["<short tappable answer>", "<another>", "<optional third>"],
   "done": false | true,
   "mandate": "risk" | "return" | "compliance" | null,
   "sector": "<the sector if known, else null>",
@@ -105,15 +119,15 @@ OUTPUT — respond with JSON ONLY. No prose, no markdown, no code fences.
   from what you learned (use null only if genuinely unknown — never guess a number/date).
 - On "question"/"challenge" turns, set mandate/sector/horizon to null unless already certain.
 
-WORKED EXAMPLE (illustrative)
+WORKED EXAMPLE (illustrative — note suggested_replies are tailored, not generic)
 user: "Is this bank a good ESG investment?"
-you: {"axis":"mandate","type":"question","text":"Are you asking because you want downside protection (risk), outperformance (return), or to satisfy an ESG mandate? Each points at a different signal.","done":false,"mandate":null,"sector":"Financials — Banks","horizon":null}
+you: {"axis":"mandate","type":"question","text":"Are you asking because you want downside protection (risk), outperformance (return), or to satisfy an ESG mandate? Each points at a different signal.","rationale":"Mandate decides which signal even matters.","suggested_replies":["Downside protection (risk)","Outperformance (return)","ESG compliance mandate"],"done":false,"mandate":null,"sector":"Financials — Banks","horizon":null}
 user: "Downside protection — I'm worried about hidden risk."
-you: {"axis":"blind_spot","type":"question","text":"Hidden where? What do you suspect a standard ESG rating is NOT capturing about this bank?","done":false,"mandate":"risk","sector":"Financials — Banks","horizon":null}
+you: {"axis":"blind_spot","type":"question","text":"Hidden where? What do you suspect a standard ESG rating is NOT capturing about this bank?","rationale":"Locate the blind-spot the static rating misses.","suggested_replies":["Undisclosed AI / model risk","Data-security governance","Not sure — what should I watch?"],"done":false,"mandate":"risk","sector":"Financials — Banks","horizon":null}
 user: "Their AI use isn't disclosed."
-you: {"axis":"time_horizon","type":"question","text":"Is the undisclosed-AI worry a near-term catalyst or a structural concern — is something forcing the issue soon?","done":false,"mandate":"risk","sector":"Financials — Banks","horizon":null}
+you: {"axis":"time_horizon","type":"question","text":"Is the undisclosed-AI worry a near-term catalyst or a structural concern — is something forcing the issue soon?","rationale":"Horizon sets urgency and which catalyst applies.","suggested_replies":["Near-term — new MAS rules","Structural, long-run concern"],"done":false,"mandate":"risk","sector":"Financials — Banks","horizon":null}
 user: "New MAS AI rules next year."
-you: {"axis":null,"type":"narrowed","text":"Is this bank's undisclosed AI-governance gap a NEAR-TERM capital risk, given MAS's incoming AI Risk Management Guidelines?","done":true,"mandate":"risk","sector":"Financials — Banks","horizon":"near_term"}
+you: {"axis":null,"type":"narrowed","text":"Is this bank's undisclosed AI-governance gap a NEAR-TERM capital risk, given MAS's incoming AI Risk Management Guidelines?","rationale":"","suggested_replies":[],"done":true,"mandate":"risk","sector":"Financials — Banks","horizon":"near_term"}
 """
 
 FORCE_NARROW_NOTE = (
@@ -126,12 +140,35 @@ FORCE_NARROW_NOTE = (
 # --------------------------------------------------------------------------- #
 #  PURE LOGIC (no Streamlit) — testable standalone.
 # --------------------------------------------------------------------------- #
+def _clean_suggestions(val):
+    """Normalise the model's suggested_replies into ≤3 short, tappable strings.
+    Tolerates a single string or a list of {"text"/"reply"} dicts; drops blanks/dupes."""
+    if isinstance(val, str):
+        val = [val]
+    if not isinstance(val, list):
+        return []
+    out, seen = [], set()
+    for s in val:
+        if isinstance(s, dict):
+            s = s.get("text") or s.get("reply") or s.get("label") or ""
+        s = " ".join(str(s).split()).strip()[:48]  # collapse whitespace, cap length
+        key = s.lower()
+        if s and key not in seen:
+            seen.add(key)
+            out.append(s)
+        if len(out) >= 3:
+            break
+    return out
+
+
 def _envelope_defaults(env):
     """Apply Stage-1 envelope defaults to a parsed (or failed) response."""
     env = env or {}
     env.setdefault("axis", None)
     env.setdefault("type", "question")
     env.setdefault("text", "")
+    env.setdefault("rationale", "")  # CoT: short why-this-axis note (shown under the question)
+    env["suggested_replies"] = _clean_suggestions(env.get("suggested_replies"))  # dynamic chips
     env.setdefault("done", False)
     env.setdefault("mandate", None)
     env.setdefault("sector", None)
@@ -171,10 +208,10 @@ def ask_next(messages, turns, company=None):
 
     scope = company_scope_note(company)
     system = SYSTEM_PROMPT if not scope else SYSTEM_PROMPT + "\n\n" + scope
-    raw = core.call_llm(call_messages, system, max_tokens=700, json_mode=True)
+    raw = core.call_llm(call_messages, system, max_tokens=1000, json_mode=True)
     parsed = core.parse_json(raw)
     if parsed is None:  # silent single retry before degrading — smooths a rare model fumble.
-        retry_raw = core.call_llm(call_messages, system, max_tokens=700, json_mode=True)
+        retry_raw = core.call_llm(call_messages, system, max_tokens=1000, json_mode=True)
         retry_parsed = core.parse_json(retry_raw)
         if retry_parsed is not None:
             raw, parsed = retry_raw, retry_parsed
@@ -208,7 +245,12 @@ def build_narrowed_question(trail, final_env):
             "sector": final_env.get("sector"),
             "horizon": final_env.get("horizon"),
             "trail": [
-                {"axis": e.get("axis"), "type": e.get("type"), "text": e.get("text")}
+                {
+                    "axis": e.get("axis"),
+                    "type": e.get("type"),
+                    "text": e.get("text"),
+                    "rationale": e.get("rationale"),
+                }
                 for e in trail
             ],
         }
@@ -241,6 +283,8 @@ def _render_trail(st, ss):
         with st.chat_message("assistant"):
             st.markdown(f"**{_axis_badge(env)}**")
             st.write(env["text"])
+            if env.get("rationale") and env.get("type") != "narrowed":
+                st.caption(f"💭 _Why I'm asking:_ {env['rationale']}")
             if env.get("_parse_failed"):
                 st.caption("⚠️ The model didn't return valid JSON for this turn.")
             if (debug or env.get("_parse_failed")) and "_raw" in env:
@@ -312,16 +356,19 @@ def _force_narrow(st, ss, company):
 
 
 def _render_quick_replies(st, ss, company):
-    """Tappable canned answers under the latest question, chosen by the probed axis."""
+    """Tappable answers under the latest question. Prefers the model's DYNAMIC, context-aware
+    `suggested_replies` (tailored to this question + company); falls back to the static
+    per-axis set if the model returned none (or parsing failed)."""
     if not ss.s1_trail:
         return
     last = ss.s1_trail[-1]
     if last.get("type") not in ("question", "challenge"):
         return
-    chips = QUICK_REPLIES.get(last.get("axis"))
+    dynamic = last.get("suggested_replies") or []
+    chips = dynamic or QUICK_REPLIES.get(last.get("axis")) or []
     if not chips:
         return
-    st.caption("Quick replies:")
+    st.caption("💡 Suggested replies:" if dynamic else "Quick replies:")
     cols = st.columns(len(chips))
     for i, chip in enumerate(chips):
         with cols[i]:

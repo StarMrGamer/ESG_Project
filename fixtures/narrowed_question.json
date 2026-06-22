@@ -7,21 +7,25 @@
     {
       "axis": "mandate",
       "type": "question",
+      "rationale": "Mandate decides which signal even matters.",
       "text": "Are you asking because you want downside protection (risk), outperformance (return), or to satisfy an ESG mandate? Each points at a different signal."
     },
     {
       "axis": "blind_spot",
       "type": "question",
+      "rationale": "Locate the blind-spot the static rating misses.",
       "text": "Hidden where? What do you suspect a standard ESG rating is NOT capturing about this bank?"
     },
     {
       "axis": "time_horizon",
       "type": "question",
+      "rationale": "Horizon sets urgency and which catalyst applies.",
       "text": "Is the undisclosed-AI worry a near-term catalyst or a structural concern — is something forcing the issue soon?"
     },
     {
       "axis": null,
       "type": "narrowed",
+      "rationale": "",
       "text": "Is DemoBank SG's undisclosed AI-governance gap a NEAR-TERM capital risk, given MAS's incoming AI Risk Management Guidelines?"
     }
   ]

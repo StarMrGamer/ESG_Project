@@ -7,6 +7,15 @@
     "as_of_date": "2023-09-30",
     "note": "Risk score: LOWER = better. Stale baseline. PLACEHOLDER values — not real facts about any real company."
   },
+  "layer_a_history": {
+    "note": "Illustrative PLACEHOLDER history — quarterly static ESG risk scores (LOWER = better). Not real facts about any real company. This is the STATIC trend a rating reports over time; Layer B is what that trend cannot see.",
+    "series": [
+      { "as_of": "2022-09-30", "esg_score_static": "24.1 (Medium Risk)" },
+      { "as_of": "2023-03-31", "esg_score_static": "23.2 (Medium Risk)" },
+      { "as_of": "2023-09-30", "esg_score_static": "22.4 (Medium Risk)" }
+    ],
+    "trend_note": "Static score drifting GENTLY better over a year — a calm, improving picture that pre-dates and cannot see the AI-governance build-out in Layer B."
+  },
   "layer_b": {
     "momentum": {
       "E": { "direction": "improving", "magnitude": "+8%" },

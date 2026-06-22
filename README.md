@@ -3,12 +3,15 @@
 > **An AI that interrogates along ESG-native axes, then competes with the market's view —
 > disagreeing with evidence, not picking.**
 
-A hackathon ESG tool that does three things ("beats"):
+An ESG tool that does four things:
 
-- **Thinks** — asks adaptive questions instead of dumping a dashboard *(Stage 1)*
+- **Thinks** — asks adaptive questions instead of dumping a dashboard, and shows *why* it
+  asks each one (its chain of thought) *(Stage 1)*
 - **Challenges** — pushes back on your framing when it's wrong *(Stage 1)*
-- **Competes** — takes a position against the stale rating using a signal the rating
-  can't see *(Stage 2)* — **the differentiator**
+- **Competes** — takes a position against the stale rating using the live signal + the
+  historical trend the rating can't see, **grounded in real sources it fetches live (RAG)**
+  *(Stage 2)* — **the differentiator**
+- **Shows its work** — every verdict ships with a reasoning trail and its sources *(Stage 3)*
 
 It is **not** a stock picker. It disagrees with ratings; it never says buy / sell / hold,
 and it never gives a score.
@@ -22,14 +25,31 @@ Each stage is a **fresh LLM agent** that hands the next only its verified output
 
 ```
 vague question
-  → Stage 1  Interrogate ......... emits a NarrowedQuestion   (LLM only, no data)
-  → Stage 2  Compete over data ... emits a Stage2Answer        (LLM + the company data)
-  → Stage 3  Render .............. the "market view vs reality" decision panel
+  → Stage 1  Interrogate ......... emits a NarrowedQuestion   (LLM only, no data; + visible CoT)
+  → Stage 2  Compete over data ... emits a Stage2Answer        (LLM + company data + history + live RAG)
+  → Stage 3  Render .............. verdict · chain-of-thought · history · sources
 ```
 
-The tool analyses **one company at a time**, loaded from a single local JSON file
-(`data/hero_company.json`, currently the placeholder **DemoBank SG**). The interrogation
-is anchored to that company.
+The tool analyses **one company at a time**, from one of three data sources (`datasource.py`):
+
+- **🌐 Live** — type what you want to invest in (e.g. *"I want to invest in Nvidia"*). It
+  identifies the company, fetches real documents, and the LLM builds an ESG profile
+  **grounded only in those sources** — anything not found is `"unknown"`, never invented.
+- **📤 Upload** — bring your own ESG data: `.json` is used as-is (a template is in the
+  sidebar); `.csv`/`.txt` are read by the AI, grounded only in your file.
+- **🧪 Sample** — the offline `data/hero_company.json` (DemoBank SG), a bulletproof demo /
+  test fixture when there's no network or key.
+
+The interrogation is anchored to whichever company is loaded.
+
+**Live retrieval (RAG).** Before competing, Stage 2 fetches real external context for the
+narrowed question — recent news (Google News RSS) + background (Wikipedia), no API key — and
+ranks it with a pure-Python **TF-IDF** retriever (`rag.py`). The top snippets ground the
+reasoning and surface as clickable **sources**. All outbound HTTP is isolated in
+`core.http_get()`; retrieval is **best-effort** — if the network is down it degrades to a
+dataset-only run (toggle it off entirely with the sidebar **🌐 Live retrieval** switch). The
+company *dataset* stays local and placeholder; the web only adds grounding context, never
+fabricated company facts.
 
 ---
 
@@ -75,14 +95,20 @@ streamlit run app.py
 ```
 
 ### Demo flow
-1. Type **"Is this bank a good ESG investment?"** (or use a sidebar demo input).
-2. Answer the 2–4 adaptive questions. The AI will challenge weak framing.
-   - Stuck? Click **"→ I've said enough — narrow it & continue"** to jump to the answer.
-3. Click **"Reason over the data →"** to get the four-line competing answer.
+1. In the sidebar, pick a **Data source** (Live or Upload) and, optionally, **Dark mode**.
+2. **Live:** type **"I want to invest in Nvidia"** (or tap an example). It builds a live ESG
+   profile, then Agent 1 interrogates. **Upload:** drop a `.json`/`.csv`/`.txt`, click *Use
+   this file*, then ask your question.
+3. Answer the 2–4 adaptive questions (the AI challenges weak framing). Stuck? Click
+   **"→ I've said enough — narrow it & continue"**.
+4. Click **"Reason over the data →"**. It retrieves live sources (RAG), then returns the
+   tightened competing answer — expand **🧠 Show the radar's reasoning** for the chain of
+   thought, and scroll to the historical-trend strip and the **🔗 Sources** it cited.
 
-> 💡 The placeholder data's hidden signal is an **undisclosed AI-governance build-out**
-> (+340% hiring, zero disclosure) ahead of the **MAS AI guidelines**. The sharpest demo
-> steers the interrogation toward that AI/digital blind-spot.
+> 💡 In the **🧪 Sample** scenario (sidebar → *Load sample*), the hidden signal is an
+> **undisclosed AI-governance build-out** (+340% hiring, zero disclosure) ahead of the **MAS
+> AI guidelines** — the sharpest demo steers the interrogation toward that AI/digital blind-spot.
+> For **live** companies the differentiator is whatever real gap the fetched sources reveal.
 
 ---
 
@@ -92,25 +118,35 @@ streamlit run app.py
 |---|---|---|---|
 | `DEEPSEEK_API_KEY` | yes | — | Your DeepSeek key. Read from env only, never hard-coded. |
 | `DEEPSEEK_MODEL` | no | `deepseek-v4-flash` | Override the model, e.g. `deepseek-chat`. |
+| `ESG_HTTP_TIMEOUT` | no | `8` | Per-request fetch timeout (seconds) for live retrieval. |
+| `ESG_RAG_TOP_K` | no | `5` | How many retrieved snippets to ground the reasoning. |
+| `ESG_RAG_MAX_DOCS` | no | `12` | Max documents fetched per query. |
+| `ESG_RAG_TTL` | no | `21600` | Retrieval cache lifetime (seconds; default 6h). |
+| `ESG_USER_AGENT` | no | _(set)_ | User-Agent sent on fetches. |
 
-All LLM calls go through `core.call_llm()` and use the DeepSeek endpoint
-(`https://api.deepseek.com`, OpenAI-compatible).
+All LLM calls go through `core.call_llm()` (DeepSeek endpoint `https://api.deepseek.com`,
+OpenAI-compatible); all web fetches go through `core.http_get()`. Live retrieval needs **no
+API key** and caches to `.cache/` (git-ignored). No network? The app still runs — it just
+reasons on the dataset alone.
 
 ---
 
 ## Project structure
 
 ```
-core.py                  # shared: LLM client, defensive JSON parser, config, data loader
+core.py                  # shared: LLM client (call_llm), live-fetch (http_get), JSON parser, config, data loader
 contracts.py             # the handoff data shapes (A: NarrowedQuestion, B: CompanyData, C: Stage2Answer)
-app.py                   # Streamlit shell — wires the 3-stage relay
-stage1.py                # interrogation agent
-stage2.py                # competing reasoner
-stage3.py                # render the decision panel
-data/hero_company.json   # the one company under analysis (PLACEHOLDER values)
+rag.py                   # live retrieval (RAG): fetch real docs + pure-Python TF-IDF rank
+datasource.py            # build CompanyData LIVE (grounded) or load an UPLOAD (json/csv/txt)
+app.py                   # Streamlit shell — control-panel sidebar, light/dark, wires the relay
+stage1.py                # interrogation agent (+ visible chain-of-thought rationale)
+stage2.py                # competing reasoner (+ RAG, history, CoT, sources)
+stage3.py                # render: verdict · chain-of-thought · history · sources
+data/hero_company.json   # SAMPLE only — offline-demo + test fixture (PLACEHOLDER values)
 fixtures/                # sample contract outputs (used by tests / as batons)
-selftest.py              # offline end-to-end check (no key, no network)
+selftest.py              # offline end-to-end check (no key, no network) — incl. RAG + datasource tests
 debug_llm.py             # one-shot probe of your DeepSeek endpoint
+.cache/                  # live-retrieval cache (auto-created, git-ignored)
 requirements.txt
 ```
 
@@ -141,10 +177,13 @@ raw model response inline.
 
 ## Hard rules (by design)
 
-1. No live data / no DB / no web fetch — one local JSON file only.
-2. Never fabricate — the model reasons only over provided data; a missing fact is
-   "unknown", never invented.
-3. Placeholder data is **not** real facts about any real company.
+1. Live fetch is allowed but **isolated** (`core.http_get`) and **best-effort** — a dead
+   network degrades to a data-only run, never a crash. No DB.
+2. Never fabricate — the model (and the live data builder) reason only over provided
+   inputs/sources; a missing company fact is "unknown", never invented or estimated. Sources
+   are the **real** retrieved URLs, never made up.
+3. Data is labelled by origin: the **sample** (`hero_company.json`) is placeholder and never
+   shown as real; **live**/**upload** data is real and labelled as such. Output is never advice.
 4. Never give buy / sell / hold or a score.
 5. The API key is read from the environment only.
 

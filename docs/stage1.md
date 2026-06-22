@@ -34,8 +34,11 @@ The two demo "beats" that live here:
 ```json
 { "narrowed_question": "...", "mandate": "risk|return|compliance",
   "sector": "...", "horizon": "near_term|structural",
-  "trail": [ {"axis": "...", "type": "...", "text": "..."} ] }
+  "trail": [ {"axis": "...", "type": "...", "text": "...", "rationale": "..."} ] }
 ```
+
+Each trail item carries a short **`rationale`** — Stage 1's visible chain-of-thought (*why
+this axis now*, ≤ 12 words), shown beneath the question and recapped in Stage 3.
 
 Built by `build_narrowed_question(trail, final_env)` → `contracts.coerce_narrowed_question`.
 Saved to `fixtures/narrowed_question.json` as the baton Stage 2 consumes.
@@ -57,7 +60,8 @@ Saved to `fixtures/narrowed_question.json` as the baton Stage 2 consumes.
 - CHALLENGE wrong framing inside the question (don't just accept it).
 - **NARROW EAGERLY** — finish in 2–4 questions; when unsure whether to ask again or
   narrow, NARROW.
-- Output is a JSON envelope only: `{axis, type, text, done, mandate, sector, horizon}`.
+- Output is a JSON envelope only: `{axis, type, text, rationale, done, mandate, sector, horizon}`.
+  Keep `text` to ONE sentence; `rationale` is a short CoT note (≤ 12 words).
 
 ## Key functions
 

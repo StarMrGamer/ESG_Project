@@ -12,6 +12,9 @@ env/
 .env
 *.env
 
+# RAG retrieval cache (live-fetch results, regenerated on demand)
+.cache/
+
 # OS / editor
 .DS_Store
 .idea/

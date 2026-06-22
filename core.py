@@ -5,7 +5,14 @@ Everything that touches the LLM provider or the on-disk sample data lives here, 
 three stage modules stay provider-agnostic and never fabricate. Per CLAUDE.md HARD RULES:
   - LLM access ONLY through call_llm()      (provider isolation, rule 6)
   - API key ONLY from the environment       (never hard-coded, rule 5)
-  - one local JSON file only                (no live data / DB / web fetch, rule 1)
+  - live fetch ONLY through http_get()      (external-I/O isolation; rule 1 — see note)
+
+RULE 1 UPDATE (production, sign-off 2026-06-23): the tool now performs LIVE RETRIEVAL (RAG)
+for real external context. ALL outbound HTTP is isolated in http_get() exactly as the LLM is
+isolated in call_llm(). Fetch is best-effort by contract: a blocked/slow network degrades to
+"no external context" so the relay never hard-crashes. We STILL never fabricate (rule 2) —
+retrieved sources carry their real URLs, and a missing company fact is "unknown", never
+invented. The structured company dataset remains local; the web only adds grounding context.
 
 THE RELAY MODEL: each pipeline stage that reasons gets a FRESH agent — its own system
 prompt and its own message list passed into call_llm(). Stages never share conversation
@@ -27,11 +34,23 @@ BASE_URL = "https://api.deepseek.com"
 MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
 MAX_QUESTIONS = 5  # Stage 1 interrogation cap.
 
+# --- live-fetch / RAG config (rule 1 now permits live retrieval via http_get) ----------- #
+HTTP_TIMEOUT = float(os.environ.get("ESG_HTTP_TIMEOUT", "10"))  # per-request seconds
+USER_AGENT = os.environ.get(
+    "ESG_USER_AGENT",
+    "ASEAN-ESG-Momentum-Radar/1.0 (research demo; live ESG context retrieval)",
+)
+
 _DATA_PATH_DEFAULT = os.path.join(os.path.dirname(__file__), "data", "hero_company.json")
 
 
 class LLMConfigError(RuntimeError):
     """Raised when the LLM cannot be called (e.g. missing API key)."""
+
+
+class FetchError(RuntimeError):
+    """Raised when an external fetch fails (network, timeout, non-200). Callers treat it as
+    'no external context available' and degrade gracefully — never a hard crash (rule 1)."""
 
 
 # --------------------------------------------------------------------------- #
@@ -85,18 +104,63 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
         else:
             raise
     if stream:  # accumulate chunks; surface each via on_delta, still return the full text.
-        parts = []
+        parts, reasoning_parts = [], []
         for chunk in resp:
             choices = getattr(chunk, "choices", None)
             if not choices:
                 continue
-            delta = getattr(choices[0].delta, "content", "") or ""
-            if delta:
-                parts.append(delta)
+            delta = choices[0].delta
+            piece = getattr(delta, "content", "") or ""
+            if piece:
+                parts.append(piece)
                 if on_delta is not None:
-                    on_delta(delta, "".join(parts))
-        return "".join(parts)
-    return resp.choices[0].message.content or ""
+                    on_delta(piece, "".join(parts))
+            else:  # some (reasoning) models stream chain-of-thought as reasoning_content
+                rpiece = getattr(delta, "reasoning_content", "") or ""
+                if rpiece:
+                    reasoning_parts.append(rpiece)
+        return "".join(parts) or "".join(reasoning_parts)
+    msg = resp.choices[0].message
+    # Prefer content; fall back to reasoning_content so a reasoning model never returns "".
+    return (getattr(msg, "content", None) or getattr(msg, "reasoning_content", "") or "")
+
+
+# --------------------------------------------------------------------------- #
+#  THE ONE EXTERNAL-FETCH ENTRY POINT  (live-retrieval isolation — like call_llm)
+# --------------------------------------------------------------------------- #
+def http_get(url, *, params=None, headers=None, timeout=None, retries=1):
+    """GET a URL and return the response text. The ONLY place that does outbound HTTP.
+
+    Isolated exactly like call_llm so the stages stay I/O-agnostic and testable (tests
+    monkeypatch this one function). Best-effort by contract: every failure is normalised to
+    FetchError, which callers swallow into "no external context" (rule 1 graceful fallback).
+    Retries transient blips (timeout / reset) ``retries`` times before giving up.
+
+    Args:
+        url:      the absolute URL to fetch.
+        params:   optional querystring dict.
+        headers:  optional extra headers (merged over the default User-Agent).
+        timeout:  per-request seconds (defaults to HTTP_TIMEOUT).
+        retries:  extra attempts on failure (so 1 = up to 2 tries total).
+    Returns:
+        the response body as text. Raises FetchError after the last attempt fails.
+    """
+    import requests  # lazy: offline paths (selftest) never import it.
+
+    hdrs = {"User-Agent": USER_AGENT, "Accept-Language": "en"}
+    if headers:
+        hdrs.update(headers)
+    last = None
+    for _attempt in range(max(retries, 0) + 1):
+        try:
+            resp = requests.get(url, params=params, headers=hdrs, timeout=timeout or HTTP_TIMEOUT)
+            resp.raise_for_status()
+            return resp.text or ""
+        except Exception as e:  # noqa: BLE001 — transient blips often clear on a retry.
+            last = e
+    raise FetchError(
+        f"GET {url} failed after {max(retries, 0) + 1} attempt(s): {type(last).__name__}: {last}"
+    ) from last
 
 
 # --------------------------------------------------------------------------- #

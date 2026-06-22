@@ -21,32 +21,41 @@ displays what Stage 2 verified.
 
 ## Input
 
-- **Contract C** `Stage2Answer` (`fixtures/stage2_answer.json` / live from Stage 2).
-- Optional `company` (for the subject caption) and `debug` (show raw model output).
+- **Contract C** `Stage2Answer` (`fixtures/stage2_answer.json` / live from Stage 2) — now
+  incl. `reasoning` (CoT) + `sources` (RAG citations).
+- Optional `company` (subject caption, Layer B evidence, `layer_a_history` strip),
+  `narrowed` (Contract A — the interrogation trail recap) and `debug`.
 
 ## Layout — **verdict first** (action-plan Fix #3)
 
-A decision tool leads with the punchline ("show me something I don't know", criterion 03):
+A decision tool leads with the punchline ("show me something I don't know", criterion 03);
+the depth (CoT, evidence, history, sources) sits below it — *simplicity in what it says,
+sophistication in how it thinks*:
 
 1. **Subject caption** — company · ticker · sector, with the **illustrative-scenario /
    placeholder** disclaimer (we keep DemoBank SG framed as illustrative, never as real).
-2. **Failure guard** — if `_parse_failed` or every field is `"unknown"`, show a warning
+2. **Failure guard** — if `_parse_failed` or every text field is `"unknown"`, show a warning
    instead of a wall of `"unknown"`; the verdict headline is skipped in that case.
-3. **⚔️ The verdict** — `competes_summary` as the headline (the one-sentence disagreement).
-4. **🎯 The question** — `question_to_ask`.
-5. **Market view vs. reality** — two columns: 📊 `what_rating_sees` | 🛰️ `what_we_see`.
-6. **✅ Check before Monday** — `check_before_monday`.
-7. Disclaimer caption — we disagree with the rating using a signal it can't see; never
+3. **⚔️ The verdict** — `competes_summary` headline + "what would change our mind" +
+   **🧠 collapsible chain-of-thought** (`reasoning`).
+4. **🧭 How we narrowed your question** — the interrogation trail recap (from `narrowed`).
+5. **🎯 The question** — `question_to_ask`.
+6. **Market view vs. reality** — two columns: 📊 `what_rating_sees` | 🛰️ `what_we_see`.
+7. **✅ Check before Monday** — `check_before_monday`.
+8. **📡 Evidence** (Layer B momentum/AI/conflict) + **📈 historical-vs-current** static-score
+   strip (from `layer_a_history`) + **🔗 Sources** (live RAG citations) + **📋 export** card.
+9. Disclaimer caption — we disagree with the rating using a signal it can't see; never
    buy/sell/hold.
 
 ## Key function
 
-- `render_answer(answer, company=None, debug=False)` — the whole panel. Pure display;
-  reads only Contract C keys (`_FIELDS`) plus the optional `_raw` / `_parse_failed`
-  debug fields.
+- `render_answer(answer, company=None, debug=False, narrowed=None)` — the whole panel. Pure
+  display; reads Contract C keys (`_FIELDS` + `reasoning`/`sources`) plus optional `_raw` /
+  `_parse_failed` / `_rag_status` debug fields. Never calls the LLM or mutates the answer.
 
 ## Acceptance
 
-- Displays all five Contract C fields, led by the verdict.
+- Displays the five text fields led by the verdict, plus the CoT, the historical strip, and
+  the live sources (or a graceful "no sources" note when offline / disabled).
 - A failed / empty Stage 2 degrades to the warning box (no wall of `"unknown"`).
 - Never shows buy/sell/hold or a score; the placeholder framing is always visible.
