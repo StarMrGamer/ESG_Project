@@ -6,8 +6,8 @@ Proves the contracts and the wiring without calling DeepSeek OR the network:
   2. Stage 1's builder turns a trail into a valid NarrowedQuestion (Contract A).
   3. Stage 2's chain (core.call_llm monkeypatched to return the fixture, RAG bypassed) yields
      a valid Stage2Answer (Contract C) that cites the Layer B AI gap + the MAS catalyst.
-  4. The RAG retriever (core.http_get monkeypatched) fetches + TF-IDF-ranks, and degrades
-     gracefully to "offline" when the network is down.
+  4. The RAG retriever (core.http_get monkeypatched) fetches DuckDuckGo results + TF-IDF-ranks,
+     and degrades gracefully to "offline" when the network is down.
 
     python selftest.py
 """
@@ -22,17 +22,18 @@ import rag
 import stage1
 import stage2
 
-# A canned Google-News-style RSS payload so the RAG tests need no network.
-_FAKE_RSS = """<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel>
-<item><title>MAS finalises AI risk management guidelines for banks</title>
-<link>https://example.com/mas-ai</link>
-<description>&lt;a href="x"&gt;Singapore regulator MAS sets AI governance disclosure rules for financial institutions&lt;/a&gt;</description>
-<source url="x">Example News</source></item>
-<item><title>Local football derby ends two one</title>
-<link>https://example.com/sport</link>
-<description>A football match result unrelated to ESG or governance</description></item>
-</channel></rss>"""
+# A canned DuckDuckGo HTML results payload so the RAG tests need no network. The result links
+# are DDG's '//duckduckgo.com/l/?uddg=<encoded real url>' redirects (the parser unwraps them).
+_FAKE_DDG_HTML = """<html><body>
+<div class="result results_links">
+  <a class="result__a" href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fexample.com%2Fmas-ai&amp;rut=a">MAS finalises AI risk management guidelines for banks</a>
+  <a class="result__snippet" href="https://example.com/mas-ai">Singapore regulator MAS sets AI governance disclosure rules for financial institutions</a>
+</div>
+<div class="result results_links">
+  <a class="result__a" href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fexample.com%2Fsport&amp;rut=b">Local football derby ends two one</a>
+  <a class="result__snippet" href="https://example.com/sport">A football match result unrelated to ESG or governance</a>
+</div>
+</body></html>"""
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -111,19 +112,35 @@ def test_stage2_chain(monkeypatch_return):
 
 
 def test_rag_retrieval():
-    """RAG fetch + TF-IDF rank, with core.http_get mocked (no network)."""
+    """RAG fetch (DuckDuckGo) + TF-IDF rank, with core.http_get mocked (no network)."""
     original = core.http_get
-    core.http_get = lambda *a, **k: _FAKE_RSS
+    core.http_get = lambda *a, **k: _FAKE_DDG_HTML
     try:
         docs, status, error = rag.fetch_documents("MAS AI governance banks", use_cache=False)
     finally:
         core.http_get = original
     assert status == "live" and len(docs) >= 2 and error is None, (status, docs, error)
+    # the '//duckduckgo.com/l/?uddg=' redirect must be unwrapped to the real URL.
+    assert docs[0]["url"] == "https://example.com/mas-ai", docs[0]
     snippets = rag.retrieve("MAS AI governance disclosure for banks", docs, k=2)
     assert snippets, "TF-IDF should return at least one ranked snippet"
     # the relevant (MAS) item must out-rank the unrelated football item.
     assert "MAS" in snippets[0]["snippet"], snippets[0]
     assert snippets[0]["url"] == "https://example.com/mas-ai", snippets[0]
+
+
+def test_rag_gather_context_shape():
+    """gather_context returns the new shape incl. ai_summary; a non-JSON instant-answer
+    response degrades the AI summary to None without breaking the search snippets."""
+    original = core.http_get
+    core.http_get = lambda *a, **k: _FAKE_DDG_HTML  # search parses; instant-answer JSON fails
+    try:
+        ctx = rag.gather_context("MAS AI governance banks", k=2, use_cache=False)
+    finally:
+        core.http_get = original
+    assert ctx["status"] == "live" and ctx["snippets"], ctx
+    assert ctx["ai_summary"] is None, ctx["ai_summary"]  # HTML isn't valid IA JSON -> graceful
+    assert set(ctx) >= {"snippets", "ai_summary", "status", "doc_count", "query"}, ctx
 
 
 def test_rag_offline_graceful():
@@ -182,16 +199,17 @@ def test_upload_json_authoritative():
 
 def test_live_company_grounded(monkeypatch_extract):
     """build_live_company: RAG mocked + LLM mocked → grounded Contract B with provenance."""
-    orig_gather, orig_llm = rag.gather_context, core.call_llm
+    orig_gather, orig_fetch, orig_llm = rag.gather_context, rag.fetch_documents, core.call_llm
     rag.gather_context = lambda *a, **k: {
         "snippets": [{"title": "MAS AI rules", "url": "https://e.com/mas", "snippet": "MAS AI governance"}],
-        "status": "live", "doc_count": 1, "query": "x",
+        "ai_summary": None, "status": "live", "doc_count": 1, "query": "x",
     }
+    rag.fetch_documents = lambda *a, **k: ([], "offline", None)  # ESG-rating fetch: offline (no net)
     core.call_llm = lambda *a, **k: monkeypatch_extract
     try:
         company, meta = datasource.build_live_company("I want to invest in Nvidia")
     finally:
-        rag.gather_context, core.call_llm = orig_gather, orig_llm
+        rag.gather_context, rag.fetch_documents, core.call_llm = orig_gather, orig_fetch, orig_llm
     contracts.validate_company_data(company)
     assert company["_origin"] == "live" and meta["status"] == "live", (company["_origin"], meta)
     assert company["company"] == "NVIDIA", company
@@ -224,7 +242,8 @@ def main():
         ("CompanyData coercion (full shape, unknowns)", lambda: test_company_data_coercion()),
         ("upload .json is authoritative", lambda: test_upload_json_authoritative()),
         ("live company built grounded (mocked)", lambda: test_live_company_grounded(raw_extract)),
-        ("RAG fetch + TF-IDF rank (mocked http_get)", lambda: test_rag_retrieval()),
+        ("RAG fetch (DuckDuckGo) + TF-IDF rank (mocked http_get)", lambda: test_rag_retrieval()),
+        ("RAG gather_context shape (+ AI summary degrade)", lambda: test_rag_gather_context_shape()),
         ("RAG offline graceful fallback", lambda: test_rag_offline_graceful()),
     ]
     failures = 0

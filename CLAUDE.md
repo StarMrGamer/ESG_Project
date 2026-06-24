@@ -35,7 +35,7 @@ esg-momentum-radar/
   CLAUDE.md                 # this file (auto-loaded every session)
   core.py                   # FROZEN — DeepSeek client (call_llm), live-fetch (http_get), JSON parser, config
   contracts.py              # FROZEN — the handoff data shapes (below)
-  rag.py                    # live retrieval: fetch real docs + pure-Python TF-IDF rank (RAG)
+  rag.py                    # live retrieval: DuckDuckGo search + AI summary + TF-IDF rank (RAG)
   datasource.py             # build a CompanyData LIVE (grounded) or load an UPLOAD (json/csv/txt)
   app.py                    # Streamlit shell; control-panel sidebar + light/dark; wires the relay
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
@@ -127,8 +127,9 @@ reasoning only — NO data. Each turn also carries a short `rationale` (visible 
 this axis now*).
 
 **Stage 2 — Reason over data + retrieve (RAG).** Take a `NarrowedQuestion` + `CompanyData`
-(incl. `layer_a_history`) + **live RETRIEVED_CONTEXT** (`rag.gather_context` — real fetched
-news/regulatory snippets, ranked by TF-IDF). Answer by COMPETING: disagree with Layer A
+(incl. `layer_a_history`) + **live RETRIEVED_CONTEXT** (`rag.gather_context` — real DuckDuckGo
+search snippets ranked by TF-IDF, plus a DuckDuckGo Instant-Answer **AI summary** the agent
+INTERPRETS). Answer by COMPETING: disagree with Layer A
 using Layer B evidence **and the historical trend**, grounded by the retrieved context.
 Cite Layer B figures verbatim, surface the conflict, frame the closing line by the
 `mandate`, **keep the five text fields tight**, and emit a `reasoning` chain-of-thought.
@@ -148,8 +149,9 @@ the **live sources**. Sophistication in how it thinks, simplicity in what it say
 - Python 3.8+, Streamlit, OpenAI SDK (DeepSeek is OpenAI-compatible), `requests` (live fetch).
 - LLM: **DeepSeek**, model `deepseek-v4-flash`, `base_url="https://api.deepseek.com"`,
   key from env `DEEPSEEK_API_KEY`. All LLM access goes through `core.call_llm()`.
-- RAG: keyless live fetch (Google News RSS + Wikipedia) via `core.http_get()`, ranked by a
-  pure-Python TF-IDF retriever in `rag.py`. Tunables (all optional):
+- RAG: keyless live fetch from DuckDuckGo (HTML/Lite search results + the Instant-Answer "AI"
+  summary) via `core.http_get()`, ranked by a pure-Python TF-IDF retriever in `rag.py`. The
+  agent INTERPRETS the AI summary; snippets carry real source URLs. Tunables (all optional):
   `ESG_HTTP_TIMEOUT` (8s), `ESG_RAG_TOP_K` (5), `ESG_RAG_MAX_DOCS` (12), `ESG_RAG_TTL` (6h),
   `ESG_USER_AGENT`. Results cache to `.cache/` (git-ignored).
 ```bash

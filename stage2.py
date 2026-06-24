@@ -30,13 +30,17 @@ import rag
 SYSTEM_PROMPT = """\
 You are the ESG COMPETING REASONER for the ASEAN ESG Momentum Radar.
 
-You are given THREE inputs, and NOTHING else exists:
+You are given these inputs, and NOTHING else exists:
   1. NARROWED_QUESTION — the sharp question Stage 1 produced (with mandate/sector/horizon).
   2. COMPANY_DATA — Layer A (a STALE static rating), LAYER_A_HISTORY (the static score's
      trend over time), and Layer B (live momentum / digital-AI signal / conflicting signals /
      a near-term catalyst).
-  3. RETRIEVED_CONTEXT — real external snippets the radar fetched live (news / regulatory
-     background), each tagged [n] with a source. This may be EMPTY (offline) — that's fine.
+  3. RETRIEVED_CONTEXT — real external snippets the radar fetched live from DuckDuckGo (search
+     results), each tagged [n] with a source URL. This may be EMPTY (offline) — that's fine.
+  4. DUCKDUCKGO_AI_SUMMARY — DuckDuckGo's own synthesized answer about the topic, when one
+     exists. INTERPRET it: treat it as a lead, cross-check it against the [n] snippets and the
+     COMPANY_DATA, and lean on it for context — but never copy it verbatim as a verified fact,
+     and never let it override a figure that COMPANY_DATA or a cited snippet actually states.
 
 YOUR JOB: answer the narrowed question by COMPETING with the rating — take a position that
 DISAGREES with the Layer A rating, justified by EVIDENCE the static rating cannot see. Use your
@@ -91,7 +95,7 @@ def _format_context(snippets):
     """Render retrieved snippets as a numbered, source-tagged block for the prompt."""
     if not snippets:
         return "RETRIEVED_CONTEXT: (none — offline or retrieval disabled; reason on the data)"
-    lines = ["RETRIEVED_CONTEXT (real external snippets, ranked; cite as [n] in reasoning):"]
+    lines = ["RETRIEVED_CONTEXT (real DuckDuckGo snippets, ranked; cite as [n] in reasoning):"]
     for i, s in enumerate(snippets, 1):
         title = (s.get("title") or s.get("url") or "source").strip()
         snippet = (s.get("snippet") or "").strip()
@@ -99,8 +103,19 @@ def _format_context(snippets):
     return "\n".join(lines)
 
 
-def build_user_message(narrowed_question, company, snippets=None):
-    """Pack the three inputs into the single user turn for the fresh agent."""
+def _format_ai_summary(ai_summary):
+    """Render DuckDuckGo's synthesized 'AI' summary as a block for the agent to INTERPRET."""
+    summary = ((ai_summary or {}).get("summary") or "").strip()
+    if not summary:
+        return ("DUCKDUCKGO_AI_SUMMARY: (none returned — interpret the snippets / data instead)")
+    source = (ai_summary.get("source") or "DuckDuckGo").strip()
+    return ("DUCKDUCKGO_AI_SUMMARY (DuckDuckGo's synthesized answer — INTERPRET it, cross-check "
+            f"against the snippets and the data; do not copy as fact; source: {source}):\n"
+            + summary)
+
+
+def build_user_message(narrowed_question, company, snippets=None, ai_summary=None):
+    """Pack the inputs into the single user turn for the fresh agent."""
     return (
         "NARROWED_QUESTION (Contract A):\n"
         + json.dumps(narrowed_question, indent=2, ensure_ascii=False)
@@ -108,8 +123,11 @@ def build_user_message(narrowed_question, company, snippets=None):
         + json.dumps(company, indent=2, ensure_ascii=False)
         + "\n\n"
         + _format_context(snippets or [])
+        + "\n\n"
+        + _format_ai_summary(ai_summary)
         + "\n\nNow produce the Stage2Answer JSON: compete with the Layer A rating using Layer B "
-          "evidence + the historical trend, show your reasoning steps, keep the text fields tight."
+          "evidence + the historical trend, interpret the DuckDuckGo AI summary, show your "
+          "reasoning steps, keep the text fields tight."
     )
 
 
@@ -147,8 +165,9 @@ def reason(narrowed_question, company, on_delta=None, context=None):
     if context is None:
         context = retrieve_context(narrowed_question, company, use_rag=True)
     snippets = (context or {}).get("snippets", [])
+    ai_summary = (context or {}).get("ai_summary")
 
-    user_msg = build_user_message(narrowed_question, company, snippets)
+    user_msg = build_user_message(narrowed_question, company, snippets, ai_summary)
     # Generous budget: this is the largest prompt, and a reasoning model spends tokens
     # thinking BEFORE the JSON — too small a cap returns empty content.
     raw = core.call_llm(
@@ -181,9 +200,17 @@ def reason(narrowed_question, company, on_delta=None, context=None):
         {"title": s.get("title", ""), "url": s.get("url", "")}
         for s in snippets if s.get("url")
     ]
+    # The DuckDuckGo AI summary carries its own real source URL — add it as provenance too.
+    if ai_summary and ai_summary.get("url") and \
+            all(s["url"] != ai_summary["url"] for s in answer["sources"]):
+        answer["sources"].append({
+            "title": f"DuckDuckGo AI summary — {ai_summary.get('source') or 'DuckDuckGo'}",
+            "url": ai_summary["url"],
+        })
     # Non-contract debug fields (stripped from any on-disk baton; safe for the UI to read).
     answer["_raw"] = raw
     answer["_parse_failed"] = parsed is None
     answer["_rag_status"] = (context or {}).get("status", "disabled")
     answer["_rag_query"] = (context or {}).get("query", "")
+    answer["_ai_summary"] = ai_summary  # for Stage 3 to display what it interpreted
     return answer

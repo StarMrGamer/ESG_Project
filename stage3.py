@@ -154,6 +154,362 @@ def _render_trail_recap(st, narrowed):
         st.markdown("<ol>" + "".join(items) + "</ol>", unsafe_allow_html=True)
 
 
+# --------------------------------------------------------------------------- #
+#  INTERACTIVE CHARTS (Plotly) — graphs lead the evidence; HOVER explains each.
+#  Lazy import + graceful fallback: if plotly isn't installed we drop back to the
+#  HTML/CSS rendering below, so the app never hard-crashes on a missing dependency.
+# --------------------------------------------------------------------------- #
+_PALETTE = {"up": "#2FA36B", "flat": "#9aa6b2", "down": "#e0584f",
+            "ai": "#7C5CFC", "navy": "#0B2545", "amber": "#E8A33D"}
+
+_MOM_EXPLAIN = {
+    "improving": "Momentum is improving — a live acceleration the static snapshot can't see yet.",
+    "declining": "Momentum is declining — deterioration the stale rating hasn't caught up to.",
+    "flat": "Momentum is flat — no live movement on this pillar.",
+    "unknown": "Direction unknown from the available data.",
+}
+# Map a qualitative disclosure level to a 0–100 'how much is disclosed' bar height.
+_DISCLOSURE_SCALE = (("none", 3), ("no ", 3), ("limited", 30), ("low", 25), ("partial", 55),
+                     ("medium", 55), ("moderate", 55), ("high", 85), ("full", 100), ("strong", 90))
+# Map a sentiment / behaviour word to a -1 … +1 axis position.
+_SENT = {"positive": 1, "improving": 1, "up": 1, "negative": -1, "declining": -1, "down": -1,
+         "mixed": 0, "neutral": 0, "flat": 0}
+
+
+def _go():
+    """Lazily import plotly.graph_objects; None if plotly isn't installed (HTML fallback)."""
+    try:
+        import plotly.graph_objects as go
+        return go
+    except Exception:  # noqa: BLE001 — plotly is optional; the HTML path covers its absence.
+        return None
+
+
+def _parse_pct(value):
+    """Pull a signed number out of e.g. '+8%' / '-5%' / '+340% YoY'. None if absent."""
+    m = re.search(r"-?\d+(?:\.\d+)?", str(value or ""))
+    return float(m.group()) if m else None
+
+
+def _risk_score(value):
+    """The ESG RISK-RATING number from a messy string, anywhere in it — e.g. '12.2 (Low Risk)',
+    'MSCI: AAA, Sustainalytics: 12.2', 'Sustainalytics 12.2 as of 2026'. Picks the first number
+    in a plausible risk-rating range (0–60) so a year like 2026 is ignored. None if absent."""
+    for tok in re.findall(r"\d+(?:\.\d+)?", str(value or "")):
+        v = float(tok)
+        if 0 <= v <= 60:
+            return v
+    return None
+
+
+# MSCI-style ESG letter scale, WORST -> BEST (index = position). AAA leader … CCC laggard.
+_MSCI_SCALE = ["CCC", "B", "BB", "BBB", "A", "AA", "AAA"]
+_MSCI_BANDS = [(0, 2, "Laggard", "#E0584F"), (2, 5, "Average", "#E8A33D"), (5, 7, "Leader", "#2FA36B")]
+
+
+def _msci_category(grade):
+    """(tier, colour) for a grade on the MSCI scale (Laggard / Average / Leader)."""
+    i = _MSCI_SCALE.index(grade)
+    lo_hi = next((b for b in _MSCI_BANDS if b[0] <= i < b[1]), _MSCI_BANDS[1])
+    return lo_hi[2], lo_hi[3]
+
+
+def _letter_rating(value):
+    """An MSCI-style ESG letter grade (AAA…CCC) from a messy string — e.g. 'MSCI: A',
+    'MSCI rating AAA'. Returns the grade, or None (incl. when a numeric score is present, which
+    the numeric gauge handles instead, or when a different scale like CDP is named)."""
+    s = str(value or "").upper()
+    if _risk_score(value) is not None or "CDP" in s:
+        return None  # numeric score wins; skip non-MSCI letter scales to avoid mislabelling
+    # Alternation is longest-first so 'AAA' wins over 'A'; \b stops matches inside words (MSCI).
+    grades = [g for g in re.findall(r"\b(AAA|AA|BBB|BB|CCC|CC|A|B|C)\b", s) if g in _MSCI_SCALE]
+    return grades[0] if grades else None
+
+
+def _parse_date(value):
+    """A date from 'YYYY-MM-DD' / 'YYYY-MM' / 'YYYY' (month/day default to 01). None if absent."""
+    s = str(value or "").strip()[:10]
+    for fmt in ("%Y-%m-%d", "%Y-%m", "%Y"):
+        try:
+            return datetime.strptime(s, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def _months_between(d):
+    """Whole months from date `d` to today (clamped at 0)."""
+    t = date.today()
+    return max((t.year - d.year) * 12 + (t.month - d.month) - (t.day < d.day), 0)
+
+
+def _chart_theme(st):
+    """Colours that read on both the light and the injected dark theme (app.py)."""
+    dark = bool(st.session_state.get("dark_mode"))
+    return {
+        "fg": "#E6EAF1" if dark else "#0B2545",
+        "muted": "#9AA6B2" if dark else "#5B6B7B",
+        "grid": "rgba(255,255,255,.10)" if dark else "rgba(11,37,69,.10)",
+    }
+
+
+def _style(fig, theme, *, height=260, title=None, ygrid=True):
+    """Shared, transparent, theme-aware layout so charts blend into the panel."""
+    fig.update_layout(
+        height=height, margin=dict(l=10, r=10, t=42 if title else 14, b=10),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color=theme["fg"], size=13), showlegend=False,
+        title=dict(text=title, font=dict(size=14, color=theme["fg"]), x=0.0) if title else None,
+        hoverlabel=dict(font_size=13, align="left"),
+    )
+    fig.update_xaxes(showgrid=False, color=theme["muted"], zeroline=False)
+    fig.update_yaxes(showgrid=ygrid, gridcolor=theme["grid"], color=theme["muted"], zeroline=False)
+    return fig
+
+
+_DIR_SCORE = {"improving": 1, "declining": -1, "flat": 0, "unknown": 0}
+
+
+def _fig_momentum(go, mom, theme):
+    """E/S/G momentum as coloured bars; hover spells out the move and why it matters.
+
+    Two modes so live (grounded-only) data still charts: if any pillar carries a numeric
+    magnitude (e.g. '+8%'), plot the magnitudes; otherwise plot the qualitative DIRECTION
+    (improving / flat / declining), which the grounded extractor can supply without numbers."""
+    pillars = (("E", "Environmental"), ("S", "Social"), ("G", "Governance"))
+    mags = {k: _parse_pct((mom.get(k) or {}).get("magnitude")) for k, _ in pillars}
+    numeric = any(v is not None for v in mags.values())
+    xs, ys, colors, texts, cdata = [], [], [], [], []
+    for key, name in pillars:
+        m = mom.get(key) or {}
+        direction = (m.get("direction") or "unknown").lower()
+        mag_known = _known(m.get("magnitude"))
+        magnitude = str(m.get("magnitude")) if mag_known else "—"
+        cls, arrow = _dir(direction)
+        if numeric:
+            ys.append(mags[key] if mags[key] is not None else 0.0)
+            texts.append(magnitude if mag_known else arrow)
+        else:
+            ys.append(_DIR_SCORE.get(direction, 0))
+            texts.append(f"{arrow} {direction}" if direction != "unknown" else "—")
+        xs.append(name)
+        colors.append(_PALETTE.get(cls, _PALETTE["flat"]))
+        mag_line = f"Change: {magnitude}" if mag_known else "Change: not quantified in sources"
+        cdata.append([f"{arrow} {direction}", mag_line,
+                      _MOM_EXPLAIN.get(direction, _MOM_EXPLAIN["unknown"])])
+    fig = go.Figure(go.Bar(
+        x=xs, y=ys, marker_color=colors, customdata=cdata,
+        text=texts, textposition="outside", cliponaxis=False,
+        hovertemplate=("<b>%{x}</b>  ·  %{customdata[0]}<br>%{customdata[1]}"
+                       "<br><i>%{customdata[2]}</i><extra></extra>"),
+    ))
+    if numeric:
+        return _style(fig, theme, title="E / S / G momentum (live) — change %")
+    fig.update_yaxes(range=[-1.35, 1.35], tickvals=[-1, 0, 1],
+                     ticktext=["declining", "flat", "improving"])
+    return _style(fig, theme, title="E / S / G momentum (live) — direction")
+
+
+def _fig_ai_gap(go, ai, theme):
+    """The AI-governance gap: how fast it's BUILDING capacity vs how much it DISCLOSES.
+    The visual distance between the two bars is the story; hover gives the real readings."""
+    velocity = str(ai.get("ai_governance_hiring_velocity") or "—")
+    disclosure = str(ai.get("ai_disclosure_level") or "unknown")
+    v = _parse_pct(velocity)
+    hire = 100.0 if (v is not None and v >= 100) else (v if v is not None else
+                                                       (60 if _known(velocity) else 0))
+    dl = disclosure.lower()
+    disc = next((s for kw, s in _DISCLOSURE_SCALE if kw in dl), 50 if _known(disclosure) else 0)
+    fig = go.Figure(go.Bar(
+        x=["Building AI-governance", "Disclosing AI-governance"], y=[hire, disc],
+        marker_color=[_PALETTE["ai"], _PALETTE["amber"]],
+        text=[velocity, disclosure], textposition="outside", cliponaxis=False,
+        customdata=[[velocity, "How fast it is hiring / building AI-governance capacity."],
+                    [disclosure, "How much it actually discloses about that governance."]],
+        hovertemplate="<b>%{x}</b><br>Reading: %{customdata[0]}<br><i>%{customdata[1]}</i><extra></extra>",
+    ))
+    fig.update_yaxes(range=[0, 118], showticklabels=False, showgrid=False)
+    return _style(fig, theme, title="The AI-governance gap — building vs. disclosing", ygrid=False)
+
+
+def _fig_conflict(go, conflict, theme):
+    """Press sentiment vs actual behaviour on one -/+ axis — where the signals disagree."""
+    news = str(conflict.get("news_sentiment") or "unknown")
+    behav = str(conflict.get("behaviour_trend") or "unknown")
+    nv, bv = _SENT.get(news.lower(), 0), _SENT.get(behav.lower(), 0)
+    fig = go.Figure(go.Bar(
+        x=["News sentiment", "Behaviour trend"], y=[nv, bv],
+        marker_color=[_PALETTE["up"] if nv >= 0 else _PALETTE["down"],
+                      _PALETTE["up"] if bv >= 0 else _PALETTE["down"]],
+        customdata=[[news, "What the headlines / press say."],
+                    [behav, "What the company's actual behaviour shows."]],
+        hovertemplate="<b>%{x}</b>: %{customdata[0]}<br><i>%{customdata[1]}</i><extra></extra>",
+    ))
+    fig.update_yaxes(range=[-1.35, 1.35], tickvals=[-1, 0, 1],
+                     ticktext=["negative", "neutral", "positive"])
+    return _style(fig, theme, title="Where the signals disagree — press vs. behaviour")
+
+
+def _fig_history(go, pts, theme):
+    """The static score the rating reports over time, as a trend line; last point highlighted."""
+    xs = [d for d, _ in pts]
+    ys = [v for _, v in pts]
+    last = len(pts) - 1
+    sizes = [9] * len(pts); sizes[last] = 15
+    mcolors = [_PALETTE["ai"]] * len(pts); mcolors[last] = _PALETTE["up"]
+    cdata = [[d, "Most recent reading. Lower = better (risk score)." if i == last
+              else "Historical reading. Lower = better (risk score)."]
+             for i, (d, v) in enumerate(pts)]
+    fig = go.Figure(go.Scatter(
+        x=xs, y=ys, mode="lines+markers+text",
+        line=dict(color=_PALETTE["ai"], width=3),
+        marker=dict(size=sizes, color=mcolors, line=dict(width=0)),
+        text=[f"{v:g}" for v in ys], textposition="top center",
+        textfont=dict(color=theme["fg"]), customdata=cdata, cliponaxis=False,
+        hovertemplate=("As of %{customdata[0]}<br>Static ESG risk score: %{y:g}"
+                       "<br><i>%{customdata[1]}</i><extra></extra>"),
+    ))
+    return _style(fig, theme, title="Static score the rating reports over time (lower = better)")
+
+
+def _fig_rating_timeline(go, score, asof, theme):
+    """One grounded ESG reading (live data has no real history series), held FROZEN from its
+    as-of date to today — visualising how stale the static rating is. Hover explains each point."""
+    today = date.today()
+    months = _months_between(asof)
+    axis_max = max(40, (int(score // 10) + 2) * 10)
+    fig = go.Figure()
+    fig.add_vrect(x0=asof.isoformat(), x1=today.isoformat(), fillcolor=_PALETTE["flat"],
+                  opacity=0.08, line_width=0, layer="below", annotation_text="no update since",
+                  annotation_position="top left", annotation_font_size=10,
+                  annotation_font_color=theme["muted"])
+    fig.add_trace(go.Scatter(  # the rating, treated as current all the way to today (dashed)
+        x=[asof.isoformat(), today.isoformat()], y=[score, score], mode="lines",
+        line=dict(color=_PALETTE["ai"], width=3, dash="dash"), hoverinfo="skip", showlegend=False))
+    fig.add_trace(go.Scatter(  # the single grounded reading
+        x=[asof.isoformat()], y=[score], mode="markers+text",
+        marker=dict(size=15, color=_PALETTE["up"]), text=[f"{score:g}"], textposition="top center",
+        textfont=dict(color=theme["fg"]), customdata=[[asof.isoformat()]],
+        hovertemplate=("Rating set: <b>%{y:g}</b><br>As of %{customdata[0]}"
+                       "<br><i>The one grounded reading — lower = better.</i><extra></extra>"),
+        showlegend=False))
+    fig.add_trace(go.Scatter(  # today — still no update
+        x=[today.isoformat()], y=[score], mode="markers+text",
+        marker=dict(size=13, color=_PALETTE["flat"], symbol="circle-open", line=dict(width=2, color=_PALETTE["flat"])),
+        text=["today"], textposition="top center", textfont=dict(color=theme["muted"]),
+        customdata=[[months]],
+        hovertemplate=("Today — <b>no update</b><br>~%{customdata[0]} months since the rating"
+                       "<br><i>The market still treats it as current.</i><extra></extra>"),
+        showlegend=False))
+    fig.update_yaxes(range=[0, axis_max])
+    return _style(fig, theme, height=235,
+                  title="Static ESG score over time — frozen at its as-of date (lower = better)")
+
+
+# Sustainalytics-style ESG Risk Rating bands (LOWER = better): (lo, hi, label, colour).
+_RISK_BANDS = [(0, 10, "Negligible", "#2FA36B"), (10, 20, "Low", "#7FC241"),
+               (20, 30, "Medium", "#E8A33D"), (30, 40, "High", "#E0584F"),
+               (40, 50, "Severe", "#B3261E")]
+
+
+def _fig_risk_rating(go, score, as_of, theme):
+    """The Layer A static ESG RISK RATING on a banded 0–40+ scale (lower = better). Renders for
+    live companies (where the rating is grounded from a real source) as well as the sample.
+    Hover gives the score, the risk band, and the as-of date."""
+    axis_max = max(50, (int(score // 10) + 1) * 10)
+    band = next((lbl for lo, hi, lbl, _ in _RISK_BANDS if lo <= score < hi), "—")
+    color = next((c for lo, hi, lbl, c in _RISK_BANDS if lo <= score < hi), _PALETTE["navy"])
+    fig = go.Figure(go.Bar(
+        x=[score], y=["ESG Risk"], orientation="h", width=0.55, marker_color=color,
+        text=[f"{score:g} · {band} Risk"], textposition="outside", cliponaxis=False,
+        customdata=[[f"{score:g}", band, as_of or "—"]],
+        hovertemplate=("ESG Risk Rating: <b>%{customdata[0]}</b> (%{customdata[1]} risk)"
+                       "<br>As of %{customdata[2]}<br><i>Lower = better — the stale snapshot "
+                       "Layer B competes with.</i><extra></extra>"),
+    ))
+    for lo, hi, lbl, c in _RISK_BANDS:  # faint banded background so the score reads in context
+        if lo >= axis_max:
+            break
+        fig.add_vrect(x0=lo, x1=min(hi, axis_max), fillcolor=c, opacity=0.10, line_width=0,
+                      layer="below", annotation_text=lbl, annotation_position="top",
+                      annotation_font_size=10, annotation_font_color=theme["muted"])
+    fig.update_xaxes(range=[0, axis_max], showgrid=False)
+    fig.update_yaxes(showticklabels=False, showgrid=False)
+    return _style(fig, theme, height=185,
+                  title="ESG Risk Rating — what the market sees (lower = better)", ygrid=False)
+
+
+def _fig_letter_rating(go, grade, as_of, theme):
+    """The Layer A static ESG LETTER rating on the MSCI AAA→CCC scale (AAA best). For companies
+    whose grounded rating is a letter, not a number (e.g. 'MSCI: A'). Hover gives the tier."""
+    idx = _MSCI_SCALE.index(grade)
+    n = len(_MSCI_SCALE)
+    tier, color = _msci_category(grade)
+    fig = go.Figure(go.Scatter(
+        x=[idx + 0.5], y=["ESG Rating"], mode="markers+text",
+        marker=dict(size=30, color=color, line=dict(width=2, color="#FFFFFF")),
+        text=[f"{grade} · {tier}"], textposition="top center", textfont=dict(color=theme["fg"]),
+        customdata=[[grade, tier, as_of or "—"]],
+        hovertemplate=("ESG Rating: <b>%{customdata[0]}</b> (%{customdata[1]})<br>As of "
+                       "%{customdata[2]}<br><i>AAA = leader, CCC = laggard — higher is better. "
+                       "The stale snapshot Layer B competes with.</i><extra></extra>"),
+    ))
+    for lo, hi, lbl, c in _MSCI_BANDS:
+        fig.add_vrect(x0=lo, x1=hi, fillcolor=c, opacity=0.10, line_width=0, layer="below",
+                      annotation_text=lbl, annotation_position="top", annotation_font_size=10,
+                      annotation_font_color=theme["muted"])
+    fig.update_xaxes(range=[0, n], tickvals=[i + 0.5 for i in range(n)], ticktext=_MSCI_SCALE,
+                     showgrid=False)
+    fig.update_yaxes(showticklabels=False, showgrid=False, range=[-0.5, 0.9])
+    return _style(fig, theme, height=185,
+                  title="ESG Rating — what the market sees (AAA best · CCC worst)", ygrid=False)
+
+
+def _render_charts(st, go, company):
+    """Graph-led evidence: the Layer A rating gauge + the live Layer B signal as interactive
+    charts (hover explains each). Returns True if any chart was drawn (caller skips HTML cards)."""
+    la = (company or {}).get("layer_a") or {}
+    lb = (company or {}).get("layer_b") or {}
+    mom = lb.get("momentum") or {}
+    ai = lb.get("digital_ai_signal") or {}
+    conflict = lb.get("conflicting_signals") or {}
+    mom_known = any(_known((mom.get(k) or {}).get("direction")) or _known((mom.get(k) or {}).get("magnitude"))
+                    for k in ("E", "S", "G"))
+    ai_known = _known(ai.get("ai_governance_hiring_velocity")) or _known(ai.get("ai_disclosure_level"))
+    conflict_known = _known(conflict.get("news_sentiment")) or _known(conflict.get("behaviour_trend"))
+
+    theme = _chart_theme(st)
+    cfg = {"displayModeBar": False, "responsive": True}
+    drawn = False
+    # Layer A: the static ESG rating gauge (grounded from a real source for live data) — a
+    # numeric risk score if we have one, else the MSCI-style letter grade.
+    score = _risk_score(la.get("esg_score_static"))
+    grade = _letter_rating(la.get("esg_score_static")) if score is None else None
+    if score is not None:
+        st.plotly_chart(_fig_risk_rating(go, score, la.get("as_of_date"), theme),
+                        use_container_width=True, config=cfg)
+        st.caption("🗄️ The static ESG risk rating the market sees — hover for the band and as-of date.")
+        drawn = True
+    elif grade is not None:
+        st.plotly_chart(_fig_letter_rating(go, grade, la.get("as_of_date"), theme),
+                        use_container_width=True, config=cfg)
+        st.caption("🗄️ The static ESG letter rating the market sees — hover for the tier and as-of date.")
+        drawn = True
+    if mom_known:
+        st.plotly_chart(_fig_momentum(go, mom, theme), use_container_width=True, config=cfg)
+        st.caption("📊 Live ESG momentum a static rating can't see — hover any bar for what the move means.")
+        drawn = True
+    side = [k for k, ok in (("ai", ai_known), ("conflict", conflict_known)) if ok]
+    if side:
+        cols = st.columns(len(side))
+        for col, kind in zip(cols, side):
+            with col:
+                fig = _fig_ai_gap(go, ai, theme) if kind == "ai" else _fig_conflict(go, conflict, theme)
+                st.plotly_chart(fig, use_container_width=True, config=cfg)
+        drawn = True
+    return drawn
+
+
 def _render_evidence(st, company):
     """The structured Layer B signal behind the verdict — momentum cards, the AI gap, the
     catalyst, the conflict. Renders ONLY the fields that are actually known: for a sparse live
@@ -196,43 +552,54 @@ def _render_evidence(st, company):
 
     st.divider()
     st.markdown("#### 📡 The evidence the radar reasoned over")
-    st.caption("The live signal behind the verdict — what a static rating can't see.")
+    st.caption("The live signal behind the verdict, in charts — what a static rating can't see.")
 
-    cards = []
-    if mom_known:
-        for key, name in (("E", "Environmental"), ("S", "Social"), ("G", "Governance")):
-            m = mom.get(key) or {}
-            cls, arrow = _dir(m.get("direction"))
+    # Graphs first (the user-facing medium). If plotly is missing, _go() is None and we drop
+    # back to the HTML cards so a missing dependency never breaks the panel.
+    go = _go()
+    charts_drawn = _render_charts(st, go, company) if go is not None else False
+
+    if not charts_drawn:  # HTML fallback — the original momentum/AI cards.
+        cards = []
+        if mom_known:
+            for key, name in (("E", "Environmental"), ("S", "Social"), ("G", "Governance")):
+                m = mom.get(key) or {}
+                cls, arrow = _dir(m.get("direction"))
+                cards.append(
+                    f'<div class="esg-card {cls}"><div class="t">{name}</div>'
+                    f'<div class="v">{arrow} {html.escape(str(m.get("magnitude", "—")))}</div>'
+                    f'<div class="s">{html.escape(str(m.get("direction", "—")))}</div></div>'
+                )
+        if ai_known:
             cards.append(
-                f'<div class="esg-card {cls}"><div class="t">{name}</div>'
-                f'<div class="v">{arrow} {html.escape(str(m.get("magnitude", "—")))}</div>'
-                f'<div class="s">{html.escape(str(m.get("direction", "—")))}</div></div>'
+                '<div class="esg-card ai"><div class="t">Digital / AI</div>'
+                f'<div class="v">{html.escape(str(ai.get("ai_governance_hiring_velocity", "—")))}</div>'
+                f'<div class="s">disclosure: {html.escape(str(ai.get("ai_disclosure_level", "—")))}</div></div>'
             )
-    if ai_known:
-        cards.append(
-            '<div class="esg-card ai"><div class="t">Digital / AI</div>'
-            f'<div class="v">{html.escape(str(ai.get("ai_governance_hiring_velocity", "—")))}</div>'
-            f'<div class="s">disclosure: {html.escape(str(ai.get("ai_disclosure_level", "—")))}</div></div>'
-        )
-    if cards:
-        st.markdown('<div class="esg-mom">' + "".join(cards) + "</div>", unsafe_allow_html=True)
+        if cards:
+            st.markdown('<div class="esg-mom">' + "".join(cards) + "</div>", unsafe_allow_html=True)
 
     if bits:
         st.markdown('<div class="esg-evi">' + "<br>".join(bits) + "</div>", unsafe_allow_html=True)
 
-    # Surface where the signals CONFLICT — sharper than a confidence score (only if known).
+    # The conflict note (qualitative). The chart shows the directions; this adds the words.
+    # When there are no charts, render the original full conflict panel instead.
     if conflict_known:
         note = html.escape(str(conflict.get("conflict_note", "")))
-        st.markdown(
-            '<div class="esg-panel esg-conflict"><div class="esg-h">🔀 Where the sources '
-            "disagree</div>"
-            f'<p class="esg-b">News sentiment: '
-            f'<b>{html.escape(str(conflict.get("news_sentiment", "—")))}</b> · '
-            f'Behaviour trend: <b>{html.escape(str(conflict.get("behaviour_trend", "—")))}</b>'
-            + (f"<br>{note}" if note else "")
-            + "</p></div>",
-            unsafe_allow_html=True,
-        )
+        if charts_drawn:
+            if note:
+                st.caption(f"🔀 Where the sources disagree — {note}")
+        else:
+            st.markdown(
+                '<div class="esg-panel esg-conflict"><div class="esg-h">🔀 Where the sources '
+                "disagree</div>"
+                f'<p class="esg-b">News sentiment: '
+                f'<b>{html.escape(str(conflict.get("news_sentiment", "—")))}</b> · '
+                f'Behaviour trend: <b>{html.escape(str(conflict.get("behaviour_trend", "—")))}</b>'
+                + (f"<br>{note}" if note else "")
+                + "</p></div>",
+                unsafe_allow_html=True,
+            )
 
 
 def _parse_score(value):
@@ -241,17 +608,53 @@ def _parse_score(value):
     return float(m.group(1)) if m else None
 
 
+def _render_rating_timeline(st, company):
+    """Live fallback for 'static score over time': one grounded reading held frozen to today,
+    so the staleness is visible even without a real history series. Plotly-only (skips on
+    HTML fallback / non-numeric ratings / unparseable dates)."""
+    la = (company or {}).get("layer_a") or {}
+    score = _risk_score(la.get("esg_score_static"))
+    asof = _parse_date(la.get("as_of_date"))
+    go = _go()
+    if score is None or asof is None or go is None:
+        return
+    st.markdown("#### 📈 Static score over time — one reading, frozen")
+    st.plotly_chart(_fig_rating_timeline(go, score, asof, _chart_theme(st)),
+                    use_container_width=True, config={"displayModeBar": False, "responsive": True})
+    st.caption(
+        f"Only one grounded ESG reading exists ({score:g}, set {asof.isoformat()}); no real "
+        f"history series is published. The market still treats it as current ~{_months_between(asof)} "
+        "months on — exactly the stale snapshot Layer B is built to challenge."
+    )
+
+
 def _render_history(st, company):
-    """A compact historical-vs-current bar strip for the static score, from layer_a_history.
-    Shows the TREND a rating reports over time — the calm picture Layer B contradicts. From
-    the loaded data only; the leading number is parsed, nothing is invented."""
+    """The static score's TREND over time (from layer_a_history) — the calm picture Layer B
+    contradicts. A Plotly line chart with hover when available; the HTML bar strip otherwise.
+    From the loaded data only; the leading number is parsed, nothing is invented."""
     hist = (company or {}).get("layer_a_history") or {}
     series = hist.get("series") or []
-    pts = [(p.get("as_of", ""), _parse_score(p.get("esg_score_static"))) for p in series]
+    pts = [(str(p.get("as_of", ""))[:7], _parse_score(p.get("esg_score_static"))) for p in series]
     pts = [(d, v) for d, v in pts if v is not None]
     if len(pts) < 2:
+        _render_rating_timeline(st, company)  # live data has no series: show the single reading
         return
     vals = [v for _, v in pts]
+    first, last = vals[0], vals[-1]
+    # Risk score: LOWER = better, so a falling line is "improving".
+    trend = "↓ improving" if last < first else ("↑ worsening" if last > first else "→ flat")
+    note = str(hist.get("trend_note") or "")
+
+    go = _go()
+    if go is not None:
+        st.markdown("#### 📈 Static score over time — the trend the rating reports")
+        st.plotly_chart(_fig_history(go, pts, _chart_theme(st)), use_container_width=True,
+                        config={"displayModeBar": False, "responsive": True})
+        cap = f"Trend: {trend} · lower = better. Hover a point for the date and reading."
+        st.caption(cap + (f"  {note}" if note else ""))
+        return
+
+    # HTML fallback (no plotly): the original proportional bar strip.
     lo, hi = min(vals), max(vals)
     span = (hi - lo) or 1.0
     last_i = len(pts) - 1
@@ -261,17 +664,14 @@ def _render_history(st, company):
         now = " now" if i == last_i else ""
         bars.append(
             f'<div class="esg-hbar{now}"><div class="esg-hbar-fill" style="height:{px}px"></div>'
-            f'<div class="esg-hbar-v">{v:g}</div><div class="esg-hbar-d">{html.escape(str(d)[:7])}</div></div>'
+            f'<div class="esg-hbar-v">{v:g}</div><div class="esg-hbar-d">{html.escape(str(d))}</div></div>'
         )
-    first, last = vals[0], vals[-1]
-    # Risk score: LOWER = better, so a falling line is "improving".
-    trend = "↓ improving" if last < first else ("↑ worsening" if last > first else "→ flat")
-    note = html.escape(str(hist.get("trend_note") or ""))
+    note_esc = html.escape(note)
     st.markdown(
         '<div class="esg-panel esg-hist"><div class="esg-h">📈 Static score over time — '
         f"history → now ({html.escape(trend)}; lower = better)</div>"
         f'<div class="esg-hbars">{"".join(bars)}</div>'
-        + (f'<p class="esg-b" style="margin-top:.3rem">{note}</p>' if note else "")
+        + (f'<p class="esg-b" style="margin-top:.3rem">{note_esc}</p>' if note_esc else "")
         + "</div>",
         unsafe_allow_html=True,
     )
@@ -296,18 +696,35 @@ def _source_list(st, sources):
         st.markdown(f"- [{title}]({url})" if url else f"- {title}")
 
 
+def _render_ai_summary(st, answer):
+    """Show the DuckDuckGo AI summary the radar INTERPRETED (collapsed). Real, sourced text —
+    presented as context we read, never copied as a verified company fact."""
+    ai = answer.get("_ai_summary") or {}
+    summary = (ai.get("summary") or "").strip()
+    if not summary:
+        return
+    with st.expander("🦆 DuckDuckGo AI summary — the synthesized context we interpreted"):
+        st.markdown(html.escape(summary))
+        src, url = (ai.get("source") or "DuckDuckGo"), (ai.get("url") or "")
+        if url:
+            st.caption(f"Source: [{src}]({url}) · interpreted by the radar and cross-checked "
+                       "against the ranked sources below — never copied as fact.")
+        else:
+            st.caption(f"Source: {src} · interpreted, never copied as fact.")
+
+
 def _render_sources(st, answer, company=None):
     """Provenance: the live-retrieval citations behind the answer, plus (for live/uploaded
     data) the sources the company profile itself was built from. Real titles + URLs only."""
     sources = answer.get("sources") or []
     status = answer.get("_rag_status")
     st.divider()
-    st.markdown("#### 🔗 Sources — live retrieval (RAG)")
+    st.markdown("#### 🔗 Sources — live retrieval (DuckDuckGo)")
     if sources:
         _source_list(st, sources)
         st.caption(
-            "Fetched live and ranked by relevance (TF-IDF). Real external context used to "
-            "ground the reasoning — never to fabricate company facts."
+            "Fetched live from DuckDuckGo and ranked by relevance (TF-IDF). Real external "
+            "context used to ground the reasoning — never to fabricate company facts."
         )
     else:
         reason = {
@@ -468,6 +885,7 @@ def render_answer(answer, company=None, debug=False, narrowed=None):
     if not failed:
         _render_evidence(st, company)
         _render_history(st, company)        # historical static-score trend vs the live signal
+        _render_ai_summary(st, answer)      # the DuckDuckGo AI summary we interpreted
         _render_sources(st, answer, company)  # RAG citations + how the profile was built
         _render_export(st, answer, company)
 

@@ -19,10 +19,38 @@ core.call_llm(); fetch stays in rag.py / core.http_get(). Import-safe (no I/O at
 import csv
 import io
 import json
+import re
 
 import contracts
 import core
 import rag
+
+# Filler words stripped when no capitalised entity is found in the user's request.
+_FILLER_RE = re.compile(
+    r"\b(i|we|want|to|invest|in|is|a|an|the|should|worry|about|buy|sell|hold|sustainable|"
+    r"stock|shares|company|esg|please|tell|me|analyse|analyze|look|at|how|does|do|on|of|for)\b",
+    re.I,
+)
+
+
+_LEAD_DROP = {"is", "are", "was", "were", "be", "do", "does", "did", "should", "could", "would",
+              "can", "will", "what", "why", "how", "who", "which", "the", "a", "an", "i", "we",
+              "you", "my", "our", "tell", "me", "about"}
+
+
+def _entity_hint(text):
+    """Best-effort company name from the user's request — drives the targeted ESG-rating and
+    AI-summary queries (which need a clean entity, not a whole sentence). Heuristic, never
+    authoritative: the LLM extractor still resolves the real identity."""
+    caps = [c.strip() for c in re.findall(r"\b[A-Z][\w&.\-]+(?:\s+[A-Z][\w&.\-]+)*\b", text or "")
+            if len(c.strip()) > 1]
+    if caps:
+        words = max(caps, key=len).split()  # longest capitalised run, e.g. "DBS Bank" / "Nvidia"
+        while len(words) > 1 and words[0].lower() in _LEAD_DROP:  # strip "Is Tesla" -> "Tesla"
+            words.pop(0)
+        return " ".join(words)
+    cleaned = re.sub(r"\s+", " ", re.sub(r"[^\w\s&.\-]", " ", _FILLER_RE.sub(" ", text or ""))).strip()
+    return cleaned or (text or "").strip()
 
 # --------------------------------------------------------------------------- #
 #  THE GROUNDED EXTRACTOR  (build Contract B from sources only — never invent)
@@ -38,14 +66,30 @@ ABSOLUTE RULES (never violate)
   the SOURCES, and the company's own name — this is identification, not ESG measurement (a bank
   → "Financials — Banks"; a chipmaker → "Technology — Semiconductors"; an oil major →
   "Energy"). Use "unknown" only when the name is genuinely ambiguous or unrecognisable.
+- LAYER A (the static rating): when an ESG-RATING SOURCE states a rating, set `esg_score_static`
+  to that REAL value. PREFER a numeric Sustainalytics/Morningstar ESG Risk Rating and format it
+  NUMBER-FIRST as "N.N (Band Risk)" — e.g. "13.4 (Low Risk)", "22.4 (Medium Risk)", "32.8 (High
+  Risk)". Mention any OTHER agency (e.g. "MSCI: AAA") in `note`, NOT in esg_score_static. Only if
+  no numeric score exists, put a letter rating (e.g. "MSCI: AAA") in esg_score_static. Set
+  `as_of_date` to the date the source gives (ISO yyyy-mm-dd when shown, e.g. "Jun 13, 2026" →
+  "2026-06-13"). Use "unknown" only if NO source states a rating. Never invent a score or date.
 - For EVERY other field, fill it ONLY with a fact explicitly supported by the SOURCES. If the
   sources do not support a value, output the string "unknown". NEVER invent or estimate a
   number, percentage, date, score, magnitude, or rating. Do not use outside knowledge.
 - The free-text `note` / `gap_note` / `conflict_note` / `trend_note` fields may briefly
   PARAPHRASE what the sources say (qualitative is fine), or be "" if nothing applies. They
   must not contain invented figures.
+- QUALITATIVE CLASSIFICATION is allowed and ENCOURAGED when the SOURCES (including the
+  DUCKDUCKGO_AI_SUMMARY) clearly support it — this is grounded reading, not invention. When the
+  sources convey it, DO set: each `momentum` DIRECTION ("improving"/"flat"/"declining"),
+  `ai_disclosure_level` (e.g. "none"/"limited"/"partial"/"full"), `news_sentiment`
+  ("positive"/"negative"/"mixed"), and `behaviour_trend` ("positive"/"negative"). These power
+  the dashboard's charts. Leave a numeric `magnitude` / `ai_governance_hiring_velocity` as
+  "unknown" unless a real figure appears in the sources — classify the DIRECTION even when the
+  exact number is absent. Only use "unknown" for a classification the sources are silent on.
 - `momentum` directions must be one of "improving" | "flat" | "declining" | "unknown".
-- Prefer "unknown" over a guess. A mostly-"unknown" object is correct when sources are thin.
+- Prefer "unknown" over a guess for NUMBERS; for the qualitative classifications above, prefer a
+  grounded reading of what the sources actually say over a reflexive "unknown".
 
 OUTPUT — respond with JSON ONLY. No prose, no markdown, no code fences. Exactly this shape:
 {
@@ -117,16 +161,28 @@ def build_live_company(user_text, *, use_rag=True, k=None):
     ``k`` overrides how many ranked snippets to ground the build (defaults to DEFAULT_TOP_K).
     Raises core.LLMConfigError if the API key is missing (caller surfaces it).
     """
-    snippets, doc_count, status, err = [], 0, "thin", None
+    snippets, ai_summary, esg_docs = [], None, []
+    doc_count, status, err = 0, "thin", None
+    ent = _entity_hint(user_text)  # clean entity for the targeted ESG / AI-summary queries
     if use_rag:
         try:
-            ctx = rag.gather_context(user_text, k=k or rag.DEFAULT_TOP_K)
+            # General context + the AI summary queried by the ENTITY (not the whole sentence).
+            ctx = rag.gather_context(user_text, background_topic=ent, k=k or rag.DEFAULT_TOP_K)
             snippets = ctx.get("snippets", [])
+            ai_summary = ctx.get("ai_summary")
             doc_count = ctx.get("doc_count", 0)
             err = ctx.get("error")
-            status = "live" if snippets else ("offline" if ctx.get("status") == "offline" else "thin")
         except Exception as e:  # noqa: BLE001 — retrieval must never break the build.
-            snippets, status, err = [], "offline", f"{type(e).__name__}: {e}"
+            snippets, err = [], f"{type(e).__name__}: {e}"
+        try:
+            # Dedicated ESG-rating retrieval so LAYER A (the static rating) can be grounded.
+            ed, _st, _er = rag.fetch_documents(
+                f"{ent} ESG risk rating score Sustainalytics Morningstar MSCI")
+            esg_docs = ed[:6]
+        except Exception:  # noqa: BLE001 — best-effort; absence just leaves Layer A "unknown".
+            esg_docs = []
+        has_ctx = bool(snippets or esg_docs or (ai_summary or {}).get("summary"))
+        status = "live" if has_ctx else ("offline" if err else "thin")
 
     lines = [f"USER REQUEST:\n{user_text}\n"]
     if snippets:
@@ -135,14 +191,23 @@ def build_live_company(user_text, *, use_rag=True, k=None):
             lines.append(f"[{i}] {s.get('title','')}\n    {s.get('snippet','')}")
     else:
         lines.append("SOURCES: (none fetched — set every fact you cannot support to 'unknown')")
+    if esg_docs:
+        lines.append("\nESG-RATING SOURCES (for LAYER A — set esg_score_static / as_of_date ONLY "
+                     "from a rating, risk band, or date a snippet here actually states):")
+        for i, s in enumerate(esg_docs, 1):
+            lines.append(f"[E{i}] {s.get('title','')}\n    {(s.get('text') or '')[:480]}")
+    if (ai_summary or {}).get("summary"):
+        lines.append("\nDUCKDUCKGO_AI_SUMMARY (synthesized background — grounding context; "
+                     "classify qualitative fields from it, but never invent figures):\n"
+                     + ai_summary["summary"])
     parsed, raw = _extract("\n".join(lines))
 
     company = contracts.coerce_company_data(parsed, origin="live")
-    company["_sources"] = _sources_provenance(snippets)
+    company["_sources"] = _sources_provenance(snippets + esg_docs)
     company["_build_status"] = status
     company["_build_error"] = err
     company["_raw"] = raw
-    return company, {"status": status, "doc_count": doc_count, "error": err}
+    return company, {"status": status, "doc_count": doc_count + len(esg_docs), "error": err}
 
 
 # --------------------------------------------------------------------------- #

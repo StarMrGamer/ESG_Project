@@ -48,9 +48,9 @@ _S2_PHASES = [
 ]
 
 _RAG_LABELS = {
-    "live": "🌐 Retrieved {n} live source(s).",
-    "cache": "🗃️ Loaded {n} source(s) from cache.",
-    "offline": "📴 Couldn't fetch usable sources for this query — reasoning on the data.",
+    "live": "🦆 Retrieved {n} live source(s) from DuckDuckGo (+ AI summary when available).",
+    "cache": "🗃️ Loaded {n} DuckDuckGo source(s) from cache.",
+    "offline": "📴 Couldn't fetch usable DuckDuckGo sources for this query — reasoning on the data.",
     "disabled": "🔌 Live retrieval is off — reasoning on the data.",
 }
 
@@ -398,7 +398,8 @@ with st.sidebar:
     st.divider()
     st.markdown("**Retrieval (RAG)**")
     st.toggle("Live web retrieval", value=True, key="rag_enabled",
-              help="Fetch + rank real ESG/regulatory context (TF-IDF) to ground the reasoning.")
+              help="Fetch DuckDuckGo results + its AI summary, rank them (TF-IDF), and let the "
+                   "agent interpret them to ground the reasoning.")
     st.slider("Sources to ground on", 3, 10, 5, key="rag_top_k")
 
     st.divider()

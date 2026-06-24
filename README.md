@@ -43,9 +43,10 @@ The tool analyses **one company at a time**, from one of three data sources (`da
 The interrogation is anchored to whichever company is loaded.
 
 **Live retrieval (RAG).** Before competing, Stage 2 fetches real external context for the
-narrowed question — recent news (Google News RSS) + background (Wikipedia), no API key — and
-ranks it with a pure-Python **TF-IDF** retriever (`rag.py`). The top snippets ground the
-reasoning and surface as clickable **sources**. All outbound HTTP is isolated in
+narrowed question from **DuckDuckGo** — its HTML/Lite search results plus the Instant-Answer
+**AI summary**, no API key — and ranks the snippets with a pure-Python **TF-IDF** retriever
+(`rag.py`). The agent *interprets* the AI summary; the top snippets ground the reasoning and
+surface as clickable **sources**. All outbound HTTP is isolated in
 `core.http_get()`; retrieval is **best-effort** — if the network is down it degrades to a
 dataset-only run (toggle it off entirely with the sidebar **🌐 Live retrieval** switch). The
 company *dataset* stays local and placeholder; the web only adds grounding context, never
@@ -136,7 +137,7 @@ reasons on the dataset alone.
 ```
 core.py                  # shared: LLM client (call_llm), live-fetch (http_get), JSON parser, config, data loader
 contracts.py             # the handoff data shapes (A: NarrowedQuestion, B: CompanyData, C: Stage2Answer)
-rag.py                   # live retrieval (RAG): fetch real docs + pure-Python TF-IDF rank
+rag.py                   # live retrieval (RAG): DuckDuckGo search + AI summary + TF-IDF rank
 datasource.py            # build CompanyData LIVE (grounded) or load an UPLOAD (json/csv/txt)
 app.py                   # Streamlit shell — control-panel sidebar, light/dark, wires the relay
 stage1.py                # interrogation agent (+ visible chain-of-thought rationale)

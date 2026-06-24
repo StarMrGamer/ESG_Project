@@ -4,10 +4,11 @@ rag.py — live retrieval (RAG) for the ASEAN ESG Momentum Radar.
 Production grounding layer (sign-off 2026-06-23, CLAUDE.md rule 1 update). Given a query
 built from the narrowed question + company, it:
 
-  1. FETCHES real external documents — Google News RSS (recent ESG / regulatory news) and,
-     optionally, a Wikipedia summary for background. No API key required.
-  2. RANKS the text with a pure-Python TF-IDF + cosine retriever (no sklearn, no embeddings,
-     fully offline once fetched) and returns the top-k snippets WITH their real source URLs.
+  1. FETCHES real external documents from DuckDuckGo — its keyless HTML/Lite search results
+     (real titles, snippets, source URLs) PLUS the DuckDuckGo Instant-Answer "AI" abstract,
+     a synthesized summary the reasoner INTERPRETS. No API key required.
+  2. RANKS the search text with a pure-Python TF-IDF + cosine retriever (no sklearn, no
+     embeddings, fully offline once fetched) and returns the top-k snippets WITH real URLs.
 
 Design rules it honours:
   - All outbound HTTP goes through core.http_get() (isolation; tests monkeypatch that one fn).
@@ -25,8 +26,7 @@ import math
 import os
 import re
 import time
-from urllib.parse import quote
-from xml.etree import ElementTree
+from urllib.parse import unquote
 
 import core
 
@@ -168,66 +168,100 @@ def retrieve(query, documents, k=DEFAULT_TOP_K):
 
 
 # --------------------------------------------------------------------------- #
-#  SOURCES  (real fetch via core.http_get — no API key needed)
+#  SOURCES  (real fetch via core.http_get — DuckDuckGo, no API key needed)
 # --------------------------------------------------------------------------- #
-def _parse_rss(xml, limit):
-    """Parse an RSS 2.0 feed into [{title,url,text}]. Raises FetchError if it isn't RSS."""
-    try:
-        root = ElementTree.fromstring(xml)
-    except ElementTree.ParseError as e:
-        # Not XML — almost always a consent / redirect HTML page, not the feed.
-        raise core.FetchError(
-            "source returned a non-RSS page (likely a consent/redirect screen)"
-        ) from e
+# A browser-like UA: DuckDuckGo's HTML/Lite endpoints serve a challenge page to obvious bots.
+_DDG_HEADERS = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+_DDG_RESULT_RE = re.compile(r'result__a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', re.S | re.I)
+_DDG_SNIPPET_RE = re.compile(r'result__snippet[^>]*>(.*?)</a>', re.S | re.I)
+_LITE_LINK_RE = re.compile(r'result-link[^>]*href="([^"]+)"[^>]*>(.*?)</a>', re.S | re.I)
+_LITE_SNIPPET_RE = re.compile(r'result-snippet[^>]*>(.*?)</td>', re.S | re.I)
+
+
+def _ddg_unwrap(href):
+    """Turn a DuckDuckGo redirect ('//duckduckgo.com/l/?uddg=...') into the real target URL."""
+    href = html.unescape((href or "").strip())
+    if href.startswith("//"):
+        href = "https:" + href
+    m = re.search(r"[?&]uddg=([^&]+)", href)
+    return unquote(m.group(1)) if m else href
+
+
+def _zip_results(titles, snippets, limit):
+    """Pair parsed (href, title) tuples with snippets positionally into [{title,url,text}]."""
     docs = []
-    for item in root.iter("item"):
-        title = (item.findtext("title") or "").strip()
+    for i, (href, raw_title) in enumerate(titles):
+        title = _strip_html(raw_title)
         if not title:
             continue
-        link = (item.findtext("link") or "").strip()
-        desc = _strip_html(item.findtext("description") or "")
-        src_el = item.find("source")
-        src = (src_el.text or "").strip() if src_el is not None and src_el.text else ""
-        text = " — ".join(x for x in (title, src, desc) if x)
-        docs.append({"title": title, "url": link, "text": text})
+        snippet = _strip_html(snippets[i]) if i < len(snippets) else ""
+        text = " — ".join(x for x in (title, snippet) if x)
+        docs.append({"title": title, "url": _ddg_unwrap(href), "text": text})
         if len(docs) >= limit:
             break
     return docs
 
 
-def _fetch_google_news(query, limit):
-    """Google News RSS search (keyless). The CONSENT cookie skips the EU consent redirect."""
-    xml = core.http_get(
-        "https://news.google.com/rss/search",
-        params={"q": query, "hl": "en-US", "gl": "US", "ceid": "US:en"},
-        headers={"Cookie": "CONSENT=YES+"},
-    )
-    return _parse_rss(xml, limit)
+def _fetch_ddg_html(query, limit):
+    """DuckDuckGo HTML results (keyless GET). Real titles, snippets, and source URLs."""
+    page = core.http_get("https://html.duckduckgo.com/html/",
+                         params={"q": query, "kl": "us-en"}, headers=_DDG_HEADERS)
+    docs = _zip_results(_DDG_RESULT_RE.findall(page), _DDG_SNIPPET_RE.findall(page), limit)
+    if not docs:
+        raise core.FetchError("DuckDuckGo HTML returned no parseable results (challenge page?)")
+    return docs
 
 
-def _fetch_bing_news(query, limit):
-    """Bing News RSS search (keyless) — fallback when Google is consent-walled or blocked."""
-    xml = core.http_get("https://www.bing.com/news/search",
-                        params={"q": query, "format": "rss"})
-    return _parse_rss(xml, limit)
+def _fetch_ddg_lite(query, limit):
+    """DuckDuckGo Lite results (keyless GET) — simpler markup; fallback when HTML is walled."""
+    page = core.http_get("https://lite.duckduckgo.com/lite/",
+                         params={"q": query, "kl": "us-en"}, headers=_DDG_HEADERS)
+    docs = _zip_results(_LITE_LINK_RE.findall(page), _LITE_SNIPPET_RE.findall(page), limit)
+    if not docs:
+        raise core.FetchError("DuckDuckGo Lite returned no parseable results")
+    return docs
 
 
-def _fetch_wikipedia(topic):
-    """Background summary for a topic via the Wikipedia REST API (real, keyless). [] if none."""
-    url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + quote(topic.replace(" ", "_"))
+def _fetch_ddg_instant(query):
+    """DuckDuckGo Instant-Answer API (keyless GET) — the synthesized 'AI' abstract + related
+    topics. Returns {"summary","url","source","related":[...]} or None. NEVER raises.
+
+    The abstract is real, sourced text (it carries an AbstractURL) — the reasoner INTERPRETS
+    it; it is never presented as a fabricated company fact (HARD RULE 2)."""
     try:
-        raw = core.http_get(url)
+        raw = core.http_get("https://api.duckduckgo.com/", params={
+            "q": query, "format": "json", "no_html": "1", "skip_disambig": "1",
+        }, headers=_DDG_HEADERS)
     except core.FetchError:
-        return []
+        return None
     try:
         data = json.loads(raw)
     except (ValueError, TypeError):
-        return []
-    extract = (data.get("extract") or "").strip()
-    if not extract or data.get("type") == "disambiguation":
-        return []
-    page = ((data.get("content_urls") or {}).get("desktop") or {}).get("page") or url
-    return [{"title": "Wikipedia — " + (data.get("title") or topic), "url": page, "text": extract}]
+        return None
+    summary = _strip_html(data.get("AbstractText") or "")
+    related = []
+    for topic in (data.get("RelatedTopics") or []):
+        items = topic.get("Topics") if isinstance(topic, dict) and topic.get("Topics") else [topic]
+        for it in items:
+            if not isinstance(it, dict):
+                continue
+            text = _strip_html(it.get("Text") or "")
+            furl = (it.get("FirstURL") or "").strip()
+            if text and furl:
+                related.append({"title": text[:90], "url": furl, "text": text})
+    if not summary and not related:
+        return None
+    return {
+        "summary": summary,
+        "url": (data.get("AbstractURL") or "").strip(),
+        "source": (data.get("AbstractSource") or "DuckDuckGo").strip(),
+        "related": related,
+    }
 
 
 # --------------------------------------------------------------------------- #
@@ -260,21 +294,21 @@ def _cache_write(key, docs):
 # --------------------------------------------------------------------------- #
 #  PUBLIC API
 # --------------------------------------------------------------------------- #
-def fetch_documents(query, *, background_topic=None, max_docs=MAX_DOCS, use_cache=True):
-    """Fetch real external documents for `query`. NEVER raises.
+def fetch_documents(query, *, max_docs=MAX_DOCS, use_cache=True):
+    """Fetch real DuckDuckGo search documents for `query`. NEVER raises.
 
     Returns (docs, status, error): status is "cache" | "live" | "offline"; error is a short
-    explanation string when nothing usable came back (else None). A blocked network / empty
-    result yields ([], "offline", "<reason>") — the graceful rule-1 fallback.
+    reason when nothing usable came back (else None). A blocked network / empty result yields
+    ([], "offline", "<reason>") — the graceful rule-1 fallback. Each doc = {title,url,text}.
     """
-    cache_key = f"{query}||{background_topic or ''}||{max_docs}"
+    cache_key = f"ddg::{query}::{max_docs}"
     if use_cache:
         cached = _cache_read(cache_key)
         if cached is not None:
             return cached, "cache", None
 
     docs, error = [], None
-    for fetch in (_fetch_google_news, _fetch_bing_news):  # try sources in order
+    for fetch in (_fetch_ddg_html, _fetch_ddg_lite):  # HTML first, Lite as the fallback
         try:
             got = fetch(query, max_docs)
         except core.FetchError as e:
@@ -284,29 +318,48 @@ def fetch_documents(query, *, background_topic=None, max_docs=MAX_DOCS, use_cach
             docs.extend(got)
             error = None
             break
-    if background_topic:
-        try:
-            docs.extend(_fetch_wikipedia(background_topic))
-        except Exception:  # noqa: BLE001 — never let the optional source break the fetch.
-            pass
 
     if not docs:
-        return [], "offline", (error or "no usable items returned by the source(s)")
+        return [], "offline", (error or "no usable DuckDuckGo results returned")
     if use_cache:
         _cache_write(cache_key, docs)
     return docs, "live", None
 
 
-def gather_context(query, *, background_topic=None, k=DEFAULT_TOP_K, use_cache=True):
-    """Fetch + retrieve in one call. NEVER raises.
+def fetch_ai_summary(query, *, use_cache=True):
+    """DuckDuckGo's synthesized 'AI' summary for `query` (cached). NEVER raises; None if absent.
 
-    Returns {"snippets": [...], "status": "...", "doc_count": int, "query": query}.
+    Returns {"summary","url","source","related":[...]} — the Instant-Answer abstract the
+    reasoner INTERPRETS, plus any related topics (real URLs) folded into the cited snippets."""
+    cache_key = f"ddg-ai::{query}"
+    if use_cache:
+        cached = _cache_read(cache_key)
+        if cached is not None:
+            return cached or None
+    ai = _fetch_ddg_instant(query)
+    if use_cache and ai is not None:
+        _cache_write(cache_key, ai)
+    return ai
+
+
+def gather_context(query, *, background_topic=None, k=DEFAULT_TOP_K, use_cache=True):
+    """Fetch (DuckDuckGo search + the DuckDuckGo AI summary) + rank, in one call. NEVER raises.
+
+    Returns {"snippets", "ai_summary", "status", "doc_count", "query", "error"}. ``ai_summary``
+    is DuckDuckGo's synthesized abstract ({"summary","url","source"}) for the agent to
+    INTERPRET; ``snippets`` are the ranked search results (real URLs) it cites as [n].
+    ``background_topic`` (the catalyst lead / entity) is the cleaner query for the abstract.
     """
-    docs, status, error = fetch_documents(
-        query, background_topic=background_topic, use_cache=use_cache
-    )
+    docs, status, error = fetch_documents(query, use_cache=use_cache)
+    ai = fetch_ai_summary(background_topic or query, use_cache=use_cache)
+    if ai and ai.get("related"):
+        docs = docs + ai["related"]          # related topics are citable (real URLs)
+    if status == "offline" and ai:           # the AI summary answered even though search didn't
+        status, error = "live", None
     return {
         "snippets": retrieve(query, docs, k=k),
+        "ai_summary": ({"summary": ai["summary"], "url": ai["url"], "source": ai["source"]}
+                       if ai and (ai.get("summary") or "").strip() else None),
         "status": status,
         "doc_count": len(docs),
         "query": query,
@@ -346,7 +399,7 @@ def build_query(narrowed_question, company):
 
 
 def background_topic(company):
-    """A real, searchable background topic from the catalyst lead phrase (for Wikipedia)."""
+    """A real, searchable entity from the catalyst lead phrase (cleaner query for the AI summary)."""
     catalyst = (((company or {}).get("layer_b") or {}).get("near_term_catalyst") or "")
     lead = re.split(r"[—\-:]", catalyst)[0].strip()
     return lead or None
