@@ -33,5 +33,9 @@
       "conflict_note": "Press upbeat; behaviour says otherwise."
     },
     "near_term_catalyst": "MAS AI Risk Management Guidelines — finalising 2026, 12-month transition."
-  }
+  },
+  "_controversies": [
+    { "title": "ILLUSTRATIVE — Regulator opens probe into DemoBank SG AI lending model (placeholder)", "url": "", "snippet": "Placeholder red-flag item for the offline demo — not a real event about any real company." },
+    { "title": "ILLUSTRATIVE — DemoBank SG settles data-handling lapse (placeholder)", "url": "", "snippet": "Illustrative example only. Shows how live ESG controversies would surface here." }
+  ]
 }

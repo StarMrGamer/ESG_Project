@@ -465,6 +465,81 @@ def _fig_letter_rating(go, grade, as_of, theme):
                   title="ESG Rating — what the market sees (AAA best · CCC worst)", ygrid=False)
 
 
+# The signals a full profile carries — used by the coverage meter to show how much is grounded.
+_COVERAGE_SIGNALS = [
+    ("static ESG rating", ("layer_a", "esg_score_static")),
+    ("rating as-of date", ("layer_a", "as_of_date")),
+    ("E momentum", ("layer_b", "momentum", "E", "direction")),
+    ("S momentum", ("layer_b", "momentum", "S", "direction")),
+    ("G momentum", ("layer_b", "momentum", "G", "direction")),
+    ("AI disclosure", ("layer_b", "digital_ai_signal", "ai_disclosure_level")),
+    ("AI hiring velocity", ("layer_b", "digital_ai_signal", "ai_governance_hiring_velocity")),
+    ("news sentiment", ("layer_b", "conflicting_signals", "news_sentiment")),
+    ("behaviour trend", ("layer_b", "conflicting_signals", "behaviour_trend")),
+    ("near-term catalyst", ("layer_b", "near_term_catalyst")),
+]
+
+
+def _sig_known(company, path):
+    """True when the value at a nested key `path` is grounded (not blank / 'unknown')."""
+    cur = company or {}
+    for p in path[:-1]:
+        cur = cur.get(p) or {}
+    return _known(cur.get(path[-1]))
+
+
+def _fig_coverage(go, grounded, total, missing, theme):
+    """How much of the profile is grounded — a 0…total bar; hover lists what's missing."""
+    ratio = grounded / total if total else 0
+    color = _PALETTE["up"] if ratio >= 0.66 else (_PALETTE["amber"] if ratio >= 0.33 else _PALETTE["down"])
+    miss = ", ".join(missing) if missing else "none — every signal is grounded"
+    fig = go.Figure(go.Bar(
+        x=[grounded], y=["Coverage"], orientation="h", width=0.5, marker_color=color,
+        text=[f"{grounded}/{total} signals grounded"], textposition="outside", cliponaxis=False,
+        customdata=[[miss]],
+        hovertemplate=("<b>%{x} of " + str(total) + " signals grounded</b>"
+                       "<br><i>Not grounded: %{customdata[0]}</i><extra></extra>"),
+    ))
+    fig.add_vrect(x0=0, x1=total, fillcolor=theme["muted"], opacity=0.06, line_width=0, layer="below")
+    fig.update_xaxes(range=[0, total], showgrid=False)
+    fig.update_yaxes(showticklabels=False, showgrid=False)
+    return _style(fig, theme, height=130, title="Live data coverage — how much the radar grounded",
+                  ygrid=False)
+
+
+def _render_coverage(st, go, company):
+    """A coverage meter so users see how complete the (esp. live) profile is — honest about gaps."""
+    total = len(_COVERAGE_SIGNALS)
+    missing = [name for name, path in _COVERAGE_SIGNALS if not _sig_known(company, path)]
+    grounded = total - len(missing)
+    if go is not None:
+        st.plotly_chart(_fig_coverage(go, grounded, total, missing, _chart_theme(st)),
+                        use_container_width=True, config={"displayModeBar": False, "responsive": True})
+    else:
+        st.progress(grounded / total, text=f"Live data coverage: {grounded}/{total} signals grounded")
+        if missing:
+            st.caption("Not grounded: " + ", ".join(missing) + ".")
+
+
+def _render_controversies(st, company):
+    """🚩 Recent news flagging controversy/risk — the 'behaviour' side of the conflict. Real
+    links the radar surfaced; framed as leads to check, never as a verified verdict."""
+    items = (company or {}).get("_controversies") or []
+    if not items:
+        return
+    st.divider()
+    st.markdown(f"#### 🚩 Red flags — recent items mentioning controversy / risk ({len(items)})")
+    st.caption("Live news the radar surfaced that mention controversy, fines, probes or "
+               "incidents — leads to check, not verified findings and not our verdict.")
+    for it in items:
+        title = it.get("title") or it.get("url") or "source"
+        url = it.get("url") or ""
+        st.markdown(f"- [{title}]({url})" if url else f"- {title}")
+        snippet = (it.get("snippet") or "").strip()
+        if snippet and snippet.lower() != (title or "").lower():
+            st.caption(snippet)
+
+
 def _render_charts(st, go, company):
     """Graph-led evidence: the Layer A rating gauge + the live Layer B signal as interactive
     charts (hover explains each). Returns True if any chart was drawn (caller skips HTML cards)."""
@@ -557,6 +632,7 @@ def _render_evidence(st, company):
     # Graphs first (the user-facing medium). If plotly is missing, _go() is None and we drop
     # back to the HTML cards so a missing dependency never breaks the panel.
     go = _go()
+    _render_coverage(st, go, company)  # how much of the profile is grounded (honest about gaps)
     charts_drawn = _render_charts(st, go, company) if go is not None else False
 
     if not charts_drawn:  # HTML fallback — the original momentum/AI cards.
@@ -885,6 +961,7 @@ def render_answer(answer, company=None, debug=False, narrowed=None):
     if not failed:
         _render_evidence(st, company)
         _render_history(st, company)        # historical static-score trend vs the live signal
+        _render_controversies(st, company)  # 🚩 red flags — recent controversy/risk news
         _render_ai_summary(st, answer)      # the DuckDuckGo AI summary we interpreted
         _render_sources(st, answer, company)  # RAG citations + how the profile was built
         _render_export(st, answer, company)

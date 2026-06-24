@@ -134,6 +134,32 @@ def _extract(sources_block, *, max_tokens=1500):
     return parsed, raw
 
 
+# Words that mark a retrieved item as a genuine ESG red flag (not a generic ratings page).
+_CONTROVERSY_KWS = ("controvers", "scandal", "lawsuit", "sued", "fine", "fined", "penalt",
+                    "probe", "investigat", "breach", "fraud", "misconduct", "violation",
+                    "recall", "spill", "pollut", "emission", "strike", "boycott", "sanction",
+                    "settlement", "allegation", "greenwash", "data leak", "antitrust", "bribery")
+
+
+def _select_controversies(docs, limit=5):
+    """Keep only retrieved docs whose text actually flags a controversy — real news leads with
+    real URLs (never a verdict, just items to check). De-duped, capped at `limit`."""
+    out, seen = [], set()
+    for d in docs or []:
+        blob = ((d.get("text") or "") + " " + (d.get("title") or "")).lower()
+        if not any(kw in blob for kw in _CONTROVERSY_KWS):
+            continue
+        key = (d.get("url") or d.get("title") or "").strip()[:80]
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        out.append({"title": d.get("title") or d.get("url") or "source",
+                    "url": d.get("url") or "", "snippet": (d.get("text") or "")[:220]})
+        if len(out) >= limit:
+            break
+    return out
+
+
 def _sources_provenance(snippets):
     """De-duped [{title,url}] from retrieved snippets, for the company's `_sources`."""
     out, seen = [], set()
@@ -161,7 +187,7 @@ def build_live_company(user_text, *, use_rag=True, k=None):
     ``k`` overrides how many ranked snippets to ground the build (defaults to DEFAULT_TOP_K).
     Raises core.LLMConfigError if the API key is missing (caller surfaces it).
     """
-    snippets, ai_summary, esg_docs = [], None, []
+    snippets, ai_summary, esg_docs, controversies = [], None, [], []
     doc_count, status, err = 0, "thin", None
     ent = _entity_hint(user_text)  # clean entity for the targeted ESG / AI-summary queries
     if use_rag:
@@ -181,6 +207,13 @@ def build_live_company(user_text, *, use_rag=True, k=None):
             esg_docs = ed[:6]
         except Exception:  # noqa: BLE001 — best-effort; absence just leaves Layer A "unknown".
             esg_docs = []
+        try:
+            # Red-flag retrieval — recent ESG controversies (the 'behaviour' side of the conflict).
+            cd, _cst, _cer = rag.fetch_documents(
+                f"{ent} ESG controversy scandal fine lawsuit investigation")
+            controversies = _select_controversies(cd)
+        except Exception:  # noqa: BLE001 — best-effort; no flags is a perfectly valid result.
+            controversies = []
         has_ctx = bool(snippets or esg_docs or (ai_summary or {}).get("summary"))
         status = "live" if has_ctx else ("offline" if err else "thin")
 
@@ -204,6 +237,7 @@ def build_live_company(user_text, *, use_rag=True, k=None):
 
     company = contracts.coerce_company_data(parsed, origin="live")
     company["_sources"] = _sources_provenance(snippets + esg_docs)
+    company["_controversies"] = controversies
     company["_build_status"] = status
     company["_build_error"] = err
     company["_raw"] = raw
