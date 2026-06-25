@@ -35,11 +35,19 @@ its **evidence** (`esg_basis` + `source_url` + `confidence`).
   wrong** panels for the focused name.
 - **Click a card → deep dive** — the full Stage 1→2→3 relay (interrogate, or "⚔️ Compete now").
 
-The aggregation lives in `metrics.py` (pure, tested). Panels read OPTIONAL numeric fields per
-company (`esg_score`, `momentum.{environment,social,governance,digital_ai}`, `live_signals.…`);
-when they're absent they show *"awaiting data"* — **never fabricated for real names**. A **Demo
-data** toggle swaps in `data/demo_universe.json` (fictional, fully numeric) so the whole board is
-alive before the real numbers land. Pinned tickers persist in `data/watchlist.json`.
+The aggregation lives in `metrics.py` (pure, tested), with three auto-detected **data modes**:
+
+- **Numeric** — full per-company numbers (`esg_score`, `momentum.{environment,social,governance,
+  digital_ai}`, `live_signals.…`) drive every panel exactly like the design.
+- **Evidence** *(the real 52 today)* — no numbers yet, but each name carries an `esg_basis`, so the
+  radar derives a **grounded ESG-leadership score (0–100)** + credential rows from the ratings the
+  evidence actually cites (MSCI / DJSI / CDP A-List / FTSE4Good / Sustainalytics / GRESB / national
+  ESG indices). Avg ESG-leadership, the ESG-leaders ranking and the classification all work;
+  pillar momentum + live signals honestly say *"awaiting the alt-data feed."* **Nothing invented.**
+- **Empty** — neither numbers nor evidence → *"awaiting data."*
+
+A **Demo data** toggle swaps in `data/demo_universe.json` (fictional, fully numeric) to show the
+full numeric vision. Pinned tickers persist in `data/watchlist.json`.
 
 The slide's *"what's missing"* — AI adoption, alt-data (news/sentiment), real-time vs annual-report
 lag — **is exactly our Layer B**: the foundation says these 52 improved on paper; the radar tests

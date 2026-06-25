@@ -62,10 +62,13 @@ You are given SOURCES (a USER REQUEST naming/implying a company, plus real fetch
 or an uploaded document). Build a CompanyData JSON object describing ONE company.
 
 ABSOLUTE RULES (never violate)
-- IDENTITY (`company`, `ticker`, `sector`): determine these CONFIDENTLY from the USER REQUEST,
-  the SOURCES, and the company's own name — this is identification, not ESG measurement (a bank
-  → "Financials — Banks"; a chipmaker → "Technology — Semiconductors"; an oil major →
-  "Energy"). Use "unknown" only when the name is genuinely ambiguous or unrecognisable.
+- IDENTITY (`company`, `ticker`, `sector`, `country`): determine these CONFIDENTLY from the USER
+  REQUEST, the SOURCES, and the company's own name — this is identification, not ESG measurement (a
+  bank → "Financials — Banks"; a chipmaker → "Technology — Semiconductors"; an oil major →
+  "Energy"). `country` is the company's HOME country — where it is HEADQUARTERED / primarily
+  operates, NOT the stock-exchange venue (e.g. Grab → "Singapore" and GoTo → "Indonesia" even
+  though they may list abroad; Nvidia → "United States"). Use "unknown" only when genuinely
+  ambiguous or unrecognisable.
 - LAYER A (the static rating): when an ESG-RATING SOURCE states a rating, set `esg_score_static`
   to that REAL value. PREFER a numeric Sustainalytics/Morningstar ESG Risk Rating and format it
   NUMBER-FIRST as "N.N (Band Risk)" — e.g. "13.4 (Low Risk)", "22.4 (Medium Risk)", "32.8 (High
@@ -93,7 +96,7 @@ ABSOLUTE RULES (never violate)
 
 OUTPUT — respond with JSON ONLY. No prose, no markdown, no code fences. Exactly this shape:
 {
-  "company": "string|unknown", "ticker": "string|unknown", "sector": "string|unknown",
+  "company": "string|unknown", "ticker": "string|unknown", "sector": "string|unknown", "country": "string|unknown",
   "layer_a": { "esg_score_static": "string|unknown", "as_of_date": "string|unknown",
                "note": "short paraphrase of the current rating context, or ''" },
   "layer_b": {
@@ -236,6 +239,7 @@ def build_live_company(user_text, *, use_rag=True, k=None):
     parsed, raw = _extract("\n".join(lines))
 
     company = contracts.coerce_company_data(parsed, origin="live")
+    company["_country"] = (parsed or {}).get("country") or "unknown"  # for the ASEAN-only gate
     company["_sources"] = _sources_provenance(snippets + esg_docs)
     company["_controversies"] = controversies
     company["_build_status"] = status
@@ -370,6 +374,70 @@ _SNAP_SIGNALS = (
 
 def _known(v):
     return bool(v) and str(v).strip().lower() not in ("", "unknown")
+
+
+def _dir_from(v):
+    """A momentum % -> a Layer-B direction word."""
+    if v is None:
+        return "unknown"
+    return "improving" if v > 1 else "declining" if v < -1 else "flat"
+
+
+def _pct_str(v):
+    if v is None:
+        return "unknown"
+    sign = "+" if v > 0 else ""
+    return f"{sign}{int(v) if float(v).is_integer() else v}%"
+
+
+def company_from_numeric(constituent, *, origin="live"):
+    """Build a Contract B from a constituent's NUMERIC dashboard fields (esg_score / momentum /
+    live_signals) with NO network or LLM — so the chatbot can run the 3-stage relay on demo or
+    pre-scored data coherently and offline. Identity + numbers come straight from the row."""
+    c = constituent or {}
+    mom = c.get("momentum") or {}
+    ls = c.get("live_signals") or {}
+
+    def n(x):
+        try:
+            return float(str(x).replace("−", "-").strip().rstrip("%"))
+        except (TypeError, ValueError):
+            return None
+
+    score = c.get("esg_score")
+    illus = " (illustrative)" if origin == "sample" else ""
+
+    def pillar(key):
+        v = n(mom.get(key))
+        return {"direction": _dir_from(v), "magnitude": _pct_str(v)}
+
+    d_ai = n(mom.get("digital_ai"))
+    company = contracts.coerce_company_data({
+        "company": c.get("company"), "ticker": c.get("ticker"), "sector": c.get("sector"),
+        "layer_a": {
+            "esg_score_static": (f"{score}" if score is not None else "unknown"),
+            "as_of_date": str(c.get("esg_as_of") or "unknown"),
+            "note": f"Static ESG score{illus}. Lower = better for a risk score.",
+        },
+        "layer_b": {
+            "momentum": {"E": pillar("environment"), "S": pillar("social"), "G": pillar("governance")},
+            "digital_ai_signal": {
+                "ai_governance_hiring_velocity": str(ls.get("ai_hiring_surge") or "unknown"),
+                "ai_disclosure_level": ("disclosed" if ls.get("board_ai_policy") else "unknown"),
+                "gap_note": f"Live Digital/AI momentum {_pct_str(d_ai)}{illus}.",
+            },
+            "conflicting_signals": {
+                "news_sentiment": "unknown", "behaviour_trend": "unknown",
+                "conflict_note": (f"{int(n(ls.get('controversy_flags')))} controversy flag(s)."
+                                  if n(ls.get("controversy_flags")) else ""),
+            },
+            "near_term_catalyst": "unknown",
+        },
+    }, origin=origin)
+    company["_country"] = c.get("country") or "unknown"
+    company["_exchange"] = c.get("exchange") or "unknown"
+    company["_constituent_ticker"] = c.get("ticker") or c.get("id") or "unknown"
+    return company
 
 
 def snapshot_from_company(company):

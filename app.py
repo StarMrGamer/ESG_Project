@@ -441,11 +441,54 @@ def _build_and_pin_constituent(ss, constituent):
 
 
 def _ensure_snapshot(ss, constituent):
-    """Return the ticker of a constituent's snapshot, building+pinning it first if needed."""
+    """Return the ticker of a constituent's snapshot, building+pinning it first if needed.
+    Constituents that already carry NUMBERS (demo / pre-scored) get a Contract B built locally
+    (no network); evidence-only real names go through the ASEAN-scoped live builder."""
     tk = constituent.get("ticker") or constituent.get("id")
     if tk in ss.snapshots:
         return tk
+    if metrics.has_numbers([constituent]):
+        company = datasource.company_from_numeric(
+            constituent, origin="sample" if ss.get("demo_mode") else "live")
+        return _pin(ss, company)
     return _build_and_pin_constituent(ss, constituent)
+
+
+def _launch_relay(ss, ticker, mode):
+    """Open the deep-dive page and run the 3-stage relay in `mode` ('compete' | 'interrogate')."""
+    entry = ss.snapshots.get(ticker)
+    if not entry:
+        return
+    ss.company = entry["company"]
+    ss.active_ticker = ticker
+    ss.view = "deep_dive"
+    for _k in ("s1_msgs", "s1_trail", "s1_turns", "s1_done", "narrowed_q", "answer"):
+        ss.pop(_k, None)
+    ss.pop("skip_interrogation", None)
+    if mode == "compete":                       # skip Stage 1 — land on the competing read
+        ss.narrowed_q = _default_nq(entry["company"])
+        ss.s1_done = True
+        ss.skip_interrogation = True
+    st.rerun()
+
+
+def _add_live_company(ss, text):
+    """Build a LIVE company by name (not in the 52) and pin it — ASEAN-only gate. Returns
+    (ticker, error). The relay then runs on it like any monitored name."""
+    try:
+        with st.spinner(f"🌐 Building a live ESG profile for “{text}” (ASEAN check)…"):
+            company, _meta = datasource.build_live_company(
+                text, use_rag=bool(ss.get("rag_enabled", True)), k=int(ss.get("rag_top_k", 5)))
+    except core.LLMConfigError as e:
+        return None, str(e)
+    except Exception as e:  # noqa: BLE001 — keep a live flop friendly.
+        return None, f"Couldn't build “{text}” live ({type(e).__name__})."
+    country = (company.get("_country") or "").strip()
+    asean = [c.lower() for c in universe.ASEAN_COUNTRIES]
+    if country and country.lower() != "unknown" and country.lower() not in asean:
+        return None, (f"{company.get('company', text)} looks **{country}**-listed — this radar is "
+                      "ASEAN-only (Singapore, Malaysia, Indonesia, Thailand, Philippines).")
+    return _pin(ss, company), None
 
 
 def _add_from_text(ss, text):
@@ -647,13 +690,83 @@ def _match_sector(low, path):
     return None
 
 
+# Words that ask the assistant to RUN the 3-stage relay (and which mode).
+_RELAY_TRIGGERS = ("analyse", "analyze", "deep dive", "deep-dive", "deepdive", "run esg",
+                   "esg analysis", "esg on", "3 stage", "three stage", "relay", "compete",
+                   "interrogate", "ask about", "challenge", "assess", "evaluate", "question")
+_INTERROGATE_TRIGGERS = ("interrogate", "ask about", "challenge", "question")
+_RELAY_STRIP = ("run an esg analysis on", "run esg analysis on", "esg analysis on", "run esg on",
+                "run the 3 stages on", "3 stage relay on", "deep dive on", "deep-dive on",
+                "compete against", "compete with", "compete on", "ask about", "analyse", "analyze",
+                "deep dive", "deep-dive", "deepdive", "run esg", "esg analysis", "esg on",
+                "interrogate", "challenge", "evaluate", "assess", "relay", "compete", "question",
+                "please", "run ")
+
+
+def _relay_request(low):
+    """Detect a 3-stage-relay command in a chat line; returns 'compete' | 'interrogate' | None."""
+    if not any(v in low for v in _RELAY_TRIGGERS):
+        return None
+    return "interrogate" if any(v in low for v in _INTERROGATE_TRIGGERS) else "compete"
+
+
+def _strip_relay_verbs(text):
+    """Remove the relay verbs so what's left is the company name ('analyze DBS' -> 'DBS')."""
+    out = text
+    for v in _RELAY_STRIP:
+        out = re.sub(re.escape(v), " ", out, flags=re.I)
+    return re.sub(r"\s+", " ", out).strip(" ?.")
+
+
 def _chat_act(ss, text, path):
-    """The AI assistant: parse a line into filter / focus / add actions and log a short reply."""
+    """The AI assistant: parse a line into RELAY / filter / focus / add actions and log a reply."""
     t = (text or "").strip()
     if not t:
         return
     low = t.lower()
     ss.chat_log.append({"role": "user", "text": t})
+
+    # 1) Run the 3-stage ESG relay (two modes). Resolves a constituent, else live-builds an ASEAN
+    #    name, then opens the deep-dive page in the chosen mode.
+    mode = _relay_request(low)
+    if mode:
+        verb = "interrogation" if mode == "interrogate" else "compete"
+        stripped = _strip_relay_verbs(t)
+        # "analyze this / it" -> the currently focused company
+        if stripped.lower() in ("this", "it", "focused", "the company", "") and ss.get("focus_ticker"):
+            ft = ss.focus_ticker
+            tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, universe.get(ft, path) or {})
+            if tk:
+                ss.chat_log.append({"role": "assistant",
+                                    "text": f"Running the 3-stage relay on the focused company ({verb} mode)…"})
+                _launch_relay(ss, tk, mode)
+                return
+        c = universe.resolve(stripped or t, path)
+        if c:
+            tk = _ensure_snapshot(ss, c)
+            if tk:
+                ss.chat_log.append({"role": "assistant",
+                                    "text": f"Running the 3-stage ESG relay on {c['company']} "
+                                            f"({verb} mode)…"})
+                _launch_relay(ss, tk, mode)        # switches to the deep-dive page (reruns)
+            return
+        if stripped and len(stripped) >= 2 and not _match_sector(stripped.lower(), path) \
+                and stripped.lower() not in ("all", "asean", "everything", "this", "it", "company"):
+            tk, err = _add_live_company(ss, stripped)
+            if tk:
+                nm = ss.snapshots[tk]["snap"]["company"]
+                ss.chat_log.append({"role": "assistant",
+                                    "text": f"Built {nm} live (ASEAN) — running the 3-stage relay "
+                                            f"({verb} mode)…"})
+                _launch_relay(ss, tk, mode)
+            else:
+                ss.chat_log.append({"role": "assistant", "text": err or f"Couldn't analyse “{stripped}”."})
+            return
+        ss.chat_log.append({"role": "assistant",
+                            "text": "Name a company to analyse — e.g. “analyze DBS”, “interrogate "
+                                    "Maybank”, or a live ASEAN name like “analyze Grab”."})
+        return
+
     bits = []
 
     if any(k in low for k in ("all asean", "all countries", "whole asean", "everywhere", "any country")):
@@ -709,9 +822,12 @@ def _cc_focused(ss, filtered, path):
         e = ss.snapshots.get(ft)
         if e:
             return e["company"]
-    hw, _, _ = metrics.hidden_winners(filtered, top_n=1)   # else the strongest live signal in view
+    hw, _, _ = metrics.hidden_winners(filtered, top_n=1)   # numeric: strongest live signal in view
     if hw:
         return universe.get(hw[0]["ticker"], path) or (filtered[0] if filtered else None)
+    lead = metrics.evidence_leaders(filtered, top_n=1)     # evidence: strongest leadership score
+    if lead:
+        return universe.get(lead[0]["ticker"], path) or (filtered[0] if filtered else None)
     return filtered[0] if filtered else None
 
 
@@ -720,9 +836,16 @@ def _why_wrong(focused):
         return "Add or focus a company to see where its live signal diverges from the stale rating."
     s = focused.get("live_signals") or {}
     d = metrics.num((focused.get("momentum") or {}).get("digital_ai"))
-    cls = metrics.classify(focused)
     name = focused.get("company", "This company")
     score, as_of = focused.get("esg_score"), (focused.get("esg_as_of") or "")
+    if d is None and focused.get("esg_basis"):       # evidence mode — no live momentum yet
+        p = metrics.evidence_profile(focused)
+        tags = ", ".join(f'{cr["label"]} {cr["value"]}' for cr in p["credentials"][:2]) or "documented ESG progress"
+        return (f"{name} is a documented ESG improver ({tags}; leadership {p['score']}/100). A stale "
+                "rating may already price that leadership — the radar's edge is the LIVE alt-data "
+                "(AI hiring, patents, news/behaviour) that isn't wired yet. That's where a 2023 score "
+                "gets caught out.")
+    cls = metrics.classify(focused)
     if cls["label"] == "HIDDEN WINNER":
         return (f"{name} is hiring hard for AI governance ({s.get('ai_hiring_surge') or 'fast'}) "
                 f"while the static {as_of} score ({score if score is not None else '—'}) sits still — "
@@ -883,19 +1006,25 @@ def _render_evidence_signals(focused):
 
 
 # --- command center: columns ------------------------------------------------ #
-def _cc_left(ss, uni, cons, filtered, sectors, countries, path):
+def _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode):
     st.markdown('<div class="cc-h">Filters</div>', unsafe_allow_html=True)
     st.selectbox("Industry", sectors, key="flt_sector", format_func=_short_sector)
     st.selectbox("Country", countries, key="flt_country",
                  format_func=lambda c: "All ASEAN" if c == "All" else c)
     st.caption(f"Universe: {len(cons)} listed · showing {len(filtered)}")
 
-    avg, an = metrics.average_esg(filtered)
+    if mode == "evidence":
+        avg, an = metrics.evidence_average(filtered)
+        title = f"Avg ESG-leadership · {_short_sector(ss.flt_sector)}"
+        sub = (f"evidence index 0–100 · {an} names") if avg is not None else "awaiting data"
+    else:
+        avg, an = metrics.average_esg(filtered)
+        title = f"Avg ESG · {_short_sector(ss.flt_sector)}"
+        sub = (f"mean static score · {an} names") if avg is not None else "awaiting data"
     st.markdown(
-        f'<div class="cc-card"><div class="cc-pill-h">Avg ESG · {_esc(_short_sector(ss.flt_sector))}'
-        f'</div><div class="cc-big cc-flat">{avg if avg is not None else "—"}</div>'
-        f'<div class="cc-muted">{("mean static score · " + str(an) + " names") if avg is not None else "awaiting data"}</div></div>',
-        unsafe_allow_html=True)
+        f'<div class="cc-card"><div class="cc-pill-h">{_esc(title)}</div>'
+        f'<div class="cc-big cc-flat">{avg if avg is not None else "—"}</div>'
+        f'<div class="cc-muted">{_esc(sub)}</div></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="cc-h">⭐ Monitored</div>', unsafe_allow_html=True)
     if ss.watchlist:
@@ -916,20 +1045,38 @@ def _cc_left(ss, uni, cons, filtered, sectors, countries, path):
                    "the browse panel below.")
 
 
-def _cc_center(ss, filtered, focused):
-    _render_pillars(filtered)
-    st.write("")
-    c1, c2 = st.columns([1.15, 1], gap="medium")
-    with c1:
-        _render_momentum_chart(ss, filtered)
-    with c2:
-        _render_hidden_winners(filtered)
-    _render_classification(focused)
+def _cc_center(ss, filtered, focused, mode):
+    if mode == "evidence":
+        _render_coverage_cards(filtered)
+        st.write("")
+        c1, c2 = st.columns([1.15, 1], gap="medium")
+        with c1:
+            st.markdown('<div class="cc-h">ESG momentum · 90 days</div>', unsafe_allow_html=True)
+            st.caption("Live pillar momentum needs the alt-data feed (AI hiring, patents, "
+                       "news/behaviour) — not in the evidence set. **This is the radar's real edge** "
+                       "once those signals are wired.")
+        with c2:
+            leaders = metrics.evidence_leaders(filtered, top_n=5)
+            mx = max((r["value"] for r in leaders), default=100)
+            _render_bars("ESG leaders (evidence)", f"{len(filtered)} companies · derived 0–100 score",
+                         leaders, maxabs=mx, suffix="/100",
+                         footer="Score = ratings each name's evidence cites (MSCI/DJSI/CDP/FTSE4Good/…).")
+        _render_classification(focused, metrics.classify_evidence(focused or {}))
+    else:
+        _render_pillars(filtered)
+        st.write("")
+        c1, c2 = st.columns([1.15, 1], gap="medium")
+        with c1:
+            _render_momentum_chart(ss, filtered)
+        with c2:
+            _render_hidden_winners(filtered)
+        _render_classification(focused, metrics.classify(focused or {}))
 
 
-def _cc_right(ss, filtered, focused, path):
+def _cc_right(ss, filtered, focused, path, mode):
     st.markdown('<div class="cc-h">💬 AI assistant</div>', unsafe_allow_html=True)
-    st.caption("Ask me to filter (“show banks”, “Singapore”, “all ASEAN”) or focus a company.")
+    st.caption("Filter (“show banks”, “Singapore”), focus a company, or run the **3-stage relay**: "
+               "“analyze DBS” (compete) · “interrogate Maybank” · “analyze Grab” (live ASEAN).")
     for m in ss.chat_log[-6:]:
         css = "cc-bubble-u" if m["role"] == "user" else "cc-bubble-a"
         st.markdown(f'<div class="cc-bubble {css}">{_esc(m["text"])}</div>', unsafe_allow_html=True)
@@ -941,13 +1088,37 @@ def _cc_right(ss, filtered, focused, path):
         ss.pending_chat = msg.strip()
         st.rerun()
 
+    # Two-mode hint row — run the 3-stage relay on the focused company without knowing keywords.
+    ft = (focused or {}).get("ticker")
+    fname = (focused or {}).get("company", "—")
+    st.caption(f"3-stage relay on **{fname}** →")
+    h1, h2 = st.columns(2)
+    if h1.button("⚔️ Compete", key="cc_hint_compete", use_container_width=True, disabled=not ft,
+                 help="Skip straight to the competing read."):
+        c = universe.get(ft, path) or focused
+        tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
+        if tk:
+            _launch_relay(ss, tk, "compete")
+    if h2.button("🧠 Interrogate", key="cc_hint_interro", use_container_width=True, disabled=not ft,
+                 help="Ask adaptive ESG questions first, then compete."):
+        c = universe.get(ft, path) or focused
+        tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
+        if tk:
+            _launch_relay(ss, tk, "interrogate")
+
     st.divider()
-    _render_live_signals(focused)
+    if mode == "evidence":
+        _render_evidence_signals(focused)
+        nsig = len((focused or {}).get("esg_basis") and metrics.evidence_profile(focused)["credentials"] or [])
+    else:
+        _render_live_signals(focused)
+        nsig = len(metrics.live_signals(focused or {}))
     st.divider()
     st.markdown('<div class="cc-h">Why the rating may be wrong</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="cc-panel-body">{_esc(_why_wrong(focused))}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="cc-muted">Focused: {_esc((focused or {}).get("company", "—"))} · '
-                f'{len(metrics.live_signals(focused or {}))} signals</div>', unsafe_allow_html=True)
+                f'{nsig} {"credentials" if mode == "evidence" else "signals"}</div>',
+                unsafe_allow_html=True)
 
     if (focused or {}).get("esg_basis"):     # the documented 2019–2023 improvement evidence
         with st.expander("📌 Foundation evidence (why it's an ESG improver)"):
@@ -1009,29 +1180,37 @@ def _render_dashboard(ss):
         ss.flt_country = "All"
     filtered = universe.filter_constituents(country=ss.flt_country, sector=ss.flt_sector,
                                             query=ss.get("flt_search", ""), path=path)
+    mode = _uni_mode(cons)
     focused = _cc_focused(ss, filtered, path)
 
     st.markdown(_CC_CSS, unsafe_allow_html=True)
     n, ind = len(cons), len({c["sector"] for c in cons if c["sector"] != "unknown"})
+    tag = ("· demo data" if ss.get("demo_mode") else
+           "· evidence-based" if mode == "evidence" else "· live")
     head_l, head_r = st.columns([4, 1])
     head_l.markdown(f'<div class="cc-title">🛰️ ASEAN ESG Momentum Radar</div>'
                     f'<div class="cc-sub2">{_esc(uni.get("as_of", ""))} · {n} listed companies · '
-                    f'{ind} industries</div>', unsafe_allow_html=True)
+                    f'{ind} industries {tag}</div>', unsafe_allow_html=True)
     head_r.markdown('<div class="cc-live">● Live</div>', unsafe_allow_html=True)
     if ss.get("demo_mode"):
         st.caption("🎛️ **Demo data** — fictional companies + invented numbers so the board is alive. "
                    "Toggle it off in the sidebar to drive these panels from the real ASEAN base DB.")
-    elif not metrics.has_numbers(cons):
-        st.caption("ℹ️ The real universe has no numeric ESG/momentum yet — panels show “awaiting "
-                   "data”. Drop scores into `data/asean_universe.json` and they light up.")
+    elif mode == "evidence":
+        st.caption("🔎 **Evidence mode** — the real 52. Avg ESG-leadership, leaders & classification "
+                   "are derived from the ratings each name's `esg_basis` actually cites "
+                   "(MSCI / DJSI / CDP / FTSE4Good / Sustainalytics) — grounded, not fabricated. "
+                   "Pillar momentum + live signals await the alt-data feed.")
+    elif mode == "empty":
+        st.caption("ℹ️ The real universe has no ESG evidence or numbers yet — add `esg_basis` or "
+                   "numeric fields to `data/asean_universe.json` and the panels light up.")
 
     left, center, right = st.columns([1.15, 2.25, 1.4], gap="medium")
     with left:
-        _cc_left(ss, uni, cons, filtered, sectors, countries, path)
+        _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode)
     with center:
-        _cc_center(ss, filtered, focused)
+        _cc_center(ss, filtered, focused, mode)
     with right:
-        _cc_right(ss, filtered, focused, path)
+        _cc_right(ss, filtered, focused, path, mode)
 
     with st.expander(f"🔎 Browse / add from the full universe ({len(cons)} companies)"):
         _universe_cards(ss, filtered, path)
@@ -1126,7 +1305,7 @@ _DEFAULTS = {
     "flt_sector": "All",
     "flt_search": "",
     # --- command-center state ---
-    "demo_mode": True,       # start in the fictional demo universe so the board is alive on first load
+    "demo_mode": False,       # land on the REAL evidence-based universe; flip ON for the fictional numeric demo
     "focus_ticker": None,    # the company featured in the classification / live-signals / why-wrong panels
     "chat_log": [],          # [{role, text}] for the right-rail AI assistant
     "pending_chat": None,    # a submitted chat line, applied at the TOP of the next run (before widgets)

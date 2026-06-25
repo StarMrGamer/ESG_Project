@@ -66,13 +66,17 @@ a **Classification** verdict. **Right** = the **AI assistant** (it *controls the
 banks", "Singapore", "all ASEAN" — adds/focuses companies, applied at the TOP of the run before
 widgets via `ss.pending_chat`) + **Live signals** + **Why the rating may be wrong**.
 
-`metrics.py` holds all aggregation (pure, tested). The panels need OPTIONAL numeric per-constituent
-fields — `esg_score`, `esg_as_of`, `momentum:{environment,social,governance,digital_ai}`,
-`live_signals:{ai_hiring_surge,green_patents,carbon_disclosure,controversy_flags,board_ai_policy}` —
-absent → "awaiting data" (never fabricated for real names). A **Demo data** toggle swaps in
-`data/demo_universe.json` (FICTIONAL, fully numeric) so the board is alive before real numbers land.
-Click a card → **deep dive** = the Stage 1→2→3 relay. `country`/`exchange`/numeric fields ride as
-NON-contract fields, so `contracts.py` stays frozen.
+`metrics.py` holds all aggregation (pure, tested). Three data MODES (auto-detected by
+`_uni_mode`): **numeric** — full per-constituent numbers (`esg_score`, `esg_as_of`,
+`momentum:{environment,social,governance,digital_ai}`, `live_signals:{…}`) drive the mockup
+exactly; **evidence** — the real 52 carry NO numbers but DO carry `esg_basis`, so
+`metrics.parse_evidence` derives a GROUNDED ESG-leadership score (0–100) + credential rows from the
+ratings the text actually cites (MSCI/DJSI/CDP/FTSE4Good/Sustainalytics/GRESB/national indices) —
+Avg-ESG-leadership, ESG-leaders ranking & classification work; pillar momentum + live signals stay
+"awaiting data" (that's the alt-data the radar still needs); **empty** — neither → "awaiting data".
+Nothing is fabricated for real names. A **Demo data** toggle swaps in `data/demo_universe.json`
+(FICTIONAL, fully numeric). Click a card → **deep dive** = the Stage 1→2→3 relay.
+`country`/`exchange`/numeric/evidence fields ride as NON-contract fields, so `contracts.py` stays frozen.
 
 **Build order (relay, in sequence):** Phase 0 — build & FREEZE `core.py`, `contracts.py`,
 the `app.py` shell, and seed `fixtures/`. Then **Stage 1 → Stage 2 → Stage 3 in order**:
