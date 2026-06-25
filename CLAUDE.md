@@ -36,17 +36,43 @@ esg-momentum-radar/
   core.py                   # FROZEN — DeepSeek client (call_llm), live-fetch (http_get), JSON parser, config
   contracts.py              # FROZEN — the handoff data shapes (below)
   rag.py                    # live retrieval: DuckDuckGo search + AI summary + TF-IDF rank (RAG)
-  datasource.py             # build a CompanyData LIVE (grounded) or load an UPLOAD (json/csv/txt)
-  app.py                    # Streamlit shell; control-panel sidebar + light/dark; wires the relay
+  datasource.py             # build a CompanyData LIVE (free-text OR constituent-anchored) / UPLOAD; + snapshot
+  universe.py               # ASEAN base DB loader/filter/resolver (the watchlist menu)
+  metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify
+  app.py                    # Streamlit COMMAND-CENTER shell: filters · pillars · hidden winners · AI assistant · deep dive
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
   stage2.py                 # AGENT 2 owns — reason over data + RAG + history (emits CoT + sources)
   stage3.py                 # AGENT 3 owns — render the answer (verdict, CoT, history, sources)
+  data/asean_universe.json  # BASE DB — 52 ASEAN ESG improvers (evidence-based: esg_basis/source_url/confidence)
+  data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
   data/hero_company.json    # SAMPLE only — offline-demo safety net + test fixture (PLACEHOLDER)
+  data/watchlist.json       # runtime: pinned tickers (local, git-ignored — not source)
   fixtures/                 # handoff batons: seeded in Phase 0, then REPLACED by each
     narrowed_question.json  #   stage's real verified output as the relay proceeds.
     stage2_answer.json      #   Each file = next stage's input + a regression check.
   docs/stage1.md docs/stage2.md docs/stage3.md   # detailed per-stage briefs
 ```
+
+**Dashboard front-end (added 2026-06-25).** The app is now a **command-center dashboard** over an
+ASEAN base DB. The *universe* (`data/asean_universe.json`, loaded by `universe.py`) is "**52 ASEAN
+companies with consistent ESG improvement 2019–2023**" — the ESG Momentum foundation basket;
+**MSCI ASEAN is the BENCHMARK** it beat (55.1% vs 6.4%), NOT the source of names. Each constituent
+carries evidence (`esg_basis`/`source_url`/`confidence`).
+
+Layout (3 columns): **Left** = Filters (Industry/Country) + the **average ESG of the filtered set**
+(recomputes per industry — the user's key ask) + the Monitored list. **Center** = four pillar
+cards (avg **E/S/G/Digital-AI** momentum) + a momentum chart + **Hidden winners vs peer avg** +
+a **Classification** verdict. **Right** = the **AI assistant** (it *controls the filters* — "show
+banks", "Singapore", "all ASEAN" — adds/focuses companies, applied at the TOP of the run before
+widgets via `ss.pending_chat`) + **Live signals** + **Why the rating may be wrong**.
+
+`metrics.py` holds all aggregation (pure, tested). The panels need OPTIONAL numeric per-constituent
+fields — `esg_score`, `esg_as_of`, `momentum:{environment,social,governance,digital_ai}`,
+`live_signals:{ai_hiring_surge,green_patents,carbon_disclosure,controversy_flags,board_ai_policy}` —
+absent → "awaiting data" (never fabricated for real names). A **Demo data** toggle swaps in
+`data/demo_universe.json` (FICTIONAL, fully numeric) so the board is alive before real numbers land.
+Click a card → **deep dive** = the Stage 1→2→3 relay. `country`/`exchange`/numeric fields ride as
+NON-contract fields, so `contracts.py` stays frozen.
 
 **Build order (relay, in sequence):** Phase 0 — build & FREEZE `core.py`, `contracts.py`,
 the `app.py` shell, and seed `fixtures/`. Then **Stage 1 → Stage 2 → Stage 3 in order**:

@@ -21,6 +21,8 @@ import datasource
 import rag
 import stage1
 import stage2
+import universe
+import metrics
 
 # A canned DuckDuckGo HTML results payload so the RAG tests need no network. The result links
 # are DDG's '//duckduckgo.com/l/?uddg=<encoded real url>' redirects (the parser unwraps them).
@@ -218,6 +220,93 @@ def test_live_company_grounded(monkeypatch_extract):
     assert company["layer_a"]["esg_score_static"] == "unknown", company
 
 
+def test_universe_loads_and_resolves():
+    """The ASEAN base DB loads, filters, and maps chat phrases onto real constituents."""
+    uni = universe.load_universe()
+    cons = uni["constituents"]
+    assert len(cons) >= 5, len(cons)
+    assert uni["benchmark"] and "constituents" not in uni["benchmark"], uni["benchmark"]
+    # every constituent carries the country/exchange the ASEAN-scoped fetch needs
+    assert all(c["country"] != "unknown" and c["exchange"] != "unknown" for c in cons), cons[:3]
+    # resolve maps names / tickers / parenthetical aliases; nonsense -> None (stays in-universe)
+    dbs = universe.resolve("DBS")
+    assert dbs and dbs["ticker"].startswith("SGX"), dbs
+    assert universe.resolve("BCA")["country"] == "Indonesia", universe.resolve("BCA")
+    assert universe.resolve("SET:KBANK")["company"] == "Kasikornbank", universe.resolve("SET:KBANK")
+    assert universe.resolve("totally fake nonexistent xyz") is None
+    sg = universe.filter_constituents(country="Singapore")
+    assert sg and all(c["country"] == "Singapore" for c in sg), sg
+    assert universe.scope_terms(dbs) == "Singapore SGX ASEAN", universe.scope_terms(dbs)
+
+
+def test_snapshot_shape():
+    """snapshot_from_company turns a Contract B into compact card data (no network/LLM)."""
+    company = _load("data/hero_company.json")
+    company["_origin"] = "sample"
+    snap = datasource.snapshot_from_company(company)
+    assert snap["band"] == "Medium Risk" and snap["rating_num"] == "22.4", snap
+    assert snap["arrows"]["E"] == "▲" and snap["arrows"]["S"] == "—", snap  # improving / flat
+    assert snap["red_flags"] == 2, snap                      # the two illustrative sample red flags
+    assert 0 < snap["coverage"] <= snap["coverage_total"] == 10, snap
+
+
+def test_constituent_build_grounded(monkeypatch_extract):
+    """build_company_from_constituent: identity is AUTHORITATIVE (base DB wins over the extractor),
+    retrieval mocked, country/exchange stamped for ASEAN scoping."""
+    c = {"company": "Kasikornbank", "ticker": "SET:KBANK", "exchange": "SET",
+         "country": "Thailand", "sector": "Financials — Banks"}
+    orig_gather, orig_fetch, orig_llm = rag.gather_context, rag.fetch_documents, core.call_llm
+    rag.gather_context = lambda *a, **k: {
+        "snippets": [{"title": "KBank ESG", "url": "https://e.com/k", "snippet": "ESG governance"}],
+        "ai_summary": None, "status": "live", "doc_count": 1, "query": "x"}
+    rag.fetch_documents = lambda *a, **k: ([], "offline", None)
+    core.call_llm = lambda *a, **k: monkeypatch_extract     # returns a WRONG identity (NVIDIA)
+    try:
+        company, meta = datasource.build_company_from_constituent(c)
+    finally:
+        rag.gather_context, rag.fetch_documents, core.call_llm = orig_gather, orig_fetch, orig_llm
+    contracts.validate_company_data(company)
+    assert company["company"] == "Kasikornbank", company["company"]   # base DB overrides extractor
+    assert company["ticker"] == "SET:KBANK", company["ticker"]
+    assert company["_country"] == "Thailand" and company["_exchange"] == "SET", company
+    assert company["_origin"] == "live", company
+
+
+def test_metrics_aggregates():
+    """metrics.* over the demo universe: avg ESG per industry, pillar momentum, hidden winners,
+    classification, signals — the numbers behind the command center."""
+    cons = universe.constituents(universe.DEMO_FILE)
+    assert len(cons) >= 11, len(cons)
+    banks = [c for c in cons if c["sector"] == "Financials — Banks"]
+    assert len(banks) == 11, len(banks)
+    avg, n = metrics.average_esg(banks)
+    assert avg is not None and 25 <= avg <= 28 and n == 11, (avg, n)   # ~26.7 peer average
+    pillars = {p["key"]: p for p in metrics.pillar_momentum(banks)}
+    assert pillars["digital_ai"]["fast"] is True, pillars["digital_ai"]   # the orange riser card
+    assert pillars["governance"]["value"] < 0, pillars["governance"]      # softening governance
+    hw, peer, _ = metrics.hidden_winners(banks, top_n=5)
+    assert hw and hw[0]["company"] == "DemoBank" and hw[0]["value"] == 28, hw[0]
+    demo = next(c for c in banks if c["company"] == "DemoBank")
+    assert metrics.classify(demo)["label"] == "HIDDEN WINNER", metrics.classify(demo)
+    assert any(s["label"] == "AI hiring surge" for s in metrics.live_signals(demo)), demo
+    # filtering to a different industry recomputes the average (the user's key requirement)
+    energy = [c for c in cons if c["sector"].startswith("Energy")]
+    eavg, _ = metrics.average_esg(energy)
+    assert eavg is not None and eavg != avg, (eavg, avg)
+
+
+def test_metrics_graceful():
+    """No numeric data → every metric degrades to None/[] (the real starter universe path)."""
+    bare = [{"company": "X", "ticker": "T:X", "sector": "S"}]
+    assert metrics.has_numbers(bare) is False
+    assert metrics.average_esg(bare) == (None, 0)
+    assert all(p["value"] is None for p in metrics.pillar_momentum(bare))
+    assert metrics.hidden_winners(bare)[0] == []
+    assert metrics.classify(bare[0])["label"] == "AWAITING DATA"
+    assert metrics.live_signals(bare[0]) == []
+    assert metrics.num("+12%") == 12.0 and metrics.num("−2%") == -2.0 and metrics.num("x") is None
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -242,6 +331,11 @@ def main():
         ("CompanyData coercion (full shape, unknowns)", lambda: test_company_data_coercion()),
         ("upload .json is authoritative", lambda: test_upload_json_authoritative()),
         ("live company built grounded (mocked)", lambda: test_live_company_grounded(raw_extract)),
+        ("ASEAN universe loads + resolves", lambda: test_universe_loads_and_resolves()),
+        ("snapshot_from_company shape", lambda: test_snapshot_shape()),
+        ("constituent build identity authoritative (mocked)", lambda: test_constituent_build_grounded(raw_extract)),
+        ("metrics aggregates (avg ESG, pillars, hidden winners)", lambda: test_metrics_aggregates()),
+        ("metrics graceful with no numeric data", lambda: test_metrics_graceful()),
         ("RAG fetch (DuckDuckGo) + TF-IDF rank (mocked http_get)", lambda: test_rag_retrieval()),
         ("RAG gather_context shape (+ AI summary degrade)", lambda: test_rag_gather_context_shape()),
         ("RAG offline graceful fallback", lambda: test_rag_offline_graceful()),

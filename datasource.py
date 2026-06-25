@@ -245,6 +245,196 @@ def build_live_company(user_text, *, use_rag=True, k=None):
 
 
 # --------------------------------------------------------------------------- #
+#  CONSTITUENT-ANCHORED BUILD  (the dashboard path — identity from the base DB)
+# --------------------------------------------------------------------------- #
+def _search_entity(name):
+    """Flatten a constituent name into a clean search entity: drop the parenthetical alias's
+    brackets so both the long name and the short alias are searchable ('Bank Central Asia (BCA)'
+    -> 'Bank Central Asia BCA')."""
+    return re.sub(r"\s+", " ", (name or "").replace("(", " ").replace(")", " ")).strip()
+
+
+def build_company_from_constituent(constituent, *, use_rag=True, k=None):
+    """Build a grounded Contract B for a KNOWN MSCI ASEAN constituent (dashboard / monitoring).
+
+    Unlike build_live_company (which must first GUESS the identity from free text), identity here
+    is authoritative — it comes from the base DB — so the extractor locks company/ticker/sector
+    and spends its effort on Layer A/B. Retrieval is ASEAN-SCOPED: every query carries the
+    company's country + home exchange, so 'fetch' finds the right ASEAN-listed entity (this is the
+    "new search"). Returns (company_dict, meta); never raises on a retrieval failure.
+    """
+    c = constituent or {}
+    name = (c.get("company") or "unknown").strip()
+    country = (c.get("country") or "").strip()
+    exchange = (c.get("exchange") or "").strip()
+    ent = _search_entity(name)
+    scope = " ".join(p for p in (country, "ASEAN") if p and p.lower() != "unknown")
+
+    snippets, ai_summary, esg_docs, controversies = [], None, [], []
+    doc_count, status, err = 0, "thin", None
+    if use_rag:
+        try:
+            ctx = rag.gather_context(f"{ent} {scope} ESG sustainability governance",
+                                     background_topic=ent, k=k or rag.DEFAULT_TOP_K)
+            snippets = ctx.get("snippets", [])
+            ai_summary = ctx.get("ai_summary")
+            doc_count = ctx.get("doc_count", 0)
+            err = ctx.get("error")
+        except Exception as e:  # noqa: BLE001 — retrieval must never break the build.
+            snippets, err = [], f"{type(e).__name__}: {e}"
+        try:
+            ed, _st, _er = rag.fetch_documents(
+                f"{ent} {country} ESG risk rating score Sustainalytics Morningstar MSCI")
+            esg_docs = ed[:6]
+        except Exception:  # noqa: BLE001
+            esg_docs = []
+        try:
+            cd, _cst, _cer = rag.fetch_documents(
+                f"{ent} {country} ESG controversy scandal fine lawsuit investigation")
+            controversies = _select_controversies(cd)
+        except Exception:  # noqa: BLE001
+            controversies = []
+        has_ctx = bool(snippets or esg_docs or (ai_summary or {}).get("summary"))
+        status = "live" if has_ctx else ("offline" if err else "thin")
+
+    cagr = (c.get("esg_cagr_2019_2023") or "").strip()
+    lines = [
+        "KNOWN IDENTITY (authoritative — use these VERBATIM for company/ticker/sector and do NOT "
+        "override them; this is a confirmed ASEAN ESG-momentum constituent):",
+        f"  company: {name}",
+        f"  ticker:  {c.get('ticker') or 'unknown'}",
+        f"  sector:  {c.get('sector') or 'unknown'}",
+        f"  market:  {country or 'unknown'} ({exchange or 'unknown'})",
+    ]
+    if cagr:
+        lines.append(
+            f"  esg_cagr_2019_2023: {cagr} — FOUNDATION FACT: this name was selected for CONSISTENT "
+            "ESG-score improvement 2019-2023 (positive 5-year CAGR). On THIS grounded basis you MAY "
+            "classify the static/historical ESG trend as improving; still ground Layer B specifics "
+            "(AI, news, behaviour) only in the snippets below.")
+    lines += [
+        "",
+        f"USER REQUEST:\nBuild the ESG profile (Layer A static rating + Layer B momentum/signals) "
+        f"for {name}, listed in {country or 'ASEAN'}. Ground EVERY fact in the sources below.\n",
+    ]
+    if snippets:
+        lines.append("SOURCES (real fetched snippets — the ONLY basis for facts):")
+        for i, s in enumerate(snippets, 1):
+            lines.append(f"[{i}] {s.get('title','')}\n    {s.get('snippet','')}")
+    else:
+        lines.append("SOURCES: (none fetched — set every fact you cannot support to 'unknown')")
+    if esg_docs:
+        lines.append("\nESG-RATING SOURCES (for LAYER A — set esg_score_static / as_of_date ONLY "
+                     "from a rating, risk band, or date a snippet here actually states):")
+        for i, s in enumerate(esg_docs, 1):
+            lines.append(f"[E{i}] {s.get('title','')}\n    {(s.get('text') or '')[:480]}")
+    if (ai_summary or {}).get("summary"):
+        lines.append("\nDUCKDUCKGO_AI_SUMMARY (synthesized background — grounding context; "
+                     "classify qualitative fields from it, but never invent figures):\n"
+                     + ai_summary["summary"])
+    parsed, raw = _extract("\n".join(lines))
+
+    company = contracts.coerce_company_data(parsed, origin="live")
+    # Identity is authoritative — overwrite whatever the extractor returned with the base-DB facts.
+    company["company"] = name or company.get("company")
+    company["ticker"] = c.get("ticker") or company.get("ticker")
+    if (c.get("sector") or "").lower() not in ("", "unknown"):
+        company["sector"] = c["sector"]
+    company["_country"] = country or "unknown"
+    company["_exchange"] = exchange or "unknown"
+    company["_constituent_ticker"] = c.get("ticker") or c.get("id") or "unknown"
+    company["_sources"] = _sources_provenance(snippets + esg_docs)
+    company["_controversies"] = controversies
+    company["_build_status"] = status
+    company["_build_error"] = err
+    company["_raw"] = raw
+    return company, {"status": status, "doc_count": doc_count + len(esg_docs), "error": err}
+
+
+# --------------------------------------------------------------------------- #
+#  SNAPSHOT  (compact at-a-glance card data for the dashboard / monitoring board)
+# --------------------------------------------------------------------------- #
+_BAND_RE = re.compile(r"\(([^)]*risk[^)]*)\)", re.I)          # "(Medium Risk)" -> Medium Risk
+_NUM_RE = re.compile(r"(\d{1,2}(?:\.\d)?)")                   # a 0-60ish risk number
+_LETTER_RE = re.compile(r"\b(AAA|AA|A|BBB|BB|B|CCC)\b")        # MSCI-style letter
+_ARROWS = {"improving": "▲", "declining": "▼", "flat": "—", "unknown": "·"}
+
+# 10 signals the monitoring card reports coverage against (mirrors the deep-dive coverage meter).
+_SNAP_SIGNALS = (
+    ("layer_a", "esg_score_static"), ("layer_a", "as_of_date"),
+    ("momentum", "E"), ("momentum", "S"), ("momentum", "G"),
+    ("ai", "ai_disclosure_level"), ("conf", "news_sentiment"),
+    ("conf", "behaviour_trend"), ("catalyst", None), ("controversies", None),
+)
+
+
+def _known(v):
+    return bool(v) and str(v).strip().lower() not in ("", "unknown")
+
+
+def snapshot_from_company(company):
+    """Compact monitoring summary for a dashboard card. Pure read over a Contract B dict — no
+    network, no LLM. Returns rating/band/score, E-S-G momentum arrows, red-flag count, and a
+    coverage fraction (how many of the 10 monitored signals are actually grounded)."""
+    c = company or {}
+    la = c.get("layer_a") or {}
+    lb = c.get("layer_b") or {}
+    mom = lb.get("momentum") or {}
+    ai = lb.get("digital_ai_signal") or {}
+    conf = lb.get("conflicting_signals") or {}
+
+    rating = la.get("esg_score_static") or "unknown"
+    band = ""
+    if _known(rating):
+        mb = _BAND_RE.search(rating)
+        if mb:
+            band = mb.group(1).strip().title()
+        else:
+            ml = _LETTER_RE.search(rating)
+            band = (ml.group(1) if ml else "")
+    mnum = _NUM_RE.search(rating) if _known(rating) else None
+
+    def _dir(x):
+        return (x or {}).get("direction", "unknown") or "unknown"
+
+    momentum = {k: _dir(mom.get(k)) for k in ("E", "S", "G")}
+    arrows = {k: _ARROWS.get(v, "·") for k, v in momentum.items()}
+
+    # coverage — count grounded signals out of 10
+    vals = {
+        ("layer_a", "esg_score_static"): rating,
+        ("layer_a", "as_of_date"): la.get("as_of_date"),
+        ("momentum", "E"): None if momentum["E"] == "unknown" else momentum["E"],
+        ("momentum", "S"): None if momentum["S"] == "unknown" else momentum["S"],
+        ("momentum", "G"): None if momentum["G"] == "unknown" else momentum["G"],
+        ("ai", "ai_disclosure_level"): ai.get("ai_disclosure_level"),
+        ("conf", "news_sentiment"): conf.get("news_sentiment"),
+        ("conf", "behaviour_trend"): conf.get("behaviour_trend"),
+        ("catalyst", None): lb.get("near_term_catalyst"),
+        ("controversies", None): "yes" if (c.get("_controversies") or []) else None,
+    }
+    covered = sum(1 for sig in _SNAP_SIGNALS if _known(vals.get(sig)))
+
+    return {
+        "company": c.get("company", "unknown"),
+        "ticker": c.get("ticker", "unknown"),
+        "country": c.get("_country", c.get("country", "unknown")),
+        "sector": c.get("sector", "unknown"),
+        "rating": rating,
+        "rating_num": (mnum.group(1) if mnum else ""),
+        "band": band,
+        "as_of": la.get("as_of_date") or "unknown",
+        "momentum": momentum,
+        "arrows": arrows,
+        "red_flags": len(c.get("_controversies") or []),
+        "coverage": covered,
+        "coverage_total": len(_SNAP_SIGNALS),
+        "status": c.get("_build_status", "unknown"),
+        "origin": c.get("_origin", "unknown"),
+    }
+
+
+# --------------------------------------------------------------------------- #
 #  UPLOADS  (.json used as-is; .csv/.txt extracted grounded in the file only)
 # --------------------------------------------------------------------------- #
 def _decode(content):

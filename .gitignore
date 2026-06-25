@@ -15,6 +15,9 @@ env/
 # RAG retrieval cache (live-fetch results, regenerated on demand)
 .cache/
 
+# Runtime monitoring state (pinned tickers) — local, rebuilt per user, not source
+data/watchlist.json
+
 # OS / editor
 .DS_Store
 .idea/

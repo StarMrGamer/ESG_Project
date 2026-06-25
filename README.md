@@ -18,6 +18,35 @@ and it never gives a score.
 
 ---
 
+## The command-center dashboard (ASEAN-focused)
+
+The home screen is a 3-column monitoring dashboard over an ASEAN base universe — **52 ASEAN
+companies with consistent ESG improvement 2019–2023** (the ESG Momentum foundation basket;
+**MSCI ASEAN is the benchmark** it beat, 55.1% vs 6.4% — not the source of names). Each name carries
+its **evidence** (`esg_basis` + `source_url` + `confidence`).
+
+- **Left — Filters + Avg ESG.** Pick an Industry / Country; the **average ESG of the filtered set**
+  recomputes live (change to *Banks* → you get the Banks average). Plus your Monitored list.
+- **Center — the read.** Four pillar cards (avg **Environment / Social / Governance / Digital-AI**
+  momentum), a 90-day momentum chart, **Hidden winners vs peer average**, and a **Classification**
+  verdict (e.g. *HIDDEN WINNER* — never buy/sell/hold).
+- **Right — the AI assistant.** It **controls the filters** by chat (*"show banks"*, *"Singapore"*,
+  *"all ASEAN"*), adds/focuses companies, and drives the **Live signals** + **Why the rating may be
+  wrong** panels for the focused name.
+- **Click a card → deep dive** — the full Stage 1→2→3 relay (interrogate, or "⚔️ Compete now").
+
+The aggregation lives in `metrics.py` (pure, tested). Panels read OPTIONAL numeric fields per
+company (`esg_score`, `momentum.{environment,social,governance,digital_ai}`, `live_signals.…`);
+when they're absent they show *"awaiting data"* — **never fabricated for real names**. A **Demo
+data** toggle swaps in `data/demo_universe.json` (fictional, fully numeric) so the whole board is
+alive before the real numbers land. Pinned tickers persist in `data/watchlist.json`.
+
+The slide's *"what's missing"* — AI adoption, alt-data (news/sentiment), real-time vs annual-report
+lag — **is exactly our Layer B**: the foundation says these 52 improved on paper; the radar tests
+that with the live signals the rating can't see.
+
+---
+
 ## How it works — a 3-stage relay
 
 Each stage is a **fresh LLM agent** that hands the next only its verified output (the
