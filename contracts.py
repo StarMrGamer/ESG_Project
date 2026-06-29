@@ -113,7 +113,7 @@ def _coerce_sources(val):
 
 def coerce_stage2_answer(d):
     """Return a Contract C dict: the five text fields ('unknown' if missing) + reasoning + sources."""
-    d = d or {}
+    d = d if isinstance(d, dict) else {}
     out = {k: (d.get(k) or UNKNOWN) for k in STAGE2_TEXT_KEYS}
     out["reasoning"] = _coerce_reasoning(d.get("reasoning"))
     out["sources"] = _coerce_sources(d.get("sources"))
@@ -121,7 +121,7 @@ def coerce_stage2_answer(d):
 
 
 def _coerce_momentum(x):
-    x = x or {}
+    x = x if isinstance(x, dict) else {}  # a truthy-but-wrong type (str/list) must not crash .get
     return {"direction": x.get("direction") or UNKNOWN, "magnitude": x.get("magnitude") or UNKNOWN}
 
 
@@ -134,12 +134,14 @@ def coerce_company_data(d, origin="unknown"):
     data honestly (real data is NOT shown as 'placeholder'). Extra provenance keys (e.g.
     `_sources`) are added by the caller, not here.
     """
-    d = d or {}
-    la = d.get("layer_a") or {}
-    lb = d.get("layer_b") or {}
-    mom = lb.get("momentum") or {}
-    ai = lb.get("digital_ai_signal") or {}
-    conf = lb.get("conflicting_signals") or {}
+    # isinstance guards (not `x or {}`): a truthy-but-wrong type — e.g. an uploaded JSON with
+    # layer_a as a bare string or momentum as a list — must coerce to "unknown", never crash .get.
+    d = d if isinstance(d, dict) else {}
+    la = d.get("layer_a") if isinstance(d.get("layer_a"), dict) else {}
+    lb = d.get("layer_b") if isinstance(d.get("layer_b"), dict) else {}
+    mom = lb.get("momentum") if isinstance(lb.get("momentum"), dict) else {}
+    ai = lb.get("digital_ai_signal") if isinstance(lb.get("digital_ai_signal"), dict) else {}
+    conf = lb.get("conflicting_signals") if isinstance(lb.get("conflicting_signals"), dict) else {}
     out = {
         "company": d.get("company") or UNKNOWN,
         "ticker": d.get("ticker") or UNKNOWN,

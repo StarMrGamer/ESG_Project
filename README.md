@@ -156,7 +156,8 @@ streamlit run app.py
 |---|---|---|---|
 | `DEEPSEEK_API_KEY` | yes | — | Your DeepSeek key. Read from env only, never hard-coded. |
 | `DEEPSEEK_MODEL` | no | `deepseek-v4-flash` | Override the model, e.g. `deepseek-chat`. |
-| `ESG_HTTP_TIMEOUT` | no | `8` | Per-request fetch timeout (seconds) for live retrieval. |
+| `ESG_HTTP_TIMEOUT` | no | `10` | Per-request fetch timeout (seconds) for live retrieval. |
+| `ESG_LLM_TIMEOUT` | no | `30` | Per-request LLM timeout (seconds); stops a stalled endpoint hanging the UI. |
 | `ESG_RAG_TOP_K` | no | `5` | How many retrieved snippets to ground the reasoning. |
 | `ESG_RAG_MAX_DOCS` | no | `12` | Max documents fetched per query. |
 | `ESG_RAG_TTL` | no | `21600` | Retrieval cache lifetime (seconds; default 6h). |

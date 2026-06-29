@@ -25,6 +25,24 @@ DO NOT edit without sign-off (frozen contract surface).
 import json
 import os
 
+
+def _env_float(name, default):
+    """Read a float env var, falling back to `default` on a missing OR non-numeric value.
+    A typo'd tunable (e.g. ESG_HTTP_TIMEOUT='8s') must never crash `import core`."""
+    try:
+        return float(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return float(default)
+
+
+def _env_int(name, default):
+    """Read an int env var, falling back to `default` on a missing OR non-numeric value."""
+    try:
+        return int(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return int(default)
+
+
 # --------------------------------------------------------------------------- #
 #  CONFIG
 # --------------------------------------------------------------------------- #
@@ -35,7 +53,10 @@ MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
 MAX_QUESTIONS = 5  # Stage 1 interrogation cap.
 
 # --- live-fetch / RAG config (rule 1 now permits live retrieval via http_get) ----------- #
-HTTP_TIMEOUT = float(os.environ.get("ESG_HTTP_TIMEOUT", "10"))  # per-request seconds
+HTTP_TIMEOUT = _env_float("ESG_HTTP_TIMEOUT", 10)  # per-request seconds (default 10s)
+# Synchronous LLM calls run inside the Streamlit script-run; cap them so a stalled endpoint
+# can't freeze the UI for the SDK default (~600s × retries). Tunable via ESG_LLM_TIMEOUT.
+LLM_TIMEOUT = _env_float("ESG_LLM_TIMEOUT", 30)
 USER_AGENT = os.environ.get(
     "ESG_USER_AGENT",
     "ASEAN-ESG-Momentum-Radar/1.0 (research demo; live ESG context retrieval)",
@@ -84,7 +105,9 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
         )
     from openai import OpenAI  # lazy import: non-LLM paths (e.g. selftest) need no SDK.
 
-    client = OpenAI(api_key=api_key, base_url=BASE_URL)
+    # timeout + max_retries=0 so a connected-but-stalled endpoint degrades quickly (callers catch
+    # and fall back) instead of hanging the Streamlit run for the SDK default (~600s × 2 retries).
+    client = OpenAI(api_key=api_key, base_url=BASE_URL, timeout=LLM_TIMEOUT, max_retries=0)
     kwargs = dict(
         model=MODEL,
         max_tokens=max_tokens,
@@ -166,14 +189,51 @@ def http_get(url, *, params=None, headers=None, timeout=None, retries=1):
 # --------------------------------------------------------------------------- #
 #  DEFENSIVE JSON PARSE  (DeepSeek sometimes wraps JSON in prose — rule 6)
 # --------------------------------------------------------------------------- #
+def _extract_json_object(s):
+    """First BALANCED {...} block in s, scanning with a brace-depth counter that respects JSON
+    strings/escapes. So braces or ``` fences inside a string VALUE are preserved, and trailing
+    prose after the object (which may itself contain a '}') is ignored. None if no object."""
+    start = s.find("{")
+    if start < 0:
+        return None
+    depth, in_str, esc = 0, False, False
+    for i in range(start, len(s)):
+        ch = s[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+        elif ch == '"':
+            in_str = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return s[start:i + 1]
+    return None
+
+
 def parse_json(raw):
     """Best-effort parse of a model response into a dict.
 
-    Strips ``` fences, slices the outermost {...}, and json.loads it.
-    Returns a dict, or None if nothing parseable is found (caller decides the fallback).
+    Extracts the first balanced {...} object (so a code fence inside a string value isn't stripped,
+    and trailing prose with a stray '}' can't defeat the parse), then json.loads it. Falls back to
+    the legacy fence-strip + outermost slice. Returns a dict, or None if nothing parseable is found.
     """
     if not raw:
         return None
+    block = _extract_json_object(raw)
+    if block is not None:
+        try:
+            obj = json.loads(block)
+            if isinstance(obj, dict):
+                return obj
+        except json.JSONDecodeError:
+            pass
     cleaned = raw.strip().replace("```json", "").replace("```", "").strip()
     try:
         start, end = cleaned.index("{"), cleaned.rindex("}") + 1

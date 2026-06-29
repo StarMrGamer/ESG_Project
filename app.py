@@ -113,6 +113,8 @@ hr,[data-testid="stDivider"]{border-color:var(--esgd-line) !important;}
 [data-testid="stChatInput"] [data-baseweb="textarea"]{background:var(--esgd-panel) !important;}
 [data-testid="stChatInput"] textarea{background:var(--esgd-panel) !important;
   color:var(--esgd-fg) !important;-webkit-text-fill-color:var(--esgd-fg) !important;}
+[data-testid="stChatInput"] textarea::placeholder{
+  color:#9AA6B2 !important;-webkit-text-fill-color:#9AA6B2 !important;}
 [data-testid="stFileUploaderDropzone"]{background:var(--esgd-panel) !important;}
 /* metrics */
 [data-testid="stMetric"]{background:var(--esgd-panel);border:1px solid var(--esgd-line);
@@ -133,11 +135,38 @@ code, pre{background:#11151D !important;color:#E6EAF1 !important;}
 </style>
 """
 
+# Light-mode contrast overrides — ensure WCAG 4.5:1 on the white Streamlit canvas.
+# The cc-* dark panels are always dark regardless of theme; these fix elements that
+# render directly on the white canvas (title metadata, bar chart labels, captions).
+_LIGHT_CSS = """
+<style>
+/* Only override elements that sit directly on the white Streamlit canvas.
+   cc-pill / cc-card / cc-hwwrap / cc-sigwrap / cc-panel-body always have background:#16203a
+   (dark navy) — their text colours are set by _CC_CSS with !important and must NOT be
+   overridden here, or you get dark text on a dark card background. */
+[data-testid="stAppViewContainer"]{background:#f3f4f6 !important;}
+[data-testid="stMain"]{background:#f3f4f6 !important;}
+.cc-sub2{color:#374151 !important;}
+.cc-desc{color:#374151 !important;}
+.cc-h{color:#065f46 !important;}
+.cc-muted{color:#4b5563 !important;}
+/* .cc-muted ALSO appears inside the always-dark navy cards (.cc-card/.cc-pill/.cc-class/…).
+   Re-assert a light muted there (more specific than the bare rule above) so the canvas override
+   can't turn it dark-on-dark — keeps WCAG contrast in light mode. */
+.cc-card .cc-muted,.cc-pill .cc-muted,.cc-class .cc-muted,.cc-hwwrap .cc-muted,
+.cc-sigwrap .cc-muted,.cc-panel-body .cc-muted{color:#8aa0b8 !important;}
+[data-testid="stChatInput"] textarea::placeholder{
+  color:#4b5563 !important;-webkit-text-fill-color:#4b5563 !important;}
+</style>
+"""
+
 
 def _inject_theme(theme):
     st.markdown(_BASE_CSS, unsafe_allow_html=True)  # base fixes apply in both themes
     if theme == "dark":
         st.markdown(_DARK_CSS, unsafe_allow_html=True)
+    else:
+        st.markdown(_LIGHT_CSS, unsafe_allow_html=True)
 
 
 # --------------------------------------------------------------------------- #
@@ -163,12 +192,14 @@ def _stepper(ss):
     st.markdown("  →  ".join(cells))
 
 
-_ORIGIN_BADGE = {"live": "🌐 Live (fetched)", "upload": "📤 Uploaded", "sample": "🧪 Sample"}
+_ORIGIN_BADGE = {"live": "🌐 Live (fetched)", "upload": "📤 Uploaded", "sample": "🧪 Sample",
+                 "dataset": "🗃️ Dataset"}
 _ORIGIN_DISCLAIMER = {
     "live": "Built live from public sources — fields not found are shown as “unknown”, never "
             "invented. Not investment advice.",
     "upload": "Built from your uploaded data. Not investment advice.",
     "sample": "⚠️ Illustrative sample — placeholder data, not real facts about any real company.",
+    "dataset": "Built from pre-scored local dataset values (not a live fetch). Not investment advice.",
 }
 
 
@@ -189,108 +220,6 @@ def _company_header(company):
         if company.get("_build_error"):
             msg += f"\n\n↳ retrieval reason: _{company['_build_error']}_"
         st.warning(msg)
-
-
-def _blank_if_unknown(v):
-    return "" if (v is None or str(v).strip().lower() in ("", "unknown")) else str(v)
-
-
-def _needs_confirmation(company):
-    """True when the live build is unsure about IDENTITY — so we ask the user to confirm
-    instead of silently carrying 'unknown' into the interrogation."""
-    def unsure(v):
-        return v is None or str(v).strip().lower() in ("", "unknown")
-    return (unsure(company.get("company")) or unsure(company.get("sector"))
-            or company.get("_build_status") in ("thin", "offline"))
-
-
-def _begin_live(ss, text):
-    """Identify + build a live company from the user's text. If the build is confident, hand
-    it straight to Stage 1; if not, stash it as a draft and ask the user to confirm."""
-    try:
-        with st.spinner("🌐 Identifying the company and building a live ESG profile…"):
-            company, _meta = datasource.build_live_company(
-                text, use_rag=bool(ss.get("rag_enabled", True)), k=int(ss.get("rag_top_k", 5))
-            )
-    except core.LLMConfigError as e:
-        st.error(str(e))
-        return
-    except Exception as e:  # noqa: BLE001 — keep a live flop friendly.
-        st.warning("⚠️ Couldn't build a live profile just now — usually a network blip or a "
-                   "wrong model name (try setting DEEPSEEK_MODEL).")
-        with st.expander("Details"):
-            st.code(f"{type(e).__name__}: {e}")
-        return
-    if _needs_confirmation(company):
-        ss.company_draft = company       # park it; the confirm panel will commit it
-        ss.live_question = text
-    else:
-        ss.company = company
-        ss.pending_user_input = text     # Stage 1 narrows this as the first turn
-    st.rerun()
-
-
-def _confirm_company_panel(ss):
-    """Low-confidence live build → let the user confirm/correct identity before Stage 1."""
-    draft = ss.company_draft
-    st.subheader("🔎 Confirm the company")
-    st.caption("I fetched what I could but wasn't fully sure about some details — confirm or "
-               "correct them so the interrogation is anchored to the right company and sector. "
-               "Leave a box blank only if it's genuinely unknown.")
-    name = st.text_input("Company", value=_blank_if_unknown(draft.get("company")),
-                         placeholder="e.g. DBS Bank Ltd")
-    c1, c2 = st.columns(2)
-    ticker = c1.text_input("Ticker", value=_blank_if_unknown(draft.get("ticker")),
-                           placeholder="e.g. SGX:D05")
-    sector = c2.text_input("Sector", value=_blank_if_unknown(draft.get("sector")),
-                           placeholder="e.g. Financials — Banks")
-    srcs = draft.get("_sources") or []
-    if srcs:
-        with st.expander(f"🔗 What I found ({len(srcs)} source(s))"):
-            for s in srcs[:6]:
-                t, u = (s.get("title") or s.get("url") or "source"), (s.get("url") or "")
-                st.markdown(f"- [{t}]({u})" if u else f"- {t}")
-    go, cancel = st.columns([3, 1])
-    if go.button("Confirm & interrogate →", type="primary", use_container_width=True):
-        draft["company"] = name.strip() or "unknown"
-        draft["ticker"] = ticker.strip() or "unknown"
-        draft["sector"] = sector.strip() or "unknown"
-        ss.company = draft
-        ss.pending_user_input = ss.get("live_question") or draft["company"]
-        ss.pop("company_draft", None)
-        ss.pop("live_question", None)
-        st.rerun()
-    if cancel.button("↺ Cancel", use_container_width=True):
-        ss.pop("company_draft", None)
-        ss.pop("live_question", None)
-        st.rerun()
-
-
-def _start_panel(ss):
-    """Shown before a company is loaded: live-chat entry (or a nudge to upload)."""
-    mode = ss.get("data_mode", "live")
-    if mode == "upload":
-        st.subheader("📤 Upload your ESG data")
-        st.write("Use the **uploader in the sidebar** (`.json`, `.csv`, or `.txt`). Once it "
-                 "loads, ask your question here.")
-        st.caption("`.json` is used as-is (a template is in the sidebar). `.csv`/`.txt` are "
-                   "read by the AI — grounded only in your file.")
-        return
-
-    st.subheader("Start an analysis")
-    st.write("Tell the radar what you want to invest in or understand. It identifies the "
-             "company, builds a **live** ESG profile from public sources, then interrogates "
-             "your question.")
-    examples = ["I want to invest in Nvidia",
-                "Is Tesla a sustainable buy?",
-                "Should I worry about DBS Bank's governance?"]
-    cols = st.columns(len(examples))
-    for i, ex in enumerate(examples):
-        if cols[i].button(ex, key=f"ex_{i}", use_container_width=True):
-            _begin_live(ss, ex)
-    txt = st.chat_input("e.g. “I want to invest in Nvidia”")
-    if txt:
-        _begin_live(ss, txt)
 
 
 def _run_stage2(ss, nq, company):
@@ -350,6 +279,7 @@ def _reset(ss):
     ss.pop("skip_interrogation", None)
     ss.view = "dashboard"
     ss.active_ticker = None
+    ss.compare_tickers = []
     st.rerun()
 
 
@@ -394,13 +324,9 @@ def _known(v):
     return bool(v) and str(v).strip().lower() not in ("", "unknown")
 
 
-def _snap_line(snap):
-    """One-line at-a-glance card summary: band+rating · E·S·G arrows · red flags · coverage."""
-    rating = snap.get("rating") if _known(snap.get("rating")) else "no rating yet"
-    ar = snap.get("arrows", {})
-    cov = f'{snap.get("coverage", 0)}/{snap.get("coverage_total", 10)}'
-    return (f'{_band_emoji(snap)} **{rating}**  ·  E{ar.get("E","·")} S{ar.get("S","·")} '
-            f'G{ar.get("G","·")}  ·  🚩 {snap.get("red_flags", 0)}  ·  ▣ {cov}')
+def _is_simplified(ss):
+    """True in Simplified view (plain-language); False in In-Depth (full analyst view). [1.1]"""
+    return ss.get("ui_mode", "Simplified") == "Simplified"
 
 
 def _pin(ss, company):
@@ -448,8 +374,10 @@ def _ensure_snapshot(ss, constituent):
     if tk in ss.snapshots:
         return tk
     if metrics.has_numbers([constituent]):
+        # demo = illustrative "sample"; real pre-scored numbers = "dataset" (locally computed, NOT
+        # a live fetch) — never label a no-network numeric build "live (fetched from public sources)".
         company = datasource.company_from_numeric(
-            constituent, origin="sample" if ss.get("demo_mode") else "live")
+            constituent, origin="sample" if ss.get("demo_mode") else "dataset")
         return _pin(ss, company)
     return _build_and_pin_constituent(ss, constituent)
 
@@ -491,28 +419,22 @@ def _add_live_company(ss, text):
     return _pin(ss, company), None
 
 
-def _add_from_text(ss, text):
-    """Chatbot 'add a stock' path: resolve free text onto an ASEAN constituent, build, pin."""
-    c = universe.resolve(text)
-    if not c:
-        st.warning(f"“{text.strip()}” isn't in the ASEAN universe (52 ESG improvers). Try a name "
-                   "or ticker like **DBS**, **BCA**, **PTT**, **Maybank** — or browse the grid below.")
-        return
-    if (c.get("ticker") or c.get("id")) in ss.snapshots:
-        st.info(f"📌 **{c['company']}** is already on your board.")
-        return
-    tk = _build_and_pin_constituent(ss, c)
-    if tk:
-        st.success(f"📌 Now monitoring **{c['company']}** ({c['ticker']}). Open it for the deep dive.")
-
-
 def _default_nq(company):
-    """A sensible default NarrowedQuestion so a deep dive can 'compete' without interrogation."""
+    """A sensible default NarrowedQuestion so a deep dive can 'compete' without interrogation.
+
+    The '2019–2023 improvement' clause is grounded ONLY for the foundation-basket constituents
+    (selected for that very trend; they carry a `_constituent_ticker`). For arbitrary live-added or
+    uploaded names we must NOT assert an unverified trend (HARD RULE 2) — frame it generically."""
     name = company.get("company", "this company")
+    grounded = _known(company.get("_constituent_ticker"))
+    if grounded:
+        q = (f"Is {name}'s ESG profile as solid as its static rating and 2019–2023 improvement "
+             "imply, once you weigh the live AI / news / behaviour signals the rating can't see?")
+    else:
+        q = (f"Is {name}'s ESG profile as solid as its static rating implies, once you weigh the "
+             "live AI / news / behaviour signals the rating can't see?")
     return contracts.coerce_narrowed_question({
-        "narrowed_question": (f"Is {name}'s ESG profile as solid as its static rating and "
-                              "2019–2023 improvement imply, once you weigh the live AI / news / "
-                              "behaviour signals the rating can't see?"),
+        "narrowed_question": q,
         "mandate": "risk",
         "sector": company.get("sector", "unknown"),
         "horizon": "near_term",
@@ -555,97 +477,71 @@ def _render_snapshot_metrics(snap):
                    help="How many of the 10 monitored signals are actually grounded.")
 
 
-def _render_monitored_board(ss):
-    """The ⭐ Monitored watchlist — chatbot-added cards, click to deep-dive."""
-    st.markdown(f"#### ⭐ Monitored  ·  {len(ss.watchlist)} compan"
-                f"{'y' if len(ss.watchlist) == 1 else 'ies'}")
-    if not ss.watchlist:
-        st.info("Nothing monitored yet — add a company via the chat above, or **➕ Monitor** one "
-                "from the ASEAN universe below.")
-        return
-    ncol = 3
-    tickers = list(ss.watchlist)
-    for i in range(0, len(tickers), ncol):
-        cols = st.columns(ncol)
-        for j, tk in enumerate(tickers[i:i + ncol]):
-            with cols[j]:
-                with st.container(border=True):
-                    entry = ss.snapshots.get(tk)
-                    if entry:
-                        snap = entry["snap"]
-                        st.markdown(f"**{snap['company']}**")
-                        st.caption(f"`{snap['ticker']}` · {snap.get('country','—')} · {snap.get('sector','—')}")
-                        st.markdown(_snap_line(snap))
-                        b1, b2, b3 = st.columns([3, 2, 1])
-                        if b1.button("🔬 Deep dive", key=f"mdd_{tk}", use_container_width=True,
-                                     type="primary"):
-                            _open_deep_dive(ss, tk)
-                        if b2.button("🔄", key=f"mrf_{tk}", use_container_width=True,
-                                     help="Rebuild the live snapshot"):
-                            c = universe.get(tk)
-                            if c:
-                                _build_and_pin_constituent(ss, c)
-                            st.rerun()
-                        if b3.button("✕", key=f"mun_{tk}", use_container_width=True,
-                                     help="Stop monitoring"):
-                            _unpin(ss, tk)
-                            st.rerun()
-                    else:  # pinned (persisted from disk) but not built this session
-                        c = universe.get(tk)
-                        st.markdown(f"**{(c or {}).get('company', tk)}**")
-                        st.caption(f"`{tk}` · 📌 pinned — snapshot not built yet")
-                        b1, b2 = st.columns([3, 1])
-                        if b1.button("⛏️ Build snapshot", key=f"bld_{tk}", use_container_width=True,
-                                     type="primary", disabled=c is None):
-                            if c:
-                                _build_and_pin_constituent(ss, c)
-                            st.rerun()
-                        if b2.button("✕", key=f"pun_{tk}", use_container_width=True):
-                            _unpin(ss, tk)
-                            st.rerun()
-
-
 # --- command center: CSS + small helpers ----------------------------------- #
 _CC_CSS = """
 <style>
-.cc-title{font-size:30px;font-weight:800;color:#34d399;line-height:1.1;letter-spacing:.3px;}
-.cc-sub2{color:#8aa0b8;font-size:13px;margin-top:2px;}
-.cc-live{float:right;background:#123a2a;color:#34d399;border:1px solid #1f7a55;border-radius:20px;
-  padding:4px 14px;font-weight:700;font-size:13px;}
-.cc-h{color:#34d399;font-weight:700;font-size:15px;margin:2px 0 6px;}
+/* Header block */
+.cc-title{font-size:28px;font-weight:800;color:#34d399;line-height:1.1;letter-spacing:.3px;}
+.cc-sub2{color:#8aa0b8;font-size:13px;margin-top:4px;}
+.cc-desc{color:#9db4cc;font-size:13px;margin-top:7px;line-height:1.55;max-width:680px;}
+/* Mode badge — colours injected inline per mode */
+.cc-live{display:inline-block;border-radius:20px;padding:4px 14px;font-weight:700;font-size:13px;
+  float:right;margin-top:4px;}
+/* Section headings */
+.cc-h{color:#34d399;font-weight:700;font-size:15px;margin:0 0 6px;}
 .cc-muted{color:#8aa0b8;font-size:12px;margin-top:4px;}
-.cc-card,.cc-pill{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
+/* Generic card + KPI pill */
+.cc-card{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
   padding:12px 14px;margin-bottom:10px;}
-.cc-pill{min-height:104px;}
+.cc-pill{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
+  padding:12px 14px;margin-bottom:10px;}
 .cc-pill.cc-fast{border:2px solid #f59e0b;}
-.cc-pill-h{color:#aab6c6;font-size:13px;}
-.cc-big{font-size:32px;font-weight:800;line-height:1.15;margin-top:2px;}
+/* KPI label: visually small, uppercase, clearly subordinate */
+.cc-pill-h{color:#aab6c6 !important;font-size:11px !important;text-transform:uppercase !important;letter-spacing:.6px;margin-bottom:4px;}
+/* KPI big number: dominant */
+.cc-big{font-size:34px !important;font-weight:800;line-height:1.1;margin:0;}
 .cc-pill.cc-fast .cc-big{color:#f59e0b !important;}
+/* Colour semantics */
 .cc-pos{color:#34d399;} .cc-neg{color:#f87171;} .cc-flat{color:#e6eaf1;} .cc-warn{color:#f59e0b;}
-.cc-pill-sub{color:#8aa0b8;font-size:12px;margin-top:4px;}
-.cc-hwwrap{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;}
-.cc-hw{display:flex;align-items:center;gap:8px;margin:7px 0;}
-.cc-hw-name{flex:0 0 38%;color:#e6eaf1;font-size:13px;font-weight:600;white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis;}
+/* KPI sub-caption */
+.cc-pill-sub{color:#8aa0b8 !important;font-size:11px !important;margin-top:6px;}
+/* Horizontal bar chart */
+.cc-hwwrap{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;}
+.cc-hw{display:flex;align-items:center;gap:8px;margin:6px 0;min-height:22px;}
+/* Name column: wider + right-aligned so all bars start at the same left edge */
+.cc-hw-name{flex:0 0 46%;text-align:right;padding-right:10px;color:#e6eaf1;font-size:12.5px;
+  font-weight:600;white-space:normal;word-break:break-word;line-height:1.3;}
 .cc-new{background:#1f7a55;color:#d6ffe9;font-style:normal;font-size:10px;padding:1px 5px;
-  border-radius:6px;margin-left:5px;}
+  border-radius:6px;margin-left:5px;white-space:nowrap;}
 .cc-hw-track{flex:1;background:rgba(255,255,255,.08);border-radius:6px;height:13px;overflow:hidden;}
 .cc-hw-fill{height:13px;border-radius:6px;}
-.cc-hw-fill.cc-pos{background:#34d399;} .cc-hw-fill.cc-neg{background:#f87171;}
-.cc-hw-val{flex:0 0 48px;text-align:right;font-size:13px;font-weight:700;}
+/* Bar tier colours: green 80+, amber 60-79, blue <60 */
+.cc-hw-fill.cc-pos{background:#34d399;}
+.cc-hw-fill.cc-neg{background:#f87171;}
+.cc-hw-fill.cc-tier-mid{background:#f59e0b;}
+.cc-hw-fill.cc-tier-low{background:#60a5fa;}
+.cc-hw-val{flex:0 0 52px;text-align:right;font-size:13px;font-weight:700;}
+/* Classification box */
 .cc-class{border-radius:14px;padding:12px 16px;margin-top:6px;border-left:5px solid #34d399;}
 .cc-class-good{background:#10301f;border-left-color:#34d399;}
 .cc-class-bad{background:#3a1414;border-left-color:#f87171;}
 .cc-class-neutral{background:#16203a;border-left-color:#60a5fa;}
 .cc-class-h{font-size:15px;color:#cbd6e2;font-weight:600;}
 .cc-class-h b{color:#f59e0b;font-size:17px;letter-spacing:.5px;}
-.cc-class-line{color:#cdd8e4;font-size:13px;margin-top:5px;line-height:1.45;}
+.cc-class-line{color:#cdd8e4;font-size:13px;margin-top:8px;line-height:1.5;}
+/* Credential chips inside classification */
+.cc-chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 4px;}
+.cc-chip{display:inline-block;background:rgba(255,255,255,.1);color:#cbd6e2;
+  font-size:11px;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+/* Live-signal rows */
 .cc-sigwrap{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px 14px;}
 .cc-sig{display:flex;justify-content:space-between;align-items:center;padding:8px 0;
   border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:#cbd6e2;}
 .cc-sig:last-child{border-bottom:0;} .cc-sig b{font-size:14px;}
+/* "Why the rating may be wrong" prose panel */
 .cc-panel-body{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
-  padding:12px 14px;color:#cdd8e4;font-size:13px;line-height:1.5;}
+  padding:12px 14px;color:#cdd8e4;font-size:13px;line-height:1.6;}
+/* Chat bubbles */
 .cc-bubble{border-radius:10px;padding:7px 11px;margin:5px 0;font-size:13px;line-height:1.4;}
 .cc-bubble-u{background:#16203a;color:#cbd6e2;border:1px solid rgba(255,255,255,.08);}
 .cc-bubble-a{background:#241a44;color:#e7defc;border:1px solid #5b46a8;}
@@ -791,8 +687,7 @@ def _chat_act(ss, text, path):
     comp = universe.resolve(t, path)
     explicit = low.startswith(("add ", "monitor ", "track ", "watch ", "focus ", "show me "))
     if comp and (explicit or not bits):
-        ss.focus_ticker = comp["ticker"]
-        comp["_new"] = True
+        ss.focus_ticker = comp["ticker"]  # the "new" badge is derived from this, not a cache mutation
         peers = [c for c in universe.constituents(path) if c["sector"] == comp["sector"]]
         avg, _ = metrics.average_esg(peers)
         d = metrics.num((comp.get("momentum") or {}).get("digital_ai"))
@@ -862,9 +757,12 @@ def _why_wrong(focused):
 
 
 # --- command center: panels ------------------------------------------------- #
-def _render_pillars(filtered):
-    cols = st.columns(4)
-    for col, p in zip(cols, metrics.pillar_momentum(filtered)):
+def _render_pillars(filtered, include_social=True):
+    rows = metrics.pillar_momentum(filtered)
+    if not include_social:  # [3.4] the Social card surfaces only in In-Depth mode
+        rows = [r for r in rows if r["key"] != "social"]
+    cols = st.columns(len(rows) or 1)
+    for col, p in zip(cols, rows):
         cls = "cc-pill cc-fast" if p["fast"] else "cc-pill"
         col.markdown(
             f'<div class="{cls}"><div class="cc-pill-h">{_esc(p["label"])}</div>'
@@ -902,8 +800,8 @@ def _render_momentum_chart(ss, filtered):
         st.line_chart({metrics.PILLAR_LABEL[k]: v for k, v in series.items()}, height=240)
 
 
-def _render_hidden_winners(filtered):
-    hw, peer, _ = metrics.hidden_winners(filtered, top_n=5)
+def _render_hidden_winners(filtered, new_tickers=()):
+    hw, peer, _ = metrics.hidden_winners(filtered, top_n=5, new_tickers=new_tickers)
     st.markdown('<div class="cc-h">Hidden winners vs peer avg</div>'
                 f'<div class="cc-muted">{len(filtered)} companies · avg ESG '
                 f'{peer if peer is not None else "—"}</div>', unsafe_allow_html=True)
@@ -924,13 +822,21 @@ def _render_hidden_winners(filtered):
                 unsafe_allow_html=True)
 
 
-def _render_classification(focused, cls=None):
+def _render_classification(focused, cls=None, creds=None):
     cls = cls or metrics.classify(focused or {})
     tone = {"good": "cc-class-good", "bad": "cc-class-bad", "neutral": "cc-class-neutral"}[cls["tone"]]
+    chips_html = ""
+    if creds:
+        chips = "".join(
+            f'<span class="cc-chip">{_esc(cr["label"])} {_esc(cr["value"])}</span>'
+            for cr in creds[:5])
+        if chips:
+            chips_html = f'<div class="cc-chips">{chips}</div>'
     st.markdown(
         f'<div class="cc-class {tone}"><div class="cc-class-h">Classification &nbsp; '
         f'<b>{_esc(cls["label"])}</b> &nbsp;<span class="cc-muted">· '
         f'{_esc((focused or {}).get("company", "—"))}</span></div>'
+        f'{chips_html}'
         f'<div class="cc-class-line">{_esc(cls["line"])}</div></div>', unsafe_allow_html=True)
 
 
@@ -968,8 +874,13 @@ def _render_coverage_cards(filtered):
             unsafe_allow_html=True)
 
 
-def _render_bars(title, subtitle, rows, *, maxabs, suffix="", footer=""):
-    """Shared horizontal-bar panel (hidden winners / evidence leaders)."""
+def _render_bars(title, subtitle, rows, *, maxabs, suffix="", footer="", tier=False):
+    """Shared horizontal-bar panel (hidden winners / evidence leaders).
+
+    tier=True: color bars by score band (80+ green, 60–79 amber, <60 blue) instead of
+    positive/negative. Used for evidence-leader scores where all values are positive.
+    Names are never truncated — the column right-aligns so bars always start at the same x.
+    """
     st.markdown(f'<div class="cc-h">{_esc(title)}</div><div class="cc-muted">{_esc(subtitle)}</div>',
                 unsafe_allow_html=True)
     if not rows:
@@ -980,10 +891,16 @@ def _render_bars(title, subtitle, rows, *, maxabs, suffix="", footer=""):
     for r in rows:
         w = max(4, int(abs(r["value"]) / maxabs * 100))
         sign = "cc-pos" if r["value"] >= 0 else "cc-neg"
+        if tier:
+            bar_cls = ("cc-pos" if r["value"] >= 80
+                       else "cc-tier-mid" if r["value"] >= 60
+                       else "cc-tier-low")
+        else:
+            bar_cls = sign
         new = '<em class="cc-new">new</em>' if r.get("is_new") else ""
         val = metrics.fmt_pct(r["value"]) if suffix == "%" else f'{r["value"]}{suffix}'
         out.append(f'<div class="cc-hw"><div class="cc-hw-name">{_esc(r["company"])}{new}</div>'
-                   f'<div class="cc-hw-track"><div class="cc-hw-fill {sign}" style="width:{w}%"></div></div>'
+                   f'<div class="cc-hw-track"><div class="cc-hw-fill {bar_cls}" style="width:{w}%"></div></div>'
                    f'<div class="cc-hw-val {sign}">{_esc(val)}</div></div>')
     st.markdown('<div class="cc-hwwrap">' + "".join(out) + "</div>"
                 + (f'<div class="cc-muted">{_esc(footer)}</div>' if footer else ""),
@@ -1028,11 +945,29 @@ def _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode):
 
     st.markdown('<div class="cc-h">⭐ Monitored</div>', unsafe_allow_html=True)
     if ss.watchlist:
+        compare = set(ss.get("compare_tickers", []))
+        cmp_valid = [tk for tk in compare if tk in ss.snapshots]
+        # Entry point into the side-by-side Compare view (≥2 built snapshots selected via ⊕ below).
+        if len(cmp_valid) >= 2:
+            if st.button(f"⚖️ Compare {len(cmp_valid)} →", key="cc_compare_go",
+                         type="primary", use_container_width=True):
+                ss.compare_tickers = cmp_valid
+                ss.view = "compare"
+                st.rerun()
+        elif compare:
+            st.caption("Select 1 more built company to compare.")
         for tk in ss.watchlist:
             e = ss.snapshots.get(tk)
             name = e["snap"]["company"] if e else ((universe.get(tk, path) or {}).get("company") or tk)
-            label = f"🔬 {name}" if e else f"⛏️ {name}"
-            if st.button(label, key=f"cclm_{tk}", use_container_width=True):
+            if e:
+                # Append band indicator if meaningful (avoids showing "⚪" for unknowns)
+                bemo = _band_emoji(e["snap"])
+                suffix = f" {bemo}" if bemo != "⚪" else ""
+                label = f"⭐ {name}{suffix}"
+            else:
+                label = f"📌 {name}"
+            col_open, col_cmp = st.columns([5, 1])
+            if col_open.button(label, key=f"cclm_{tk}", use_container_width=True):
                 if e:
                     _open_deep_dive(ss, tk)
                 else:
@@ -1040,12 +975,24 @@ def _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode):
                     if c:
                         _build_and_pin_constituent(ss, c)
                     st.rerun()
+            if e:  # the comparison needs a built snapshot
+                in_cmp = tk in compare
+                if col_cmp.button("✓" if in_cmp else "⊕", key=f"cccmp_{tk}",
+                                  use_container_width=True,
+                                  type="primary" if in_cmp else "secondary",
+                                  help="Remove from comparison" if in_cmp else "Add to comparison"):
+                    compare.discard(tk) if in_cmp else compare.add(tk)
+                    ss.compare_tickers = list(compare)
+                    st.rerun()
+            else:
+                col_cmp.write("")
     else:
         st.caption("Nothing pinned yet — ask the assistant to *add* a company (real mode), or use "
                    "the browse panel below.")
 
 
 def _cc_center(ss, filtered, focused, mode):
+    nt = {ss.focus_ticker} if ss.get("focus_ticker") else set()  # the just-focused name -> "new" badge
     if mode == "evidence":
         _render_coverage_cards(filtered)
         st.write("")
@@ -1056,20 +1003,23 @@ def _cc_center(ss, filtered, focused, mode):
                        "news/behaviour) — not in the evidence set. **This is the radar's real edge** "
                        "once those signals are wired.")
         with c2:
-            leaders = metrics.evidence_leaders(filtered, top_n=5)
+            leaders = metrics.evidence_leaders(filtered, top_n=5, new_tickers=nt)
             mx = max((r["value"] for r in leaders), default=100)
-            _render_bars("ESG leaders (evidence)", f"{len(filtered)} companies · derived 0–100 score",
+            _render_bars("ESG leaders", f"{len(filtered)} companies · derived 0–100 score",
                          leaders, maxabs=mx, suffix="/100",
-                         footer="Score = ratings each name's evidence cites (MSCI/DJSI/CDP/FTSE4Good/…).")
-        _render_classification(focused, metrics.classify_evidence(focused or {}))
+                         footer="Score = ratings each name's evidence cites (MSCI/DJSI/CDP/FTSE4Good/…).",
+                         tier=True)
+        ep = metrics.evidence_profile(focused or {}) if (focused or {}).get("esg_basis") else {}
+        _render_classification(focused, metrics.classify_evidence(focused or {}),
+                               creds=ep.get("credentials", []))
     else:
-        _render_pillars(filtered)
+        _render_pillars(filtered, include_social=not _is_simplified(ss))  # [3.4]
         st.write("")
         c1, c2 = st.columns([1.15, 1], gap="medium")
         with c1:
             _render_momentum_chart(ss, filtered)
         with c2:
-            _render_hidden_winners(filtered)
+            _render_hidden_winners(filtered, new_tickers=nt)
         _render_classification(focused, metrics.classify(focused or {}))
 
 
@@ -1091,16 +1041,16 @@ def _cc_right(ss, filtered, focused, path, mode):
     # Two-mode hint row — run the 3-stage relay on the focused company without knowing keywords.
     ft = (focused or {}).get("ticker")
     fname = (focused or {}).get("company", "—")
-    st.caption(f"3-stage relay on **{fname}** →")
+    st.caption(f"Analyse **{fname}** →")
     h1, h2 = st.columns(2)
-    if h1.button("⚔️ Compete", key="cc_hint_compete", use_container_width=True, disabled=not ft,
-                 help="Skip straight to the competing read."):
+    if h1.button("Compete", key="cc_hint_compete", use_container_width=True, disabled=not ft,
+                 help="Skip to the competing read — Stage 2 + 3 run directly."):
         c = universe.get(ft, path) or focused
         tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
         if tk:
             _launch_relay(ss, tk, "compete")
-    if h2.button("🧠 Interrogate", key="cc_hint_interro", use_container_width=True, disabled=not ft,
-                 help="Ask adaptive ESG questions first, then compete."):
+    if h2.button("Interrogate", key="cc_hint_interro", use_container_width=True, disabled=not ft,
+                 help="Ask adaptive ESG questions first (Stage 1), then compete."):
         c = universe.get(ft, path) or focused
         tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
         if tk:
@@ -1164,6 +1114,75 @@ def _universe_cards(ss, filtered, path):
                         st.rerun()
 
 
+def _render_compare(ss):
+    """Side-by-side comparison of 2–4 monitored companies."""
+    st.markdown(_CC_CSS, unsafe_allow_html=True)
+    tickers = [tk for tk in ss.get("compare_tickers", []) if tk in ss.snapshots]
+
+    top = st.columns([1, 2, 3])
+    if top[0].button("← Dashboard", use_container_width=True):
+        ss.view = "dashboard"
+        ss.compare_tickers = []
+        st.rerun()
+    if top[1].button("⊕ Add more", use_container_width=True,
+                     help="Return to dashboard to select more companies"):
+        ss.view = "dashboard"
+        st.rerun()
+    top[2].markdown("### ⚖️ Side-by-side comparison")
+
+    if len(tickers) < 2:
+        st.warning("Select at least 2 monitored companies using **⊕ Cmp** on the monitored board.")
+        return
+
+    cols = st.columns(len(tickers))
+    for col, tk in zip(cols, tickers):
+        entry = ss.snapshots[tk]
+        snap = entry["snap"]
+        answer = entry.get("answer")
+        ar = snap.get("arrows", {})
+
+        with col:
+            with st.container(border=True):
+                st.markdown(f"**{snap['company']}**")
+                st.caption(f"`{snap['ticker']}` · {snap.get('country', '—')}")
+                st.caption(snap.get("sector", "—"))
+                st.divider()
+
+                st.metric("ESG rating",
+                          snap.get("rating") if _known(snap.get("rating")) else "—",
+                          help="Stale static rating — lower = better for a Sustainalytics risk score.")
+                st.metric("Risk band",
+                          f'{_band_emoji(snap)} {snap.get("band") or "—"}')
+                st.metric("E · S · G momentum",
+                          f'{ar.get("E", "·")} {ar.get("S", "·")} {ar.get("G", "·")}',
+                          help="▲ improving · — flat · ▼ declining · · unknown")
+                st.metric("🚩 Red flags", snap.get("red_flags", 0))
+                st.metric("Coverage",
+                          f'{snap.get("coverage", 0)}/{snap.get("coverage_total", 10)}',
+                          help="How many of the 10 monitored signals are grounded.")
+
+                st.divider()
+                if answer and answer.get("competes_summary"):
+                    st.caption("**Verdict**")
+                    st.markdown(
+                        f'<div class="cc-panel-body" style="font-size:12px;line-height:1.5;'
+                        f'max-height:120px;overflow-y:auto;">'
+                        f'{_esc(answer["competes_summary"])}</div>',
+                        unsafe_allow_html=True)
+                else:
+                    st.caption("No verdict yet — run a deep dive first.")
+
+                st.write("")
+                if st.button("🔬 Deep dive", key=f"cmpdd_{tk}",
+                             use_container_width=True, type="primary"):
+                    _open_deep_dive(ss, tk)
+                if st.button("✕ Remove", key=f"cmprm_{tk}", use_container_width=True):
+                    ss.compare_tickers = [t for t in tickers if t != tk]
+                    if len(ss.compare_tickers) < 2:
+                        ss.view = "dashboard"
+                    st.rerun()
+
+
 def _render_dashboard(ss):
     """The command-center home: filters · avg ESG · pillar momentum · hidden winners · AI assistant."""
     path = universe.active_file(bool(ss.get("demo_mode")))
@@ -1187,22 +1206,51 @@ def _render_dashboard(ss):
     n, ind = len(cons), len({c["sector"] for c in cons if c["sector"] != "unknown"})
     tag = ("· demo data" if ss.get("demo_mode") else
            "· evidence-based" if mode == "evidence" else "· live")
-    head_l, head_r = st.columns([4, 1])
-    head_l.markdown(f'<div class="cc-title">🛰️ ASEAN ESG Momentum Radar</div>'
-                    f'<div class="cc-sub2">{_esc(uni.get("as_of", ""))} · {n} listed companies · '
-                    f'{ind} industries {tag}</div>', unsafe_allow_html=True)
-    head_r.markdown('<div class="cc-live">● Live</div>', unsafe_allow_html=True)
+    # Mode badge: colour-coded so it earns its hue (amber = demo, blue = evidence, green = live)
     if ss.get("demo_mode"):
-        st.caption("🎛️ **Demo data** — fictional companies + invented numbers so the board is alive. "
-                   "Toggle it off in the sidebar to drive these panels from the real ASEAN base DB.")
+        badge_html = ('<div class="cc-live" style="color:#f59e0b;background:#2d200a;'
+                      'border:1px solid #b45309;">● Demo</div>')
     elif mode == "evidence":
-        st.caption("🔎 **Evidence mode** — the real 52. Avg ESG-leadership, leaders & classification "
-                   "are derived from the ratings each name's `esg_basis` actually cites "
-                   "(MSCI / DJSI / CDP / FTSE4Good / Sustainalytics) — grounded, not fabricated. "
-                   "Pillar momentum + live signals await the alt-data feed.")
-    elif mode == "empty":
-        st.caption("ℹ️ The real universe has no ESG evidence or numbers yet — add `esg_basis` or "
-                   "numeric fields to `data/asean_universe.json` and the panels light up.")
+        badge_html = ('<div class="cc-live" style="color:#60a5fa;background:#0d1f3c;'
+                      'border:1px solid #1e4a8a;">● Evidence</div>')
+    else:
+        badge_html = ('<div class="cc-live" style="color:#34d399;background:#123a2a;'
+                      'border:1px solid #1f7a55;">● Live</div>')
+    head_l, head_r = st.columns([4, 1])
+    # Single merged header block: title + metadata + one-line description
+    desc = ("Fictional companies — toggle off in the sidebar for the real ASEAN base DB."
+            if ss.get("demo_mode")
+            else ("Evidence mode: Avg ESG-leadership and classification derived from each name's "
+                  "documented credentials (MSCI/DJSI/CDP/FTSE4Good/Sustainalytics). "
+                  "Pillar momentum awaits the alt-data feed."
+                  if mode == "evidence"
+                  else "Monitors a basket of ASEAN ESG improvers and competes with their stale "
+                       "ratings — disagreeing with the live signal the rating can't see. "
+                       "Never says buy / sell / hold."))
+    head_l.markdown(
+        f'<div class="cc-title">🛰️ ASEAN ESG Momentum Radar</div>'
+        f'<div class="cc-sub2">{_esc(uni.get("as_of", ""))} · {n} listed companies · '
+        f'{ind} industries {tag}</div>'
+        f'<div class="cc-desc">{_esc(desc)}</div>',
+        unsafe_allow_html=True)
+    head_r.markdown(badge_html, unsafe_allow_html=True)
+
+    # [1.9] Universe banner — quarter · company count · Top N, derived from the active universe.
+    st.markdown(
+        '<div style="display:inline-block;background:#16203a;border:1px solid rgba(255,255,255,.08);'
+        'border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#cbd6e2;'
+        f'margin:4px 0 8px;">📍 {_esc(metrics.universe_banner(uni))}</div>',
+        unsafe_allow_html=True)
+
+    # Headline foundation-backtest figures — display only, with the data's own NOT-recomputed
+    # disclaimer (the figures refer to the team's original basket, not this reconstructed list).
+    bs = uni.get("benchmark_stats") or {}
+    if bs.get("basket_return") and not ss.get("demo_mode"):
+        st.caption(
+            f"📈 Foundation backtest (display only) — basket **{bs.get('basket_return', '—')}** vs "
+            f"{_esc(uni.get('benchmark', 'MSCI ASEAN'))} **{bs.get('benchmark_return', '—')}** · "
+            f"Sharpe {bs.get('basket_sharpe', '—')} vs {bs.get('benchmark_sharpe', '—')}.  \n"
+            f"_{_esc(bs.get('source', ''))}_")
 
     left, center, right = st.columns([1.15, 2.25, 1.4], gap="medium")
     with left:
@@ -1297,7 +1345,8 @@ _DEFAULTS = {
     "narrowed_q": None,
     "answer": None,
     # --- dashboard / monitoring state ---
-    "view": "dashboard",     # "dashboard" (home) | "deep_dive"
+    "view": "dashboard",     # "dashboard" (home) | "deep_dive" | "compare"
+    "compare_tickers": [],  # tickers selected for side-by-side comparison
     "active_ticker": None,   # which monitored company the deep dive is showing
     "watchlist": None,       # list of pinned tickers (loaded from disk on first run)
     "snapshots": {},         # ticker -> {"company": ContractB, "snap": {...}, "answer", "narrowed_q"}
@@ -1305,7 +1354,9 @@ _DEFAULTS = {
     "flt_sector": "All",
     "flt_search": "",
     # --- command-center state ---
-    "demo_mode": False,       # land on the REAL evidence-based universe; flip ON for the fictional numeric demo
+    "demo_mode": True,        # DEFAULT: the fictional, fully-numeric demo universe so the whole board is alive
+                              # (labelled illustrative). Toggle OFF for the real evidence-based ASEAN base DB.
+    "ui_mode": "Simplified",  # "Simplified" (plain-language, default) | "In-Depth" (full analyst view)
     "focus_ticker": None,    # the company featured in the classification / live-signals / why-wrong panels
     "chat_log": [],          # [{role, text}] for the right-rail AI assistant
     "pending_chat": None,    # a submitted chat line, applied at the TOP of the next run (before widgets)
@@ -1323,6 +1374,12 @@ with st.sidebar:
     st.markdown("### 🛰️ ESG Radar")
     st.caption("Control panel")
     st.toggle("🌗 Dark mode", key="dark_mode", help="Switch between light and dark.")
+
+    st.radio(
+        "View", ["Simplified", "In-Depth"], key="ui_mode", horizontal=True,
+        help="Simplified: plain-language cards + a simple assistant. "
+             "In-Depth: the full analyst view (all pillars, signals, sources).",
+    )
 
     st.divider()
     st.markdown("**Data source**")
@@ -1388,18 +1445,12 @@ with st.sidebar:
 
 _inject_theme("dark" if ss.get("dark_mode") else "light")
 
-# --- header ----------------------------------------------------------------- #
-st.title("🛰️ ASEAN ESG Momentum Radar")
-st.caption(
-    "Monitors a basket of ASEAN ESG improvers and competes with their stale ratings — "
-    "disagreeing with the live signal the rating can't see (AI adoption, news/behaviour, "
-    "real-time vs annual-report lag). It never says buy / sell / hold."
-)
-
-# --- router: the dashboard (home) or a single-company deep dive -------------- #
+# --- router ------------------------------------------------------------------- #
 if ss.view == "deep_dive" and ss.get("company") is not None:
     _stepper(ss)
     _render_deep_dive(ss)
+elif ss.view == "compare":
+    _render_compare(ss)
 else:
     ss.view = "dashboard"
     _render_dashboard(ss)

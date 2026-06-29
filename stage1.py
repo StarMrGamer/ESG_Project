@@ -164,7 +164,10 @@ def _clean_suggestions(val):
 def _envelope_defaults(env):
     """Apply Stage-1 envelope defaults to a parsed (or failed) response."""
     env = env or {}
-    env.setdefault("axis", None)
+    # axis must be a hashable string (or None): a malformed LLM axis (list/dict) would otherwise
+    # raise "TypeError: unhashable type" at `axis in AXES` / QUICK_REPLIES.get(axis) in the UI.
+    ax = env.get("axis")
+    env["axis"] = ax if isinstance(ax, str) else None
     env.setdefault("type", "question")
     env.setdefault("text", "")
     env.setdefault("rationale", "")  # CoT: short why-this-axis note (shown under the question)

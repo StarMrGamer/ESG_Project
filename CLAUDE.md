@@ -176,16 +176,17 @@ the **live sources**. Sophistication in how it thinks, simplicity in what it say
 
 ## TECH STACK & COMMANDS
 
-- Python 3.8+, Streamlit, OpenAI SDK (DeepSeek is OpenAI-compatible), `requests` (live fetch).
+- Python 3.8+, Streamlit, OpenAI SDK (DeepSeek is OpenAI-compatible), `requests` (live fetch),
+  `plotly` (interactive charts; guarded — the app degrades to a static fallback if it's absent).
 - LLM: **DeepSeek**, model `deepseek-v4-flash`, `base_url="https://api.deepseek.com"`,
   key from env `DEEPSEEK_API_KEY`. All LLM access goes through `core.call_llm()`.
 - RAG: keyless live fetch from DuckDuckGo (HTML/Lite search results + the Instant-Answer "AI"
   summary) via `core.http_get()`, ranked by a pure-Python TF-IDF retriever in `rag.py`. The
   agent INTERPRETS the AI summary; snippets carry real source URLs. Tunables (all optional):
-  `ESG_HTTP_TIMEOUT` (8s), `ESG_RAG_TOP_K` (5), `ESG_RAG_MAX_DOCS` (12), `ESG_RAG_TTL` (6h),
-  `ESG_USER_AGENT`. Results cache to `.cache/` (git-ignored).
+  `ESG_HTTP_TIMEOUT` (10s), `ESG_RAG_TOP_K` (5), `ESG_RAG_MAX_DOCS` (12), `ESG_RAG_TTL` (6h),
+  `ESG_LLM_TIMEOUT` (30s), `ESG_USER_AGENT`. Results cache to `.cache/` (git-ignored).
 ```bash
-pip install -r requirements.txt          # streamlit, openai, requests
+pip install -r requirements.txt          # streamlit, openai, requests, plotly
 export DEEPSEEK_API_KEY="sk-..."          # Windows: $env:DEEPSEEK_API_KEY="sk-..."
 streamlit run app.py
 python selftest.py                        # offline check — no key, no network

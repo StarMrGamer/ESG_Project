@@ -34,9 +34,10 @@ import core
 #  CONFIG
 # --------------------------------------------------------------------------- #
 CACHE_DIR = os.path.join(os.path.dirname(__file__), ".cache")
-CACHE_TTL = float(os.environ.get("ESG_RAG_TTL", str(60 * 60 * 6)))  # 6 hours
-DEFAULT_TOP_K = int(os.environ.get("ESG_RAG_TOP_K", "5"))
-MAX_DOCS = int(os.environ.get("ESG_RAG_MAX_DOCS", "12"))
+# guarded env parsing (core._env_*): a non-numeric tunable must not crash `import rag`.
+CACHE_TTL = core._env_float("ESG_RAG_TTL", 60 * 60 * 6)  # 6 hours
+DEFAULT_TOP_K = core._env_int("ESG_RAG_TOP_K", 5)
+MAX_DOCS = core._env_int("ESG_RAG_MAX_DOCS", 12)
 CHUNK_CHARS = 480
 CHUNK_OVERLAP = 80
 
@@ -243,6 +244,8 @@ def _fetch_ddg_instant(query):
         data = json.loads(raw)
     except (ValueError, TypeError):
         return None
+    if not isinstance(data, dict):  # valid JSON but a list/number/null -> degrade, never .get-crash
+        return None
     summary = _strip_html(data.get("AbstractText") or "")
     related = []
     for topic in (data.get("RelatedTopics") or []):
@@ -276,6 +279,8 @@ def _cache_read(key):
         with open(_cache_path(key), encoding="utf-8") as f:
             blob = json.load(f)
     except (OSError, ValueError):
+        return None
+    if not isinstance(blob, dict):  # a hand-edited/non-object cache file must not .get-crash
         return None
     if time.time() - blob.get("ts", 0) > CACHE_TTL:
         return None

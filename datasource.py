@@ -437,6 +437,10 @@ def company_from_numeric(constituent, *, origin="live"):
     company["_country"] = c.get("country") or "unknown"
     company["_exchange"] = c.get("exchange") or "unknown"
     company["_constituent_ticker"] = c.get("ticker") or c.get("id") or "unknown"
+    flags_n = int(n(ls.get("controversy_flags")) or 0)
+    if flags_n > 0:
+        company["_controversies"] = [{"title": f"Controversy flag {i + 1}{illus}"}
+                                     for i in range(flags_n)]
     return company
 
 
@@ -451,7 +455,9 @@ def snapshot_from_company(company):
     ai = lb.get("digital_ai_signal") or {}
     conf = lb.get("conflicting_signals") or {}
 
-    rating = la.get("esg_score_static") or "unknown"
+    # str() so a numeric esg_score_static (valid uploaded JSON, e.g. 22.4) doesn't crash the
+    # regex searches below with "expected string or bytes-like object, got 'float'".
+    rating = str(la.get("esg_score_static") or "unknown")
     band = ""
     if _known(rating):
         mb = _BAND_RE.search(rating)
@@ -461,6 +467,19 @@ def snapshot_from_company(company):
             ml = _LETTER_RE.search(rating)
             band = (ml.group(1) if ml else "")
     mnum = _NUM_RE.search(rating) if _known(rating) else None
+    # Derive Sustainalytics band from a plain numeric score when no text band was found.
+    if not band and mnum:
+        v = float(mnum.group(1))
+        if v < 10:
+            band = "Negligible Risk"
+        elif v < 20:
+            band = "Low Risk"
+        elif v < 30:
+            band = "Medium Risk"
+        elif v < 40:
+            band = "High Risk"
+        else:
+            band = "Severe Risk"
 
     def _dir(x):
         return (x or {}).get("direction", "unknown") or "unknown"
@@ -541,6 +560,9 @@ def load_upload(filename, content):
             data = json.loads(text)
         except json.JSONDecodeError as e:
             raise ValueError(f"That .json file isn't valid JSON: {e}") from e
+        if not isinstance(data, dict):
+            raise ValueError("That .json file must be a single JSON object (a CompanyData record), "
+                             f"not a {type(data).__name__}.")
         company = contracts.coerce_company_data(data, origin="upload")
         company["_sources"] = [{"title": f"Uploaded file: {filename}", "url": ""}]
         company["_build_status"] = "upload"

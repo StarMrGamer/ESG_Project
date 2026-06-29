@@ -21,6 +21,7 @@ live builder folds into retrieval queries so "fetch" finds the RIGHT ASEAN compa
 disambiguates Singapore's UOB from a same-named foreign entity).
 """
 
+import copy
 import os
 import re
 
@@ -101,8 +102,10 @@ def load_universe(path=None):
             raw = json.load(f)
     except (OSError, ValueError):
         return empty
-    items = raw if isinstance(raw, list) else (raw.get("constituents") or [])
     rd = raw if isinstance(raw, dict) else {}
+    # derive items from rd (not raw) so a valid-but-scalar/null/bool top level degrades to []
+    # instead of raising AttributeError on raw.get — honouring the no-raise contract (HARD RULE 1).
+    items = raw if isinstance(raw, list) else (rd.get("constituents") or [])
     data = {
         "note": rd.get("note") or "",
         "selection": rd.get("selection") or "",
@@ -149,10 +152,11 @@ def filter_constituents(country=None, sector=None, query=None, path=None):
 
 
 def get(ticker, path=None):
-    """Exact constituent lookup by ticker id."""
+    """Exact constituent lookup by ticker id. Returns a COPY so a caller mutating the result
+    (e.g. stamping a transient flag) can never poison the module-level mtime cache."""
     for c in constituents(path):
         if c["ticker"] == ticker or c["id"] == ticker:
-            return c
+            return copy.deepcopy(c)
     return None
 
 
@@ -190,7 +194,8 @@ def resolve(text, path=None, *, min_score=2):
             score += 0.5
         if score > best_score:
             best, best_score = c, score
-    return best if best_score >= min_score else None
+    # COPY the winner so a caller mutating it can't leak into the shared cache (see get()).
+    return copy.deepcopy(best) if best_score >= min_score else None
 
 
 def to_seed_company(constituent):

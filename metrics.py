@@ -26,6 +26,31 @@ PILLARS = ("environment", "social", "governance", "digital_ai")
 PILLAR_LABEL = {"environment": "Environment", "social": "Social",
                 "governance": "Governance", "digital_ai": "Digital / AI"}
 
+
+def _as_quarter(as_of):
+    """Render a universe `as_of` as a quarter label: '2026-06-25' -> 'Q2 2026';
+    an already-quarterly string ('Q1 2026') is returned unchanged; '' -> ''. [1.9]"""
+    s = (as_of or "").strip()
+    if not s:
+        return ""
+    if s[:1].lower() == "q":
+        return s
+    m = re.match(r"(\d{4})-(\d{1,2})", s)
+    if m:
+        year, month = int(m.group(1)), int(m.group(2))
+        return f"Q{(month - 1) // 3 + 1} {year}"
+    return s
+
+
+def universe_banner(uni, top_n=5):
+    """One-line universe banner, e.g. 'Q2 2026 · 52 companies · Top 5' — quarter + count derived
+    dynamically from the active universe's as_of / constituents. [1.9]"""
+    uni = uni or {}
+    n = len(uni.get("constituents") or [])
+    parts = [p for p in (_as_quarter(uni.get("as_of")),
+                         f"{n} companies" if n else "", f"Top {top_n}") if p]
+    return " · ".join(parts)
+
 _NUM_RE = re.compile(r"[-+]?\d+(?:\.\d+)?")
 
 
@@ -108,17 +133,21 @@ def fmt_pct(value):
     return f"{sign}{v}%"
 
 
-def hidden_winners(constituents, *, signal="digital_ai", top_n=5):
+def hidden_winners(constituents, *, signal="digital_ai", top_n=5, new_tickers=()):
     """Rank the filtered set by a live signal (default Digital/AI momentum) — the companies whose
     live trajectory diverges from the stale rating. Returns [{company,ticker,value,is_new}] sorted
-    desc, plus the peer-average ESG for the panel subtitle. Skips names with no signal."""
+    desc, plus the peer-average ESG for the panel subtitle. Skips names with no signal.
+
+    ``new_tickers`` is the set of just-focused tickers the caller tracks in session state; a row is
+    flagged ``is_new`` by membership — we never mutate (and leak) a `_new` flag onto cached dicts."""
+    new = set(new_tickers or ())
     rows = []
     for c in constituents or []:
         v = _momentum(c, signal)
         if v is None:
             continue
         rows.append({"company": c.get("company", "—"), "ticker": c.get("ticker", ""),
-                     "value": v, "is_new": bool(c.get("_new"))})
+                     "value": v, "is_new": c.get("ticker") in new})
     rows.sort(key=lambda r: r["value"], reverse=True)
     peer_avg, n = average_esg(constituents)
     return rows[:top_n], peer_avg, n
@@ -136,7 +165,8 @@ def momentum_series(constituents, *, points=10):
         end = row["value"]
         # ease from a small opposite-leaning baseline to `end` so lines fan out like the mockup
         start = -end * 0.35
-        series[row["key"]] = [round(start + (end - start) * (i / (points - 1)), 2)
+        divisor = max(points - 1, 1)  # guard points<=1 against ZeroDivisionError
+        series[row["key"]] = [round(start + (end - start) * (i / divisor), 2)
                               for i in range(points)]
     return series
 
@@ -178,6 +208,27 @@ def classify(company):
 #  score from the ratings each `esg_basis` actually CITES; never invents a figure)
 # --------------------------------------------------------------------------- #
 _MSCI_PTS = {"AAA": 30, "AA": 24, "A": 16, "BBB": 10, "BB": 6, "B": 3, "CCC": 1}
+_MSCI_SCALE = ("AAA", "AA", "A", "BBB", "BB", "B", "CCC")  # longest-first so the regex is greedy-correct
+_MSCI_ALT = "|".join(_MSCI_SCALE)
+
+
+def _extract_msci_rating(basis):
+    """The CURRENT MSCI letter grade an `esg_basis` actually CITES, read case-sensitively — real
+    ratings are written uppercase ('AA', 'A', 'BBB'); the English article 'a' is not, so it is
+    ignored. A trajectory names the current rating LAST ('BBB->A', "from 'B' to 'BB'",
+    'BBB -> A -> AA'), so we take the rating after the FINAL arrow/'to' transition. Returns the
+    rating string, or None when the text names no letter grade (never fabricates one)."""
+    text = basis or ""
+    mi = re.search(r"(?i)\bmsci(?:\s+esg)?", text)
+    if not mi:
+        return None
+    tail = text[mi.end():mi.end() + 90]  # wide enough to span a multi-hop 'X -> Y -> Z' chain
+    # every arrow/'to' transition's target, in order; the LAST is the most recent (current) rating
+    trans = re.findall(rf"(?:->|→|\bto\b)\s*['\"]?\s*\b({_MSCI_ALT})\b", tail)
+    if trans:
+        return trans[-1]
+    first = re.search(rf"\b({_MSCI_ALT})\b", tail)  # single rating; the article 'a' never matches
+    return first.group(1) if first else None
 
 
 def parse_evidence(basis, confidence=""):
@@ -189,10 +240,8 @@ def parse_evidence(basis, confidence=""):
     low = (basis or "").lower()
     creds, score, rating = [], 0, None
 
-    m = re.search(r"msci(?:\s+esg)?[^.]{0,24}?\b(aaa|aa|a|bbb|bb|b|ccc)\b", low)
-    if m:
-        rating = m.group(1).upper()
-    elif "msci" in low and "leader" in low:
+    rating = _extract_msci_rating(basis)
+    if rating is None and "msci" in low and "leader" in low:
         rating = "AA"
     if rating:
         score += _MSCI_PTS.get(rating, 0)
@@ -290,10 +339,12 @@ def credential_coverage(constituents):
     return out
 
 
-def evidence_leaders(constituents, *, top_n=5):
-    """Rank the filtered set by derived leadership score — the evidence-mode 'hidden winners'."""
+def evidence_leaders(constituents, *, top_n=5, new_tickers=()):
+    """Rank the filtered set by derived leadership score — the evidence-mode 'hidden winners'.
+    ``new_tickers`` flags freshly-focused names via membership (no cached-dict mutation)."""
+    new = set(new_tickers or ())
     rows = [{"company": c.get("company", "—"), "ticker": c.get("ticker", ""),
-             "value": evidence_profile(c)["score"], "is_new": bool(c.get("_new"))}
+             "value": evidence_profile(c)["score"], "is_new": c.get("ticker") in new}
             for c in (constituents or []) if c.get("esg_basis")]
     rows.sort(key=lambda r: r["value"], reverse=True)
     return rows[:top_n]
@@ -337,6 +388,11 @@ def live_signals(company):
             rows.append({"label": "Controversy flag", "value": "none", "tone": "neutral"})
     pol = s.get("board_ai_policy")
     if pol is not None:
-        rows.append({"label": "Board AI policy", "value": "Yes" if pol else "No",
-                     "tone": "good" if pol else "warn"})
+        p = str(pol).strip().lower()
+        if p in ("partial", "part", "in progress", "developing"):
+            rows.append({"label": "Board AI policy", "value": "Partial", "tone": "warn"})
+        elif p in ("true", "yes", "1"):
+            rows.append({"label": "Board AI policy", "value": "Yes", "tone": "good"})
+        else:
+            rows.append({"label": "Board AI policy", "value": "No", "tone": "neutral"})
     return rows
