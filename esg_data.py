@@ -3,7 +3,7 @@
 Live World Bank fetch -> normalize -> bundled CSV fallback. Best-effort by contract:
 any failure degrades to data/fallback_oecd_wgi_asean.csv. Never raises to the UI.
 """
-import csv, os
+import csv, os, io
 import json as _json
 import core
 
@@ -54,6 +54,24 @@ def load_fallback(path=FALLBACK_CSV):
             if not country:
                 continue
             table[country] = {k: _to_float(row.get(k)) for k in INDICATORS}
+    return table
+
+
+def parse_upload(text_or_file):
+    """Parse an uploaded CSV (string or file-like) into a raw table. Unknown cols ignored;
+    absent indicators -> None. Lets the user override the bundled data when re-tuning."""
+    text = text_or_file.read() if hasattr(text_or_file, "read") else text_or_file
+    if isinstance(text, bytes):
+        text = text.decode("utf-8", "replace")
+    reader = csv.DictReader(io.StringIO(text))
+    lower = {c.lower(): c for c in (reader.fieldnames or [])}
+    table = {}
+    for row in reader:
+        country = (row.get(lower.get("country", "country"), "") or "").strip()
+        if not country:
+            continue
+        table[country] = {k: _to_float(row.get(lower.get(k))) if lower.get(k) else None
+                          for k in INDICATORS}
     return table
 
 

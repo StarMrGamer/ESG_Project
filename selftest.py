@@ -1009,6 +1009,17 @@ def test_esg_data_normalize():
             assert v is None or (0.0 <= v <= 100.0)
 
 
+def test_esg_data_parse_upload():
+    import esg_data
+    csv_text = ("country,rule_of_law,co2_pc\n"
+                "Singapore,2.0,10\n"
+                "Vietnam,-0.5,6\n")
+    t = esg_data.parse_upload(csv_text)
+    assert abs(t["Singapore"]["rule_of_law"] - 2.0) < 1e-6
+    assert abs(t["Vietnam"]["co2_pc"] - 6.0) < 1e-6
+    assert t["Singapore"]["renew_share"] is None  # absent column -> None
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1088,6 +1099,7 @@ def main():
         ("[3.7] suggested follow-up chips (context+mode)", lambda: test_suggested_followups()),
         ("esg_data fallback CSV load/save round-trip", lambda: test_esg_data_fallback_roundtrip()),
         ("esg_data normalize indicators to 0-100", lambda: test_esg_data_normalize()),
+        ("esg_data parse_upload CSV override", lambda: test_esg_data_parse_upload()),
         ("esg_data get_country_table live->fallback (mocked)", lambda: test_get_country_table_live_then_fallback()),
         ("esg_data cache becomes next fallback (mocked)", lambda: test_cache_becomes_next_fallback()),
         ("esg_data get_country_table never raises when data missing", lambda: test_get_country_table_never_raises_when_data_missing()),
