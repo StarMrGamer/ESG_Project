@@ -595,6 +595,47 @@ def test_compare_companies():
     assert metrics.compare_companies(["junk"])["rows"][0]["esg_score"] is None
 
 
+def test_demo_roster_valid():
+    import demo_roster, esg_data
+    cfg = demo_roster.load_config()
+    assert len(cfg) == 36
+    tickers = [c["ticker"] for c in cfg]
+    assert len(set(tickers)) == 36, "tickers unique"
+    valid_countries = set(esg_data.COUNTRIES.values())
+    for c in cfg:
+        assert c["country"] in valid_countries
+        for key in ("name", "country", "sector", "real_world_basis", "ticker", "exchange"):
+            assert key in c
+    # every country represented
+    assert valid_countries <= {c["country"] for c in cfg}
+
+
+def test_demo_roster_rejects_malformed():
+    """Each of load_config's three guards must raise ValueError (not KeyError / silent pass)."""
+    import demo_roster, tempfile
+    _ok = lambda **kw: {"name": "X", "country": "Singapore", "sector": "S",
+                        "real_world_basis": "RWB", "ticker": "SGX:X", "exchange": "SGX", **kw}
+    missing_key = _ok()
+    del missing_key["ticker"]                                # (1) missing required key
+    bad_country = _ok(ticker="SGX:Y", country="Atlantis")   # (2) country not one of the 6
+    dup_a = _ok(ticker="SGX:DUP")
+    dup_b = _ok(name="Y", ticker="SGX:DUP")                 # (3) duplicate ticker
+    cases = ([missing_key], [bad_country], [dup_a, dup_b])
+    for companies in cases:
+        fd, p = tempfile.mkstemp(suffix=".json")
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump({"companies": companies}, f)
+        try:
+            demo_roster.load_config(path=p)
+        except ValueError:
+            continue  # expected
+        except Exception as e:  # noqa: BLE001
+            raise AssertionError(f"{companies} raised {type(e).__name__}, want ValueError") from e
+        finally:
+            os.remove(p)
+        raise AssertionError(f"{companies} should have raised ValueError")
+
+
 import universe  # noqa: E402 — used by the grounded data-backed tests below
 
 
@@ -1136,6 +1177,8 @@ def main():
         ("esg_scoring deterministic and bounded [0,100]", lambda: test_esg_scoring_deterministic_and_bounded()),
         ("esg_scoring sector multiplier effect (E/G tilt)", lambda: test_esg_scoring_sector_multiplier_effect()),
         ("esg_scoring variance differs by name (seeded hash)", lambda: test_esg_scoring_variance_differs_by_name()),
+        ("demo roster 36 companies, all tickers unique, all countries represented", lambda: test_demo_roster_valid()),
+        ("demo roster rejects malformed (missing key / bad country / dup ticker)", lambda: test_demo_roster_rejects_malformed()),
     ]
     failures = 0
     for name, fn in checks:
