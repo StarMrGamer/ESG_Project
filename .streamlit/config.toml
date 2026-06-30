@@ -1,11 +1,10 @@
-# Pitch-deck palette — navy text, mint secondary surface, purple (the AI-reasoning accent)
-# as the primary colour, with green used in the decision panels.
-# These are APPROXIMATED from the brief ("navy + green + mint, purple accent for the AI").
-# Replace the hex values with the deck's exact colours if you have them.
+# ESG Momentum Radar — token palette from the design mockup (IBM Plex, dark-navy
+# canvas, mint-green accent). app.py injects the full light/dark variable system at
+# runtime; these base values just keep the first paint on-brand (no light flash).
 [theme]
-base = "light"
-primaryColor = "#7C5CFC"              # purple — AI reasoning / primary buttons
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#EAF6F0"  # mint-tinted sidebar / secondary surfaces
-textColor = "#0B2545"                 # navy
+base = "dark"
+primaryColor = "#35d39a"              # mint green — primary actions / accent
+backgroundColor = "#0a0e16"           # near-black navy canvas
+secondaryBackgroundColor = "#0c1220"  # sidebar / secondary surfaces
+textColor = "#e7ebf3"                 # off-white
 font = "sans serif"

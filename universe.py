@@ -69,7 +69,10 @@ def _coerce_constituent(c):
         "esg_cagr_2019_2023": str(c.get("esg_cagr_2019_2023") or "").strip(),
     }
     # Optional NUMERIC dashboard fields — passed through verbatim for metrics.py (absent is fine).
-    for k in ("esg_score", "esg_as_of", "momentum", "live_signals", "price_change_90d"):
+    # market / news / analyst_coverage are ILLUSTRATIVE demo-only fields (HARD RULE 2: the real
+    # evidence universe never carries them, so the market-data panels show "awaiting data").
+    for k in ("esg_score", "esg_as_of", "momentum", "live_signals", "price_change_90d",
+              "market", "news", "analyst_coverage"):
         if c.get(k) is not None:
             out[k] = c[k]
     # Optional DOCUMENTATION fields — the evidence for why a name is an ESG improver.

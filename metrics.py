@@ -17,10 +17,17 @@ PER-CONSTITUENT SCHEMA (all optional beyond identity; absent -> that panel shows
     momentum: { environment, social, governance, digital_ai }   # live/90-day % per pillar
     live_signals: { ai_hiring_surge, green_patents, carbon_disclosure,
                     controversy_flags, board_ai_policy }          # the right-rail signals
-    price_change_90d: "+9.4%"    # optional price panel
+    price_change_90d: "+9.4%"    # optional price panel (illustrative, demo only)
+    market: { currency, price, prev_close, open, high, low, market_cap, pe_ratio,
+              dividend_yield, week52_high, week52_low, as_of }   # optional financial snapshot
+    news: [{ title, source, date }]                              # optional illustrative headlines
+    analyst_coverage: { analysts, as_of }                        # optional sell-side breadth (count only)
+                       # market / news / analyst_coverage are ILLUSTRATIVE, demo-only (HARD RULE 2):
+                       # the real evidence universe never carries them -> panels show "awaiting data".
 """
 
 import re
+from urllib.parse import quote_plus
 
 PILLARS = ("environment", "social", "governance", "digital_ai")
 PILLAR_LABEL = {"environment": "Environment", "social": "Social",
@@ -169,6 +176,36 @@ def momentum_series(constituents, *, points=10):
         series[row["key"]] = [round(start + (end - start) * (i / divisor), 2)
                               for i in range(points)]
     return series
+
+
+def compare_companies(companies):
+    """Extract comparable numeric series from a list of Contract B dicts for the compare graphs.
+
+    Pure (no network/LLM). Grounded ONLY in the data: a missing/unknown field is None — never
+    fabricated (HARD RULE 2), so evidence-only names simply render 'awaiting data'. Returns
+    {rows:[{company,ticker,esg_score:float|None,momentum:{E,S,G:float|None}}],
+     pillars:['E','S','G'], has_momentum:bool, has_score:bool}."""
+    rows = []
+    for c in (companies or []):
+        c = c if isinstance(c, dict) else {}
+        la = c.get("layer_a") if isinstance(c.get("layer_a"), dict) else {}
+        lb = c.get("layer_b") if isinstance(c.get("layer_b"), dict) else {}
+        mom = lb.get("momentum") if isinstance(lb.get("momentum"), dict) else {}
+
+        def _mag(k, mom=mom):
+            cell = mom.get(k)
+            return num(cell.get("magnitude")) if isinstance(cell, dict) else None
+
+        rows.append({
+            "company": c.get("company", "unknown"),
+            "ticker": c.get("ticker", "unknown"),
+            "esg_score": num(la.get("esg_score_static")),
+            "momentum": {k: _mag(k) for k in ("E", "S", "G")},
+        })
+    has_momentum = any(v is not None for r in rows for v in r["momentum"].values())
+    has_score = any(r["esg_score"] is not None for r in rows)
+    return {"rows": rows, "pillars": ["E", "S", "G"],
+            "has_momentum": has_momentum, "has_score": has_score}
 
 
 def classify(company):
@@ -396,3 +433,344 @@ def live_signals(company):
         else:
             rows.append({"label": "Board AI policy", "value": "No", "tone": "neutral"})
     return rows
+
+
+# --------------------------------------------------------------------------- #
+#  FEATURE-BACKLOG PURE HELPERS (2026-06-30) — all grounded only in provided
+#  data; a missing fact is None/"awaiting", never fabricated (HARD RULE 2).
+# --------------------------------------------------------------------------- #
+def _clean(v):
+    """A model/string field cleaned for display: ''/'unknown' (any case) -> ''."""
+    s = str(v if v is not None else "").strip()
+    return "" if s.lower() in ("", "unknown", "none") else s
+
+
+def fmt_elapsed(now_ts, then_ts):
+    """[1.11] Human 'updated X ago' from two epoch seconds (no clock read here, so it's pure).
+    'just now' | 'N min ago' | 'N hr ago' | 'Nd ago'; '' when then_ts is None; clamps clock-skew."""
+    if then_ts is None:
+        return ""
+    delta = max(0, int((now_ts or 0) - then_ts))
+    if delta < 60:
+        return "just now"
+    mins = delta // 60
+    if mins < 60:
+        return f"{mins} min ago"
+    hrs = mins // 60
+    if hrs < 24:
+        return f"{hrs} hr ago"
+    return f"{hrs // 24}d ago"
+
+
+def price_change_pct(constituent):
+    """[#17] The 90-day price move as a float (e.g. '+9.4%' -> 9.4), or None when absent.
+    Never fabricates a move for a name lacking the (illustrative, demo-only) field."""
+    return num((constituent or {}).get("price_change_90d"))
+
+
+def price_series(pct, *, points=10, base=100.0):
+    """[#17] An ILLUSTRATIVE rebased 90-day path from `base` to base*(1+pct/100) over `points`
+    samples (not a backtest). [] when pct is None. Mirrors momentum_series' ZeroDivision guard."""
+    if pct is None:
+        return []
+    end = base * (1 + pct / 100.0)
+    divisor = max(points - 1, 1)
+    return [round(base + (end - base) * (i / divisor), 2) for i in range(points)]
+
+
+def financial_snapshot(obj):
+    """[#10/2.3] Read an illustrative financial snapshot off a constituent (obj['market']) or a
+    Contract B (obj['_market']) + the top-level/ridden price_change_90d. {have:False} when absent —
+    never invents a market figure for a name that lacks one (HARD RULE 2)."""
+    o = obj if isinstance(obj, dict) else {}
+    m = o.get("market") or o.get("_market")
+    m = m if isinstance(m, dict) else {}
+    pc = num(o.get("price_change_90d") or o.get("_price_change_90d"))
+    pc_str = fmt_pct(pc) if pc is not None else None
+    if not m:
+        return {"have": False, "currency": "", "as_of": None, "price": None, "day_change": None,
+                "price_change_90d": pc_str, "range_52w": None, "rows": [], "simple": []}
+    cur = str(m.get("currency") or "").strip()
+
+    def money(v):
+        n = num(v)
+        return f"{cur} {n:g}".strip() if n is not None else None
+
+    price = money(m.get("price"))
+    prev, cur_price = num(m.get("prev_close")), num(m.get("price"))
+    day_change = (fmt_pct(round((cur_price / prev - 1) * 100, 1))
+                  if (prev and cur_price is not None) else None)
+    lo, hi = num(m.get("week52_low")), num(m.get("week52_high"))
+    range_52w = f"{lo:.2f} – {hi:.2f}" if (lo is not None and hi is not None) else None
+    pe = num(m.get("pe_ratio"))
+
+    def _rows(pairs):
+        out = []
+        for label, value in pairs:
+            if value is not None and str(value).strip() not in ("", "unknown"):
+                out.append({"label": label, "value": str(value)})
+        return out
+
+    rows = _rows([
+        ("Open", money(m.get("open"))), ("High", money(m.get("high"))),
+        ("Low", money(m.get("low"))), ("Prev close", money(m.get("prev_close"))),
+        ("Market cap", m.get("market_cap")),
+        ("P / E", f"{pe:g}" if pe is not None else None),
+        ("Dividend yield", m.get("dividend_yield")), ("52-week range", range_52w),
+    ])
+    simple = _rows([("Price", price), ("90-day change", pc_str),
+                    ("Market cap", m.get("market_cap"))])
+    return {"have": True, "currency": cur, "as_of": m.get("as_of"), "price": price,
+            "day_change": day_change, "price_change_90d": pc_str, "range_52w": range_52w,
+            "rows": rows, "simple": simple}
+
+
+def youtube_search_url(name, terms="ESG sustainability"):
+    """[#11] A deterministic YouTube SEARCH url for a company (not fabricated video content)."""
+    q = f"{str(name or '').strip()} {terms}".strip()
+    return "https://www.youtube.com/results?search_query=" + quote_plus(q)
+
+
+def news_search_url(name, terms="ESG"):
+    """[#11] A deterministic DuckDuckGo news SEARCH url (a query, not invented headlines)."""
+    q = f"{str(name or '').strip()} {terms}".strip()
+    return "https://duckduckgo.com/?iar=news&ia=news&q=" + quote_plus(q)
+
+
+def news_card(company):
+    """[#11] Headlines + a YouTube/news search link for the focused company. DEMO names carry
+    illustrative seeded headlines (company['news']); REAL names get NO fabricated headlines —
+    only deterministic search links + 'awaiting' (HARD RULE 2). Tolerant of None/junk input."""
+    c = company if isinstance(company, dict) else {}
+    name = str(c.get("company") or "").strip()
+    raw = c.get("news")
+    headlines = []
+    if isinstance(raw, list):
+        for it in raw:
+            if isinstance(it, dict) and _clean(it.get("title")):
+                headlines.append({"title": _clean(it.get("title")),
+                                  "source": _clean(it.get("source")) or "illustrative",
+                                  "date": _clean(it.get("date"))})
+    return {
+        "name": name or "this company",
+        "illustrative": bool(headlines),
+        "status": "demo" if headlines else "awaiting",
+        "headlines": headlines,
+        "youtube_url": youtube_search_url(name),
+        "news_url": news_search_url(name),
+    }
+
+
+def analyst_coverage(company):
+    """[#18/3.17] Sell-side coverage BREADTH (a count only) — explicitly NOT a rating/consensus and
+    never buy/sell/hold (HARD RULE 4). Reads only company['analyst_coverage']; illustrative, demo
+    only. Absent/non-dict/uncountable -> 'awaiting data'. Distinct from the X/10 data-coverage meter."""
+    c = company if isinstance(company, dict) else {}
+    raw = c.get("analyst_coverage")
+    if not isinstance(raw, dict):
+        return {"covered": False, "analysts": None, "as_of": "", "label": "awaiting data",
+                "illustrative": False}
+    n = num(raw.get("analysts"))
+    n = int(n) if n is not None else None
+    as_of = _clean(raw.get("as_of"))
+    if n is None or n <= 0:
+        return {"covered": False, "analysts": n, "as_of": as_of, "label": "awaiting data",
+                "illustrative": True}
+    label = f"{n} analyst{'' if n == 1 else 's'} covering"
+    return {"covered": True, "analysts": n, "as_of": as_of, "label": label, "illustrative": True}
+
+
+def _outlook_band(mean):
+    """(label, tone) for a mean pillar momentum — reuses trend_label's 8 / -3 boundaries."""
+    if mean is None:
+        return "AWAITING DATA", "neutral"
+    if mean >= 8:
+        return "Improving", "good"
+    if mean > -3:
+        return "Stable", "neutral"
+    return "Softening", "bad"
+
+
+def _outlook_word(value):
+    """A per-pillar forward word (number-free): accelerating / holding / softening."""
+    if value is None:
+        return "awaiting"
+    if value >= 8:
+        return "accelerating"
+    if value > -3:
+        return "holding"
+    return "softening"
+
+
+def forecast_outlook(company):
+    """[#12] An ILLUSTRATIVE directional outlook from current pillar momentum — a conditional read,
+    NOT a forecast/price target (HARD RULE 2/4). available=False ('AWAITING DATA') when no momentum,
+    so a real evidence name (no numbers) honestly shows the placeholder. headline is number-free;
+    the numeric `mean` rides separately for the In-Depth basis line."""
+    c = company or {}
+    pillars = []
+    for p in PILLARS:
+        v = _momentum(c, p)
+        if v is not None:
+            arrow, _ = trend_label(v)
+            pillars.append({"key": p, "label": PILLAR_LABEL[p], "value": v,
+                            "arrow": arrow, "word": _outlook_word(v)})
+    if not pillars:
+        return {"available": False, "label": "AWAITING DATA", "tone": "neutral",
+                "headline": "Awaiting live momentum — switch on Demo data to preview an "
+                            "illustrative outlook (never a projected number for a real name).",
+                "mean": None, "lead": None, "pillars": []}
+    mean = round(sum(p["value"] for p in pillars) / len(pillars), 1)
+    label, tone = _outlook_band(mean)
+    lead = next((p for p in pillars if p["key"] == "digital_ai"),
+                max(pillars, key=lambda p: p["value"]))
+    headline = f"If this momentum holds, the near-term trajectory looks {label.lower()}."
+    return {"available": True, "label": label, "tone": tone, "headline": headline,
+            "mean": mean, "lead": lead, "pillars": pillars}
+
+
+_PLAIN_NUMERIC = {
+    "HIDDEN WINNER": ("Quietly ahead of its rating",
+                      "The live signals for {name} are improving faster than its older ESG score "
+                      "reflects — worth a closer look."),
+    "WATCH — GAP RISK": ("Watch for a widening gap",
+                         "Some live signals for {name} are slipping or carry red flags, even if the "
+                         "headline rating still looks calm."),
+    "IN LINE": ("Broadly in line",
+                "{name} is moving roughly in step with what its rating already implies — no big "
+                "surprise either way yet."),
+    "AWAITING DATA": ("Not enough live data yet",
+                      "We do not have enough live signals on {name} to take a view — switch on demo "
+                      "data or run a deep dive."),
+}
+_PLAIN_EVIDENCE = {
+    "ESG LEADER": ("A documented ESG leader",
+                   "{name} carries strong, independently-documented ESG credentials among its "
+                   "ASEAN peers."),
+    "STRONG IMPROVER": ("A strong improver",
+                        "{name} shows clear, documented ESG progress, though it is not yet at the "
+                        "very top of its peer group."),
+    "ESTABLISHED": ("Established and steady",
+                    "{name} has a solid, documented ESG track record without standing out as a "
+                    "front-runner."),
+    "EMERGING": ("Early on its ESG journey",
+                 "{name} is early in its documented ESG story — some evidence on file, but limited "
+                 "so far."),
+    "AWAITING DATA": ("Not enough evidence yet",
+                      "There is not enough evidence on file for {name} to take a view."),
+}
+
+
+def plain_summary(company, answer=None):
+    """[2.1] A plain-language, score-free read of the focused company for Simplified mode. tone/label
+    mirror classify (numeric) or classify_evidence (evidence); body is a controlled number-free
+    template; verdict is the cleaned competes_summary (or '' when absent). No I/O."""
+    c = company or {}
+    name = _clean(c.get("company")) or "this company"
+    if has_numbers([c]):
+        cls, tmpl = classify(c), _PLAIN_NUMERIC
+    elif c.get("esg_basis"):
+        cls, tmpl = classify_evidence(c), _PLAIN_EVIDENCE
+    else:
+        cls, tmpl = {"label": "AWAITING DATA", "tone": "neutral"}, _PLAIN_NUMERIC
+    label, tone = cls["label"], cls["tone"]
+    headline, body = tmpl.get(label, tmpl["AWAITING DATA"])
+    verdict = _clean((answer or {}).get("competes_summary"))
+    return {"headline": headline, "body": body.format(name=name), "verdict": verdict,
+            "tone": tone, "label": label}
+
+
+def focused_answer_action(snapshots, ticker):
+    """[#5] The cached deep-dive's one concrete action for the focused company. Reads the verified
+    Stage 2 baton at snapshots[ticker]['answer'] — never generated here. Tolerant of None/junk."""
+    snaps = snapshots if isinstance(snapshots, dict) else {}
+    entry = snaps.get(ticker) if ticker else None
+    ans = entry.get("answer") if isinstance(entry, dict) else None
+    ans = ans if isinstance(ans, dict) else {}
+    check = _clean(ans.get("check_before_monday"))
+    verdict = _clean(ans.get("competes_summary"))
+    return {"check": check, "verdict": verdict, "has": bool(check)}
+
+
+# --- CHATBOT COPY (2.2) — In-Depth branch reproduces the current literals byte-for-byte ---------
+def chat_relay_msg(company_name, mode, simplified, *, focused=False, live=False):
+    verb = "interrogation" if mode == "interrogate" else "compete"
+    if not simplified:
+        if focused:
+            return f"Running the 3-stage relay on the focused company ({verb} mode)…"
+        if live:
+            return f"Built {company_name} live (ASEAN) — running the 3-stage relay ({verb} mode)…"
+        return f"Running the 3-stage ESG relay on {company_name} ({verb} mode)…"
+    ask = ("I'll ask a few quick ESG questions first…" if mode == "interrogate"
+           else "I'll show you the read straight away…")
+    if focused:
+        return f"Opening the focused company — {ask}"
+    prefix = f"Found {company_name}. " if live else ""
+    return f"{prefix}Opening {company_name} — {ask}"
+
+
+def chat_focus_msg(company_name, sector_label, simplified, *, avg=None, digital_pct="—"):
+    if not simplified:
+        peer = (f" — scored against {sector_label} peers, Digital/AI {digital_pct} vs avg ESG {avg}."
+                if avg is not None else ".")
+        return f"Focused {company_name}{peer} Added to the grid."
+    return f"Now showing {company_name} in the panels on the right."
+
+
+def chat_filter_msg(bits, simplified):
+    joined = " · ".join(bits)
+    return (f"OK — showing {joined}." if simplified else f"Filtered to {joined}.")
+
+
+def chat_relay_help(simplified):
+    if simplified:
+        return ("Tell me which company to look at — e.g. “look at DBS”, “check Maybank”, or an "
+                "ASEAN name like “look at Grab”.")
+    return ("Name a company to analyse — e.g. “analyze DBS”, “interrogate "
+            "Maybank”, or a live ASEAN name like “analyze Grab”.")
+
+
+def chat_fallback_msg(simplified):
+    if simplified:
+        return ("I can show a group (“banks”, “Singapore”, “all ASEAN”) or pull up one company "
+                "(“DemoBank”, “add GreenChip Bank”).")
+    return ("I can filter (“show banks”, “Singapore”, “all ASEAN”) or focus "
+            "a company (“DemoBank”, “add GreenChip Bank”).")
+
+
+def chat_cant_analyse_msg(name, simplified):
+    if simplified:
+        return f"Sorry — I couldn't open “{name}”."
+    return f"Couldn't analyse “{name}”."
+
+
+# --- SUGGESTED FOLLOW-UP CHIPS (14/3.7) ---------------------------------------------------------
+def suggested_followups(*, focused_name=None, focused_sector=None, has_focus=False,
+                        has_answer=False, simplified=True, sample_sector=None, sample_country=None):
+    """Up to 3 {label, prompt} chips. `prompt` is a chat line the existing _chat_act parser
+    understands (relay verb + name / sector word / country / 'all asean'). Labels are mode-aware;
+    prompts are identical across modes. Never emits buy/sell/hold/score wording."""
+    name = str(focused_name or "").strip()
+    sec = str(focused_sector or "").strip()
+    sec_missing = sec.lower() in ("", "all", "all industries", "unknown")
+    chips = []
+    if has_focus and name:
+        chips.append({"label": ("Run a deep dive" if has_answer else "Get a quick read") if simplified
+                      else ("Open the deep dive" if has_answer else f"Compete · {name}"),
+                      "prompt": f"Analyze {name}"})
+        chips.append({"label": "Ask sharper questions" if simplified else f"Interrogate · {name}",
+                      "prompt": f"Interrogate {name}"})
+        if not sec_missing:
+            chips.append({"label": "See similar companies" if simplified else f"Peers · {sec}",
+                          "prompt": f"Show {sec}"})
+        else:
+            chips.append({"label": "See all ASEAN" if simplified else "Show all ASEAN",
+                          "prompt": "Show all ASEAN"})
+    else:
+        s = str(sample_sector or "Banks").strip() or "Banks"
+        ctry = str(sample_country or "Singapore").strip() or "Singapore"
+        chips.append({"label": f"Show {s}" if simplified else f"Sector · {s}", "prompt": f"Show {s}"})
+        chips.append({"label": f"Look at {ctry}" if simplified else f"Market · {ctry}", "prompt": ctry})
+        chips.append({"label": "See all ASEAN" if simplified else "Show all ASEAN",
+                      "prompt": "Show all ASEAN"})
+    return chips[:3]

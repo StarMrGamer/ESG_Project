@@ -441,6 +441,15 @@ def company_from_numeric(constituent, *, origin="live"):
     if flags_n > 0:
         company["_controversies"] = [{"title": f"Controversy flag {i + 1}{illus}"}
                                      for i in range(flags_n)]
+    # Ride the ILLUSTRATIVE market-data fields as non-contract keys (contracts.py stays frozen),
+    # numeric/demo path only — so the deep dive can show the financial snapshot / analyst pill.
+    # Attach only when present (no None leak); evidence-only real names never reach here.
+    if isinstance(c.get("market"), dict):
+        company["_market"] = c["market"]
+    if c.get("price_change_90d") is not None:
+        company["_price_change_90d"] = c["price_change_90d"]
+    if isinstance(c.get("analyst_coverage"), dict):
+        company["analyst_coverage"] = c["analyst_coverage"]
     return company
 
 

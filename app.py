@@ -24,6 +24,7 @@ import html
 import json
 import os
 import re
+import time
 
 import streamlit as st
 
@@ -66,107 +67,112 @@ _TRANSIENT = ("pending_user_input", "s2_retry", "company_draft", "live_question"
 # --------------------------------------------------------------------------- #
 #  THEME  (best-effort runtime light/dark via CSS injection)
 # --------------------------------------------------------------------------- #
-# Always-on base fixes (apply in BOTH themes). Streamlit's chat_input renders its field dark
-# under a custom theme — force a clean, readable field. Dark mode overrides the colours below.
-_BASE_CSS = """
-<style>
-[data-testid="stChatInput"]{background:transparent !important;}
-[data-testid="stChatInput"] [data-baseweb="base-input"],
-[data-testid="stChatInput"] [data-baseweb="textarea"]{
-  background:#FFFFFF !important;border-radius:10px !important;}
-[data-testid="stChatInput"] textarea{
-  background:#FFFFFF !important;color:#0B2545 !important;-webkit-text-fill-color:#0B2545 !important;}
-[data-testid="stChatInput"] textarea::placeholder{
-  color:#8A97A6 !important;-webkit-text-fill-color:#8A97A6 !important;}
-</style>
-"""
+# Token palette from the design mockup. Both themes share ONE chrome + component
+# stylesheet; only these CSS *variables* swap, so the command-center cards now follow
+# the theme (they used to be hard-coded navy regardless of light/dark).
+_DARK_VARS = {
+    "bg": "#0a0e16", "bg2": "#0c1220", "panel": "#121a29", "inset": "#0e1626",
+    "border": "rgba(148,163,184,.14)", "borderStrong": "rgba(148,163,184,.26)",
+    "text": "#e7ebf3", "muted": "#8b97ab", "faint": "#5d6982",
+    "pos": "#35d39a", "posbg": "rgba(53,211,154,.12)",
+    "neg": "#f4737d", "negbg": "rgba(244,115,125,.12)",
+    "amber": "#f5a524", "amberbg": "rgba(245,165,36,.13)", "blue": "#5e9cf6",
+}
+_LIGHT_VARS = {
+    "bg": "#eef1f5", "bg2": "#e9edf2", "panel": "#ffffff", "inset": "#f4f7fa",
+    "border": "rgba(15,23,42,.10)", "borderStrong": "rgba(15,23,42,.20)",
+    "text": "#0f1729", "muted": "#56627a", "faint": "#8b95a7",
+    "pos": "#0e9f6e", "posbg": "rgba(14,159,110,.10)",
+    "neg": "#e0455b", "negbg": "rgba(224,69,91,.09)",
+    "amber": "#bd7a0e", "amberbg": "rgba(189,122,14,.12)", "blue": "#2f6fe0",
+}
 
-_DARK_CSS = """
+_FONT_IMPORT = (
+    "@import url('https://fonts.googleapis.com/css2?"
+    "family=IBM+Plex+Mono:wght@400;500;600&"
+    "family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');"
+)
+
+
+def _vars_css(theme):
+    """Emit the per-theme CSS-variable block (+ the IBM Plex import)."""
+    t = _LIGHT_VARS if theme == "light" else _DARK_VARS
+    block = ";".join(f"--r-{k}:{v}" for k, v in t.items())
+    return f"<style>{_FONT_IMPORT}\n:root{{{block};}}</style>"
+
+# Streamlit-chrome overrides — ONE sheet for both themes, driven entirely by the
+# --r-* variables (which swap per theme). IBM Plex everywhere; widgets retinted to the
+# mockup's panel/inset/accent tokens.
+_CHROME_CSS = """
 <style>
-:root{ --esgd-bg:#0E1117; --esgd-panel:#1B2230; --esgd-side:#161B26; --esgd-fg:#E6EAF1;
-       --esgd-muted:#9AA6B2; --esgd-acc:#9B8CFF; --esgd-line:rgba(255,255,255,.12); }
-[data-testid="stAppViewContainer"]{background:var(--esgd-bg);}
-[data-testid="stHeader"]{background:rgba(14,17,23,.6);}
-[data-testid="stSidebar"]{background:var(--esgd-side);border-right:1px solid var(--esgd-line);}
-[data-testid="stAppViewContainer"], [data-testid="stSidebar"]{color:var(--esgd-fg);}
-/* body text — !important so the default (navy) theme text stays readable on dark */
+/* ---- base canvas + typography ---- */
+html, body, [data-testid="stAppViewContainer"], [data-testid="stSidebar"]{
+  font-family:'IBM Plex Sans',-apple-system,system-ui,sans-serif;}
+[data-testid="stAppViewContainer"], [data-testid="stMain"]{background:var(--r-bg);}
+[data-testid="stHeader"]{background:transparent;height:0;}
+/* Reclaim the canvas: drop Streamlit's default max-width cap + the large top/side padding
+   so the dashboard fills the screen edge-to-edge instead of floating in a centered column. */
+[data-testid="stMainBlockContainer"], [data-testid="stMain"] .block-container{
+  max-width:100% !important;padding:1rem 1.6rem 1.2rem !important;}
+[data-testid="stSidebar"] [data-testid="stSidebarUserContent"]{padding-top:1.2rem;}
+[data-testid="stSidebar"]{background:var(--r-bg2);border-right:1px solid var(--r-border);}
+[data-testid="stAppViewContainer"], [data-testid="stSidebar"]{color:var(--r-text);}
 [data-testid="stAppViewContainer"] p, [data-testid="stAppViewContainer"] li,
 [data-testid="stAppViewContainer"] label, [data-testid="stWidgetLabel"] *,
-[data-testid="stSidebar"] *{color:var(--esgd-fg) !important;}
-h1,h2,h3,h4,h5,h6{color:#F5F7FA !important;}
-[data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] *, small{color:var(--esgd-muted) !important;}
-hr,[data-testid="stDivider"]{border-color:var(--esgd-line) !important;}
-/* buttons — secondary dark, primary keeps the accent */
+[data-testid="stSidebar"] *{color:var(--r-text) !important;}
+h1,h2,h3,h4,h5,h6{color:var(--r-text) !important;letter-spacing:-.01em;}
+[data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] *, small{color:var(--r-muted) !important;}
+hr,[data-testid="stDivider"]{border-color:var(--r-border) !important;}
+/* ---- buttons — secondary = inset pill, primary = mint accent ---- */
 .stButton>button, [data-testid="stBaseButton-secondary"]{
-  background:var(--esgd-panel) !important;color:var(--esgd-fg) !important;
-  border:1px solid var(--esgd-line) !important;}
+  background:var(--r-inset) !important;color:var(--r-text) !important;
+  border:1px solid var(--r-border) !important;border-radius:10px !important;
+  font-weight:600 !important;transition:all .15s;white-space:nowrap;}
+.stButton>button p{white-space:nowrap;}
 .stButton>button:hover, [data-testid="stBaseButton-secondary"]:hover{
-  border-color:var(--esgd-acc) !important;color:#fff !important;}
-[data-testid="stBaseButton-primary"]{background:var(--esgd-acc) !important;color:#190f33 !important;
-  border:0 !important;font-weight:600;}
-/* inputs / chat / selects / uploader */
+  border-color:var(--r-pos) !important;color:var(--r-pos) !important;}
+[data-testid="stBaseButton-primary"]{background:var(--r-pos) !important;color:#06231a !important;
+  border:0 !important;border-radius:10px !important;font-weight:700 !important;}
+[data-testid="stBaseButton-primary"]:hover{filter:brightness(1.06);color:#06231a !important;}
+/* ---- inputs / chat / selects / uploader ---- */
 [data-baseweb="input"] input, [data-baseweb="textarea"] textarea,
-[data-testid="stChatInput"] textarea, [data-baseweb="select"]>div{
-  background:var(--esgd-panel) !important;color:var(--esgd-fg) !important;}
-[data-testid="stChatInput"]{background:var(--esgd-side) !important;}
+[data-baseweb="select"]>div{
+  background:var(--r-inset) !important;color:var(--r-text) !important;border-radius:10px;}
+[data-testid="stChatInput"]{background:var(--r-bg2) !important;}
 [data-testid="stChatInput"] [data-baseweb="base-input"],
-[data-testid="stChatInput"] [data-baseweb="textarea"]{background:var(--esgd-panel) !important;}
-[data-testid="stChatInput"] textarea{background:var(--esgd-panel) !important;
-  color:var(--esgd-fg) !important;-webkit-text-fill-color:var(--esgd-fg) !important;}
-[data-testid="stChatInput"] textarea::placeholder{
-  color:#9AA6B2 !important;-webkit-text-fill-color:#9AA6B2 !important;}
-[data-testid="stFileUploaderDropzone"]{background:var(--esgd-panel) !important;}
-/* metrics */
-[data-testid="stMetric"]{background:var(--esgd-panel);border:1px solid var(--esgd-line);
-  border-radius:10px;padding:.5rem .7rem;}
-[data-testid="stMetricValue"]{color:var(--esgd-fg) !important;}
-[data-testid="stMetricLabel"] *{color:var(--esgd-muted) !important;}
-/* expanders / code / notifications / chat msgs */
-[data-testid="stExpander"]{background:var(--esgd-side);border:1px solid var(--esgd-line);border-radius:10px;}
-[data-testid="stExpander"] summary, [data-testid="stExpander"] summary *{color:var(--esgd-fg) !important;}
-code, pre{background:#11151D !important;color:#E6EAF1 !important;}
-[data-testid="stNotification"]{background:var(--esgd-panel) !important;}
-[data-testid="stChatMessage"]{background:var(--esgd-side);border:1px solid rgba(255,255,255,.06);border-radius:10px;}
-/* our esg panels / cards / history */
-.esg-panel, .esg-card{color:var(--esgd-fg) !important;}
-.esg-card{background:rgba(255,255,255,.05);border-color:var(--esgd-line);}
-.esg-h, .esg-b{color:var(--esgd-fg) !important;}
-.esg-card .t, .esg-card .s, .esg-hbar-d{color:var(--esgd-muted) !important;}
+[data-testid="stChatInput"] [data-baseweb="textarea"]{background:var(--r-inset) !important;border-radius:10px !important;}
+[data-testid="stChatInput"] textarea{background:var(--r-inset) !important;
+  color:var(--r-text) !important;-webkit-text-fill-color:var(--r-text) !important;}
+[data-testid="stChatInput"] textarea::placeholder,
+[data-baseweb="input"] input::placeholder{
+  color:var(--r-faint) !important;-webkit-text-fill-color:var(--r-faint) !important;}
+[data-testid="stFileUploaderDropzone"]{background:var(--r-inset) !important;}
+/* ---- metrics / expanders / code / notifications / chat msgs ---- */
+[data-testid="stMetric"]{background:var(--r-panel);border:1px solid var(--r-border);
+  border-radius:12px;padding:.55rem .75rem;}
+[data-testid="stMetricValue"]{color:var(--r-text) !important;font-family:'IBM Plex Mono',monospace;}
+[data-testid="stMetricLabel"] *{color:var(--r-muted) !important;}
+[data-testid="stExpander"]{background:var(--r-panel);border:1px solid var(--r-border);border-radius:12px;}
+[data-testid="stExpander"] summary, [data-testid="stExpander"] summary *{color:var(--r-text) !important;}
+code, pre{background:var(--r-inset) !important;color:var(--r-text) !important;
+  font-family:'IBM Plex Mono',monospace !important;}
+[data-testid="stNotification"]{background:var(--r-panel) !important;}
+[data-testid="stChatMessage"]{background:var(--r-panel);border:1px solid var(--r-border);border-radius:12px;}
+/* ---- scrollbars + accessibility floor ---- */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--r-border);border-radius:8px}
+:focus-visible{outline:2px solid var(--r-pos);outline-offset:2px;border-radius:6px;}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
 </style>
 """
 
-# Light-mode contrast overrides — ensure WCAG 4.5:1 on the white Streamlit canvas.
-# The cc-* dark panels are always dark regardless of theme; these fix elements that
-# render directly on the white canvas (title metadata, bar chart labels, captions).
-_LIGHT_CSS = """
-<style>
-/* Only override elements that sit directly on the white Streamlit canvas.
-   cc-pill / cc-card / cc-hwwrap / cc-sigwrap / cc-panel-body always have background:#16203a
-   (dark navy) — their text colours are set by _CC_CSS with !important and must NOT be
-   overridden here, or you get dark text on a dark card background. */
-[data-testid="stAppViewContainer"]{background:#f3f4f6 !important;}
-[data-testid="stMain"]{background:#f3f4f6 !important;}
-.cc-sub2{color:#374151 !important;}
-.cc-desc{color:#374151 !important;}
-.cc-h{color:#065f46 !important;}
-.cc-muted{color:#4b5563 !important;}
-/* .cc-muted ALSO appears inside the always-dark navy cards (.cc-card/.cc-pill/.cc-class/…).
-   Re-assert a light muted there (more specific than the bare rule above) so the canvas override
-   can't turn it dark-on-dark — keeps WCAG contrast in light mode. */
-.cc-card .cc-muted,.cc-pill .cc-muted,.cc-class .cc-muted,.cc-hwwrap .cc-muted,
-.cc-sigwrap .cc-muted,.cc-panel-body .cc-muted{color:#8aa0b8 !important;}
-[data-testid="stChatInput"] textarea::placeholder{
-  color:#4b5563 !important;-webkit-text-fill-color:#4b5563 !important;}
-</style>
-"""
-
-
-def _inject_theme(theme):
-    st.markdown(_BASE_CSS, unsafe_allow_html=True)  # base fixes apply in both themes
-    if theme == "dark":
-        st.markdown(_DARK_CSS, unsafe_allow_html=True)
-    else:
-        st.markdown(_LIGHT_CSS, unsafe_allow_html=True)
+def _inject_css(theme):
+    """Inject the full sheet once per run: per-theme variables → chrome → components.
+    Because every component colour is a --r-* variable, the cards follow light/dark."""
+    st.markdown(_vars_css(theme), unsafe_allow_html=True)
+    st.markdown(_CHROME_CSS, unsafe_allow_html=True)
+    st.markdown(_COMPONENT_CSS, unsafe_allow_html=True)
 
 
 # --------------------------------------------------------------------------- #
@@ -333,7 +339,9 @@ def _pin(ss, company):
     """Compute a snapshot for an already-built CompanyData and add it to the monitored board."""
     snap = datasource.snapshot_from_company(company)
     tk = company.get("ticker") or company.get("_constituent_ticker") or snap.get("ticker") or "unknown"
-    ss.snapshots[tk] = {"company": company, "snap": snap, "answer": None, "narrowed_q": None}
+    ss.snapshots[tk] = {"company": company, "snap": snap, "answer": None, "narrowed_q": None,
+                        "built_at": time.time()}     # [1.11] honest freshness clock on a real build
+    ss.data_built_at = ss.snapshots[tk]["built_at"]
     if tk not in ss.watchlist:
         ss.watchlist.append(tk)
     _save_watchlist(ss.watchlist)
@@ -478,73 +486,94 @@ def _render_snapshot_metrics(snap):
 
 
 # --- command center: CSS + small helpers ----------------------------------- #
-_CC_CSS = """
+_COMPONENT_CSS = """
 <style>
-/* Header block */
-.cc-title{font-size:28px;font-weight:800;color:#34d399;line-height:1.1;letter-spacing:.3px;}
-.cc-sub2{color:#8aa0b8;font-size:13px;margin-top:4px;}
-.cc-desc{color:#9db4cc;font-size:13px;margin-top:7px;line-height:1.55;max-width:680px;}
-/* Mode badge — colours injected inline per mode */
-.cc-live{display:inline-block;border-radius:20px;padding:4px 14px;font-weight:700;font-size:13px;
-  float:right;margin-top:4px;}
-/* Section headings */
-.cc-h{color:#34d399;font-weight:700;font-size:15px;margin:0 0 6px;}
-.cc-muted{color:#8aa0b8;font-size:12px;margin-top:4px;}
-/* Generic card + KPI pill */
-.cc-card{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
-  padding:12px 14px;margin-bottom:10px;}
-.cc-pill{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
-  padding:12px 14px;margin-bottom:10px;}
-.cc-pill.cc-fast{border:2px solid #f59e0b;}
-/* KPI label: visually small, uppercase, clearly subordinate */
-.cc-pill-h{color:#aab6c6 !important;font-size:11px !important;text-transform:uppercase !important;letter-spacing:.6px;margin-bottom:4px;}
-/* KPI big number: dominant */
-.cc-big{font-size:34px !important;font-weight:800;line-height:1.1;margin:0;}
-.cc-pill.cc-fast .cc-big{color:#f59e0b !important;}
-/* Colour semantics */
-.cc-pos{color:#34d399;} .cc-neg{color:#f87171;} .cc-flat{color:#e6eaf1;} .cc-warn{color:#f59e0b;}
-/* KPI sub-caption */
-.cc-pill-sub{color:#8aa0b8 !important;font-size:11px !important;margin-top:6px;}
-/* Horizontal bar chart */
-.cc-hwwrap{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;}
-.cc-hw{display:flex;align-items:center;gap:8px;margin:6px 0;min-height:22px;}
-/* Name column: wider + right-aligned so all bars start at the same left edge */
-.cc-hw-name{flex:0 0 46%;text-align:right;padding-right:10px;color:#e6eaf1;font-size:12.5px;
-  font-weight:600;white-space:normal;word-break:break-word;line-height:1.3;}
-.cc-new{background:#1f7a55;color:#d6ffe9;font-style:normal;font-size:10px;padding:1px 5px;
-  border-radius:6px;margin-left:5px;white-space:nowrap;}
-.cc-hw-track{flex:1;background:rgba(255,255,255,.08);border-radius:6px;height:13px;overflow:hidden;}
-.cc-hw-fill{height:13px;border-radius:6px;}
-/* Bar tier colours: green 80+, amber 60-79, blue <60 */
-.cc-hw-fill.cc-pos{background:#34d399;}
-.cc-hw-fill.cc-neg{background:#f87171;}
-.cc-hw-fill.cc-tier-mid{background:#f59e0b;}
-.cc-hw-fill.cc-tier-low{background:#60a5fa;}
-.cc-hw-val{flex:0 0 52px;text-align:right;font-size:13px;font-weight:700;}
-/* Classification box */
-.cc-class{border-radius:14px;padding:12px 16px;margin-top:6px;border-left:5px solid #34d399;}
-.cc-class-good{background:#10301f;border-left-color:#34d399;}
-.cc-class-bad{background:#3a1414;border-left-color:#f87171;}
-.cc-class-neutral{background:#16203a;border-left-color:#60a5fa;}
-.cc-class-h{font-size:15px;color:#cbd6e2;font-weight:600;}
-.cc-class-h b{color:#f59e0b;font-size:17px;letter-spacing:.5px;}
-.cc-class-line{color:#cdd8e4;font-size:13px;margin-top:8px;line-height:1.5;}
-/* Credential chips inside classification */
+/* ---- Header (logo · title · meta · status pill) ---- */
+.cc-hdr-wrap{display:flex;align-items:center;gap:13px;min-width:0;}
+.cc-title2{font:700 18px/1.1 'IBM Plex Sans';color:var(--r-text);letter-spacing:-.01em;}
+.cc-meta{font:400 12px/1.3 'IBM Plex Sans';color:var(--r-muted);margin-top:3px;}
+.cc-live{display:inline-block;border-radius:20px;padding:5px 12px;font:700 12px/1 'IBM Plex Sans';
+  letter-spacing:.03em;white-space:nowrap;}
+.cc-leftpill{display:inline-block;background:var(--r-inset);border:1px solid var(--r-border);
+  border-radius:9px;padding:7px 12px;font:600 12px/1 'IBM Plex Mono';color:var(--r-text);}
+.cc-fresh{font:500 11px/1.3 'IBM Plex Mono';color:var(--r-muted);margin-top:5px;white-space:nowrap;}
+.cc-tag-illus{background:var(--r-amberbg);color:var(--r-amber);font-size:10px;padding:1px 6px;
+  border-radius:6px;margin-left:6px;font-weight:600;text-transform:none;letter-spacing:0;}
+/* ---- Section headings ---- */
+.cc-h{color:var(--r-text);font:600 15px/1.2 'IBM Plex Sans';margin:0 0 6px;}
+.cc-muted{color:var(--r-muted);font-size:12px;margin-top:4px;}
+/* ---- Generic card ---- */
+.cc-card{background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px;
+  padding:13px 16px;margin-bottom:10px;}
+/* ---- KPI strip (label → big number → trend, stacked to survive the narrow center) ---- */
+.cc-kpi{background:var(--r-panel);border:1px solid var(--r-border);border-radius:13px;
+  padding:12px 16px;overflow:hidden;}
+.cc-kpi.cc-fast{background:var(--r-amberbg);border-color:var(--r-amber);}
+.cc-kpi-label{font:600 10px/1.2 'IBM Plex Sans';letter-spacing:.04em;text-transform:uppercase;
+  color:var(--r-muted);white-space:nowrap;}
+.cc-kpi.cc-fast .cc-kpi-label{color:var(--r-amber);}
+.cc-kpi-val{font:700 26px/1.1 'IBM Plex Mono';letter-spacing:-.02em;color:var(--r-text);
+  margin:7px 0 3px;white-space:nowrap;}
+.cc-kpi.cc-fast .cc-kpi-val{color:var(--r-amber);}
+.cc-kpi-trend{font:500 11px/1.2 'IBM Plex Sans';color:var(--r-muted);white-space:nowrap;}
+.cc-kpi.cc-fast .cc-kpi-trend{color:var(--r-amber);}
+/* Legacy vertical-pill classes (still used by evidence-mode coverage cards) */
+.cc-pill{background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px;
+  padding:13px 16px;margin-bottom:10px;}
+.cc-pill.cc-fast{border:2px solid var(--r-amber);}
+.cc-pill-h{color:var(--r-muted) !important;font:600 11px/1 'IBM Plex Sans' !important;
+  text-transform:uppercase !important;letter-spacing:.08em;margin-bottom:5px;}
+.cc-big{font:700 32px/1.1 'IBM Plex Mono' !important;margin:0;letter-spacing:-.01em;}
+.cc-pill.cc-fast .cc-big{color:var(--r-amber) !important;}
+.cc-pill-sub{color:var(--r-muted) !important;font-size:11px !important;margin-top:6px;}
+/* ---- Colour semantics ---- */
+.cc-pos{color:var(--r-pos);} .cc-neg{color:var(--r-neg);}
+.cc-flat{color:var(--r-text);} .cc-warn{color:var(--r-amber);}
+/* ---- Horizontal bar panel (hidden winners / evidence leaders) ---- */
+.cc-hwwrap{background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px;padding:10px 14px;}
+.cc-hw{display:flex;align-items:center;gap:10px;margin:6px 0;min-height:22px;}
+.cc-hw-name{flex:0 0 44%;text-align:right;padding-right:10px;color:var(--r-text);
+  font:600 12.5px/1.3 'IBM Plex Sans';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cc-new{background:var(--r-posbg);color:var(--r-pos);font-style:normal;font-size:10px;
+  padding:1px 5px;border-radius:6px;margin-left:5px;white-space:nowrap;}
+.cc-hw-track{flex:1;background:var(--r-inset);border-radius:6px;height:11px;overflow:hidden;}
+.cc-hw-fill{height:11px;border-radius:6px;}
+.cc-hw-fill.cc-pos{background:var(--r-pos);}
+.cc-hw-fill.cc-neg{background:var(--r-neg);}
+.cc-hw-fill.cc-tier-mid{background:var(--r-amber);}
+.cc-hw-fill.cc-tier-low{background:var(--r-blue);}
+.cc-hw-val{flex:0 0 52px;text-align:right;font:700 13px/1 'IBM Plex Mono';}
+/* ---- Classification box (mockup: tinted bg + accent left-border) ---- */
+.cc-class{border-radius:14px;padding:13px 16px;margin-top:6px;border:1px solid var(--r-pos);
+  border-left:4px solid var(--r-pos);background:var(--r-posbg);}
+.cc-class-good{border-color:var(--r-pos);border-left-color:var(--r-pos);background:var(--r-posbg);}
+.cc-class-bad{border-color:var(--r-neg);border-left-color:var(--r-neg);background:var(--r-negbg);}
+.cc-class-neutral{border-color:var(--r-blue);border-left-color:var(--r-blue);background:var(--r-panel);}
+.cc-class-h{font:600 11px/1 'IBM Plex Sans';color:var(--r-muted);
+  text-transform:uppercase;letter-spacing:.1em;}
+.cc-class-h b{color:var(--r-pos);font:700 14px/1 'IBM Plex Sans';letter-spacing:.02em;text-transform:none;}
+.cc-class-bad .cc-class-h b{color:var(--r-neg);}
+.cc-class-neutral .cc-class-h b{color:var(--r-blue);}
+.cc-class-line{color:var(--r-text);font:400 13px/1.55 'IBM Plex Sans';margin-top:8px;}
 .cc-chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 4px;}
-.cc-chip{display:inline-block;background:rgba(255,255,255,.1);color:#cbd6e2;
+.cc-chip{display:inline-block;background:var(--r-inset);color:var(--r-text);
   font-size:11px;padding:2px 8px;border-radius:10px;white-space:nowrap;}
-/* Live-signal rows */
-.cc-sigwrap{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:6px 14px;}
-.cc-sig{display:flex;justify-content:space-between;align-items:center;padding:8px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:#cbd6e2;}
-.cc-sig:last-child{border-bottom:0;} .cc-sig b{font-size:14px;}
-/* "Why the rating may be wrong" prose panel */
-.cc-panel-body{background:#16203a;border:1px solid rgba(255,255,255,.08);border-radius:14px;
-  padding:12px 14px;color:#cdd8e4;font-size:13px;line-height:1.6;}
-/* Chat bubbles */
-.cc-bubble{border-radius:10px;padding:7px 11px;margin:5px 0;font-size:13px;line-height:1.4;}
-.cc-bubble-u{background:#16203a;color:#cbd6e2;border:1px solid rgba(255,255,255,.08);}
-.cc-bubble-a{background:#241a44;color:#e7defc;border:1px solid #5b46a8;}
+/* ---- Live-signal rows ---- */
+.cc-sigwrap{background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px;padding:4px 14px;}
+.cc-sig{display:flex;justify-content:space-between;align-items:center;padding:11px 0;
+  border-bottom:1px solid var(--r-border);font:400 13px/1 'IBM Plex Sans';color:var(--r-text);}
+.cc-sig:last-child{border-bottom:0;} .cc-sig b{font:600 14px/1 'IBM Plex Mono';}
+/* ---- "Why the rating may be wrong" prose panel ---- */
+.cc-panel-body{background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px;
+  padding:13px 15px;color:var(--r-text);font:400 13px/1.6 'IBM Plex Sans';}
+/* ---- Chat bubbles ---- */
+.cc-bubble{border-radius:10px;padding:7px 11px;margin:5px 0;font:400 13px/1.4 'IBM Plex Sans';}
+.cc-bubble-u{background:var(--r-inset);color:var(--r-text);border:1px solid var(--r-border);}
+.cc-bubble-a{background:var(--r-posbg);color:var(--r-text);border:1px solid var(--r-pos);}
+/* ---- Chart heading row ---- */
+.cc-chart-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:2px;}
+.cc-chart-title{font:600 16px/1 'IBM Plex Sans';color:var(--r-text);}
+.cc-chart-sub{font:500 11.5px/1 'IBM Plex Mono';color:var(--r-muted);}
 </style>
 """
 
@@ -620,13 +649,13 @@ def _chat_act(ss, text, path):
     if not t:
         return
     low = t.lower()
+    simple = _is_simplified(ss)                       # [2.2] plain-language vs analyst copy
     ss.chat_log.append({"role": "user", "text": t})
 
     # 1) Run the 3-stage ESG relay (two modes). Resolves a constituent, else live-builds an ASEAN
     #    name, then opens the deep-dive page in the chosen mode.
     mode = _relay_request(low)
     if mode:
-        verb = "interrogation" if mode == "interrogate" else "compete"
         stripped = _strip_relay_verbs(t)
         # "analyze this / it" -> the currently focused company
         if stripped.lower() in ("this", "it", "focused", "the company", "") and ss.get("focus_ticker"):
@@ -634,7 +663,7 @@ def _chat_act(ss, text, path):
             tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, universe.get(ft, path) or {})
             if tk:
                 ss.chat_log.append({"role": "assistant",
-                                    "text": f"Running the 3-stage relay on the focused company ({verb} mode)…"})
+                                    "text": metrics.chat_relay_msg(None, mode, simple, focused=True)})
                 _launch_relay(ss, tk, mode)
                 return
         c = universe.resolve(stripped or t, path)
@@ -642,8 +671,7 @@ def _chat_act(ss, text, path):
             tk = _ensure_snapshot(ss, c)
             if tk:
                 ss.chat_log.append({"role": "assistant",
-                                    "text": f"Running the 3-stage ESG relay on {c['company']} "
-                                            f"({verb} mode)…"})
+                                    "text": metrics.chat_relay_msg(c["company"], mode, simple)})
                 _launch_relay(ss, tk, mode)        # switches to the deep-dive page (reruns)
             return
         if stripped and len(stripped) >= 2 and not _match_sector(stripped.lower(), path) \
@@ -652,15 +680,13 @@ def _chat_act(ss, text, path):
             if tk:
                 nm = ss.snapshots[tk]["snap"]["company"]
                 ss.chat_log.append({"role": "assistant",
-                                    "text": f"Built {nm} live (ASEAN) — running the 3-stage relay "
-                                            f"({verb} mode)…"})
+                                    "text": metrics.chat_relay_msg(nm, mode, simple, live=True)})
                 _launch_relay(ss, tk, mode)
             else:
-                ss.chat_log.append({"role": "assistant", "text": err or f"Couldn't analyse “{stripped}”."})
+                ss.chat_log.append({"role": "assistant",
+                                    "text": err or metrics.chat_cant_analyse_msg(stripped, simple)})
             return
-        ss.chat_log.append({"role": "assistant",
-                            "text": "Name a company to analyse — e.g. “analyze DBS”, “interrogate "
-                                    "Maybank”, or a live ASEAN name like “analyze Grab”."})
+        ss.chat_log.append({"role": "assistant", "text": metrics.chat_relay_help(simple)})
         return
 
     bits = []
@@ -693,18 +719,16 @@ def _chat_act(ss, text, path):
         d = metrics.num((comp.get("momentum") or {}).get("digital_ai"))
         if not ss.get("demo_mode") and comp["ticker"] not in ss.watchlist:
             _build_and_pin_constituent(ss, comp)      # real mode: also build a live snapshot
-        peer_txt = (f" — scored against {_short_sector(comp['sector'])} peers, "
-                    f"Digital/AI {metrics.fmt_pct(d)} vs avg ESG {avg}." if avg is not None else ".")
         ss.chat_log.append({"role": "assistant",
-                            "text": f"Focused {comp['company']}{peer_txt} Added to the grid."})
+                            "text": metrics.chat_focus_msg(comp["company"], _short_sector(comp["sector"]),
+                                                           simple, avg=avg,
+                                                           digital_pct=metrics.fmt_pct(d))})
         return
 
     if bits:
-        ss.chat_log.append({"role": "assistant", "text": "Filtered to " + " · ".join(bits) + "."})
+        ss.chat_log.append({"role": "assistant", "text": metrics.chat_filter_msg(bits, simple)})
     else:
-        ss.chat_log.append({"role": "assistant",
-                            "text": "I can filter (“show banks”, “Singapore”, “all ASEAN”) or focus "
-                                    "a company (“DemoBank”, “add GreenChip Bank”)."})
+        ss.chat_log.append({"role": "assistant", "text": metrics.chat_fallback_msg(simple)})
 
 
 def _cc_focused(ss, filtered, path):
@@ -757,47 +781,74 @@ def _why_wrong(focused):
 
 
 # --- command center: panels ------------------------------------------------- #
-def _render_pillars(filtered, include_social=True):
-    rows = metrics.pillar_momentum(filtered)
-    if not include_social:  # [3.4] the Social card surfaces only in In-Depth mode
-        rows = [r for r in rows if r["key"] != "social"]
-    cols = st.columns(len(rows) or 1)
-    for col, p in zip(cols, rows):
-        cls = "cc-pill cc-fast" if p["fast"] else "cc-pill"
+# The KPI strip shows Environment · Governance · Digital/AI (the mockup's three cards).
+# Social lives only in the momentum-chart legend, so the strip stays a clean trio.
+_KPI_STRIP = ("environment", "governance", "digital_ai")
+
+
+def _render_pillars(filtered):
+    """Compact horizontal KPI cards: label + trend on the left, big mono % on the right.
+    The Digital/AI card flips amber when it's the fast 'live-edge' riser (mockup)."""
+    rows = {p["key"]: p for p in metrics.pillar_momentum(filtered)}
+    cols = st.columns(3, gap="medium")
+    for col, key in zip(cols, _KPI_STRIP):
+        p = rows.get(key)
+        if not p:
+            continue
+        fast = bool(p.get("fast"))
+        cls = "cc-kpi cc-fast" if fast else "cc-kpi"
+        tone = "" if fast else _sign_class(p["value"])  # fast -> amber via CSS; else by sign
         col.markdown(
-            f'<div class="{cls}"><div class="cc-pill-h">{_esc(p["label"])}</div>'
-            f'<div class="cc-big {_sign_class(p["value"])}">{_esc(metrics.fmt_pct(p["value"]))}</div>'
-            f'<div class="cc-pill-sub">{p["arrow"]} {_esc(p["trend"])}</div></div>',
+            f'<div class="{cls}"><div class="cc-kpi-label">{_esc(p["label"])}</div>'
+            f'<div class="cc-kpi-val {tone}">{_esc(metrics.fmt_pct(p["value"]))}</div>'
+            f'<div class="cc-kpi-trend {tone}">{p["arrow"]} {_esc(p["trend"])}</div></div>',
             unsafe_allow_html=True)
 
 
-def _render_momentum_chart(ss, filtered):
-    st.markdown('<div class="cc-h">ESG momentum · 90 days</div>', unsafe_allow_html=True)
+def _render_momentum_chart(ss, filtered, height=370):
+    st.markdown('<div class="cc-chart-head"><span class="cc-chart-title">ESG momentum</span>'
+                '<span class="cc-chart-sub">90 days · % change</span></div>',
+                unsafe_allow_html=True)
     series = metrics.momentum_series(filtered)
     if not series:
         st.caption("No momentum data for this filter yet.")
         return
-    colors = {"digital_ai": "#f59e0b", "environment": "#34d399",
-              "governance": "#f87171", "social": "#60a5fa"}
+    colors = {"digital_ai": "#f5a524", "environment": "#35d39a",
+              "governance": "#f4737d", "social": "#5e9cf6"}
+    dark = bool(ss.get("dark_mode"))
+    grid = "rgba(148,163,184,.10)" if dark else "rgba(15,23,42,.08)"
+    zero = "rgba(148,163,184,.30)" if dark else "rgba(15,23,42,.22)"
+    tick = "#8b97ab" if dark else "#56627a"
+    panel = "#121a29" if dark else "#ffffff"
+    txt = "#e7ebf3" if dark else "#0f1729"
     go = _go()
     if go:
         fig = go.Figure()
         for key, vals in series.items():
+            # Digital/AI is the headline signal — draw it heaviest, matching the mockup.
+            width = 3.2 if key == "digital_ai" else (2.6 if key == "environment" else 2.2)
             fig.add_trace(go.Scatter(
                 y=vals, mode="lines", name=metrics.PILLAR_LABEL[key],
-                line=dict(color=colors.get(key, "#9aa6b2"), width=3),
+                line=dict(color=colors.get(key, "#9aa6b2"), width=width, shape="spline"),
                 hovertemplate=metrics.PILLAR_LABEL[key] + ": %{y:.1f}%<extra></extra>"))
         fig.update_layout(
-            height=240, margin=dict(l=8, r=8, t=8, b=8),
+            height=height, margin=dict(l=8, r=8, t=6, b=8),
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            legend=dict(orientation="h", y=-0.18, x=0, font=dict(size=10, color="#aab6c6")),
-            xaxis=dict(visible=False),
-            yaxis=dict(zeroline=True, zerolinecolor="rgba(255,255,255,.2)",
-                       gridcolor="rgba(255,255,255,.07)", ticksuffix="%",
-                       tickfont=dict(size=9, color="#8aa0b8")))
+            # Unified hover that NEVER disappears as the cursor moves across the plot:
+            # hover/spike distance = -1 means "always snap to the nearest x", so the
+            # all-series readout + the vertical guide track the cursor everywhere.
+            hovermode="x unified", hoverdistance=-1, spikedistance=-1,
+            hoverlabel=dict(bgcolor=panel, bordercolor=grid,
+                            font=dict(family="IBM Plex Sans", size=12, color=txt)),
+            legend=dict(orientation="h", y=-0.16, x=0,
+                        font=dict(size=11, color=tick, family="IBM Plex Sans")),
+            xaxis=dict(visible=False, showspikes=True, spikemode="across", spikesnap="cursor",
+                       spikethickness=1, spikedash="dot", spikecolor=zero),
+            yaxis=dict(zeroline=True, zerolinecolor=zero, gridcolor=grid, ticksuffix="%",
+                       tickfont=dict(size=10, color=tick, family="IBM Plex Mono")))
         st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
     else:
-        st.line_chart({metrics.PILLAR_LABEL[k]: v for k, v in series.items()}, height=240)
+        st.line_chart({metrics.PILLAR_LABEL[k]: v for k, v in series.items()}, height=height)
 
 
 def _render_hidden_winners(filtered, new_tickers=()):
@@ -838,6 +889,187 @@ def _render_classification(focused, cls=None, creds=None):
         f'{_esc((focused or {}).get("company", "—"))}</span></div>'
         f'{chips_html}'
         f'<div class="cc-class-line">{_esc(cls["line"])}</div></div>', unsafe_allow_html=True)
+
+
+# --- focused-company feature panels (2026-06-30 backlog) ----------------------- #
+_TONE_CLASS = {"good": "cc-class-good", "bad": "cc-class-bad", "neutral": "cc-class-neutral"}
+
+
+def _render_plain_summary(focused, answer, *, demo=False):
+    """[2.1] A plain-language, score-free summary card leading the Simplified center column."""
+    ps = metrics.plain_summary(focused or {}, answer)
+    chip = '<span class="cc-tag-illus">illustrative demo</span>' if demo else ""
+    verdict = (f'<div class="cc-class-line"><b>What we see:</b> {_esc(ps["verdict"])}</div>'
+               if ps["verdict"] else "")
+    st.markdown(
+        f'<div class="cc-class {_TONE_CLASS[ps["tone"]]}"><div class="cc-class-h">In plain terms '
+        f'&nbsp; <b>{_esc(ps["headline"])}</b> {chip}</div>'
+        f'<div class="cc-class-line">{_esc(ps["body"])}</div>{verdict}</div>', unsafe_allow_html=True)
+    st.caption("Plain-language read — not investment advice; we never say buy / sell / hold.")
+
+
+def _render_price_panel(ss, focused):
+    """[#17] Illustrative 90-day share-price trajectory for a focused DEMO company; real names show
+    'awaiting data' (demo-only field, HARD RULE 2). Defends with the demo_mode gate."""
+    st.markdown('<div class="cc-chart-head"><span class="cc-chart-title">Share price · 90 days'
+                '</span><span class="cc-chart-sub">illustrative · rebased to 100</span></div>',
+                unsafe_allow_html=True)
+    pct = metrics.price_change_pct(focused) if ss.get("demo_mode") else None
+    if pct is None:
+        st.caption("Awaiting data — no price feed wired for this name.")
+        return
+    st.markdown(f'<div class="cc-muted">90-day change <b class="{_sign_class(pct)}">'
+                f'{_esc(metrics.fmt_pct(pct))}</b> · illustrative demo data</div>',
+                unsafe_allow_html=True)
+    series = metrics.price_series(pct)
+    go = _go()
+    if go and series:
+        dark = bool(ss.get("dark_mode"))
+        grid = "rgba(148,163,184,.10)" if dark else "rgba(15,23,42,.08)"
+        tick = "#8b97ab" if dark else "#56627a"
+        fig = go.Figure(go.Scatter(y=series, mode="lines",
+                        line=dict(color="#35d39a" if pct >= 0 else "#f4737d", width=2.6,
+                                  shape="spline"),
+                        hovertemplate="%{y:.1f}<extra></extra>"))
+        fig.update_layout(height=210, margin=dict(l=8, r=8, t=6, b=8),
+                          paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                          xaxis=dict(visible=False),
+                          yaxis=dict(gridcolor=grid, tickfont=dict(size=10, color=tick,
+                                                                   family="IBM Plex Mono")))
+        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    elif series:
+        st.line_chart(series, height=210)
+    if not _is_simplified(ss):
+        st.caption("Illustrative rebased path (start = 100) — not a backtest or a real quote.")
+
+
+def _render_forecast(focused, simple):
+    """[#12] Illustrative directional outlook from current momentum — never a projected number for a
+    real name (HARD RULE 2/4)."""
+    fc = metrics.forecast_outlook(focused or {})
+    st.markdown('<div class="cc-h">🔭 Forecast outlook '
+                '<span class="cc-tag-illus">illustrative</span></div>', unsafe_allow_html=True)
+    if not fc["available"]:
+        st.markdown(f'<div class="cc-card cc-muted">{_esc(fc["headline"])}</div>',
+                    unsafe_allow_html=True)
+        return
+    st.markdown(
+        f'<div class="cc-class {_TONE_CLASS[fc["tone"]]}"><div class="cc-class-h">Outlook &nbsp; '
+        f'<b>{_esc(fc["label"])}</b></div>'
+        f'<div class="cc-class-line">{_esc(fc["headline"])}</div></div>', unsafe_allow_html=True)
+    if not simple:
+        chips = "".join(f'<span class="cc-chip">{_esc(p["label"])} {p["arrow"]} {_esc(p["word"])}'
+                        '</span>' for p in fc["pillars"])
+        st.markdown(f'<div class="cc-chips">{chips}</div>', unsafe_allow_html=True)
+        st.caption(f"Basis: avg live pillar momentum {metrics.fmt_pct(fc['mean'])} "
+                   "(illustrative demo signal).")
+    st.caption("Illustrative directional outlook — a conditional read of current momentum, not a "
+               "forecast, prediction, or price target. Never investment advice.")
+
+
+def _render_check_before_monday(ss, focused, *, compact):
+    """[#5] Surface the focused company's cached Stage-2 'check before Monday' action (verbatim from
+    the verified baton — never generated here)."""
+    tk = (focused or {}).get("ticker")
+    act = metrics.focused_answer_action(ss.snapshots, tk)
+    st.markdown('<div class="cc-h">✅ Check before Monday</div>', unsafe_allow_html=True)
+    if not act["has"]:
+        st.markdown('<div class="cc-panel-body">No competing read computed yet — run a deep-dive '
+                    'Compete on this company to surface one concrete action to check.</div>',
+                    unsafe_allow_html=True)
+        return
+    if not compact and act["verdict"]:
+        st.markdown(f'<div class="cc-muted">⚔️ {_esc(act["verdict"])}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="cc-panel-body">{_esc(act["check"])}</div>', unsafe_allow_html=True)
+    origin = ((ss.snapshots.get(tk) or {}).get("company") or {}).get("_origin")
+    cap = ("Illustrative — computed on demo data; not a real company action."
+           if origin == "sample" else
+           "From the computed deep-dive (Stage 2 baton). Not investment advice.")
+    st.markdown(f'<div class="cc-muted">{cap}</div>', unsafe_allow_html=True)
+
+
+def _render_news_card(ss, focused):
+    """[#11] News headlines — illustrative for demo names; 'awaiting' + deterministic search links
+    for real names (never fabricated headlines, HARD RULE 2)."""
+    nc = metrics.news_card(focused or {})
+    simple = _is_simplified(ss)
+    st.markdown('<div class="cc-h">📰 In the news</div>', unsafe_allow_html=True)
+    if nc["headlines"]:
+        st.markdown('<div class="cc-muted">Illustrative demo headlines — not real news.</div>',
+                    unsafe_allow_html=True)
+        for h in nc["headlines"][:(3 if simple else 5)]:
+            meta = " · ".join(p for p in (h.get("source"), h.get("date")) if p)
+            st.markdown(f'<div class="cc-panel-body" style="margin:6px 0;">{_esc(h["title"])}'
+                        f'<div class="cc-muted">{_esc(meta)}</div></div>', unsafe_allow_html=True)
+    else:
+        st.caption("General news not wired for this name yet — search it directly:")
+    st.markdown(f'[▶ Search YouTube]({nc["youtube_url"]})'
+                + ("" if simple else f"  ·  [📰 News search]({nc['news_url']})"))
+
+
+def _render_analyst_coverage(focused, simplified, demo):
+    """[#18] Sell-side coverage BREADTH pill — count only, never a rating (HARD RULE 4); visually
+    distinct from the X/10 data-coverage meter."""
+    ac = metrics.analyst_coverage(focused or {})
+    if not ac["covered"]:
+        if simplified:
+            return                                   # keep the plain view clean when nothing to show
+        st.markdown('<div class="cc-leftpill">👥 Analyst coverage · awaiting data</div>',
+                    unsafe_allow_html=True)
+        return
+    extra = f" ({ac['as_of']})" if ac["as_of"] else ""
+    tag = " · illustrative" if demo else ""
+    st.markdown(f'<div class="cc-leftpill">👥 {_esc(ac["label"])}{_esc(extra)}{tag}</div>',
+                unsafe_allow_html=True)
+    if not simplified:
+        st.markdown('<div class="cc-muted">Sell-side analyst breadth (how many analysts follow the '
+                    'name) — distinct from the live-signal coverage meter (X/10); not a rating.</div>',
+                    unsafe_allow_html=True)
+
+
+def _render_financial_snapshot(ss, company):
+    """[#10/2.3] Illustrative financial snapshot on the deep dive; 'awaiting data' when no market
+    feed (HARD RULE 2). Stat grid only — no plotly."""
+    fs = metrics.financial_snapshot(company or {})
+    st.markdown('<div class="cc-h">💹 Financial snapshot</div>', unsafe_allow_html=True)
+    if not fs["have"]:
+        st.caption("Financial snapshot — awaiting data (market feed not wired for this name).")
+        return
+    rows = fs["simple"] if _is_simplified(ss) else fs["rows"]
+    cells = "".join(f'<div class="cc-kpi"><div class="cc-kpi-label">{_esc(r["label"])}</div>'
+                    f'<div class="cc-kpi-val">{_esc(r["value"])}</div></div>' for r in rows)
+    st.markdown('<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));'
+                f'gap:8px;">{cells}</div>', unsafe_allow_html=True)
+    st.caption("Illustrative figures — not real market data.")
+
+
+def _render_followup_chips(ss, focused, path):
+    """[14/3.7] 2-3 clickable suggestion chips under the last assistant reply; a click feeds the same
+    ss.pending_chat mechanism the chat form uses (applied at the top of the next run)."""
+    log = ss.get("chat_log") or []
+    if not log or log[-1].get("role") != "assistant":
+        return
+    ft = (focused or {}).get("ticker")
+    entry = ss.snapshots.get(ft) if ft else None
+    secs = universe.sectors(path)
+    ctys = universe.countries(path)
+    chips = metrics.suggested_followups(
+        focused_name=(focused or {}).get("company"),
+        focused_sector=_short_sector((focused or {}).get("sector")),
+        has_focus=bool(ss.get("focus_ticker")) or bool(focused),
+        has_answer=bool(entry and entry.get("answer")),
+        simplified=_is_simplified(ss),
+        sample_sector=_short_sector(secs[0]) if secs else None,
+        sample_country=ctys[0] if ctys else None)
+    if not chips:
+        return
+    st.caption("Try next:")
+    cols = st.columns(len(chips))
+    for i, (col, chip) in enumerate(zip(cols, chips)):
+        if col.button(chip["label"], key=f"cc_chip_{i}", use_container_width=True,
+                      help=chip["prompt"]):
+            ss.pending_chat = chip["prompt"]
+            st.rerun()
 
 
 def _render_live_signals(focused):
@@ -924,7 +1156,16 @@ def _render_evidence_signals(focused):
 
 # --- command center: columns ------------------------------------------------ #
 def _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode):
-    st.markdown('<div class="cc-h">Filters</div>', unsafe_allow_html=True)
+    # Mockup: the universe banner + one-line note head the left rail (not the center).
+    st.markdown(f'<div class="cc-leftpill">{_esc(metrics.universe_banner(uni))}</div>',
+                unsafe_allow_html=True)
+    note = ("Fictional companies — toggle off in the sidebar for the real ASEAN base DB."
+            if ss.get("demo_mode") else
+            "Real ASEAN improvers (evidence) — pillar momentum awaits the alt-data feed."
+            if mode == "evidence" else
+            "Live ASEAN improvers — competing with each stale rating.")
+    st.caption(note)
+    st.markdown('<div class="cc-h" style="margin-top:14px;">Filters</div>', unsafe_allow_html=True)
     st.selectbox("Industry", sectors, key="flt_sector", format_func=_short_sector)
     st.selectbox("Country", countries, key="flt_country",
                  format_func=lambda c: "All ASEAN" if c == "All" else c)
@@ -993,12 +1234,27 @@ def _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode):
 
 def _cc_center(ss, filtered, focused, mode):
     nt = {ss.focus_ticker} if ss.get("focus_ticker") else set()  # the just-focused name -> "new" badge
+    simple = _is_simplified(ss)  # Simple (mockup) hides the winners/leaders column
+    if simple:                                       # [2.1] plain-language card leads Simplified view
+        _ans = (ss.snapshots.get((focused or {}).get("ticker")) or {}).get("answer")
+        _render_plain_summary(focused, _ans, demo=bool(ss.get("demo_mode")))
+        st.write("")
     if mode == "evidence":
         _render_coverage_cards(filtered)
         st.write("")
+        if simple:
+            ep = metrics.evidence_profile(focused or {}) if (focused or {}).get("esg_basis") else {}
+            _render_classification(focused, metrics.classify_evidence(focused or {}),
+                                   creds=ep.get("credentials", []))
+            _render_check_before_monday(ss, focused, compact=True)   # [#5]
+            _render_forecast(focused, simple)                        # [#12] -> awaiting in evidence
+            _render_news_card(ss, focused)                           # [#11]
+            return
         c1, c2 = st.columns([1.15, 1], gap="medium")
         with c1:
-            st.markdown('<div class="cc-h">ESG momentum · 90 days</div>', unsafe_allow_html=True)
+            st.markdown('<div class="cc-chart-head"><span class="cc-chart-title">ESG momentum</span>'
+                        '<span class="cc-chart-sub">90 days · % change</span></div>',
+                        unsafe_allow_html=True)
             st.caption("Live pillar momentum needs the alt-data feed (AI hiring, patents, "
                        "news/behaviour) — not in the evidence set. **This is the radar's real edge** "
                        "once those signals are wired.")
@@ -1012,24 +1268,43 @@ def _cc_center(ss, filtered, focused, mode):
         ep = metrics.evidence_profile(focused or {}) if (focused or {}).get("esg_basis") else {}
         _render_classification(focused, metrics.classify_evidence(focused or {}),
                                creds=ep.get("credentials", []))
+        _render_price_panel(ss, focused)      # real name -> 'awaiting data' (demonstrates HARD RULE 2)
+        _render_forecast(focused, simple)      # [#12]
+        _render_news_card(ss, focused)         # [#11]
     else:
-        _render_pillars(filtered, include_social=not _is_simplified(ss))  # [3.4]
+        _render_pillars(filtered)
         st.write("")
-        c1, c2 = st.columns([1.15, 1], gap="medium")
-        with c1:
-            _render_momentum_chart(ss, filtered)
-        with c2:
-            _render_hidden_winners(filtered, new_tickers=nt)
+        if simple:                                   # Simple mode: tall full-width chart, no winners
+            _render_momentum_chart(ss, filtered, height=560)
+        else:
+            c1, c2 = st.columns([1.15, 1], gap="medium")
+            with c1:
+                # Taller chart so the center column reaches down to the (longer) right rail,
+                # trimming the dead space that sat under the classification box.
+                _render_momentum_chart(ss, filtered, height=480)
+            with c2:
+                _render_hidden_winners(filtered, new_tickers=nt)
         _render_classification(focused, metrics.classify(focused or {}))
+        _render_price_panel(ss, focused)          # [#17] illustrative 90-day price (demo only)
+        _render_forecast(focused, simple)          # [#12] directional outlook
+        if simple:                                 # [#5] Simplified -> center; In-Depth -> right rail
+            _render_check_before_monday(ss, focused, compact=True)
+        _render_news_card(ss, focused)             # [#11]
 
 
 def _cc_right(ss, filtered, focused, path, mode):
     st.markdown('<div class="cc-h">💬 AI assistant</div>', unsafe_allow_html=True)
-    st.caption("Filter (“show banks”, “Singapore”), focus a company, or run the **3-stage relay**: "
-               "“analyze DBS” (compete) · “interrogate Maybank” · “analyze Grab” (live ASEAN).")
+    simple = _is_simplified(ss)
+    if simple:                                        # [2.2] plain-language assistant hint
+        st.caption("Try “show banks”, “Singapore”, or a company name like “DBS” — I’ll pull it up. "
+                   "Say “look at DBS” for a full read.")
+    else:
+        st.caption("Filter (“show banks”, “Singapore”), focus a company, or run the **3-stage relay**: "
+                   "“analyze DBS” (compete) · “interrogate Maybank” · “analyze Grab” (live ASEAN).")
     for m in ss.chat_log[-6:]:
         css = "cc-bubble-u" if m["role"] == "user" else "cc-bubble-a"
         st.markdown(f'<div class="cc-bubble {css}">{_esc(m["text"])}</div>', unsafe_allow_html=True)
+    _render_followup_chips(ss, focused, path)         # [14/3.7] suggestion chips under the last reply
     with st.form("cc_chat", clear_on_submit=True):
         msg = st.text_input("ask", key="cc_chat_in", label_visibility="collapsed",
                             placeholder="Add a company or ask…")
@@ -1041,16 +1316,20 @@ def _cc_right(ss, filtered, focused, path, mode):
     # Two-mode hint row — run the 3-stage relay on the focused company without knowing keywords.
     ft = (focused or {}).get("ticker")
     fname = (focused or {}).get("company", "—")
-    st.caption(f"Analyse **{fname}** →")
+    st.caption((f"Look at **{fname}** →" if simple else f"Analyse **{fname}** →"))
     h1, h2 = st.columns(2)
-    if h1.button("Compete", key="cc_hint_compete", use_container_width=True, disabled=not ft,
-                 help="Skip to the competing read — Stage 2 + 3 run directly."):
+    if h1.button("Quick read" if simple else "Compete", key="cc_hint_compete",
+                 use_container_width=True, disabled=not ft,
+                 help=("Show the competing read straight away." if simple
+                       else "Skip to the competing read — Stage 2 + 3 run directly.")):
         c = universe.get(ft, path) or focused
         tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
         if tk:
             _launch_relay(ss, tk, "compete")
-    if h2.button("Interrogate", key="cc_hint_interro", use_container_width=True, disabled=not ft,
-                 help="Ask adaptive ESG questions first (Stage 1), then compete."):
+    if h2.button("Ask first" if simple else "Interrogate", key="cc_hint_interro",
+                 use_container_width=True, disabled=not ft,
+                 help=("Answer a few quick questions first, then see the read." if simple
+                       else "Ask adaptive ESG questions first (Stage 1), then compete.")):
         c = universe.get(ft, path) or focused
         tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
         if tk:
@@ -1063,12 +1342,17 @@ def _cc_right(ss, filtered, focused, path, mode):
     else:
         _render_live_signals(focused)
         nsig = len(metrics.live_signals(focused or {}))
+    _render_analyst_coverage(focused, simple, bool(ss.get("demo_mode")))   # [#18] sell-side breadth
     st.divider()
     st.markdown('<div class="cc-h">Why the rating may be wrong</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="cc-panel-body">{_esc(_why_wrong(focused))}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="cc-muted">Focused: {_esc((focused or {}).get("company", "—"))} · '
                 f'{nsig} {"credentials" if mode == "evidence" else "signals"}</div>',
                 unsafe_allow_html=True)
+
+    if not simple:                                   # [#5] In-Depth: diagnosis -> concrete action
+        st.divider()
+        _render_check_before_monday(ss, focused, compact=False)
 
     if (focused or {}).get("esg_basis"):     # the documented 2019–2023 improvement evidence
         with st.expander("📌 Foundation evidence (why it's an ESG improver)"):
@@ -1114,9 +1398,89 @@ def _universe_cards(ss, filtered, path):
                         st.rerun()
 
 
+# Distinct per-company colours for the comparison graphs (theme-agnostic, high-contrast).
+_CMP_PALETTE = ["#35d39a", "#5e9cf6", "#f5a524", "#f4737d"]
+
+
+def _render_compare_charts(ss, tickers):
+    """Graph the side-by-side: grouped E/S/G momentum bars + static-ESG-score bars. Numbers come
+    straight from each Contract B via metrics.compare_companies — never fabricated, so evidence-only
+    names just drop out. Degrades to st.bar_chart when plotly is absent (HARD RULE 1)."""
+    companies = [ss.snapshots[tk]["company"] for tk in tickers]
+    data = metrics.compare_companies(companies)
+    rows = data["rows"]
+    pillars = data["pillars"]
+    colors = {r["ticker"]: _CMP_PALETTE[i % len(_CMP_PALETTE)] for i, r in enumerate(rows)}
+
+    if not (data["has_momentum"] or data["has_score"]):
+        st.info("📊 No numeric momentum or rating data on these names yet — comparison graphs need "
+                "the demo set (or built numeric data). Evidence-only names show **awaiting data**.")
+        return
+
+    dark = bool(ss.get("dark_mode"))
+    grid = "rgba(148,163,184,.10)" if dark else "rgba(15,23,42,.08)"
+    zero = "rgba(148,163,184,.30)" if dark else "rgba(15,23,42,.22)"
+    tick = "#8b97ab" if dark else "#56627a"
+    go = _go()
+    g1, g2 = st.columns([3, 2])
+
+    # --- E/S/G momentum, grouped bars (one cluster per pillar, one bar per company) ---
+    with g1:
+        st.markdown('<div class="cc-chart-head"><span class="cc-chart-title">E · S · G momentum'
+                    '</span><span class="cc-chart-sub">% change · higher = better</span></div>',
+                    unsafe_allow_html=True)
+        if not data["has_momentum"]:
+            st.caption("No momentum data on these names.")
+        elif go:
+            fig = go.Figure()
+            for r in rows:
+                fig.add_trace(go.Bar(
+                    name=r["company"], x=[p for p in pillars],
+                    y=[r["momentum"][p] for p in pillars],
+                    marker_color=colors[r["ticker"]],
+                    hovertemplate=f'{_esc(r["company"])} %{{x}}: %{{y:.1f}}%<extra></extra>'))
+            fig.update_layout(
+                barmode="group", height=320, margin=dict(l=8, r=8, t=6, b=8),
+                paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                legend=dict(orientation="h", y=-0.16, x=0,
+                            font=dict(size=11, color=tick, family="IBM Plex Sans")),
+                xaxis=dict(tickfont=dict(size=12, color=tick, family="IBM Plex Sans")),
+                yaxis=dict(zeroline=True, zerolinecolor=zero, gridcolor=grid, ticksuffix="%",
+                           tickfont=dict(size=10, color=tick, family="IBM Plex Mono")))
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        else:
+            st.bar_chart({r["company"]: [r["momentum"][p] for p in pillars] for r in rows},
+                         height=320)
+            st.caption("Bars ordered E · S · G.")
+
+    # --- static ESG score, one bar per company (lower = better for a risk score) ---
+    with g2:
+        st.markdown('<div class="cc-chart-head"><span class="cc-chart-title">Static ESG score'
+                    '</span><span class="cc-chart-sub">lower = better risk</span></div>',
+                    unsafe_allow_html=True)
+        scored = [r for r in rows if r["esg_score"] is not None]
+        if not scored:
+            st.caption("No static rating on these names.")
+        elif go:
+            fig = go.Figure(go.Bar(
+                x=[r["company"] for r in scored], y=[r["esg_score"] for r in scored],
+                marker_color=[colors[r["ticker"]] for r in scored],
+                text=[f'{r["esg_score"]:.1f}' for r in scored], textposition="outside",
+                hovertemplate="%{x}: %{y:.1f}<extra></extra>"))
+            fig.update_layout(
+                height=320, margin=dict(l=8, r=8, t=6, b=8),
+                paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", showlegend=False,
+                xaxis=dict(tickfont=dict(size=11, color=tick, family="IBM Plex Sans")),
+                yaxis=dict(gridcolor=grid,
+                           tickfont=dict(size=10, color=tick, family="IBM Plex Mono")))
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        else:
+            st.bar_chart({r["company"]: [r["esg_score"]] for r in scored}, height=320)
+    st.divider()
+
+
 def _render_compare(ss):
     """Side-by-side comparison of 2–4 monitored companies."""
-    st.markdown(_CC_CSS, unsafe_allow_html=True)
     tickers = [tk for tk in ss.get("compare_tickers", []) if tk in ss.snapshots]
 
     top = st.columns([1, 2, 3])
@@ -1133,6 +1497,8 @@ def _render_compare(ss):
     if len(tickers) < 2:
         st.warning("Select at least 2 monitored companies using **⊕ Cmp** on the monitored board.")
         return
+
+    _render_compare_charts(ss, tickers)
 
     cols = st.columns(len(tickers))
     for col, tk in zip(cols, tickers):
@@ -1183,6 +1549,82 @@ def _render_compare(ss):
                     st.rerun()
 
 
+# Radar mark from the mockup — concentric rings + a sweep tick (uses theme tokens).
+_RADAR_SVG = (
+    '<svg width="30" height="30" viewBox="0 0 34 34" style="flex:0 0 auto;">'
+    '<circle cx="17" cy="17" r="15" fill="none" stroke="var(--r-border)" stroke-width="1.4"></circle>'
+    '<circle cx="17" cy="17" r="9" fill="none" stroke="var(--r-border)" stroke-width="1.4"></circle>'
+    '<line x1="17" y1="17" x2="29.5" y2="8" stroke="var(--r-pos)" stroke-width="1.6" stroke-linecap="round"></line>'
+    '<circle cx="17" cy="17" r="3" fill="var(--r-pos)"></circle></svg>'
+)
+
+
+def _render_header(ss, uni, cons, mode):
+    """The command-center header: logo · title · meta · status pill, then the control
+    cluster (Full|Simple · Dark|Light · Filters · Assistant) as styled buttons."""
+    n = len(cons)
+    ind = len({c["sector"] for c in cons if c["sector"] != "unknown"})
+    quarter = metrics._as_quarter(uni.get("as_of", "")) or uni.get("as_of", "")
+    tag = ("demo data" if ss.get("demo_mode") else
+           "evidence-based" if mode == "evidence" else "live")
+    title_html = (
+        '<div class="cc-hdr-wrap">' + _RADAR_SVG +
+        '<div style="min-width:0;"><div class="cc-title2">ASEAN ESG Momentum Radar</div>'
+        f'<div class="cc-meta">{_esc(quarter)} · {n} listed companies · {ind} industries · '
+        f'{_esc(tag)}</div></div></div>'
+    )
+    if ss.get("demo_mode"):
+        pill = '<span class="cc-live" style="color:var(--r-amber);border:1px solid var(--r-amber);">● Demo</span>'
+    elif mode == "evidence":
+        pill = '<span class="cc-live" style="color:var(--r-blue);border:1px solid var(--r-blue);">● Evidence</span>'
+    else:
+        pill = '<span class="cc-live" style="color:var(--r-pos);border:1px solid var(--r-pos);">● Live</span>'
+
+    # Row 1: logo · title · meta on the left, status pill + freshness on the right.
+    fresh = metrics.fmt_elapsed(time.time(), ss.get("data_built_at"))
+    fresh_html = ""
+    if fresh:
+        label = "↻ Updated " + fresh + ("" if _is_simplified(ss) or not quarter else f" · {quarter}")
+        fresh_html = f'<div class="cc-fresh">{_esc(label)}</div>'
+    L, R = st.columns([7, 2], vertical_alignment="center")
+    L.markdown(title_html, unsafe_allow_html=True)
+    R.markdown(f'<div style="text-align:right;">{pill}{fresh_html}</div>', unsafe_allow_html=True)
+
+    # Row 2: the control cluster, spanning the full main width so labels never wrap
+    # (a slim sidebar is kept, so the header band has less room than the no-sidebar mockup).
+    simple = _is_simplified(ss)
+    dark = bool(ss.get("dark_mode"))
+    lo, ro = bool(ss.get("left_open", True)), bool(ss.get("right_open", True))
+    c = st.columns([1, 1, 1, 1, 1.3, 1.5, 3.2], vertical_alignment="center")
+    # Full | Simple — drives ui_mode AND the rail/winners layout, exactly like the mockup.
+    if c[0].button("Full", key="hdr_full", use_container_width=True,
+                   type="secondary" if simple else "primary"):
+        ss.ui_mode, ss.left_open, ss.right_open = "In-Depth", True, True
+        st.rerun()
+    if c[1].button("Simple", key="hdr_simple", use_container_width=True,
+                   type="primary" if simple else "secondary"):
+        ss.ui_mode, ss.left_open, ss.right_open = "Simplified", False, False
+        st.rerun()
+    if c[2].button("Dark", key="hdr_dark", use_container_width=True,
+                   type="primary" if dark else "secondary"):
+        ss.dark_mode = True
+        st.rerun()
+    if c[3].button("Light", key="hdr_light", use_container_width=True,
+                   type="primary" if not dark else "secondary"):
+        ss.dark_mode = False
+        st.rerun()
+    if c[4].button(("‹ " if lo else "› ") + "Filters", key="hdr_left",
+                   use_container_width=True, type="primary" if lo else "secondary"):
+        ss.left_open = not lo
+        st.rerun()
+    if c[5].button("Assistant " + ("›" if ro else "‹"), key="hdr_right",
+                   use_container_width=True, type="primary" if ro else "secondary"):
+        ss.right_open = not ro
+        st.rerun()
+    st.markdown('<div style="height:1px;background:var(--r-border);margin:8px 0 12px;"></div>',
+                unsafe_allow_html=True)
+
+
 def _render_dashboard(ss):
     """The command-center home: filters · avg ESG · pillar momentum · hidden winners · AI assistant."""
     path = universe.active_file(bool(ss.get("demo_mode")))
@@ -1202,45 +1644,7 @@ def _render_dashboard(ss):
     mode = _uni_mode(cons)
     focused = _cc_focused(ss, filtered, path)
 
-    st.markdown(_CC_CSS, unsafe_allow_html=True)
-    n, ind = len(cons), len({c["sector"] for c in cons if c["sector"] != "unknown"})
-    tag = ("· demo data" if ss.get("demo_mode") else
-           "· evidence-based" if mode == "evidence" else "· live")
-    # Mode badge: colour-coded so it earns its hue (amber = demo, blue = evidence, green = live)
-    if ss.get("demo_mode"):
-        badge_html = ('<div class="cc-live" style="color:#f59e0b;background:#2d200a;'
-                      'border:1px solid #b45309;">● Demo</div>')
-    elif mode == "evidence":
-        badge_html = ('<div class="cc-live" style="color:#60a5fa;background:#0d1f3c;'
-                      'border:1px solid #1e4a8a;">● Evidence</div>')
-    else:
-        badge_html = ('<div class="cc-live" style="color:#34d399;background:#123a2a;'
-                      'border:1px solid #1f7a55;">● Live</div>')
-    head_l, head_r = st.columns([4, 1])
-    # Single merged header block: title + metadata + one-line description
-    desc = ("Fictional companies — toggle off in the sidebar for the real ASEAN base DB."
-            if ss.get("demo_mode")
-            else ("Evidence mode: Avg ESG-leadership and classification derived from each name's "
-                  "documented credentials (MSCI/DJSI/CDP/FTSE4Good/Sustainalytics). "
-                  "Pillar momentum awaits the alt-data feed."
-                  if mode == "evidence"
-                  else "Monitors a basket of ASEAN ESG improvers and competes with their stale "
-                       "ratings — disagreeing with the live signal the rating can't see. "
-                       "Never says buy / sell / hold."))
-    head_l.markdown(
-        f'<div class="cc-title">🛰️ ASEAN ESG Momentum Radar</div>'
-        f'<div class="cc-sub2">{_esc(uni.get("as_of", ""))} · {n} listed companies · '
-        f'{ind} industries {tag}</div>'
-        f'<div class="cc-desc">{_esc(desc)}</div>',
-        unsafe_allow_html=True)
-    head_r.markdown(badge_html, unsafe_allow_html=True)
-
-    # [1.9] Universe banner — quarter · company count · Top N, derived from the active universe.
-    st.markdown(
-        '<div style="display:inline-block;background:#16203a;border:1px solid rgba(255,255,255,.08);'
-        'border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#cbd6e2;'
-        f'margin:4px 0 8px;">📍 {_esc(metrics.universe_banner(uni))}</div>',
-        unsafe_allow_html=True)
+    _render_header(ss, uni, cons, mode)
 
     # Headline foundation-backtest figures — display only, with the data's own NOT-recomputed
     # disclaimer (the figures refer to the team's original basket, not this reconstructed list).
@@ -1252,13 +1656,28 @@ def _render_dashboard(ss):
             f"Sharpe {bs.get('basket_sharpe', '—')} vs {bs.get('benchmark_sharpe', '—')}.  \n"
             f"_{_esc(bs.get('source', ''))}_")
 
-    left, center, right = st.columns([1.15, 2.25, 1.4], gap="medium")
-    with left:
-        _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode)
+    # Collapsible rails (mockup: Filters / Assistant toggles). Streamlit can't animate a
+    # width slide, so a closed rail is simply omitted and the canvas reclaims the space.
+    lo, ro = bool(ss.get("left_open", True)), bool(ss.get("right_open", True))
+    if lo and ro:
+        left, center, right = st.columns([1, 2.9, 1.25], gap="medium")
+    elif lo and not ro:
+        left, center = st.columns([1, 4.2], gap="medium")
+        right = None
+    elif ro and not lo:
+        center, right = st.columns([4.2, 1.25], gap="medium")
+        left = None
+    else:
+        center, left, right = st.container(), None, None
+
+    if left is not None:
+        with left:
+            _cc_left(ss, uni, cons, filtered, sectors, countries, path, mode)
     with center:
         _cc_center(ss, filtered, focused, mode)
-    with right:
-        _cc_right(ss, filtered, focused, path, mode)
+    if right is not None:
+        with right:
+            _cc_right(ss, filtered, focused, path, mode)
 
     with st.expander(f"🔎 Browse / add from the full universe ({len(cons)} companies)"):
         _universe_cards(ss, filtered, path)
@@ -1317,6 +1736,7 @@ def _render_deep_dive(ss):
     entry = ss.snapshots.get(ss.active_ticker) or {}
     snap = entry.get("snap") or datasource.snapshot_from_company(company)
     _render_snapshot_metrics(snap)
+    _render_financial_snapshot(ss, company)          # [#10/2.3] illustrative market stats (demo)
     st.divider()
 
     # Offer the fast "compete now" path before (and alongside) the interrogation.
@@ -1356,14 +1776,22 @@ _DEFAULTS = {
     # --- command-center state ---
     "demo_mode": True,        # DEFAULT: the fictional, fully-numeric demo universe so the whole board is alive
                               # (labelled illustrative). Toggle OFF for the real evidence-based ASEAN base DB.
-    "ui_mode": "Simplified",  # "Simplified" (plain-language, default) | "In-Depth" (full analyst view)
+    "ui_mode": "Simplified", # "Simplified" (plain-language) | "In-Depth" (full analyst view).
+                              # Opens Simplified (the locked default): plain cards, rails closed — the
+                              # "Simple" toggle. Switch to "Full"/In-Depth for the analyst rails.
+    "dark_mode": True,        # opens dark, matching the design mockup (header toggles Dark|Light)
+    "left_open": False,       # Filters rail hidden in Simplified (header "‹ Filters" toggles it)
+    "right_open": False,      # Assistant rail hidden in Simplified (header "Assistant ›" toggles it)
     "focus_ticker": None,    # the company featured in the classification / live-signals / why-wrong panels
     "chat_log": [],          # [{role, text}] for the right-rail AI assistant
     "pending_chat": None,    # a submitted chat line, applied at the TOP of the next run (before widgets)
+    "data_built_at": None,   # epoch secs: when this session's board data was last (re)built (freshness pill)
 }
 ss = st.session_state
 for _k, _v in _DEFAULTS.items():
     ss.setdefault(_k, _v)
+if ss.get("data_built_at") is None:            # [1.11] stamp the session's data-load time once
+    ss.data_built_at = time.time()             # (_pin refreshes it on a real build; reruns don't)
 if ss.watchlist is None:                       # one-time load of persisted pins
     ss.watchlist = _load_watchlist()
 
@@ -1372,16 +1800,8 @@ if ss.watchlist is None:                       # one-time load of persisted pins
 # so a single click registers — the old pattern changed each widget's identity and lagged.
 with st.sidebar:
     st.markdown("### 🛰️ ESG Radar")
-    st.caption("Control panel")
-    st.toggle("🌗 Dark mode", key="dark_mode", help="Switch between light and dark.")
+    st.caption("Control panel · theme & view live in the header")
 
-    st.radio(
-        "View", ["Simplified", "In-Depth"], key="ui_mode", horizontal=True,
-        help="Simplified: plain-language cards + a simple assistant. "
-             "In-Depth: the full analyst view (all pillars, signals, sources).",
-    )
-
-    st.divider()
     st.markdown("**Data source**")
     mode = st.radio(
         "Data source", ["live", "upload"], key="data_mode",
@@ -1443,7 +1863,7 @@ with st.sidebar:
         _open_deep_dive(ss, tk)
     st.toggle("🐞 Debug (raw output)", key="debug")
 
-_inject_theme("dark" if ss.get("dark_mode") else "light")
+_inject_css("dark" if ss.get("dark_mode") else "light")
 
 # --- router ------------------------------------------------------------------- #
 if ss.view == "deep_dive" and ss.get("company") is not None:

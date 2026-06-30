@@ -564,6 +564,325 @@ def test_dataset_origin_disclaimer():
     assert "placeholder" in stage3._disclaimer({"_origin": "sample"}).lower()
 
 
+def test_compare_companies():
+    """[#2] Pure extraction of comparable numeric series from Contract B dicts for the compare
+    graphs. Grounded only in the data — a missing/unknown field is None, never fabricated."""
+    a = {
+        "company": "DemoBank SG", "ticker": "SGX:DEMO",
+        "layer_a": {"esg_score_static": "22.4 (Medium Risk)"},
+        "layer_b": {"momentum": {"E": {"magnitude": "+8%"}, "S": {"magnitude": "0%"},
+                                 "G": {"magnitude": "+15%"}}},
+    }
+    b = {  # evidence-only / unknown -> all None, no chart fabricated
+        "company": "Real Co", "ticker": "KLSE:REAL",
+        "layer_a": {"esg_score_static": "unknown"},
+        "layer_b": {"momentum": {"E": {"magnitude": "unknown"}, "S": {}, "G": {}}},
+    }
+    out = metrics.compare_companies([a, b])
+    assert out["pillars"] == ["E", "S", "G"], out["pillars"]
+    ra, rb = out["rows"]
+    assert ra["company"] == "DemoBank SG" and ra["ticker"] == "SGX:DEMO"
+    assert ra["esg_score"] == 22.4, ra["esg_score"]
+    assert ra["momentum"] == {"E": 8.0, "S": 0.0, "G": 15.0}, ra["momentum"]
+    assert rb["esg_score"] is None
+    assert rb["momentum"] == {"E": None, "S": None, "G": None}, rb["momentum"]
+    assert out["has_momentum"] is True and out["has_score"] is True
+    # all-unknown set -> no data flags both False (renders 'awaiting data', no chart)
+    empty = metrics.compare_companies([b])
+    assert empty["has_momentum"] is False and empty["has_score"] is False
+    # robust to junk input
+    assert metrics.compare_companies(None)["rows"] == []
+    assert metrics.compare_companies(["junk"])["rows"][0]["esg_score"] is None
+
+
+import universe  # noqa: E402 — used by the grounded data-backed tests below
+
+
+def _demo_row(name):
+    for c in universe.load_universe(universe.DEMO_FILE)["constituents"]:
+        if c["company"] == name:
+            return c
+    raise AssertionError(f"{name} not in demo universe")
+
+
+# --- #17 share price · 90 days -------------------------------------------------
+def test_price_change_pct():
+    assert metrics.price_change_pct({"price_change_90d": "+9.4%"}) == 9.4
+    assert metrics.price_change_pct({"price_change_90d": "-5%"}) == -5.0
+    assert metrics.price_change_pct({}) is None
+    assert metrics.price_change_pct(None) is None
+    assert metrics.price_change_pct({"price_change_90d": "unknown"}) is None
+
+
+def test_price_series():
+    s = metrics.price_series(9.4)
+    assert len(s) == 10 and s[0] == 100.0 and s[-1] == 109.4, s
+    assert all(s[i] < s[i + 1] for i in range(len(s) - 1)), s
+    assert metrics.price_series(-6)[-1] < 100
+    assert metrics.price_series(None) == []
+    assert metrics.price_series(5, points=1) == [100.0]
+
+
+def test_price_series_grounded():
+    db = _demo_row("DemoBank")
+    assert metrics.price_change_pct(db) is not None
+    assert metrics.price_series(metrics.price_change_pct(db))[-1] > 100
+    for c in universe.load_universe(universe.UNIVERSE_FILE)["constituents"]:
+        assert metrics.price_change_pct(c) is None, c.get("company")  # HARD RULE 2
+
+
+# --- #10/2.3 financial snapshot -----------------------------------------------
+_DEMO_MARKET = {"currency": "SGD", "price": 14.82, "prev_close": 14.58, "open": 14.60,
+                "high": 14.95, "low": 14.55, "market_cap": "S$42.1B", "pe_ratio": 11.4,
+                "dividend_yield": "4.8%", "week52_high": 15.40, "week52_low": 11.20,
+                "as_of": "2026-01-15"}
+
+
+def test_financial_snapshot_have_format():
+    fs = metrics.financial_snapshot({"market": _DEMO_MARKET, "price_change_90d": "+9.4%"})
+    assert fs["have"] is True
+    assert fs["currency"] == "SGD"
+    assert fs["price"] == "SGD 14.82", fs["price"]
+    assert fs["price_change_90d"] == "+9.4%", fs["price_change_90d"]
+    assert fs["range_52w"] == "11.20 – 15.40", fs["range_52w"]
+    labels = [r["label"] for r in fs["rows"]]
+    for L in ("Open", "Market cap", "P / E", "52-week range"):
+        assert L in labels, (L, labels)
+    slabels = [r["label"] for r in fs["simple"]]
+    assert len(fs["simple"]) <= 3 and "Price" in slabels and "90-day change" in slabels, slabels
+    mc = [r["value"] for r in fs["rows"] if r["label"] == "Market cap"][0]
+    assert mc == "S$42.1B"  # pre-formatted, passed through verbatim
+    dy = [r["value"] for r in fs["rows"] if r["label"] == "Dividend yield"][0]
+    assert dy == "4.8%"
+
+
+def test_financial_snapshot_awaiting():
+    for obj in ({}, {"company": "DBS Group Holdings", "esg_basis": "MSCI AA"}):
+        fs = metrics.financial_snapshot(obj)
+        assert fs["have"] is False and fs["rows"] == [] and fs["simple"] == []
+
+
+def test_financial_snapshot_reads_market():
+    fs = metrics.financial_snapshot({"_market": _DEMO_MARKET, "_price_change_90d": "+9.4%"})
+    assert fs["have"] is True and fs["price"] == "SGD 14.82" and fs["price_change_90d"] == "+9.4%"
+
+
+def test_company_from_numeric_rides_market():
+    c = {"company": "X", "ticker": "T", "sector": "S", "esg_score": 22,
+         "momentum": {"environment": 5, "social": 1, "governance": 2, "digital_ai": 10},
+         "market": _DEMO_MARKET, "price_change_90d": "+9.4%"}
+    comp = datasource.company_from_numeric(c, origin="sample")
+    assert comp["_market"] == _DEMO_MARKET
+    assert comp["_price_change_90d"] == "+9.4%"
+    comp2 = datasource.company_from_numeric({"company": "Y", "ticker": "Y", "sector": "S"})
+    assert "_market" not in comp2 and "_price_change_90d" not in comp2  # no None leak
+
+
+# --- #11 news card ------------------------------------------------------------
+def test_news_card_demo():
+    nc = metrics.news_card({"company": "DemoBank",
+                            "news": [{"title": "X", "source": "DemoWire", "date": "2026-06-12"}]})
+    assert nc["illustrative"] is True and nc["status"] == "demo"
+    assert len(nc["headlines"]) == 1
+    assert nc["headlines"][0]["title"] == "X" and nc["headlines"][0]["source"] == "DemoWire"
+    assert nc["youtube_url"] and "youtube.com" in nc["youtube_url"]
+
+
+def test_news_card_real_awaiting():
+    nc = metrics.news_card({"company": "DBS Group Holdings"})
+    assert nc["illustrative"] is False and nc["status"] == "awaiting" and nc["headlines"] == []
+    assert nc["youtube_url"] and nc["news_url"]
+
+
+def test_youtube_search_url():
+    u = metrics.youtube_search_url("DemoBank")
+    assert u.startswith("https://www.youtube.com/results?search_query=")
+    assert "DemoBank" in u
+    assert metrics.youtube_search_url("DemoBank") == metrics.youtube_search_url("DemoBank")
+
+
+def test_news_card_robust():
+    assert metrics.news_card(None)["status"] == "awaiting"
+    nc = metrics.news_card({"company": "X", "news": "notalist"})
+    assert nc["status"] == "awaiting" and nc["headlines"] == []
+
+
+def test_demo_universe_news_seeded():
+    cons = universe.load_universe(universe.DEMO_FILE)["constituents"]
+    for c in cons:
+        nw = c.get("news")
+        if nw is not None:
+            assert isinstance(nw, list), c["company"]
+            for it in nw:
+                assert isinstance(it, dict) and "title" in it and "url" not in it, c["company"]
+    assert _demo_row("DemoBank").get("news")
+
+
+# --- #18/3.17 analyst coverage ------------------------------------------------
+def test_analyst_coverage():
+    ac = metrics.analyst_coverage({"analyst_coverage": {"analysts": 22, "as_of": "Q1 2026"}})
+    assert ac["covered"] is True and ac["analysts"] == 22 and ac["as_of"] == "Q1 2026"
+    assert ac["label"] == "22 analysts covering" and ac["illustrative"] is True
+    assert metrics.analyst_coverage({"analyst_coverage": {"analysts": 1}})["label"] == "1 analyst covering"
+    zero = metrics.analyst_coverage({"analyst_coverage": {"analysts": 0}})
+    assert zero["covered"] is False and zero["illustrative"] is True
+    absent = metrics.analyst_coverage({})
+    assert absent["covered"] is False and absent["analysts"] is None
+    assert absent["label"] == "awaiting data" and absent["illustrative"] is False
+    assert metrics.analyst_coverage({"analyst_coverage": "x"})["covered"] is False
+    assert metrics.analyst_coverage({"analyst_coverage": {"analysts": "x"}})["covered"] is False
+    for w in ("buy", "sell", "hold"):
+        assert w not in ac["label"].lower()  # HARD RULE 4
+
+
+def test_analyst_coverage_fabrication_guard():
+    for c in universe.load_universe(universe.UNIVERSE_FILE)["constituents"]:
+        assert "analyst_coverage" not in c
+        assert metrics.analyst_coverage(c)["covered"] is False
+    du = universe.load_universe(universe.DEMO_FILE)["constituents"]
+    assert any(metrics.analyst_coverage(c)["covered"] and metrics.analyst_coverage(c)["illustrative"]
+               for c in du)
+
+
+# --- #12 forecast outlook -----------------------------------------------------
+def test_forecast_outlook_improver():
+    fc = metrics.forecast_outlook(_demo_row("DemoBank"))
+    assert fc["available"] is True and fc["label"] == "Improving" and fc["tone"] == "good"
+    assert len(fc["pillars"]) == 4 and fc["lead"]["key"] == "digital_ai"
+
+
+def test_forecast_outlook_softening():
+    fc = metrics.forecast_outlook(_demo_row("SatBank"))
+    assert fc["available"] is True and fc["label"] == "Softening" and fc["tone"] == "bad", fc["label"]
+
+
+def test_forecast_outlook_awaiting_and_nofab():
+    for obj in ({"company": "X"}, {}):
+        fc = metrics.forecast_outlook(obj)
+        assert fc["available"] is False and fc["label"] == "AWAITING DATA"
+        assert fc["pillars"] == [] and fc["lead"] is None
+    head = metrics.forecast_outlook(_demo_row("DemoBank"))["headline"].lower()
+    assert not any(ch.isdigit() for ch in head) and "$" not in head and "price" not in head
+    assert metrics._outlook_word(28) == "accelerating"
+    assert metrics._outlook_word(4) == "holding"
+    assert metrics._outlook_word(-4) == "softening"
+
+
+# --- 2.1 plain summary --------------------------------------------------------
+def test_plain_summary():
+    db = _demo_row("DemoBank")
+    ps = metrics.plain_summary(db)
+    assert ps["tone"] == "good" and ps["label"] == "HIDDEN WINNER", ps["label"]
+    assert "DemoBank" in ps["body"] and not any(ch.isdigit() for ch in ps["body"])
+    assert ps["verdict"] == ""
+    ps2 = metrics.plain_summary(db, {"competes_summary": "Rating understates the live AI build."})
+    assert ps2["verdict"] == "Rating understates the live AI build."
+    assert metrics.plain_summary(db, {"competes_summary": "unknown"})["verdict"] == ""
+    real = [c for c in universe.load_universe(universe.UNIVERSE_FILE)["constituents"]
+            if c.get("esg_basis")][0]
+    psr = metrics.plain_summary(real)
+    assert psr["label"] in ("ESG LEADER", "STRONG IMPROVER", "ESTABLISHED", "EMERGING"), psr["label"]
+    assert "/100" not in psr["body"] and "%" not in psr["body"]
+    ps4 = metrics.plain_summary({"company": "X"})
+    assert ps4["label"] == "AWAITING DATA" and ps4["headline"]
+
+
+# --- #5 check before Monday ---------------------------------------------------
+def test_focused_check_before_monday():
+    snaps = {"SGX:DEMO": {"answer": {"check_before_monday": "Confirm the MAS AI guidance timeline",
+                                     "competes_summary": "We disagree with the stale BBB"}}}
+    assert metrics.focused_answer_action(snaps, "SGX:DEMO") == {
+        "check": "Confirm the MAS AI guidance timeline",
+        "verdict": "We disagree with the stale BBB", "has": True}
+    assert metrics.focused_answer_action({"T": {"answer": None}}, "T")["has"] is False
+    assert metrics.focused_answer_action(snaps, "NOPE")["has"] is False
+    j = metrics.focused_answer_action({"T": {"answer": {"check_before_monday": "unknown"}}}, "T")
+    assert j["has"] is False and j["check"] == ""
+    assert metrics.focused_answer_action(None, "X")["has"] is False
+    assert metrics.focused_answer_action({"T": {"answer": "junk"}}, "T")["has"] is False
+
+
+# --- 1.11 freshness -----------------------------------------------------------
+def test_fmt_elapsed():
+    assert metrics.fmt_elapsed(1000, 1000) == "just now"
+    assert metrics.fmt_elapsed(1000, 970) == "just now"
+    assert metrics.fmt_elapsed(1000, 940) == "1 min ago"
+    assert metrics.fmt_elapsed(1180, 1000) == "3 min ago"
+    assert metrics.fmt_elapsed(4600, 1000) == "1 hr ago"
+    assert metrics.fmt_elapsed(91000, 1000) == "1d ago"
+    assert metrics.fmt_elapsed(1000, None) == ""
+    assert metrics.fmt_elapsed(1000, 2000) == "just now"  # negative skew clamped
+
+
+# --- 2.2 chatbot copy ---------------------------------------------------------
+def test_chat_copy_indepth_regression():
+    assert metrics.chat_relay_msg("DBS", "compete", False) == \
+        "Running the 3-stage ESG relay on DBS (compete mode)…"
+    assert metrics.chat_relay_msg("DBS", "compete", False, focused=True) == \
+        "Running the 3-stage relay on the focused company (compete mode)…"
+    assert metrics.chat_relay_msg("X", "interrogate", False, live=True) == \
+        "Built X live (ASEAN) — running the 3-stage relay (interrogation mode)…"
+    assert metrics.chat_filter_msg(["Singapore", "Banks"], False) == "Filtered to Singapore · Banks."
+    assert metrics.chat_focus_msg("X", "Banks", False, avg=22.4, digital_pct="+340%") == \
+        "Focused X — scored against Banks peers, Digital/AI +340% vs avg ESG 22.4. Added to the grid."
+    assert metrics.chat_focus_msg("X", "Banks", False, avg=None) == "Focused X. Added to the grid."
+    assert metrics.chat_fallback_msg(False) == \
+        ("I can filter (“show banks”, “Singapore”, “all ASEAN”) or focus "
+         "a company (“DemoBank”, “add GreenChip Bank”).")
+    assert metrics.chat_relay_help(False) == \
+        ("Name a company to analyse — e.g. “analyze DBS”, “interrogate "
+         "Maybank”, or a live ASEAN name like “analyze Grab”.")
+    assert metrics.chat_cant_analyse_msg("Z", False) == "Couldn't analyse “Z”."
+
+
+def test_chat_copy_simplified():
+    forbidden = ("relay", "compete mode", "interrogate mode", "3-stage", "Digital/AI", "avg ESG")
+    outs = [
+        metrics.chat_relay_msg("DBS", "compete", True),
+        metrics.chat_relay_msg("DBS", "interrogate", True, focused=True),
+        metrics.chat_focus_msg("X", "Banks", True, avg=22.4, digital_pct="+340%"),
+        metrics.chat_filter_msg(["Singapore"], True),
+        metrics.chat_relay_help(True),
+        metrics.chat_fallback_msg(True),
+        metrics.chat_cant_analyse_msg("Z", True),
+    ]
+    for o in outs:
+        assert isinstance(o, str) and o
+        for f in forbidden:
+            assert f not in o, (f, o)
+    foc = metrics.chat_focus_msg("X", "Banks", True, avg=22.4, digital_pct="+340%")
+    assert "X" in foc and "22.4" not in foc and "340" not in foc and "Digital" not in foc and "ESG" not in foc
+    # differs from In-Depth for the same inputs
+    assert metrics.chat_filter_msg(["Singapore"], True) != metrics.chat_filter_msg(["Singapore"], False)
+    # robustness
+    metrics.chat_filter_msg([], True)
+    metrics.chat_filter_msg([], False)
+    metrics.chat_cant_analyse_msg("", True)
+
+
+# --- 14/3.7 suggested follow-ups ----------------------------------------------
+def test_suggested_followups():
+    foc_s = metrics.suggested_followups(focused_name="DemoBank", focused_sector="Banks",
+                                        has_focus=True, simplified=True)
+    foc_d = metrics.suggested_followups(focused_name="DemoBank", focused_sector="Banks",
+                                        has_focus=True, simplified=False)
+    assert [c["prompt"] for c in foc_s] == ["Analyze DemoBank", "Interrogate DemoBank", "Show Banks"]
+    assert [c["prompt"] for c in foc_d] == [c["prompt"] for c in foc_s]  # prompts identical
+    assert [c["label"] for c in foc_s] != [c["label"] for c in foc_d]    # labels differ by mode
+    no = metrics.suggested_followups(has_focus=False, simplified=True,
+                                     sample_sector="Banks", sample_country="Malaysia")
+    assert [c["prompt"] for c in no] == ["Show Banks", "Malaysia", "Show all ASEAN"]
+    allind = metrics.suggested_followups(focused_name="DemoBank", focused_sector="All industries",
+                                         has_focus=True, simplified=True)
+    assert allind[2]["prompt"] == "Show all ASEAN"
+    for chips in (foc_s, foc_d, no, allind):
+        assert len(chips) <= 3
+        for c in chips:
+            blob = (c["label"] + " " + c["prompt"]).lower()
+            for w in ("buy", "sell", "hold", "score"):
+                assert w not in blob, (w, c)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -616,6 +935,31 @@ def main():
         ("dataset-origin disclaimer not mislabeled 'live'", lambda: test_dataset_origin_disclaimer()),
         ("[3.13] board_ai_policy tri-state Yes/No/Partial", lambda: test_board_ai_policy_tristate()),
         ("[1.9] universe banner string", lambda: test_universe_banner()),
+        ("[#2] compare_companies pure series (no fabrication)", lambda: test_compare_companies()),
+        # --- feature backlog pass (2026-06-30) ---
+        ("[#17] price_change_pct parses signed %", lambda: test_price_change_pct()),
+        ("[#17] price_series illustrative 90d path", lambda: test_price_series()),
+        ("[#17] price_series grounded (demo only, real None)", lambda: test_price_series_grounded()),
+        ("[#10] financial_snapshot format (market + 90d)", lambda: test_financial_snapshot_have_format()),
+        ("[#10] financial_snapshot awaiting (no market)", lambda: test_financial_snapshot_awaiting()),
+        ("[#10] financial_snapshot reads _market ride", lambda: test_financial_snapshot_reads_market()),
+        ("[#10] company_from_numeric rides _market", lambda: test_company_from_numeric_rides_market()),
+        ("[#11] news_card demo headlines", lambda: test_news_card_demo()),
+        ("[#11] news_card real -> awaiting (no fab)", lambda: test_news_card_real_awaiting()),
+        ("[#11] youtube_search_url deterministic", lambda: test_youtube_search_url()),
+        ("[#11] news_card robust to junk", lambda: test_news_card_robust()),
+        ("[#11] demo universe news seeded (no url)", lambda: test_demo_universe_news_seeded()),
+        ("[#18] analyst_coverage count-only (no verb)", lambda: test_analyst_coverage()),
+        ("[#18] analyst_coverage fabrication guard", lambda: test_analyst_coverage_fabrication_guard()),
+        ("[#12] forecast_outlook improver", lambda: test_forecast_outlook_improver()),
+        ("[#12] forecast_outlook softening", lambda: test_forecast_outlook_softening()),
+        ("[#12] forecast_outlook awaiting + no-fab", lambda: test_forecast_outlook_awaiting_and_nofab()),
+        ("[2.1] plain_summary (no number leak)", lambda: test_plain_summary()),
+        ("[#5] focused check-before-Monday surface", lambda: test_focused_check_before_monday()),
+        ("[1.11] fmt_elapsed freshness string", lambda: test_fmt_elapsed()),
+        ("[2.2] chat copy In-Depth regression (byte-exact)", lambda: test_chat_copy_indepth_regression()),
+        ("[2.2] chat copy Simplified (jargon-free)", lambda: test_chat_copy_simplified()),
+        ("[3.7] suggested follow-up chips (context+mode)", lambda: test_suggested_followups()),
     ]
     failures = 0
     for name, fn in checks:
