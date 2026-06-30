@@ -275,20 +275,25 @@ def test_constituent_build_grounded(monkeypatch_extract):
 
 def test_metrics_aggregates():
     """metrics.* over the demo universe: avg ESG per industry, pillar momentum, hidden winners,
-    classification, signals — the numbers behind the command center."""
+    classification, signals — the numbers behind the command center (0-100, higher=better)."""
     cons = universe.constituents(universe.DEMO_FILE)
-    assert len(cons) >= 11, len(cons)
+    assert len(cons) == 36, len(cons)
     banks = [c for c in cons if c["sector"] == "Financials — Banks"]
-    assert len(banks) == 11, len(banks)
+    assert len(banks) == 9, len(banks)
     avg, n = metrics.average_esg(banks)
-    assert avg is not None and 25 <= avg <= 28 and n == 11, (avg, n)   # ~26.7 peer average
+    assert avg is not None and 55 <= avg <= 64 and n == 9, (avg, n)   # 0-100 higher=better; ~59.5
     pillars = {p["key"]: p for p in metrics.pillar_momentum(banks)}
     assert pillars["digital_ai"]["fast"] is True, pillars["digital_ai"]   # the orange riser card
-    assert pillars["governance"]["value"] < 0, pillars["governance"]      # softening governance
-    hw, peer, _ = metrics.hidden_winners(banks, top_n=5)
-    assert hw and hw[0]["company"] == "DemoBank" and hw[0]["value"] == 28, hw[0]
+    assert all(pillars[k]["value"] is not None
+               for k in ("environment", "social", "governance", "digital_ai")), pillars
+    hw, peer, hn = metrics.hidden_winners(banks, top_n=5)
+    assert len(hw) == 5, hw
+    assert hw == sorted(hw, key=lambda r: r["value"], reverse=True), hw   # ranked desc by signal
+    assert peer == avg and hn == n, (peer, avg, hn, n)                    # peer avg == set average
+    labels = {metrics.classify(c)["label"] for c in banks}
+    assert labels <= {"HIDDEN WINNER", "IN LINE", "WATCH — GAP RISK", "AWAITING DATA"}, labels
+    assert "HIDDEN WINNER" in labels, labels                             # the radar surfaces winners
     demo = next(c for c in banks if c["company"] == "DemoBank")
-    assert metrics.classify(demo)["label"] == "HIDDEN WINNER", metrics.classify(demo)
     assert any(s["label"] == "AI hiring surge" for s in metrics.live_signals(demo)), demo
     # filtering to a different industry recomputes the average (the user's key requirement)
     energy = [c for c in cons if c["sector"].startswith("Energy")]
@@ -806,7 +811,11 @@ def test_forecast_outlook_improver():
 
 
 def test_forecast_outlook_softening():
-    fc = metrics.forecast_outlook(_demo_row("SatBank"))
+    # No demo company softens (illustrative momentum tracks the 0-100 scores, which are positive),
+    # so exercise the Softening branch with a synthetic declining-momentum row.
+    softening = {"company": "Decliner",
+                 "momentum": {"environment": -10, "social": -8, "governance": -12, "digital_ai": -6}}
+    fc = metrics.forecast_outlook(softening)
     assert fc["available"] is True and fc["label"] == "Softening" and fc["tone"] == "bad", fc["label"]
 
 
@@ -824,14 +833,14 @@ def test_forecast_outlook_awaiting_and_nofab():
 
 # --- 2.1 plain summary --------------------------------------------------------
 def test_plain_summary():
-    db = _demo_row("DemoBank")
-    ps = metrics.plain_summary(db)
+    hw = _demo_row("Selat Bank")               # a demo hidden winner (classify -> HIDDEN WINNER)
+    ps = metrics.plain_summary(hw)
     assert ps["tone"] == "good" and ps["label"] == "HIDDEN WINNER", ps["label"]
-    assert "DemoBank" in ps["body"] and not any(ch.isdigit() for ch in ps["body"])
+    assert "Selat Bank" in ps["body"] and not any(ch.isdigit() for ch in ps["body"])
     assert ps["verdict"] == ""
-    ps2 = metrics.plain_summary(db, {"competes_summary": "Rating understates the live AI build."})
+    ps2 = metrics.plain_summary(hw, {"competes_summary": "Rating understates the live AI build."})
     assert ps2["verdict"] == "Rating understates the live AI build."
-    assert metrics.plain_summary(db, {"competes_summary": "unknown"})["verdict"] == ""
+    assert metrics.plain_summary(hw, {"competes_summary": "unknown"})["verdict"] == ""
     real = [c for c in universe.load_universe(universe.UNIVERSE_FILE)["constituents"]
             if c.get("esg_basis")][0]
     psr = metrics.plain_summary(real)

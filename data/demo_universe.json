@@ -1,36 +1,2362 @@
 {
-  "note": "ILLUSTRATIVE DEMO — every company here is FICTIONAL (DemoBank, GreenChip Bank, Acme Bank, …) and every number is invented to show the dashboard alive. NOT real facts about any real company. Toggle 'Demo data' OFF (or replace data/asean_universe.json with real numbers) to drive the same panels from real ASEAN constituents. Market stats (price/open/high/low/market cap/P-E/dividend/52-week), 90-day price change, news headlines and analyst-coverage counts here are ALSO illustrative — invented to demo the panels, not real market data.",
-  "selection": "consistent ESG improvement 2019-2023 (illustrative demo basket)",
-  "benchmark": "MSCI ASEAN",
-  "benchmark_stats": {"basket_return": "55.1%", "benchmark_return": "6.4%", "basket_sharpe": "0.57", "benchmark_sharpe": "-0.22", "high_conviction_picks": 17, "source": "ILLUSTRATIVE demo figures"},
-  "as_of": "Q1 2026",
-  "countries": ["Singapore", "Malaysia", "Indonesia", "Thailand", "Philippines"],
+  "note": "DEMO universe — fictional companies, scores DERIVED from real country-level OECD/World Bank indicators (sector-adjusted). Illustrative, not company disclosure.",
+  "selection": "ASEAN ESG demo basket (6 countries × 5 sectors)",
+  "benchmark": "MSCI ASEAN ESG (illustrative benchmark)",
+  "benchmark_stats": {
+    "basket_return": "55.1%",
+    "benchmark_return": "6.4%",
+    "window": "2019–2023"
+  },
+  "as_of": "2026-06-30",
+  "data_origin": "fallback",
+  "countries": [
+    "Indonesia",
+    "Malaysia",
+    "Philippines",
+    "Singapore",
+    "Thailand",
+    "Vietnam"
+  ],
   "constituents": [
-    {"company": "DemoBank", "ticker": "SGX:DEMO", "exchange": "SGX", "country": "Singapore", "sector": "Financials — Banks", "esg_score": 22.4, "esg_as_of": "2023", "esg_cagr_2019_2023": "+6.1%", "momentum": {"environment": 18, "social": 6, "governance": 4, "digital_ai": 28}, "live_signals": {"ai_hiring_surge": "+340%", "green_patents": "+88%", "carbon_disclosure": "+12%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+9.4%", "market": {"currency": "SGD", "price": 14.82, "prev_close": 14.58, "open": 14.6, "high": 14.95, "low": 14.55, "market_cap": "S$42.1B", "pe_ratio": 11.4, "dividend_yield": "4.8%", "week52_high": 15.4, "week52_low": 11.2, "as_of": "2026-01-15"}, "news": [{"title": "DemoBank lifts sustainable-finance target to SGD 80bn", "source": "DemoWire (illustrative)", "date": "2026-06-12"}, {"title": "DemoBank names first Chief AI-Governance Officer", "source": "Mock Business Daily", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 22, "as_of": "Q1 2026"}},
-    {"company": "GreenChip Bank", "ticker": "SGX:GCB", "exchange": "SGX", "country": "Singapore", "sector": "Financials — Banks", "esg_score": 24.0, "esg_as_of": "2023", "esg_cagr_2019_2023": "+5.2%", "momentum": {"environment": 15, "social": 5, "governance": 2, "digital_ai": 21}, "live_signals": {"ai_hiring_surge": "+210%", "green_patents": "+64%", "carbon_disclosure": "+9%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+9.6%", "market": {"currency": "SGD", "price": 35.6, "prev_close": 35.35, "open": 35.71, "high": 36.1, "low": 34.96, "market_cap": "S$38.5B", "pe_ratio": 15.2, "dividend_yield": "2.2%", "week52_high": 43.77, "week52_low": 27.62, "as_of": "2026-01-15"}, "news": [{"title": "GreenChip Bank names first Chief AI-Governance Officer", "source": "Mock Business Daily", "date": "2026-05-28"}, {"title": "GreenChip Bank lifts sustainable-finance target for 2026", "source": "ASEAN ESG Monitor (demo)", "date": "2026-05-09"}, {"title": "GreenChip Bank ranked among ASEAN banks ESG improvers", "source": "Fictional Markets Wire", "date": "2026-04-22"}], "analyst_coverage": {"analysts": 15, "as_of": "Q1 2026"}},
-    {"company": "Acme Bank", "ticker": "SGX:ACME", "exchange": "SGX", "country": "Singapore", "sector": "Financials — Banks", "_new": true, "esg_score": 25.5, "esg_as_of": "2023", "esg_cagr_2019_2023": "+3.8%", "momentum": {"environment": 9, "social": 3, "governance": -1, "digital_ai": 14}, "live_signals": {"ai_hiring_surge": "+150%", "green_patents": "+40%", "carbon_disclosure": "+6%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+6.2%", "market": {"currency": "SGD", "price": 37.7, "prev_close": 37.4, "open": 37.81, "high": 38.23, "low": 36.99, "market_cap": "S$35.0B", "pe_ratio": 17.4, "dividend_yield": "3.0%", "week52_high": 45.68, "week52_low": 29.22, "as_of": "2026-01-15"}, "news": [{"title": "Acme Bank names first Chief AI-Governance Officer", "source": "ASEAN ESG Monitor (demo)", "date": "2026-05-09"}, {"title": "Acme Bank lifts sustainable-finance target for 2026", "source": "Fictional Markets Wire", "date": "2026-04-22"}, {"title": "Acme Bank ranked among ASEAN banks ESG improvers", "source": "Sample Sustainability Times", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 13, "as_of": "Q1 2026"}},
-    {"company": "SatBank", "ticker": "IDX:SATB", "exchange": "IDX", "country": "Indonesia", "sector": "Financials — Banks", "esg_score": 31.2, "esg_as_of": "2022", "esg_cagr_2019_2023": "-1.2%", "momentum": {"environment": -3, "social": 0, "governance": -5, "digital_ai": -4}, "live_signals": {"ai_hiring_surge": "+20%", "green_patents": "+5%", "carbon_disclosure": "-2%", "controversy_flags": 2, "board_ai_policy": false}, "price_change_90d": "-1.8%", "market": {"currency": "IDR", "price": 3740, "prev_close": 3706, "open": 3751, "high": 3792, "low": 3666, "market_cap": "Rp26.5T", "pe_ratio": 21.7, "dividend_yield": "2.8%", "week52_high": 4361, "week52_low": 2896, "as_of": "2026-01-15"}, "news": [{"title": "SatBank reviews board oversight of AI risk", "source": "Fictional Markets Wire", "date": "2026-04-22"}, {"title": "SatBank publishes 2025 climate-transition update", "source": "Sample Sustainability Times", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 5, "as_of": "Q4 2025"}},
-    {"company": "Mekong Commercial Bank", "ticker": "SET:MKB", "exchange": "SET", "country": "Thailand", "sector": "Financials — Banks", "esg_score": 27.8, "esg_as_of": "2023", "esg_cagr_2019_2023": "+2.9%", "momentum": {"environment": 10, "social": 4, "governance": -2, "digital_ai": 16}, "live_signals": {"ai_hiring_surge": "+120%", "green_patents": "+30%", "carbon_disclosure": "+8%", "controversy_flags": 1, "board_ai_policy": "partial"}, "price_change_90d": "+7.1%", "market": {"currency": "THB", "price": 48.28, "prev_close": 47.99, "open": 48.42, "high": 48.96, "low": 47.46, "market_cap": "฿38.5B", "pe_ratio": 19.0, "dividend_yield": "4.1%", "week52_high": 58.75, "week52_low": 37.5, "as_of": "2026-01-15"}, "news": [{"title": "Mekong Commercial Bank names first Chief AI-Governance Officer", "source": "Sample Sustainability Times", "date": "2026-03-30"}, {"title": "Mekong Commercial Bank lifts sustainable-finance target for 2026", "source": "DemoWire (illustrative)", "date": "2026-03-11"}, {"title": "Regulator queries Mekong Commercial Bank over banks disclosure gap", "source": "Mock Business Daily", "date": "2026-06-12"}], "analyst_coverage": {"analysts": 13, "as_of": "Q1 2026"}},
-    {"company": "Pearl Savings", "ticker": "PSE:PRL", "exchange": "PSE", "country": "Philippines", "sector": "Financials — Banks", "esg_score": 28.6, "esg_as_of": "2022", "esg_cagr_2019_2023": "+1.5%", "momentum": {"environment": 7, "social": 2, "governance": -3, "digital_ai": 9}, "live_signals": {"ai_hiring_surge": "+80%", "green_patents": "+18%", "carbon_disclosure": "+4%", "controversy_flags": 0, "board_ai_policy": false}, "price_change_90d": "+4.2%", "market": {"currency": "PHP", "price": 65.52, "prev_close": 65.06, "open": 65.72, "high": 66.44, "low": 64.35, "market_cap": "₱34.3B", "pe_ratio": 20.5, "dividend_yield": "4.5%", "week52_high": 78.56, "week52_low": 50.83, "as_of": "2026-01-15"}, "news": [{"title": "Pearl Savings reviews board oversight of AI risk", "source": "DemoWire (illustrative)", "date": "2026-03-11"}, {"title": "Pearl Savings publishes 2025 climate-transition update", "source": "Mock Business Daily", "date": "2026-06-12"}, {"title": "Pearl Savings ranked among ASEAN banks ESG improvers", "source": "ASEAN ESG Monitor (demo)", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 7, "as_of": "Q1 2026"}},
-    {"company": "Garuda Mandiri Bank", "ticker": "IDX:GMB", "exchange": "IDX", "country": "Indonesia", "sector": "Financials — Banks", "esg_score": 26.1, "esg_as_of": "2023", "esg_cagr_2019_2023": "+4.1%", "momentum": {"environment": 12, "social": 5, "governance": 0, "digital_ai": 19}, "live_signals": {"ai_hiring_surge": "+160%", "green_patents": "+52%", "carbon_disclosure": "+10%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+8.4%", "market": {"currency": "IDR", "price": 8294, "prev_close": 8228, "open": 8319, "high": 8410, "low": 8137, "market_cap": "Rp42.6T", "pe_ratio": 16.6, "dividend_yield": "3.3%", "week52_high": 10156, "week52_low": 6428, "as_of": "2026-01-15"}, "news": [{"title": "Garuda Mandiri Bank names first Chief AI-Governance Officer", "source": "Mock Business Daily", "date": "2026-06-12"}, {"title": "Garuda Mandiri Bank lifts sustainable-finance target for 2026", "source": "ASEAN ESG Monitor (demo)", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 11, "as_of": "Q1 2026"}},
-    {"company": "Selat Bank", "ticker": "KLSE:SLB", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Financials — Banks", "esg_score": 23.9, "esg_as_of": "2023", "esg_cagr_2019_2023": "+5.6%", "momentum": {"environment": 14, "social": 6, "governance": 3, "digital_ai": 22}, "live_signals": {"ai_hiring_surge": "+190%", "green_patents": "+70%", "carbon_disclosure": "+11%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+9.8%", "market": {"currency": "MYR", "price": 39.71, "prev_close": 39.35, "open": 39.83, "high": 40.27, "low": 38.92, "market_cap": "RM39.1B", "pe_ratio": 15.1, "dividend_yield": "5.1%", "week52_high": 48.92, "week52_low": 30.75, "as_of": "2026-01-15"}, "news": [{"title": "Selat Bank names first Chief AI-Governance Officer", "source": "ASEAN ESG Monitor (demo)", "date": "2026-05-28"}, {"title": "Selat Bank lifts sustainable-finance target for 2026", "source": "Fictional Markets Wire", "date": "2026-05-09"}, {"title": "Selat Bank ranked among ASEAN banks ESG improvers", "source": "Sample Sustainability Times", "date": "2026-04-22"}], "analyst_coverage": {"analysts": 16, "as_of": "Q1 2026"}},
-    {"company": "Orchid Bank", "ticker": "SGX:ORC", "exchange": "SGX", "country": "Singapore", "sector": "Financials — Banks", "esg_score": 29.4, "esg_as_of": "2022", "esg_cagr_2019_2023": "+0.8%", "momentum": {"environment": 5, "social": 1, "governance": -4, "digital_ai": 6}, "live_signals": {"ai_hiring_surge": "+45%", "green_patents": "+12%", "carbon_disclosure": "+2%", "controversy_flags": 1, "board_ai_policy": false}, "price_change_90d": "+2.8%", "market": {"currency": "SGD", "price": 15.2, "prev_close": 15.11, "open": 15.25, "high": 15.41, "low": 14.94, "market_cap": "S$33.0B", "pe_ratio": 21.3, "dividend_yield": "4.9%", "week52_high": 18.11, "week52_low": 11.8, "as_of": "2026-01-15"}, "news": [{"title": "Orchid Bank reviews board oversight of AI risk", "source": "Fictional Markets Wire", "date": "2026-05-09"}, {"title": "Orchid Bank publishes 2025 climate-transition update", "source": "Sample Sustainability Times", "date": "2026-04-22"}, {"title": "Regulator queries Orchid Bank over banks disclosure gap", "source": "DemoWire (illustrative)", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 9, "as_of": "Q1 2026"}},
-    {"company": "Tiger Bay Bank", "ticker": "KLSE:TGB", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Financials — Banks", "esg_score": 24.8, "esg_as_of": "2023", "esg_cagr_2019_2023": "+3.3%", "momentum": {"environment": 11, "social": 4, "governance": 1, "digital_ai": 17}, "live_signals": {"ai_hiring_surge": "+130%", "green_patents": "+38%", "carbon_disclosure": "+7%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+7.6%", "market": {"currency": "MYR", "price": 42.02, "prev_close": 41.73, "open": 42.15, "high": 42.61, "low": 41.27, "market_cap": "RM36.5B", "pe_ratio": 15.3, "dividend_yield": "2.6%", "week52_high": 51.24, "week52_low": 32.6, "as_of": "2026-01-15"}, "news": [{"title": "Tiger Bay Bank names first Chief AI-Governance Officer", "source": "Sample Sustainability Times", "date": "2026-04-22"}, {"title": "Tiger Bay Bank lifts sustainable-finance target for 2026", "source": "DemoWire (illustrative)", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 16, "as_of": "Q1 2026"}},
-    {"company": "Sampan Bank", "ticker": "SET:SPB", "exchange": "SET", "country": "Thailand", "sector": "Financials — Banks", "esg_score": 30.0, "esg_as_of": "2022", "esg_cagr_2019_2023": "-0.5%", "momentum": {"environment": 2, "social": 0, "governance": -6, "digital_ai": -2}, "live_signals": {"ai_hiring_surge": "+30%", "green_patents": "+8%", "carbon_disclosure": "0%", "controversy_flags": 1, "board_ai_policy": false}, "price_change_90d": "-0.4%", "market": {"currency": "THB", "price": 47.6, "prev_close": 47.22, "open": 47.74, "high": 48.27, "low": 46.7, "market_cap": "฿27.9B", "pe_ratio": 21.2, "dividend_yield": "2.2%", "week52_high": 55.75, "week52_low": 36.89, "as_of": "2026-01-15"}, "news": [{"title": "Sampan Bank reviews board oversight of AI risk", "source": "DemoWire (illustrative)", "date": "2026-03-30"}, {"title": "Sampan Bank publishes 2025 climate-transition update", "source": "Mock Business Daily", "date": "2026-03-11"}, {"title": "Regulator queries Sampan Bank over banks disclosure gap", "source": "ASEAN ESG Monitor (demo)", "date": "2026-06-12"}], "analyst_coverage": {"analysts": 3, "as_of": "Q4 2025"}},
-    {"company": "NovaTel", "ticker": "SGX:NVT", "exchange": "SGX", "country": "Singapore", "sector": "Communication Services — Telecom", "esg_score": 21.0, "esg_as_of": "2023", "esg_cagr_2019_2023": "+5.0%", "momentum": {"environment": 8, "social": 3, "governance": 2, "digital_ai": 24}, "live_signals": {"ai_hiring_surge": "+180%", "green_patents": "+20%", "carbon_disclosure": "+9%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+9.6%", "market": {"currency": "SGD", "price": 32.6, "prev_close": 32.31, "open": 32.7, "high": 33.06, "low": 31.95, "market_cap": "S$37.9B", "pe_ratio": 12.9, "dividend_yield": "3.7%", "week52_high": 40.33, "week52_low": 25.24, "as_of": "2026-01-15"}, "news": [{"title": "NovaTel names first Chief AI-Governance Officer", "source": "Mock Business Daily", "date": "2026-03-11"}, {"title": "NovaTel lifts sustainable-finance target for 2026", "source": "ASEAN ESG Monitor (demo)", "date": "2026-06-12"}, {"title": "NovaTel ranked among ASEAN telecom ESG improvers", "source": "Fictional Markets Wire", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 16, "as_of": "Q1 2026"}},
-    {"company": "ASEAN Mobile", "ticker": "IDX:AMOB", "exchange": "IDX", "country": "Indonesia", "sector": "Communication Services — Telecom", "esg_score": 25.0, "esg_as_of": "2023", "esg_cagr_2019_2023": "+2.4%", "momentum": {"environment": 6, "social": 2, "governance": -1, "digital_ai": 15}, "live_signals": {"ai_hiring_surge": "+90%", "green_patents": "+10%", "carbon_disclosure": "+5%", "controversy_flags": 1, "board_ai_policy": true}, "price_change_90d": "+6.2%", "market": {"currency": "IDR", "price": 8184, "prev_close": 8135, "open": 8209, "high": 8299, "low": 8045, "market_cap": "Rp38.0T", "pe_ratio": 15.5, "dividend_yield": "2.7%", "week52_high": 9938, "week52_low": 6356, "as_of": "2026-01-15"}, "news": [{"title": "ASEAN Mobile names first Chief AI-Governance Officer", "source": "ASEAN ESG Monitor (demo)", "date": "2026-06-12"}, {"title": "ASEAN Mobile publishes 2025 climate-transition update", "source": "Fictional Markets Wire", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 14, "as_of": "Q1 2026"}},
-    {"company": "SiamConnect", "ticker": "SET:SCT", "exchange": "SET", "country": "Thailand", "sector": "Communication Services — Telecom", "esg_score": 27.0, "esg_as_of": "2022", "esg_cagr_2019_2023": "+1.1%", "momentum": {"environment": 4, "social": 1, "governance": -2, "digital_ai": 11}, "live_signals": {"ai_hiring_surge": "+60%", "green_patents": "+8%", "carbon_disclosure": "+3%", "controversy_flags": 0, "board_ai_policy": false}, "price_change_90d": "+4.4%", "market": {"currency": "THB", "price": 43.52, "prev_close": 43.22, "open": 43.65, "high": 44.13, "low": 42.74, "market_cap": "฿34.3B", "pe_ratio": 18.2, "dividend_yield": "3.7%", "week52_high": 52.41, "week52_low": 33.76, "as_of": "2026-01-15"}, "news": [{"title": "SiamConnect names first Chief AI-Governance Officer", "source": "Fictional Markets Wire", "date": "2026-05-28"}, {"title": "SiamConnect publishes 2025 climate-transition update", "source": "Sample Sustainability Times", "date": "2026-05-09"}, {"title": "SiamConnect ranked among ASEAN telecom ESG improvers", "source": "DemoWire (illustrative)", "date": "2026-04-22"}], "analyst_coverage": {"analysts": 10, "as_of": "Q1 2026"}},
-    {"company": "LunaComm", "ticker": "PSE:LUNA", "exchange": "PSE", "country": "Philippines", "sector": "Communication Services — Telecom", "esg_score": 23.5, "esg_as_of": "2023", "esg_cagr_2019_2023": "+4.3%", "momentum": {"environment": 10, "social": 4, "governance": 1, "digital_ai": 20}, "live_signals": {"ai_hiring_surge": "+140%", "green_patents": "+15%", "carbon_disclosure": "+7%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+8.5%", "market": {"currency": "PHP", "price": 191.88, "prev_close": 190.34, "open": 192.46, "high": 194.57, "low": 188.25, "market_cap": "₱37.4B", "pe_ratio": 15.4, "dividend_yield": "5.0%", "week52_high": 235.43, "week52_low": 148.72, "as_of": "2026-01-15"}, "news": [{"title": "LunaComm names first Chief AI-Governance Officer", "source": "Sample Sustainability Times", "date": "2026-05-09"}, {"title": "LunaComm lifts sustainable-finance target for 2026", "source": "DemoWire (illustrative)", "date": "2026-04-22"}, {"title": "LunaComm ranked among ASEAN telecom ESG improvers", "source": "Mock Business Daily", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 17, "as_of": "Q1 2026"}},
-    {"company": "Suria Power", "ticker": "KLSE:SUR", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Energy — Power & Renewables", "esg_score": 33.0, "esg_as_of": "2022", "esg_cagr_2019_2023": "+0.4%", "momentum": {"environment": 15, "social": 2, "governance": -3, "digital_ai": 8}, "live_signals": {"ai_hiring_surge": "+50%", "green_patents": "+30%", "carbon_disclosure": "+14%", "controversy_flags": 1, "board_ai_policy": false}, "price_change_90d": "+5.0%", "market": {"currency": "MYR", "price": 18.7, "prev_close": 18.53, "open": 18.76, "high": 18.96, "low": 18.33, "market_cap": "RM37.6B", "pe_ratio": 23.5, "dividend_yield": "3.7%", "week52_high": 22.38, "week52_low": 14.48, "as_of": "2026-01-15"}, "news": [{"title": "Suria Power reviews board oversight of AI risk", "source": "DemoWire (illustrative)", "date": "2026-04-22"}, {"title": "Suria Power lifts sustainable-finance target for 2026", "source": "Mock Business Daily", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 6, "as_of": "Q1 2026"}},
-    {"company": "Borneo Energy", "ticker": "IDX:BRN", "exchange": "IDX", "country": "Indonesia", "sector": "Energy — Power & Renewables", "esg_score": 38.0, "esg_as_of": "2021", "esg_cagr_2019_2023": "-2.0%", "momentum": {"environment": -4, "social": -1, "governance": -6, "digital_ai": 3}, "live_signals": {"ai_hiring_surge": "+20%", "green_patents": "+12%", "carbon_disclosure": "-3%", "controversy_flags": 3, "board_ai_policy": false}, "price_change_90d": "+0.4%", "market": {"currency": "IDR", "price": 4972, "prev_close": 4942, "open": 4987, "high": 5042, "low": 4888, "market_cap": "Rp38.9T", "pe_ratio": 11.2, "dividend_yield": "3.2%", "week52_high": 5886, "week52_low": 3861, "as_of": "2026-01-15"}, "news": [{"title": "Borneo Energy reviews board oversight of AI risk", "source": "Mock Business Daily", "date": "2026-03-30"}, {"title": "Borneo Energy publishes 2025 climate-transition update", "source": "ASEAN ESG Monitor (demo)", "date": "2026-03-11"}, {"title": "Regulator queries Borneo Energy over power & renewables disclosure gap", "source": "Fictional Markets Wire", "date": "2026-06-12"}], "analyst_coverage": {"analysts": 6, "as_of": "Q1 2026"}},
-    {"company": "GreenGrid", "ticker": "SGX:GGD", "exchange": "SGX", "country": "Singapore", "sector": "Energy — Power & Renewables", "esg_score": 19.5, "esg_as_of": "2023", "esg_cagr_2019_2023": "+8.2%", "momentum": {"environment": 22, "social": 5, "governance": 4, "digital_ai": 18}, "live_signals": {"ai_hiring_surge": "+110%", "green_patents": "+95%", "carbon_disclosure": "+20%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+9.6%", "market": {"currency": "SGD", "price": 31.7, "prev_close": 31.48, "open": 31.8, "high": 32.14, "low": 31.13, "market_cap": "S$32.3B", "pe_ratio": 11.4, "dividend_yield": "3.0%", "week52_high": 38.73, "week52_low": 24.59, "as_of": "2026-01-15"}, "news": [{"title": "GreenGrid names first Chief AI-Governance Officer", "source": "ASEAN ESG Monitor (demo)", "date": "2026-03-11"}, {"title": "GreenGrid lifts sustainable-finance target for 2026", "source": "Fictional Markets Wire", "date": "2026-06-12"}, {"title": "GreenGrid ranked among ASEAN power & renewables ESG improvers", "source": "Sample Sustainability Times", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 15, "as_of": "Q1 2026"}},
-    {"company": "ThaiSolar", "ticker": "SET:TSL", "exchange": "SET", "country": "Thailand", "sector": "Energy — Power & Renewables", "esg_score": 20.5, "esg_as_of": "2023", "esg_cagr_2019_2023": "+7.4%", "momentum": {"environment": 25, "social": 6, "governance": 3, "digital_ai": 16}, "live_signals": {"ai_hiring_surge": "+130%", "green_patents": "+120%", "carbon_disclosure": "+22%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+9.3%", "market": {"currency": "THB", "price": 113.22, "prev_close": 112.31, "open": 113.56, "high": 114.81, "low": 111.08, "market_cap": "฿31.9B", "pe_ratio": 11.0, "dividend_yield": "3.5%", "week52_high": 137.77, "week52_low": 87.75, "as_of": "2026-01-15"}, "news": [{"title": "ThaiSolar names first Chief AI-Governance Officer", "source": "Fictional Markets Wire", "date": "2026-06-12"}, {"title": "ThaiSolar lifts sustainable-finance target for 2026", "source": "Sample Sustainability Times", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 15, "as_of": "Q1 2026"}},
-    {"company": "Marina Estates", "ticker": "SGX:MAR", "exchange": "SGX", "country": "Singapore", "sector": "Real Estate", "esg_score": 24.0, "esg_as_of": "2023", "esg_cagr_2019_2023": "+3.0%", "momentum": {"environment": 9, "social": 3, "governance": 0, "digital_ai": 10}, "live_signals": {"ai_hiring_surge": "+70%", "green_patents": "+25%", "carbon_disclosure": "+8%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+4.8%", "market": {"currency": "SGD", "price": 37.4, "prev_close": 37.06, "open": 37.51, "high": 37.92, "low": 36.66, "market_cap": "S$30.8B", "pe_ratio": 15.2, "dividend_yield": "2.2%", "week52_high": 44.94, "week52_low": 28.96, "as_of": "2026-01-15"}, "news": [{"title": "Marina Estates names first Chief AI-Governance Officer", "source": "Sample Sustainability Times", "date": "2026-05-28"}, {"title": "Marina Estates lifts sustainable-finance target for 2026", "source": "DemoWire (illustrative)", "date": "2026-05-09"}, {"title": "Marina Estates ranked among ASEAN real estate ESG improvers", "source": "Mock Business Daily", "date": "2026-04-22"}], "analyst_coverage": {"analysts": 14, "as_of": "Q1 2026"}},
-    {"company": "Bayan Realty", "ticker": "PSE:BYN", "exchange": "PSE", "country": "Philippines", "sector": "Real Estate", "esg_score": 28.0, "esg_as_of": "2022", "esg_cagr_2019_2023": "+1.0%", "momentum": {"environment": 3, "social": 1, "governance": -2, "digital_ai": 5}, "live_signals": {"ai_hiring_surge": "+30%", "green_patents": "+6%", "carbon_disclosure": "+2%", "controversy_flags": 1, "board_ai_policy": false}, "price_change_90d": "+2.2%", "market": {"currency": "PHP", "price": 62.4, "prev_close": 62.03, "open": 62.59, "high": 63.28, "low": 61.34, "market_cap": "₱31.0B", "pe_ratio": 19.9, "dividend_yield": "4.2%", "week52_high": 74.19, "week52_low": 48.46, "as_of": "2026-01-15"}, "news": [{"title": "Bayan Realty reviews board oversight of AI risk", "source": "DemoWire (illustrative)", "date": "2026-05-09"}, {"title": "Bayan Realty publishes 2025 climate-transition update", "source": "Mock Business Daily", "date": "2026-04-22"}, {"title": "Regulator queries Bayan Realty over real estate disclosure gap", "source": "ASEAN ESG Monitor (demo)", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 5, "as_of": "Q1 2026"}},
-    {"company": "KLCC Towers", "ticker": "KLSE:KLT", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Real Estate", "esg_score": 26.0, "esg_as_of": "2023", "esg_cagr_2019_2023": "+2.2%", "momentum": {"environment": 7, "social": 2, "governance": -1, "digital_ai": 7}, "live_signals": {"ai_hiring_surge": "+50%", "green_patents": "+14%", "carbon_disclosure": "+5%", "controversy_flags": 0, "board_ai_policy": false}, "price_change_90d": "+3.5%", "market": {"currency": "MYR", "price": 41.36, "prev_close": 41.07, "open": 41.48, "high": 41.94, "low": 40.62, "market_cap": "RM30.6B", "pe_ratio": 16.5, "dividend_yield": "3.2%", "week52_high": 49.38, "week52_low": 32.09, "as_of": "2026-01-15"}, "news": [{"title": "KLCC Towers reviews board oversight of AI risk", "source": "Mock Business Daily", "date": "2026-04-22"}, {"title": "KLCC Towers publishes 2025 climate-transition update", "source": "ASEAN ESG Monitor (demo)", "date": "2026-03-30"}], "analyst_coverage": {"analysts": 7, "as_of": "Q1 2026"}},
-    {"company": "Jakarta Land", "ticker": "IDX:JKL", "exchange": "IDX", "country": "Indonesia", "sector": "Real Estate", "esg_score": 30.0, "esg_as_of": "2022", "esg_cagr_2019_2023": "-0.3%", "momentum": {"environment": 2, "social": 0, "governance": -4, "digital_ai": 4}, "live_signals": {"ai_hiring_surge": "+25%", "green_patents": "+5%", "carbon_disclosure": "+1%", "controversy_flags": 2, "board_ai_policy": false}, "price_change_90d": "+1.7%", "market": {"currency": "IDR", "price": 3344, "prev_close": 3317, "open": 3354, "high": 3391, "low": 3281, "market_cap": "Rp32.6T", "pe_ratio": 21.2, "dividend_yield": "2.2%", "week52_high": 3967, "week52_low": 2592, "as_of": "2026-01-15"}, "news": [{"title": "Jakarta Land reviews board oversight of AI risk", "source": "ASEAN ESG Monitor (demo)", "date": "2026-03-30"}, {"title": "Jakarta Land publishes 2025 climate-transition update", "source": "Fictional Markets Wire", "date": "2026-03-11"}, {"title": "Regulator queries Jakarta Land over real estate disclosure gap", "source": "Sample Sustainability Times", "date": "2026-06-12"}], "analyst_coverage": {"analysts": 7, "as_of": "Q1 2026"}},
-    {"company": "FreshHarvest", "ticker": "SET:FRH", "exchange": "SET", "country": "Thailand", "sector": "Consumer Staples", "esg_score": 22.5, "esg_as_of": "2023", "esg_cagr_2019_2023": "+4.6%", "momentum": {"environment": 11, "social": 5, "governance": 2, "digital_ai": 12}, "live_signals": {"ai_hiring_surge": "+80%", "green_patents": "+40%", "carbon_disclosure": "+9%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+5.8%", "market": {"currency": "THB", "price": 120.02, "prev_close": 118.94, "open": 120.38, "high": 121.7, "low": 117.63, "market_cap": "฿30.9B", "pe_ratio": 14.4, "dividend_yield": "4.5%", "week52_high": 144.83, "week52_low": 92.93, "as_of": "2026-01-15"}, "news": [{"title": "FreshHarvest names first Chief AI-Governance Officer", "source": "Fictional Markets Wire", "date": "2026-03-11"}, {"title": "FreshHarvest lifts sustainable-finance target for 2026", "source": "Sample Sustainability Times", "date": "2026-06-12"}, {"title": "FreshHarvest ranked among ASEAN consumer staples ESG improvers", "source": "DemoWire (illustrative)", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 14, "as_of": "Q1 2026"}},
-    {"company": "NusaFoods", "ticker": "IDX:NUS", "exchange": "IDX", "country": "Indonesia", "sector": "Consumer Staples", "esg_score": 27.5, "esg_as_of": "2022", "esg_cagr_2019_2023": "+1.3%", "momentum": {"environment": 5, "social": 2, "governance": -1, "digital_ai": 6}, "live_signals": {"ai_hiring_surge": "+40%", "green_patents": "+10%", "carbon_disclosure": "+3%", "controversy_flags": 1, "board_ai_policy": false}, "price_change_90d": "+2.8%", "market": {"currency": "IDR", "price": 3058, "prev_close": 3040, "open": 3067, "high": 3101, "low": 3006, "market_cap": "Rp32.2T", "pe_ratio": 18.0, "dividend_yield": "4.0%", "week52_high": 3644, "week52_low": 2375, "as_of": "2026-01-15"}, "news": [{"title": "NusaFoods reviews board oversight of AI risk", "source": "Sample Sustainability Times", "date": "2026-06-12"}, {"title": "NusaFoods publishes 2025 climate-transition update", "source": "DemoWire (illustrative)", "date": "2026-05-28"}], "analyst_coverage": {"analysts": 10, "as_of": "Q1 2026"}},
-    {"company": "Lion City Provisions", "ticker": "SGX:LCP", "exchange": "SGX", "country": "Singapore", "sector": "Consumer Staples", "esg_score": 23.0, "esg_as_of": "2023", "esg_cagr_2019_2023": "+4.0%", "momentum": {"environment": 13, "social": 6, "governance": 3, "digital_ai": 14}, "live_signals": {"ai_hiring_surge": "+100%", "green_patents": "+55%", "carbon_disclosure": "+12%", "controversy_flags": 0, "board_ai_policy": true}, "price_change_90d": "+6.8%", "market": {"currency": "SGD", "price": 34.0, "prev_close": 33.76, "open": 34.1, "high": 34.48, "low": 33.39, "market_cap": "S$32.7B", "pe_ratio": 14.2, "dividend_yield": "4.7%", "week52_high": 41.2, "week52_low": 26.38, "as_of": "2026-01-15"}, "news": [{"title": "Lion City Provisions names first Chief AI-Governance Officer", "source": "DemoWire (illustrative)", "date": "2026-05-28"}, {"title": "Lion City Provisions lifts sustainable-finance target for 2026", "source": "Mock Business Daily", "date": "2026-05-09"}, {"title": "Lion City Provisions ranked among ASEAN consumer staples ESG improvers", "source": "ASEAN ESG Monitor (demo)", "date": "2026-04-22"}], "analyst_coverage": {"analysts": 11, "as_of": "Q1 2026"}}
+    {
+      "company": "DemoBank",
+      "ticker": "SGX:DBKO",
+      "exchange": "SGX",
+      "country": "Singapore",
+      "sector": "Financials — Banks",
+      "esg_score": 64.9,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 18.4,
+        "s_score": 81.0,
+        "g_score": 96.8,
+        "overall": 64.9
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -16,
+        "social": 22,
+        "governance": 28,
+        "digital_ai": 10
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+218%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+45%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "SGD",
+        "price": 13.81,
+        "open": 13.91,
+        "high": 13.95,
+        "low": 13.61,
+        "prev_close": 13.83,
+        "market_cap": "SGD 72.5B",
+        "pe_ratio": 12.4,
+        "dividend_yield": "4.0%",
+        "week52_high": 17.26,
+        "week52_low": 12.7,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "DemoBank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "DemoBank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "DemoBank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 11,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+0.3%"
+    },
+    {
+      "company": "Selat Bank",
+      "ticker": "KLSE:SLTB",
+      "exchange": "KLSE",
+      "country": "Malaysia",
+      "sector": "Financials — Banks",
+      "esg_score": 53.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 33.3,
+        "s_score": 63.3,
+        "g_score": 65.2,
+        "overall": 53.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -1,
+        "social": 3,
+        "governance": 7,
+        "digital_ai": 28
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+252%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+17%",
+        "green_patents": "+94%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "MYR",
+        "price": 34.88,
+        "open": 35.03,
+        "high": 35.64,
+        "low": 34.17,
+        "prev_close": 35.32,
+        "market_cap": "MYR 52.1B",
+        "pe_ratio": 16.1,
+        "dividend_yield": "1.2%",
+        "week52_high": 39.36,
+        "week52_low": 28.45,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Selat Bank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Selat Bank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Selat Bank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 23,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-0.7%"
+    },
+    {
+      "company": "Garuda Mandiri Bank",
+      "ticker": "IDX:GRMB",
+      "exchange": "IDX",
+      "country": "Indonesia",
+      "sector": "Financials — Banks",
+      "esg_score": 57.6,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 54.4,
+        "s_score": 68.5,
+        "g_score": 50.0,
+        "overall": 57.6
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 0,
+        "social": 14,
+        "governance": 0,
+        "digital_ai": 12
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+338%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+12%",
+        "green_patents": "+36%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "IDR",
+        "price": 5.95,
+        "open": 6.0,
+        "high": 6.04,
+        "low": 5.79,
+        "prev_close": 5.92,
+        "market_cap": "IDR 77.4B",
+        "pe_ratio": 8.8,
+        "dividend_yield": "3.3%",
+        "week52_high": 7.09,
+        "week52_low": 4.97,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Garuda Mandiri Bank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Garuda Mandiri Bank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Garuda Mandiri Bank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 9,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-4.8%"
+    },
+    {
+      "company": "Mekong Commercial Bank",
+      "ticker": "SET:MKCB",
+      "exchange": "SET",
+      "country": "Thailand",
+      "sector": "Financials — Banks",
+      "esg_score": 58.3,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 51.2,
+        "s_score": 74.6,
+        "g_score": 49.3,
+        "overall": 58.3
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 1,
+        "social": 20,
+        "governance": -3,
+        "digital_ai": 11
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+241%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+93%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "THB",
+        "price": 30.83,
+        "open": 30.58,
+        "high": 31.39,
+        "low": 30.21,
+        "prev_close": 30.55,
+        "market_cap": "THB 56.0B",
+        "pe_ratio": 17.8,
+        "dividend_yield": "5.6%",
+        "week52_high": 36.93,
+        "week52_low": 23.46,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Mekong Commercial Bank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Mekong Commercial Bank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Mekong Commercial Bank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 18,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+3.5%"
+    },
+    {
+      "company": "Pearl Savings",
+      "ticker": "PSE:PRLS",
+      "exchange": "PSE",
+      "country": "Philippines",
+      "sector": "Financials — Banks",
+      "esg_score": 58.5,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 68.4,
+        "s_score": 61.4,
+        "g_score": 45.4,
+        "overall": 58.5
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 10,
+        "social": 7,
+        "governance": -8,
+        "digital_ai": 33
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+186%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+4%",
+        "green_patents": "+38%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "PHP",
+        "price": 26.81,
+        "open": 26.9,
+        "high": 27.27,
+        "low": 26.47,
+        "prev_close": 26.84,
+        "market_cap": "PHP 12.8B",
+        "pe_ratio": 18.9,
+        "dividend_yield": "1.9%",
+        "week52_high": 32.62,
+        "week52_low": 25.36,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Pearl Savings lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Pearl Savings expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Pearl Savings names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 15,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+6.5%"
+    },
+    {
+      "company": "Lac Viet Bank",
+      "ticker": "HOSE:LVTB",
+      "exchange": "HOSE",
+      "country": "Vietnam",
+      "sector": "Financials — Banks",
+      "esg_score": 63.9,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 58.5,
+        "s_score": 86.2,
+        "g_score": 47.1,
+        "overall": 63.9
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 12,
+        "social": 22,
+        "governance": -7,
+        "digital_ai": 25
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+91%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+14%",
+        "green_patents": "+44%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "VND",
+        "price": 16.05,
+        "open": 16.11,
+        "high": 16.35,
+        "low": 15.83,
+        "prev_close": 16.29,
+        "market_cap": "VND 56.0B",
+        "pe_ratio": 8.1,
+        "dividend_yield": "5.9%",
+        "week52_high": 19.96,
+        "week52_low": 13.55,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Lac Viet Bank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Lac Viet Bank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Lac Viet Bank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 25,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+5.6%"
+    },
+    {
+      "company": "NovaTel",
+      "ticker": "SGX:NVTL",
+      "exchange": "SGX",
+      "country": "Singapore",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 62.1,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 19.1,
+        "s_score": 80.8,
+        "g_score": 87.8,
+        "overall": 62.1
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -14,
+        "social": 12,
+        "governance": 19,
+        "digital_ai": 23
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+203%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+9%",
+        "green_patents": "+41%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "SGD",
+        "price": 39.39,
+        "open": 39.02,
+        "high": 40.26,
+        "low": 38.32,
+        "prev_close": 39.99,
+        "market_cap": "SGD 11.7B",
+        "pe_ratio": 11.8,
+        "dividend_yield": "3.9%",
+        "week52_high": 44.41,
+        "week52_low": 36.78,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "NovaTel lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "NovaTel expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "NovaTel names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 10,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-6.5%"
+    },
+    {
+      "company": "Tiger Bay Telecom",
+      "ticker": "KLSE:TBTL",
+      "exchange": "KLSE",
+      "country": "Malaysia",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 55.2,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 34.6,
+        "s_score": 71.1,
+        "g_score": 60.6,
+        "overall": 55.2
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 1,
+        "social": 20,
+        "governance": 5,
+        "digital_ai": 26
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+132%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+15%",
+        "green_patents": "+91%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "MYR",
+        "price": 30.92,
+        "open": 30.76,
+        "high": 31.79,
+        "low": 30.11,
+        "prev_close": 30.82,
+        "market_cap": "MYR 89.3B",
+        "pe_ratio": 20.5,
+        "dividend_yield": "5.5%",
+        "week52_high": 33.88,
+        "week52_low": 28.27,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Tiger Bay Telecom lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Tiger Bay Telecom expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Tiger Bay Telecom names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 27,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-5.1%"
+    },
+    {
+      "company": "ASEAN Mobile",
+      "ticker": "IDX:ASMB",
+      "exchange": "IDX",
+      "country": "Indonesia",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 57.5,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 56.5,
+        "s_score": 70.5,
+        "g_score": 45.5,
+        "overall": 57.5
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 2,
+        "social": 11,
+        "governance": -6,
+        "digital_ai": 17
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+186%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+12%",
+        "green_patents": "+50%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "IDR",
+        "price": 10.48,
+        "open": 10.53,
+        "high": 10.75,
+        "low": 10.4,
+        "prev_close": 10.34,
+        "market_cap": "IDR 88.4B",
+        "pe_ratio": 12.5,
+        "dividend_yield": "3.5%",
+        "week52_high": 11.26,
+        "week52_low": 7.97,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "ASEAN Mobile lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "ASEAN Mobile expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "ASEAN Mobile names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 16,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-1.0%"
+    },
+    {
+      "company": "SiamConnect",
+      "ticker": "SET:SMCN",
+      "exchange": "SET",
+      "country": "Thailand",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 59.4,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 54.0,
+        "s_score": 79.2,
+        "g_score": 45.1,
+        "overall": 59.4
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 7,
+        "social": 24,
+        "governance": -7,
+        "digital_ai": 17
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+151%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+82%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "THB",
+        "price": 35.39,
+        "open": 35.19,
+        "high": 36.27,
+        "low": 34.35,
+        "prev_close": 35.27,
+        "market_cap": "THB 89.0B",
+        "pe_ratio": 8.6,
+        "dividend_yield": "2.1%",
+        "week52_high": 40.55,
+        "week52_low": 32.09,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "SiamConnect lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "SiamConnect expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "SiamConnect names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 7,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-1.8%"
+    },
+    {
+      "company": "LunaComm",
+      "ticker": "PSE:LUNA",
+      "exchange": "PSE",
+      "country": "Philippines",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 59.6,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 69.6,
+        "s_score": 66.9,
+        "g_score": 42.1,
+        "overall": 59.6
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 9,
+        "social": 18,
+        "governance": -9,
+        "digital_ai": 31
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+171%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+15%",
+        "green_patents": "+70%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "PHP",
+        "price": 11.75,
+        "open": 11.64,
+        "high": 12.0,
+        "low": 11.55,
+        "prev_close": 11.83,
+        "market_cap": "PHP 13.0B",
+        "pe_ratio": 19.8,
+        "dividend_yield": "4.5%",
+        "week52_high": 12.68,
+        "week52_low": 10.04,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "LunaComm lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "LunaComm expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "LunaComm names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 18,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-1.0%"
+    },
+    {
+      "company": "Mekong Mobile",
+      "ticker": "HOSE:MKMB",
+      "exchange": "HOSE",
+      "country": "Vietnam",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 63.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 58.3,
+        "s_score": 86.4,
+        "g_score": 46.7,
+        "overall": 63.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 5,
+        "social": 13,
+        "governance": 6,
+        "digital_ai": 28
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+290%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+7%",
+        "green_patents": "+74%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "VND",
+        "price": 9.45,
+        "open": 9.36,
+        "high": 9.62,
+        "low": 9.21,
+        "prev_close": 9.52,
+        "market_cap": "VND 59.0B",
+        "pe_ratio": 20.4,
+        "dividend_yield": "4.8%",
+        "week52_high": 11.45,
+        "week52_low": 7.28,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Mekong Mobile lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Mekong Mobile expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Mekong Mobile names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 6,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-4.7%"
+    },
+    {
+      "company": "GreenGrid",
+      "ticker": "SGX:GRGD",
+      "exchange": "SGX",
+      "country": "Singapore",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 60.3,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 22.0,
+        "s_score": 76.9,
+        "g_score": 83.1,
+        "overall": 60.3
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -11,
+        "social": 10,
+        "governance": 14,
+        "digital_ai": 30
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+292%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+20%",
+        "green_patents": "+44%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "SGD",
+        "price": 34.99,
+        "open": 34.86,
+        "high": 35.63,
+        "low": 34.27,
+        "prev_close": 34.9,
+        "market_cap": "SGD 46.0B",
+        "pe_ratio": 13.6,
+        "dividend_yield": "2.6%",
+        "week52_high": 39.8,
+        "week52_low": 27.53,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "GreenGrid lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "GreenGrid expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "GreenGrid names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 22,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+4.0%"
+    },
+    {
+      "company": "Suria Power",
+      "ticker": "KLSE:SURP",
+      "exchange": "KLSE",
+      "country": "Malaysia",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 53.2,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 37.2,
+        "s_score": 63.7,
+        "g_score": 59.3,
+        "overall": 53.2
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -10,
+        "social": 4,
+        "governance": 8,
+        "digital_ai": 5
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+358%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+18%",
+        "green_patents": "+60%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "MYR",
+        "price": 34.57,
+        "open": 34.77,
+        "high": 35.23,
+        "low": 34.37,
+        "prev_close": 34.88,
+        "market_cap": "MYR 42.1B",
+        "pe_ratio": 8.1,
+        "dividend_yield": "1.7%",
+        "week52_high": 38.49,
+        "week52_low": 28.58,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Suria Power lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Suria Power expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Suria Power names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 20,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+4.6%"
+    },
+    {
+      "company": "Borneo Energy",
+      "ticker": "IDX:BRNE",
+      "exchange": "IDX",
+      "country": "Indonesia",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 60.0,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 65.9,
+        "s_score": 70.2,
+        "g_score": 43.8,
+        "overall": 60.0
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 11,
+        "social": 20,
+        "governance": -6,
+        "digital_ai": 29
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+245%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+42%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "IDR",
+        "price": 4.73,
+        "open": 4.7,
+        "high": 4.77,
+        "low": 4.64,
+        "prev_close": 4.71,
+        "market_cap": "IDR 67.1B",
+        "pe_ratio": 12.0,
+        "dividend_yield": "2.4%",
+        "week52_high": 5.8,
+        "week52_low": 4.4,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Borneo Energy lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Borneo Energy expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Borneo Energy names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 10,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+12.7%"
+    },
+    {
+      "company": "ThaiSolar",
+      "ticker": "SET:THSL",
+      "exchange": "SET",
+      "country": "Thailand",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 57.8,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 60.2,
+        "s_score": 69.9,
+        "g_score": 43.2,
+        "overall": 57.8
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 5,
+        "social": 4,
+        "governance": -9,
+        "digital_ai": 16
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+322%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+89%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "THB",
+        "price": 17.54,
+        "open": 17.53,
+        "high": 17.96,
+        "low": 17.44,
+        "prev_close": 17.43,
+        "market_cap": "THB 48.7B",
+        "pe_ratio": 21.6,
+        "dividend_yield": "5.1%",
+        "week52_high": 21.11,
+        "week52_low": 13.81,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "ThaiSolar lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "ThaiSolar expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "ThaiSolar names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 6,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+2.1%"
+    },
+    {
+      "company": "Bayan Power",
+      "ticker": "PSE:BYNP",
+      "exchange": "PSE",
+      "country": "Philippines",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 60.4,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 77.8,
+        "s_score": 60.3,
+        "g_score": 42.6,
+        "overall": 60.4
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 8,
+        "social": 3,
+        "governance": 1,
+        "digital_ai": 22
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+103%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+27%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "PHP",
+        "price": 25.12,
+        "open": 25.35,
+        "high": 25.81,
+        "low": 24.47,
+        "prev_close": 25.38,
+        "market_cap": "PHP 48.4B",
+        "pe_ratio": 18.6,
+        "dividend_yield": "2.1%",
+        "week52_high": 31.39,
+        "week52_low": 19.11,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Bayan Power lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Bayan Power expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Bayan Power names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 23,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-5.8%"
+    },
+    {
+      "company": "Red River Renewables",
+      "ticker": "HOSE:RRRE",
+      "exchange": "HOSE",
+      "country": "Vietnam",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 64.2,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 65.1,
+        "s_score": 82.8,
+        "g_score": 44.6,
+        "overall": 64.2
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 4,
+        "social": 13,
+        "governance": 4,
+        "digital_ai": 21
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+250%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+8%",
+        "green_patents": "+59%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "VND",
+        "price": 34.84,
+        "open": 35.15,
+        "high": 35.03,
+        "low": 34.4,
+        "prev_close": 34.33,
+        "market_cap": "VND 88.2B",
+        "pe_ratio": 15.1,
+        "dividend_yield": "3.9%",
+        "week52_high": 39.86,
+        "week52_low": 29.27,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Red River Renewables lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Red River Renewables expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Red River Renewables names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 24,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-0.9%"
+    },
+    {
+      "company": "Marina Estates",
+      "ticker": "SGX:MRNA",
+      "exchange": "SGX",
+      "country": "Singapore",
+      "sector": "Real Estate",
+      "esg_score": 62.6,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 21.6,
+        "s_score": 82.1,
+        "g_score": 85.3,
+        "overall": 62.6
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -8,
+        "social": 25,
+        "governance": 16,
+        "digital_ai": 27
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+131%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+46%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "SGD",
+        "price": 27.39,
+        "open": 27.43,
+        "high": 28.07,
+        "low": 26.94,
+        "prev_close": 27.58,
+        "market_cap": "SGD 28.1B",
+        "pe_ratio": 14.3,
+        "dividend_yield": "3.5%",
+        "week52_high": 33.21,
+        "week52_low": 24.81,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Marina Estates lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Marina Estates expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Marina Estates names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 6,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+0.6%"
+    },
+    {
+      "company": "KLCC Towers",
+      "ticker": "KLSE:KLCT",
+      "exchange": "KLSE",
+      "country": "Malaysia",
+      "sector": "Real Estate",
+      "esg_score": 54.0,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 38.2,
+        "s_score": 63.9,
+        "g_score": 60.4,
+        "overall": 54.0
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 3,
+        "social": 5,
+        "governance": 8,
+        "digital_ai": 32
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+347%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+14%",
+        "green_patents": "+84%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "MYR",
+        "price": 29.33,
+        "open": 29.24,
+        "high": 29.8,
+        "low": 28.96,
+        "prev_close": 29.83,
+        "market_cap": "MYR 80.2B",
+        "pe_ratio": 10.3,
+        "dividend_yield": "4.1%",
+        "week52_high": 35.47,
+        "week52_low": 26.11,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "KLCC Towers lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "KLCC Towers expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "KLCC Towers names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 24,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+12.9%"
+    },
+    {
+      "company": "Jakarta Land",
+      "ticker": "IDX:JKLD",
+      "exchange": "IDX",
+      "country": "Indonesia",
+      "sector": "Real Estate",
+      "esg_score": 58.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 63.5,
+        "s_score": 66.9,
+        "g_score": 45.6,
+        "overall": 58.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 10,
+        "social": 9,
+        "governance": -1,
+        "digital_ai": 16
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+99%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+13%",
+        "green_patents": "+80%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "IDR",
+        "price": 25.83,
+        "open": 25.66,
+        "high": 26.32,
+        "low": 25.07,
+        "prev_close": 26.21,
+        "market_cap": "IDR 38.2B",
+        "pe_ratio": 14.8,
+        "dividend_yield": "3.5%",
+        "week52_high": 28.27,
+        "week52_low": 20.67,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Jakarta Land lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Jakarta Land expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Jakarta Land names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 6,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+5.3%"
+    },
+    {
+      "company": "Bangkok Heights",
+      "ticker": "SET:BKHT",
+      "exchange": "SET",
+      "country": "Thailand",
+      "sector": "Real Estate",
+      "esg_score": 59.0,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 59.1,
+        "s_score": 71.3,
+        "g_score": 46.7,
+        "overall": 59.0
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 8,
+        "social": 9,
+        "governance": 4,
+        "digital_ai": 27
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+77%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+12%",
+        "green_patents": "+43%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "THB",
+        "price": 31.72,
+        "open": 31.55,
+        "high": 32.56,
+        "low": 30.77,
+        "prev_close": 31.3,
+        "market_cap": "THB 3.7B",
+        "pe_ratio": 20.0,
+        "dividend_yield": "3.4%",
+        "week52_high": 38.03,
+        "week52_low": 24.14,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Bangkok Heights lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Bangkok Heights expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Bangkok Heights names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 24,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+12.2%"
+    },
+    {
+      "company": "Bayan Realty",
+      "ticker": "PSE:BYNR",
+      "exchange": "PSE",
+      "country": "Philippines",
+      "sector": "Real Estate",
+      "esg_score": 60.4,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 76.0,
+        "s_score": 60.5,
+        "g_score": 44.2,
+        "overall": 60.4
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 10,
+        "social": 4,
+        "governance": 5,
+        "digital_ai": 30
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+315%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+9%",
+        "green_patents": "+94%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "PHP",
+        "price": 15.41,
+        "open": 15.48,
+        "high": 15.85,
+        "low": 15.18,
+        "prev_close": 15.14,
+        "market_cap": "PHP 65.0B",
+        "pe_ratio": 16.8,
+        "dividend_yield": "5.1%",
+        "week52_high": 17.39,
+        "week52_low": 12.63,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Bayan Realty lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Bayan Realty expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Bayan Realty names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 24,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-7.0%"
+    },
+    {
+      "company": "Saigon Square Estates",
+      "ticker": "HOSE:SSQE",
+      "exchange": "HOSE",
+      "country": "Vietnam",
+      "sector": "Real Estate",
+      "esg_score": 65.2,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 62.9,
+        "s_score": 88.2,
+        "g_score": 44.7,
+        "overall": 65.2
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 4,
+        "social": 28,
+        "governance": 1,
+        "digital_ai": 28
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+232%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+11%",
+        "green_patents": "+94%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "VND",
+        "price": 8.1,
+        "open": 8.03,
+        "high": 8.16,
+        "low": 7.88,
+        "prev_close": 8.01,
+        "market_cap": "VND 69.5B",
+        "pe_ratio": 9.0,
+        "dividend_yield": "4.2%",
+        "week52_high": 9.3,
+        "week52_low": 6.6,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Saigon Square Estates lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Saigon Square Estates expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Saigon Square Estates names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 17,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+9.7%"
+    },
+    {
+      "company": "Lion City Provisions",
+      "ticker": "SGX:LNCP",
+      "exchange": "SGX",
+      "country": "Singapore",
+      "sector": "Consumer Staples",
+      "esg_score": 63.0,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 20.4,
+        "s_score": 85.1,
+        "g_score": 84.8,
+        "overall": 63.0
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -9,
+        "social": 18,
+        "governance": 19,
+        "digital_ai": 26
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+72%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+16%",
+        "green_patents": "+30%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "SGD",
+        "price": 15.07,
+        "open": 15.15,
+        "high": 15.22,
+        "low": 14.92,
+        "prev_close": 15.36,
+        "market_cap": "SGD 23.7B",
+        "pe_ratio": 15.2,
+        "dividend_yield": "1.3%",
+        "week52_high": 17.59,
+        "week52_low": 12.15,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Lion City Provisions lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Lion City Provisions expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Lion City Provisions names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 26,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+2.9%"
+    },
+    {
+      "company": "Tiger Bay Foods",
+      "ticker": "KLSE:TBFD",
+      "exchange": "KLSE",
+      "country": "Malaysia",
+      "sector": "Consumer Staples",
+      "esg_score": 54.9,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 35.0,
+        "s_score": 72.7,
+        "g_score": 57.5,
+        "overall": 54.9
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -5,
+        "social": 20,
+        "governance": 1,
+        "digital_ai": 25
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+325%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+14%",
+        "green_patents": "+62%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "MYR",
+        "price": 34.0,
+        "open": 34.2,
+        "high": 34.49,
+        "low": 33.01,
+        "prev_close": 33.86,
+        "market_cap": "MYR 10.3B",
+        "pe_ratio": 12.7,
+        "dividend_yield": "5.0%",
+        "week52_high": 36.5,
+        "week52_low": 29.62,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Tiger Bay Foods lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Tiger Bay Foods expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Tiger Bay Foods names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 14,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+12.9%"
+    },
+    {
+      "company": "NusaFoods",
+      "ticker": "IDX:NUSA",
+      "exchange": "IDX",
+      "country": "Indonesia",
+      "sector": "Consumer Staples",
+      "esg_score": 59.5,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 59.3,
+        "s_score": 75.1,
+        "g_score": 44.1,
+        "overall": 59.5
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 5,
+        "social": 20,
+        "governance": -5,
+        "digital_ai": 24
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+70%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+10%",
+        "green_patents": "+50%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "IDR",
+        "price": 22.45,
+        "open": 22.49,
+        "high": 22.61,
+        "low": 22.0,
+        "prev_close": 22.82,
+        "market_cap": "IDR 73.6B",
+        "pe_ratio": 14.3,
+        "dividend_yield": "2.1%",
+        "week52_high": 27.94,
+        "week52_low": 17.35,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "NusaFoods lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "NusaFoods expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "NusaFoods names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 19,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-5.1%"
+    },
+    {
+      "company": "FreshHarvest",
+      "ticker": "SET:FRHV",
+      "exchange": "SET",
+      "country": "Thailand",
+      "sector": "Consumer Staples",
+      "esg_score": 59.9,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 54.2,
+        "s_score": 80.4,
+        "g_score": 45.4,
+        "overall": 59.9
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 0,
+        "social": 22,
+        "governance": 2,
+        "digital_ai": 10
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+315%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+17%",
+        "green_patents": "+51%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "THB",
+        "price": 11.95,
+        "open": 11.94,
+        "high": 12.03,
+        "low": 11.87,
+        "prev_close": 11.88,
+        "market_cap": "THB 29.7B",
+        "pe_ratio": 16.3,
+        "dividend_yield": "4.9%",
+        "week52_high": 13.87,
+        "week52_low": 10.78,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "FreshHarvest lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "FreshHarvest expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "FreshHarvest names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 11,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+10.5%"
+    },
+    {
+      "company": "Pearl Provisions",
+      "ticker": "PSE:PRLP",
+      "exchange": "PSE",
+      "country": "Philippines",
+      "sector": "Consumer Staples",
+      "esg_score": 60.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 74.8,
+        "s_score": 64.8,
+        "g_score": 42.1,
+        "overall": 60.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 17,
+        "social": 5,
+        "governance": -1,
+        "digital_ai": 27
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+68%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+13%",
+        "green_patents": "+84%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "PHP",
+        "price": 20.84,
+        "open": 20.86,
+        "high": 21.42,
+        "low": 20.5,
+        "prev_close": 20.98,
+        "market_cap": "PHP 4.5B",
+        "pe_ratio": 12.7,
+        "dividend_yield": "3.4%",
+        "week52_high": 25.96,
+        "week52_low": 16.67,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Pearl Provisions lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Pearl Provisions expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Pearl Provisions names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 21,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-6.2%"
+    },
+    {
+      "company": "Mekong Harvest",
+      "ticker": "HOSE:MKHV",
+      "exchange": "HOSE",
+      "country": "Vietnam",
+      "sector": "Consumer Staples",
+      "esg_score": 65.8,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 62.7,
+        "s_score": 91.4,
+        "g_score": 43.4,
+        "overall": 65.8
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 14,
+        "social": 21,
+        "governance": -2,
+        "digital_ai": 5
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+284%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+14%",
+        "green_patents": "+54%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "VND",
+        "price": 11.44,
+        "open": 11.4,
+        "high": 11.52,
+        "low": 11.12,
+        "prev_close": 11.3,
+        "market_cap": "VND 80.6B",
+        "pe_ratio": 18.3,
+        "dividend_yield": "5.3%",
+        "week52_high": 14.07,
+        "week52_low": 8.89,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Mekong Harvest lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Mekong Harvest expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Mekong Harvest names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 8,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+1.8%"
+    },
+    {
+      "company": "Orchid Bank",
+      "ticker": "SGX:ORCB",
+      "exchange": "SGX",
+      "country": "Singapore",
+      "sector": "Financials — Banks",
+      "esg_score": 63.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 18.6,
+        "s_score": 76.9,
+        "g_score": 97.1,
+        "overall": 63.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -14,
+        "social": 9,
+        "governance": 29,
+        "digital_ai": 24
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+72%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+6%",
+        "green_patents": "+31%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "SGD",
+        "price": 11.29,
+        "open": 11.3,
+        "high": 11.36,
+        "low": 11.13,
+        "prev_close": 11.32,
+        "market_cap": "SGD 34.0B",
+        "pe_ratio": 9.3,
+        "dividend_yield": "5.6%",
+        "week52_high": 13.19,
+        "week52_low": 9.45,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Orchid Bank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Orchid Bank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Orchid Bank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 18,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+8.2%"
+    },
+    {
+      "company": "Sampan Bank",
+      "ticker": "SET:SMPN",
+      "exchange": "SET",
+      "country": "Thailand",
+      "sector": "Financials — Banks",
+      "esg_score": 57.5,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 49.9,
+        "s_score": 71.4,
+        "g_score": 51.4,
+        "overall": 57.5
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -5,
+        "social": 9,
+        "governance": 7,
+        "digital_ai": 23
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+87%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+12%",
+        "green_patents": "+73%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "THB",
+        "price": 21.43,
+        "open": 21.59,
+        "high": 21.86,
+        "low": 21.03,
+        "prev_close": 21.62,
+        "market_cap": "THB 66.6B",
+        "pe_ratio": 15.0,
+        "dividend_yield": "5.3%",
+        "week52_high": 25.12,
+        "week52_low": 20.29,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Sampan Bank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Sampan Bank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Sampan Bank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 25,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-5.4%"
+    },
+    {
+      "company": "SatBank",
+      "ticker": "IDX:SATB",
+      "exchange": "IDX",
+      "country": "Indonesia",
+      "sector": "Financials — Banks",
+      "esg_score": 57.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 53.5,
+        "s_score": 69.6,
+        "g_score": 50.1,
+        "overall": 57.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -4,
+        "social": 18,
+        "governance": 1,
+        "digital_ai": 4
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+129%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+5%",
+        "green_patents": "+27%",
+        "controversy_flags": 1
+      },
+      "market": {
+        "currency": "IDR",
+        "price": 30.47,
+        "open": 30.59,
+        "high": 30.75,
+        "low": 30.07,
+        "prev_close": 29.9,
+        "market_cap": "IDR 89.4B",
+        "pe_ratio": 8.9,
+        "dividend_yield": "3.2%",
+        "week52_high": 38.0,
+        "week52_low": 25.92,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "SatBank lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "SatBank expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "SatBank names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 26,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-2.0%"
+    },
+    {
+      "company": "Hai Au Telecom",
+      "ticker": "HOSE:HATL",
+      "exchange": "HOSE",
+      "country": "Vietnam",
+      "sector": "Communication Services — Telecom",
+      "esg_score": 65.7,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 59.6,
+        "s_score": 91.8,
+        "g_score": 46.0,
+        "overall": 65.7
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 10,
+        "social": 28,
+        "governance": 3,
+        "digital_ai": 11
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+108%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+11%",
+        "green_patents": "+88%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "VND",
+        "price": 27.12,
+        "open": 27.25,
+        "high": 27.42,
+        "low": 26.83,
+        "prev_close": 27.12,
+        "market_cap": "VND 14.6B",
+        "pe_ratio": 18.9,
+        "dividend_yield": "2.7%",
+        "week52_high": 33.81,
+        "week52_low": 21.24,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Hai Au Telecom lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Hai Au Telecom expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Hai Au Telecom names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 15,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+4.9%"
+    },
+    {
+      "company": "Selat Power",
+      "ticker": "KLSE:SLTP",
+      "exchange": "KLSE",
+      "country": "Malaysia",
+      "sector": "Energy — Power & Renewables",
+      "esg_score": 52.1,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 36.9,
+        "s_score": 63.4,
+        "g_score": 56.6,
+        "overall": 52.1
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": -12,
+        "social": 3,
+        "governance": -3,
+        "digital_ai": 6
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+247%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "+7%",
+        "green_patents": "+31%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "MYR",
+        "price": 7.37,
+        "open": 7.39,
+        "high": 7.43,
+        "low": 7.3,
+        "prev_close": 7.29,
+        "market_cap": "MYR 14.7B",
+        "pe_ratio": 9.6,
+        "dividend_yield": "2.4%",
+        "week52_high": 8.89,
+        "week52_low": 5.6,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Selat Power lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Selat Power expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Selat Power names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 16,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "-6.3%"
+    },
+    {
+      "company": "Manila Harvest",
+      "ticker": "PSE:MNHV",
+      "exchange": "PSE",
+      "country": "Philippines",
+      "sector": "Consumer Staples",
+      "esg_score": 61.4,
+      "esg_as_of": "2024",
+      "esg_breakdown": {
+        "e_score": 73.0,
+        "s_score": 68.2,
+        "g_score": 42.7,
+        "overall": 61.4
+      },
+      "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
+      "momentum": {
+        "environment": 12,
+        "social": 16,
+        "governance": 2,
+        "digital_ai": 11
+      },
+      "live_signals": {
+        "ai_hiring_surge": "+341%",
+        "board_ai_policy": true,
+        "carbon_disclosure": "+8%",
+        "green_patents": "+71%",
+        "controversy_flags": 0
+      },
+      "market": {
+        "currency": "PHP",
+        "price": 25.88,
+        "open": 25.67,
+        "high": 26.22,
+        "low": 25.16,
+        "prev_close": 25.69,
+        "market_cap": "PHP 67.0B",
+        "pe_ratio": 14.1,
+        "dividend_yield": "2.5%",
+        "week52_high": 30.91,
+        "week52_low": 22.6,
+        "as_of": "2026-01-15"
+      },
+      "news": [
+        {
+          "title": "Manila Harvest lifts sustainable-finance disclosure",
+          "source": "DemoWire (illustrative)",
+          "date": "2026-06-12"
+        },
+        {
+          "title": "Manila Harvest expands renewable-energy sourcing plan",
+          "source": "Mock Business Daily (illustrative)",
+          "date": "2026-05-28"
+        },
+        {
+          "title": "Manila Harvest names sustainability & AI-governance lead",
+          "source": "ASEAN ESG Demo (illustrative)",
+          "date": "2026-05-09"
+        }
+      ],
+      "analyst_coverage": {
+        "analysts": 13,
+        "as_of": "Q1 2026"
+      },
+      "price_change_90d": "+6.2%"
+    }
   ]
 }
