@@ -548,6 +548,14 @@ _COMPONENT_CSS = """
 .cc-hw-fill.cc-tier-mid{background:var(--r-amber);}
 .cc-hw-fill.cc-tier-low{background:var(--r-blue);}
 .cc-hw-val{flex:0 0 52px;text-align:right;font:700 13px/1 'IBM Plex Mono';}
+.cc-hwrow{display:flex;align-items:center;gap:10px;min-height:34px;width:100%;}
+.st-key-hwpanel{background:var(--r-panel);border:1px solid var(--r-border);border-radius:14px;padding:6px 12px;}
+.st-key-hwpanel [data-testid="stHorizontalBlock"]{gap:8px;margin:1px 0;align-items:center;}
+.st-key-hwpanel .stButton button{background:transparent;border:1px solid transparent;color:var(--r-text);
+  width:100%;justify-content:flex-end;text-align:right;padding:2px 8px;min-height:32px;
+  font:600 13px/1.15 'IBM Plex Sans';box-shadow:none;}
+.st-key-hwpanel .stButton button:hover{border-color:var(--r-border);background:var(--r-inset);color:var(--r-pos);}
+.st-key-hwpanel .stButton button:active,.st-key-hwpanel .stButton button:focus{box-shadow:none;color:var(--r-pos);}
 /* ---- Classification box (mockup: tinted bg + accent left-border) ---- */
 .cc-class{border-radius:14px;padding:13px 16px;margin-top:6px;border:1px solid var(--r-pos);
   border-left:4px solid var(--r-pos);background:var(--r-posbg);}
@@ -856,7 +864,7 @@ def _render_momentum_chart(ss, filtered, height=370):
         st.line_chart({metrics.PILLAR_LABEL[k]: v for k, v in series.items()}, height=height)
 
 
-def _render_hidden_winners(filtered, new_tickers=()):
+def _render_hidden_winners(ss, filtered, new_tickers=()):
     hw, peer, _ = metrics.hidden_winners(filtered, top_n=5, new_tickers=new_tickers)
     st.markdown('<div class="cc-h">Hidden winners vs peer avg</div>'
                 f'<div class="cc-muted">{len(filtered)} companies · avg ESG '
@@ -865,17 +873,26 @@ def _render_hidden_winners(filtered, new_tickers=()):
         st.caption("No live signal in this filter yet.")
         return
     maxabs = max((abs(r["value"]) for r in hw), default=1) or 1
-    rows = []
-    for r in hw:
-        w = max(4, int(abs(r["value"]) / maxabs * 100))
-        sign = "cc-pos" if r["value"] >= 0 else "cc-neg"
-        new = '<em class="cc-new">new</em>' if r.get("is_new") else ""
-        rows.append(f'<div class="cc-hw"><div class="cc-hw-name">{_esc(r["company"])}{new}</div>'
-                    f'<div class="cc-hw-track"><div class="cc-hw-fill {sign}" style="width:{w}%"></div></div>'
-                    f'<div class="cc-hw-val {sign}">{_esc(metrics.fmt_pct(r["value"]))}</div></div>')
-    st.markdown('<div class="cc-hwwrap">' + "".join(rows) + "</div>"
-                '<div class="cc-muted">Bar = live Digital/AI signal — the divergence the rating can\'t see.</div>',
+    # Each row = a clickable company name (focuses it in the right-rail panels) + a full-width
+    # signal bar. Wrapped in a keyed container so the button styling stays scoped to this panel.
+    with st.container(key="hwpanel"):
+        for r in hw:
+            w = max(4, int(abs(r["value"]) / maxabs * 100))
+            sign = "cc-pos" if r["value"] >= 0 else "cc-neg"
+            new = " · new" if r.get("is_new") else ""
+            name_col, bar_col = st.columns([0.42, 0.58], vertical_alignment="center")
+            if name_col.button(f'{r["company"]}{new}', key=f'hw_{r["ticker"]}',
+                               use_container_width=True,
+                               help=f'Focus {r["company"]} in the right-rail panels'):
+                ss.focus_ticker = r["ticker"]
+                st.rerun()
+            bar_col.markdown(
+                f'<div class="cc-hwrow">'
+                f'<div class="cc-hw-track"><div class="cc-hw-fill {sign}" style="width:{w}%"></div></div>'
+                f'<div class="cc-hw-val {sign}">{_esc(metrics.fmt_pct(r["value"]))}</div></div>',
                 unsafe_allow_html=True)
+    st.markdown('<div class="cc-muted">Bar = live Digital/AI signal — the divergence the rating '
+                'can\'t see. Click a name to focus it.</div>', unsafe_allow_html=True)
 
 
 def _render_classification(focused, cls=None, creds=None):
@@ -1288,7 +1305,7 @@ def _cc_center(ss, filtered, focused, mode):
                 # trimming the dead space that sat under the classification box.
                 _render_momentum_chart(ss, filtered, height=480)
             with c2:
-                _render_hidden_winners(filtered, new_tickers=nt)
+                _render_hidden_winners(ss, filtered, new_tickers=nt)
         _render_classification(focused, metrics.classify(focused or {}))
         _render_price_panel(ss, focused)          # [#17] illustrative 90-day price (demo only)
         _render_forecast(focused, simple)          # [#12] directional outlook
@@ -1323,7 +1340,7 @@ def _cc_right(ss, filtered, focused, path, mode):
     fname = (focused or {}).get("company", "—")
     st.caption((f"Look at **{fname}** →" if simple else f"Analyse **{fname}** →"))
     h1, h2 = st.columns(2)
-    if h1.button("Quick read" if simple else "Compete", key="cc_hint_compete",
+    if h1.button("Compete · Quick read", key="cc_hint_compete",
                  use_container_width=True, disabled=not ft,
                  help=("Show the competing read straight away." if simple
                        else "Skip to the competing read — Stage 2 + 3 run directly.")):
@@ -1331,7 +1348,7 @@ def _cc_right(ss, filtered, focused, path, mode):
         tk = ft if ft in ss.snapshots else _ensure_snapshot(ss, c)
         if tk:
             _launch_relay(ss, tk, "compete")
-    if h2.button("Ask first" if simple else "Interrogate", key="cc_hint_interro",
+    if h2.button("Interrogate · Ask first", key="cc_hint_interro",
                  use_container_width=True, disabled=not ft,
                  help=("Answer a few quick questions first, then see the read." if simple
                        else "Ask adaptive ESG questions first (Stage 1), then compete.")):
