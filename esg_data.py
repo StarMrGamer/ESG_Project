@@ -4,6 +4,14 @@ Live World Bank fetch -> normalize -> bundled CSV fallback. Best-effort by contr
 any failure degrades to data/fallback_oecd_wgi_asean.csv. Never raises to the UI.
 """
 import csv, os
+import json as _json
+import core
+
+WB_BASE = "https://api.worldbank.org/v2"
+
+# Separate cache for live pulls — never overwrites the bundled reference CSV.
+_CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".cache")
+_LIVE_CACHE_CSV = os.path.join(_CACHE_DIR, "wb_live_cache.csv")
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 FALLBACK_CSV = os.path.join(DATA_DIR, "fallback_oecd_wgi_asean.csv")
@@ -90,3 +98,87 @@ def normalize(raw_table):
     for country, row in (raw_table or {}).items():
         out[country] = {k: _norm_one(INDICATOR_META[k][3], row.get(k)) for k in INDICATORS}
     return out
+
+
+def _wb_indicator(code, source, *, timeout):
+    """Fetch one indicator for all 6 countries -> {country_name: value}. None on any failure."""
+    cc = ";".join(COUNTRIES)
+    params = {"format": "json", "per_page": "3000", "date": "2010:2024"}
+    if source:
+        params["source"] = str(source)
+    txt = core.http_get(f"{WB_BASE}/country/{cc}/indicator/{code}", params=params, timeout=timeout)
+    data = _json.loads(txt)
+    if not (isinstance(data, list) and len(data) > 1 and data[1]):
+        return None
+    latest = {}
+    for r in data[1]:
+        if r.get("value") is None:
+            continue
+        name = COUNTRIES.get(r.get("countryiso3code"))
+        if not name:
+            continue
+        if name not in latest or r["date"] > latest[name][1]:
+            latest[name] = (r["value"], r["date"])
+    return {name: v for name, (v, _d) in latest.items()} or None
+
+
+def fetch_worldbank(*, timeout=5):
+    """Live pull of every World-Bank-backed indicator. Returns a raw table or None on failure.
+    Best-effort: a single indicator failing is tolerated (left None); a hard error -> None."""
+    table = {name: {k: None for k in INDICATORS} for name in COUNTRIES.values()}
+    got_any = False
+    for key, (code, source, _pillar, _dir) in INDICATOR_META.items():
+        if not code:
+            continue  # OECD/ILO-only -> stays None, supplied by fallback merge
+        try:
+            vals = _wb_indicator(code, source, timeout=timeout)
+        except Exception:
+            vals = None
+        if vals:
+            got_any = True
+            for name, v in vals.items():
+                table[name][key] = v
+    return table if got_any else None
+
+
+def get_country_table(*, allow_live=True, log=print):
+    """Orchestrate live -> cache -> bundled fallback. Returns (normalized_table, origin).
+    Never raises.
+
+    On a successful live pull, merges in the bundled CSV's OECD/ILO-only columns (env_policy,
+    injury_rate) so they are not lost, then caches the merged raw table to _LIVE_CACHE_CSV.
+    On the fallback path, the most recent cached live pull is preferred over the bundled CSV,
+    so the last good run becomes the next fallback automatically."""
+    if allow_live:
+        try:
+            raw = fetch_worldbank()
+        except Exception:
+            raw = None
+        if raw:
+            try:
+                bundled = load_fallback()
+                for name, row in raw.items():
+                    for k in ("env_policy", "injury_rate"):
+                        if row.get(k) is None and bundled.get(name, {}).get(k) is not None:
+                            row[k] = bundled[name][k]
+                os.makedirs(os.path.dirname(_LIVE_CACHE_CSV) or ".", exist_ok=True)
+                save_fallback(raw, _LIVE_CACHE_CSV)
+            except Exception:
+                pass
+            log("[esg_data] country indicators: LIVE (World Bank)")
+            return normalize(raw), "live"
+    # Fallback: prefer the most recent successful live pull (cached) over the bundled CSV.
+    # The whole read (cache + bundled + normalize) is guarded so a missing/unreadable
+    # FALLBACK_CSV (clean clone, packaging slip, accidental delete) degrades to an
+    # empty-but-valid result rather than raising to the UI ("never raises" contract).
+    try:
+        if os.path.exists(_LIVE_CACHE_CSV) and os.path.getsize(_LIVE_CACHE_CSV) > 0:
+            cached = load_fallback(_LIVE_CACHE_CSV)
+            if cached:
+                log("[esg_data] country indicators: FALLBACK (cached live pull)")
+                return normalize(cached), "fallback"
+        log("[esg_data] country indicators: FALLBACK (bundled CSV)")
+        return normalize(load_fallback()), "fallback"
+    except Exception:
+        log("[esg_data] country indicators: FALLBACK (no data available)")
+        return {}, "fallback"

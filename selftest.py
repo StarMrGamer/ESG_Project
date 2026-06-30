@@ -883,6 +883,98 @@ def test_suggested_followups():
                 assert w not in blob, (w, c)
 
 
+def test_get_country_table_live_then_fallback(tmp_path=None):
+    import esg_data, core, json, tempfile
+    # Hermetic: redirect the live cache to a throwaway temp path so the success sub-test's
+    # cache write can't leak into the bundled-fallback assertion below.
+    orig_cache = esg_data._LIVE_CACHE_CSV
+    fd, cache_p = tempfile.mkstemp(suffix=".csv"); os.close(fd); os.remove(cache_p)  # no cache yet
+    esg_data._LIVE_CACHE_CSV = cache_p
+    orig = core.http_get
+    try:
+        # --- success path: mock returns a valid WB payload for any indicator ---
+        def fake_ok(url, params=None, **kw):
+            # derive indicator from url tail; return the same value for all 6 countries
+            rows = [{"countryiso3code": iso, "date": "2024", "value": 1.0}
+                    for iso in esg_data.COUNTRIES]
+            return json.dumps([{"page": 1}, rows])
+        core.http_get = fake_ok
+        table, origin = esg_data.get_country_table(log=lambda *a: None)
+        assert origin == "live"
+        assert set(table.keys()) == set(esg_data.COUNTRIES.values())
+        # drop the cache the success path wrote so the fallback below reads the BUNDLED CSV
+        if os.path.exists(cache_p):
+            os.remove(cache_p)
+        # --- failure path: mock raises -> fallback (bundled), never raises ---
+        def fake_fail(url, params=None, **kw):
+            raise RuntimeError("network down")
+        core.http_get = fake_fail
+        table, origin = esg_data.get_country_table(log=lambda *a: None)
+        assert origin == "fallback"
+        assert abs(table["Singapore"]["rule_of_law"] - 78.62) < 0.1  # normalized BUNDLED fallback
+    finally:
+        core.http_get = orig
+        esg_data._LIVE_CACHE_CSV = orig_cache
+        if os.path.exists(cache_p):
+            os.remove(cache_p)
+
+
+def test_cache_becomes_next_fallback():
+    """The last successful live pull is cached and BECOMES the next fallback automatically:
+    a subsequent failed pull returns the CACHED value, not the bundled CSV."""
+    import esg_data, core, json, tempfile
+    orig_cache = esg_data._LIVE_CACHE_CSV
+    fd, cache_p = tempfile.mkstemp(suffix=".csv"); os.close(fd); os.remove(cache_p)  # fresh, no cache
+    esg_data._LIVE_CACHE_CSV = cache_p
+    orig = core.http_get
+    try:
+        # successful pull with a DISTINCTIVE value (2.0) -> origin 'live', cache written
+        def fake_ok(url, params=None, **kw):
+            rows = [{"countryiso3code": iso, "date": "2024", "value": 2.0}
+                    for iso in esg_data.COUNTRIES]
+            return json.dumps([{"page": 1}, rows])
+        core.http_get = fake_ok
+        _t, origin = esg_data.get_country_table(log=lambda *a: None)
+        assert origin == "live", origin
+        assert os.path.exists(cache_p) and os.path.getsize(cache_p) > 0, "live pull must cache"
+        # now the network fails -> fallback must read the CACHED pull, not the bundled CSV
+        def fake_fail(url, params=None, **kw):
+            raise RuntimeError("network down")
+        core.http_get = fake_fail
+        table, origin = esg_data.get_country_table(log=lambda *a: None)
+        assert origin == "fallback", origin
+        # cached 2.0 normalizes to (2.0+2.5)/5*100 = 90.0 — NOT the bundled 78.62
+        assert abs(table["Singapore"]["rule_of_law"] - 90.0) < 0.1, table["Singapore"]["rule_of_law"]
+    finally:
+        core.http_get = orig
+        esg_data._LIVE_CACHE_CSV = orig_cache
+        if os.path.exists(cache_p):
+            os.remove(cache_p)
+
+
+def test_get_country_table_never_raises_when_data_missing():
+    """Even with BOTH the cache and the bundled CSV absent/unreadable, get_country_table must
+    not raise: it degrades to an empty-but-valid (table, 'fallback') result ('never raises').
+    The bundled read failure is simulated by making load_fallback raise (a missing/unreadable
+    FALLBACK_CSV in a clean clone), with the cache path pointed at a guaranteed-absent file."""
+    import esg_data, tempfile
+    orig_load, orig_cache = esg_data.load_fallback, esg_data._LIVE_CACHE_CSV
+    fd, missing = tempfile.mkstemp(suffix=".csv"); os.close(fd); os.remove(missing)  # guaranteed gone
+    esg_data._LIVE_CACHE_CSV = missing + ".cache"         # nonexistent cache path -> skip cache branch
+
+    def boom(*a, **k):                                    # missing/unreadable bundled CSV
+        raise FileNotFoundError("bundled CSV missing")
+    esg_data.load_fallback = boom
+    try:
+        out = esg_data.get_country_table(allow_live=False, log=lambda *a: None)  # must NOT raise
+        assert isinstance(out, tuple) and len(out) == 2, out
+        table, origin = out
+        assert origin == "fallback", origin
+        assert isinstance(table, dict), table  # empty {} is acceptable
+    finally:
+        esg_data.load_fallback, esg_data._LIVE_CACHE_CSV = orig_load, orig_cache
+
+
 def test_esg_data_fallback_roundtrip():
     import esg_data, tempfile
     t = esg_data.load_fallback()
@@ -996,6 +1088,9 @@ def main():
         ("[3.7] suggested follow-up chips (context+mode)", lambda: test_suggested_followups()),
         ("esg_data fallback CSV load/save round-trip", lambda: test_esg_data_fallback_roundtrip()),
         ("esg_data normalize indicators to 0-100", lambda: test_esg_data_normalize()),
+        ("esg_data get_country_table live->fallback (mocked)", lambda: test_get_country_table_live_then_fallback()),
+        ("esg_data cache becomes next fallback (mocked)", lambda: test_cache_becomes_next_fallback()),
+        ("esg_data get_country_table never raises when data missing", lambda: test_get_country_table_never_raises_when_data_missing()),
     ]
     failures = 0
     for name, fn in checks:
