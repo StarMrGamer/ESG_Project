@@ -1365,7 +1365,7 @@ def _cc_right(ss, filtered, focused, path, mode):
 
 def _universe_cards(ss, filtered, path):
     st.caption("Filtered by the panel on the left. 🎯 Focus features a company in the right-rail "
-               "panels; ➕ Monitor builds a live ESG snapshot (real mode only).")
+               "panels; ➕ Monitor builds an ESG snapshot and pins it to your watchlist.")
     if not filtered:
         st.caption("No constituents match the filters.")
         return
@@ -1390,11 +1390,8 @@ def _universe_cards(ss, filtered, path):
                         st.rerun()
                     if tk in ss.watchlist:
                         b2.button("📌", key=f"upn_{tk}", use_container_width=True, disabled=True)
-                    elif b2.button("➕ Monitor", key=f"umon_{tk}", use_container_width=True,
-                                   disabled=bool(ss.get("demo_mode")),
-                                   help="Switch off Demo data to build real snapshots"
-                                        if ss.get("demo_mode") else None):
-                        _build_and_pin_constituent(ss, c)
+                    elif b2.button("➕ Monitor", key=f"umon_{tk}", use_container_width=True):
+                        _ensure_snapshot(ss, c)
                         st.rerun()
 
 
@@ -1736,6 +1733,13 @@ def _render_deep_dive(ss):
     entry = ss.snapshots.get(ss.active_ticker) or {}
     snap = entry.get("snap") or datasource.snapshot_from_company(company)
     _render_snapshot_metrics(snap)
+    bd = metrics.esg_breakdown(company) or (company.get("_esg_breakdown") if isinstance(company, dict) else None)
+    if bd:
+        st.caption(f"ESG breakdown — E {bd['e_score']:.0f} · S {bd['s_score']:.0f} · "
+                   f"G {bd['g_score']:.0f} · overall {bd['overall']:.0f} (0–100, higher=better)")
+    prov = (company.get("_data_provenance") or company.get("data_provenance")) if isinstance(company, dict) else None
+    if prov:
+        st.caption(f"📑 {prov}")
     _render_financial_snapshot(ss, company)          # [#10/2.3] illustrative market stats (demo)
     st.divider()
 
@@ -1749,6 +1753,18 @@ def _render_deep_dive(ss):
             st.rerun()
         st.divider()
     _render_relay(ss, company)
+
+
+@st.cache_data(show_spinner=False)
+def _country_data_origin():
+    """Best-effort startup pull of country-level ESG indicators (World Bank). Cached for the
+    session; any failure degrades silently to 'fallback' (HARD RULE 1 — never crashes the UI)."""
+    try:
+        import esg_data
+        _table, origin = esg_data.get_country_table()
+        return origin
+    except Exception:
+        return "fallback"
 
 
 # --------------------------------------------------------------------------- #
@@ -1794,6 +1810,7 @@ if ss.get("data_built_at") is None:            # [1.11] stamp the session's data
     ss.data_built_at = time.time()             # (_pin refreshes it on a real build; reruns don't)
 if ss.watchlist is None:                       # one-time load of persisted pins
     ss.watchlist = _load_watchlist()
+_country_data_origin()                         # best-effort startup country-data pull + cache (silent on fail)
 
 # --- sidebar = the control panel ------------------------------------------- #
 # Every widget owns its state via an explicit key= (NO value-from-session_state round-trip),

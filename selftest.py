@@ -1141,6 +1141,20 @@ def test_metrics_esg_breakdown_passthrough():
     assert metrics.esg_breakdown({}) is None
 
 
+def test_monitor_enabled_in_demo_mode():
+    """[task-10] Monitor buttons in the browse grid must NOT be all disabled in demo mode."""
+    try:
+        from streamlit.testing.v1 import AppTest
+    except Exception:
+        return  # streamlit not available in this env -> skip
+    at = AppTest.from_file("app.py", default_timeout=60)
+    at.run()
+    mon = [b for b in at.button if "Monitor" in (b.label or "")]
+    assert mon, "expected Monitor buttons in the browse grid"
+    assert any(not b.disabled for b in mon), "Monitor must be enabled in demo mode"
+    assert not at.exception
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1233,6 +1247,7 @@ def main():
         ("build_demo_universe schema + no real_world_basis leak", lambda: test_build_demo_universe_schema_and_no_leak()),
         ("[task-9] company_from_numeric rides esg_breakdown+provenance and flips note", lambda: test_company_from_numeric_rides_breakdown_and_note()),
         ("[task-9] metrics.esg_breakdown passthrough helper", lambda: test_metrics_esg_breakdown_passthrough()),
+        ("[task-10] Monitor enabled in demo mode (AppTest)", lambda: test_monitor_enabled_in_demo_mode()),
     ]
     failures = 0
     for name, fn in checks:
