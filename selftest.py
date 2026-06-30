@@ -639,6 +639,19 @@ def test_demo_roster_rejects_malformed():
 import universe  # noqa: E402 — used by the grounded data-backed tests below
 
 
+def test_demo_enrich_deterministic_and_labelled():
+    import demo_enrich
+    bd = {"e_score": 60.0, "s_score": 55.0, "g_score": 70.0, "overall": 61.0}
+    m1 = demo_enrich.momentum("DemoBank", bd)
+    m2 = demo_enrich.momentum("DemoBank", bd)
+    assert m1 == m2 and set(m1) == {"environment", "social", "governance", "digital_ai"}
+    news = demo_enrich.news("DemoBank")
+    assert news and all("url" not in n for n in news), "no fabricated URLs (HARD RULE 2)"
+    assert any("illustrative" in n["source"].lower() for n in news)
+    mk = demo_enrich.market("DemoBank", "SGX")
+    assert mk["currency"] == "SGD" and isinstance(mk["price"], float)
+
+
 def _demo_row(name):
     for c in universe.load_universe(universe.DEMO_FILE)["constituents"]:
         if c["company"] == name:
@@ -1177,6 +1190,7 @@ def main():
         ("esg_scoring deterministic and bounded [0,100]", lambda: test_esg_scoring_deterministic_and_bounded()),
         ("esg_scoring sector multiplier effect (E/G tilt)", lambda: test_esg_scoring_sector_multiplier_effect()),
         ("esg_scoring variance differs by name (seeded hash)", lambda: test_esg_scoring_variance_differs_by_name()),
+        ("demo_enrich deterministic and labelled (no fabricated URLs)", lambda: test_demo_enrich_deterministic_and_labelled()),
         ("demo roster 36 companies, all tickers unique, all countries represented", lambda: test_demo_roster_valid()),
         ("demo roster rejects malformed (missing key / bad country / dup ticker)", lambda: test_demo_roster_rejects_malformed()),
     ]
