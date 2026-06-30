@@ -883,6 +883,21 @@ def test_suggested_followups():
                 assert w not in blob, (w, c)
 
 
+def test_esg_data_fallback_roundtrip():
+    import esg_data, tempfile
+    t = esg_data.load_fallback()
+    assert set(t.keys()) == set(esg_data.COUNTRIES.values()), "6 countries by name"
+    assert abs(t["Singapore"]["rule_of_law"] - 1.431) < 1e-6
+    assert t["Singapore"]["env_policy"] is None, "missing cell -> None"
+    # round-trip: save then reload equals original
+    fd, p = tempfile.mkstemp(suffix=".csv"); os.close(fd)
+    esg_data.save_fallback(t, p)
+    t2 = esg_data.load_fallback(p)
+    assert t2["Vietnam"]["gender_lfp_ratio"] == t["Vietnam"]["gender_lfp_ratio"]
+    assert t2["Philippines"]["injury_rate"] is None
+    os.remove(p)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -960,6 +975,7 @@ def main():
         ("[2.2] chat copy In-Depth regression (byte-exact)", lambda: test_chat_copy_indepth_regression()),
         ("[2.2] chat copy Simplified (jargon-free)", lambda: test_chat_copy_simplified()),
         ("[3.7] suggested follow-up chips (context+mode)", lambda: test_suggested_followups()),
+        ("esg_data fallback CSV load/save round-trip", lambda: test_esg_data_fallback_roundtrip()),
     ]
     failures = 0
     for name, fn in checks:

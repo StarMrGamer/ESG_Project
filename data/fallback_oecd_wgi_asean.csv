@@ -1,0 +1,7 @@
+country,rule_of_law,control_corruption,reg_quality,co2_pc,renew_share,lfp,gender_lfp_ratio,env_policy,injury_rate
+Singapore,1.431,1.968,2.132,12.605,1.1,69.673,84.340,,
+Malaysia,0.345,0.498,0.680,9.342,7.5,66.120,65.197,,
+Indonesia,-0.207,-0.545,0.125,4.670,20.2,67.965,65.291,,
+Thailand,-0.216,-0.527,0.106,5.894,19.0,66.678,78.637,,
+Philippines,-0.574,-0.577,0.079,2.301,28.0,61.350,69.675,,
+Vietnam,-0.314,-0.252,-0.267,5.785,24.2,72.778,88.650,,
