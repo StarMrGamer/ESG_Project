@@ -1104,6 +1104,23 @@ def test_esg_scoring_variance_differs_by_name():
     assert s1["overall"] != s2["overall"], "seeded variance separates same-country peers"
 
 
+def test_build_demo_universe_schema_and_no_leak():
+    import build_demo_universe
+    uni = build_demo_universe.build(allow_live=False)   # offline -> bundled CSV
+    cons = uni["constituents"]
+    assert len(cons) == 36
+    for c in cons:
+        assert "real_world_basis" not in c, "internal field must never leak"
+        assert 0.0 <= c["esg_score"] <= 100.0, "0-100 higher=better"
+        assert set(c["esg_breakdown"]) == {"e_score", "s_score", "g_score", "overall"}
+        assert "data_provenance" in c and c["data_provenance"]
+        for k in ("momentum", "market", "news", "live_signals"):
+            assert k in c
+    # serialized JSON also has no leak
+    import json
+    assert "real_world_basis" not in json.dumps(uni)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1193,6 +1210,7 @@ def main():
         ("demo_enrich deterministic and labelled (no fabricated URLs)", lambda: test_demo_enrich_deterministic_and_labelled()),
         ("demo roster 36 companies, all tickers unique, all countries represented", lambda: test_demo_roster_valid()),
         ("demo roster rejects malformed (missing key / bad country / dup ticker)", lambda: test_demo_roster_rejects_malformed()),
+        ("build_demo_universe schema + no real_world_basis leak", lambda: test_build_demo_universe_schema_and_no_leak()),
     ]
     failures = 0
     for name, fn in checks:
