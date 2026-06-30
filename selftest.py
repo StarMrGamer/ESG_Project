@@ -898,6 +898,25 @@ def test_esg_data_fallback_roundtrip():
     os.remove(p)
 
 
+def test_esg_data_normalize():
+    import esg_data
+    raw = esg_data.load_fallback()
+    norm = esg_data.normalize(raw)
+    sg = norm["Singapore"]
+    # WGI: (1.431+2.5)/5*100 = 78.62
+    assert abs(sg["rule_of_law"] - 78.62) < 0.1
+    # CO2 inverted, cap 20: (1-12.605/20)*100 = 36.975
+    assert abs(sg["co2_pc"] - 36.975) < 0.05
+    # renew cap 50: 1.1/50*100 = 2.2
+    assert abs(sg["renew_share"] - 2.2) < 0.05
+    # missing stays None
+    assert sg["env_policy"] is None and sg["injury_rate"] is None
+    # all present values within [0,100]
+    for c in norm.values():
+        for v in c.values():
+            assert v is None or (0.0 <= v <= 100.0)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -976,6 +995,7 @@ def main():
         ("[2.2] chat copy Simplified (jargon-free)", lambda: test_chat_copy_simplified()),
         ("[3.7] suggested follow-up chips (context+mode)", lambda: test_suggested_followups()),
         ("esg_data fallback CSV load/save round-trip", lambda: test_esg_data_fallback_roundtrip()),
+        ("esg_data normalize indicators to 0-100", lambda: test_esg_data_normalize()),
     ]
     failures = 0
     for name, fn in checks:

@@ -59,3 +59,34 @@ def save_fallback(table, path=FALLBACK_CSV):
         for name in names:
             row = table[name]
             w.writerow([name] + ["" if row.get(k) is None else row.get(k) for k in INDICATORS])
+
+
+CO2_CAP, RENEW_CAP, LFP_LO, LFP_HI = 20.0, 50.0, 40.0, 80.0
+
+
+def _clamp(v, lo=0.0, hi=100.0):
+    return max(lo, min(hi, v))
+
+
+def _norm_one(direction, v):
+    if v is None:
+        return None
+    if direction == "wgi":
+        out = (v + 2.5) / 5.0 * 100.0
+    elif direction == "down":
+        out = (1.0 - _clamp(v, 0.0, CO2_CAP) / CO2_CAP) * 100.0
+    elif direction == "renew":
+        out = _clamp(v, 0.0, RENEW_CAP) / RENEW_CAP * 100.0
+    elif direction == "lfp":
+        out = _clamp((v - LFP_LO) / (LFP_HI - LFP_LO), 0.0, 1.0) * 100.0
+    else:  # 'ratio' or 'up'
+        out = v
+    return round(_clamp(out), 3)
+
+
+def normalize(raw_table):
+    """Raw indicator table -> 0..100 per-country table. None stays None (missing-handled later)."""
+    out = {}
+    for country, row in (raw_table or {}).items():
+        out[country] = {k: _norm_one(INDICATOR_META[k][3], row.get(k)) for k in INDICATORS}
+    return out
