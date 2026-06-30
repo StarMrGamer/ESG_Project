@@ -655,6 +655,8 @@ def test_demo_enrich_deterministic_and_labelled():
     assert any("illustrative" in n["source"].lower() for n in news)
     mk = demo_enrich.market("DemoBank", "SGX")
     assert mk["currency"] == "SGD" and isinstance(mk["price"], float)
+    assert mk["low"] <= mk["open"] <= mk["high"] and mk["low"] <= mk["price"] <= mk["high"], mk
+    assert mk["week52_low"] <= mk["low"] and mk["high"] <= mk["week52_high"], mk
 
 
 def _demo_row(name):
@@ -1150,18 +1152,40 @@ def test_metrics_esg_breakdown_passthrough():
     assert metrics.esg_breakdown({}) is None
 
 
+def test_snapshot_band_direction_aware():
+    # a demo performance score (higher=better) must NOT read as a risk band
+    demo = datasource.company_from_numeric(
+        {"company": "Lead", "ticker": "X:LEAD", "sector": "Financials — Banks",
+         "esg_score": 64.9, "esg_as_of": "2024", "momentum": {"environment": 5}}, origin="sample")
+    snap = datasource.snapshot_from_company(demo)
+    assert snap["score_higher_better"] is True, snap
+    assert snap["band_tone"] == "good" and "Risk" not in snap["band"], (snap["band"], snap["band_tone"])
+    # a risk-style bare number (lower=better, no marker) keeps the Sustainalytics band
+    risk = {"layer_a": {"esg_score_static": "45", "as_of_date": "2024"}, "layer_b": {}}
+    rsnap = datasource.snapshot_from_company(risk)
+    assert rsnap["band"] == "Severe Risk" and rsnap["band_tone"] == "bad", rsnap
+
+
 def test_monitor_enabled_in_demo_mode():
     """[task-10] Monitor buttons in the browse grid must NOT be all disabled in demo mode."""
     try:
         from streamlit.testing.v1 import AppTest
     except Exception:
-        return  # streamlit not available in this env -> skip
-    at = AppTest.from_file("app.py", default_timeout=60)
-    at.run()
-    mon = [b for b in at.button if "Monitor" in (b.label or "")]
-    assert mon, "expected Monitor buttons in the browse grid"
-    assert any(not b.disabled for b in mon), "Monitor must be enabled in demo mode"
-    assert not at.exception
+        return  # streamlit not available -> skip
+    import core
+    def _no_net(*a, **k):
+        raise RuntimeError("offline (network-free selftest)")
+    orig = core.http_get
+    core.http_get = _no_net
+    try:
+        at = AppTest.from_file("app.py", default_timeout=60)
+        at.run()
+        mon = [b for b in at.button if "Monitor" in (b.label or "")]
+        assert mon, "expected Monitor buttons in the browse grid"
+        assert any(not b.disabled for b in mon), "Monitor must be enabled in demo mode"
+        assert not at.exception
+    finally:
+        core.http_get = orig
 
 
 def main():
@@ -1256,6 +1280,7 @@ def main():
         ("build_demo_universe schema + no real_world_basis leak", lambda: test_build_demo_universe_schema_and_no_leak()),
         ("[task-9] company_from_numeric rides esg_breakdown+provenance and flips note", lambda: test_company_from_numeric_rides_breakdown_and_note()),
         ("[task-9] metrics.esg_breakdown passthrough helper", lambda: test_metrics_esg_breakdown_passthrough()),
+        ("snapshot band direction-aware (higher=better demo vs lower=better risk)", lambda: test_snapshot_band_direction_aware()),
         ("[task-10] Monitor enabled in demo mode (AppTest)", lambda: test_monitor_enabled_in_demo_mode()),
     ]
     failures = 0

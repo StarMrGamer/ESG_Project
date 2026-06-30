@@ -35,16 +35,17 @@ def live_signals(name):
 def market(name, exchange):
     ccy = _CCY.get(exchange, "USD")
     price = round(_pick(name, "px", 4, 40), 2)
+    prev_close = round(price * (1 + _pick(name, "pc", -0.02, 0.02)), 2)
+    open_ = round(price * (1 + _pick(name, "o", -0.01, 0.01)), 2)
+    hi = round(max(price, open_, prev_close) * (1 + _pick(name, "hi", 0.002, 0.02)), 2)
+    lo = round(min(price, open_, prev_close) * (1 - _pick(name, "lo", 0.002, 0.02)), 2)
     return {"currency": ccy, "price": price,
-            "open": round(price * (1 + _pick(name, "o", -0.01, 0.01)), 2),
-            "high": round(price * (1 + _pick(name, "hi", 0.005, 0.03)), 2),
-            "low": round(price * (1 - _pick(name, "lo", 0.005, 0.03)), 2),
-            "prev_close": round(price * (1 + _pick(name, "pc", -0.02, 0.02)), 2),
+            "open": open_, "high": hi, "low": lo, "prev_close": prev_close,
             "market_cap": f"{ccy} {round(_pick(name,'mc',2,90),1)}B",
             "pe_ratio": round(_pick(name, "pe", 8, 22), 1),
             "dividend_yield": f"{round(_pick(name,'dy',1,6),1)}%",
-            "week52_high": round(price * (1 + _pick(name, "wh", 0.05, 0.25)), 2),
-            "week52_low": round(price * (1 - _pick(name, "wl", 0.05, 0.25)), 2),
+            "week52_high": round(hi * (1 + _pick(name, "wh", 0.05, 0.25)), 2),
+            "week52_low": round(lo * (1 - _pick(name, "wl", 0.05, 0.25)), 2),
             "as_of": "2026-01-15"}
 
 

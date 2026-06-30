@@ -437,6 +437,7 @@ def company_from_numeric(constituent, *, origin="live"):
     company["_country"] = c.get("country") or "unknown"
     company["_exchange"] = c.get("exchange") or "unknown"
     company["_constituent_ticker"] = c.get("ticker") or c.get("id") or "unknown"
+    company["_score_higher_better"] = True
     flags_n = int(n(ls.get("controversy_flags")) or 0)
     if flags_n > 0:
         company["_controversies"] = [{"title": f"Controversy flag {i + 1}{illus}"}
@@ -479,20 +480,34 @@ def snapshot_from_company(company):
         else:
             ml = _LETTER_RE.search(rating)
             band = (ml.group(1) if ml else "")
+    higher_better = bool(c.get("_score_higher_better"))
+    band_tone = ""
+    # tone an already-found TEXT band (e.g. "13.4 (Low Risk)", "AA") by risk keywords
+    if band:
+        bl = band.lower()
+        if "negli" in bl or "low" in bl or bl in ("aaa", "aa"):
+            band_tone = "good"
+        elif "med" in bl or bl in ("a", "bbb"):
+            band_tone = "caution"
+        elif "high" in bl or bl in ("bb", "b"):
+            band_tone = "warn"
+        elif "sever" in bl or bl == "ccc":
+            band_tone = "bad"
     mnum = _NUM_RE.search(rating) if _known(rating) else None
-    # Derive Sustainalytics band from a plain numeric score when no text band was found.
     if not band and mnum:
         v = float(mnum.group(1))
-        if v < 10:
-            band = "Negligible Risk"
-        elif v < 20:
-            band = "Low Risk"
-        elif v < 30:
-            band = "Medium Risk"
-        elif v < 40:
-            band = "High Risk"
-        else:
-            band = "Severe Risk"
+        if higher_better:                       # 0–100 ESG performance score, HIGHER = better
+            if v >= 70:   band, band_tone = "Leader", "good"
+            elif v >= 55: band, band_tone = "Strong", "good"
+            elif v >= 40: band, band_tone = "Moderate", "caution"
+            elif v >= 25: band, band_tone = "Developing", "warn"
+            else:         band, band_tone = "Lagging", "bad"
+        else:                                   # Sustainalytics-style risk score, LOWER = better
+            if v < 10:    band, band_tone = "Negligible Risk", "good"
+            elif v < 20:  band, band_tone = "Low Risk", "good"
+            elif v < 30:  band, band_tone = "Medium Risk", "caution"
+            elif v < 40:  band, band_tone = "High Risk", "warn"
+            else:         band, band_tone = "Severe Risk", "bad"
 
     def _dir(x):
         return (x or {}).get("direction", "unknown") or "unknown"
@@ -523,6 +538,8 @@ def snapshot_from_company(company):
         "rating": rating,
         "rating_num": (mnum.group(1) if mnum else ""),
         "band": band,
+        "band_tone": band_tone,
+        "score_higher_better": higher_better,
         "as_of": la.get("as_of_date") or "unknown",
         "momentum": momentum,
         "arrows": arrows,

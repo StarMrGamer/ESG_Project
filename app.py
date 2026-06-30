@@ -312,6 +312,9 @@ def _save_watchlist(tickers):
 
 
 def _band_emoji(snap):
+    tone = (snap.get("band_tone") or "").strip().lower()
+    if tone:
+        return {"good": "🟢", "caution": "🟡", "warn": "🟠", "bad": "🔴"}.get(tone, "⚪")
     b = (snap.get("band") or "").strip().lower()
     if not b:
         return "⚪"
@@ -473,10 +476,12 @@ def _render_snapshot_metrics(snap):
     """The five-metric monitoring strip at the top of a deep dive."""
     ar = snap.get("arrows", {})
     cols = st.columns(5)
+    hb = bool(snap.get("score_higher_better"))
     cols[0].metric("ESG rating (Layer A)", snap.get("rating") if _known(snap.get("rating")) else "unknown",
-                   help="The stale static rating. Lower = better for a Sustainalytics risk score.")
-    cols[1].metric("Risk band", f'{_band_emoji(snap)} {snap.get("band") or "—"}',
-                   help="Parsed from the rating string.")
+                   help=("Country-proxy ESG performance score (0–100). Higher = better." if hb
+                         else "The stale static rating. Lower = better for a Sustainalytics risk score."))
+    cols[1].metric("ESG band" if hb else "Risk band", f'{_band_emoji(snap)} {snap.get("band") or "—"}',
+                   help="Performance tier (higher = better)." if hb else "Parsed from the rating string.")
     cols[2].metric("Momentum E·S·G", f'{ar.get("E","·")} {ar.get("S","·")} {ar.get("G","·")}',
                    help="Layer B direction per pillar (▲ improving · — flat · ▼ declining · · unknown).")
     cols[3].metric("🚩 Red flags", snap.get("red_flags", 0),
@@ -1408,6 +1413,8 @@ def _render_compare_charts(ss, tickers):
     rows = data["rows"]
     pillars = data["pillars"]
     colors = {r["ticker"]: _CMP_PALETTE[i % len(_CMP_PALETTE)] for i, r in enumerate(rows)}
+    _hb_all = bool(tickers) and all(
+        ss.snapshots.get(tk, {}).get("snap", {}).get("score_higher_better") for tk in tickers)
 
     if not (data["has_momentum"] or data["has_score"]):
         st.info("📊 No numeric momentum or rating data on these names yet — comparison graphs need "
@@ -1453,7 +1460,7 @@ def _render_compare_charts(ss, tickers):
     # --- static ESG score, one bar per company (lower = better for a risk score) ---
     with g2:
         st.markdown('<div class="cc-chart-head"><span class="cc-chart-title">Static ESG score'
-                    '</span><span class="cc-chart-sub">lower = better risk</span></div>',
+                    f'</span><span class="cc-chart-sub">{"higher = better" if _hb_all else "lower = better risk"}</span></div>',
                     unsafe_allow_html=True)
         scored = [r for r in rows if r["esg_score"] is not None]
         if not scored:
@@ -1511,10 +1518,12 @@ def _render_compare(ss):
                 st.caption(snap.get("sector", "—"))
                 st.divider()
 
+                _hb = bool(snap.get("score_higher_better"))
                 st.metric("ESG rating",
                           snap.get("rating") if _known(snap.get("rating")) else "—",
-                          help="Stale static rating — lower = better for a Sustainalytics risk score.")
-                st.metric("Risk band",
+                          help=("Country-proxy ESG performance score (0–100). Higher = better." if _hb
+                                else "Stale static rating — lower = better for a Sustainalytics risk score."))
+                st.metric("ESG band" if _hb else "Risk band",
                           f'{_band_emoji(snap)} {snap.get("band") or "—"}')
                 st.metric("E · S · G momentum",
                           f'{ar.get("E", "·")} {ar.get("S", "·")} {ar.get("G", "·")}',
