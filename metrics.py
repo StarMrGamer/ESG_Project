@@ -11,7 +11,7 @@ constituent MAY carry, so it imports cleanly in tests and degrades to None/[] wh
 isn't there yet (the starter universe has no numbers until the real basket is dropped in).
 
 PER-CONSTITUENT SCHEMA (all optional beyond identity; absent -> that panel shows "awaiting data"):
-    esg_score: number            # the static Layer-A ESG/risk score (lower = better for risk)
+    esg_score: number            # the static Layer-A ESG score (0–100, higher = better)
     esg_as_of: "2023"            # vintage of that static score
     esg_cagr_2019_2023: "+5.2%"  # the foundation momentum metric (5-yr ESG-score CAGR)
     momentum: { environment, social, governance, digital_ai }   # live/90-day % per pillar
@@ -84,6 +84,12 @@ def has_numbers(constituents):
         if any(_momentum(c, p) is not None for p in PILLARS):
             return True
     return False
+
+
+def esg_breakdown(company):
+    """The E/S/G/overall 0-100 breakdown a demo constituent carries, or None (evidence names)."""
+    bd = (company or {}).get("esg_breakdown")
+    return bd if isinstance(bd, dict) and bd else None
 
 
 def average_esg(constituents):

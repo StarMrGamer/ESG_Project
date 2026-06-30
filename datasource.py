@@ -417,7 +417,7 @@ def company_from_numeric(constituent, *, origin="live"):
         "layer_a": {
             "esg_score_static": (f"{score}" if score is not None else "unknown"),
             "as_of_date": str(c.get("esg_as_of") or "unknown"),
-            "note": f"Static ESG score{illus}. Lower = better for a risk score.",
+            "note": f"Performance score: HIGHER = better. Country-proxy baseline{illus}.",
         },
         "layer_b": {
             "momentum": {"E": pillar("environment"), "S": pillar("social"), "G": pillar("governance")},
@@ -450,6 +450,10 @@ def company_from_numeric(constituent, *, origin="live"):
         company["_price_change_90d"] = c["price_change_90d"]
     if isinstance(c.get("analyst_coverage"), dict):
         company["analyst_coverage"] = c["analyst_coverage"]
+    if c.get("esg_breakdown") is not None:
+        company["_esg_breakdown"] = c["esg_breakdown"]
+    if c.get("data_provenance") is not None:
+        company["_data_provenance"] = c["data_provenance"]
     return company
 
 

@@ -75,6 +75,10 @@ def _coerce_constituent(c):
               "market", "news", "analyst_coverage"):
         if c.get(k) is not None:
             out[k] = c[k]
+    if "esg_breakdown" in c:
+        out["esg_breakdown"] = c["esg_breakdown"]
+    if "data_provenance" in c:
+        out["data_provenance"] = c["data_provenance"]
     # Optional DOCUMENTATION fields — the evidence for why a name is an ESG improver.
     for k in ("esg_basis", "source_url", "confidence"):
         if c.get(k):

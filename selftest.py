@@ -1121,6 +1121,26 @@ def test_build_demo_universe_schema_and_no_leak():
     assert "real_world_basis" not in json.dumps(uni)
 
 
+def test_company_from_numeric_rides_breakdown_and_note():
+    import datasource
+    c = {"company": "DemoBank", "ticker": "SGX:DBKO", "sector": "Financials — Banks",
+         "esg_score": 64.0, "esg_as_of": "2024",
+         "esg_breakdown": {"e_score": 19.0, "s_score": 79.0, "g_score": 95.0, "overall": 64.0},
+         "data_provenance": "Derived from country-level proxies.",
+         "momentum": {"environment": 5, "social": 3, "governance": 8, "digital_ai": 20}}
+    cd = datasource.company_from_numeric(c)
+    assert "HIGHER" in cd["layer_a"]["note"], "note flipped to higher=better"
+    assert cd.get("_esg_breakdown", {}).get("g_score") == 95.0
+    assert "country-level" in cd.get("_data_provenance", "").lower()
+
+
+def test_metrics_esg_breakdown_passthrough():
+    import metrics
+    comp = {"esg_breakdown": {"e_score": 1, "s_score": 2, "g_score": 3, "overall": 4}}
+    assert metrics.esg_breakdown(comp)["g_score"] == 3
+    assert metrics.esg_breakdown({}) is None
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1211,6 +1231,8 @@ def main():
         ("demo roster 36 companies, all tickers unique, all countries represented", lambda: test_demo_roster_valid()),
         ("demo roster rejects malformed (missing key / bad country / dup ticker)", lambda: test_demo_roster_rejects_malformed()),
         ("build_demo_universe schema + no real_world_basis leak", lambda: test_build_demo_universe_schema_and_no_leak()),
+        ("[task-9] company_from_numeric rides esg_breakdown+provenance and flips note", lambda: test_company_from_numeric_rides_breakdown_and_note()),
+        ("[task-9] metrics.esg_breakdown passthrough helper", lambda: test_metrics_esg_breakdown_passthrough()),
     ]
     failures = 0
     for name, fn in checks:
