@@ -1020,6 +1020,36 @@ def test_esg_data_parse_upload():
     assert t["Singapore"]["renew_share"] is None  # absent column -> None
 
 
+def test_esg_scoring_deterministic_and_bounded():
+    import esg_data, esg_scoring
+    row = esg_data.normalize(esg_data.load_fallback())["Singapore"]
+    a = esg_scoring.score_company(row, "Financials — Banks", name="DemoBank", country="Singapore")
+    b = esg_scoring.score_company(row, "Financials — Banks", name="DemoBank", country="Singapore")
+    assert a == b, "deterministic: same name -> identical scores"
+    for k in ("e_score", "s_score", "g_score", "overall"):
+        assert 0.0 <= a[k] <= 100.0
+    # breakdown mirrors top-level
+    assert a["breakdown"]["overall"] == a["overall"]
+    # provenance present, no real_world_basis leak possible (name only)
+    assert "country-level" in a["data_provenance"].lower()
+
+def test_esg_scoring_sector_multiplier_effect():
+    import esg_data, esg_scoring
+    row = esg_data.normalize(esg_data.load_fallback())["Singapore"]
+    bank = esg_scoring.score_company(row, "Financials — Banks", name="X Bank")
+    power = esg_scoring.score_company(row, "Energy — Power & Renewables", name="X Bank")
+    # banks tilt G up vs energy; energy tilts E up vs banks (same base row, same seed)
+    assert bank["g_score"] > power["g_score"]
+    assert power["e_score"] > bank["e_score"]
+
+def test_esg_scoring_variance_differs_by_name():
+    import esg_data, esg_scoring
+    row = esg_data.normalize(esg_data.load_fallback())["Malaysia"]
+    s1 = esg_scoring.score_company(row, "Real Estate", name="Alpha")
+    s2 = esg_scoring.score_company(row, "Real Estate", name="Beta")
+    assert s1["overall"] != s2["overall"], "seeded variance separates same-country peers"
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1103,6 +1133,9 @@ def main():
         ("esg_data get_country_table live->fallback (mocked)", lambda: test_get_country_table_live_then_fallback()),
         ("esg_data cache becomes next fallback (mocked)", lambda: test_cache_becomes_next_fallback()),
         ("esg_data get_country_table never raises when data missing", lambda: test_get_country_table_never_raises_when_data_missing()),
+        ("esg_scoring deterministic and bounded [0,100]", lambda: test_esg_scoring_deterministic_and_bounded()),
+        ("esg_scoring sector multiplier effect (E/G tilt)", lambda: test_esg_scoring_sector_multiplier_effect()),
+        ("esg_scoring variance differs by name (seeded hash)", lambda: test_esg_scoring_variance_differs_by_name()),
     ]
     failures = 0
     for name, fn in checks:
