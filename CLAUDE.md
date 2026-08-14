@@ -43,6 +43,18 @@ esg-momentum-radar/
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
   stage2.py                 # AGENT 2 owns — reason over data + RAG + history (emits CoT + sources)
   stage3.py                 # AGENT 3 owns — render the answer (verdict, CoT, history, sources)
+  engine.py                 # run_engine(company_list) — the reproducible score records (Gate 1)
+  signals.py                # deterministic signal extraction from stored evidence (no LLM, no clock)
+  engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers)
+  company_metadata.py       # A3 loader over the FROZEN green-bond CSV header + the A4 badge payloads
+  pipeline_counts.py        # A6/B2 — N issuers · M pipeline · K review list (screen + money slide)
+  anchor.py                 # C2/C3 — Merkle root per run + Sepolia anchoring (best-effort)
+  contracts/EvidenceAnchor.sol  # C1 — append-only run_id -> root, ~20 lines
+  harness.py                # A8 — determinism · golden set · 5 backtest cases · merkle · sweep
+  llm_cost.py               # cost per company off the golden set (no price is ever guessed)
+  build_metadata_mock.py    # regenerates the PROVISIONAL metadata CSV (deterministic)
+  demo_diversify.py         # re-derives ONLY the demo fixture's momentum/live_signals/news
+                            #   (preserves esg_score — the MOCK baseline must not move)
   data/asean_universe.json  # BASE DB — 52 ASEAN ESG improvers (evidence-based: esg_basis/source_url/confidence)
   data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
   data/hero_company.json    # SAMPLE only — offline-demo safety net + test fixture (PLACEHOLDER)
@@ -75,7 +87,10 @@ ratings the text actually cites (MSCI/DJSI/CDP/FTSE4Good/Sustainalytics/GRESB/na
 Avg-ESG-leadership, ESG-leaders ranking & classification work; pillar momentum + live signals stay
 "awaiting data" (that's the alt-data the radar still needs); **empty** — neither → "awaiting data".
 Nothing is fabricated for real names. A **Demo data** toggle swaps in `data/demo_universe.json`
-(FICTIONAL, fully numeric). Click a card → **deep dive** = the Stage 1→2→3 relay.
+(FICTIONAL, fully numeric). Each demo name carries one coherent `trajectory` (improving / mixed /
+deteriorating, ~60/25/15) so its momentum, live signals and headlines tell the SAME story —
+without it the fixture was uniformly positive and the Value Traps / Overrated Leaders quadrants
+could never be populated. Click a card → **deep dive** = the Stage 1→2→3 relay.
 `country`/`exchange`/numeric/evidence fields ride as NON-contract fields, so `contracts.py` stays frozen.
 
 **Build order (relay, in sequence):** Phase 0 — build & FREEZE `core.py`, `contracts.py`,
@@ -188,9 +203,35 @@ the **live sources**. Sophistication in how it thinks, simplicity in what it say
 ```bash
 pip install -r requirements.txt          # streamlit, openai, requests, plotly
 export DEEPSEEK_API_KEY="sk-..."          # Windows: $env:DEEPSEEK_API_KEY="sk-..."
-streamlit run app.py
+python server.py                          # NEW PRIMARY UI: React (web/) + FastAPI -> http://localhost:8000
+cd web && npm install && npm run build    # one-time frontend build (dev: npm run dev, port 5173)
+streamlit run app.py                      # LEGACY shell — kept for reference, not the primary UI
 python selftest.py                        # offline check — no key, no network
+python harness.py                         # ENGINE check (A8): Gate 1 determinism + golden set +
+                                          #   the 5 backtest cases + merkle + sensitivity sweep
+python harness.py --update-golden         # re-freeze the golden set (review the diff!)
+python anchor.py                          # build + anchor the runs; --list, --verify RUN TICKER
+python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
+python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
+python build_metadata_mock.py             # regenerate the PROVISIONAL metadata CSV
 ```
+
+**The engine (Prototype Build Spec v2, `D/`).** `run_engine` is a PURE function — no clock, no
+RNG, no network, no LLM — so the same files always produce the same `run_id` and the same
+records; that is Gate 1 and everything else leans on it. Signals are extracted by rules from the
+evidence we already store, each one dated, sourced, directional and carrying a one-line
+`rationale` that the evidence trail shows. Company-PR sources are capped at 0.5 confidence and
+forward-looking language has its materiality halved (the Adaro lesson). `lseg_percentile` is a
+**MOCK** baseline (the stored static rating, percentile-ranked in the cohort) and every record
+says so. Momentum is `direction_consensus x shrinkage`: the consensus says which way the evidence
+points, the shrinkage term `w/(w+k)` says how much evidence is behind it — so one thin signal can
+never score like twelve corroborating ones, and no company reaches a perfect ±1.000. Quadrant labels are CGSI's, including the new `overrated_leaders`; `disagreement` is
+SIGNED (our percentile minus the rating's) so a deteriorating high-rated name can never be
+labelled a Hidden Winner. Green-bond/profitability metadata joins from a CSV whose **header is a
+frozen contract** — the Phase B1 swap is a file, not a code change — and every shipped row is
+`is_provisional=TRUE` until verified. Each run's evidence hashes into one Merkle root anchored on
+Sepolia; with no RPC configured the run is recorded `anchor_pending` and says so on screen,
+never silently unanchored.
 
 ---
 

@@ -1,0 +1,140 @@
+{
+  "_note": "Engine config — Prototype Build Spec v2 (D/Prototype_Build_Spec_v2.md). Every threshold the engine uses lives HERE, never inline in code: A1 labels, A2 sub-weights, A5 risk tiers. Change a number, re-run `python harness.py` — the sensitivity sweep reports the quadrant churn. JSON (not YAML) so the engine adds no dependency.",
+  "config_version": "v2.0",
+
+  "theta": 0.30,
+
+  "labels": {
+    "_order": ["hidden_winners", "future_leaders", "overrated_leaders", "value_traps", "consensus"],
+    "_precedence_note": "hidden_winners is evaluated FIRST and wins where conditions overlap (A1).",
+    "hidden_winners": {
+      "display": "Hidden Winners",
+      "rule": "disagreement >= theta AND composite_confidence >= 0.5 AND signal_count >= 10",
+      "tooltip": "Our evidence is materially more positive than the incumbent rating, on enough signals to mean it.",
+      "min_disagreement": "theta",
+      "min_confidence": 0.5,
+      "min_signal_count": 10
+    },
+    "future_leaders": {
+      "display": "Future Leaders",
+      "rule": "lseg_percentile >= 0.5 AND composite_momentum > 0",
+      "tooltip": "Already rated above the median and still improving on live evidence."
+    },
+    "overrated_leaders": {
+      "display": "Overrated Leaders",
+      "rule": "lseg_percentile >= 0.5 AND composite_momentum < 0",
+      "tooltip": "Rated above the median while the live evidence deteriorates — the stable-score blind spot.",
+      "_new_in": "v2"
+    },
+    "value_traps": {
+      "display": "Value Traps",
+      "rule": "lseg_percentile < 0.5 AND composite_momentum < 0",
+      "tooltip": "Rated below the median and still deteriorating."
+    },
+    "consensus": {
+      "display": "Consensus",
+      "rule": "everything else",
+      "tooltip": "Our read and the incumbent rating agree — nothing to disagree about."
+    }
+  },
+
+  "component_weights": {
+    "_note": "Composite momentum = weighted mean of the four component momenta. Disclosed, swept by the harness.",
+    "E": 0.30,
+    "S": 0.25,
+    "G": 0.30,
+    "DIGITAL": 0.15
+  },
+
+  "digital_subweights": {
+    "_note": "A2 — sums to 1.00. digital_risk carries direction -1 by default (a breach is a negative).",
+    "patents": 0.30,
+    "ai_talent": 0.25,
+    "digital_capex": 0.20,
+    "digital_disclosure": 0.10,
+    "platform_dominance": 0.05,
+    "digital_risk": 0.10
+  },
+
+  "source_quality": {
+    "_note": "Confidence multiplier by source type. Company PR is CAPPED at 0.5 — the Adaro lesson (D/Backtest_Candidates_for_Rai.md case 4).",
+    "regulator": 1.0,
+    "exchange_filing": 0.95,
+    "index_provider": 0.9,
+    "external_reviewer": 0.9,
+    "ngo": 0.7,
+    "news": 0.65,
+    "dataset": 0.6,
+    "company_pr": 0.5,
+    "unknown": 0.4
+  },
+
+  "momentum_shrinkage": {
+    "_note": "Composite momentum is a DIRECTION consensus in [-1,+1], so one weak one-sided signal would otherwise score the same +1.000 as twelve corroborating ones. Shrinkage multiplies it by w/(w + half_credit_weight), where w is the company's total evidence weight (sum of materiality x confidence x decay). At w = half_credit_weight the company keeps half its raw score. An extreme score now has to be earned by evidence that is both one-sided AND substantial.",
+    "half_credit_weight": 0.4
+  },
+  "_shrinkage_tuning": "0.4 chosen against the data, not by feel: a well-covered company carries ~1.2 units of evidence weight and keeps ~75% of its consensus, while REE's single dated signal (w=0.07) keeps 15% — it scored a fully-confident +1.000 before. Sweep it with `python harness.py --sweep`.",
+
+  "forward_looking_discount": 0.5,
+  "_forward_looking_note": "Announcement/target language ('targets', 'plans to', 'by 2030') has its materiality halved — the engine scores what happened, not what was promised (Adaro case).",
+
+  "decay": {
+    "_note": "Exponential time decay on signal weight. 180d = the spec's Long horizon; the Short horizon (45d) is a config swap only, per INSTRUCTIONS step 8 (build only if asked).",
+    "half_life_days": 180,
+    "horizons": {"short": 45, "long": 180}
+  },
+
+  "confidence": {
+    "_note": "confidence = coverage x [mean_quality + (1 - mean_quality) x corroboration_weight x corroboration]. Coverage = how MUCH evidence (full credit at saturation_count signals); mean_quality = how GOOD it is (source_quality above); corroboration = how BROAD it is (distinct component/subcomponent routes, full credit at breadth_saturation). Corroboration is what lets independent lines of evidence lift confidence above any single source's ceiling — one source can only ever be as good as itself.",
+    "saturation_count": 12,
+    "breadth_saturation": 6,
+    "corroboration_weight": 0.35,
+    "min_signals_for_any_confidence": 1
+  },
+
+  "risk_tiers": {
+    "_note": "A5 — derived at runtime from the score record + the company metadata CSV. Non-matching companies DIM, never hide.",
+    "default": "balanced",
+    "conservative": {
+      "display": "Conservative",
+      "green_bond_status_in": ["cbi_certified", "labelled_reviewed"],
+      "min_momentum_exclusive": 0.0,
+      "min_confidence": 0.7,
+      "profitability_in": ["profitable"]
+    },
+    "balanced": {
+      "display": "Balanced",
+      "min_disagreement": "theta",
+      "min_confidence": 0.5,
+      "profitability_in": ["profitable"],
+      "green_bond_status_in": ["labelled_unreviewed", "none"]
+    },
+    "aggressive": {
+      "display": "Aggressive",
+      "min_disagreement": "theta",
+      "min_confidence": 0.3,
+      "profitability_in": ["loss_making"],
+      "require_traction": true,
+      "green_bond_status_in": ["none"]
+    }
+  },
+
+  "pipeline_counts": {
+    "_note": "A6/B2 — the three on-screen origination counts. Definitions live here so the money slide and the UI can never disagree about what N, M and K mean.",
+    "N": {"label": "issuers (priced in)", "rule": "green_bond_status in {cbi_certified, labelled_reviewed}", "green_bond_status_in": ["cbi_certified", "labelled_reviewed"]},
+    "M": {"label": "pipeline", "rule": "matches the Balanced tier — our disagreement is material, the company is investable, and no reviewed label has priced it yet", "tier": "balanced"},
+    "K": {"label": "review list", "rule": "disagreement >= theta but not in N or M — we disagree, something (confidence, profitability, unverified metadata) still blocks it. A human looks at these.", "min_disagreement": "theta"}
+  },
+
+  "green_bond_tiers": {
+    "_note": "A4 — four tiers, best first. PROVISIONAL is a treatment applied ON TOP of any tier (is_provisional=TRUE in the metadata CSV), not a fifth tier.",
+    "cbi_certified": {"display": "CBI Certified", "rank": 4, "tone": "good"},
+    "labelled_reviewed": {"display": "Labelled + Reviewed", "rank": 3, "tone": "good"},
+    "labelled_unreviewed": {"display": "Labelled, No Review", "rank": 2, "tone": "warn"},
+    "none": {"display": "No Labelled Issue", "rank": 1, "tone": "neutral"}
+  },
+
+  "engine_version": "engine-v2.0",
+  "extractor_version": "rules-v1",
+  "seed": 20260814
+}

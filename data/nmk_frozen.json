@@ -1,0 +1,53 @@
+{
+ "_note": "Frozen N/M/K for the money slide (B2). Re-derivable: same run_id + same metadata file -> same three numbers.",
+ "as_of": "2026-06-12",
+ "caveat": "Counts derived from PROVISIONAL metadata \u2014 every green-bond field is unverified until the Phase B1 CSV swap.",
+ "config_hash": "e31cbdd64847b256",
+ "config_version": "v2.0",
+ "counts": {
+  "K": 3,
+  "M": 1,
+  "N": 12
+ },
+ "engine_version": "engine-v2.0",
+ "frozen_at": "2026-08-15",
+ "labels": {
+  "K": "review list",
+  "M": "pipeline",
+  "N": "issuers (priced in)"
+ },
+ "members": {
+  "K": [
+   "IDX:JKLD",
+   "KLSE:SLTP",
+   "KLSE:TBFD"
+  ],
+  "M": [
+   "KLSE:SLTB"
+  ],
+  "N": [
+   "HOSE:LVTB",
+   "HOSE:MKHV",
+   "HOSE:RRRE",
+   "IDX:ASMB",
+   "IDX:SATB",
+   "KLSE:KLCT",
+   "KLSE:TBTL",
+   "PSE:BYNP",
+   "PSE:LUNA",
+   "PSE:PRLS",
+   "SET:FRHV",
+   "SET:MKCB"
+  ]
+ },
+ "metadata_file": "data/company_metadata_mock.csv",
+ "metadata_provisional": 88,
+ "metadata_rows": 88,
+ "rules": {
+  "K": "disagreement >= theta but not in N or M \u2014 we disagree, something (confidence, profitability, unverified metadata) still blocks it. A human looks at these.",
+  "M": "matches the Balanced tier \u2014 our disagreement is material, the company is investable, and no reviewed label has priced it yet",
+  "N": "green_bond_status in {cbi_certified, labelled_reviewed}"
+ },
+ "run_id": "2139d0085bd7a119",
+ "universe_size": 36
+}

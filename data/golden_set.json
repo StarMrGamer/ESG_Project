@@ -1,0 +1,871 @@
+{
+ "_note": "Frozen expectations for the demo universe. Regenerate with `python harness.py --update-golden` and REVIEW THE DIFF \u2014 a change here is a change in what the engine believes.",
+ "as_of": "2026-06-12",
+ "companies": {
+  "HOSE:HATL": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.757789,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "HOSE:LVTB": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.562388,
+    "S": 1.0
+   },
+   "composite_confidence": 0.748125,
+   "composite_momentum": 0.669216,
+   "label": "future_leaders",
+   "signal_count": 12,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "HOSE:MKHV": {
+   "components": {
+    "DIGITAL": 0.975425,
+    "E": 1.0,
+    "G": 0.596752,
+    "S": 1.0
+   },
+   "composite_confidence": 0.748125,
+   "composite_momentum": 0.674761,
+   "label": "future_leaders",
+   "signal_count": 12,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "HOSE:MKMB": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.757404,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "HOSE:RRRE": {
+   "components": {
+    "DIGITAL": -1.0,
+    "E": -0.571003,
+    "G": -1.0,
+    "S": -1.0
+   },
+   "composite_confidence": 0.622083,
+   "composite_momentum": -0.641995,
+   "label": "overrated_leaders",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "HOSE:SSQE": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.761197,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "IDX:ASMB": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.929156,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.733919,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "IDX:BRNE": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.929156,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.745382,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "IDX:GRMB": {
+   "components": {
+    "DIGITAL": -1.0,
+    "E": -0.565704,
+    "G": -1.0,
+    "S": -1.0
+   },
+   "composite_confidence": 0.622083,
+   "composite_momentum": -0.639636,
+   "label": "value_traps",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "IDX:JKLD": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.750674,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "IDX:NUSA": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.946379,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.74484,
+   "label": "consensus",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "IDX:SATB": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.984672,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.743105,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "KLSE:KLCT": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.75507,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "KLSE:SLTB": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.751889,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "KLSE:SLTP": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.925679,
+    "G": 0.981819,
+    "S": 1.0
+   },
+   "composite_confidence": 0.624792,
+   "composite_momentum": 0.717144,
+   "label": "hidden_winners",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "KLSE:SURP": {
+   "components": {
+    "DIGITAL": 0.979337,
+    "E": 0.942593,
+    "G": 0.628811,
+    "S": -1.0
+   },
+   "composite_confidence": 0.748125,
+   "composite_momentum": 0.283414,
+   "label": "consensus",
+   "signal_count": 12,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "KLSE:TBFD": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.977105,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.750273,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "KLSE:TBTL": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.757788,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "PSE:BYNP": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.624792,
+   "composite_momentum": 0.74463,
+   "label": "future_leaders",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "PSE:BYNR": {
+   "components": {
+    "DIGITAL": -0.2,
+    "E": -0.572311,
+    "G": -0.992005,
+    "S": -1.0
+   },
+   "composite_confidence": 0.622083,
+   "composite_momentum": -0.547226,
+   "label": "overrated_leaders",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "PSE:LUNA": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.879219,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.733615,
+   "label": "consensus",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "PSE:MNHV": {
+   "components": {
+    "DIGITAL": 0.995722,
+    "E": 0.902136,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.735971,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "PSE:PRLP": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.623325,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.674846,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "PSE:PRLS": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.895558,
+    "S": 1.0
+   },
+   "composite_confidence": 0.624792,
+   "composite_momentum": 0.728134,
+   "label": "consensus",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "SET:BKHT": {
+   "components": {
+    "DIGITAL": -1.0,
+    "E": -0.556107,
+    "G": -1.0,
+    "S": -1.0
+   },
+   "composite_confidence": 0.622083,
+   "composite_momentum": -0.630141,
+   "label": "value_traps",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "SET:FRHV": {
+   "components": {
+    "DIGITAL": 0.991509,
+    "E": 0.974079,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.753369,
+   "label": "hidden_winners",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "SET:MKCB": {
+   "components": {
+    "DIGITAL": 0.995722,
+    "E": 0.895276,
+    "G": 0.562388,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.639471,
+   "label": "consensus",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "SET:SMCN": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.912184,
+    "S": 1.0
+   },
+   "composite_confidence": 0.624792,
+   "composite_momentum": 0.732277,
+   "label": "consensus",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "SET:SMPN": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.948802,
+    "G": 0.634139
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.641397,
+   "label": "consensus",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "G/controversy"
+   ]
+  },
+  "SET:THSL": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 1.0,
+    "G": 0.54031,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.64992,
+   "label": "consensus",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "SGX:DBKO": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.897458,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.742041,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "SGX:GRGD": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.932856,
+    "G": 0.660894,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.67197,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "SGX:LNCP": {
+   "components": {
+    "DIGITAL": 0.294118,
+    "E": 0.993461,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.679262,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "SGX:MRNA": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.901493,
+    "G": 0.628811,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.663992,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/renewables",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  },
+  "SGX:NVTL": {
+   "components": {
+    "DIGITAL": 1.0,
+    "E": 0.911464,
+    "G": 1.0,
+    "S": 1.0
+   },
+   "composite_confidence": 0.686458,
+   "composite_momentum": 0.742063,
+   "label": "future_leaders",
+   "signal_count": 11,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/digital_disclosure",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "E/green_finance",
+    "E/renewables",
+    "G/board",
+    "S/human_capital"
+   ]
+  },
+  "SGX:ORCB": {
+   "components": {
+    "DIGITAL": -1.0,
+    "E": -0.551862,
+    "G": -1.0,
+    "S": -1.0
+   },
+   "composite_confidence": 0.622083,
+   "composite_momentum": -0.634582,
+   "label": "overrated_leaders",
+   "signal_count": 10,
+   "subcomponents": [
+    "DIGITAL/ai_talent",
+    "DIGITAL/digital_capex",
+    "DIGITAL/patents",
+    "E/disclosure_e",
+    "E/emissions",
+    "G/board",
+    "G/controversy",
+    "S/human_capital"
+   ]
+  }
+ },
+ "config_hash": "e31cbdd64847b256",
+ "config_version": "v2.0",
+ "digest": "94ec8ed07e1a1b01a0d04adfaed244c5e2c7a553b83efb9e22bb354a69f95623",
+ "engine_version": "engine-v2.0",
+ "label_counts": {
+  "consensus": 8,
+  "future_leaders": 14,
+  "hidden_winners": 9,
+  "overrated_leaders": 3,
+  "value_traps": 2
+ },
+ "run_id": "2139d0085bd7a119"
+}

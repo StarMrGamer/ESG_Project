@@ -16,15 +16,17 @@ def build(allow_live=False):
         row = table.get(c["country"]) or {}
         sc = esg_scoring.score_company(row, c["sector"], name=c["name"], country=c["country"])
         bd = sc["breakdown"]
+        traj = demo_enrich.trajectory(c["name"])   # one story: momentum, signals and news agree
         constituents.append({
             "company": c["name"], "ticker": c["ticker"], "exchange": c["exchange"],
             "country": c["country"], "sector": c["sector"],
             "esg_score": sc["overall"], "esg_as_of": "2024",
             "esg_breakdown": bd, "data_provenance": sc["data_provenance"],
-            "momentum": demo_enrich.momentum(c["name"], bd),
-            "live_signals": demo_enrich.live_signals(c["name"]),
+            "momentum": demo_enrich.momentum(c["name"], bd, traj),
+            "live_signals": demo_enrich.live_signals(c["name"], traj),
             "market": demo_enrich.market(c["name"], c["exchange"]),
-            "news": demo_enrich.news(c["name"]),
+            "news": demo_enrich.news(c["name"], traj),
+            "trajectory": traj,
             "analyst_coverage": demo_enrich.analyst_coverage(c["name"]),
             "price_change_90d": demo_enrich.price_change_90d(c["name"]),
         })

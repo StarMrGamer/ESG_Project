@@ -1,5 +1,5 @@
 {
-  "note": "DEMO universe — fictional companies, scores DERIVED from real country-level OECD/World Bank indicators (sector-adjusted). Illustrative, not company disclosure.",
+  "note": "DEMO universe — fictional companies, scores DERIVED from real country-level OECD/World Bank indicators (sector-adjusted). Illustrative, not company disclosure. Each name carries one coherent trajectory (improving / mixed / deteriorating) so its momentum, live signals and headlines tell the same story.",
   "selection": "ASEAN ESG demo basket (6 countries × 5 sectors)",
   "benchmark": "MSCI ASEAN ESG (illustrative benchmark)",
   "benchmark_stats": {
@@ -34,10 +34,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -16,
-        "social": 22,
-        "governance": 28,
-        "digital_ai": 10
+        "environment": -14,
+        "social": 24,
+        "governance": 30,
+        "digital_ai": 12
       },
       "live_signals": {
         "ai_hiring_surge": "+218%",
@@ -81,7 +81,8 @@
         "analysts": 11,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+0.3%"
+      "price_change_90d": "+0.3%",
+      "trajectory": "improving"
     },
     {
       "company": "Selat Bank",
@@ -99,14 +100,14 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -1,
-        "social": 3,
-        "governance": 7,
-        "digital_ai": 28
+        "environment": 1,
+        "social": 5,
+        "governance": 9,
+        "digital_ai": 29
       },
       "live_signals": {
         "ai_hiring_surge": "+252%",
-        "board_ai_policy": false,
+        "board_ai_policy": true,
         "carbon_disclosure": "+17%",
         "green_patents": "+94%",
         "controversy_flags": 0
@@ -146,7 +147,8 @@
         "analysts": 23,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-0.7%"
+      "price_change_90d": "-0.7%",
+      "trajectory": "improving"
     },
     {
       "company": "Garuda Mandiri Bank",
@@ -164,17 +166,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 0,
-        "social": 14,
-        "governance": 0,
-        "digital_ai": 12
+        "environment": -15,
+        "social": -8,
+        "governance": -11,
+        "digital_ai": -19
       },
       "live_signals": {
-        "ai_hiring_surge": "+338%",
-        "board_ai_policy": true,
-        "carbon_disclosure": "+12%",
-        "green_patents": "+36%",
-        "controversy_flags": 0
+        "ai_hiring_surge": "-6%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "-14%",
+        "green_patents": "-22%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "IDR",
@@ -192,17 +194,17 @@
       },
       "news": [
         {
-          "title": "Garuda Mandiri Bank lifts sustainable-finance disclosure",
+          "title": "Garuda Mandiri Bank faces a regulatory investigation over effluent discharge",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Garuda Mandiri Bank expands renewable-energy sourcing plan",
+          "title": "Garuda Mandiri Bank misses its emissions reduction target as disclosure slips",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
         {
-          "title": "Garuda Mandiri Bank names sustainability & AI-governance lead",
+          "title": "Garuda Mandiri Bank loses its head of sustainability amid restructuring",
           "source": "ASEAN ESG Demo (illustrative)",
           "date": "2026-05-09"
         }
@@ -211,7 +213,8 @@
         "analysts": 9,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-4.8%"
+      "price_change_90d": "-4.8%",
+      "trajectory": "deteriorating"
     },
     {
       "company": "Mekong Commercial Bank",
@@ -229,17 +232,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 1,
-        "social": 20,
-        "governance": -3,
-        "digital_ai": 11
+        "environment": -1,
+        "social": 12,
+        "governance": -5,
+        "digital_ai": -1
       },
       "live_signals": {
-        "ai_hiring_surge": "+241%",
+        "ai_hiring_surge": "+58%",
         "board_ai_policy": false,
-        "carbon_disclosure": "+6%",
-        "green_patents": "+93%",
-        "controversy_flags": 0
+        "carbon_disclosure": "-3%",
+        "green_patents": "+29%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "THB",
@@ -257,12 +260,12 @@
       },
       "news": [
         {
-          "title": "Mekong Commercial Bank lifts sustainable-finance disclosure",
+          "title": "Mekong Commercial Bank reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Mekong Commercial Bank expands renewable-energy sourcing plan",
+          "title": "Mekong Commercial Bank delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -276,7 +279,8 @@
         "analysts": 18,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+3.5%"
+      "price_change_90d": "+3.5%",
+      "trajectory": "mixed"
     },
     {
       "company": "Pearl Savings",
@@ -294,9 +298,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 10,
-        "social": 7,
-        "governance": -8,
+        "environment": 12,
+        "social": 9,
+        "governance": -6,
         "digital_ai": 33
       },
       "live_signals": {
@@ -341,7 +345,8 @@
         "analysts": 15,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+6.5%"
+      "price_change_90d": "+6.5%",
+      "trajectory": "improving"
     },
     {
       "company": "Lac Viet Bank",
@@ -359,9 +364,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 12,
-        "social": 22,
-        "governance": -7,
+        "environment": 14,
+        "social": 24,
+        "governance": -5,
         "digital_ai": 25
       },
       "live_signals": {
@@ -406,7 +411,8 @@
         "analysts": 25,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+5.6%"
+      "price_change_90d": "+5.6%",
+      "trajectory": "improving"
     },
     {
       "company": "NovaTel",
@@ -424,14 +430,14 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -14,
-        "social": 12,
-        "governance": 19,
-        "digital_ai": 23
+        "environment": -12,
+        "social": 14,
+        "governance": 21,
+        "digital_ai": 24
       },
       "live_signals": {
         "ai_hiring_surge": "+203%",
-        "board_ai_policy": false,
+        "board_ai_policy": true,
         "carbon_disclosure": "+9%",
         "green_patents": "+41%",
         "controversy_flags": 0
@@ -471,7 +477,8 @@
         "analysts": 10,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-6.5%"
+      "price_change_90d": "-6.5%",
+      "trajectory": "improving"
     },
     {
       "company": "Tiger Bay Telecom",
@@ -489,10 +496,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 1,
-        "social": 20,
-        "governance": 5,
-        "digital_ai": 26
+        "environment": 3,
+        "social": 22,
+        "governance": 7,
+        "digital_ai": 27
       },
       "live_signals": {
         "ai_hiring_surge": "+132%",
@@ -536,7 +543,8 @@
         "analysts": 27,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-5.1%"
+      "price_change_90d": "-5.1%",
+      "trajectory": "improving"
     },
     {
       "company": "ASEAN Mobile",
@@ -554,10 +562,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 2,
-        "social": 11,
-        "governance": -6,
-        "digital_ai": 17
+        "environment": 4,
+        "social": 13,
+        "governance": -4,
+        "digital_ai": 18
       },
       "live_signals": {
         "ai_hiring_surge": "+186%",
@@ -601,7 +609,8 @@
         "analysts": 16,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-1.0%"
+      "price_change_90d": "-1.0%",
+      "trajectory": "improving"
     },
     {
       "company": "SiamConnect",
@@ -619,17 +628,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 7,
-        "social": 24,
-        "governance": -7,
-        "digital_ai": 17
+        "environment": 9,
+        "social": 26,
+        "governance": -5,
+        "digital_ai": 18
       },
       "live_signals": {
         "ai_hiring_surge": "+151%",
         "board_ai_policy": false,
         "carbon_disclosure": "+6%",
         "green_patents": "+82%",
-        "controversy_flags": 1
+        "controversy_flags": 0
       },
       "market": {
         "currency": "THB",
@@ -666,7 +675,8 @@
         "analysts": 7,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-1.8%"
+      "price_change_90d": "-1.8%",
+      "trajectory": "improving"
     },
     {
       "company": "LunaComm",
@@ -684,14 +694,14 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 9,
-        "social": 18,
-        "governance": -9,
+        "environment": 11,
+        "social": 20,
+        "governance": -7,
         "digital_ai": 31
       },
       "live_signals": {
         "ai_hiring_surge": "+171%",
-        "board_ai_policy": false,
+        "board_ai_policy": true,
         "carbon_disclosure": "+15%",
         "green_patents": "+70%",
         "controversy_flags": 0
@@ -731,7 +741,8 @@
         "analysts": 18,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-1.0%"
+      "price_change_90d": "-1.0%",
+      "trajectory": "improving"
     },
     {
       "company": "Mekong Mobile",
@@ -749,9 +760,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 5,
-        "social": 13,
-        "governance": 6,
+        "environment": 7,
+        "social": 15,
+        "governance": 8,
         "digital_ai": 28
       },
       "live_signals": {
@@ -796,7 +807,8 @@
         "analysts": 6,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-4.7%"
+      "price_change_90d": "-4.7%",
+      "trajectory": "improving"
     },
     {
       "company": "GreenGrid",
@@ -814,9 +826,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -11,
-        "social": 10,
-        "governance": 14,
+        "environment": -9,
+        "social": 12,
+        "governance": 16,
         "digital_ai": 30
       },
       "live_signals": {
@@ -861,7 +873,8 @@
         "analysts": 22,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+4.0%"
+      "price_change_90d": "+4.0%",
+      "trajectory": "improving"
     },
     {
       "company": "Suria Power",
@@ -879,17 +892,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -10,
-        "social": 4,
-        "governance": 8,
-        "digital_ai": 5
+        "environment": -9,
+        "social": -3,
+        "governance": 3,
+        "digital_ai": -5
       },
       "live_signals": {
-        "ai_hiring_surge": "+358%",
+        "ai_hiring_surge": "+89%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+18%",
-        "green_patents": "+60%",
-        "controversy_flags": 0
+        "carbon_disclosure": "+6%",
+        "green_patents": "+11%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "MYR",
@@ -907,12 +920,12 @@
       },
       "news": [
         {
-          "title": "Suria Power lifts sustainable-finance disclosure",
+          "title": "Suria Power reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Suria Power expands renewable-energy sourcing plan",
+          "title": "Suria Power delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -926,7 +939,8 @@
         "analysts": 20,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+4.6%"
+      "price_change_90d": "+4.6%",
+      "trajectory": "mixed"
     },
     {
       "company": "Borneo Energy",
@@ -944,14 +958,14 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 11,
-        "social": 20,
-        "governance": -6,
-        "digital_ai": 29
+        "environment": 13,
+        "social": 22,
+        "governance": -4,
+        "digital_ai": 30
       },
       "live_signals": {
         "ai_hiring_surge": "+245%",
-        "board_ai_policy": false,
+        "board_ai_policy": true,
         "carbon_disclosure": "+6%",
         "green_patents": "+42%",
         "controversy_flags": 0
@@ -991,7 +1005,8 @@
         "analysts": 10,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+12.7%"
+      "price_change_90d": "+12.7%",
+      "trajectory": "improving"
     },
     {
       "company": "ThaiSolar",
@@ -1009,10 +1024,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 5,
-        "social": 4,
-        "governance": -9,
-        "digital_ai": 16
+        "environment": 7,
+        "social": 6,
+        "governance": -7,
+        "digital_ai": 17
       },
       "live_signals": {
         "ai_hiring_surge": "+322%",
@@ -1056,7 +1071,8 @@
         "analysts": 6,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+2.1%"
+      "price_change_90d": "+2.1%",
+      "trajectory": "improving"
     },
     {
       "company": "Bayan Power",
@@ -1074,9 +1090,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 8,
-        "social": 3,
-        "governance": 1,
+        "environment": 10,
+        "social": 5,
+        "governance": 3,
         "digital_ai": 22
       },
       "live_signals": {
@@ -1121,7 +1137,8 @@
         "analysts": 23,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-5.8%"
+      "price_change_90d": "-5.8%",
+      "trajectory": "improving"
     },
     {
       "company": "Red River Renewables",
@@ -1139,17 +1156,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 4,
-        "social": 13,
-        "governance": 4,
-        "digital_ai": 21
+        "environment": -19,
+        "social": -22,
+        "governance": -2,
+        "digital_ai": -13
       },
       "live_signals": {
-        "ai_hiring_surge": "+250%",
+        "ai_hiring_surge": "-18%",
         "board_ai_policy": false,
-        "carbon_disclosure": "+8%",
-        "green_patents": "+59%",
-        "controversy_flags": 0
+        "carbon_disclosure": "-18%",
+        "green_patents": "-11%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "VND",
@@ -1167,17 +1184,17 @@
       },
       "news": [
         {
-          "title": "Red River Renewables lifts sustainable-finance disclosure",
+          "title": "Red River Renewables faces a regulatory investigation over effluent discharge",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Red River Renewables expands renewable-energy sourcing plan",
+          "title": "Red River Renewables misses its emissions reduction target as disclosure slips",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
         {
-          "title": "Red River Renewables names sustainability & AI-governance lead",
+          "title": "Red River Renewables loses its head of sustainability amid restructuring",
           "source": "ASEAN ESG Demo (illustrative)",
           "date": "2026-05-09"
         }
@@ -1186,7 +1203,8 @@
         "analysts": 24,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-0.9%"
+      "price_change_90d": "-0.9%",
+      "trajectory": "deteriorating"
     },
     {
       "company": "Marina Estates",
@@ -1204,16 +1222,16 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -8,
-        "social": 25,
-        "governance": 16,
-        "digital_ai": 27
+        "environment": 0,
+        "social": 16,
+        "governance": 3,
+        "digital_ai": 11
       },
       "live_signals": {
-        "ai_hiring_surge": "+131%",
+        "ai_hiring_surge": "+29%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+6%",
-        "green_patents": "+46%",
+        "carbon_disclosure": "-4%",
+        "green_patents": "+4%",
         "controversy_flags": 1
       },
       "market": {
@@ -1232,12 +1250,12 @@
       },
       "news": [
         {
-          "title": "Marina Estates lifts sustainable-finance disclosure",
+          "title": "Marina Estates reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Marina Estates expands renewable-energy sourcing plan",
+          "title": "Marina Estates delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -1251,7 +1269,8 @@
         "analysts": 6,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+0.6%"
+      "price_change_90d": "+0.6%",
+      "trajectory": "mixed"
     },
     {
       "company": "KLCC Towers",
@@ -1269,9 +1288,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 3,
-        "social": 5,
-        "governance": 8,
+        "environment": 5,
+        "social": 7,
+        "governance": 10,
         "digital_ai": 32
       },
       "live_signals": {
@@ -1316,7 +1335,8 @@
         "analysts": 24,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+12.9%"
+      "price_change_90d": "+12.9%",
+      "trajectory": "improving"
     },
     {
       "company": "Jakarta Land",
@@ -1334,10 +1354,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 10,
-        "social": 9,
-        "governance": -1,
-        "digital_ai": 16
+        "environment": 12,
+        "social": 11,
+        "governance": 1,
+        "digital_ai": 17
       },
       "live_signals": {
         "ai_hiring_surge": "+99%",
@@ -1381,7 +1401,8 @@
         "analysts": 6,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+5.3%"
+      "price_change_90d": "+5.3%",
+      "trajectory": "improving"
     },
     {
       "company": "Bangkok Heights",
@@ -1399,17 +1420,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 8,
-        "social": 9,
-        "governance": 4,
-        "digital_ai": 27
+        "environment": -8,
+        "social": -17,
+        "governance": -3,
+        "digital_ai": -7
       },
       "live_signals": {
-        "ai_hiring_surge": "+77%",
-        "board_ai_policy": true,
-        "carbon_disclosure": "+12%",
-        "green_patents": "+43%",
-        "controversy_flags": 0
+        "ai_hiring_surge": "-42%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "-13%",
+        "green_patents": "-19%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "THB",
@@ -1427,17 +1448,17 @@
       },
       "news": [
         {
-          "title": "Bangkok Heights lifts sustainable-finance disclosure",
+          "title": "Bangkok Heights faces a regulatory investigation over effluent discharge",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Bangkok Heights expands renewable-energy sourcing plan",
+          "title": "Bangkok Heights misses its emissions reduction target as disclosure slips",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
         {
-          "title": "Bangkok Heights names sustainability & AI-governance lead",
+          "title": "Bangkok Heights loses its head of sustainability amid restructuring",
           "source": "ASEAN ESG Demo (illustrative)",
           "date": "2026-05-09"
         }
@@ -1446,7 +1467,8 @@
         "analysts": 24,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+12.2%"
+      "price_change_90d": "+12.2%",
+      "trajectory": "deteriorating"
     },
     {
       "company": "Bayan Realty",
@@ -1464,17 +1486,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 10,
-        "social": 4,
-        "governance": 5,
-        "digital_ai": 30
+        "environment": -20,
+        "social": -15,
+        "governance": 1,
+        "digital_ai": -6
       },
       "live_signals": {
-        "ai_hiring_surge": "+315%",
+        "ai_hiring_surge": "-10%",
         "board_ai_policy": false,
-        "carbon_disclosure": "+9%",
-        "green_patents": "+94%",
-        "controversy_flags": 0
+        "carbon_disclosure": "-17%",
+        "green_patents": "+3%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "PHP",
@@ -1492,17 +1514,17 @@
       },
       "news": [
         {
-          "title": "Bayan Realty lifts sustainable-finance disclosure",
+          "title": "Bayan Realty faces a regulatory investigation over effluent discharge",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Bayan Realty expands renewable-energy sourcing plan",
+          "title": "Bayan Realty misses its emissions reduction target as disclosure slips",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
         {
-          "title": "Bayan Realty names sustainability & AI-governance lead",
+          "title": "Bayan Realty loses its head of sustainability amid restructuring",
           "source": "ASEAN ESG Demo (illustrative)",
           "date": "2026-05-09"
         }
@@ -1511,7 +1533,8 @@
         "analysts": 24,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-7.0%"
+      "price_change_90d": "-7.0%",
+      "trajectory": "deteriorating"
     },
     {
       "company": "Saigon Square Estates",
@@ -1529,10 +1552,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Real Estate). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 4,
-        "social": 28,
-        "governance": 1,
-        "digital_ai": 28
+        "environment": 6,
+        "social": 30,
+        "governance": 3,
+        "digital_ai": 29
       },
       "live_signals": {
         "ai_hiring_surge": "+232%",
@@ -1576,7 +1599,8 @@
         "analysts": 17,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+9.7%"
+      "price_change_90d": "+9.7%",
+      "trajectory": "improving"
     },
     {
       "company": "Lion City Provisions",
@@ -1594,16 +1618,16 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -9,
-        "social": 18,
-        "governance": 19,
-        "digital_ai": 26
+        "environment": -1,
+        "social": 6,
+        "governance": 6,
+        "digital_ai": 10
       },
       "live_signals": {
-        "ai_hiring_surge": "+72%",
+        "ai_hiring_surge": "+13%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+16%",
-        "green_patents": "+30%",
+        "carbon_disclosure": "+4%",
+        "green_patents": "-4%",
         "controversy_flags": 0
       },
       "market": {
@@ -1622,12 +1646,12 @@
       },
       "news": [
         {
-          "title": "Lion City Provisions lifts sustainable-finance disclosure",
+          "title": "Lion City Provisions reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Lion City Provisions expands renewable-energy sourcing plan",
+          "title": "Lion City Provisions delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -1641,7 +1665,8 @@
         "analysts": 26,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+2.9%"
+      "price_change_90d": "+2.9%",
+      "trajectory": "mixed"
     },
     {
       "company": "Tiger Bay Foods",
@@ -1659,9 +1684,9 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -5,
-        "social": 20,
-        "governance": 1,
+        "environment": -3,
+        "social": 22,
+        "governance": 3,
         "digital_ai": 25
       },
       "live_signals": {
@@ -1706,7 +1731,8 @@
         "analysts": 14,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+12.9%"
+      "price_change_90d": "+12.9%",
+      "trajectory": "improving"
     },
     {
       "company": "NusaFoods",
@@ -1724,10 +1750,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 5,
-        "social": 20,
-        "governance": -5,
-        "digital_ai": 24
+        "environment": 7,
+        "social": 22,
+        "governance": -3,
+        "digital_ai": 25
       },
       "live_signals": {
         "ai_hiring_surge": "+70%",
@@ -1771,7 +1797,8 @@
         "analysts": 19,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-5.1%"
+      "price_change_90d": "-5.1%",
+      "trajectory": "improving"
     },
     {
       "company": "FreshHarvest",
@@ -1789,16 +1816,16 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 0,
-        "social": 22,
+        "environment": -4,
+        "social": 12,
         "governance": 2,
-        "digital_ai": 10
+        "digital_ai": -2
       },
       "live_signals": {
-        "ai_hiring_surge": "+315%",
+        "ai_hiring_surge": "+78%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+17%",
-        "green_patents": "+51%",
+        "carbon_disclosure": "+4%",
+        "green_patents": "+6%",
         "controversy_flags": 0
       },
       "market": {
@@ -1817,12 +1844,12 @@
       },
       "news": [
         {
-          "title": "FreshHarvest lifts sustainable-finance disclosure",
+          "title": "FreshHarvest reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "FreshHarvest expands renewable-energy sourcing plan",
+          "title": "FreshHarvest delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -1836,7 +1863,8 @@
         "analysts": 11,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+10.5%"
+      "price_change_90d": "+10.5%",
+      "trajectory": "mixed"
     },
     {
       "company": "Pearl Provisions",
@@ -1854,10 +1882,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 17,
-        "social": 5,
-        "governance": -1,
-        "digital_ai": 27
+        "environment": 19,
+        "social": 7,
+        "governance": 1,
+        "digital_ai": 28
       },
       "live_signals": {
         "ai_hiring_surge": "+68%",
@@ -1901,7 +1929,8 @@
         "analysts": 21,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-6.2%"
+      "price_change_90d": "-6.2%",
+      "trajectory": "improving"
     },
     {
       "company": "Mekong Harvest",
@@ -1919,17 +1948,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 14,
-        "social": 21,
+        "environment": 10,
+        "social": 6,
         "governance": -2,
-        "digital_ai": 5
+        "digital_ai": -6
       },
       "live_signals": {
-        "ai_hiring_surge": "+284%",
+        "ai_hiring_surge": "+69%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+14%",
-        "green_patents": "+54%",
-        "controversy_flags": 0
+        "carbon_disclosure": "+2%",
+        "green_patents": "+8%",
+        "controversy_flags": 1
       },
       "market": {
         "currency": "VND",
@@ -1947,12 +1976,12 @@
       },
       "news": [
         {
-          "title": "Mekong Harvest lifts sustainable-finance disclosure",
+          "title": "Mekong Harvest reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Mekong Harvest expands renewable-energy sourcing plan",
+          "title": "Mekong Harvest delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -1966,7 +1995,8 @@
         "analysts": 8,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+1.8%"
+      "price_change_90d": "+1.8%",
+      "trajectory": "mixed"
     },
     {
       "company": "Orchid Bank",
@@ -1984,17 +2014,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Singapore (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -14,
-        "social": 9,
-        "governance": 29,
-        "digital_ai": 24
+        "environment": -5,
+        "social": -21,
+        "governance": -12,
+        "digital_ai": -10
       },
       "live_signals": {
-        "ai_hiring_surge": "+72%",
-        "board_ai_policy": true,
-        "carbon_disclosure": "+6%",
-        "green_patents": "+31%",
-        "controversy_flags": 1
+        "ai_hiring_surge": "-43%",
+        "board_ai_policy": false,
+        "carbon_disclosure": "-21%",
+        "green_patents": "-24%",
+        "controversy_flags": 2
       },
       "market": {
         "currency": "SGD",
@@ -2012,17 +2042,17 @@
       },
       "news": [
         {
-          "title": "Orchid Bank lifts sustainable-finance disclosure",
+          "title": "Orchid Bank faces a regulatory investigation over effluent discharge",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Orchid Bank expands renewable-energy sourcing plan",
+          "title": "Orchid Bank misses its emissions reduction target as disclosure slips",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
         {
-          "title": "Orchid Bank names sustainability & AI-governance lead",
+          "title": "Orchid Bank loses its head of sustainability amid restructuring",
           "source": "ASEAN ESG Demo (illustrative)",
           "date": "2026-05-09"
         }
@@ -2031,7 +2061,8 @@
         "analysts": 18,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+8.2%"
+      "price_change_90d": "+8.2%",
+      "trajectory": "deteriorating"
     },
     {
       "company": "Sampan Bank",
@@ -2049,16 +2080,16 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Thailand (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -5,
-        "social": 9,
-        "governance": 7,
-        "digital_ai": 23
+        "environment": -8,
+        "social": 0,
+        "governance": 5,
+        "digital_ai": 8
       },
       "live_signals": {
-        "ai_hiring_surge": "+87%",
+        "ai_hiring_surge": "+17%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+12%",
-        "green_patents": "+73%",
+        "carbon_disclosure": "+1%",
+        "green_patents": "+18%",
         "controversy_flags": 1
       },
       "market": {
@@ -2077,12 +2108,12 @@
       },
       "news": [
         {
-          "title": "Sampan Bank lifts sustainable-finance disclosure",
+          "title": "Sampan Bank reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Sampan Bank expands renewable-energy sourcing plan",
+          "title": "Sampan Bank delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -2096,7 +2127,8 @@
         "analysts": 25,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-5.4%"
+      "price_change_90d": "-5.4%",
+      "trajectory": "mixed"
     },
     {
       "company": "SatBank",
@@ -2114,17 +2146,17 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Indonesia (WGI governance + World Bank environment/social indicators), sector-adjusted (Financials — Banks). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -4,
-        "social": 18,
-        "governance": 1,
-        "digital_ai": 4
+        "environment": -2,
+        "social": 20,
+        "governance": 3,
+        "digital_ai": 6
       },
       "live_signals": {
         "ai_hiring_surge": "+129%",
         "board_ai_policy": true,
         "carbon_disclosure": "+5%",
         "green_patents": "+27%",
-        "controversy_flags": 1
+        "controversy_flags": 0
       },
       "market": {
         "currency": "IDR",
@@ -2161,7 +2193,8 @@
         "analysts": 26,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-2.0%"
+      "price_change_90d": "-2.0%",
+      "trajectory": "improving"
     },
     {
       "company": "Hai Au Telecom",
@@ -2179,10 +2212,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Vietnam (WGI governance + World Bank environment/social indicators), sector-adjusted (Communication Services — Telecom). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 10,
-        "social": 28,
-        "governance": 3,
-        "digital_ai": 11
+        "environment": 12,
+        "social": 30,
+        "governance": 5,
+        "digital_ai": 12
       },
       "live_signals": {
         "ai_hiring_surge": "+108%",
@@ -2226,7 +2259,8 @@
         "analysts": 15,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+4.9%"
+      "price_change_90d": "+4.9%",
+      "trajectory": "improving"
     },
     {
       "company": "Selat Power",
@@ -2244,10 +2278,10 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Malaysia (WGI governance + World Bank environment/social indicators), sector-adjusted (Energy — Power & Renewables). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": -12,
-        "social": 3,
-        "governance": -3,
-        "digital_ai": 6
+        "environment": -10,
+        "social": 5,
+        "governance": -1,
+        "digital_ai": 8
       },
       "live_signals": {
         "ai_hiring_surge": "+247%",
@@ -2291,7 +2325,8 @@
         "analysts": 16,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "-6.3%"
+      "price_change_90d": "-6.3%",
+      "trajectory": "improving"
     },
     {
       "company": "Manila Harvest",
@@ -2309,16 +2344,16 @@
       },
       "data_provenance": "Derived from country-level OECD/World Bank proxies for Philippines (WGI governance + World Bank environment/social indicators), sector-adjusted (Consumer Staples). Synthetic demo company — not direct company disclosure.",
       "momentum": {
-        "environment": 12,
-        "social": 16,
-        "governance": 2,
-        "digital_ai": 11
+        "environment": 2,
+        "social": 10,
+        "governance": 3,
+        "digital_ai": -1
       },
       "live_signals": {
-        "ai_hiring_surge": "+341%",
+        "ai_hiring_surge": "+85%",
         "board_ai_policy": true,
-        "carbon_disclosure": "+8%",
-        "green_patents": "+71%",
+        "carbon_disclosure": "-2%",
+        "green_patents": "+17%",
         "controversy_flags": 0
       },
       "market": {
@@ -2337,12 +2372,12 @@
       },
       "news": [
         {
-          "title": "Manila Harvest lifts sustainable-finance disclosure",
+          "title": "Manila Harvest reports flat emissions intensity for a second year",
           "source": "DemoWire (illustrative)",
           "date": "2026-06-12"
         },
         {
-          "title": "Manila Harvest expands renewable-energy sourcing plan",
+          "title": "Manila Harvest delays its renewable-energy sourcing milestone",
           "source": "Mock Business Daily (illustrative)",
           "date": "2026-05-28"
         },
@@ -2356,7 +2391,8 @@
         "analysts": 13,
         "as_of": "Q1 2026"
       },
-      "price_change_90d": "+6.2%"
+      "price_change_90d": "+6.2%",
+      "trajectory": "mixed"
     }
   ]
 }
