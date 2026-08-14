@@ -54,6 +54,9 @@ SAMPLE_FILE = os.path.join(DATA_DIR, "hero_company.json")
 WATCHLIST_FILE = os.path.join(DATA_DIR, "watchlist.json")
 WEB_DIST = os.path.join(BASE_DIR, "web", "dist")
 
+# Uploads are read into memory, so they are capped. See /api/upload.
+MAX_UPLOAD_BYTES = int(float(os.environ.get("ESG_MAX_UPLOAD_MB", "5")) * 1024 * 1024)
+
 # Stage-2 progress phases (same narration as the Streamlit shell): as each Contract-C key
 # appears in the streamed JSON, advance the status label against REAL progress.
 _S2_PHASES = [
@@ -761,7 +764,24 @@ def sample():
 
 @app.post("/api/upload")
 async def upload(file: UploadFile = File(...)):
-    content = await file.read()
+    # Read in bounded chunks and stop the moment the cap is exceeded. `await file.read()` with no
+    # limit pulls the whole upload into memory, so on a publicly reachable instance one large POST
+    # is enough to take the process down. Tunable via ESG_MAX_UPLOAD_MB (default 5 MB) — a
+    # Contract-B JSON/CSV is kilobytes, so this is generous.
+    limit = MAX_UPLOAD_BYTES
+    chunks, total = [], 0
+    while True:
+        chunk = await file.read(64 * 1024)
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > limit:
+            raise HTTPException(
+                413, f"File is larger than the {limit // (1024 * 1024)} MB upload limit.")
+        chunks.append(chunk)
+    content = b"".join(chunks)
+    if not content:
+        raise HTTPException(400, "That file is empty.")
     try:
         company, meta = datasource.load_upload(file.filename or "upload", content)
     except core.LLMConfigError as e:
@@ -1032,4 +1052,8 @@ if os.path.isdir(WEB_DIST):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    # HOST defaults to all interfaces for local dev. Behind a reverse proxy set HOST=127.0.0.1 so
+    # the app port is not independently reachable — otherwise anyone can bypass the proxy (and
+    # whatever auth it enforces) by hitting the port directly. See docs/DEPLOY.md.
+    uvicorn.run(app, host=os.environ.get("HOST", "0.0.0.0"),
+                port=int(os.environ.get("PORT", 8000)))

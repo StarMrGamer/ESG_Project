@@ -1,0 +1,53 @@
+[Unit]
+# ASEAN ESG Momentum Radar — FastAPI + the built React app.
+# Install:
+#   sudo cp deploy/esg-radar.service /etc/systemd/system/
+#   sudo cp deploy/esg-radar.env.example /etc/esg-radar.env   # then edit it
+#   sudo chmod 600 /etc/esg-radar.env                          # it may hold an API key
+#   sudo systemctl daemon-reload && sudo systemctl enable --now esg-radar
+# Logs:  journalctl -u esg-radar -f
+Description=ASEAN ESG Momentum Radar
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# --- adjust these three to match your box -----------------------------------
+User=esg
+Group=esg
+WorkingDirectory=/srv/esg-radar
+
+EnvironmentFile=/etc/esg-radar.env
+ExecStart=/srv/esg-radar/venv/bin/python /srv/esg-radar/server.py
+
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+
+# --- hardening ---------------------------------------------------------------
+# The app writes to .cache/, data/watchlist.json and data/anchors/ only, so the rest of
+# the filesystem can be read-only to it.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+ReadWritePaths=/srv/esg-radar/.cache /srv/esg-radar/data
+
+# Outbound HTTP is required: live retrieval (RAG), the DeepSeek API, and the Sepolia RPC.
+# Restrict it to the address families those need.
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+# A runaway retrieval loop should not take the box with it.
+MemoryMax=1G
+TasksMax=256
+
+[Install]
+WantedBy=multi-user.target
