@@ -94,6 +94,20 @@ def check_determinism(report):
                        config=engine_config.load(overrides={"theta": 0.31}))
     report.check(bumped["run_id"] != cold["run_id"],
                  "a changed config produces a DIFFERENT run_id", "no silent re-labelling")
+
+    # The Phase B1 swap is a FILE, not a code change. If the id ignored the metadata, the
+    # verified run would collide with the provisional one, a warm cache would serve the old
+    # tiers under the same id, and anchor.py would hold one root for two evidence sets.
+    swapped = dict(meta)
+    victim = sorted(swapped)[0]
+    swapped[victim] = dict(swapped[victim], traction_flag="Y", green_bond_status="cbi_certified")
+    moved = _demo_run(metadata=swapped, use_cache=False)
+    report.check(moved["run_id"] != cold["run_id"],
+                 "a changed metadata file produces a DIFFERENT run_id",
+                 f"{victim} edited -> {moved['run_id']} (was {cold['run_id']})")
+    report.check(_demo_run(metadata=None, use_cache=False)["run_id"] != cold["run_id"],
+                 "…and 'no metadata' is distinct from 'metadata supplied'",
+                 "an unstamped run can never collide with a tiered one")
     report.info(f"{cold['company_count']} companies · {cold['signal_count']} signals · "
                 f"as_of {cold['as_of']} · config {cold['config_hash']}")
     return cold

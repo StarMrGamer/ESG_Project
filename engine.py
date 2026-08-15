@@ -301,6 +301,21 @@ def _company_id(company: Dict[str, Any]) -> str:
     return company.get("ticker") or company.get("company_id") or company.get("company") or "unknown"
 
 
+def _metadata_hash(metadata: Optional[Dict[str, Any]]) -> str:
+    """Stable digest of the tier metadata — an INPUT to the run, so it belongs in the run_id.
+
+    The Phase B1 swap is a file, not a code change: drop the verified CSV in and the tier flags
+    move. If the id ignored that, the swapped run would collide with the provisional one and a
+    warm cache would serve the OLD tiers under the same id — and `anchor.py` would hold one
+    root for two different evidence sets. `None` (tiers not stamped at all) is deliberately
+    distinct from `{}` (metadata supplied, no rows matched)."""
+    if metadata is None:
+        return "none"
+    return hashlib.sha256(
+        json.dumps(metadata, sort_keys=True, separators=(",", ":"), default=str)
+        .encode("utf-8")).hexdigest()[:16]
+
+
 def _prepare_signals(companies, cfg, cutoff):
     """Extract signals and apply the historical cutoff before cohort scoring."""
     by_company, dropped = {}, 0
@@ -382,8 +397,9 @@ def run_engine(company_list: List[Dict[str, Any]], *, config: Optional[Dict[str,
     if cutoff and (not as_of or as_of >= cutoff):
         as_of = cutoff          # never decay against a date the lookback isn't allowed to see
 
+    metadata_hash = _metadata_hash(metadata)
     run_id = hashlib.sha256("|".join([
-        cfg["engine_version"], cfg["config_hash"], as_of or "", cutoff or "",
+        cfg["engine_version"], cfg["config_hash"], as_of or "", cutoff or "", metadata_hash,
         *(f"{cid}:{','.join(s['signal_id'] for s in sigs)}"
           for cid, sigs in sorted(sigs_by_company.items())),
     ]).encode("utf-8")).hexdigest()[:16]
@@ -401,6 +417,7 @@ def run_engine(company_list: List[Dict[str, Any]], *, config: Optional[Dict[str,
         "extractor_version": signal_lib.EXTRACTOR_VERSION,
         "config_version": cfg["config_version"],
         "config_hash": cfg["config_hash"],
+        "metadata_hash": metadata_hash,   # which metadata file this run's tiers came from
         "as_of": as_of,
         "cutoff": cutoff or "",
         "signals_dropped_by_cutoff": dropped,
@@ -449,7 +466,8 @@ def label_counts(run: Dict[str, Any]) -> Dict[str, int]:
 
 
 # --------------------------------------------------------------------------- #
-#  cache (a run is immutable — its id IS its content hash, so a hit is always valid)
+#  cache (a run is immutable — its id hashes EVERY input, config and metadata included,
+#  so a hit is always valid; add an input here and it must go into the id too)
 # --------------------------------------------------------------------------- #
 def _read_cache(path):
     try:

@@ -41,6 +41,13 @@ _FAKE_DDG_HTML = """<html><body>
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
+class Skipped(Exception):
+    """A check that could not run (an optional dependency is absent).
+
+    Raised rather than `return`ed so the run reports SKIP instead of a green PASS — a check
+    that did not execute must never read as a check that succeeded."""
+
+
 def _load(rel):
     with open(os.path.join(ROOT, rel), "r", encoding="utf-8") as f:
         return json.load(f)
@@ -1172,8 +1179,10 @@ def test_api_smoke():
     """Exercise the primary FastAPI boundary without network, LLM, or a browser."""
     try:
         from fastapi.testclient import TestClient
-    except Exception:
-        return  # API dependencies are optional for the lightweight offline selftest.
+    except Exception as exc:
+        # Optional for the lightweight offline selftest — but this is the ONLY coverage of the
+        # primary boundary, so an absent dependency must be visible, not a silent green.
+        raise Skipped(f"fastapi/httpx not installed ({exc})") from exc
     import server
 
     original_llm = core.call_llm
@@ -1317,11 +1326,14 @@ def main():
         ("snapshot band direction-aware (higher=better demo vs lower=better risk)", lambda: test_snapshot_band_direction_aware()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
-    failures = 0
+    failures = skipped = 0
     for name, fn in checks:
         try:
             fn()
             print(f"  PASS  {name}")
+        except Skipped as e:
+            skipped += 1
+            print(f"  SKIP  {name}: {e}")
         except Exception as e:  # noqa: BLE001 — selftest reports any failure
             failures += 1
             print(f"  FAIL  {name}: {type(e).__name__}: {e}")
@@ -1329,7 +1341,9 @@ def main():
     if failures:
         print(f"FAILED — {failures} check(s) failed.")
         raise SystemExit(1)
-    print("OK — all checks passed (relay wiring + contracts verified, no network used).")
+    tail = f" ({skipped} skipped — see above)" if skipped else ""
+    print("OK — all checks passed (relay wiring + contracts verified, no network used)"
+          f"{tail}.")
 
 
 if __name__ == "__main__":
