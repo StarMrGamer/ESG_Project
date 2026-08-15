@@ -425,6 +425,39 @@ def _cc_focused(focus_ticker, filtered, path):
     return filtered[0] if filtered else None
 
 
+def _board_average(filtered, mode, sector):
+    """Build the filtered-set average card without coupling it to the endpoint response."""
+    if mode == "evidence":
+        avg, count = metrics.evidence_average(filtered)
+        return {"kind": "evidence", "value": avg, "n": count,
+                "title": f"Avg ESG-leadership · {_short_sector(sector)}",
+                "sub": f"evidence index 0–100 · {count} names" if avg is not None
+                       else "awaiting data"}
+    avg, count = metrics.average_esg(filtered)
+    return {"kind": "numeric", "value": avg, "n": count,
+            "title": f"Avg ESG · {_short_sector(sector)}",
+            "sub": f"mean static score · {count} names" if avg is not None else "awaiting data"}
+
+
+def _board_watchlist(path):
+    """Serialize monitored entries and preserve unbuilt universe tickers."""
+    rows = []
+    for ticker in _WATCHLIST:
+        entry = _ENTRIES.get(ticker)
+        constituent = universe.get(ticker, path)
+        if entry:
+            rows.append({"ticker": ticker, "name": entry["snap"]["company"], "built": True,
+                         "band": entry["snap"].get("band") or "",
+                         "band_emoji": _band_emoji(entry["snap"]),
+                         "has_answer": entry.get("answer") is not None,
+                         "in_universe": constituent is not None})
+        else:
+            rows.append({"ticker": ticker, "name": (constituent or {}).get("company") or ticker,
+                         "built": False, "band": "", "band_emoji": "", "has_answer": False,
+                         "in_universe": constituent is not None})
+    return rows
+
+
 @app.get("/api/board")
 def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
           focus: str = "", simplified: bool = Query(True)):
@@ -442,18 +475,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     focused = _cc_focused(focus or None, filtered, path)
     nt = {focus} if focus else set()
 
-    if mode == "evidence":
-        avg, an = metrics.evidence_average(filtered)
-        avg_payload = {"kind": "evidence", "value": avg, "n": an,
-                       "title": f"Avg ESG-leadership · {_short_sector(sector)}",
-                       "sub": (f"evidence index 0–100 · {an} names") if avg is not None
-                              else "awaiting data"}
-    else:
-        avg, an = metrics.average_esg(filtered)
-        avg_payload = {"kind": "numeric", "value": avg, "n": an,
-                       "title": f"Avg ESG · {_short_sector(sector)}",
-                       "sub": (f"mean static score · {an} names") if avg is not None
-                              else "awaiting data"}
+    avg_payload = _board_average(filtered, mode, sector)
 
     hw_rows, peer_avg, peer_n = metrics.hidden_winners(filtered, top_n=5, new_tickers=nt)
     leaders = metrics.evidence_leaders(filtered, top_n=5, new_tickers=nt)
@@ -500,20 +522,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         }
 
     # --- watchlist ---------------------------------------------------------------- #
-    wl = []
-    for tk in _WATCHLIST:
-        e = _ENTRIES.get(tk)
-        uc = universe.get(tk, path)
-        if e:
-            wl.append({"ticker": tk, "name": e["snap"]["company"], "built": True,
-                       "band": e["snap"].get("band") or "",
-                       "band_emoji": _band_emoji(e["snap"]),
-                       "has_answer": e.get("answer") is not None,
-                       "in_universe": uc is not None})
-        else:
-            wl.append({"ticker": tk, "name": (uc or {}).get("company") or tk, "built": False,
-                       "band": "", "band_emoji": "", "has_answer": False,
-                       "in_universe": uc is not None})
+    wl = _board_watchlist(path)
 
     followups = metrics.suggested_followups(
         focused_name=(focused or {}).get("company"),

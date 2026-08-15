@@ -69,9 +69,8 @@ Saved to `fixtures/narrowed_question.json` as the baton Stage 2 consumes.
   json_mode=True)`, parses defensively. Hits the cap (`core.MAX_QUESTIONS = 5`) →
   appends `FORCE_NARROW_NOTE` and forces `type="narrowed"`, guaranteeing termination.
 - `build_narrowed_question(trail, final_env)` → Contract A.
-- `render(ss, company)` — the Streamlit UI (all `st.*` calls confined here so the module
-  imports cleanly in tests). Always offers **"→ I've said enough — narrow it & continue"**
-  so the user can reach Stage 2 even if the model keeps asking.
+- The React client owns the interactive UI. `server.py` exposes `ask_next` and
+  `build_narrowed_question` as stateless API endpoints; there is no Streamlit dependency.
 
 ## Defensive behaviour
 

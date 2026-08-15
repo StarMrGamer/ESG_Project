@@ -39,10 +39,10 @@ esg-momentum-radar/
   datasource.py             # build a CompanyData LIVE (free-text OR constituent-anchored) / UPLOAD; + snapshot
   universe.py               # ASEAN base DB loader/filter/resolver (the watchlist menu)
   metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify
-  app.py                    # Streamlit COMMAND-CENTER shell: filters · pillars · hidden winners · AI assistant · deep dive
+  server.py                 # FastAPI API boundary + static React host: dashboard · chat · relay · evidence
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
   stage2.py                 # AGENT 2 owns — reason over data + RAG + history (emits CoT + sources)
-  stage3.py                 # AGENT 3 owns — render the answer (verdict, CoT, history, sources)
+  stage3.py                 # Contract C Markdown/text export helpers (React owns live rendering)
   engine.py                 # run_engine(company_list) — the reproducible score records (Gate 1)
   signals.py                # deterministic signal extraction from stored evidence (no LLM, no clock)
   engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers)
@@ -52,8 +52,9 @@ esg-momentum-radar/
   contracts/EvidenceAnchor.sol  # C1 — append-only run_id -> root, ~20 lines
   harness.py                # A8 — determinism · golden set · 5 backtest cases · merkle · sweep
   llm_cost.py               # cost per company off the golden set (no price is ever guessed)
-  build_metadata_mock.py    # regenerates the PROVISIONAL metadata CSV (deterministic)
-  demo_diversify.py         # re-derives ONLY the demo fixture's momentum/live_signals/news
+  scripts/                   # developer-only data builders and the LLM probe
+    build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
+    demo_diversify.py        # re-derives ONLY demo momentum/live_signals/news
                             #   (preserves esg_score — the MOCK baseline must not move)
   data/asean_universe.json  # BASE DB — 52 ASEAN ESG improvers (evidence-based: esg_basis/source_url/confidence)
   data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
@@ -94,9 +95,9 @@ could never be populated. Click a card → **deep dive** = the Stage 1→2→3 r
 `country`/`exchange`/numeric/evidence fields ride as NON-contract fields, so `contracts.py` stays frozen.
 
 **Build order (relay, in sequence):** Phase 0 — build & FREEZE `core.py`, `contracts.py`,
-the `app.py` shell, and seed `fixtures/`. Then **Stage 1 → Stage 2 → Stage 3 in order**:
+the `server.py` API boundary, and seed `fixtures/`. Then **Stage 1 → Stage 2 → Stage 3 in order**:
 each agent owns ONE file, consumes the previous stage's verified output from `fixtures/`,
-and saves its own verified output there as the baton for the next. Integrate in `app.py`.
+and saves its own verified output there as the baton for the next. Integrate through `server.py`.
 The existing `stage1_interrogation.py` is refactored into `stage1.py` + `core.py` in
 Phase 0. Note: a fresh agent session has no memory of the last — this file + the contracts
 + the on-disk fixtures ARE the memory that travels down the pipe.
@@ -191,8 +192,8 @@ the **live sources**. Sophistication in how it thinks, simplicity in what it say
 
 ## TECH STACK & COMMANDS
 
-- Python 3.8+, Streamlit, OpenAI SDK (DeepSeek is OpenAI-compatible), `requests` (live fetch),
-  `plotly` (interactive charts; guarded — the app degrades to a static fallback if it's absent).
+- Python 3.8+, OpenAI SDK (DeepSeek is OpenAI-compatible), `requests` (live fetch), FastAPI,
+  and a React/Vite frontend.
 - LLM: **DeepSeek**, model `deepseek-v4-flash`, `base_url="https://api.deepseek.com"`,
   key from env `DEEPSEEK_API_KEY`. All LLM access goes through `core.call_llm()`.
 - RAG: keyless live fetch from DuckDuckGo (HTML/Lite search results + the Instant-Answer "AI"
@@ -201,11 +202,10 @@ the **live sources**. Sophistication in how it thinks, simplicity in what it say
   `ESG_HTTP_TIMEOUT` (10s), `ESG_RAG_TOP_K` (5), `ESG_RAG_MAX_DOCS` (12), `ESG_RAG_TTL` (6h),
   `ESG_LLM_TIMEOUT` (30s), `ESG_USER_AGENT`. Results cache to `.cache/` (git-ignored).
 ```bash
-pip install -r requirements.txt          # streamlit, openai, requests, plotly
+pip install -r requirements.txt          # API, LLM, retrieval, and test dependencies
 export DEEPSEEK_API_KEY="sk-..."          # Windows: $env:DEEPSEEK_API_KEY="sk-..."
 python server.py                          # NEW PRIMARY UI: React (web/) + FastAPI -> http://localhost:8000
 cd web && npm install && npm run build    # one-time frontend build (dev: npm run dev, port 5173)
-streamlit run app.py                      # LEGACY shell — kept for reference, not the primary UI
 python selftest.py                        # offline check — no key, no network
 python harness.py                         # ENGINE check (A8): Gate 1 determinism + golden set +
                                           #   the 5 backtest cases + merkle + sensitivity sweep
@@ -213,7 +213,7 @@ python harness.py --update-golden         # re-freeze the golden set (review the
 python anchor.py                          # build + anchor the runs; --list, --verify RUN TICKER
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
 python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
-python build_metadata_mock.py             # regenerate the PROVISIONAL metadata CSV
+python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata CSV
 ```
 
 **The engine (Prototype Build Spec v2, `D/`).** `run_engine` is a PURE function — no clock, no
@@ -267,7 +267,7 @@ never silently unanchored.
    ONLY your `stageN.py`, against the contracts.
 3. Propose your file plan and wait for OK before writing (use Plan Mode).
 4. Verify your stage produces its contract EXACTLY; save a real example of your output to
-   `fixtures/` as the baton for the next stage; wire into `app.py`.
+   `fixtures/` as the baton for the next stage; wire into `server.py`.
 5. Acceptance = your stage consumes/produces its contract exactly, and the end-to-end
    demo chain runs: vague question → narrowed question → four-line competing answer that
    cites the Layer B gap + the MAS catalyst, with zero invented facts.

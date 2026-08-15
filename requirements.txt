@@ -1,10 +1,9 @@
-streamlit>=1.30
 openai>=1.0
 requests>=2.28
-plotly>=5.18
 fastapi>=0.115
 uvicorn>=0.30
 python-multipart>=0.0.9
+httpx>=0.27  # FastAPI TestClient used by the offline API smoke tests
 
 # OPTIONAL — only for writing/reading the Sepolia evidence anchor (Build Spec C3). The engine,
 # the harness and the whole demo run fine without it: an unreachable chain degrades to

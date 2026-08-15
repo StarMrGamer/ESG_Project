@@ -7,8 +7,8 @@ framing, then restates the user's REAL question — emitting a NarrowedQuestion 
 as the baton for Stage 2. It NEVER answers the ESG question; that is Stage 2's job.
 
 This file owns the interrogation IP (SYSTEM_PROMPT). All LLM access goes through
-core.call_llm(); all Streamlit calls live inside render() (and its private _helpers) so
-importing this module is side-effect-free (selftest imports it without a display).
+core.call_llm(); the interrogation functions are UI-agnostic so the API and tests can
+import this module without a display.
 
 UI affordances that make input effortless live here too: tappable quick-reply chips,
 undo-last-answer, and intake of a programmatic input (a sidebar demo button drops a
@@ -138,7 +138,7 @@ FORCE_NARROW_NOTE = (
 
 
 # --------------------------------------------------------------------------- #
-#  PURE LOGIC (no Streamlit) — testable standalone.
+#  PURE LOGIC — testable standalone and used by the FastAPI boundary.
 # --------------------------------------------------------------------------- #
 def _clean_suggestions(val):
     """Normalise the model's suggested_replies into ≤3 short, tappable strings.
@@ -261,7 +261,7 @@ def build_narrowed_question(trail, final_env):
 
 
 # --------------------------------------------------------------------------- #
-#  STREAMLIT UI (all st.* calls confined here — import-safe module).
+#  DISPLAY HELPER (the live UI is implemented by React).
 # --------------------------------------------------------------------------- #
 def _axis_badge(env):
     t = env.get("type")
@@ -273,156 +273,3 @@ def _axis_badge(env):
         return f"{icon} {name}"
     # Unknown/missing axis — keep the UI clean instead of showing "❓ —".
     return "⚡ Challenge" if t == "challenge" else "🔍 Question"
-
-
-def _render_trail(st, ss):
-    """Replay the interrogation: each user turn followed by the AI's envelope."""
-    user_turns = [m for m in ss.s1_msgs if m["role"] == "user"]
-    debug = bool(ss.get("debug"))
-    for i, env in enumerate(ss.s1_trail):
-        if i < len(user_turns):
-            with st.chat_message("user"):
-                st.write(user_turns[i]["content"])
-        with st.chat_message("assistant"):
-            st.markdown(f"**{_axis_badge(env)}**")
-            st.write(env["text"])
-            if env.get("rationale") and env.get("type") != "narrowed":
-                st.caption(f"💭 _Why I'm asking:_ {env['rationale']}")
-            if env.get("_parse_failed"):
-                st.caption("⚠️ The model didn't return valid JSON for this turn.")
-            if (debug or env.get("_parse_failed")) and "_raw" in env:
-                with st.expander("🐞 raw model output"):
-                    st.code(env["_raw"] or "<empty>")
-
-
-def _commit_turn(st, ss, env, raw):
-    """Persist one AI turn; flip to the narrowed state (Contract A baton) when done."""
-    ss.s1_msgs.append({"role": "assistant", "content": raw})
-    ss.s1_trail.append(env)
-    if env["done"]:
-        ss.s1_done = True
-        ss.narrowed_q = build_narrowed_question(ss.s1_trail, env)
-    else:
-        ss.s1_turns += 1
-    st.rerun()
-
-
-def _undo_last(ss):
-    """Back one turn: drop the last AI envelope + the user answer that prompted it, so a
-    misspoken answer can be redone without a full reset (lighter than ↺ Reset)."""
-    if ss.s1_trail:
-        ss.s1_trail.pop()
-    if ss.s1_msgs and ss.s1_msgs[-1].get("role") == "assistant":
-        ss.s1_msgs.pop()
-    if ss.s1_msgs and ss.s1_msgs[-1].get("role") == "user":
-        ss.s1_msgs.pop()
-    if ss.s1_turns > 0:
-        ss.s1_turns -= 1
-    ss.s1_done = False
-    ss.narrowed_q = None
-
-
-def _submit_answer(st, ss, company, user_text):
-    """Process one user turn (typed, chip-tapped, or demo-seeded) → ask the next question."""
-    ss.s1_msgs.append({"role": "user", "content": user_text})
-    with st.spinner("Thinking about what to ask next…"):
-        try:
-            env, raw = ask_next(ss.s1_msgs, ss.s1_turns, company)
-        except core.LLMConfigError as e:
-            ss.s1_msgs.pop()  # roll back the unanswered turn
-            st.error(str(e))
-            return
-        except Exception as e:  # noqa: BLE001 — keep a live flop friendly, never a traceback.
-            ss.s1_msgs.pop()
-            st.warning("⚠️ Couldn't reach the model just now — usually a network blip or a "
-                       "wrong model name (try setting DEEPSEEK_MODEL). Please try again.")
-            with st.expander("Details"):
-                st.code(f"{type(e).__name__}: {e}")
-            return
-    _commit_turn(st, ss, env, raw)  # reruns
-
-
-def _force_narrow(st, ss, company):
-    """Force the 'I've said enough' path: narrow now regardless of the model's instinct."""
-    with st.spinner("Narrowing your question…"):
-        try:
-            env, raw = ask_next(ss.s1_msgs, core.MAX_QUESTIONS, company)
-        except core.LLMConfigError as e:
-            st.error(str(e))
-            return
-        except Exception as e:  # noqa: BLE001
-            st.warning("⚠️ Couldn't reach the model just now — please try again.")
-            with st.expander("Details"):
-                st.code(f"{type(e).__name__}: {e}")
-            return
-    _commit_turn(st, ss, env, raw)
-
-
-def _render_quick_replies(st, ss, company):
-    """Tappable answers under the latest question. Prefers the model's DYNAMIC, context-aware
-    `suggested_replies` (tailored to this question + company); falls back to the static
-    per-axis set if the model returned none (or parsing failed)."""
-    if not ss.s1_trail:
-        return
-    last = ss.s1_trail[-1]
-    if last.get("type") not in ("question", "challenge"):
-        return
-    dynamic = last.get("suggested_replies") or []
-    chips = dynamic or QUICK_REPLIES.get(last.get("axis")) or []
-    if not chips:
-        return
-    st.caption("💡 Suggested replies:" if dynamic else "Quick replies:")
-    cols = st.columns(len(chips))
-    for i, chip in enumerate(chips):
-        with cols[i]:
-            if st.button(chip, key=f"chip_{ss.s1_turns}_{i}", use_container_width=True):
-                ss["pending_user_input"] = chip
-                st.rerun()
-
-
-def render(ss, company=None):
-    """Run the Stage-1 interrogation UI. Sets ss.s1_done + ss.narrowed_q when finished.
-
-    Owns ss keys: s1_msgs, s1_trail, s1_turns, s1_done, narrowed_q (the app initialises
-    them) plus the transient ss.pending_user_input (a demo/chip tap routed here as a turn).
-    `company` anchors the interrogation to the one loaded company (scope only).
-    """
-    import streamlit as st
-
-    _render_trail(st, ss)
-
-    if ss.s1_done:
-        return  # the app shows the narrowed-question card + the hand-off to Stage 2.
-
-    # A sidebar demo button or a quick-reply chip drops its text here; treat it as a turn.
-    pending = ss.pop("pending_user_input", None)
-    if pending:
-        _submit_answer(st, ss, company, pending)
-        return  # _submit_answer reruns on success; on error we've shown a message.
-
-    # Once the interrogation is underway, offer quick replies + undo + a way to finish —
-    # so the user reaches Stage 2 even if the model keeps asking instead of narrowing.
-    if ss.s1_trail:
-        _render_quick_replies(st, ss, company)
-        c_undo, c_done = st.columns([1, 2])
-        with c_undo:
-            if st.button("↩︎ Undo last answer", use_container_width=True,
-                         disabled=not ss.s1_msgs):
-                _undo_last(ss)
-                st.rerun()
-        with c_done:
-            if st.button("→ I've said enough — narrow it & continue",
-                         use_container_width=True):
-                _force_narrow(st, ss, company)
-                return
-        st.caption(f"Question {ss.s1_turns} of up to {core.MAX_QUESTIONS}.")
-
-    if ss.s1_msgs:
-        placeholder = "Your answer…"
-    elif company:
-        placeholder = f"What do you want to understand about {company.get('company')}?"
-    else:
-        placeholder = "What do you want to understand?"
-    user_text = st.chat_input(placeholder)
-    if user_text:
-        _submit_answer(st, ss, company, user_text)

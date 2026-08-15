@@ -1,4 +1,4 @@
-# docs/stage3.md — Stage 3 brief: **Render** (the decision tool)
+# docs/stage3.md — Stage 3 brief: **Export** (the decision tool)
 
 > Load this with `CLAUDE.md` before touching `stage3.py`. The contract shapes in
 > `CLAUDE.md` / `contracts.py` are frozen and authoritative. If anything conflicts,
@@ -8,54 +8,43 @@
 
 ## Job
 
-Take a `Stage2Answer` (Contract C) and present it as a clear decision tool. This is CGSI
-**criterion 02 ("simple, clear output")**. **Render-only — NO LLM call here.** Re-reasoning
-would risk re-wording or fabricating the verified baton (HARD RULE 2); Stage 3 just
-displays what Stage 2 verified.
+Take a `Stage2Answer` (Contract C) and provide dependency-free Markdown/text exports. The
+React client is the live decision-tool renderer. This is CGSI **criterion 02 ("simple, clear
+output")**. **Export-only — NO LLM call here.** Re-reasoning would risk re-wording or
+fabricating the verified baton (HARD RULE 2).
 
 ## Owns / does not touch
 
-- **Owns:** `stage3.py` only.
-- **Must not:** call the LLM, mutate the answer dict, or edit `core.py` / `contracts.py`
-  (frozen). All `st.*` calls live inside `render_answer()` so the module imports cleanly.
+- **Owns:** `stage3.py` export helpers; React owns the live presentation.
+- **Must not:** call the LLM, mutate the answer dict, import Streamlit/Plotly, or edit
+  `core.py` / `contracts.py` (frozen).
 
 ## Input
 
 - **Contract C** `Stage2Answer` (`fixtures/stage2_answer.json` / live from Stage 2) — now
   incl. `reasoning` (CoT) + `sources` (RAG citations).
-- Optional `company` (subject caption, Layer B evidence, `layer_a_history` strip),
-  `narrowed` (Contract A — the interrogation trail recap) and `debug`.
+- Optional `company` metadata and Layer B evidence.
 
-## Layout — **verdict first** (action-plan Fix #3)
+## Export shape — **verdict first**
 
 A decision tool leads with the punchline ("show me something I don't know", criterion 03);
 the depth (CoT, evidence, history, sources) sits below it — *simplicity in what it says,
 sophistication in how it thinks*:
 
-1. **Subject caption** — company · ticker · sector, with the **illustrative-scenario /
-   placeholder** disclaimer (we keep DemoBank SG framed as illustrative, never as real).
-2. **Failure guard** — if `_parse_failed` or every text field is `"unknown"`, show a warning
-   instead of a wall of `"unknown"`; the verdict headline is skipped in that case.
-3. **⚔️ The verdict** — `competes_summary` headline + "what would change our mind" +
-   **🧠 collapsible chain-of-thought** (`reasoning`).
-4. **🧭 How we narrowed your question** — the interrogation trail recap (from `narrowed`).
-5. **🎯 The question** — `question_to_ask`.
-6. **Market view vs. reality** — two columns: 📊 `what_rating_sees` | 🛰️ `what_we_see`.
-7. **✅ Check before Monday** — `check_before_monday`.
-8. **📡 Evidence** (Layer B momentum/AI/conflict) + **📈 historical-vs-current** static-score
-   strip (from `layer_a_history`) + **🔗 Sources** (live RAG citations) + **📋 export** card.
-9. Disclaimer caption — we disagree with the rating using a signal it can't see; never
-   buy/sell/hold.
+1. Subject, origin disclaimer, and verdict.
+2. Market view versus reality and the concrete Monday check.
+3. Known Layer B pillar/AI signals only; unknown-only rows are omitted.
+4. Optional reasoning and live sources.
+5. Disclaimer: this is not investment advice and never says buy/sell/hold.
 
-## Key function
+## Key functions
 
-- `render_answer(answer, company=None, debug=False, narrowed=None)` — the whole panel. Pure
-  display; reads Contract C keys (`_FIELDS` + `reasoning`/`sources`) plus optional `_raw` /
-  `_parse_failed` / `_rag_status` debug fields. Never calls the LLM or mutates the answer.
+- `_card_md(answer, company)` — Markdown report.
+- `_card_text(answer, company)` — plain-text report.
+- `_disclaimer(company)` — origin-aware provenance language.
 
 ## Acceptance
 
-- Displays the five text fields led by the verdict, plus the CoT, the historical strip, and
-  the live sources (or a graceful "no sources" note when offline / disabled).
-- A failed / empty Stage 2 degrades to the warning box (no wall of `"unknown"`).
-- Never shows buy/sell/hold or a score; the placeholder framing is always visible.
+- Reports the five text fields led by the verdict, plus known evidence, reasoning, and sources.
+- Sparse data omits unknown-only evidence sections.
+- Never shows buy/sell/hold; origin framing is always visible.

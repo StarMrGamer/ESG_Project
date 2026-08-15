@@ -20,6 +20,7 @@ import csv
 import io
 import json
 import re
+from typing import Any, Dict, Optional, Tuple
 
 import contracts
 import core
@@ -180,7 +181,8 @@ def _sources_provenance(snippets):
 # --------------------------------------------------------------------------- #
 #  LIVE COMPANY  (fetch real docs, then extract grounded Contract B)
 # --------------------------------------------------------------------------- #
-def build_live_company(user_text, *, use_rag=True, k=None):
+def build_live_company(user_text: str, *, use_rag: bool = True,
+                       k: Optional[int] = None) -> Dict[str, Any]:
     """Identify the company from `user_text` + fetch real docs, then extract a grounded
     Contract B. Returns (company_dict, meta). meta = {"status", "doc_count"}.
 
@@ -258,7 +260,8 @@ def _search_entity(name):
     return re.sub(r"\s+", " ", (name or "").replace("(", " ").replace(")", " ")).strip()
 
 
-def build_company_from_constituent(constituent, *, use_rag=True, k=None):
+def build_company_from_constituent(constituent: Dict[str, Any], *, use_rag: bool = True,
+                                   k: Optional[int] = None) -> Dict[str, Any]:
     """Build a grounded Contract B for a KNOWN MSCI ASEAN constituent (dashboard / monitoring).
 
     Unlike build_live_company (which must first GUESS the identity from free text), identity here
@@ -390,7 +393,7 @@ def _pct_str(v):
     return f"{sign}{int(v) if float(v).is_integer() else v}%"
 
 
-def company_from_numeric(constituent, *, origin="live"):
+def company_from_numeric(constituent: Dict[str, Any], *, origin: str = "live") -> Dict[str, Any]:
     """Build a Contract B from a constituent's NUMERIC dashboard fields (esg_score / momentum /
     live_signals) with NO network or LLM — so the chatbot can run the 3-stage relay on demo or
     pre-scored data coherently and offline. Identity + numbers come straight from the row."""
@@ -458,7 +461,7 @@ def company_from_numeric(constituent, *, origin="live"):
     return company
 
 
-def snapshot_from_company(company):
+def snapshot_from_company(company: Dict[str, Any]) -> Dict[str, Any]:
     """Compact monitoring summary for a dashboard card. Pure read over a Contract B dict — no
     network, no LLM. Returns rating/band/score, E-S-G momentum arrows, red-flag count, and a
     coverage fraction (how many of the 10 monitored signals are actually grounded)."""
@@ -575,7 +578,7 @@ def _csv_to_text(text):
     return "HEADER: " + ", ".join(header) + "\n" + "\n".join(out) if out else text
 
 
-def load_upload(filename, content):
+def load_upload(filename: str, content: bytes) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     """Load uploaded ESG data into a Contract B dict. Returns (company_dict, meta).
 
     .json → coerced as-is (authoritative). .csv/.txt → LLM extraction grounded ONLY in the

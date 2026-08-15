@@ -601,7 +601,8 @@ def test_compare_companies():
 
 
 def test_demo_roster_valid():
-    import demo_roster, esg_data
+    from scripts import demo_roster
+    import esg_data
     cfg = demo_roster.load_config()
     assert len(cfg) == 36
     tickers = [c["ticker"] for c in cfg]
@@ -617,7 +618,8 @@ def test_demo_roster_valid():
 
 def test_demo_roster_rejects_malformed():
     """Each of load_config's three guards must raise ValueError (not KeyError / silent pass)."""
-    import demo_roster, tempfile
+    from scripts import demo_roster
+    import tempfile
     _ok = lambda **kw: {"name": "X", "country": "Singapore", "sector": "S",
                         "real_world_basis": "RWB", "ticker": "SGX:X", "exchange": "SGX", **kw}
     missing_key = _ok()
@@ -645,7 +647,7 @@ import universe  # noqa: E402 — used by the grounded data-backed tests below
 
 
 def test_demo_enrich_deterministic_and_labelled():
-    import demo_enrich
+    from scripts import demo_enrich
     bd = {"e_score": 60.0, "s_score": 55.0, "g_score": 70.0, "overall": 61.0}
     m1 = demo_enrich.momentum("DemoBank", bd)
     m2 = demo_enrich.momentum("DemoBank", bd)
@@ -1116,7 +1118,7 @@ def test_esg_scoring_variance_differs_by_name():
 
 
 def test_build_demo_universe_schema_and_no_leak():
-    import build_demo_universe
+    from scripts import build_demo_universe
     uni = build_demo_universe.build(allow_live=False)   # offline -> bundled CSV
     cons = uni["constituents"]
     assert len(cons) == 36
@@ -1166,26 +1168,58 @@ def test_snapshot_band_direction_aware():
     assert rsnap["band"] == "Severe Risk" and rsnap["band_tone"] == "bad", rsnap
 
 
-def test_monitor_enabled_in_demo_mode():
-    """[task-10] Monitor buttons in the browse grid must NOT be all disabled in demo mode."""
+def test_api_smoke():
+    """Exercise the primary FastAPI boundary without network, LLM, or a browser."""
     try:
-        from streamlit.testing.v1 import AppTest
+        from fastapi.testclient import TestClient
     except Exception:
-        return  # streamlit not available -> skip
-    import core
-    def _no_net(*a, **k):
-        raise RuntimeError("offline (network-free selftest)")
-    orig = core.http_get
-    core.http_get = _no_net
+        return  # API dependencies are optional for the lightweight offline selftest.
+    import server
+
+    original_llm = core.call_llm
+    fixture_answer = json.dumps(_load("fixtures/stage2_answer.json"))
+    stage1_envelope = json.dumps({
+        "axis": None, "type": "narrowed", "text": "Is the bank's ESG gap a near-term risk?",
+        "rationale": "The mandate and horizon are now clear.", "suggested_replies": [],
+        "done": True, "mandate": "risk", "sector": "Financials — Banks",
+        "horizon": "near_term",
+    })
+    calls = {"stage1": False}
+
+    def fake_llm(*args, **kwargs):
+        if calls["stage1"]:
+            return fixture_answer
+        calls["stage1"] = True
+        return stage1_envelope
+
+    core.call_llm = fake_llm
     try:
-        at = AppTest.from_file("app.py", default_timeout=60)
-        at.run()
-        mon = [b for b in at.button if "Monitor" in (b.label or "")]
-        assert mon, "expected Monitor buttons in the browse grid"
-        assert any(not b.disabled for b in mon), "Monitor must be enabled in demo mode"
-        assert not at.exception
+        with TestClient(server.app) as client:
+            assert client.get("/api/health").status_code == 200
+            board = client.get("/api/board").json()
+            assert board["counts"]["total"] > 0
+            assert client.post("/api/chat", json={"text": "show banks"}).status_code == 200
+
+            sampled = client.post("/api/sample")
+            assert sampled.status_code == 200, sampled.text
+            ticker = sampled.json()["ticker"]
+            assert client.get(f"/api/entry/{ticker}").status_code == 200
+            assert client.get("/api/watchlist").status_code == 200
+
+            asked = client.post("/api/stage1/ask", json={"messages": [], "turns": 0,
+                                                          "force": True})
+            assert asked.status_code == 200 and asked.json()["envelope"]["done"]
+            narrowed = client.post("/api/stage1/narrow", json={
+                "trail": [], "final_env": json.loads(stage1_envelope)})
+            assert narrowed.status_code == 200
+
+            quick = client.post("/api/stage2/quick", json={"ticker": ticker, "use_rag": False})
+            assert quick.status_code == 200, quick.text
+            compare = client.post("/api/compare", json={"tickers": [ticker, ticker]})
+            assert compare.status_code == 200, compare.text
+            assert client.delete(f"/api/monitor/{ticker}").status_code == 200
     finally:
-        core.http_get = orig
+        core.call_llm = original_llm
 
 
 def main():
@@ -1281,7 +1315,7 @@ def main():
         ("[task-9] company_from_numeric rides esg_breakdown+provenance and flips note", lambda: test_company_from_numeric_rides_breakdown_and_note()),
         ("[task-9] metrics.esg_breakdown passthrough helper", lambda: test_metrics_esg_breakdown_passthrough()),
         ("snapshot band direction-aware (higher=better demo vs lower=better risk)", lambda: test_snapshot_band_direction_aware()),
-        ("[task-10] Monitor enabled in demo mode (AppTest)", lambda: test_monitor_enabled_in_demo_mode()),
+        ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = 0
     for name, fn in checks:

@@ -18,7 +18,7 @@ Every row is `is_provisional = TRUE`. Phase B1 replaces this file with the verif
 (`data/company_metadata.csv`, which takes precedence) — no code change, which is the whole
 reason the schema froze early.
 
-    python build_metadata_mock.py
+    python -m scripts.build_metadata_mock
 """
 
 import csv

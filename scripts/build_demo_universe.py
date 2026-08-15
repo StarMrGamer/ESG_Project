@@ -3,9 +3,11 @@
 Pipeline: get_country_table (live->fallback) -> score each roster company -> attach
 illustrative enrichment -> write the universe. real_world_basis is dropped (internal-only)."""
 import json, os
-import esg_data, esg_scoring, demo_enrich, demo_roster
+import esg_data, esg_scoring
+from scripts import demo_enrich, demo_roster
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "demo_universe.json")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "data", "demo_universe.json")
 
 
 def build(allow_live=False):

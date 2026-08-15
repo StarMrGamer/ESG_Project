@@ -20,7 +20,7 @@ if [ ! -d venv ]; then
   python3 -m venv venv
 fi
 ./venv/bin/pip install --quiet --upgrade pip
-./venv/bin/pip install --quiet -r requirements.txt
+./venv/bin/pip install --quiet -r requirements.lock
 echo "==> python deps installed"
 
 # --- frontend ---------------------------------------------------------------

@@ -35,6 +35,7 @@ momentum sits in [-1, +1] and is directly comparable across companies.
 import hashlib
 import json
 import os
+from typing import Any, Dict, List, Optional
 
 import engine_config
 import metrics
@@ -296,8 +297,72 @@ def apply_tiers(record, meta, cfg=None):
 # --------------------------------------------------------------------------- #
 #  the run
 # --------------------------------------------------------------------------- #
-def run_engine(company_list, *, config=None, as_of=None, cutoff=None, metadata=None,
-               use_cache=True, cache_dir=None):
+def _company_id(company: Dict[str, Any]) -> str:
+    return company.get("ticker") or company.get("company_id") or company.get("company") or "unknown"
+
+
+def _prepare_signals(companies, cfg, cutoff):
+    """Extract signals and apply the historical cutoff before cohort scoring."""
+    by_company, dropped = {}, 0
+    for company in companies:
+        cid = _company_id(company)
+        signals = signal_lib.from_company(company, config=cfg)
+        if cutoff:
+            kept = [s for s in signals if not s.get("published_at") or s["published_at"] < cutoff]
+            dropped += len(signals) - len(kept)
+            signals = kept
+        by_company[cid] = signals
+    return by_company, dropped
+
+
+def _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run_id):
+    """Build sorted records from frozen signals; kept separate to protect determinism."""
+    aggregates, baselines, bases = [], [], []
+    for company in companies:
+        cid = _company_id(company)
+        aggregates.append(_aggregate(sigs_by_company[cid], cfg, as_of))
+        score, basis = _baseline_score(company)
+        baselines.append(score)
+        bases.append(basis)
+    known = [score for score in baselines if score is not None]
+    base_ranks = dict(zip([i for i, score in enumerate(baselines) if score is not None],
+                          _percentiles(known)))
+    mom_ranks = _percentiles([aggregate["composite_momentum"] for aggregate in aggregates])
+    records = []
+    for i, company in enumerate(companies):
+        cid = _company_id(company)
+        aggregate = aggregates[i]
+        lseg_p, mom_p = round(base_ranks.get(i, 0.5), 6), mom_ranks[i]
+        record = {
+            "run_id": run_id, "company_id": cid, "company": company.get("company", cid),
+            "sector": company.get("sector", "unknown"), "country": company.get("country", "unknown"),
+            "as_of": as_of, "cutoff": cutoff or "", "signal_count": len(sigs_by_company[cid]),
+            "signal_ids": [s["signal_id"] for s in sigs_by_company[cid]],
+            "composite_momentum": aggregate["composite_momentum"],
+            "composite_confidence": aggregate["composite_confidence"],
+            "direction_consensus": aggregate["direction_consensus"],
+            "evidence_weight": aggregate["evidence_weight"], "shrinkage": aggregate["shrinkage"],
+            "coverage": aggregate["coverage"], "mean_source_quality": aggregate["mean_source_quality"],
+            "breadth": aggregate["breadth"], "corroboration": aggregate["corroboration"],
+            "components": aggregate["components"], "subcomponents": aggregate["subcomponents"],
+            "baseline_score": baselines[i], "baseline_basis": bases[i], "baseline_origin": "MOCK-LSEG",
+            "lseg_percentile": lseg_p, "momentum_percentile": mom_p,
+            "disagreement": round(mom_p - lseg_p, 6), "disagreement_abs": round(abs(mom_p - lseg_p), 6),
+            "signals": sigs_by_company[cid],
+        }
+        record["label"] = label_for(record, cfg)
+        record["label_display"] = engine_config.display(cfg, record["label"])
+        if metadata is not None:
+            apply_tiers(record, (metadata or {}).get(cid, {}), cfg)
+        records.append(record)
+    records.sort(key=lambda record: record["company_id"])
+    return records
+
+
+def run_engine(company_list: List[Dict[str, Any]], *, config: Optional[Dict[str, Any]] = None,
+               as_of: Optional[str] = None, cutoff: Optional[str] = None,
+               metadata: Optional[Dict[str, Any]] = None, use_cache: bool = True,
+               cache_dir: Optional[str] = None) -> Dict[str, Any]:
     """Score a list of company records. Returns a run dict:
 
         {run_id, engine_version, config_version, config_hash, as_of, cutoff,
@@ -311,16 +376,7 @@ def run_engine(company_list, *, config=None, as_of=None, cutoff=None, metadata=N
     cfg = config or engine_config.load()
     companies = [c for c in (company_list or []) if isinstance(c, dict)]
 
-    sigs_by_company = {}
-    dropped = 0
-    for c in companies:
-        cid = c.get("ticker") or c.get("company_id") or c.get("company") or "unknown"
-        sigs = signal_lib.from_company(c, config=cfg)
-        if cutoff:
-            kept = [s for s in sigs if not s.get("published_at") or s["published_at"] < cutoff]
-            dropped += len(sigs) - len(kept)
-            sigs = kept
-        sigs_by_company[cid] = sigs
+    sigs_by_company, dropped = _prepare_signals(companies, cfg, cutoff)
 
     as_of = as_of or _as_of_from(companies, sigs_by_company)
     if cutoff and (not as_of or as_of >= cutoff):
@@ -338,64 +394,7 @@ def run_engine(company_list, *, config=None, as_of=None, cutoff=None, metadata=N
         if cached:
             return cached
 
-    aggregates, baselines, bases = [], [], []
-    for c in companies:
-        cid = c.get("ticker") or c.get("company_id") or c.get("company") or "unknown"
-        aggregates.append(_aggregate(sigs_by_company[cid], cfg, as_of))
-        score, basis = _baseline_score(c)
-        baselines.append(score)
-        bases.append(basis)
-
-    # percentiles are cohort-relative: an unrated name sits at the median rather than
-    # inventing a rating for it (HARD RULE 2)
-    known = [s for s in baselines if s is not None]
-    base_ranks = dict(zip([i for i, s in enumerate(baselines) if s is not None],
-                          _percentiles(known)))
-    mom_ranks = _percentiles([a["composite_momentum"] for a in aggregates])
-
-    records = []
-    for i, c in enumerate(companies):
-        cid = c.get("ticker") or c.get("company_id") or c.get("company") or "unknown"
-        agg = aggregates[i]
-        lseg_p = round(base_ranks.get(i, 0.5), 6)
-        mom_p = mom_ranks[i]
-        record = {
-            "run_id": run_id,
-            "company_id": cid,
-            "company": c.get("company", cid),
-            "sector": c.get("sector", "unknown"),
-            "country": c.get("country", "unknown"),
-            "as_of": as_of,
-            "cutoff": cutoff or "",
-            "signal_count": len(sigs_by_company[cid]),
-            "signal_ids": [s["signal_id"] for s in sigs_by_company[cid]],
-            "composite_momentum": agg["composite_momentum"],
-            "composite_confidence": agg["composite_confidence"],
-            "direction_consensus": agg["direction_consensus"],
-            "evidence_weight": agg["evidence_weight"],
-            "shrinkage": agg["shrinkage"],
-            "coverage": agg["coverage"],
-            "mean_source_quality": agg["mean_source_quality"],
-            "breadth": agg["breadth"],
-            "corroboration": agg["corroboration"],
-            "components": agg["components"],
-            "subcomponents": agg["subcomponents"],
-            "baseline_score": baselines[i],
-            "baseline_basis": bases[i],
-            "baseline_origin": "MOCK-LSEG",     # never a licensed LSEG figure (HARD RULE 3)
-            "lseg_percentile": lseg_p,
-            "momentum_percentile": mom_p,
-            "disagreement": round(mom_p - lseg_p, 6),
-            "disagreement_abs": round(abs(mom_p - lseg_p), 6),
-            "signals": sigs_by_company[cid],
-        }
-        record["label"] = label_for(record, cfg)
-        record["label_display"] = engine_config.display(cfg, record["label"])
-        if metadata is not None:
-            apply_tiers(record, (metadata or {}).get(cid, {}), cfg)
-        records.append(record)
-
-    records.sort(key=lambda r: r["company_id"])
+    records = _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run_id)
     run = {
         "run_id": run_id,
         "engine_version": cfg["engine_version"],
@@ -415,7 +414,7 @@ def run_engine(company_list, *, config=None, as_of=None, cutoff=None, metadata=N
     return run
 
 
-def enforce_cutoff(run, cutoff=None):
+def enforce_cutoff(run: Dict[str, Any], cutoff: Optional[str] = None) -> Dict[str, Any]:
     """Fail LOUDLY if any signal in a run was published on/after the cutoff (A8).
 
     Called by the harness after every backtest run; the filter inside `run_engine` should make
@@ -433,7 +432,7 @@ def enforce_cutoff(run, cutoff=None):
     return run
 
 
-def record_for(run, company_id):
+def record_for(run: Dict[str, Any], company_id: str) -> Optional[Dict[str, Any]]:
     """One record by company id, or None."""
     for r in run.get("records", []):
         if r["company_id"] == company_id:
@@ -441,7 +440,7 @@ def record_for(run, company_id):
     return None
 
 
-def label_counts(run):
+def label_counts(run: Dict[str, Any]) -> Dict[str, int]:
     """{label_key: n} across a run — the matrix legend's counts."""
     out = {}
     for r in run.get("records", []):
@@ -469,7 +468,7 @@ def _write_cache(path, run):
         pass          # a read-only disk must never break a run (best-effort, like retrieval)
 
 
-def digest(run):
+def digest(run: Dict[str, Any]) -> str:
     """A stable content digest of a run — the determinism test compares these."""
     return hashlib.sha256(
         json.dumps(run, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()

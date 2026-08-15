@@ -22,7 +22,7 @@ import json
 import os
 import sys
 
-import demo_enrich
+from scripts import demo_enrich
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEMO_FILE = os.path.join(BASE_DIR, "data", "demo_universe.json")

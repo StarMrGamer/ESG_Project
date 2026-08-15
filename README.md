@@ -75,7 +75,7 @@ The demo basket's company ESG scores are **synthetic but principled** — derive
   (`INDICATOR_WEIGHTS`, `PILLAR_WEIGHTS`, `SECTOR_MULTIPLIERS`, `VARIANCE_PCT`) — tune and re-run.
 - **Scores are 0–100, higher = better**, and describe only — never buy/sell/hold.
 
-Regenerate after tuning: `PYTHONPATH=. ./venv/bin/python build_demo_universe.py`.
+Regenerate after tuning: `PYTHONPATH=. ./venv/bin/python -m scripts.build_demo_universe`.
 Override the country data with your own OECD/WGI CSV via the app's upload, or by replacing
 `data/fallback_oecd_wgi_asean.csv`.
 
@@ -158,8 +158,7 @@ npm run dev            # OR dev server on http://localhost:5173 (proxies /api ->
 > demo steers the interrogation toward that AI/digital blind-spot. For **live** companies the
 > differentiator is whatever real gap the fetched sources reveal.
 
-> The legacy Streamlit shell is still in the repo (`streamlit run app.py`) — the React app in
-> `web/` is the primary frontend.
+> The React app in `web/` is the primary frontend, served by the FastAPI backend in `server.py`.
 
 ---
 
@@ -192,10 +191,9 @@ rag.py                   # live retrieval (RAG): DuckDuckGo search + AI summary 
 datasource.py            # build CompanyData LIVE (grounded) or load an UPLOAD (json/csv/txt)
 server.py                # FastAPI backend — REST + SSE over the Python brain (the React app's API)
 web/                     # React + TypeScript frontend (Vite) — the command center + deep-dive relay
-app.py                   # LEGACY Streamlit shell (kept for reference; web/ is the primary UI)
 stage1.py                # interrogation agent (+ visible chain-of-thought rationale)
 stage2.py                # competing reasoner (+ RAG, history, CoT, sources)
-stage3.py                # legacy Streamlit renderer (React AnswerPanel is the live Stage 3)
+stage3.py                # dependency-free Contract C Markdown/text export helpers
 data/hero_company.json   # SAMPLE only — offline-demo + test fixture (PLACEHOLDER values)
 fixtures/                # sample contract outputs (used by tests / as batons)
 selftest.py              # offline end-to-end check (no key, no network) — incl. RAG + datasource tests
