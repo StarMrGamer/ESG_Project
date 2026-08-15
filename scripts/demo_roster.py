@@ -2,7 +2,8 @@
 import json, os
 import esg_data
 
-CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "demo_config.json")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONFIG = os.path.join(ROOT, "data", "demo_config.json")
 _REQUIRED = ("name", "country", "sector", "real_world_basis", "ticker", "exchange")
 
 

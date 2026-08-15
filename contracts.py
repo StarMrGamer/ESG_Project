@@ -34,6 +34,8 @@ never invent; an absent field becomes an explicit "unknown", never a fabricated 
 DO NOT edit without sign-off (frozen).
 """
 
+from typing import Any, Dict, List
+
 MANDATES = ("risk", "return", "compliance")
 HORIZONS = ("near_term", "structural")
 UNKNOWN = "unknown"
@@ -55,7 +57,7 @@ COMPANY_DATA_KEYS = ("company", "ticker", "sector", "layer_a", "layer_b")
 # --------------------------------------------------------------------------- #
 #  COERCERS  (make a raw dict conform to the contract; missing -> "unknown")
 # --------------------------------------------------------------------------- #
-def coerce_narrowed_question(d):
+def coerce_narrowed_question(d: Any) -> Dict[str, Any]:
     """Return a Contract A dict, keeping only contract keys and filling gaps."""
     d = d or {}
     trail = d.get("trail") or []
@@ -78,7 +80,7 @@ def coerce_narrowed_question(d):
     }
 
 
-def _coerce_reasoning(val):
+def _coerce_reasoning(val: Any) -> List[str]:
     """Contract C `reasoning`: a list of short chain-of-thought step strings (blanks dropped).
     Tolerates a single string or a list of {"step"/"text"} dicts. Never invents."""
     if isinstance(val, str):
@@ -95,7 +97,7 @@ def _coerce_reasoning(val):
     return steps
 
 
-def _coerce_sources(val):
+def _coerce_sources(val: Any) -> List[Dict[str, str]]:
     """Contract C `sources`: a list of {"title", "url"} provenance dicts (real entries only).
     These come from live retrieval, not the model — we never fabricate a citation."""
     if not isinstance(val, list):
@@ -111,7 +113,7 @@ def _coerce_sources(val):
     return out
 
 
-def coerce_stage2_answer(d):
+def coerce_stage2_answer(d: Any) -> Dict[str, Any]:
     """Return a Contract C dict: the five text fields ('unknown' if missing) + reasoning + sources."""
     d = d if isinstance(d, dict) else {}
     out = {k: (d.get(k) or UNKNOWN) for k in STAGE2_TEXT_KEYS}
@@ -120,12 +122,12 @@ def coerce_stage2_answer(d):
     return out
 
 
-def _coerce_momentum(x):
+def _coerce_momentum(x: Any) -> Dict[str, Dict[str, str]]:
     x = x if isinstance(x, dict) else {}  # a truthy-but-wrong type (str/list) must not crash .get
     return {"direction": x.get("direction") or UNKNOWN, "magnitude": x.get("magnitude") or UNKNOWN}
 
 
-def coerce_company_data(d, origin="unknown"):
+def coerce_company_data(d: Any, origin: str = "unknown") -> Dict[str, Any]:
     """Return a Contract B dict in the full nested shape, filling every gap with 'unknown'.
 
     Used for LIVE-built and UPLOADED data so a sloppy/partial source still validates and is
@@ -188,20 +190,20 @@ def coerce_company_data(d, origin="unknown"):
 # --------------------------------------------------------------------------- #
 #  VALIDATORS  (used by selftest; assert the on-disk batons match the contract)
 # --------------------------------------------------------------------------- #
-def validate_narrowed_question(d):
+def validate_narrowed_question(d: Dict[str, Any]) -> None:
     _require(d, NARROWED_QUESTION_KEYS, "NarrowedQuestion (Contract A)")
     assert isinstance(d["trail"], list), "Contract A: trail must be a list"
     return True
 
 
-def validate_stage2_answer(d):
+def validate_stage2_answer(d: Dict[str, Any]) -> None:
     _require(d, STAGE2_ANSWER_KEYS, "Stage2Answer (Contract C)")
     assert isinstance(d["reasoning"], list), "Contract C: reasoning must be a list"
     assert isinstance(d["sources"], list), "Contract C: sources must be a list"
     return True
 
 
-def validate_company_data(d):
+def validate_company_data(d: Dict[str, Any]) -> None:
     _require(d, COMPANY_DATA_KEYS, "CompanyData (Contract B)")
     _require(d["layer_b"], ("digital_ai_signal", "near_term_catalyst"), "CompanyData.layer_b")
     hist = d.get("layer_a_history")  # additive + optional: historical static-score series.
@@ -211,7 +213,7 @@ def validate_company_data(d):
     return True
 
 
-def _require(d, keys, name):
+def _require(d: Dict[str, Any], keys: List[str], name: str) -> None:
     assert isinstance(d, dict), f"{name} must be a dict, got {type(d).__name__}"
     missing = [k for k in keys if k not in d]
     assert not missing, f"{name} missing keys: {missing}"

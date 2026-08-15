@@ -23,6 +23,7 @@ disambiguates Singapore's UOB from a same-named foreign entity).
 
 import copy
 import os
+from typing import Any, Dict, List, Optional
 import re
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -36,7 +37,7 @@ _TOKEN_RE = re.compile(r"[a-z0-9]+")
 _CACHE = {}  # path -> {"mtime", "data"} : per-file mtime cache so Streamlit reruns don't re-read disk
 
 
-def active_file(demo=False):
+def active_file(demo: bool = False) -> str:
     """Which universe JSON to load — the fictional demo set, or the real ASEAN base DB."""
     return DEMO_FILE if demo else UNIVERSE_FILE
 
@@ -86,7 +87,7 @@ def _coerce_constituent(c):
     return out
 
 
-def load_universe(path=None):
+def load_universe(path: Optional[str] = None) -> Dict[str, Any]:
     """Load the base DB. Returns {"note","benchmark","as_of","countries","constituents":[...]}.
 
     Cached on file mtime so repeated Streamlit reruns don't re-read disk; drop in a new
@@ -126,24 +127,25 @@ def load_universe(path=None):
     return data
 
 
-def constituents(path=None):
+def constituents(path: Optional[str] = None) -> List[Dict[str, Any]]:
     """Just the list of constituent dicts."""
     return load_universe(path).get("constituents", [])
 
 
-def countries(path=None):
+def countries(path: Optional[str] = None) -> List[str]:
     """Distinct countries present, ordered by ASEAN_COUNTRIES then any extras alphabetically."""
     present = {c["country"] for c in constituents(path) if c["country"] != "unknown"}
     ordered = [c for c in ASEAN_COUNTRIES if c in present]
     return ordered + sorted(present - set(ordered))
 
 
-def sectors(path=None):
+def sectors(path: Optional[str] = None) -> List[str]:
     """Distinct sectors present (alphabetical) — for the dashboard filter."""
     return sorted({c["sector"] for c in constituents(path) if c["sector"] != "unknown"})
 
 
-def filter_constituents(country=None, sector=None, query=None, path=None):
+def filter_constituents(country: Optional[str] = None, sector: Optional[str] = None,
+                        query: Optional[str] = None, path: Optional[str] = None) -> List[Dict[str, Any]]:
     """Filter the universe by country and/or sector and/or a free-text substring."""
     q = (query or "").strip().lower()
     out = []
@@ -158,7 +160,7 @@ def filter_constituents(country=None, sector=None, query=None, path=None):
     return out
 
 
-def get(ticker, path=None):
+def get(ticker: str, path: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Exact constituent lookup by ticker id. Returns a COPY so a caller mutating the result
     (e.g. stamping a transient flag) can never poison the module-level mtime cache."""
     for c in constituents(path):
@@ -167,7 +169,7 @@ def get(ticker, path=None):
     return None
 
 
-def resolve(text, path=None, *, min_score=2):
+def resolve(text: str, path: Optional[str] = None, *, min_score: int = 2) -> Optional[Dict[str, Any]]:
     """Map a free-text request ("add DBS", "BCA bank", "SET:PTT") onto ONE constituent.
 
     Scores each constituent by token overlap + substring hits against its name/ticker/country.
@@ -205,7 +207,7 @@ def resolve(text, path=None, *, min_score=2):
     return copy.deepcopy(best) if best_score >= min_score else None
 
 
-def to_seed_company(constituent):
+def to_seed_company(constituent: Dict[str, Any]) -> Dict[str, Any]:
     """A minimal identity seed (NOT a full Contract B) the live builder anchors on, so retrieval
     is ASEAN-scoped and the company is disambiguated by its real country + home exchange."""
     c = constituent or {}
@@ -218,7 +220,7 @@ def to_seed_company(constituent):
     }
 
 
-def scope_terms(constituent):
+def scope_terms(constituent: Dict[str, Any]) -> List[str]:
     """Disambiguation suffix for a retrieval query — the company's market + exchange + 'ASEAN'.
     Folded into datasource/rag queries so 'fetch' finds the right ASEAN-listed entity."""
     c = constituent or {}

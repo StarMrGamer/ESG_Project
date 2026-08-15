@@ -24,9 +24,11 @@ DO NOT edit without sign-off (frozen contract surface).
 
 import json
 import os
+import time
+from typing import Any, Callable, Dict, List, Optional
 
 
-def _env_float(name, default):
+def _env_float(name: str, default: float) -> float:
     """Read a float env var, falling back to `default` on a missing OR non-numeric value.
     A typo'd tunable (e.g. ESG_HTTP_TIMEOUT='8s') must never crash `import core`."""
     try:
@@ -35,7 +37,7 @@ def _env_float(name, default):
         return float(default)
 
 
-def _env_int(name, default):
+def _env_int(name: str, default: int) -> int:
     """Read an int env var, falling back to `default` on a missing OR non-numeric value."""
     try:
         return int(os.environ.get(name, default))
@@ -54,8 +56,8 @@ MAX_QUESTIONS = 5  # Stage 1 interrogation cap.
 
 # --- live-fetch / RAG config (rule 1 now permits live retrieval via http_get) ----------- #
 HTTP_TIMEOUT = _env_float("ESG_HTTP_TIMEOUT", 10)  # per-request seconds (default 10s)
-# Synchronous LLM calls run inside the Streamlit script-run; cap them so a stalled endpoint
-# can't freeze the UI for the SDK default (~600s × retries). Tunable via ESG_LLM_TIMEOUT.
+# Synchronous LLM calls run inside the API request path; cap them so a stalled endpoint
+# cannot hold a worker for the SDK default (~600s × retries). Tunable via ESG_LLM_TIMEOUT.
 LLM_TIMEOUT = _env_float("ESG_LLM_TIMEOUT", 30)
 USER_AGENT = os.environ.get(
     "ESG_USER_AGENT",
@@ -77,8 +79,9 @@ class FetchError(RuntimeError):
 # --------------------------------------------------------------------------- #
 #  THE ONE LLM ENTRY POINT  (provider isolation — swap providers only here)
 # --------------------------------------------------------------------------- #
-def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=False,
-             stream=False, on_delta=None):
+def call_llm(messages: List[Dict[str, Any]], system: str, *, max_tokens: int = 600,
+             temperature: float = 0.6, json_mode: bool = False, stream: bool = False,
+             on_delta: Optional[Callable[[str, str], None]] = None) -> str:
     """Call DeepSeek. The ONLY place that imports the SDK / reads the API key.
 
     A fresh agent per call: ``system`` is this stage's system prompt and ``messages`` is
@@ -106,7 +109,7 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
     from openai import OpenAI  # lazy import: non-LLM paths (e.g. selftest) need no SDK.
 
     # timeout + max_retries=0 so a connected-but-stalled endpoint degrades quickly (callers catch
-    # and fall back) instead of hanging the Streamlit run for the SDK default (~600s × 2 retries).
+    # and fall back) instead of hanging the API worker for the SDK default (~600s × 2 retries).
     client = OpenAI(api_key=api_key, base_url=BASE_URL, timeout=LLM_TIMEOUT, max_retries=0)
     kwargs = dict(
         model=MODEL,
@@ -120,8 +123,18 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
         kwargs["stream"] = True
     try:
         resp = client.chat.completions.create(**kwargs)
-    except Exception:
-        if "response_format" in kwargs:  # model/endpoint rejected JSON mode — retry plain.
+    except Exception as exc:
+        # JSON mode is an endpoint capability issue, not a general retry policy.  Retrying
+        # auth failures and timeouts here used to double latency and could hide the root error.
+        message = str(exc).lower()
+        status = getattr(exc, "status_code", None)
+        json_rejected = (
+            "response_format" in kwargs
+            and ("response_format" in message or "json mode" in message or
+                 "json_object" in message)
+            and (status in (None, 400, 404, 422))
+        )
+        if json_rejected:
             kwargs.pop("response_format")
             resp = client.chat.completions.create(**kwargs)
         else:
@@ -151,7 +164,9 @@ def call_llm(messages, system, *, max_tokens=600, temperature=0.6, json_mode=Fal
 # --------------------------------------------------------------------------- #
 #  THE ONE EXTERNAL-FETCH ENTRY POINT  (live-retrieval isolation — like call_llm)
 # --------------------------------------------------------------------------- #
-def http_get(url, *, params=None, headers=None, timeout=None, retries=1):
+def http_get(url: str, *, params: Optional[Dict[str, Any]] = None,
+             headers: Optional[Dict[str, str]] = None, timeout: Optional[float] = None,
+             retries: int = 1) -> str:
     """GET a URL and return the response text. The ONLY place that does outbound HTTP.
 
     Isolated exactly like call_llm so the stages stay I/O-agnostic and testable (tests
@@ -174,13 +189,20 @@ def http_get(url, *, params=None, headers=None, timeout=None, retries=1):
     if headers:
         hdrs.update(headers)
     last = None
-    for _attempt in range(max(retries, 0) + 1):
+    attempts = max(retries, 0) + 1
+    for _attempt in range(attempts):
         try:
             resp = requests.get(url, params=params, headers=hdrs, timeout=timeout or HTTP_TIMEOUT)
             resp.raise_for_status()
             return resp.text or ""
         except Exception as e:  # noqa: BLE001 — transient blips often clear on a retry.
             last = e
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            transient = status is None or status == 429 or status >= 500
+            if _attempt + 1 < attempts and transient:
+                time.sleep(0.5 * (2 ** _attempt))
+            elif not transient:
+                break
     raise FetchError(
         f"GET {url} failed after {max(retries, 0) + 1} attempt(s): {type(last).__name__}: {last}"
     ) from last
@@ -189,7 +211,7 @@ def http_get(url, *, params=None, headers=None, timeout=None, retries=1):
 # --------------------------------------------------------------------------- #
 #  DEFENSIVE JSON PARSE  (DeepSeek sometimes wraps JSON in prose — rule 6)
 # --------------------------------------------------------------------------- #
-def _extract_json_object(s):
+def _extract_json_object(s: str) -> Optional[str]:
     """First BALANCED {...} block in s, scanning with a brace-depth counter that respects JSON
     strings/escapes. So braces or ``` fences inside a string VALUE are preserved, and trailing
     prose after the object (which may itself contain a '}') is ignored. None if no object."""
@@ -217,7 +239,7 @@ def _extract_json_object(s):
     return None
 
 
-def parse_json(raw):
+def parse_json(raw: Any) -> Optional[Any]:
     """Best-effort parse of a model response into a dict.
 
     Extracts the first balanced {...} object (so a code fence inside a string value isn't stripped,
@@ -247,9 +269,9 @@ def parse_json(raw):
 
 
 # --------------------------------------------------------------------------- #
-#  THE ONE DATA SOURCE  (one local JSON, no live data — rule 1)
+#  THE LOCAL SAMPLE DATA SOURCE  (web retrieval lives in rag.py)
 # --------------------------------------------------------------------------- #
-def load_company_data(path=None):
+def load_company_data(path: Optional[str] = None) -> Dict[str, Any]:
     """Load the single local CompanyData JSON (Contract B)."""
     path = path or _DATA_PATH_DEFAULT
     with open(path, "r", encoding="utf-8") as f:

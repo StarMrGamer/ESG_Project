@@ -26,6 +26,7 @@ import math
 import os
 import re
 import time
+from typing import Any, Dict, List, Optional, Sequence
 from urllib.parse import unquote
 
 import core
@@ -137,7 +138,7 @@ def _tfidf_rank(query, chunk_texts):
     return scored
 
 
-def retrieve(query, documents, k=DEFAULT_TOP_K):
+def retrieve(query: str, documents: Sequence[Dict[str, Any]], k: int = DEFAULT_TOP_K) -> List[Dict[str, Any]]:
     """Rank chunks of `documents` against `query`; return top-k snippets with provenance.
 
     Args:
@@ -299,7 +300,7 @@ def _cache_write(key, docs):
 # --------------------------------------------------------------------------- #
 #  PUBLIC API
 # --------------------------------------------------------------------------- #
-def fetch_documents(query, *, max_docs=MAX_DOCS, use_cache=True):
+def fetch_documents(query: str, *, max_docs: int = MAX_DOCS, use_cache: bool = True) -> List[Dict[str, Any]]:
     """Fetch real DuckDuckGo search documents for `query`. NEVER raises.
 
     Returns (docs, status, error): status is "cache" | "live" | "offline"; error is a short
@@ -331,7 +332,7 @@ def fetch_documents(query, *, max_docs=MAX_DOCS, use_cache=True):
     return docs, "live", None
 
 
-def fetch_ai_summary(query, *, use_cache=True):
+def fetch_ai_summary(query: str, *, use_cache: bool = True) -> Optional[Dict[str, Any]]:
     """DuckDuckGo's synthesized 'AI' summary for `query` (cached). NEVER raises; None if absent.
 
     Returns {"summary","url","source","related":[...]} — the Instant-Answer abstract the
@@ -347,7 +348,8 @@ def fetch_ai_summary(query, *, use_cache=True):
     return ai
 
 
-def gather_context(query, *, background_topic=None, k=DEFAULT_TOP_K, use_cache=True):
+def gather_context(query: str, *, background_topic: Optional[str] = None,
+                   k: int = DEFAULT_TOP_K, use_cache: bool = True) -> Dict[str, Any]:
     """Fetch (DuckDuckGo search + the DuckDuckGo AI summary) + rank, in one call. NEVER raises.
 
     Returns {"snippets", "ai_summary", "status", "doc_count", "query", "error"}. ``ai_summary``
@@ -372,7 +374,7 @@ def gather_context(query, *, background_topic=None, k=DEFAULT_TOP_K, use_cache=T
     }
 
 
-def build_query(narrowed_question, company):
+def build_query(narrowed_question: Dict[str, Any], company: Dict[str, Any]) -> str:
     """Build a focused KEYWORD query for news search — company name + the salient content
     words of the narrowed question + sector + catalyst. A full question SENTENCE returns poor
     news results, so we extract keywords (stop-words dropped) instead of passing it raw."""
@@ -403,7 +405,7 @@ def build_query(narrowed_question, company):
     return q[:200]
 
 
-def background_topic(company):
+def background_topic(company: Dict[str, Any]) -> Optional[str]:
     """A real, searchable entity from the catalyst lead phrase (cleaner query for the AI summary)."""
     catalyst = (((company or {}).get("layer_b") or {}).get("near_term_catalyst") or "")
     lead = re.split(r"[—\-:]", catalyst)[0].strip()

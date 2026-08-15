@@ -18,6 +18,10 @@ env/
 # Runtime monitoring state (pinned tickers) — local, rebuilt per user, not source
 data/watchlist.json
 
+# React frontend build artifacts / dependencies
+web/node_modules/
+web/dist/
+
 # OS / editor
 .DS_Store
 .idea/

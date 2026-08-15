@@ -1,0 +1,3364 @@
+{
+ "as_of": "2026-06-12",
+ "block_number": null,
+ "block_timestamp": null,
+ "chain": "sepolia",
+ "config_hash": "e31cbdd64847b256",
+ "contract": "",
+ "engine_version": "engine-v2.0",
+ "leaf_count": 478,
+ "leaf_version": "leaf-v1",
+ "leaves": [
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "1df584107bf17fe20ba4df2b51b30ef236e551c8ee2e29d8d8af0dedbce53301",
+   "kind": "signal",
+   "leaf_id": "00729b4d094683a8",
+   "preimage": "00729b4d094683a8|7abc7885602929611f12f06cb9fc05c608e0cc0db055de523c3743adbdfdf4d2|+1|0.8333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "ee42c309754242de9358f1201093353ace556661a1bcd6aef4aa325dc8cb5ba2",
+   "kind": "signal",
+   "leaf_id": "0125b03ebd643496",
+   "preimage": "0125b03ebd643496|81f70f7aac0c4e0b51cac3b53729567e73f102b7f8010396c08c6adadae3c723|-1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "79d60522d0ceea9e844ac0079075c61154dd430bd46b8d2c8faa9b61c6bd561a",
+   "kind": "signal",
+   "leaf_id": "027704b4a10017b6",
+   "preimage": "027704b4a10017b6|fbc80195f0002d0252341ceb122c0b737c090ff277a8e0dc90728fd3b327e9b4|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "ddb758e4f4602e4600b308ba2cb857e9010b7ab1776d75ddf00d79fb0f0a77b5",
+   "kind": "signal",
+   "leaf_id": "0394b20a76dd2e1e",
+   "preimage": "0394b20a76dd2e1e|c56ca13e049f3d952da6ceb0a3669146cdaf79eebdafc01a70b3a8e501defa4e|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "86ec43e563bbf3713b0faf6b602c4946588db98ed45f2c6591e70cb52251ea3b",
+   "kind": "signal",
+   "leaf_id": "04326e5acdc5765c",
+   "preimage": "04326e5acdc5765c|760b22000cc3d9c9a9d66ceab756d16c8da1e6f4da9c03d915199eb9f30a118a|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "a0104a4341f8fdc6413130fd2db07b22748d810db6f5ec366975af4b6d9f495f",
+   "kind": "signal",
+   "leaf_id": "04bd1ba029242340",
+   "preimage": "04bd1ba029242340|ddb42776081b53b5e220f6f4b233ca47e2d0370ff68232ab725a3b4149a3a626|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "65ab6c0ac05362ff2763453f5c942df5d5d265def32c2fac61b17d7cfd7a1bff",
+   "kind": "signal",
+   "leaf_id": "052d7951b437eb58",
+   "preimage": "052d7951b437eb58|dc01bcfb993885fc3f1cabbf09273cafaa60bf9397ab58be489a4d57d22f63bb|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "ef8a421afc98e54cb0b2d1c3fc8fa3f5f7bf81bf81655c412fb42e01ae1e7801",
+   "kind": "signal",
+   "leaf_id": "05615877de5c07b0",
+   "preimage": "05615877de5c07b0|99375088c526d82f9b112f3fbad137bbc147066daee6861fea4a287febb7f8e6|-1|0.9000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "12074f1d65a561777c0aa62525c51bde4b38b5f52ed647c2ddb7c72d0202677c",
+   "kind": "signal",
+   "leaf_id": "06085fd7112b13e2",
+   "preimage": "06085fd7112b13e2|13af605e3cfe0bdd1195046aa59564c722e3e8030ee00c4ab5919b7369e2d8b2|-1|0.0667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "1dc25c7ea9ec31d8da2cf8180f397a1c3eff31d5ad40ad73f74dbcff3a4dc780",
+   "kind": "signal",
+   "leaf_id": "0808ce518f1e1fe9",
+   "preimage": "0808ce518f1e1fe9|d1b0bb6e517c49f9267c831416ae60e88e602fe09060a5e9ea54a4f6221b3a04|+1|0.5333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "7aa07a3b61ebeb41991342cbd8c073138df6d51d072a77ddf8ae74cd4b00e160",
+   "kind": "signal",
+   "leaf_id": "08c1fd6374cf1da6",
+   "preimage": "08c1fd6374cf1da6|3d5f6385c678342d071ccb7fc2420311218602e728315d6a56a9e788bc560163|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "31b0d8d8cb1e0b22b2fe898ac8cf0db00907105172b9946e0a2fd68fd81b9e4a",
+   "kind": "signal",
+   "leaf_id": "08f24f2925f49771",
+   "preimage": "08f24f2925f49771|7b65a167f74cb3bafeeb080cacd9eae70d7b1dbf8941e783294358a542db89c5|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "f1005dcf366f60f4d34777d8b8f73260e11e17146b50262fac96795a51050260",
+   "kind": "signal",
+   "leaf_id": "08fe5f6a1711d4e7",
+   "preimage": "08fe5f6a1711d4e7|bce3d42043d158003cd0a64431e27b7ec914de5fc6d5df85163ed4f0986d42e2|-1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "f229e3ebb7bd6e363e4fcd930ae3f24ba9de5fd6be43d98fc1ef794ac58fe355",
+   "kind": "signal",
+   "leaf_id": "091c11ac7b5e86c1",
+   "preimage": "091c11ac7b5e86c1|b68e14ee02878a00a2bdda4b85f3676b9ca2e283cc38417598b9f89297bdd076|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "babd5bd2663455e38fcfd0225c552c6fac1a6e043b7172b31f68de5f2b305251",
+   "kind": "signal",
+   "leaf_id": "09585c2e05c67288",
+   "preimage": "09585c2e05c67288|1f01d5e9d9cd83ee989de8259d581bcdb6ac5e0e1bc5f0ffed07ecfce6ea4dae|+1|0.4667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "6e2e0ce57a53d3432ca23ee0f8406cf76c599a4175b4b479bdd7838248c04397",
+   "kind": "signal",
+   "leaf_id": "0a6637376f1b618e",
+   "preimage": "0a6637376f1b618e|7304b6bae2e7d46a0aa6c9d54ac82b3249082f06173c5038d1200aea2ea3b3db|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "4eb2e50253ef6a39ee2d6a0d8c7c025a8a6a6d31475b03ca9f3cf6090bcc8b4a",
+   "kind": "signal",
+   "leaf_id": "0a903ba1e19daa0b",
+   "preimage": "0a903ba1e19daa0b|3145d822a0152aeae5b5c5e361c590d63eb6e7aea7fcb58faa9ee3b8895c62e6|+1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "7df4d4711fcab38ec19d0b4760d2f34deaa5ee583162e082b02426a3b8a49d00",
+   "kind": "signal",
+   "leaf_id": "0b191591cc8bf9f0",
+   "preimage": "0b191591cc8bf9f0|c98f9d38c62bbf3fa6b38aa9746355eb92d2287c80059132e86c45b28cda750d|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "0c2248ddd8d2cc80dea36e580ec10530976ebee2a1e7f7a5b206ee7965828071",
+   "kind": "signal",
+   "leaf_id": "0c2be4175e44e7ae",
+   "preimage": "0c2be4175e44e7ae|abb8912441c34146196e3ecd9be92c117feaa1aa08c1d2f4a718da923aa2548c|-1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "b71538a43c8e16f670a34ea586bb48463cf129e0700feccfcd3f529f5caa667b",
+   "kind": "signal",
+   "leaf_id": "0cddd44af4997b4b",
+   "preimage": "0cddd44af4997b4b|fd9280cd8364edb58bad76a10f428fb9101e8ac8d4c965e7fe0daaae3ccd1f00|-1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "f02afe412d59c4fedec55582735f49381dc41c997a131964453062b2ca99aca1",
+   "kind": "signal",
+   "leaf_id": "0e06e685d3d84008",
+   "preimage": "0e06e685d3d84008|479fbf0065192c48229986a4c9dbc0213e6fa034955f6b51adc6d1ddb3b10ac2|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "70a6ea519406ebc3a93bee6c2b71f74c8f716d64d24d91b076d962b8e54be7b0",
+   "kind": "signal",
+   "leaf_id": "0e0aee33c6c36125",
+   "preimage": "0e0aee33c6c36125|dd4b02b6ffa8409d5dd298170ef3e538c552e5d8807f5fdfbd919b27accbf0c5|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "4078d007f986e57bb11b55022dfb2b9263aae6583f60823c48d07bfe7db7fbb8",
+   "kind": "signal",
+   "leaf_id": "0efe3b501dfa0bbc",
+   "preimage": "0efe3b501dfa0bbc|208babeca08e61a62fbb6c6c2596690399013908a39babf1e2a08163fc293553|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "91d395d21ed33f4bce35991604946692364cbcfc56b78305fef942c8cddfb94a",
+   "kind": "signal",
+   "leaf_id": "0fb29b81186fdf04",
+   "preimage": "0fb29b81186fdf04|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "739852284d26a7f4527634d3d74afb31456cbf790fe6e04b8d795c612bdfb7f6",
+   "kind": "signal",
+   "leaf_id": "0fc461bf581d5fb0",
+   "preimage": "0fc461bf581d5fb0|6670732adda6483545b77a08d2f960c310f7b17f81ff920decdbe0e83e3eb79e|-1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "d6da7ace7cae8ae0eaf9a869c91d3be4baf4fcadee908a7d5dbf4dd93782af04",
+   "kind": "signal",
+   "leaf_id": "111aebaa4bdaef94",
+   "preimage": "111aebaa4bdaef94|ebdc5b16b605edfa2fbe0b1f8105cf83a051b4c2b85f6f22efcdc38b9f31c01c|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "c8ab953973538e75a88007df7a3953bcc84c9c15495f8b7d961536bea37356e7",
+   "kind": "signal",
+   "leaf_id": "11c25f9af93d141a",
+   "preimage": "11c25f9af93d141a|ce73303abdfb1c11e74fd8c9216907232c04e9c089aa7af2fe32fe6fd10c2cd1|+1|0.3000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "b1985958f11b5cbe64412b0d9c1655d97ad8cd3f78b457b09a4123a466c60b54",
+   "kind": "signal",
+   "leaf_id": "126d071ee3289031",
+   "preimage": "126d071ee3289031|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "08230910988de53d163dd727a929ed5c6956e7170cbe4b49714b8e0bfe75514f",
+   "kind": "signal",
+   "leaf_id": "127128c80beeffd3",
+   "preimage": "127128c80beeffd3|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "42865c2ed23b964ee0b6f716c8d45edf838ea3a80492c3f62c989eedac180bff",
+   "kind": "signal",
+   "leaf_id": "14be807a9ec01d00",
+   "preimage": "14be807a9ec01d00|697a327d7f71dfea90691738d0d70e7744db63461f976fba06f4940d56c46157|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "44a7f5804d194890d851c66234773006f98d6295ddc03015b58f10987b8c7451",
+   "kind": "signal",
+   "leaf_id": "15635366a0959278",
+   "preimage": "15635366a0959278|28a05f92dcbfa63ba4405c3f2be029d16ad675099fbbdd53959ceacc44670bf3|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "cdd1feb419ffba0ce02d4d98daa7e31dbf721a24d2c44c87acd94097a4b75583",
+   "kind": "signal",
+   "leaf_id": "1572612e041f303f",
+   "preimage": "1572612e041f303f|221c8bc2f32d2abd38917cb1518bbf07158f821d3f4033ba08e0299e4b845693|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "3f708ed7a72bdeb75e3a4176851477e14a9700f11b3dd8a81e30956879e48f7b",
+   "kind": "signal",
+   "leaf_id": "15eb78c1b7e046a8",
+   "preimage": "15eb78c1b7e046a8|fb5c1d00ec45cfa3040733dd0ee5c96d339a2b82983f77ffae06470dd3c39611|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "64b0b10c4eba0f0fc66a877cdf901e2d6312eda10318d77da1c4c5aba82e8367",
+   "kind": "signal",
+   "leaf_id": "17199e5bb82b3029",
+   "preimage": "17199e5bb82b3029|f2f27c82b0047efbcfd11645f73499590a4e3af580e632860492abc9c0527679|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "d79680148ebae244341584a9cbdf58f5394667f32e7721ce24dabb214a5c9c0a",
+   "kind": "signal",
+   "leaf_id": "17f388800f0eb2b5",
+   "preimage": "17f388800f0eb2b5|670a867e088e9e0246ec4087ea1c9a11d9d20d4f8ee1feba793cc20205df0bbe|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "a09eff083a55179b89fbc877e5fd265b893b3d6c46bc18cf275c46c3cb721dfc",
+   "kind": "signal",
+   "leaf_id": "18a83fa43a7bc5ed",
+   "preimage": "18a83fa43a7bc5ed|be0a5acb8b8cb9bb444a91c28965b40a784cdd034277ec4d2bffc7f1f3e00461|-1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "f619a0c6e733ed94a6fba39003148eaf13955a75a35da37ee257e43715975497",
+   "kind": "signal",
+   "leaf_id": "19e1434362367a97",
+   "preimage": "19e1434362367a97|7fc47d05ca43c034b004cf7d4cc86138750558ae6e60ee17a52f7a1c2f398785|+1|0.6333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "d6748d0520ae1deb5839cbb0045ec32a5811a2cde69852fc4060de4204792846",
+   "kind": "signal",
+   "leaf_id": "19ee9fd4087f92ff",
+   "preimage": "19ee9fd4087f92ff|7669477625bd341e975e032cfd04d31b9da54981fc50e904c2a4daa48bdbe251|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "81b298af2ed3f653706169d282699369c1176494e7082a0fa0a177f097a04c47",
+   "kind": "signal",
+   "leaf_id": "1bc64fef03bd29cb",
+   "preimage": "1bc64fef03bd29cb|812b8e51105debf78340c63f2894d80dd562cb428b955c50999fa220716fde34|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "0433b997b42cb42e1e0b6f9e5ac67dd5230bf4efc15f800284524d4b940c66bf",
+   "kind": "signal",
+   "leaf_id": "1c59c853c92b31c7",
+   "preimage": "1c59c853c92b31c7|8e177b049d8b6e466ed05e256a7b3cd64a40de566dc54c3579df95e569dc6adb|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "6adccdb444d2a34fdac01a65c4620eb736727e4a1d547edb3d18d09cb896c48a",
+   "kind": "signal",
+   "leaf_id": "1c7f48e8fe81fd70",
+   "preimage": "1c7f48e8fe81fd70|90bb8ecc60eb9515609bfea2e222056f29427282f18d319b62121acf2b3f869f|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "98f7e18a73e1cde58f2b680dfea601c61a4700c3789884c7e32d6d4445dc37c1",
+   "kind": "signal",
+   "leaf_id": "1c8044ed1efff779",
+   "preimage": "1c8044ed1efff779|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "796c1a5beb99c4d43a754cd3c40ec8177eae0fcd3e5f152f3208bc46db604e23",
+   "kind": "signal",
+   "leaf_id": "1cb3f19e109cf6ee",
+   "preimage": "1cb3f19e109cf6ee|84cc8a76b48484aa0c04295a0279e5a959b2c94dfc5eb36b1c2c00235ad54b27|+1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "4095a2a5d52074e313f9f05d9181227ecb5a4b4d305d10454ea11ee874713bfb",
+   "kind": "signal",
+   "leaf_id": "1d7f0e29844ea606",
+   "preimage": "1d7f0e29844ea606|760b22000cc3d9c9a9d66ceab756d16c8da1e6f4da9c03d915199eb9f30a118a|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "e7335f0d83a8200d2235feb1856ea5dfd68c17b066c5bc18e01a8f9b1138d4d0",
+   "kind": "signal",
+   "leaf_id": "1d995810344f1532",
+   "preimage": "1d995810344f1532|9dedbb0fbdf5605d3b1bec6bd99eed99cdc26bacb4b499e93c8d105fd9742ca2|-1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "63157cca41a0baf0127a6f23e1239f9699b22a546d9f1d351cd9a9ced48244d4",
+   "kind": "signal",
+   "leaf_id": "1fd7a78d8d83e03f",
+   "preimage": "1fd7a78d8d83e03f|7966ddd39997361f14ec1d2d742682b5be02614bcdb808dbc8388bb91d79c828|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "67d330ce5ec695d93594282517d4cdda72dfe1dc8783116a1e7bbccb4b525f5b",
+   "kind": "signal",
+   "leaf_id": "1fe64ebadeef33e2",
+   "preimage": "1fe64ebadeef33e2|a42ad158a6fdfb78cfde38edcbb596fb3e7c32f3a6f16e70f6f00459bc495db7|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "2833a0551f8b2cbd2403ec9448ab84e93b247a8a3595a643226dc23b991c5f10",
+   "kind": "signal",
+   "leaf_id": "20361da92f7b520e",
+   "preimage": "20361da92f7b520e|d01b1f32dc1278d7b55e05a55056187ee306d8cd61f86436a3a790c782356de8|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "f1ff03bbfc72e86aa1fed9bdf253298928f5079a566cab3dec27869d15c1843f",
+   "kind": "signal",
+   "leaf_id": "205a86f593704318",
+   "preimage": "205a86f593704318|c4b7354af5c9aaf4b7388847547a6250b2edc85de7369fd8a99767e0440f8faf|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "45d7edc1bbc1556c4bb23a2466912f2046688d86422073f7cdd741cef7340133",
+   "kind": "signal",
+   "leaf_id": "21f01efb53f28f2c",
+   "preimage": "21f01efb53f28f2c|4fa669fb1c1d3cc1142180823200eb5df32b9ffcf0e9d25203341bdadddce380|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "4560853bcca084616477d48bda1ba909a3fde683c9ee9ab5a835b0420e5ffcef",
+   "kind": "signal",
+   "leaf_id": "22286076c477ffab",
+   "preimage": "22286076c477ffab|cf7f1f1dfd9e81cc2a6c1eeb48d991eb10f78f02e625babb70d6988edefaf259|+1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "e66d6ef5949c9d093cdf4eec2151c4933cee913e7809884992b97f2b93c854cd",
+   "kind": "signal",
+   "leaf_id": "22dbf3b7e2ca7ba6",
+   "preimage": "22dbf3b7e2ca7ba6|814c97bbc3d2015a66347a728f853576df207c611199e90abdffe08bfcc45101|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "ac4cf5ede363825ab84a45dc67f02176e09faff44094722e28acfb4d5c59d2f7",
+   "kind": "signal",
+   "leaf_id": "22f9b2c46896d5c4",
+   "preimage": "22f9b2c46896d5c4|beef3e129bea0f11b286a6bfb74272d817b4fa4f5dccc4652edac859dc293f07|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "9461838543b9da6052d3c880b3da0aace5fa20f638c309a4f25908b6303b3ee0",
+   "kind": "signal",
+   "leaf_id": "22fd99de1f935e0a",
+   "preimage": "22fd99de1f935e0a|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "02a2cc5f65382d94f13b62afbdd560101ec8727182d5c5e88bc3edfeb5eb9a23",
+   "kind": "signal",
+   "leaf_id": "230be3130ed9b183",
+   "preimage": "230be3130ed9b183|7d57a0913a3c9834b6548e42aeb539260a01adb83b0e7803ee6c6abe957d19ee|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "d7083607322a3dcb33595d974841bc1b441ab95e45c455318da388a566f04e40",
+   "kind": "signal",
+   "leaf_id": "23edf236c4397a93",
+   "preimage": "23edf236c4397a93|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "2760906832de9614fc6803583e45e1800271ac019efb65b77f6f31fcedfea464",
+   "kind": "signal",
+   "leaf_id": "2544255a1b86670b",
+   "preimage": "2544255a1b86670b|f054af7f4c6b4373f122d4ed909a1fc4931c369018e3fbd4c32e36b3fdc6b31b|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "04accf4931c6931905a845e3f7788e5aebfe5fe41d20b94d5f0a7a6ec18f1701",
+   "kind": "signal",
+   "leaf_id": "25fa5689ce2f6449",
+   "preimage": "25fa5689ce2f6449|85b6a9721d33d7eedd4aa3d6073fdcd408c7bbf284c904b36715eb8bfa0ba181|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "fda23023150890a7f11db62a816ae247548e55f535e82725fa00a115a990962c",
+   "kind": "signal",
+   "leaf_id": "265575420470609f",
+   "preimage": "265575420470609f|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "acc40f75ab15894a3e4234db1eab13438faa05e60ca44896183c1db1d54a9da1",
+   "kind": "signal",
+   "leaf_id": "2766ceb00a49aa0b",
+   "preimage": "2766ceb00a49aa0b|47097327f9829c2aff6b24feb03c59f4eec067b0b28299b531052f112715a823|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "e1a8afbdcc87089bfd20dfd6c411bb154db76e86f137d6b9e42a274ef6a37854",
+   "kind": "signal",
+   "leaf_id": "2784b05b5b4b29a1",
+   "preimage": "2784b05b5b4b29a1|e72b1ca2ae36c0c66ba0c4c5e061e50dc5f8f5517468be9ad126918ae1b80919|-1|0.0667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "70fade5f8cc44cb4d63090aec781ec551967eb14649e285c70fd211063919955",
+   "kind": "signal",
+   "leaf_id": "29b2c3c0939468db",
+   "preimage": "29b2c3c0939468db|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "e7f37cd5c1dc590a92b1ed1e625d9faf4a60c62f250e199a42a0b8c935c143a9",
+   "kind": "signal",
+   "leaf_id": "29d6d07e85a0dfe3",
+   "preimage": "29d6d07e85a0dfe3|eb0f32ae7fae71eb7bc4a322baf4d6746c07c8441c91642eca611544b942768d|+1|0.6667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "f73da94badf9e734624920a6186f6e7d6c3b92062863e15976b95b58042f30ad",
+   "kind": "signal",
+   "leaf_id": "2a65a75ac56f1024",
+   "preimage": "2a65a75ac56f1024|161c937762937f210e4a0fdd2298ce2cb99fdba96231fba18928b8d31f983808|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "10f8e5ce61a04a5423aec8901942692aec2e1d4f8327e1d35c2e994c8b937b44",
+   "kind": "signal",
+   "leaf_id": "2b15066aa8acb6ea",
+   "preimage": "2b15066aa8acb6ea|a1ced88c8b3030253e3babe7513a82490768a6ea8bf94c7a35636955321a20a7|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "fbd0afeb536fd9dcf62ff744fed91eabac18318d23bba4bc105c269fba5dc70f",
+   "kind": "signal",
+   "leaf_id": "2cbc56c2140ca971",
+   "preimage": "2cbc56c2140ca971|45800520ce560d589c00ca15daf14c75a603c4b79d3d96ef396f8f352a44203f|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "0532c46f934a270f5b3f9e49c1174a303fef5e1cb25bcb531a54fdafa1d25496",
+   "kind": "signal",
+   "leaf_id": "2d6844f51cdc9133",
+   "preimage": "2d6844f51cdc9133|9095383a118d259789ca0626f29117312f9cca49dd104c0f8949ac19a82f1f54|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "5dba8bc93be5098f45a3cdf6fea144ca980f58a7f927ac7824891d1aa805841b",
+   "kind": "signal",
+   "leaf_id": "2df0ef3cf3521eae",
+   "preimage": "2df0ef3cf3521eae|95584d9e00939e4c7d379d310f8a1fb9c062bd59058e646cc9b5fcf661efb131|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "ed18bfcd5ef44e1e30115d3daee19133f9a5ec5715403d80f834d5899a56f260",
+   "kind": "signal",
+   "leaf_id": "2e9177f5b3e77cda",
+   "preimage": "2e9177f5b3e77cda|119340f05e7bb8d959b05871de7ebe723031bd1c31ad40bfafcb853d15ad649e|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "3367aa927bfb1f79e30224ae798318d5b46330103b36982022414808db10b287",
+   "kind": "signal",
+   "leaf_id": "2e95780e0befbe41",
+   "preimage": "2e95780e0befbe41|020aa4d2fcbe1ad98c394f82b87cc19ba203f2a6a37918e340649e97255f0318|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "cbd74901fe912449562e7274e5e315200a8e3fce3ec9456a599294e0dbebb481",
+   "kind": "signal",
+   "leaf_id": "30018468b8394241",
+   "preimage": "30018468b8394241|1a964efbde6c6ccc08b74e6250391e71fcbb665e1f465138fcf36896771b6862|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "ab7b82e870ea4a26db4d6c36eeb15c26ccccf0355819708eb75136fbd5c0c866",
+   "kind": "signal",
+   "leaf_id": "30135f834d82b97c",
+   "preimage": "30135f834d82b97c|9cdabc3898661d9bcc5db6e06d27e61a314f7d58e19278aa09b57b217a78459c|+1|0.1333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "beb9562bb192dd4abdaba24f74be7371e86d9052ddba89eb818d0c499a8609e7",
+   "kind": "signal",
+   "leaf_id": "31224c295c7c5420",
+   "preimage": "31224c295c7c5420|04b2cc21d98b6bb16458d8460dd8a2c990dd6e218bf6891b712580c5fda4c556|-1|0.1333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "7b6ea6288544637bb7b58fb57483bac3cc29f55c7dbd471f6da38ca0f11cb01c",
+   "kind": "signal",
+   "leaf_id": "33ccc92e6f8de64c",
+   "preimage": "33ccc92e6f8de64c|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "04215fca42c99cad0a39bc9e52a809cc97149811e79909e0a7373003a716b6c9",
+   "kind": "signal",
+   "leaf_id": "34030cc8217e3aad",
+   "preimage": "34030cc8217e3aad|54350e292c4e7e45cbb90365a306afbb6d14098a45966fdc8464a28b1a050c56|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "d584957f8fc4dc09dc0562dd321d6a5bba8d36bdc21bf9c228e32d7f9169c1ae",
+   "kind": "signal",
+   "leaf_id": "34e668d59df4f364",
+   "preimage": "34e668d59df4f364|020aa4d2fcbe1ad98c394f82b87cc19ba203f2a6a37918e340649e97255f0318|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "3f7b6d9932d3f013f3022bc53cc5961890f33bba1edfd7aa88ca3c21b8d80d78",
+   "kind": "signal",
+   "leaf_id": "36eb3bd2ad00978c",
+   "preimage": "36eb3bd2ad00978c|277b113eb7e48d656fc8cfaed1eb06c26144ea64052e14e81751504e6443380c|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "e5e39f8fa32e45e69da847b4a2007d03d880a72eb529f4ef97c1a95b38aa2b0a",
+   "kind": "signal",
+   "leaf_id": "3877686abbeb5119",
+   "preimage": "3877686abbeb5119|7abc7885602929611f12f06cb9fc05c608e0cc0db055de523c3743adbdfdf4d2|+1|0.8333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "b48e190a99408e67c06823b742f4e6dc01b5af015759a80bf6edfff64d8b7123",
+   "kind": "signal",
+   "leaf_id": "388f520ebd3d1f79",
+   "preimage": "388f520ebd3d1f79|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "cafba366ad32af2c460160bc4ad4692ed8962a7b08575c9cdfc9c57cc24d8914",
+   "kind": "signal",
+   "leaf_id": "38cec5275d1fb999",
+   "preimage": "38cec5275d1fb999|17a4c6574d4a4e6621cc8777c70e29316258d8723cece7faaf49791615474994|+1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "4475359f131074c437a197bad63498d45baa0b547d5c27ff088c35ede259f413",
+   "kind": "signal",
+   "leaf_id": "3944fb6c642634cd",
+   "preimage": "3944fb6c642634cd|93df727405ecef03c26b99239405b2c79a6dff7d8478f4d84692c3462b06678a|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "301e9ea48758f2e91afe77b7cc4a2c60418c23a3c95d835e77945d17b9076de5",
+   "kind": "signal",
+   "leaf_id": "397516146b10f688",
+   "preimage": "397516146b10f688|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "1dc4562156e9acfb90a2206b92740fe678baf7ca06ab8f8b4c5dd66372a5b20e",
+   "kind": "signal",
+   "leaf_id": "3a2ab02f15ea9d89",
+   "preimage": "3a2ab02f15ea9d89|3145d822a0152aeae5b5c5e361c590d63eb6e7aea7fcb58faa9ee3b8895c62e6|+1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "9dc0d538ecaefae7fef854e983a2704d6a65ca3f83c44a8f7bc783df9c9fe4de",
+   "kind": "signal",
+   "leaf_id": "3ceec201c6ae8d6a",
+   "preimage": "3ceec201c6ae8d6a|88a8ca7692e27ee71f61caa8265a7f69faa229c410b2beb8613f54430192ec0e|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "7f39d95f1237e1df215c17a17b664330465a7977da03bf5f9e21835ead3e7a28",
+   "kind": "signal",
+   "leaf_id": "3d81d0e34d70ff71",
+   "preimage": "3d81d0e34d70ff71|d43e691809ed9ad9cb7e3b22396e4556e380b4b0af7d8c07c94934c7a2b0a942|+1|0.8000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "cfcdbeb6bf8f9ac79c41db573eb15851da33de7592d34b97617738f8fb1d4ad0",
+   "kind": "signal",
+   "leaf_id": "3dbb97134721b126",
+   "preimage": "3dbb97134721b126|a9fe4f4c9877d19ea8cbfbc2dc7670294c3d631a4202b979b9f685373cea0b31|+1|0.5667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "6b8f3074072eb63d28a239a7c30b10ca652cfb123625a2d49942935f8858d625",
+   "kind": "signal",
+   "leaf_id": "3e131fd63eddc28d",
+   "preimage": "3e131fd63eddc28d|2972adcbf34a32d3b16daf736ba47d7f0fb2c01ab08bb26292d7e02776268567|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "59164938e36dd08e54cb8863d0cde7f6f64814eb8b961f49411b8f7a42de2705",
+   "kind": "signal",
+   "leaf_id": "3e22601157108dee",
+   "preimage": "3e22601157108dee|ad30a068b20c4431dcab0e48b85a5013302a8ee656816c533a1969a6b30a0632|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "5c5d58382a843cf3753b9f8c3e1d42ace270059af2e990daccf7627c4bb6f8b8",
+   "kind": "signal",
+   "leaf_id": "3e328f13fc823c0c",
+   "preimage": "3e328f13fc823c0c|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "3f84d371b02d577907ec83746913783c5c72fe0a800cbb037f54a6e91e99431c",
+   "kind": "signal",
+   "leaf_id": "3ecfc4758722dc4b",
+   "preimage": "3ecfc4758722dc4b|81f70f7aac0c4e0b51cac3b53729567e73f102b7f8010396c08c6adadae3c723|-1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "c23b5b410021ca71c59b78a382bfd330b931877093c7a9880813a877320b228d",
+   "kind": "signal",
+   "leaf_id": "3ed992449c58aad0",
+   "preimage": "3ed992449c58aad0|f8deb79add4a8553396f6fe3f059c629c0238d07af02e7d85f4334c5f64e6d9e|-1|0.2667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "34517e87ace94d536c04bfa010e6a4d0278f575e264d65d9710986d5b600de54",
+   "kind": "signal",
+   "leaf_id": "3eed4e401775e560",
+   "preimage": "3eed4e401775e560|1f07eb722260b27d956e4623203960ed1c3f82e10dfe6f73c42a9cbc3eaeac81|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "6beedeac85a211461f6fdebab850d5cbea34692e409d5175af16378e47a8dcde",
+   "kind": "signal",
+   "leaf_id": "3fa2a6f3e57e1f1a",
+   "preimage": "3fa2a6f3e57e1f1a|487cc8fb70a16bc58d0a9d3cef2e83062b1d43a124215c6e17736330dc10d031|-1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "4c20d290993d82b955b02c6440dd90bcaf0cc95702d51aea6d406fffeae6c2c9",
+   "kind": "signal",
+   "leaf_id": "3fc4a9e93c81ca7d",
+   "preimage": "3fc4a9e93c81ca7d|6670732adda6483545b77a08d2f960c310f7b17f81ff920decdbe0e83e3eb79e|-1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "6830330710678c7d015bf9da15a8f1de4afe5682b73c1b1cce1cff582ccf4ea8",
+   "kind": "signal",
+   "leaf_id": "40f5b94091d0fff0",
+   "preimage": "40f5b94091d0fff0|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "8613776e4ae819aebc672ce98ba605bd5d9a2e0b04c4767cf37701319e4efc50",
+   "kind": "signal",
+   "leaf_id": "436f471cb57d5780",
+   "preimage": "436f471cb57d5780|7ac143a8c7d86380449a6ec5b122ea05f21dbd75c67d9425e990c79a35d709d1|+1|0.7333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "711f0c2c6c4250c0227c7b46eeb31e0e04bf79fbe4666944c0576d8036118b9a",
+   "kind": "signal",
+   "leaf_id": "438807aa8508d610",
+   "preimage": "438807aa8508d610|a3a44efcd2301e2659b7fc59372dacf39d840b99f2c5cf1454e0a222d49fcf24|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "c672190fe358fda3ae614cb9eb98eb6605ba2c789d2b4706e650687961fc206b",
+   "kind": "signal",
+   "leaf_id": "43a7ae242877886f",
+   "preimage": "43a7ae242877886f|f385caa10cfdc31e9418d03e3fbb807f4df5b453c775f6db9e21ba0b2ab6a3cd|+1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "09756502e4ff479bbe7c7838ebaf02cf27edf0eb7a0eff6424705663ff7b62eb",
+   "kind": "signal",
+   "leaf_id": "442696d2d90bd35c",
+   "preimage": "442696d2d90bd35c|370ddeb50349658008a1ff25c51cbd02b5bc00bce80155ae244854bb89be28ba|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "837999b8b04a63004c02bf657bf985efc2167bde5a9f1f722c365f8e6371b5a4",
+   "kind": "signal",
+   "leaf_id": "44fab1aa3de4be31",
+   "preimage": "44fab1aa3de4be31|910d9d6431a14a0759f1878a12264a454e00bd13eb98f9db2b234facd22c00d6|+1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "2a06c3cf325bb1d6dd317210f8776abff5d7ed98c9bb4e8552474068cab564c6",
+   "kind": "signal",
+   "leaf_id": "4590761bb6d3a9b0",
+   "preimage": "4590761bb6d3a9b0|81a80770de259da44220da3ed2fc4dffac9cb19fa647417a0364d717d8f00622|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "ab04f83c950a25865f68be9d6e041c8f6e7c4330ca6608f202c3fb5d15ec39cc",
+   "kind": "signal",
+   "leaf_id": "4617fbf095104567",
+   "preimage": "4617fbf095104567|eb6c4eaa766a727b6dfc829b37392e16b293a131318eadfa28e9afe6ed62e01d|+1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "8d4551240c887019660ece496edc9f76955b96be6096d91b562bf2555f4ef6f1",
+   "kind": "signal",
+   "leaf_id": "462d465aaaea0211",
+   "preimage": "462d465aaaea0211|5621fa71b5caf2deee1b64f4dfc7db6df8d8540d355faf9051d8b0b67496333d|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "d3d2aa20424295b637a8d5094e67490c0f37fff3d6a1a801725fe117b22da4aa",
+   "kind": "signal",
+   "leaf_id": "46f444f94ac58b95",
+   "preimage": "46f444f94ac58b95|e30d59cbf0c72ca0423a4a28acc2acb84b0c103e665366a1ad7b591b110835e2|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "d5a323b9b7ec71724712e26a20964417cf702bfbb6cbb45edabfeb5fa658161d",
+   "kind": "signal",
+   "leaf_id": "47d6e34d6ec0427d",
+   "preimage": "47d6e34d6ec0427d|e2586b475830d73cd0b7fb0aad9f37df137806eed0192ec1ff848b63b649f0f7|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "d97aa3ae3062166f14e3cfc8152b99a62726ac9f89a65c98696b8c476affc4d4",
+   "kind": "signal",
+   "leaf_id": "48389cbd40ae7ad4",
+   "preimage": "48389cbd40ae7ad4|e9d128dbb1efca0da301d181601d9ac17a58201cec44d93accc0a1d8d6813109|-1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "593ca42011aeaabf84eaa93467770e094868fd6ed170cc6c1147da366e19b0c0",
+   "kind": "signal",
+   "leaf_id": "494bb36dc39d7d9f",
+   "preimage": "494bb36dc39d7d9f|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "eccdb91d8f31e51ef78d7e65f2447f0237bf6284b3467a959ae5c973bea53837",
+   "kind": "signal",
+   "leaf_id": "49d06881b40fada3",
+   "preimage": "49d06881b40fada3|32f5a16fe83972d0e571e72c0e678692d2ce0212d29df5c0b039d87e9c580d6d|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "ea16a5c1fb15805d6aa7dc4e47685ffeeb4630b9f1027ea142bc18b90e96ffa3",
+   "kind": "signal",
+   "leaf_id": "49e8099df07b43d7",
+   "preimage": "49e8099df07b43d7|658764b95a328c05caa34ad1171af6417fa438685e0d64074f5c7a98cdc1329e|-1|0.4667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "907081222c0b9a5a0bacc155689040cf3460897feeb3e2daa39ea0f31135a0cb",
+   "kind": "signal",
+   "leaf_id": "4a2b90f2fbb5a6c4",
+   "preimage": "4a2b90f2fbb5a6c4|ffe3536f8357dac0430322d6d8008356d964b3fb749b7cacfbe19ee2dd169e74|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "453e0c6ed01ba0e036e16a8d3d2f8bd944351287ecd49069b0e129cd8fa7de8a",
+   "kind": "signal",
+   "leaf_id": "4bca936a6377212f",
+   "preimage": "4bca936a6377212f|bbb8b76a36e944095dc2a7cca1f4cbd80c540c437cc884c8b62954535bd86550|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "a33a76088a4db907aee3414d31c40f2d06a4e484dce4218beb1e26c6feda1386",
+   "kind": "signal",
+   "leaf_id": "4c4c34ce55f4a31a",
+   "preimage": "4c4c34ce55f4a31a|fc9a81d14f49292e2e9a3c82cfe8ef2f4b486c7020a74fd49c801111411c5334|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "5bbe512cc64d2f9d4bf374a450e000e597a1598c1b55e32365027ad196f24789",
+   "kind": "signal",
+   "leaf_id": "4ce13222cdf560bd",
+   "preimage": "4ce13222cdf560bd|7a496ef31fecbb949ea79b5e513e95df09a66976ba8ae57b843816bc04b0377e|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "18b3f9921ce1fef9dc989538393fbb98931be2c818d56c3aa123c26a92962168",
+   "kind": "signal",
+   "leaf_id": "4d0ce63c20e72e28",
+   "preimage": "4d0ce63c20e72e28|0b8004ba5d36828f1ed3f9d397e063f13fcf2790f6d0d6e40f09e7cb52dff819|+1|0.2667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "3562a2524d68bfd05f0ae7db67337694d74186acb345fe1e58268b70c0ecf784",
+   "kind": "signal",
+   "leaf_id": "4e1287dc602bfd48",
+   "preimage": "4e1287dc602bfd48|d55763f8355c167c60151358516b1790d79a309a0b4f51e48ef21217db73aa6d|+1|0.8000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "16e18d98495bf42cb554f15a95f6acfa3b20bf13c15b390cde9dba040b89189a",
+   "kind": "signal",
+   "leaf_id": "4e7036f20754401d",
+   "preimage": "4e7036f20754401d|b48ea4431b2efad26075c3e1a98add17ded3087deb53b0c2fd13c00430eb2613|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "c7c4d4e90212d334ad39a6f6aa29e69c8995ae3c8bf5c43b2ce6ea1a4ed6efcc",
+   "kind": "signal",
+   "leaf_id": "4f54be2c496572b4",
+   "preimage": "4f54be2c496572b4|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "ea59f8cde2b448c09f75f123ec80bb3e48349caf7838cc7b3c30d6a8a5b33b53",
+   "kind": "signal",
+   "leaf_id": "501421056d3074e2",
+   "preimage": "501421056d3074e2|2e0d3c51a852fb43a37f27486396539c3c54fce2a8367de429c34269483a92ac|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "070b1ff8c9d0a0a9a21cfcc677919e19f9fffe4d5ca658a6a98a23343e88f1e0",
+   "kind": "signal",
+   "leaf_id": "50da7a7114a0478d",
+   "preimage": "50da7a7114a0478d|7b08ae153a07c63db5ef400d9ce8b8c410d966bb2ee710aed9b5417edaaac216|+1|0.5333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "379fa9c3acde760d07ac775805382ecbeeeddfda2ba473299a46d64557753f19",
+   "kind": "signal",
+   "leaf_id": "514c7d620598245b",
+   "preimage": "514c7d620598245b|131dc8a8cd989ed6835dfd73a51c8cfc1dab576214d6ddb9883c0dc843d27729|+1|0.9333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "92ab871824c13369d9a0149beef71748a9a340433d2b9bfcaf70801909764d7a",
+   "kind": "signal",
+   "leaf_id": "51f40440780bb8bd",
+   "preimage": "51f40440780bb8bd|d025783ba9dbc738ddf2b491866cd4dcbd2597340eca2f5e2832c5ce84ca23d7|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "e62e8f6ed701ddbad537ff692d56dfa8a74c7e97c1bb0a0a9b918f8dc8634453",
+   "kind": "signal",
+   "leaf_id": "52370826bb0469d0",
+   "preimage": "52370826bb0469d0|939b808ca78cb5fa10d3094f6bf2479d898e16a6a6c3edef5132ae8facb25db8|-1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "1e915f11326e93f141ed491ce83d804d70c46e669a5f404eb129332f63a4bda7",
+   "kind": "signal",
+   "leaf_id": "5326543f8bdf2b34",
+   "preimage": "5326543f8bdf2b34|eb6c4eaa766a727b6dfc829b37392e16b293a131318eadfa28e9afe6ed62e01d|+1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "9f1c32c8d7865c7e8d7de17b9862a70a5da929a6b5eedcc6f5aa85e89dc2528b",
+   "kind": "signal",
+   "leaf_id": "532da7b350fe8dbd",
+   "preimage": "532da7b350fe8dbd|e6fb12d33e7a7a1cfdbbcf0959dd02561bd14eb719ae52a087be32944c693f62|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "e541c89ba00f7f8db539d186b6c5d1a2ba8183b3551565b27954f70558ee826b",
+   "kind": "signal",
+   "leaf_id": "5360cbd0d6442a63",
+   "preimage": "5360cbd0d6442a63|48030048a2f75e8399bbf4d9154f6eb07af2c984b51276d8fa40aeef252f5a41|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "492d69a8ea980e5a4914741b516cfe4a75f36a51ff09ebd3e569c4c9ce0c9205",
+   "kind": "signal",
+   "leaf_id": "53aa02d5814ba474",
+   "preimage": "53aa02d5814ba474|69eec00b8fc40b8b4d0456244711bdf521310d26cad555dfc518958811563d4c|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "e9b063709df1514ea870b4ffa7e3fcd178e9a5eb3dcf0eb387ab999df8476730",
+   "kind": "signal",
+   "leaf_id": "53d45e400c280ad9",
+   "preimage": "53d45e400c280ad9|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "fe494e7d79b8cde5ecd0a112122279e567fde122004b23e5f3a92673edf15594",
+   "kind": "signal",
+   "leaf_id": "540568af9677b6c0",
+   "preimage": "540568af9677b6c0|04b2cc21d98b6bb16458d8460dd8a2c990dd6e218bf6891b712580c5fda4c556|-1|0.1333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "00159968421bb90de5dc4fbe6de9442a15b7ec64b82ab76c4bb6ac1e6a560d2d",
+   "kind": "signal",
+   "leaf_id": "545cdc4b4c72ab40",
+   "preimage": "545cdc4b4c72ab40|7abc7885602929611f12f06cb9fc05c608e0cc0db055de523c3743adbdfdf4d2|+1|0.8333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "745cf9376a8921429889656b90d90f4b9cd1e431bd4031d7d9f6f04bb7419e12",
+   "kind": "signal",
+   "leaf_id": "550283ecd0c25694",
+   "preimage": "550283ecd0c25694|bc200ab4eae0b25c2b78140a61e3502863337f5d49bdca6a902ebb2b12677024|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "0e7c3061cf691653f0fdd97973eb74d24b7ce7662e895d70821b7b3277171bc0",
+   "kind": "signal",
+   "leaf_id": "56012ce3f34110e3",
+   "preimage": "56012ce3f34110e3|bfc44ea14bfb24c586c5f2352d887db3a4ae6eb929e5473dadbc1f7dd149a1e4|+1|0.2667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "a2020100385e1f22c478b5e103ba598f92708fc500f9f2378fd87bfc532a3517",
+   "kind": "signal",
+   "leaf_id": "5681c7116b1e1714",
+   "preimage": "5681c7116b1e1714|131dc8a8cd989ed6835dfd73a51c8cfc1dab576214d6ddb9883c0dc843d27729|+1|0.9333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "f28ef7fe0515792ca116968815b2611791ac186a94aa0ad73c64ba8a9eee4197",
+   "kind": "signal",
+   "leaf_id": "5709e66bc4fbf497",
+   "preimage": "5709e66bc4fbf497|1f1fa410e514282ac117f85ff53de3945925c7af07bbad0fc6e440c3146e02ac|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "cff16a939a814e5813f1ff61c47dbc7aa5f67a94e6e8903938d8ec89aebac9e0",
+   "kind": "signal",
+   "leaf_id": "5bf478f3c54f449b",
+   "preimage": "5bf478f3c54f449b|d865c8cd5bd3d92e8b95b4da4287e5db7412cda50ecb2afddfa2fa69d0aeac57|-1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "03b5fe3b9c150b76adaee800c0d7d8bea02f7a797c63da5cb1ccd8206bf32d21",
+   "kind": "signal",
+   "leaf_id": "5da3283711d755ee",
+   "preimage": "5da3283711d755ee|ad7803f9665305688e8e4db0d2a77aebac511d43dca7c4aeb7c68384d6855119|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "7d8ca0399d33ba69df766782e4a41b5b427be64be53659034149b62c38341f6d",
+   "kind": "signal",
+   "leaf_id": "5e16f414ac8e731f",
+   "preimage": "5e16f414ac8e731f|4fbc0b64cd72856647d995deca05d73136b3c1f49779e7b7c661355d3446fb18|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "fc337559fbd460666638f294299c82d098102aee722718020917f230862abd17",
+   "kind": "signal",
+   "leaf_id": "5f862b724da206c6",
+   "preimage": "5f862b724da206c6|cd53e9093bb31836f317c76d1a05a3fe1ddde9abcb586b3b61b38ab1bd616530|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "3ed0d67ce49ee4e3eb8f006322a3e42f10ec198ef3e5832d3d92f6b7f2a86292",
+   "kind": "signal",
+   "leaf_id": "5f996f9a0a31c544",
+   "preimage": "5f996f9a0a31c544|f71567982418de1661c83d08aa7131e9f9c2e732bc3ac2a1f968d9c58210b00d|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "712dbc932d55d761bd6a567e61bdebb719c916afe112f8d89ecdc4408f46e5f9",
+   "kind": "signal",
+   "leaf_id": "60c93025e93c1eec",
+   "preimage": "60c93025e93c1eec|4ed8d3b23d7e3cb55b6551d910c3e03bc5fbb99a230e3369d0c1665016a4b105|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "db4e81829999d11d276bed22ef5ce6ba273a1b6f655e00833dda149331fb729d",
+   "kind": "signal",
+   "leaf_id": "60e8457686389361",
+   "preimage": "60e8457686389361|081668ccdc9e733e856f34b89c871a99889a412781d6eb20e1826d76a534b222|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "eb16fe66744e13e0e4dab61178c6b60fec209be2f9b3cbe3edc742bd4977aa9a",
+   "kind": "signal",
+   "leaf_id": "62b3370507bcc2b0",
+   "preimage": "62b3370507bcc2b0|fce18042b9218ae16e6786d2f930db1351b1bf029ede4b55bc9ffd8404553d87|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "85397bef4fad16eef759237a7d635244a0c73a876feaa09cc54784f3ee4009cd",
+   "kind": "signal",
+   "leaf_id": "62e8413856a4e4dc",
+   "preimage": "62e8413856a4e4dc|21c438fde1133bc67f791566b91d77fcd8c851c7a5598ddfecfd868395b1047c|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "0e46778a866ca4e2eb9c3e28ac1bfca38f8005771c6c42c8ba4fc6787156fa2b",
+   "kind": "signal",
+   "leaf_id": "6383535d5d539950",
+   "preimage": "6383535d5d539950|bbd23bd9136de75ba2a44ac158e2a09771bf6b3ed5866987d6f3ea0061ac7eb0|-1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "1af48d1b1390b3fba5ece5b8fad882ab4ad1236dcf7898407f3043d7f486bb34",
+   "kind": "signal",
+   "leaf_id": "6422b4c6227c096e",
+   "preimage": "6422b4c6227c096e|6ea633e85989c75ce3042cf61355b9aa068f5c9790423041cde8e6432df502da|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "41dc9242139b73b712c843be832d0225e203122e2f311d92f083924c3ece51fe",
+   "kind": "signal",
+   "leaf_id": "6424722dfd5b067e",
+   "preimage": "6424722dfd5b067e|7973370d9560d23dad9bc88fa46adeaa103af3554e8bf53f6021bd268e8344ff|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "7272ba0d82069f300d8da66d555a245a81000c9856be5b50a1169577124834f9",
+   "kind": "signal",
+   "leaf_id": "64bca5029519d7e2",
+   "preimage": "64bca5029519d7e2|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "d15373d7d6560e0c91338d09c568331d472cbb9e0456ab8cd6395412203071e4",
+   "kind": "signal",
+   "leaf_id": "652370a83823c665",
+   "preimage": "652370a83823c665|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "c8749b0e4605614fb8ee2cc84add7be0e42f6750bee30bb8b8eadacfd418c4b1",
+   "kind": "signal",
+   "leaf_id": "65f202b38910f780",
+   "preimage": "65f202b38910f780|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "b76b4002092dab6405788c88f93d0334ce4b4694e9ad34b0cd243c589f47d32f",
+   "kind": "signal",
+   "leaf_id": "65f4b87b8eb3681c",
+   "preimage": "65f4b87b8eb3681c|fda349ee628812e90f92e74b4f516f374ad82446748259d4125a3fd30cf5230f|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "ad98ff36082757c32d5f054a7a7f1ca6f9ae2e4a67d1b637f2ae8d5901ab8857",
+   "kind": "signal",
+   "leaf_id": "668410cfc36815af",
+   "preimage": "668410cfc36815af|33cd830a74847bc0e82dce29052f2285c7bf0873bd2c832d218cef2ed9684074|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "7490c2b13a11b1b447e368c55281deab31955c03790130c087129f65fb94f9b4",
+   "kind": "signal",
+   "leaf_id": "66c938a3d30e4b8d",
+   "preimage": "66c938a3d30e4b8d|de731d85c8a924562cbc77d9991732cfcb41f84fe9c19111c6444b7cd1a34b6f|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "3272a27395c716e8a9e1dbf3f65d638501ab033509cc50b5375495493cb07835",
+   "kind": "signal",
+   "leaf_id": "66ea7201ac1c5c95",
+   "preimage": "66ea7201ac1c5c95|eb59d47ea7a23456a4c974cd213f998308dec2b6b25ec2cbd247fb6a554d0629|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "f3279739eb2324069d853a9431e4d2ad818cf47689e86e62800244946ce49de1",
+   "kind": "signal",
+   "leaf_id": "673c522984f1d0dc",
+   "preimage": "673c522984f1d0dc|165a0ec5dec15a28a6e0e1ecead327239e06417ab7c0dd7a3f007c6dd620850d|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "08685049631a15ddd6d19a9dbd0faa4fce97c4a7244c47448bba9c5201a9b0da",
+   "kind": "signal",
+   "leaf_id": "6787b4c54167bd22",
+   "preimage": "6787b4c54167bd22|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "fac8c66aef16a51683ee5e5e521850fc925ea877f7f39a31db2e50b1e3db6921",
+   "kind": "signal",
+   "leaf_id": "6846ea07dba34b8f",
+   "preimage": "6846ea07dba34b8f|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "5053fb512b607c4f5407a6de961a5e95a473a5d38f98957a4b815ef8586a8315",
+   "kind": "signal",
+   "leaf_id": "6860b947a6e02922",
+   "preimage": "6860b947a6e02922|c8efeabbc67d0a3b4d9579cc4f10982d158a69405b0bdb98f485077ac4a3d057|+1|0.3000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "8e94f2d64e4887cbc39004c14bdd8799cc074348c0497895b6dd1cb3071ac8ea",
+   "kind": "signal",
+   "leaf_id": "687f17954b7be6d8",
+   "preimage": "687f17954b7be6d8|c53297c182053b209cb8545b2e0102ddae39f2135a3b67af961cc02747c7e4a5|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "724f6f4d969e4549ba9ded5f298428880f5c886e74849f42cfcb741cde1eed53",
+   "kind": "signal",
+   "leaf_id": "691e08fd941f910e",
+   "preimage": "691e08fd941f910e|3c134b6b14bd61606f6a09929235c3375ed1ab7ccd089826cf978e568601f768|-1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "f30e4d3f294ff7ad68ad84a4d6dcdd50f783fa775c072c7b122a770484d64a90",
+   "kind": "signal",
+   "leaf_id": "69314d4a861ca7ff",
+   "preimage": "69314d4a861ca7ff|7803dfb9cf54d029078134efba398df55593349d8a2e73debf6e2070305fbb80|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "4d2d4dcf63685714b5259c16f31c31ccdb4204fca1524a8291da03d93e47be73",
+   "kind": "signal",
+   "leaf_id": "698f9e391080846e",
+   "preimage": "698f9e391080846e|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "1eb49a9889df5bf0446b18f0594f75f1d32e02374f4117e9cf8b2d63ed355be4",
+   "kind": "signal",
+   "leaf_id": "6b2ee94c88dbed1c",
+   "preimage": "6b2ee94c88dbed1c|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "d575a4981dcfdaf8ddb79a369a4e37fd26436a1cf0aae90866913b2db65990f9",
+   "kind": "signal",
+   "leaf_id": "6b45b704b34ae0a1",
+   "preimage": "6b45b704b34ae0a1|ccd30bac4416d4fa9e08ebed582673ca890cd5b79b8d7add9295900bbffec401|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "b9f204580e0df1d27f34ae19c91e4bab50afc42f9bf0a8da48929cd3e20f069b",
+   "kind": "signal",
+   "leaf_id": "6c0b4f1ac5cdd558",
+   "preimage": "6c0b4f1ac5cdd558|d489a5bd62761e9c7d5a9b647506393e59e53f14cde795edaab843d02fa42747|-1|0.9000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "c6fb854b1c58bde053e92977da6e20e54aa7d6ba0f2a6eb67ef15b95d323bab1",
+   "kind": "signal",
+   "leaf_id": "6c659af6b90b1606",
+   "preimage": "6c659af6b90b1606|3f041a64ad605e3e71c6c01741261558c539dac1a25693f0ebe367880c89a0de|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "523674d880b6bb224c22f3b57aef4d440126b44d07871490915d1b7c7a6cf8a3",
+   "kind": "signal",
+   "leaf_id": "6ec441d4e9072a2a",
+   "preimage": "6ec441d4e9072a2a|d6f98cf482df2cd33c2c13548cbb168b6907d50461d54390ddf2ad039148eccd|-1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "f9f9b323492e6698df748c95c67b18a49bb59e003dadd76c0e3a5eeefd3070c3",
+   "kind": "signal",
+   "leaf_id": "6f31041ea052f2ce",
+   "preimage": "6f31041ea052f2ce|cf7f1f1dfd9e81cc2a6c1eeb48d991eb10f78f02e625babb70d6988edefaf259|+1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "15b1006c16fa47133e01f1f68b3a7c1b89b1b8a167eb54fcffba613c4e29965e",
+   "kind": "signal",
+   "leaf_id": "6f9209f0e9830d27",
+   "preimage": "6f9209f0e9830d27|479fbf0065192c48229986a4c9dbc0213e6fa034955f6b51adc6d1ddb3b10ac2|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "0b6fd763cc5e11332b0469bd7651b1f313ec4c87ce2d55c98e8ac1e5389f443a",
+   "kind": "signal",
+   "leaf_id": "6ff0e9d81d7838e6",
+   "preimage": "6ff0e9d81d7838e6|f385caa10cfdc31e9418d03e3fbb807f4df5b453c775f6db9e21ba0b2ab6a3cd|+1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "d5a9e4768eb234f0002b1f4af7a309ae16650936f47542be706b353a3f4af533",
+   "kind": "signal",
+   "leaf_id": "7125db5c69b4fc71",
+   "preimage": "7125db5c69b4fc71|95584d9e00939e4c7d379d310f8a1fb9c062bd59058e646cc9b5fcf661efb131|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "fd70656d3c87dc1b506269c554c77878b78218af5a4ec42b2513c3396ddd8082",
+   "kind": "signal",
+   "leaf_id": "714f3ffad3393846",
+   "preimage": "714f3ffad3393846|7b0d83cbb1edb17cb1cc6fde563ce8577997b04544668561a6955cae2ae7eca2|-1|0.9000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "725638388f4b9733344a377ce0cc3f4b81e960abb4ac932002718d9ff58320eb",
+   "kind": "signal",
+   "leaf_id": "7452a2243ea67274",
+   "preimage": "7452a2243ea67274|cae26878e3a95fa1310764638bd1640b18015f15d2a139d9053ea6658ef89ee8|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "2f0e23d58cae6cea1e51ef5965ec9813b95faf63f078335bb5266eb17dae2e64",
+   "kind": "signal",
+   "leaf_id": "75529c9c7e4b958b",
+   "preimage": "75529c9c7e4b958b|1d1c0853b4d034f7b91ffe95801ea828dac37780b877af327789996327a01c77|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "109f15895350dd4b4eca79ba8ef732990cd346236b224df7229627561621a116",
+   "kind": "signal",
+   "leaf_id": "756fc8dbb794a385",
+   "preimage": "756fc8dbb794a385|dd4b02b6ffa8409d5dd298170ef3e538c552e5d8807f5fdfbd919b27accbf0c5|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "56d4dda09cb4240c2f4ddccf8cc5540e8adc2c98f466570bbc91217607d56a15",
+   "kind": "signal",
+   "leaf_id": "75b71a297b70c8b9",
+   "preimage": "75b71a297b70c8b9|e6fb12d33e7a7a1cfdbbcf0959dd02561bd14eb719ae52a087be32944c693f62|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "f41c826d39d576b4dcaf4a55e6da6d66f2e6a68a79d5462760ed9b3d5c0d5d67",
+   "kind": "signal",
+   "leaf_id": "76b06270c19ab886",
+   "preimage": "76b06270c19ab886|519c49946f754255e85f4ac2e10d70ef8d90255b6e4830691534048a3ba0b560|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "bee9283cbc5f0eec1326fc78b22b3b34de874284e718c3686650d93911044378",
+   "kind": "signal",
+   "leaf_id": "7738cbd9677af9ed",
+   "preimage": "7738cbd9677af9ed|2e8b185e3c67b41628ef758519fcc1a7289411b1aa75b3b79b9b90a4705ea666|+1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "2498c3d3bd65601f925991a4e7d3c73913300d60239b91d3f9b9a095e8688019",
+   "kind": "signal",
+   "leaf_id": "7759cfa3be05e06c",
+   "preimage": "7759cfa3be05e06c|13af605e3cfe0bdd1195046aa59564c722e3e8030ee00c4ab5919b7369e2d8b2|-1|0.0667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "3f4946b81a38f9692710c785a2c23d4af2fd9337308a81bccecb6e8b933fea75",
+   "kind": "signal",
+   "leaf_id": "778b73fff4cca710",
+   "preimage": "778b73fff4cca710|748753ab8d37b21ade9e62df031d07b01116651c84da362c55fd0332fe24b46a|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "844fa21ad8261b23421bf063307269b5b91fa316fc470d6ae6de51304472811f",
+   "kind": "signal",
+   "leaf_id": "77a6c535bef6ca1b",
+   "preimage": "77a6c535bef6ca1b|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "fe3c7a6d4f1cdc60e5df2664b19831ba40514db201b58c7a768c73c67a0ebfb1",
+   "kind": "signal",
+   "leaf_id": "77e2128856b7f2e0",
+   "preimage": "77e2128856b7f2e0|900c7ad74145f87edd26543adffc0ff5feaee54bfef954cc11ab1401c1ad3bb0|+1|0.4333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "c264c2de11bb32ac6418e29a41a905c3daf9c33545d2d6c1c7c4706fabe47713",
+   "kind": "signal",
+   "leaf_id": "7836f38e223a6d91",
+   "preimage": "7836f38e223a6d91|a11e2b38ed35bce8c54d5af3b68dbeab9f1307a6afc905ed80b7109a99ab8531|+1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "56ade7a393aeff1dd6ff17320211287f982c8226d8844da86db98b4ab593b764",
+   "kind": "signal",
+   "leaf_id": "791b113dcd6af402",
+   "preimage": "791b113dcd6af402|7b932449e2a8186c50dc54700dcbada0cd98dbf6b11c440ca89f0ac1244f5992|+1|0.4333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "157d25752f053e8866f7dc74ae255d67a2e9bd8bcf8c1c3c1e3bbbc33130e93e",
+   "kind": "signal",
+   "leaf_id": "793b60dee49ed58c",
+   "preimage": "793b60dee49ed58c|4176e30bbf84aabf69e18f386800b7c8dd29ce4e20632728b11ef92f84978a94|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "225a06977e06f59bd3d29bd9923c3e2661a8c1f83da8797b993e13ff0db8af9d",
+   "kind": "signal",
+   "leaf_id": "795de53132324260",
+   "preimage": "795de53132324260|2ea06e8b5014235cd1a3baf7ce59f0fa1124ff737b627aa458eb6f0449a2badb|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "19b91c37af606b540caabc5258fcc3b61b2aa558a695c13995b51b6fb696210a",
+   "kind": "signal",
+   "leaf_id": "7a1d8f37a6150913",
+   "preimage": "7a1d8f37a6150913|4813f1dbd4ef08f931545da74d7f0c17d8d4799b41869ccbef5cc5466380bb60|+1|0.9000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "af0b68796509253226651029898f1a5fed74b49a0a4d9fbcbf1d3e38aba204a2",
+   "kind": "signal",
+   "leaf_id": "7a421b1bcad086c6",
+   "preimage": "7a421b1bcad086c6|9b4616f6c642c99c7dd81d8d1b221bb45de81f7b3bfdd69e8eed941ce81aa36f|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "1c5341992a156085c7f00700d196cc2c8997970261fe6f1b12f548e22ad5bbad",
+   "kind": "signal",
+   "leaf_id": "7b4a5e7ac200657a",
+   "preimage": "7b4a5e7ac200657a|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "7d0b3b786bc43770dc7ef0c82f76eebacb100428c89ee2489ffc1b37a2aee23e",
+   "kind": "signal",
+   "leaf_id": "7bbb17ca17e48d4f",
+   "preimage": "7bbb17ca17e48d4f|f340e0896aaabed58efe5603dcb4f418364787030cb32be37dbee7be6c1d82e3|+1|0.3667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "9f92110595e0eb01c47b2fc44d48a4b7fd35e39eaf659ab3019293536198a022",
+   "kind": "signal",
+   "leaf_id": "7bbcd6d4b7e4b996",
+   "preimage": "7bbcd6d4b7e4b996|f00bce6840fb65cf8b780e5fe06db83b37e762b79cb36c720a5bb6f15faaabfa|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "24a6066bb78309d1610a8398ffb8adb6589a6ff2ee0cc59f17f034b16d5ceb3a",
+   "kind": "signal",
+   "leaf_id": "7bdaf25ffc7b49d0",
+   "preimage": "7bdaf25ffc7b49d0|16d34a67640d0dafa5127d60470525f691ee50be79df0768df4c36ae1e13d366|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "ca0295e7ed2625f3c17405b4dfd22f95bf9b22a61c30cd07d8305a119257357f",
+   "kind": "signal",
+   "leaf_id": "7c0edac66905a2ef",
+   "preimage": "7c0edac66905a2ef|dbf48d862672c3501c698fd8f2e8a182183106f1a57705b868e96778c45b49ba|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "9f582516b50a7aa91c6a0ae00ad64fb535f3b35b9473e070028b56fac18a6662",
+   "kind": "signal",
+   "leaf_id": "7c3461ae61e58246",
+   "preimage": "7c3461ae61e58246|4ec8201a6cc87f3f713276fa90f90c37959149613f6985b9727e34b8f9e8f4d8|-1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "a9d90dc00f90f3f3eaf432c056a99dcb0b68d00af5d4dc712bfffe1b8b40abd5",
+   "kind": "signal",
+   "leaf_id": "7c624b5f47724831",
+   "preimage": "7c624b5f47724831|ae9cbaaea54335df91a8f76059e4cdffbca3ff88130deec4193e3d45775ef904|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "60111322c3429c21572b0b36e53b518008e039fed57e18ceb0e3881319b42e57",
+   "kind": "signal",
+   "leaf_id": "7d9651dc98b9051e",
+   "preimage": "7d9651dc98b9051e|7ac143a8c7d86380449a6ec5b122ea05f21dbd75c67d9425e990c79a35d709d1|+1|0.7333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "a2478c3ad241f5f8820cef4e68e13fd6d1871216bcee4549f513fb1d4de0ce8c",
+   "kind": "signal",
+   "leaf_id": "7f5be16b8ef2ece0",
+   "preimage": "7f5be16b8ef2ece0|5856204bb8be5281865ae5171252adbb0e3b90fd23bb21569e021fc562947c37|-1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "72bb66614536bc758a6bada96198b026d2e4de5aa845d8830a90f5d7cf4058ce",
+   "kind": "signal",
+   "leaf_id": "7f6f8877aee9bec2",
+   "preimage": "7f6f8877aee9bec2|4889cd64f7d33f9080a6d18ebeac46430d799c96985342c04de974bc6abb1eca|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "88f5d40b0eda688e9fc9df0d8095301f2a5917c7d91504d61c0c2ad34e6db230",
+   "kind": "signal",
+   "leaf_id": "8046f6defcf09e44",
+   "preimage": "8046f6defcf09e44|bfc44ea14bfb24c586c5f2352d887db3a4ae6eb929e5473dadbc1f7dd149a1e4|+1|0.2667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "cba96bc565490811355876cb7cffc2bfb16a1e6f0872a058600e7c6d870f640f",
+   "kind": "signal",
+   "leaf_id": "807ddf385986594e",
+   "preimage": "807ddf385986594e|4743ef3aca41bc9359f9198c4575a4c5e7993d462e260003346fc51d29a67112|-1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "61db9fb8dfd1b3bc808b019bc137be742f6f8e88cb8984399b11869af6ddac68",
+   "kind": "signal",
+   "leaf_id": "808a0d76b19c2f3f",
+   "preimage": "808a0d76b19c2f3f|78654bcc76eab390bb1963f6d0a1e5df1770fb90e93ada08a5c4f3779950e123|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "ff38179ee4dcfe79e9c7c73301dd5de280a0be62e2c627cc25682ba71e6efa9a",
+   "kind": "signal",
+   "leaf_id": "80ce85a16a86d7ea",
+   "preimage": "80ce85a16a86d7ea|9123c2e1eedf9ef4d96188f1557cd2918134e1b4c3c105801ef4e74ce47a5c5a|+1|0.9667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "54840df3c0e6a880d67ca2bfb776804ca699c2dfa58784ebd4f3c80804093523",
+   "kind": "signal",
+   "leaf_id": "80f82c0427bfea76",
+   "preimage": "80f82c0427bfea76|cd53e9093bb31836f317c76d1a05a3fe1ddde9abcb586b3b61b38ab1bd616530|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "9bfd81931be494b3ecdd269af8bb20c2a9ab33b6b9924598d9132d2b222a4781",
+   "kind": "signal",
+   "leaf_id": "81391e3eb7f723af",
+   "preimage": "81391e3eb7f723af|3a27ffcfd9454e0d3e6845fec0a7d88e068688e15bdb7fd2220036c0c3866035|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "bd228cb0d6bb6297132384cdd8f3aedb54d89891af863161631f3fa80f132c4b",
+   "kind": "signal",
+   "leaf_id": "8149da01fff0bd38",
+   "preimage": "8149da01fff0bd38|8a5ffefa51c298373fb81fad007cbfcc09e63eedf3383fc0bee20f996e6c9835|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "987e90afe133658155a265eb878f96cf5a725580be761fe947c6e604a7e9d5bc",
+   "kind": "signal",
+   "leaf_id": "82c23515c9a2b6b1",
+   "preimage": "82c23515c9a2b6b1|9bf06cdf3cf9aba0e7e1414459177df2dd32d2c8891dfc0ded43c97fe72f3ccd|-1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "c5a3c663a4e3dda179fd3aeb78d3290e4f827804099f01a64745c17febadb9ee",
+   "kind": "signal",
+   "leaf_id": "8312a4ebb3291d91",
+   "preimage": "8312a4ebb3291d91|bc932bf4f00d41d0aa97179e726c03d4e0ecd9dba7dd2ed8badb11cbf33fce40|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "91d26da4e35743452436d26553c3456c7e17db38bcd3dc74f9cce0f3290b9c29",
+   "kind": "signal",
+   "leaf_id": "83ab869c7a32b3d1",
+   "preimage": "83ab869c7a32b3d1|b8e1a66bdc0197e717fa30d194f80bc0ddcdbff2af90b7eacb9bd56d9ca4387d|+1|0.0667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "d8b501cc1a73ea0bbd31a35f19a07c47b224f9699be78cd09be221845f445225",
+   "kind": "signal",
+   "leaf_id": "83fbfb661098655e",
+   "preimage": "83fbfb661098655e|9fcc3a92675ce44a376238d6feeef3b5f921e577bd71ed5544fa09890f0f9467|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "db451124ca04be9d9e54ba7b2dab90dd8abb22ce3bc0e00f6e881361aac409d1",
+   "kind": "signal",
+   "leaf_id": "84d86012cd67751a",
+   "preimage": "84d86012cd67751a|4d438f1270b6e2081a6b98c7240552418944f1d5030f0427416ae614504929dd|+1|0.8667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "4766c3ce221be672dac650be394e49bba9e9d1b09b955d7088ea8c6f6ea70589",
+   "kind": "signal",
+   "leaf_id": "8641c276509225ca",
+   "preimage": "8641c276509225ca|882e2fb09c2125607bcd7363d91575887852510023e0066499b05ec29305ea76|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "7049e05716ea2384cf0a30f16bbb13593b30ea3af991470c8a62ba669f1cb1b3",
+   "kind": "signal",
+   "leaf_id": "88b12c585d0f84fa",
+   "preimage": "88b12c585d0f84fa|10e933ffd41c9c201165b14f74bbfb00dd570ea36547013aebc01243e4c05494|-1|0.0667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "d22084d066ae264b2f189d5c188e4f8fb02228029e5359091f056e5efbd1fb96",
+   "kind": "signal",
+   "leaf_id": "8950e28c3de6edff",
+   "preimage": "8950e28c3de6edff|999ec79bd71678a63de3ba76ebe9957ed8f0f847c73dd15db112bb7686988160|-1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "b16ae35a804edc3801def9bf25d8310d4e3ec74e867a429c89c60ff2c46a3191",
+   "kind": "signal",
+   "leaf_id": "8a5498cafae6dc4d",
+   "preimage": "8a5498cafae6dc4d|c19c85064312015619aafe418be9b1ce4c3f6c5fef4417da03de3ad1ae1846a5|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "0cca91e8e5528b5724a0849d527998cd4709ed3df6c994c6a64da5863aed2709",
+   "kind": "signal",
+   "leaf_id": "8b37bd216ea9d668",
+   "preimage": "8b37bd216ea9d668|c8e703e2bbd93ce09ac5a584823c431490b6dc62295c50c862d24eedd3d21c04|+1|0.3000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "9357292739e20bc1238ae777ddee5325d46ac4eb9c7f7ef86a391de4421ea4aa",
+   "kind": "signal",
+   "leaf_id": "8b60e46d5981f77a",
+   "preimage": "8b60e46d5981f77a|332c4e51c52170c23a662358d3051010e8d258d4396bd35f10594b3d025b4533|+1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "d8a06b4d527da551965dbd36269d9ec4d9987d279867113a859d57c64d1dece3",
+   "kind": "signal",
+   "leaf_id": "8b67bd6a92079891",
+   "preimage": "8b67bd6a92079891|cf7f1f1dfd9e81cc2a6c1eeb48d991eb10f78f02e625babb70d6988edefaf259|+1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "ec9965525357524ad8ed9cc0aee49c359f2b2e3140355dd6fa257894db50bdbd",
+   "kind": "signal",
+   "leaf_id": "8b9d12286c624f37",
+   "preimage": "8b9d12286c624f37|85d2367c378f13ecc81084cebae13a5593e311a4bf21d6b314730286598412fb|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "d73b64696727dd9519fb5bb42a41e3ebbd3effb7f12bbb28e51191d69dd9c9d4",
+   "kind": "signal",
+   "leaf_id": "8d03188b31c8d536",
+   "preimage": "8d03188b31c8d536|67cc6c45a5a4b0b40a6c84008f069f3e4fe45950278f2c6ffd29185e2cb99c80|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "e369d96042dad8ae857b937efcbf14b497f7ebf079593c18d22e0d94976dd3d8",
+   "kind": "signal",
+   "leaf_id": "8d2e959d1edff039",
+   "preimage": "8d2e959d1edff039|c99ed08b91c3839fec257a1763882c00c1b90485d19ab89a1681781adbedc98f|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "df95b1cb921e5d510d96d89e81d045830b606b3a67359cdd3e17e7292c60f194",
+   "kind": "signal",
+   "leaf_id": "8d5639da4f1611d6",
+   "preimage": "8d5639da4f1611d6|cb73b56612e9b0d32c0fe915e7a91308124e4ca35802cc57b15328750aa88683|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "98124f6aa9129eed7b809e3513ea4a64e460f83c93689b83d69a672f6b30cdec",
+   "kind": "signal",
+   "leaf_id": "8dc6e89cd3391c97",
+   "preimage": "8dc6e89cd3391c97|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "2cd65712179ad67a213dcd4516e77e4cb6e9df68c07ba73eaf9b704bb4dabc8e",
+   "kind": "signal",
+   "leaf_id": "8dd44dabbd0ed101",
+   "preimage": "8dd44dabbd0ed101|a11e2b38ed35bce8c54d5af3b68dbeab9f1307a6afc905ed80b7109a99ab8531|+1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "eafb79c11de005d8b575802fb7a346226e92e32803ae1b3f3f1e9bdf4f9cf8f1",
+   "kind": "signal",
+   "leaf_id": "8dd6af1f3c717d3f",
+   "preimage": "8dd6af1f3c717d3f|f385caa10cfdc31e9418d03e3fbb807f4df5b453c775f6db9e21ba0b2ab6a3cd|+1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "4aeb9b90bd25ec6d416596eaa00c493aade06792527502bd59add2122a504081",
+   "kind": "signal",
+   "leaf_id": "8ec3c3c9531cd734",
+   "preimage": "8ec3c3c9531cd734|f9737e7e7325fc3a1c0aedef0514e435f1c2779d85aa2df9212c6fd397456958|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "6a12143635e00c19dbbe4464e895ccfed391fbfe0e5a67b5500a4b2736567fc7",
+   "kind": "signal",
+   "leaf_id": "8fa2d33bb36fd888",
+   "preimage": "8fa2d33bb36fd888|947e499812ad00bc7298aed668ab18cc4ac92326156a597797d468d77c67c84a|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "0c94b2253cc54099b21ce3a5b54358afe8670614e42f4b7660f05cb63c338290",
+   "kind": "signal",
+   "leaf_id": "90bc9d29c49df0a4",
+   "preimage": "90bc9d29c49df0a4|28efa0fa56037c0bb9733a268d97d5b5acad59244bc9e10ad8a872adce048996|-1|0.6333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "2ba5c107d7fe240be0a9a85de1b89a0897739b77ca8b4291cc473c40e4ef03c7",
+   "kind": "signal",
+   "leaf_id": "935d2c69a83a1fdb",
+   "preimage": "935d2c69a83a1fdb|ee64ebffe16f197b660e7ff73b963db623f351c3089313d535ca86de8a8a0c11|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "c171676c70203e4fc1bd7ba24f92b0301af39e39335f1facfc3a482a26acd49b",
+   "kind": "signal",
+   "leaf_id": "94bbd79623476408",
+   "preimage": "94bbd79623476408|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "d44b696ab7d59acf6a7d90a58432829779adbb5cc0c763c9362f556d164187a8",
+   "kind": "signal",
+   "leaf_id": "94c3e582211068b2",
+   "preimage": "94c3e582211068b2|6670732adda6483545b77a08d2f960c310f7b17f81ff920decdbe0e83e3eb79e|-1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "6d9c661d23a7b3205acd3e5ba4bd3b54cb331dfca950b211e0a4f3557573d815",
+   "kind": "signal",
+   "leaf_id": "950202d95e0422e6",
+   "preimage": "950202d95e0422e6|0f26a1c31e380b23f1e07bd9a845363422a1d51328709261d0c0142dc0096388|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "6b25b704fbd3d2d4970c46a5d2669bf8fec862b3348cd4613ad74d35c3a539c9",
+   "kind": "signal",
+   "leaf_id": "95305f37c5ba9e31",
+   "preimage": "95305f37c5ba9e31|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "15b80429542985e8640df2ead2e45e0b831ce4eacd05fc3786e04a7ba5e7a3f2",
+   "kind": "signal",
+   "leaf_id": "95999c22c170de28",
+   "preimage": "95999c22c170de28|e732e0bbc3c1da92d284f8f48ac420762c4b30cc065c8bf2e121df189ed5f616|-1|0.3000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "ffeec66a8b9525aaa424a7e21737930638ca5eb4e8f3984bafd1d695f259502b",
+   "kind": "signal",
+   "leaf_id": "973dcc09cefae67e",
+   "preimage": "973dcc09cefae67e|c74271363dc39776c159aaaf9113f23e3c9582b0648d1a052513084fdfc297c0|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "4767b700b6c87529b9a0015a48a9b9334d4aa21f514647c68325de171e2fce48",
+   "kind": "signal",
+   "leaf_id": "981b83fa4fe150f1",
+   "preimage": "981b83fa4fe150f1|018b22e84710f72877e01c4cc8f8a77009141dad8e4c9b2a3670e6052c63a1b5|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "e5e581aa97dae5d7a9df50588b55c730630c1cc7ced2f558221100a73f8d267f",
+   "kind": "signal",
+   "leaf_id": "995181373f95e178",
+   "preimage": "995181373f95e178|f63e3aa8288eb1640c26261e151388f2e28d53540ec29cd248772b535f9598a3|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "40a949d263d613e589b2fac39c7ae33f75595025986996659d8a28ab44d99cc1",
+   "kind": "signal",
+   "leaf_id": "9a22c664f66ba43c",
+   "preimage": "9a22c664f66ba43c|2567746f778833cc42eb8428ee29e18993285bec5ab2c132cea317533727e6da|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "f830d0fbb39af417b733be369c9ef4a645e86115fa06d3a593e029e7646908d5",
+   "kind": "signal",
+   "leaf_id": "9a800437b04f1e27",
+   "preimage": "9a800437b04f1e27|ce8c421658450bddbcc817a8c3c241ec85f75076e1a612593c9037a1de5b3163|+1|0.3667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "3a565267cf8ccad3b26766ff0b224404856c5eac4316809ce363edca39b68637",
+   "kind": "signal",
+   "leaf_id": "9ad945d13f4c6ae3",
+   "preimage": "9ad945d13f4c6ae3|c2c0dc55aa5daa2b95b1f71d68f0e886a5b847734c573370f7f7e20e338f81c1|+1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "8ded9a4bc180ef702df9ab34762c3a6c9b82f7d9a2e11cf97e2646914c023d12",
+   "kind": "signal",
+   "leaf_id": "9b0c9452a08e9c97",
+   "preimage": "9b0c9452a08e9c97|35d91dcf44021a7f5464002b342e8c21f630c03c9abf9fb81578a58955911f42|+1|0.4667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "0389f1122aa1e2ffd28420778efe0ba5013ecd47ea3eb9b8b38d8e76606c4c3d",
+   "kind": "signal",
+   "leaf_id": "9bebcbbbc70a78cd",
+   "preimage": "9bebcbbbc70a78cd|e3aef6bad1037ff9c16f3e2aae0c91be8365418d75be2b5c34216a646434b093|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "dacf6d5ce738d4a76683587c1f7834075ad8825f7cb83760869c76275c224989",
+   "kind": "signal",
+   "leaf_id": "9c2bddacc1169f58",
+   "preimage": "9c2bddacc1169f58|9aec9bf9e13c75786f1945bacc9a0c7f8ae444349d551219c7a90d101d24d83d|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "cdb4792ab35ef2ec1b780db96232ad5b0fb05d22b24361590696dc469ae84357",
+   "kind": "signal",
+   "leaf_id": "9d6ff8d63d5b5272",
+   "preimage": "9d6ff8d63d5b5272|e6fb12d33e7a7a1cfdbbcf0959dd02561bd14eb719ae52a087be32944c693f62|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "78c33a4d200f240e1172973ba6b02e028806f95f83674d96aa73a51e83c47189",
+   "kind": "signal",
+   "leaf_id": "9d8149906e72ca71",
+   "preimage": "9d8149906e72ca71|c836b08b898332004af584e6022cf04e0cb4d1397ea6e415163eeb08a6a02d21|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "bc328c3a785531212cd3390eeb7b0fa13ee862268faed9dce0952c314139d1b8",
+   "kind": "signal",
+   "leaf_id": "9d9d7c2bc8897320",
+   "preimage": "9d9d7c2bc8897320|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "085dd9dbe17acda5062294c938a15c12d251fcbc514d17c0f2c1d0c4f4954ca4",
+   "kind": "signal",
+   "leaf_id": "9de0209a19db3127",
+   "preimage": "9de0209a19db3127|dd4b02b6ffa8409d5dd298170ef3e538c552e5d8807f5fdfbd919b27accbf0c5|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "3bb3918a22d8b4dafc24b1778a7769df5d06af6de11bdb30a36458458459fbf2",
+   "kind": "signal",
+   "leaf_id": "9df4d9b36c7a2079",
+   "preimage": "9df4d9b36c7a2079|aaea26a3236d03824a42f56999389971021fda7e9325a43b103aba2fdaf98d5b|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "d8ea71f55c2e676e1249ec99577969f92e320ee8e28cc5922a06a6a3d1b8555a",
+   "kind": "signal",
+   "leaf_id": "9ee4e661425752cd",
+   "preimage": "9ee4e661425752cd|ec11df82c22f547c069d77077eb0bb01695da003e6adcaca04d1125edfbe8651|+1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "2d09ffecd60f771d241bb03d5f97645a4b519966936c678e01131cb351ed2133",
+   "kind": "signal",
+   "leaf_id": "a011bcd13a935136",
+   "preimage": "a011bcd13a935136|c98f9d38c62bbf3fa6b38aa9746355eb92d2287c80059132e86c45b28cda750d|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "8f20e1c6af3e5567c751271ef194c158f9142a0518d19f767a3bc4a0aa1e7f97",
+   "kind": "signal",
+   "leaf_id": "a1ec49adbe08bc01",
+   "preimage": "a1ec49adbe08bc01|edf11ce28e10f520861b4cb2c5153c0a4af0cf582cf9847adb35332a0f9b8afc|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "4ddfc346d708d84c94608ea7191e3cd87f56089448e0d291b35e2318db2253ce",
+   "kind": "signal",
+   "leaf_id": "a204f46922b7dfd9",
+   "preimage": "a204f46922b7dfd9|cc6f3a1668d61bc68ff903a95783185a369ec52d2d09d171d783eda2ff814533|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "024ea938515464582d088e036f14001e4aad07c38b42e25f013363dec9d8c87b",
+   "kind": "signal",
+   "leaf_id": "a2a99397653288ea",
+   "preimage": "a2a99397653288ea|c00392ae6ddadd98e58450e068815815d6f6e4f485fdb31d27ec542bc477f80f|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "33da50a63303d62778df6901ae1f6b92baf071c24bc87f96013c8a550015c3ca",
+   "kind": "signal",
+   "leaf_id": "a2ead4cea800042b",
+   "preimage": "a2ead4cea800042b|dd4b02b6ffa8409d5dd298170ef3e538c552e5d8807f5fdfbd919b27accbf0c5|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "4c5df9a0936e6ad4eb43498352c4aa6e5b81b1a03b9321bec130a35b2c882330",
+   "kind": "signal",
+   "leaf_id": "a4bc814ec3192f4f",
+   "preimage": "a4bc814ec3192f4f|06dc6e9e61a274c26b9959ecefb2a7011c34b8cc151e71f887c8ab3a51754078|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "b316d159610d4e9feca6774a2124236398c6959ca260a8909ba58cb2324561b8",
+   "kind": "signal",
+   "leaf_id": "a52b34a46cbee55b",
+   "preimage": "a52b34a46cbee55b|cae26878e3a95fa1310764638bd1640b18015f15d2a139d9053ea6658ef89ee8|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "d450536bd10c5cc5dea7a12673beeda1be204de0ca19d8210f2858ce953ffbee",
+   "kind": "signal",
+   "leaf_id": "a654f71d75af92e9",
+   "preimage": "a654f71d75af92e9|455532f9f30f322b190bd38ac25dd314ca054c2c5a4870aed8b2659d2f6dec7d|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "b023877fe07dd51b89552c6928ab58db5a32c05fabaee049b93b865ba5475344",
+   "kind": "signal",
+   "leaf_id": "a6f93915ec4bdd27",
+   "preimage": "a6f93915ec4bdd27|628a5e75cedf1dabe0fe07c344ceb72774b80da0a602f11f3344ba481f809e51|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "85f5d5f89ab2e1692d899133eee6ed4b7546cd8c4c7f52401c60d6fdbdb0a659",
+   "kind": "signal",
+   "leaf_id": "a7646b89d4540d28",
+   "preimage": "a7646b89d4540d28|5ac5db1671144e8df96c468d6f6c829f228274041f7bff2ad8a1afe055eb39a7|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "66d5936a4bf1a2e8b56dcb2640fcaf778ef8d2622e7f33d09d78c18edc1c3a84",
+   "kind": "signal",
+   "leaf_id": "a7ad1c481b9c3325",
+   "preimage": "a7ad1c481b9c3325|892baa1bc1ffffa90ca405cfdfbec810152bb541de48c299c32736be213abfbe|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "cddf2f04d69213a49d05a05a9049cbb8b74e819b5eb4f06123125ca158b2384d",
+   "kind": "signal",
+   "leaf_id": "a8e3934e4e7871d4",
+   "preimage": "a8e3934e4e7871d4|a11e2b38ed35bce8c54d5af3b68dbeab9f1307a6afc905ed80b7109a99ab8531|+1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "e800fa3e05ef08dfd770013bfda242e2ce80a6b352f62a68b27db9a8764b283a",
+   "kind": "signal",
+   "leaf_id": "a970b8f7de78bb98",
+   "preimage": "a970b8f7de78bb98|98b87025ccae57d31debfb5bb48504f4d0d9b2bd69f4e7c0101995f42503e46e|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "c8b84b10c23bb58330dbd74a1c64137ac7851357cd6e08e337afa4dfafe6704b",
+   "kind": "signal",
+   "leaf_id": "a9e512efba50427f",
+   "preimage": "a9e512efba50427f|a06e8fae566545b536e174e53d0180f78304914de2d85519ce4e028316afa529|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "47a2e37a304715200301dbaff6b4b436e52a97ca511118daa8ae34a9194826f7",
+   "kind": "signal",
+   "leaf_id": "aa5281a2e810b6f5",
+   "preimage": "aa5281a2e810b6f5|c53d4708aad255864ea8570975cca7edc07a7a2e599ae98c52cfb4794a0fc416|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "ddacecca0689e5460d88f1c80329536f95b801d4c9fb68f37dc20f1b04e6f8eb",
+   "kind": "signal",
+   "leaf_id": "aac0f87c01fc918d",
+   "preimage": "aac0f87c01fc918d|5b9dff2ae5a391307c05a87aed687e226096d9decea8516c245060be6c0d7f89|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "11e5e9879bef3c07fede3142c6a764037abd8e4ba212873ca05633a48405e6fd",
+   "kind": "signal",
+   "leaf_id": "aae0b44ce6ac757f",
+   "preimage": "aae0b44ce6ac757f|e732e0bbc3c1da92d284f8f48ac420762c4b30cc065c8bf2e121df189ed5f616|-1|0.3000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "b046181e963e7141b11c1ad57c7f349b4dcf5a5511ad6798615e5bfb6036fc6d",
+   "kind": "signal",
+   "leaf_id": "ab4294b1c64ffd8b",
+   "preimage": "ab4294b1c64ffd8b|2094877bed1e351d9d0ef0369b9e4529a15e2fe5177de1a8562c366a79049328|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "609ab4eda68f9386eacd0cb2f732ab37555358514d5c0012be7b20a036a292f7",
+   "kind": "signal",
+   "leaf_id": "ab6b69cd000dd42d",
+   "preimage": "ab6b69cd000dd42d|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "0fd8a570478f9c7959386b9676cf0b66fe8da60e71bf9cd3465ce4cf2c35d8a6",
+   "kind": "signal",
+   "leaf_id": "ad7a6b80cbc3269f",
+   "preimage": "ad7a6b80cbc3269f|c844ca96da0bb16facb4a03dc197a4027e37ac56d5e6e0ba61f3821a7331d47a|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "a791b1b424556c383e057e47409db5ed697d6966d417affdef8e5fe348c2cd4a",
+   "kind": "signal",
+   "leaf_id": "ada1dd017d77376b",
+   "preimage": "ada1dd017d77376b|56e208518fff4ec0b1bf4c3df4e456c7256a341d52d7071244c97a987b5e280e|+1|0.3667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "695543b8a8ede8246bee05d7ec3f861de0979cd4a87a31a0cc9ca6af3985b6e9",
+   "kind": "signal",
+   "leaf_id": "adbc60af5c297881",
+   "preimage": "adbc60af5c297881|04c2464532595c5e1c775ed28692688ca74d6c2bbe2debff51efaf642f02c401|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "857a483068cf8381d5c7aab9b1bd6de8b5546858120dc95a34484500da193e29",
+   "kind": "signal",
+   "leaf_id": "af7fb202ba1e9cf8",
+   "preimage": "af7fb202ba1e9cf8|93696abdb6e86b7e69e87396dbd3e1bf318fe75a3d90d135eb3d41861ffde483|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "63b15346831958cc4c67632baeb04b8fea9788faad7d12a22473ae32f6faf689",
+   "kind": "signal",
+   "leaf_id": "b059d1414f5030a0",
+   "preimage": "b059d1414f5030a0|274e6947f81235e233490c9af2b4d6086bf8582333e4b0b733b8e6e88b39a38a|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "684f00830ded5e47c3e8b2839a06e3fb3c95bab89a4cbf1ff20e80d3868fdd40",
+   "kind": "signal",
+   "leaf_id": "b144f808e84b1be8",
+   "preimage": "b144f808e84b1be8|de8b9983e2abae94959abcd174a4a1e8f22689fa355048e8d776802d29eb1a91|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "dabacd268d000833850bb5b9fe394c77ff4f615ca39d8adbd7a679de6c8a76cc",
+   "kind": "signal",
+   "leaf_id": "b1d4c3e3af1b712c",
+   "preimage": "b1d4c3e3af1b712c|3145d822a0152aeae5b5c5e361c590d63eb6e7aea7fcb58faa9ee3b8895c62e6|+1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "217bf7e1dde10fd61fd9497225d1a8a5f47ff997cc226f8eba40db760e0f7f47",
+   "kind": "signal",
+   "leaf_id": "b29f643286c6ddbf",
+   "preimage": "b29f643286c6ddbf|b5aeebe650b4fa9653140c0653317610012c25e57225b88f3c77d732da3ed9be|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "73dc426338990bb2f0816c2089dbeac818638d667f9aa0df88c1e935cb267bac",
+   "kind": "signal",
+   "leaf_id": "b308a653972a9101",
+   "preimage": "b308a653972a9101|08d7beae9d3a66b3858ab5f361de7d7c4db75f83a638ae3177a3c4bb1566d40c|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "a34646cd81d4bf5c44c4894b6291a18ae76b3ec3187386e8ff73828ad7c1e55f",
+   "kind": "signal",
+   "leaf_id": "b32a78ecf716e8c0",
+   "preimage": "b32a78ecf716e8c0|8a286fbe31d3286c63aba33ab648d47f337fa4ab2ad12f4351b7c327038d955f|-1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "e682d41bbf917fc5ef186aaa2ced27e294c64acb733e7f187f15e7ce7a6cfcb8",
+   "kind": "signal",
+   "leaf_id": "b463693133c61d52",
+   "preimage": "b463693133c61d52|047f48a00d086735ee47ebc437cfba8460a3180ee6f639b67165139dc043274f|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "b31976ed7a46a51364fa96f8880e148cda7009abd72c7091f3bb7ff1047701a9",
+   "kind": "signal",
+   "leaf_id": "b4f77af8ebb68f7a",
+   "preimage": "b4f77af8ebb68f7a|52a004b564c34e61232b6fd0bfe10c266900b4cdc64d11fddddb06026d3f8cb2|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "bb480c09a75e1a242bd95c6f0dab49bf48a682a065e813b544c326d5fd4b9562",
+   "kind": "signal",
+   "leaf_id": "b58a36f563382400",
+   "preimage": "b58a36f563382400|514a14a887c458da4c55a0fc993aed76d61d231e94955b2e258718514cdbba02|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "c7ac8e5296bcf74331b8b6b14e766dd6bfdc2ed31b9a0c040d22c8b1375a39fb",
+   "kind": "signal",
+   "leaf_id": "b6abd4f5b65e7e5b",
+   "preimage": "b6abd4f5b65e7e5b|dd4b02b6ffa8409d5dd298170ef3e538c552e5d8807f5fdfbd919b27accbf0c5|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "6d70d77c499c1afb50191b9ad8d0156e264ac6c839e987d396da6d419d1e4cda",
+   "kind": "signal",
+   "leaf_id": "b76d75343235c04f",
+   "preimage": "b76d75343235c04f|65ceeaf314dfe0729d04d580b13079d287479d08cecd4862e2d9f58756b42383|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "8e1c3e79f15dded141de3ada27ada713ac0bde33f01e27abff16725b48474038",
+   "kind": "signal",
+   "leaf_id": "ba3ee43992e73ff8",
+   "preimage": "ba3ee43992e73ff8|0e0f40ce4700f7053cd79432e930ad9b723badd226fda12662166e89c4bbba4d|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "b0502ec736874cbec91516f9c02006c8a060c1dc983b48469d6bc57447ef80ec",
+   "kind": "signal",
+   "leaf_id": "bb8b43063f8d96f3",
+   "preimage": "bb8b43063f8d96f3|32ec7a5699821ccf4a8612249f7dbd65d9f90a57ec772e7cd5c8b964bbb64271|-1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "25db0651915d9cea7beece5bb0c0b05a54c3b4d22d77804d1f95fdea962b1f1b",
+   "kind": "signal",
+   "leaf_id": "bd5bfa72925bcc32",
+   "preimage": "bd5bfa72925bcc32|dd4b02b6ffa8409d5dd298170ef3e538c552e5d8807f5fdfbd919b27accbf0c5|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "6a99532075a3eeb0b831e7da1ed71cb2b2f945a8b3d0141d1eecaf9cb614862f",
+   "kind": "signal",
+   "leaf_id": "bdc3dede6d413e09",
+   "preimage": "bdc3dede6d413e09|1fbaef4c62ac79b25e356ca985b1cd83766e7591ab22252a7a0d25a8918529f4|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "9125db6c7e83a33b610677253c579a3e5512568dc89f71270caf8b717339fb1a",
+   "kind": "signal",
+   "leaf_id": "be1756514dbe6a82",
+   "preimage": "be1756514dbe6a82|3d9f8539b1a0d70a557353741713b163611d3706935e327d217071c2662a57ae|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "cc8a2790ee4f864885f23938dcdc0c7b121ec5b9bd37b39b67a8e76fa1830878",
+   "kind": "signal",
+   "leaf_id": "beb5e21a85d65890",
+   "preimage": "beb5e21a85d65890|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "d401fab0aff7d295e9fed9529b80edd20fb8e177f909fbe719a316ae9af21fe1",
+   "kind": "signal",
+   "leaf_id": "bfa0fa29977e36d3",
+   "preimage": "bfa0fa29977e36d3|f1d249319d6a9e8dabbf697a17c4037ef8427985e708e21b2b5870576cdc395d|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "668db77d769f1a7ed135bcaea232bf7e26ff7be4f4ff1afebeff2cbca108e1bd",
+   "kind": "signal",
+   "leaf_id": "c031b7c7366485ce",
+   "preimage": "c031b7c7366485ce|980d68c80a7ba282373430e664f09ebd04d79b95d14a8e58833ec0af203fbc4a|-1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "0109bb0f880145fa3a2f3c92c8b16ef7054e631b108ecc2eea49f55de0e0c9a9",
+   "kind": "signal",
+   "leaf_id": "c03ad44be56e848f",
+   "preimage": "c03ad44be56e848f|f57e1654330bea6c599db710b7ffc066b7594de22138ebb9de4e12dc4f0d9e4b|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "24423690c20db7474ae1cfe123783b9043f711592c0ddb9b249be7790177859e",
+   "kind": "signal",
+   "leaf_id": "c0540fbc18179a68",
+   "preimage": "c0540fbc18179a68|2bd4a5dbff578629f225f8d2bb5f137ae5ec03fa0918ab87e1c787a41973f913|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "5bd7683c440081ed6f93664022dbfc21a4b0068e18aeb6cf2184833f55d52148",
+   "kind": "signal",
+   "leaf_id": "c0873a8b8763e4f3",
+   "preimage": "c0873a8b8763e4f3|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "aa666d628ee113c9cfcf756df450f8a95b50af784507d9b10d05a5db0fc747c1",
+   "kind": "signal",
+   "leaf_id": "c20786af5b8e5cb9",
+   "preimage": "c20786af5b8e5cb9|c264df8f3881f5a716e22220034419ff00975ec5a2a53c3098eaf8dd902e194e|-1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "71899e8b5138fa7a5e77b7ddd11c013ef70470b84258e4a145be11c001a171e0",
+   "kind": "signal",
+   "leaf_id": "c2fc79d3939131e0",
+   "preimage": "c2fc79d3939131e0|eb0f32ae7fae71eb7bc4a322baf4d6746c07c8441c91642eca611544b942768d|+1|0.6667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "1862056ca7d58287d28def7fcfadcc6d0b52c0bbd5c3504455a572763517aed2",
+   "kind": "signal",
+   "leaf_id": "c330a9d858b30855",
+   "preimage": "c330a9d858b30855|c01b0e52ed9bea897c9a8e0adb50f678f1aeb056a3f0b24f828e359ee81a49b6|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "ed104741e5c25407d2e15a3dd65af9ed43abf94826153bd524358af3ff3762a4",
+   "kind": "signal",
+   "leaf_id": "c3a2f954be9c6c44",
+   "preimage": "c3a2f954be9c6c44|cce2c09d789dc09be6ecb4a763fd2e3310e2a0f3a5700fe31d7ca637651db09b|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "5c25e3c529b0342391ab0e5846db49710ac6ef2c94ec1e4337380afd88a6b7f1",
+   "kind": "signal",
+   "leaf_id": "c3a7543f1bc5b396",
+   "preimage": "c3a7543f1bc5b396|ecda34dbf5c13a6d812c589528f23dc25f7fa66e6fca58c2729b75fd5a6089c8|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "5a27990a37d4a533f8bd577a8ce31b7eff25ea4b35d7612bc02daab6bc1528f2",
+   "kind": "signal",
+   "leaf_id": "c3b2c8b508fd0313",
+   "preimage": "c3b2c8b508fd0313|1e9a8c0a38803ad00b9b3bd98d1613be80004a5be06b0cf76fe4fc3bea957a1e|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "b3be7f8fc631495e7530dd3a4250aca2ca71a191d2883eff90823f98774c0b7c",
+   "kind": "signal",
+   "leaf_id": "c4075ebde5607707",
+   "preimage": "c4075ebde5607707|a430a16bc90cf9fa5edc96810d9585b2eead2794285a564274fa2a733a263cad|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "6e0190a7d4a6a713048df9340c8bbd8026d50c831816703d9ce7219753ad52ba",
+   "kind": "signal",
+   "leaf_id": "c411322d7612fb9b",
+   "preimage": "c411322d7612fb9b|32ec7a5699821ccf4a8612249f7dbd65d9f90a57ec772e7cd5c8b964bbb64271|-1|0.0333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "490795ff048311d45e50993bdc75569756870e2db4721a731b87421d578e1a8e",
+   "kind": "signal",
+   "leaf_id": "c457fe44ee414bc9",
+   "preimage": "c457fe44ee414bc9|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "4bd1d24db82297e2d8a4bbb90859bea905ce1bff995c01797bd75deaca8d708c",
+   "kind": "signal",
+   "leaf_id": "c6d8f710775909da",
+   "preimage": "c6d8f710775909da|5aeb8294505984b03ec5191f52832f6c5ce8fef8e7bb8e97343c59e2be0bddca|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "7e7993bab98d5129f6a1247c0fa8ddb6c78134a1da23cb82378dbdb65d9fe734",
+   "kind": "signal",
+   "leaf_id": "c83981138bba2c24",
+   "preimage": "c83981138bba2c24|a492c33d3e0c03cd9a1ac327651b922e720edb624072a771281140f741079018|+1|0.0667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "f1ad42a6190a1cab3352487c89785c66738fa82cfc8f4169ac271b2c90804441",
+   "kind": "signal",
+   "leaf_id": "c83aba6a27bcab66",
+   "preimage": "c83aba6a27bcab66|2a3aa8ddd0b81ae0a28c398cacba8a2de9d6a2040439f3bea97479729db12797|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "be045a7a5aa3a801ce8799e2adc5dfe15608a94097df58d4f86597a7481b0782",
+   "kind": "signal",
+   "leaf_id": "c84b8d54b6b5f2b5",
+   "preimage": "c84b8d54b6b5f2b5|a155907d80d1ac30a3f3c78866a404a35e7238fc9747a6d9b9751dcef5285f71|-1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "78aab8fe66b98dc58f6bb043b2bb03b97d927bd8114ec98514b005d2707903e7",
+   "kind": "signal",
+   "leaf_id": "c8965484d6018c4a",
+   "preimage": "c8965484d6018c4a|5af539c4126e167db495a26c2447fbd7dda433979c0aedc918f8837f7b057208|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "156a73e91275c25702b262b9c3fa3932d09a681252acdcdfcf0a4693f9a9211b",
+   "kind": "signal",
+   "leaf_id": "c90edc541b1e8ee8",
+   "preimage": "c90edc541b1e8ee8|a1270e7de7724f3ed10cccefb85453ff572606b289e5d7eb61c79ce53ba792cf|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "5022ec83a8a18ced35a59760a53a47dcb00df8cbdc16c3266bb558b80044e310",
+   "kind": "signal",
+   "leaf_id": "c9332b250f928748",
+   "preimage": "c9332b250f928748|cc8b912114386b165b5a831d34dcc177b6344da6796035fa4b2b47b461c162a0|+1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "25e476640bdb1d97d34661551e69b7ddb8cebebd15f622388e252e3009c864f8",
+   "kind": "signal",
+   "leaf_id": "c955ba6280d6f028",
+   "preimage": "c955ba6280d6f028|e8e9c1581cd384f8c63042472d5a0cbc0b62f7183d1fcc43a245c3c26e40bb29|-1|0.7333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "366ce7eef3e33b65d8936b7709a671d476cce169fb5b26a621c0628cda8ea908",
+   "kind": "signal",
+   "leaf_id": "c9771351794c8218",
+   "preimage": "c9771351794c8218|23bdeefea683051a0db828a2abbe2fffcc78b70b8fd56ada57e52bbe727738dd|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "de26d1d4bb785f198b2e4710cf10a662cce59cd7e3d1d287695d115ba9e2daf7",
+   "kind": "signal",
+   "leaf_id": "c9cf5b69f7b8b725",
+   "preimage": "c9cf5b69f7b8b725|b3dacfa933d73dd082993e3939922c65463ed45adbd4150ad9eabf7f3fb9ca65|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "ebcadf5c8bb03b2b6975809cb43478de9b70faaa5cc01b0dd8a6489bafd2b9a5",
+   "kind": "signal",
+   "leaf_id": "c9d53c114d3b5bc7",
+   "preimage": "c9d53c114d3b5bc7|670a867e088e9e0246ec4087ea1c9a11d9d20d4f8ee1feba793cc20205df0bbe|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "40c2b397f549c66ff352da560ce8b5176a9363731d148ee2a5e6c797249fbd35",
+   "kind": "signal",
+   "leaf_id": "ca07206b7d55b6b1",
+   "preimage": "ca07206b7d55b6b1|4743ef3aca41bc9359f9198c4575a4c5e7993d462e260003346fc51d29a67112|-1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "b99c996de4b015da2f60b84cc80c837b2701518f18d09ce068c30d9719aba5ec",
+   "kind": "signal",
+   "leaf_id": "ca55ca106be7c752",
+   "preimage": "ca55ca106be7c752|ad6bc5938a6e22c03d0be7b23d7026207d13d979864cc2ae96d6156993155bd8|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "4d8b41ba84a228ac65c32a0a87ce1acd79fe0a95b04cd5d3dc7ed8c2c19dc46c",
+   "kind": "signal",
+   "leaf_id": "cabf2ff4128c835d",
+   "preimage": "cabf2ff4128c835d|dfc553cc45504abec1821817406343cdc8abeac706982f6a9a0678248ee33245|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "6c1b0f475e39a788bee790d3114db7da5b955a7cba9464336075739ca7be44d8",
+   "kind": "signal",
+   "leaf_id": "cb1703a84a8dcda6",
+   "preimage": "cb1703a84a8dcda6|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "231fca1b309246480bd397ca93febe78897fe40fa8d02607ae5adfbb9d76dbbd",
+   "kind": "signal",
+   "leaf_id": "cb3c49f647813749",
+   "preimage": "cb3c49f647813749|910d9d6431a14a0759f1878a12264a454e00bd13eb98f9db2b234facd22c00d6|+1|0.1667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "da0c9756e84f1e4420ecf16a9c1303987bbdcf9beff8f55afaaa63bebbdd6a36",
+   "kind": "signal",
+   "leaf_id": "cbead5f0e9f57be9",
+   "preimage": "cbead5f0e9f57be9|086c2cab0fd9bf244e50dce07252a7144957004e781f1ea27fe702e310391433|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "72044a4265650b2241eb179245669e975338b139ec221781ee735ce2b9c74580",
+   "kind": "signal",
+   "leaf_id": "cd24045fa611a693",
+   "preimage": "cd24045fa611a693|a155907d80d1ac30a3f3c78866a404a35e7238fc9747a6d9b9751dcef5285f71|-1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "02e46d31fc07199a51cbe7b6adf6e06df1dd0438c42ffcd478736506c8374367",
+   "kind": "signal",
+   "leaf_id": "cdda839fcab9366e",
+   "preimage": "cdda839fcab9366e|85cc15f3d934046194f9c18cfd520291d5ed09c556d8643eaaac44460406a8b2|-1|0.6667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "545c0c667c8726ecb58cd7c05022b8a52ff6efe15a004a88351a35f0bf9cea5f",
+   "kind": "signal",
+   "leaf_id": "ce24b5bbe716a89f",
+   "preimage": "ce24b5bbe716a89f|a9fe4f4c9877d19ea8cbfbc2dc7670294c3d631a4202b979b9f685373cea0b31|+1|0.5667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "bb7d18e6f8ba5c73c0006b35dd4c0334621bb77af63a40939ff9b5afa01deb7b",
+   "kind": "signal",
+   "leaf_id": "ced6c670bd6159c3",
+   "preimage": "ced6c670bd6159c3|cdec26d23600ec2c4fa0f8253cd07c737ad9e9744e1ab84292531087e5959aa7|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "ffe7f964362595da939e8659d6f00a467cb223bf18f824dc55984ce1f936a5ee",
+   "kind": "signal",
+   "leaf_id": "ceeb9f6c0bcf1b5f",
+   "preimage": "ceeb9f6c0bcf1b5f|e90c81631787e58b61c0f33ec09d6ae4906d373638891e72cd922f5a33e68afb|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "19a16a2a8025d94c7a92529821f0d2cafa3f238f83f63d60c8e4146a061f8efa",
+   "kind": "signal",
+   "leaf_id": "cf47149082e7853e",
+   "preimage": "cf47149082e7853e|2972adcbf34a32d3b16daf736ba47d7f0fb2c01ab08bb26292d7e02776268567|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "c5d03acb233fd56cbf087f1ce8804fd5ead8d1126616da74498f81beea608090",
+   "kind": "signal",
+   "leaf_id": "cf5c755196e5fc4e",
+   "preimage": "cf5c755196e5fc4e|55c60c57cd593af1c85445bfdbdbe69045cc944d2d66cd7b21fea3ac983e5eaa|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "f1bc1120714106894e55f4c67f52fed1923873ad00d4d6d4c895a07db6efb09a",
+   "kind": "signal",
+   "leaf_id": "cf79720a4d4b2d5b",
+   "preimage": "cf79720a4d4b2d5b|795df6148d96e8992a37c0b8b6b42edec9c6969e561bdf05c26a457fe73cac80|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "295290b2fdd44db91dcdd33f97f48ad662d8b2e380d9808673facdffef4c0355",
+   "kind": "signal",
+   "leaf_id": "cff9657d79d3b00c",
+   "preimage": "cff9657d79d3b00c|dcf8cc82b3ec538a70b8cf5c95c3df39c7756575ab2802cdd7f67c4c95bb9805|-1|0.9000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "8556bada454520fd8aa96088e6d32ea2db5757505922a2dc94492698d4bb5103",
+   "kind": "signal",
+   "leaf_id": "d1d498a7887b0f13",
+   "preimage": "d1d498a7887b0f13|35138a22818d09b8895f7d28ad07ee033314a8d70fbfc7ddb744ab16eed79a8a|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "9319e6e4a27594cefb08ab79e5f09723b982c39f42e71efe4cbedb7ba4453ba2",
+   "kind": "signal",
+   "leaf_id": "d29de99896640d26",
+   "preimage": "d29de99896640d26|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "119544c6ce0ae29ce3b4f05587d1cde2ef089273136d1a5ca30d8a88361bd046",
+   "kind": "signal",
+   "leaf_id": "d2a52d54ea331df8",
+   "preimage": "d2a52d54ea331df8|bc0acaf0d7bd41b1c61240468a6909d1dcdea278f6c9f54600ca1c3d4690655d|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "0d4d930796a1447b50436b292c52f7e0113dd202d1b77975c53a0d5f36004f15",
+   "kind": "signal",
+   "leaf_id": "d2aa68e231ac3977",
+   "preimage": "d2aa68e231ac3977|2e8b185e3c67b41628ef758519fcc1a7289411b1aa75b3b79b9b90a4705ea666|+1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "935c8bb457e16dd39b7e91526ba0172132ce0a631bd57539dc1d6b9e01131a75",
+   "kind": "signal",
+   "leaf_id": "d3f6ac63c2036c95",
+   "preimage": "d3f6ac63c2036c95|98b87025ccae57d31debfb5bb48504f4d0d9b2bd69f4e7c0101995f42503e46e|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "ea5c3e48e533c85faf0b95078716b92083c92f9e868444dc9647f844faf88b93",
+   "kind": "signal",
+   "leaf_id": "d4052a2ffc6c2efa",
+   "preimage": "d4052a2ffc6c2efa|0b42f966c8a6110f2d054d44fbc5aa9e89eafe56941bdea602135546abfe8c3d|+1|0.3000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "42f4459745d96dac3f0d9d1105295f75515b8cbf1dbe757db666c0c91bef5ecd",
+   "kind": "signal",
+   "leaf_id": "d548cf70187b36ea",
+   "preimage": "d548cf70187b36ea|9123c2e1eedf9ef4d96188f1557cd2918134e1b4c3c105801ef4e74ce47a5c5a|+1|0.9667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "2a20857b5339aba2461979155d2da629375c91a69af84ef536d752966168c495",
+   "kind": "signal",
+   "leaf_id": "d6405d2cfd36cb1c",
+   "preimage": "d6405d2cfd36cb1c|f8deb79add4a8553396f6fe3f059c629c0238d07af02e7d85f4334c5f64e6d9e|-1|0.2667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "687d284ae47d638279e607974e93f41c880480e9a26f93dd9f6515a7a8c87028",
+   "kind": "signal",
+   "leaf_id": "d66278ce632cbb04",
+   "preimage": "d66278ce632cbb04|5ac5db1671144e8df96c468d6f6c829f228274041f7bff2ad8a1afe055eb39a7|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "70605449ac852165b6b486fdb015d27b088c48d6465b1acdf2ad5c65fc51316a",
+   "kind": "signal",
+   "leaf_id": "d6df14e89bf4c17f",
+   "preimage": "d6df14e89bf4c17f|7ac143a8c7d86380449a6ec5b122ea05f21dbd75c67d9425e990c79a35d709d1|+1|0.7333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "9eedd2155e5a42139d4a0c1f9eb05033c758660e60924ba30b09d139ba858870",
+   "kind": "signal",
+   "leaf_id": "db0c3b4bd17b50c5",
+   "preimage": "db0c3b4bd17b50c5|2b516111517fa8c6b81a15f2c3061d65a8b1946ba4923060a9096d42ad847ee6|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "c52ce0fca551c74fb2f4b2effe5b068a47f549342eaceedd0b9bbbc26ed534d5",
+   "kind": "signal",
+   "leaf_id": "dbc0a39a08b08454",
+   "preimage": "dbc0a39a08b08454|cd53e9093bb31836f317c76d1a05a3fe1ddde9abcb586b3b61b38ab1bd616530|+1|0.4000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "ce79c8a0c288751d1a4b179d4da673444d1ea8b32d1d31895e9c1e3f59503ac1",
+   "kind": "signal",
+   "leaf_id": "dc1124919a218b6a",
+   "preimage": "dc1124919a218b6a|faa0a6684b22a9978c7600649369c0765e0b82d61d5022937cdefabb1865e94a|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "00eb8ba2d22e2c723170249a7420af97a4454581936eaffa8026bacdcc846c93",
+   "kind": "signal",
+   "leaf_id": "dc6b37d2d1c58bc4",
+   "preimage": "dc6b37d2d1c58bc4|7ac143a8c7d86380449a6ec5b122ea05f21dbd75c67d9425e990c79a35d709d1|+1|0.7333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "fb1256e1672c1f5c7cd540100706ee980bb865aee2bcfa4c55c9fec10cb18564",
+   "kind": "signal",
+   "leaf_id": "dcb95e13917f13a0",
+   "preimage": "dcb95e13917f13a0|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "7f84665dc51557f5f722987b305e291a630fe679a6f3b088d4b5e6f69776ea2f",
+   "kind": "signal",
+   "leaf_id": "dcfb079082e8cebf",
+   "preimage": "dcfb079082e8cebf|c4b7354af5c9aaf4b7388847547a6250b2edc85de7369fd8a99767e0440f8faf|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "2e1fca18fdc5c4ab8679ecf621fee33cb012e98d10e78a020189852ea6c6941d",
+   "kind": "signal",
+   "leaf_id": "dd48ee7b0d444e30",
+   "preimage": "dd48ee7b0d444e30|cc6f3a1668d61bc68ff903a95783185a369ec52d2d09d171d783eda2ff814533|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "d4bd9aaf12c182093b0b6fd7bc5504c22246bf9bcfce3cda9b38e6a9f90b7ff4",
+   "kind": "signal",
+   "leaf_id": "ddb5a26fd3cc292b",
+   "preimage": "ddb5a26fd3cc292b|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "a4dec1964f8d435cd54ae1374f3acc5a0bd2406cbd7795ba347ed2273dfeb5c6",
+   "kind": "signal",
+   "leaf_id": "dddd10e2b7d72869",
+   "preimage": "dddd10e2b7d72869|2cf8a7b5d11efb5501b2a0c121f40ab05237a4f94553440e0bd8bac8c7ae1284|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "4f008f1779ab2fc9f40b5df1a71b0d092d3f5483940165d9fba2359f70d4e192",
+   "kind": "signal",
+   "leaf_id": "de196bf6f2cca5ea",
+   "preimage": "de196bf6f2cca5ea|f43cdbe94b2a7128764894d088ab3106b6c3509c8e478b8866f4860922c6b56f|+1|1.0000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "25b74c5002ef7dc914327ac08f01b81f2d452702eef75d525a66b9119d37a312",
+   "kind": "signal",
+   "leaf_id": "de7c4e300773afff",
+   "preimage": "de7c4e300773afff|4176e30bbf84aabf69e18f386800b7c8dd29ce4e20632728b11ef92f84978a94|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "37cbcb9b2aec8e8b056afdc2a2b5bd8488c496b181d8e375a47dd4e2d17d8a00",
+   "kind": "signal",
+   "leaf_id": "e0779bbb8fecb1e3",
+   "preimage": "e0779bbb8fecb1e3|3569c76b68791cb8a9e901a48e1006de525f5fa87df29530844189beace89b45|-1|0.3667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "0f5071525228436f059ee01a9b3c1f50e13366e27176b880492857de9b26cbf2",
+   "kind": "signal",
+   "leaf_id": "e1073cad8cf2cb11",
+   "preimage": "e1073cad8cf2cb11|1984b72dab80639291da9ad760766dd7c284eb838935f23ed2466c2e67f878d4|+1|0.6000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "438e294ad5760d7f8a3335da8e98d998b8058246dd6de841cb8a625ccb4ad2cb",
+   "kind": "signal",
+   "leaf_id": "e2305c00b14d9367",
+   "preimage": "e2305c00b14d9367|f54e7cf859efe80bd4e5e62fc1e887603f39f7e800ed139ba57a28da2354a657|-1|0.2333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "f1fd6de88a11b2fd11559c55a1c9314a636d810aab7043fe2fc28ab7ff9be99e",
+   "kind": "signal",
+   "leaf_id": "e27710229b9b463e",
+   "preimage": "e27710229b9b463e|7a1c73ffa39bec87a68889c36d8a2b6544b4e2ad5c932dd0c3d0a262e22fad39|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "ff30c687b14bb3627505de5436a71faaadaaf74dd6a97b8ee8742a1bc5e22391",
+   "kind": "signal",
+   "leaf_id": "e28e86112588df43",
+   "preimage": "e28e86112588df43|2a8fc6db615cd8d3f0e1cdfd6512012d283f19b2dcc7c7fe4a5fb3b64a167499|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "927ae55e1ada946150b451f48af2cfb4275507f153570b63a5e82e7d8fd14574",
+   "kind": "signal",
+   "leaf_id": "e2b88e11d086894f",
+   "preimage": "e2b88e11d086894f|119340f05e7bb8d959b05871de7ebe723031bd1c31ad40bfafcb853d15ad649e|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "b4d48b900f01dac16cbb74354fb90357d97f78483d73cb80841c4aec75bfbaef",
+   "kind": "signal",
+   "leaf_id": "e583cfc5a1e336b1",
+   "preimage": "e583cfc5a1e336b1|4340ed656e87890ceed27334d639f9971a48b2e6526749cac2d3deb6abf02752|+1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "adb281f011419cd448191f19ff9381800dd694546888c5dd47703892f4f79f9c",
+   "kind": "signal",
+   "leaf_id": "e612278c2957788b",
+   "preimage": "e612278c2957788b|d55763f8355c167c60151358516b1790d79a309a0b4f51e48ef21217db73aa6d|+1|0.8000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "07f51e19eb21432dffa8f87fca855fb99bf67940e09b2df426de0669b4f01571",
+   "kind": "signal",
+   "leaf_id": "e6db59f5cb6e6a90",
+   "preimage": "e6db59f5cb6e6a90|ddbc4e1dc1c10363e1011b6ca90bf9fd455f77f3e9694527ae1b83af591c7b9c|+1|0.7333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "7c2af2957a4e97da23f8c211852fbb4a37f69bd110aef1951a001cf43e74ee3b",
+   "kind": "signal",
+   "leaf_id": "e747e7d9a04fccc1",
+   "preimage": "e747e7d9a04fccc1|c264df8f3881f5a716e22220034419ff00975ec5a2a53c3098eaf8dd902e194e|-1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "18b7728673b3a0c20fae9f5d9822900fe64d447a5734e9b1533ca586058a1d40",
+   "kind": "signal",
+   "leaf_id": "e75be62071e22ecb",
+   "preimage": "e75be62071e22ecb|a890981cec1f80601a579f1f265b161a9679a18f52a6cd0e9bac6cc6d6da39d6|+1|0.3333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "6c6681b1bcbd11a7b4ad7eed338162ab185661504575ee73313f040f71349441",
+   "kind": "signal",
+   "leaf_id": "e7ec6c6f75c22c2d",
+   "preimage": "e7ec6c6f75c22c2d|b1f4ddc3bb955e0176d0f565899e938e7dd724ea9f33d79b2a354abc1f04120f|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "fa4a865e8b3c7fa539b2fcaeb28e2db1bd3a61b2384f5982aec2cb2ec381b2dc",
+   "kind": "signal",
+   "leaf_id": "e9216a613b942569",
+   "preimage": "e9216a613b942569|a1bbe49014e5139e8afbf12ad723e2e4bb37afdbd3a4620ffd490bfb9819aaca|-1|0.1333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "c9aaadf2f120e73a16158bc29c68bf5698d26b262b3ce184d3f6d1076e8ba792",
+   "kind": "signal",
+   "leaf_id": "ea00bea6b7ee0852",
+   "preimage": "ea00bea6b7ee0852|ed48190d2b395febdcf638999b9b8b08e6c24679d242b6d9997e34db20e80b52|+1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "9cc41e3f984b448d9e1e28cf194f82b21046733c6e3a92170f2b10d972a7cafe",
+   "kind": "signal",
+   "leaf_id": "ec0f82f9d5d88afd",
+   "preimage": "ec0f82f9d5d88afd|ae8c00548aa6a4513439119604f602dbb0b8f3f1d5c1e378d5cb14df37e78b84|-1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "d42a5dc9d09a3f1a81caddc7b1a3be1388ce8ad69b3cba5794a79e4c9a814183",
+   "kind": "signal",
+   "leaf_id": "ec97132746878380",
+   "preimage": "ec97132746878380|5037fab552fc8523110ae4354763c7957726874b99b17b893f3e8db23820b67b|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "e767f0bf52cdbd796986075c40a520172ae637579ec9d2e1fdbbe0992825c5c1",
+   "kind": "signal",
+   "leaf_id": "ede07406944921fa",
+   "preimage": "ede07406944921fa|57735362e7a47876e56a4f81c1a55ce855b12ceef3a2e27367a7f72f2237644a|-1|0.6500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "cc8b6fbf94ee262000ebffaf0a53c2f50496ad0c6352e3ad89ecc052ae5e8fb2",
+   "kind": "signal",
+   "leaf_id": "ee869ae8076df529",
+   "preimage": "ee869ae8076df529|1a964efbde6c6ccc08b74e6250391e71fcbb665e1f465138fcf36896771b6862|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "9886b1cc39af98a799080ac45811c43901d8af8290d485cbbb45dd8c644ae8de",
+   "kind": "signal",
+   "leaf_id": "eeadbcfb46fea2b6",
+   "preimage": "eeadbcfb46fea2b6|98b87025ccae57d31debfb5bb48504f4d0d9b2bd69f4e7c0101995f42503e46e|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "7602b85ec76f91c7c83974ac769d94f4832078ac05cd2650218d452b7eafaff0",
+   "kind": "signal",
+   "leaf_id": "eec7b9f03e89c934",
+   "preimage": "eec7b9f03e89c934|d1ec579694eb8908c0d725d49ad40a5050d6dc94bf2359dc0c4c957e8d74451e|-1|0.6333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "c9224ef512250e2f659068c651d8cd0842fa9458971197939241cefcad6100d3",
+   "kind": "signal",
+   "leaf_id": "efc17a0526366523",
+   "preimage": "efc17a0526366523|3b8e1640feb861d9d4f7490bf794bc51fafb91140ac24cd3f320a1fa11a7a668|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "4820569950944af8aadff1cb72018344a570e1c8a726fbad4fd036eb40ac682b",
+   "kind": "signal",
+   "leaf_id": "f16cec58616a3dae",
+   "preimage": "f16cec58616a3dae|293430495ac0d0565916ca8e455d1c5e6177641a4bf3b5c02ab960eb6dc54e4f|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "e294b5ae496e6103e23703a9a6e75757c37218eaf385bea768311efb30f0b224",
+   "kind": "signal",
+   "leaf_id": "f19c41c48a9f2ecd",
+   "preimage": "f19c41c48a9f2ecd|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "280a32e4cc4b0be9767e0880ed26468b49ed3007eed9683d6bdfa79c9ae27a3b",
+   "kind": "signal",
+   "leaf_id": "f2a1044d5940b744",
+   "preimage": "f2a1044d5940b744|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "60551d3eab14456350efbc72a77680ed11a25ab9c3a7f4c16612558b09bb2c34",
+   "kind": "signal",
+   "leaf_id": "f3234c47b453feb7",
+   "preimage": "f3234c47b453feb7|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "49cf5b1bc2a3624281521c7c3c930da2faeb93b0899f9c4366eabc91c554bc77",
+   "kind": "signal",
+   "leaf_id": "f465f607d3c1ee1e",
+   "preimage": "f465f607d3c1ee1e|711d77e047e75905eadd12edabf72821eddd22f3347f59dbd79fd269ea6cd0b2|+1|0.4500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "42481665ce6e9826a7439d12c8c38535089fc131c062bfd768c7190df04a033d",
+   "kind": "signal",
+   "leaf_id": "f4d88cdda1a9cc18",
+   "preimage": "f4d88cdda1a9cc18|119340f05e7bb8d959b05871de7ebe723031bd1c31ad40bfafcb853d15ad649e|+1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "72ce165b6ab934c8816b4418ee6d91fac6a6f8be933f14db40d2f6e315bac40e",
+   "kind": "signal",
+   "leaf_id": "f5d45be0b70bab3c",
+   "preimage": "f5d45be0b70bab3c|7721b1f65e5fb86ac0815bed7f1e91e88a75a0bb97bacc1468d5bbca78308434|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "7a6809eacce39e9dfc9cd9f6d3e098199335524e57d524a1c9e017940d2a9022",
+   "kind": "signal",
+   "leaf_id": "f658470a1dead9a9",
+   "preimage": "f658470a1dead9a9|c931ba8f1d11d181474a8f93cf8e339b76ca583a8a9198957e79d67be32964fe|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "a86a995aa03fafebc71cd50342a9906ef9129821d8dd926efd9a6e05b2719216",
+   "kind": "signal",
+   "leaf_id": "f68d03d5ed611cc0",
+   "preimage": "f68d03d5ed611cc0|fe0b3842df7d0627306e93fa1f58565ac3f6f65f3af9fc971d13f66a405361d5|+1|0.7000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "49b76e0caa49d033af2f73eb7b6e83dd357b823601dbe8e5721cb17551285d5e",
+   "kind": "signal",
+   "leaf_id": "f6ef202d1bd428f6",
+   "preimage": "f6ef202d1bd428f6|cb0d69f2c51e6bb08e74941bcb27dbf36a59c6d79002bb8901f8ced9f4794384|-1|0.8500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "c1088ecaa9465f96ddfcb40cd3d30df4f107a6cc5256051120cea689fd32adcb",
+   "kind": "signal",
+   "leaf_id": "f9df16c27a396d2a",
+   "preimage": "f9df16c27a396d2a|1aac75ee4ed30667bdd78e7048df9a9a53dc8fcb988228033da5e53c56a3f037|-1|0.2667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "0a87d6e6a39e34fa5c7be8b6b5ca3ed9f5e510dd9ea9d7ddd872562f3bb9c9cb",
+   "kind": "signal",
+   "leaf_id": "f9ef4c262d2bceab",
+   "preimage": "f9ef4c262d2bceab|8e9edc8f6186e101233e7dcfbc3d41e8e38db38b0c7360cc18738edb1754363e|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "f46a844bfcbacaf99ecd858f7980b276f25fca63803d8c300f560575f4202926",
+   "kind": "signal",
+   "leaf_id": "fa0d75a5fc26e1e4",
+   "preimage": "fa0d75a5fc26e1e4|e9ad37600b5eeec745ac1ea50c026460d7ac8f6f2339d827e080c8db724bd73d|-1|0.5667|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "890e23dbd9f3535e1a0a2d0a0f759a434a1ff30ccb6bcef7cd4f744d8a83cf10",
+   "kind": "signal",
+   "leaf_id": "fa7366cdf580a73c",
+   "preimage": "fa7366cdf580a73c|589c22cf6fdd56667b8ad1ebca255a1c17364e589df8767290416553d204a31c|-1|0.4333|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "936cec94766399eb62ebac7ff4148f7c784e598987fde1aa73e40a84e4ede650",
+   "kind": "signal",
+   "leaf_id": "fabf49c744e5db17",
+   "preimage": "fabf49c744e5db17|e09c6b9aa35b40b1f1e951400edf680ffb7b98a0127b260376b1cd09c5d9f7ba|-1|0.5000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "a8dfb90b78e5333091ee3ed24d0c1a0b9572938ff6b561e0f613617326300041",
+   "kind": "signal",
+   "leaf_id": "faf6abd95854cd4f",
+   "preimage": "faf6abd95854cd4f|a78675b14b2513f1f4a603b8e4d37177d28b5e11924a097f06a27f88fd6ac5e5|+1|0.5000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "7869b0cc3e573c4b07bd5c9e0829ebc350d59c1174dbf773014a5d3abf2adf9f",
+   "kind": "signal",
+   "leaf_id": "fb50193aed8116c8",
+   "preimage": "fb50193aed8116c8|cb3176078959ec5888a5b81de85572bd35fb5e9e860c406cca60cd417031cfaa|+1|0.2000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "6c767c9dd9ac4de184454d70c7497176225c845595a9a51e0e7be25b9e645b80",
+   "kind": "signal",
+   "leaf_id": "fb58c67ca02bf42f",
+   "preimage": "fb58c67ca02bf42f|950092af00faa9b26abddd84b968f14b878ab266254ebbd5a4ebd0cd78449bc2|-1|0.9000|0.6500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "d4383bc2f3ea330fd020a568b8584f0897150fc8bb031e279508c9b1cd62de72",
+   "kind": "signal",
+   "leaf_id": "fb7ea002bb118d81",
+   "preimage": "fb7ea002bb118d81|c01b0e52ed9bea897c9a8e0adb50f678f1aeb056a3f0b24f828e359ee81a49b6|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "ffd9445e74053837dde54e71ad1e5dd3fca5d8b906e142986d7e2c2db834ead1",
+   "kind": "signal",
+   "leaf_id": "fceb4264ab039689",
+   "preimage": "fceb4264ab039689|a3541b76210615ac0ee27842e7ad2a752502515ea81281afc00d10a6e7dbe7b0|+1|0.1000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "df0ff77dc219586b8a9a8566326d89fe36bd01033ea6004ed13fdb2383f0a685",
+   "kind": "signal",
+   "leaf_id": "fd54cb9523cf03a9",
+   "preimage": "fd54cb9523cf03a9|177d3d3c5912cc732398c9390783f7c71575c00f935be7571bb5c9dfbe018815|+1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "b026a07fb466f692079d704c4356cd1387fe3b7050d27eb9ac0950e23b7a8e74",
+   "kind": "signal",
+   "leaf_id": "fd686026cdb699bd",
+   "preimage": "fd686026cdb699bd|945303dca74022132a7adc909d85bb886fdcc100ab0d79d186d5a99184d56602|-1|0.6000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "hash": "cd6dbc5b5f5402c2c09c604c9e7eb223c733d76fcf071d83db0e1e82880d0acd",
+   "kind": "green_bond",
+   "leaf_id": "gb:HOSE:HATL",
+   "preimage": "HOSE:HATL|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "hash": "341739166d0baf4e3694c967d6d3f52e1eac316f1451492a43b7d49dd9de9605",
+   "kind": "green_bond",
+   "leaf_id": "gb:HOSE:LVTB",
+   "preimage": "HOSE:LVTB|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "HOSE:MKHV",
+   "hash": "56ed270f0e11a780cb046b53906369b326f0f07f9c10e314a75a7ce6ebaa7582",
+   "kind": "green_bond",
+   "leaf_id": "gb:HOSE:MKHV",
+   "preimage": "HOSE:MKHV|labelled_reviewed|||2026-06-12"
+  },
+  {
+   "company_id": "HOSE:MKMB",
+   "hash": "3f6392b2687fbadfa9b3c851ce36c6f75f086ed5b85ba3995ba454347769421c",
+   "kind": "green_bond",
+   "leaf_id": "gb:HOSE:MKMB",
+   "preimage": "HOSE:MKMB|none|||2026-06-12"
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "hash": "8278a2d612ea45329e752e26ba63b710c1071c9c5ca2c6af27c3ccf079946e1b",
+   "kind": "green_bond",
+   "leaf_id": "gb:HOSE:RRRE",
+   "preimage": "HOSE:RRRE|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "HOSE:SSQE",
+   "hash": "91ddaf76eba4a786b3d6f140e028aeb3a10175a428d9c3026bf38d131e5409fc",
+   "kind": "green_bond",
+   "leaf_id": "gb:HOSE:SSQE",
+   "preimage": "HOSE:SSQE|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:AKRA",
+   "hash": "610754f6c18d8aadb2e0f0a0467245a9cf61131e854d19973b7dbe647b5e702c",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:AKRA",
+   "preimage": "IDX:AKRA|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:ANTM",
+   "hash": "5549d9bf2eeca34d96b5483865e1d9d7b767d7a9273202f149544246df91be48",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:ANTM",
+   "preimage": "IDX:ANTM|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "hash": "4eee3acf04a439ecee241c4760e32beb21b420a0629879c82a25eb9b44f024a6",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:ASMB",
+   "preimage": "IDX:ASMB|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:BBCA",
+   "hash": "c669f82281b084237d64cd52e07d76abe333fde1ce83513e8530f042b36c0e59",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BBCA",
+   "preimage": "IDX:BBCA|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "0ca099289d09f091d5bcd1edf2be6740df1d3d2657779fd59c4ebbe47f489343",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BBNI",
+   "preimage": "IDX:BBNI|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:BBRI",
+   "hash": "7d5bd3ba052f132c63b32a83c8cb83d403291549eb6354ed7add82c4dafed37e",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BBRI",
+   "preimage": "IDX:BBRI|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:BMRI",
+   "hash": "6fb90e932387bb07a7547556bc7e0a3f6ae6cce88d8d5e2afe474115f718d866",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BMRI",
+   "preimage": "IDX:BMRI|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:BRNE",
+   "hash": "c5163ebc6151a0849b1ea2c1c1aa63f1034235a5f7612cccfc19515cb8eba7cb",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BRNE",
+   "preimage": "IDX:BRNE|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "hash": "0253d8c60fa780ee11ac8521d292fe2ff7a9d5d828262a228eb4d6a41ae5c70a",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:GRMB",
+   "preimage": "IDX:GRMB|none|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "hash": "8707cec1c775fc8bc5a234ee4234f661cf7c795300fe98cc3f3b74b2ec316d0b",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:JKLD",
+   "preimage": "IDX:JKLD|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:KLBF",
+   "hash": "a09735d3a4d817b45e5a53deca6c75e506f845f8472454ebddd049f4b80e6a82",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:KLBF",
+   "preimage": "IDX:KLBF|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:NUSA",
+   "hash": "011fe02c1374b34a4ff79694951e7d129af19c461b6f5fe2e314994ceb8925d5",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:NUSA",
+   "preimage": "IDX:NUSA|none|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:SATB",
+   "hash": "a8e6bdfa01cd3dae815c046a193a01d0b80a6d8bef9c0f51c4a94ec006569014",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:SATB",
+   "preimage": "IDX:SATB|labelled_reviewed|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:SMGR",
+   "hash": "56434876d7a30e595e24a467755d78161963281f7cc5ec25a2001a144a338e14",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:SMGR",
+   "preimage": "IDX:SMGR|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:TBIG",
+   "hash": "75965f054cb603c7f886140ee49d93797bc1687fef96ebb13e67b607e0ae17c6",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:TBIG",
+   "preimage": "IDX:TBIG|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "IDX:TPIA",
+   "hash": "dd1ad9ee85945b3e39da8e999f8fc764cf0a8a415737b0246432b23099d95a6d",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:TPIA",
+   "preimage": "IDX:TPIA|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:1023",
+   "hash": "b31343bc6d36eeafab6b1df9f9d27de72ef464b63154a8f7b5cfe132cc18a1fc",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:1023",
+   "preimage": "KLSE:1023|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:1155",
+   "hash": "56d69f5827bdb65b98b2980b06db06bb1b19ed7b3ba19f5ff73a63d763e5fb5a",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:1155",
+   "preimage": "KLSE:1155|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:1961",
+   "hash": "d84565cae43115abad21e533e22814e56a7857d46897ab2bacdf4fd696c40d18",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:1961",
+   "preimage": "KLSE:1961|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:2488",
+   "hash": "6afaaf1d001a1848b962ea10c00089b08d5c69fc8a864251c33fe9afef1ffaad",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:2488",
+   "preimage": "KLSE:2488|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:3816",
+   "hash": "95de2a986c87ca14db0400b57cad64f0f68914ec3b647ec67e4203c04dd34b0d",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:3816",
+   "preimage": "KLSE:3816|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:4863",
+   "hash": "c585088a8a3131e6b56723d81b69bbca53cfccf2859c4a56ac43faac9d7263fb",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:4863",
+   "preimage": "KLSE:4863|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:5183",
+   "hash": "dbbd0c65ecbbefdcbf7add6e023a0eab659fe3b2861c72bf4cf1b211cc64a7ba",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:5183",
+   "preimage": "KLSE:5183|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:5211",
+   "hash": "4707023efbea41255976d7640be73bf4ed712f887977e54ba7730ad02e8fd5ef",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:5211",
+   "preimage": "KLSE:5211|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:5347",
+   "hash": "655fd4fd9e7c4a2b3ad5000c7b97298deaa2b451c420dadafb92eae2469618b5",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:5347",
+   "preimage": "KLSE:5347|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:7113",
+   "hash": "d28c7fb17438bb2826c746fb01cd6aa537515653fcccfab81c3959b2c20076b6",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:7113",
+   "preimage": "KLSE:7113|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:8869",
+   "hash": "0a7a68da466107444b1373ad060fad9a4d36f60e9774654a59a9828812ba2cf1",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:8869",
+   "preimage": "KLSE:8869|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:KLCT",
+   "hash": "a2cc32784ce0170768647787432b40e98455e5595beaaae79a30a2b9d8fa44df",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:KLCT",
+   "preimage": "KLSE:KLCT|labelled_reviewed|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:SLTB",
+   "hash": "133a112d11146dd4b12a32a632657d14cf03ad30cd64ce3901d3b7e4e6b15437",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:SLTB",
+   "preimage": "KLSE:SLTB|none|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:SLTP",
+   "hash": "083aab13cde86919c9649088c79e10550ec3646b39ec8cfe7008c5ffbae5cdd6",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:SLTP",
+   "preimage": "KLSE:SLTP|none|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "hash": "2a14bc4d5485d06064054341173147c6cfaa927e636c6701e5801bb81707b740",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:SURP",
+   "preimage": "KLSE:SURP|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:TBFD",
+   "hash": "4de5a398e646b4a257e54fb5df530c29b13bfbb1d69c37af788676891613880d",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:TBFD",
+   "preimage": "KLSE:TBFD|none|||2026-06-12"
+  },
+  {
+   "company_id": "KLSE:TBTL",
+   "hash": "ce45aac4ada3c9e3eb24a2534cea8093af7a5b6861e00215d25e26561a77ae6d",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:TBTL",
+   "preimage": "KLSE:TBTL|labelled_reviewed|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:AC",
+   "hash": "cb140e4e95251e2a89f8dc6c3dcc5373105450d4c7588c78e5d1e80a0bf636ce",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:AC",
+   "preimage": "PSE:AC|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:AEV",
+   "hash": "e02db1f46d229ca4e64a987efe87bfa741334f648a9aa8d546d8b0af40a2a6bf",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:AEV",
+   "preimage": "PSE:AEV|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:ALI",
+   "hash": "1cf1f9fe5e8772838958ba92452c5b37f79e602ff947387f22b2905a9db5481f",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:ALI",
+   "preimage": "PSE:ALI|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "7de7128b99746292f0c49408dd3686e2fa569902c72ee4a821ea35a6e7157143",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:BPI",
+   "preimage": "PSE:BPI|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:BYNP",
+   "hash": "c25f3d574edce443b2b7a1661d24e5e20f079a73ff73d535ac46ec1374f8221b",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:BYNP",
+   "preimage": "PSE:BYNP|labelled_reviewed|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "hash": "036f646ef13e9f13d6e136721d99b1b830a63a5e912a2cf0531bf3ffdb1a262b",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:BYNR",
+   "preimage": "PSE:BYNR|none|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:GLO",
+   "hash": "4243a4affbb6abccee7b8da4f89c157812edbc03b4fc2038d340bae29570c5b0",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:GLO",
+   "preimage": "PSE:GLO|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:JFC",
+   "hash": "4715cb0f1e0d43003a37c816df80cfa4e97fe4b9901af9bbb2072e5f5e4a2e48",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:JFC",
+   "preimage": "PSE:JFC|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:LUNA",
+   "hash": "c685ed524a767469af0159e132e743a04124270e7bd204cfb1a687205992025e",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:LUNA",
+   "preimage": "PSE:LUNA|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:MNHV",
+   "hash": "fc41e4930f7f8b602b1de868e22662462beec01674d171f3b9a655727feedf5b",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:MNHV",
+   "preimage": "PSE:MNHV|none|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:MWC",
+   "hash": "78c20a44fe3b06e5c847f21344d00ec89251b804547f6300e74c4b8137cdd07b",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:MWC",
+   "preimage": "PSE:MWC|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:PRLP",
+   "hash": "4460fa8168c940f538c5c23c2b686037b3891b24779814b763f7d734498f5640",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:PRLP",
+   "preimage": "PSE:PRLP|none|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:PRLS",
+   "hash": "f348159022298d049c9e5c29b9675454a643510c52524a9bc84e96126ed51170",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:PRLS",
+   "preimage": "PSE:PRLS|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:SM",
+   "hash": "3187ecf7195fc31b305a5db139796b48bb4ea4fadc4bf895640e74a1d38a99ee",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:SM",
+   "preimage": "PSE:SM|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "PSE:TEL",
+   "hash": "807806eb1e4f069393418924d93783fa6c4ea4d5236b9a9a1b2d8f6d7bcc2502",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:TEL",
+   "preimage": "PSE:TEL|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:AOT",
+   "hash": "931b531d9485e75320c05c4b740bfb94eb105ab1e419bebec372397e27c21e3b",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:AOT",
+   "preimage": "SET:AOT|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:AWC",
+   "hash": "f88ddd4305a9979915d1e299c82a79fa569f0ea00ca0f5fd03cb365ffc120ea4",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:AWC",
+   "preimage": "SET:AWC|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:BCP",
+   "hash": "976bbde9a70616f36b5afae46a02dfe14d3fe6b560105bc5818da6483d734e75",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:BCP",
+   "preimage": "SET:BCP|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:BKHT",
+   "hash": "f22e2a414aa5186e4c892b05ffb60b0ac96928212898fd47d1dbb7a751c715c1",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:BKHT",
+   "preimage": "SET:BKHT|none|||2026-06-12"
+  },
+  {
+   "company_id": "SET:CPN",
+   "hash": "a1fc26e567d560ed38ffac74acc39e082d13c466225e33cc6da2bdf5d175cfcf",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:CPN",
+   "preimage": "SET:CPN|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:CRC",
+   "hash": "399f72170fb43db29b128bf191042714716d3ea1783f15fe6aefbb1b1ee1b228",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:CRC",
+   "preimage": "SET:CRC|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:DELTA",
+   "hash": "343e350f00b19775bf1667b77c535a6fa7d8b6f86e52a83e5cd16d417c825695",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:DELTA",
+   "preimage": "SET:DELTA|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:FRHV",
+   "hash": "e27ccf16b30daa7830c8a0959d3de73cd80bff6a67aee5847a8e81181e1df3c8",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:FRHV",
+   "preimage": "SET:FRHV|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "SET:IVL",
+   "hash": "bac48b595e0cab200052b9233e16993d6d8ecef24fcadcd3c0cc44bd9068e383",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:IVL",
+   "preimage": "SET:IVL|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:KBANK",
+   "hash": "ed7e9aa94d1ffcde47b25fd5e338b1ca97c4e13083f7a67e9d43d72ebe6cb9ad",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:KBANK",
+   "preimage": "SET:KBANK|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:MKCB",
+   "hash": "545021a6122cc2d763d9477d836482e972b155be28df15e82776b5b31eba7243",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:MKCB",
+   "preimage": "SET:MKCB|cbi_certified|||2026-06-12"
+  },
+  {
+   "company_id": "SET:SCGP",
+   "hash": "6550ce2ee4a28d18d4ca5c6638f40ff974a97285ec56de242764681bdbfc926e",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:SCGP",
+   "preimage": "SET:SCGP|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:SMCN",
+   "hash": "82e5d576afdbd6d1cba2b20f5a2be030396d8fc62a2a7914f3f32e6d3e44e07d",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:SMCN",
+   "preimage": "SET:SMCN|none|||2026-06-12"
+  },
+  {
+   "company_id": "SET:SMPN",
+   "hash": "d8cb6671b28bfecb5b235fd59b499c6ff7110c6fecbe3131ff214fa9c23e23c9",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:SMPN",
+   "preimage": "SET:SMPN|none|||2026-06-12"
+  },
+  {
+   "company_id": "SET:THSL",
+   "hash": "bde41e25b229c33c4440a8239ab09b58c1b9beeeb12f4d34ff846a0dda1d7833",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:THSL",
+   "preimage": "SET:THSL|none|||2026-06-12"
+  },
+  {
+   "company_id": "SET:TU",
+   "hash": "4610c9ebdff27da502f0a500f3ab4336762f37d688701abbad72b6f3c8e2f7e2",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:TU",
+   "preimage": "SET:TU|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SET:WHA",
+   "hash": "76c0a772431ef5a6631758155557c7c5154701e18e0504da957002df87052a58",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:WHA",
+   "preimage": "SET:WHA|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:9CI",
+   "hash": "087c2f7381b8a06c6dbb5edbeeffe82a21e25129635bc3b138a43fd7ce4ba2cd",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:9CI",
+   "preimage": "SGX:9CI|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:A17U",
+   "hash": "f8f52c6d2101ed141a82f136476a7013d2a288f2c3629e604576bca9e269f179",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:A17U",
+   "preimage": "SGX:A17U|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:AJBU",
+   "hash": "0668f527c04ab83280ac84416ffb13bbf53bb4f66420de77736e438074f98dcf",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:AJBU",
+   "preimage": "SGX:AJBU|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:BN4",
+   "hash": "a236787640b1b76bc7dac23b0ca0c522d622c8f6794615d2e1333103b8e65e10",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:BN4",
+   "preimage": "SGX:BN4|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:C09",
+   "hash": "5a18a7a6068065ce088b35b094e3df90bce756cf643dfffc955d841f6eb9a929",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:C09",
+   "preimage": "SGX:C09|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:C52",
+   "hash": "e6233a333c642ce0491bd5c09c96f1f549c9bf183a2c47dad9bb073f5f6b310c",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:C52",
+   "preimage": "SGX:C52|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:D05",
+   "hash": "13da26ea90026f7c479ad19358d731c61767a43fd90db0515b62cbc160aae39e",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:D05",
+   "preimage": "SGX:D05|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:DBKO",
+   "hash": "44b72794df5e046cb722251850f521eaa5bb324f9b5c21c24dceb70268db3b8b",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:DBKO",
+   "preimage": "SGX:DBKO|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:F34",
+   "hash": "747169baad9e4f380d5c143fde680fd6efb6cfd76abd9eed9285316a975238d1",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:F34",
+   "preimage": "SGX:F34|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:GRGD",
+   "hash": "02e91b93ebe9869e74172e0b9acd51bb4c8b3bb61fd9e6149296e2ac3d2c555e",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:GRGD",
+   "preimage": "SGX:GRGD|none|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:LNCP",
+   "hash": "116064791cd12435e12802f90bf3bee5b25e4c52dbb352611f00a694b4ad0de3",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:LNCP",
+   "preimage": "SGX:LNCP|none|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:MRNA",
+   "hash": "e4e5af78084a3f1879e73689559c26e62f38982f1cc5d44bfa8b3c6c26bbf3e6",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:MRNA",
+   "preimage": "SGX:MRNA|none|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:NVTL",
+   "hash": "35b5139256c3b86ee7248f78bc3d01d8aaa07415fb6772799b48791a27f32a7c",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:NVTL",
+   "preimage": "SGX:NVTL|labelled_unreviewed|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:ORCB",
+   "hash": "83543813de72e044fa543142953610e0c46eb000087803623c9080bbc25d7952",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:ORCB",
+   "preimage": "SGX:ORCB|none|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:S63",
+   "hash": "1cd2ea3cb713dd6feb2c949d2401d59bbe5f9c045ca467a991481e4492e96891",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:S63",
+   "preimage": "SGX:S63|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:U11",
+   "hash": "adf15ebb704dcdf797ac16bf9b9425c403a2a58277efe83b47ae9c4d8d651b34",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:U11",
+   "preimage": "SGX:U11|unknown|||2026-06-12"
+  },
+  {
+   "company_id": "SGX:Z74",
+   "hash": "4dc101fccbc993d6cd982b33eeab8fd38921fdb69fa951e9539092506f030a1b",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:Z74",
+   "preimage": "SGX:Z74|unknown|||2026-06-12"
+  }
+ ],
+ "root": "f7ee847c390c72dc084c170a580ac638b5af64ffceeea7073670d3df8fbf5b30",
+ "run_id": "921d0333b7528e82",
+ "signer": "",
+ "status": "anchor_pending",
+ "tx_hash": ""
+}

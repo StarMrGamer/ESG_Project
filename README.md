@@ -75,7 +75,7 @@ The demo basket's company ESG scores are **synthetic but principled** — derive
   (`INDICATOR_WEIGHTS`, `PILLAR_WEIGHTS`, `SECTOR_MULTIPLIERS`, `VARIANCE_PCT`) — tune and re-run.
 - **Scores are 0–100, higher = better**, and describe only — never buy/sell/hold.
 
-Regenerate after tuning: `PYTHONPATH=. ./venv/bin/python build_demo_universe.py`.
+Regenerate after tuning: `PYTHONPATH=. ./venv/bin/python -m scripts.build_demo_universe`.
 Override the country data with your own OECD/WGI CSV via the app's upload, or by replacing
 `data/fallback_oecd_wgi_asean.csv`.
 
@@ -119,60 +119,46 @@ fabricated company facts.
 
 ## Quickstart
 
-Requires **Python 3.8+** and a **DeepSeek API key** (`DEEPSEEK_API_KEY`).
+The app is now a **React frontend + FastAPI backend** over the same Python brain
+(`core` / `contracts` / `metrics` / `universe` / `rag` / `datasource` / `stage1` / `stage2`
+are unchanged; Stage 3's rendering moved into React). Requires **Python 3.8+**, **Node 18+**,
+and a **DeepSeek API key** (`DEEPSEEK_API_KEY`) for the relay — the dashboard, sample demo and
+all pure metrics run fine without one.
 
-### 1. Set up a virtual environment
+### 1. Backend
 
-Use a virtual environment so dependencies stay isolated.
-
-**Windows — PowerShell:**
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
+```bash
+python -m venv venv && . venv/bin/activate     # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-```
-> If activation is blocked with a script-execution error, run once:
-> `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`, then activate again.
-
-**Windows — Command Prompt (cmd):**
-```bat
-python -m venv .venv
-.venv\Scripts\activate.bat
-pip install -r requirements.txt
+export DEEPSEEK_API_KEY="sk-..."               # Windows: $env:DEEPSEEK_API_KEY="sk-..."
+python server.py                               # API + built UI on http://localhost:8000
 ```
 
-### 2. Set your API key
+### 2. Frontend
 
-**PowerShell:**
-```powershell
-$env:DEEPSEEK_API_KEY="sk-..."
-```
-**Command Prompt (cmd):**
-```bat
-set DEEPSEEK_API_KEY=sk-...
-```
-
-### 3. Run
-
-```powershell
-streamlit run app.py
+```bash
+cd web
+npm install
+npm run build          # production bundle -> web/dist (served by server.py)
+npm run dev            # OR dev server on http://localhost:5173 (proxies /api -> :8000)
 ```
 
 ### Demo flow
-1. In the sidebar, pick a **Data source** (Live or Upload) and, optionally, **Dark mode**.
-2. **Live:** type **"I want to invest in Nvidia"** (or tap an example). It builds a live ESG
-   profile, then Agent 1 interrogates. **Upload:** drop a `.json`/`.csv`/`.txt`, click *Use
-   this file*, then ask your question.
-3. Answer the 2–4 adaptive questions (the AI challenges weak framing). Stuck? Click
-   **"→ I've said enough — narrow it & continue"**.
-4. Click **"Reason over the data →"**. It retrieves live sources (RAG), then returns the
-   tightened competing answer — expand **🧠 Show the radar's reasoning** for the chain of
-   thought, and scroll to the historical-trend strip and the **🔗 Sources** it cited.
+1. The board opens on the **fictional demo universe** (fully numeric, labelled illustrative).
+   Toggle **🎛 Demo data** in the header for the real evidence-based ASEAN base DB.
+2. Chat with the assistant (right rail, “‹ Assistant”): *"show banks"*, *"Singapore"*,
+   *"analyze DemoBank"* (compete) or *"interrogate Maybank"*.
+3. In a deep dive: answer the 2–4 adaptive questions (or **⚔️ Compete now**), then
+   **Reason over the data** — Stage 2 streams its progress live (RAG status → phases →
+   tokens) and lands on the verdict, chain of thought, market-vs-reality, and sources.
+4. **🎬 Sample** loads the offline DemoBank SG fixture (no network or key needed).
 
-> 💡 In the **🧪 Sample** scenario (sidebar → *Load sample*), the hidden signal is an
-> **undisclosed AI-governance build-out** (+340% hiring, zero disclosure) ahead of the **MAS
-> AI guidelines** — the sharpest demo steers the interrogation toward that AI/digital blind-spot.
-> For **live** companies the differentiator is whatever real gap the fetched sources reveal.
+> 💡 In the **🧪 Sample** scenario, the hidden signal is an **undisclosed AI-governance
+> build-out** (+340% hiring, zero disclosure) ahead of the **MAS AI guidelines** — the sharpest
+> demo steers the interrogation toward that AI/digital blind-spot. For **live** companies the
+> differentiator is whatever real gap the fetched sources reveal.
+
+> The React app in `web/` is the primary frontend, served by the FastAPI backend in `server.py`.
 
 ---
 
@@ -203,10 +189,11 @@ core.py                  # shared: LLM client (call_llm), live-fetch (http_get),
 contracts.py             # the handoff data shapes (A: NarrowedQuestion, B: CompanyData, C: Stage2Answer)
 rag.py                   # live retrieval (RAG): DuckDuckGo search + AI summary + TF-IDF rank
 datasource.py            # build CompanyData LIVE (grounded) or load an UPLOAD (json/csv/txt)
-app.py                   # Streamlit shell — control-panel sidebar, light/dark, wires the relay
+server.py                # FastAPI backend — REST + SSE over the Python brain (the React app's API)
+web/                     # React + TypeScript frontend (Vite) — the command center + deep-dive relay
 stage1.py                # interrogation agent (+ visible chain-of-thought rationale)
 stage2.py                # competing reasoner (+ RAG, history, CoT, sources)
-stage3.py                # render: verdict · chain-of-thought · history · sources
+stage3.py                # dependency-free Contract C Markdown/text export helpers
 data/hero_company.json   # SAMPLE only — offline-demo + test fixture (PLACEHOLDER values)
 fixtures/                # sample contract outputs (used by tests / as batons)
 selftest.py              # offline end-to-end check (no key, no network) — incl. RAG + datasource tests
@@ -214,6 +201,21 @@ debug_llm.py             # one-shot probe of your DeepSeek endpoint
 .cache/                  # live-retrieval cache (auto-created, git-ignored)
 requirements.txt
 ```
+
+### API surface (server.py)
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/health` | liveness + whether `DEEPSEEK_API_KEY` is set |
+| `GET /api/board` | the whole dashboard state for a filter set (pure metrics, no LLM) |
+| `POST /api/chat` | the assistant intent parser → structured action (filter / focus / relay) |
+| `POST /api/monitor` | build + pin a snapshot (universe ticker or free-text live build) |
+| `DELETE /api/monitor/{ticker}` | unpin |
+| `GET /api/entry/{ticker}` | deep-dive payload (Contract B + snapshot + cached batons) |
+| `POST /api/sample` · `POST /api/upload` | offline sample / uploaded ESG file |
+| `POST /api/stage1/ask` · `POST /api/stage1/narrow` | interrogation turns → Contract A |
+| `POST /api/stage2/run` | **SSE stream**: RAG status → phase labels → token deltas → Contract C |
+| `POST /api/compare` | side-by-side data for 2–4 built snapshots |
 
 ---
 

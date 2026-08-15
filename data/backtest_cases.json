@@ -1,0 +1,170 @@
+{
+  "_note": "A8 backtest cases. Every event below is transcribed from the Research->Build handoff in D/Backtest_Candidates_for_Rai.md (14 Aug 2026) — its timeline, its dates, its source URLs. Nothing here is researched, inferred or extrapolated by the engine: an event the handoff does not date does not appear. Events on/after a case's `cutoff_date` are OUTCOMES, kept out of `events` so the lookback cannot see them; the harness asserts that separately.",
+  "provenance": "D/Backtest_Candidates_for_Rai.md",
+  "as_of": "2026-08-14",
+  "cases": [
+    {
+      "case_id": "sembcorp",
+      "company": "Sembcorp Industries",
+      "ticker": "SGX:U96",
+      "country": "Singapore",
+      "sector": "Energy — Power & Renewables",
+      "profile": "Emerging winner — signals ran years ahead of recognition",
+      "cutoff_date": "2021-08-31",
+      "outcome_date": "2021-09-29",
+      "outcome": "S$675M sustainability-linked bond — IFC's first-ever SLB investment globally",
+      "outcome_source": "https://www.ifc.org/en/pressroom/2021/ifc-marks-first-ever-investment-in-a-sustainability-linked-bond-globally-with-s675-million-offering-by-pan-asian-energy-and-sustainable-solutions-provider-sembcorp-industries",
+      "caveats": "Exact MSCI upgrade path/dates unverified. The SEIL sale used a deferred payment note, criticised as retaining coal exposure — a contested signal, not settled fact.",
+      "events": [
+        {"published_at": "2020-09-15",
+         "text": "Sembcorp Marine demerger completes, separating the marine business from the energy group",
+         "source_url": "https://www.sembcorp.com/media/bpojt3bk/sembcorp_ar2022.pdf",
+         "source_type": "company_pr"},
+        {"published_at": "2021-05-15",
+         "text": "Brown-to-green Investor Day targets 10 GW of renewable energy capacity",
+         "source_url": "https://www.sembcorp.com/media/bpojt3bk/sembcorp_ar2022.pdf",
+         "source_type": "company_pr"},
+        {"published_at": "2021-06-15",
+         "text": "Inaugural S$400M green bond offering announced",
+         "source_url": "https://www.sembcorp.com/media/xnflei53/sembcorp-announces-inaugural-s-400m-green-bond-offering.pdf",
+         "source_type": "company_pr"},
+        {"published_at": "2021-08-15",
+         "text": "Launches Singapore's first sustainable financing framework for the energy sector",
+         "source_url": "https://www.sembcorp.com/en/media/media-releases/corporate/2021/august/sembcorp-industries-launches-singapores-first-sustainable-financing-framework-for-the-energy-sector/",
+         "source_type": "company_pr"}
+      ],
+      "expect": {
+        "momentum_sign": 1,
+        "min_signals": 3,
+        "max_confidence": 0.6,
+        "label": "future_leaders",
+        "note": "Positive and early: four dated transition/green-finance signals sit inside the lookback, a month before the IFC SLB. Confidence stays moderate because every source is the company's own newsroom (capped at 0.5)."
+      }
+    },
+    {
+      "case_id": "acen",
+      "company": "ACEN Corporation",
+      "ticker": "PSE:ACEN",
+      "country": "Philippines",
+      "sector": "Energy — Power & Renewables",
+      "profile": "Emerging winner — transition milestones before recognition",
+      "cutoff_date": "2022-09-30",
+      "outcome_date": "2022-11-07",
+      "outcome": "Completes the world's first market-based Energy Transition Mechanism: P7.2bn deal retiring the 246 MW SLTEC coal plant by 2040 instead of 2057",
+      "outcome_source": "https://www.acenrenewables.com/2022/11/acen-completes-worlds-first-energy-transition-mechanism-etm-transaction-246-mw-sltec-coal-plant/",
+      "caveats": "No dated MSCI/Sustainalytics action is verifiable — recognition here is deal 'firsts', not rating moves. The ETM is debated (the plant still runs to 2040) and Ayala ownership complicates attribution.",
+      "events": [
+        {"published_at": "2019-02-15",
+         "text": "CBI-certified US dollar green bonds issued, among South-East Asia's first",
+         "source_url": "https://www.acenrenewables.com/issuances/",
+         "source_type": "company_pr"},
+        {"published_at": "2019-06-15",
+         "text": "AC Energy and Phinma Energy merger consolidates the renewable energy platform",
+         "source_url": "https://www.acenrenewables.com/issuances/",
+         "source_type": "company_pr"},
+        {"published_at": "2021-10-15",
+         "text": "First Philippine energy company to commit to net zero greenhouse gas emissions by 2050",
+         "source_url": "https://www.acenrenewables.com/2021/10/acen-commits-to-net-zero-greenhouse-gas-emissions-by-2050/",
+         "source_type": "company_pr"}
+      ],
+      "expect": {
+        "momentum_sign": 1,
+        "min_signals": 3,
+        "max_confidence": 0.6,
+        "label": "future_leaders",
+        "note": "Positive before the ETM lands. The 2050 net-zero commitment is forward-looking language and is discounted to half materiality — the engine credits the CBI-certified issuance and the platform consolidation more than the pledge."
+      }
+    },
+    {
+      "case_id": "topglove",
+      "company": "Top Glove Corporation",
+      "ticker": "KLSE:7113",
+      "country": "Malaysia",
+      "sector": "Health Care — Equipment & Supplies",
+      "profile": "The money case — a stable score masked deterioration",
+      "cutoff_date": "2020-06-30",
+      "outcome_date": "2020-07-15",
+      "outcome": "US Customs and Border Protection issues a Withhold Release Order; formal forced-labour Finding follows in Mar 2021, RM3.6bn revenue lost — while the company was retained on the Dow Jones Sustainability Index for a third straight year in Nov 2021",
+      "outcome_source": "https://www.cbp.gov/newsroom/national-media-release/cbp-issues-forced-labor-finding-top-glove-corporation-bhd",
+      "caveats": "Low factual risk: the warning signals sit squarely inside the pre-Jul-2020 window, the outcome is a US government record, and the incumbent-score failure (DJSI retention through the episode) is documented.",
+      "events": [
+        {"published_at": "2018-12-15",
+         "text": "Guardian investigation links its factories to forced labour indicators, including recruitment fees and debt bondage; the company's own rebuttal confirms the article",
+         "source_url": "https://www.topglove.com/single-press-release-en?id=89&title=top-glove-provides-clarifications-to-the-guardian-on-article-titled-uk-government-sourcing-nhs-ppe-from-company-repeatedly-accused-of-forced-labour",
+         "source_type": "news"},
+        {"published_at": "2019-06-30",
+         "text": "Continuing NGO and media reports on recruitment fees and debt bondage across its workforce",
+         "source_url": "",
+         "source_type": "ngo"},
+        {"published_at": "2020-03-15",
+         "text": "Further forced labour allegations over worker welfare and dormitory conditions remain unresolved",
+         "source_url": "",
+         "source_type": "ngo"}
+      ],
+      "expect": {
+        "momentum_sign": -1,
+        "min_signals": 3,
+        "max_confidence": 0.7,
+        "label": "overrated_leaders",
+        "note": "THE case. Dated forced-labour evidence sits inside the lookback while the incumbent score stayed stable — negative momentum against a median-or-better baseline is exactly the new `overrated_leaders` quadrant, and never Hidden Winners (signed disagreement forbids it)."
+      }
+    },
+    {
+      "case_id": "adaro",
+      "company": "Adaro Energy / Alamtri",
+      "ticker": "IDX:ADRO",
+      "country": "Indonesia",
+      "sector": "Energy — Coal",
+      "profile": "The mandatory wrong case — where a naive momentum engine gets fooled",
+      "cutoff_date": "2023-02-28",
+      "outcome_date": "2023-05-15",
+      "outcome": "DBS, OCBC and Standard Chartered decline or withdraw financing over the coal reality; Jun 2023 Mongabay reports the smelter will run on 2.2 GW of new captive coal to at least 2030 (~5.2 Mt CO2e/yr); Dec 2024 thermal-coal spin-off is itself called greenwashing",
+      "outcome_source": "https://news.mongabay.com/2023/06/indonesian-coal-giant-adaros-sustainable-smelter-slammed-as-greenwashing/",
+      "caveats": "The company contests the greenwashing label; no dated rating action is verifiable; the exact smelter announcement date (Dec 2021 vs early 2022) is unconfirmed. The rename/spin-off is a live entity-resolution hazard.",
+      "events": [
+        {"published_at": "2021-12-15",
+         "text": "Announces a US$2bn aluminium smelter in a green industrial park, to be powered by planned renewable capacity",
+         "source_url": "",
+         "source_type": "company_pr"},
+        {"published_at": "2022-06-15",
+         "text": "Adaro Green branding positions the group in the EV supply chain and clean energy transition narrative",
+         "source_url": "",
+         "source_type": "company_pr"}
+      ],
+      "expect": {
+        "momentum_sign": 1,
+        "min_signals": 2,
+        "max_confidence": 0.35,
+        "label": "future_leaders",
+        "is_known_failure": true,
+        "note": "PUBLISHED FAILURE CASE. Announcement-flow momentum at Feb 2023 was positive and the outcome was financing rejection — the engine is wrong here BY DESIGN of the data available at the cutoff. The mitigations are visible in the numbers, not in a caveat: both signals are company PR (quality capped at 0.5) and both use forward-looking language (materiality halved), so the engine's confidence stays low. The fix is source diversity, not a bigger weight."
+      }
+    },
+    {
+      "case_id": "ree",
+      "company": "REE Corporation",
+      "ticker": "HOSE:REE",
+      "country": "Vietnam",
+      "sector": "Utilities — Multi-Utilities",
+      "profile": "Boundary case — honest uncertainty on thin coverage",
+      "cutoff_date": "2022-07-31",
+      "outcome_date": "2022-08-11",
+      "outcome": "HSBC arranges a VND900bn (~US$38.5M) green loan for REE's LEED-certified e.town 6 building",
+      "outcome_source": "https://www.about.hsbc.com.vn/-/media/vietnam/en/news-and-media/220811-hsbc-provides-green-financing-for-ree-real-estate-project-en.pdf",
+      "caveats": "Coverage is sparse and largely Vietnamese-language; reported VNSI constituency has no primary dated source; no MSCI/Sustainalytics/FTSE4Good coverage found. The absence is the point (Methodology §2/§8 language limitation).",
+      "events": [
+        {"published_at": "2021-06-30",
+         "text": "Builds out a roughly 1 GW hydro, wind and solar power portfolio",
+         "source_url": "https://www.reecorp.com/en/business-sector/energy/",
+         "source_type": "company_pr"}
+      ],
+      "expect": {
+        "momentum_sign": 1,
+        "min_signals": 1,
+        "max_confidence": 0.2,
+        "label": "future_leaders",
+        "note": "Expected behaviour is LOW confidence, not a confident call: one dated signal, one source, no corroboration. The UI must show the thin coverage honestly rather than round it up to a verdict."
+      }
+    }
+  ]
+}
