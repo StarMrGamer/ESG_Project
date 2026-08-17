@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import { useStore } from '../../store'
 import type { EngineRecord, LabelKey, TierKey } from '../../types'
 
@@ -22,13 +22,21 @@ const LABEL_TONE: Record<string, string> = {
 // stretched by the container's width.
 const VB = { w: 1000, h: 300, left: 60, right: 940, top: 30, bottom: 270, midX: 500, midY: 150 }
 
-// Where each quadrant's caption sits. Hidden Winners is deliberately absent: it is a precedence
-// label that can land anywhere on the grid, not a region — so it reads as a marker, not a corner.
-const QUADRANTS: { key: LabelKey; x: number; y: number; anchor: 'start' | 'end' }[] = [
-  { key: 'consensus', x: VB.left + 8, y: VB.top + 6, anchor: 'start' },
-  { key: 'future_leaders', x: VB.right - 8, y: VB.top + 6, anchor: 'end' },
-  { key: 'value_traps', x: VB.left + 8, y: VB.bottom + 18, anchor: 'start' },
-  { key: 'overrated_leaders', x: VB.right - 8, y: VB.bottom + 18, anchor: 'end' },
+// Where each region's caption sits. Three of these ARE their quadrant, exactly: future_leaders,
+// overrated_leaders and value_traps are defined as `lseg_percentile` either side of 0.5 crossed
+// with the sign of momentum, which is precisely the axes drawn here.
+//
+// The top-left corner is not one label but two. `consensus` is the fallback for that quadrant,
+// but `hidden_winners` is evaluated FIRST and carves companies out of it wherever the signed
+// disagreement clears theta — currently about half the dots sitting there. Captioning that
+// corner "Consensus" alone put the product's whole differentiator under the name of something
+// else, and a reader matching green dots to the nearest caption drew the wrong conclusion. So
+// the corner names both, and each half is drawn in the colour of its own dots.
+const QUADRANTS: { keys: LabelKey[]; x: number; y: number; anchor: 'start' | 'end' }[] = [
+  { keys: ['hidden_winners', 'consensus'], x: VB.left + 8, y: VB.top + 6, anchor: 'start' },
+  { keys: ['future_leaders'], x: VB.right - 8, y: VB.top + 6, anchor: 'end' },
+  { keys: ['value_traps'], x: VB.left + 8, y: VB.bottom + 18, anchor: 'start' },
+  { keys: ['overrated_leaders'], x: VB.right - 8, y: VB.bottom + 18, anchor: 'end' },
 ]
 
 function matches(record: EngineRecord, tier: TierKey | 'all', pipelineOnly: boolean): boolean {
@@ -128,8 +136,14 @@ export default function EngineBoard() {
           <text x={VB.left - 28} y={VB.top + 5} textAnchor="end" className="matrix-tick">+1</text>
           <text x={VB.left - 28} y={VB.bottom + 4} textAnchor="end" className="matrix-tick">−1</text>
           {QUADRANTS.map(q => (
-            <text key={q.key} x={q.x} y={q.y} textAnchor={q.anchor}
-              className={`matrix-quad ${LABEL_TONE[q.key]}`}>{labels[q.key]}</text>
+            <text key={q.keys.join('+')} x={q.x} y={q.y} textAnchor={q.anchor} className="matrix-quad">
+              {q.keys.map((key, i) => (
+                <Fragment key={key}>
+                  {i > 0 && <tspan className="matrix-quad-sep"> · </tspan>}
+                  <tspan className={LABEL_TONE[key]}>{labels[key]}</tspan>
+                </Fragment>
+              ))}
+            </text>
           ))}
           {rows.map(r => {
             const { cx, cy } = point(r)

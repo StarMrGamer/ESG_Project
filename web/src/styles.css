@@ -1452,6 +1452,8 @@ kbd.kbd {
 .matrix { width: 100%; height: 300px; display: block; background: color-mix(in srgb, var(--r-bg) 55%, transparent); border: 1px solid var(--r-border); border-radius: 8px; }
 .matrix-guide { stroke: var(--r-border); stroke-width: 1; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
 .matrix-quad { font-size: 15px; fill: var(--r-muted); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
+/* separator in a two-label corner caption — stays muted so neither label's colour bleeds */
+.matrix-quad-sep { fill: var(--r-muted); }
 .matrix-tick { font-size: 12px; fill: var(--r-muted); font-family: var(--r-mono); }
 .matrix-dot { cursor: pointer; fill-opacity: 0.85; transition: opacity 0.18s var(--r-ease); }
 .matrix-dot.is-dim { opacity: 0.16; }
