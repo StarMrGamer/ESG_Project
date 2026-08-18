@@ -1,4 +1,5 @@
 import { useStore } from '../../store'
+import RadarHub from './RadarHub'
 import { MomentumChart, PriceChart } from '../charts'
 import { fmtPct, SectionTitle, signClass, TONE_CLASS } from '../ui'
 import type { WinnerRow } from '../../types'
@@ -246,21 +247,30 @@ export default function CenterBoard() {
     )
   }
 
-  const strip = board.pillars.filter(p => ['environment', 'governance', 'digital_ai'].includes(p.key))
   const hw = hidden_winners
   const maxAbs = Math.max(...hw.rows.map(r => Math.abs(r.value)), 1)
+  // The hub needs at least one pillar reading to draw a shape. When the filter has none it
+  // renders nothing, so the old three-card strip stays as the fallback rather than leaving a hole.
+  const hasPillars = board.pillars.some(p => p.value != null)
+  const strip = board.pillars.filter(p => ['environment', 'governance', 'digital_ai'].includes(p.key))
   return (
     <div className="center-stack">
-      {simple && plainSummary}
-      <div className="kpi-row">
-        {strip.map(p => (
-          <div className={`cc-kpi ${p.fast ? 'cc-fast' : ''}`} key={p.key}>
-            <div className="cc-kpi-label">{p.label}</div>
-            <div className={`cc-kpi-val ${p.fast ? '' : signClass(p.value)}`}>{fmtPct(p.value)}</div>
-            <div className={`cc-kpi-trend ${p.fast ? '' : signClass(p.value)}`}>{p.arrow} {p.trend}</div>
-          </div>
-        ))}
-      </div>
+      {hasPillars
+        ? <RadarHub solo={lv === 1} />
+        : (
+          <>
+            {simple && plainSummary}
+            <div className="kpi-row">
+              {strip.map(p => (
+                <div className={`cc-kpi ${p.fast ? 'cc-fast' : ''}`} key={p.key}>
+                  <div className="cc-kpi-label">{p.label}</div>
+                  <div className={`cc-kpi-val ${p.fast ? '' : signClass(p.value)}`}>{fmtPct(p.value)}</div>
+                  <div className={`cc-kpi-trend ${p.fast ? '' : signClass(p.value)}`}>{p.arrow} {p.trend}</div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       {simple
         ? null
         : (
@@ -278,12 +288,12 @@ export default function CenterBoard() {
               onFocus={focusByTicker} />
           </div>
         )}
-      {classification}
-      {checkPanel}
+      {lv >= 2 && classification}
+      {!hasPillars && checkPanel}
       {lv >= 3 && pricePanel}
       {lv >= 3 && forecast}
       {lv >= 2 && newsPanel}
-      {cta}
+      {!hasPillars && cta}
     </div>
   )
 }

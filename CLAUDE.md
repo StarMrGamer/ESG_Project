@@ -92,6 +92,17 @@ chips plus a local matcher, no LLM call — because a demo cannot be one flaky n
 from its opening screen. `settings.setupDone` persists, so a returning browser goes straight to
 the board; **Reconfigure** in the header re-runs it.
 
+**The board is centred, not stacked.** At every numeric level the middle column opens with
+`RadarHub` (`web/src/components/dashboard/RadarHub.tsx`): the focused company in a core card with
+the four pillar readings as satellites at the corners around it. The plot is a real radar and it
+carries the thesis rather than decorating — the emphasised dashed ring is ZERO momentum, which is
+what a static rating implicitly assumes, and the filled shape is the live read; the gap between
+them IS the disagreement. Each satellite repeats its pillar as a diverging bar off the same zero
+line. At level 1 (`solo`) the hub grows into the closed rails and carries the live signals inside
+the core, because that is the one view where the right rail cannot show them. There is no sweep
+and no rotation: the brief was a calmer screen. A filter with no pillar readings falls back to the
+old three-card strip rather than leaving a hole.
+
 **The board is layered.** `settings.level` is 1 Brief · 2 Analysis · 3 Everything, and every
 widget declares the level it earns: level 1 is the verdict, the pillar cards, one action and a
 one-line assistant bar; level 2 adds the momentum chart, the rankings, the industry-benchmark

@@ -98,7 +98,7 @@ a:hover { color: var(--r-pos); text-decoration: none; }
 }
 .app-main {
   flex: 1;
-  padding: 18px 22px 36px;
+  padding: 12px 20px 20px;
   max-width: 1760px;
   width: 100%;
   margin: 0 auto;
@@ -427,7 +427,7 @@ label.field > span {
   box-shadow: var(--r-shadowSoft);
 }
 .rail-section > .cc-h:first-child { margin-top: 0; }
-.center-stack { display: flex; flex-direction: column; gap: 12px; }
+.center-stack { display: flex; flex-direction: column; gap: 10px; }
 .panel-block {
   background: linear-gradient(180deg, var(--r-panel2) 0%, var(--r-panel) 100%);
   border: 1px solid var(--r-border);
@@ -1398,9 +1398,9 @@ details.expander[open] summary { margin-bottom: 10px; }
 .footer-note {
   color: var(--r-faint);
   font-size: 11.5px;
-  margin-top: 28px;
+  margin-top: 16px;
   text-align: center;
-  padding: 14px 12px 0;
+  padding: 10px 12px 0;
   border-top: 1px solid var(--r-border);
   letter-spacing: 0.01em;
 }
@@ -1947,3 +1947,196 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   font: 600 10px/1.4 var(--r-font); color: var(--r-faint);
 }
 .bm-note { border-left: 2px solid var(--r-borderStrong); padding-left: 9px; margin-top: 8px; }
+
+/* ==========================================================================
+   RADAR HUB — the board arranged around a centre rather than stacked down one.
+   Satellites sit at the four corners with their inner edge accented toward the
+   core, so the grouping reads as orbit rather than as four unrelated cards.
+   ========================================================================== */
+.hub {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 1.5fr) minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "nw core ne"
+    "sw core se"
+    "foot foot foot";
+  gap: 10px;
+  align-items: stretch;
+}
+
+.hub-sat {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 14px 16px;
+  background: linear-gradient(165deg, var(--r-panel2), var(--r-panel));
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius);
+  transition: border-color 0.18s var(--r-ease), box-shadow 0.18s var(--r-ease);
+}
+.hub-sat.is-nw { grid-area: nw; border-right-width: 2px; border-right-color: var(--r-borderStrong); }
+.hub-sat.is-ne { grid-area: ne; border-left-width: 2px; border-left-color: var(--r-borderStrong); }
+.hub-sat.is-sw { grid-area: sw; border-right-width: 2px; border-right-color: var(--r-borderStrong); }
+.hub-sat.is-se { grid-area: se; border-left-width: 2px; border-left-color: var(--r-borderStrong); }
+.hub-sat.is-fast {
+  border-color: color-mix(in srgb, var(--r-amber) 45%, var(--r-border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--r-amber) 18%, transparent);
+}
+.hub-sat-label {
+  font: 600 10.5px/1.2 var(--r-mono);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--r-faint);
+}
+.hub-sat-val {
+  font: 600 26px/1.1 var(--r-mono); margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Diverging magnitude bar. Centre line = zero, the same reference the plot's dashed ring draws. */
+.hub-sat-bar { position: relative; height: 6px; margin: 10px 0 2px; }
+.hub-sat-bar::before {
+  content: ""; position: absolute; inset: 2px 0; border-radius: 999px;
+  background: var(--r-inset);
+}
+.hub-sat-axis {
+  position: absolute; left: 50%; top: -1px; bottom: -1px; width: 1px;
+  background: color-mix(in srgb, var(--r-text) 38%, transparent);
+}
+.hub-sat-fill {
+  position: absolute; top: 2px; bottom: 2px; border-radius: 999px;
+  background: var(--r-muted);
+  transition: width 0.25s var(--r-ease), left 0.25s var(--r-ease);
+}
+.hub-sat-fill.cc-pos { background: var(--r-pos); }
+.hub-sat-fill.cc-neg { background: var(--r-neg); }
+.hub-sat.is-fast .hub-sat-fill { background: var(--r-amber); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-sat-fill { transition: none; }
+}
+.hub-sat.is-fast .hub-sat-val { color: var(--r-amber); }
+.hub-sat-trend { font: 500 11.5px/1.3 var(--r-font); margin-top: 3px; color: var(--r-muted); }
+.hub-sat.is-fast .hub-sat-trend { color: var(--r-amber); }
+
+.hub-core {
+  grid-area: core;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 14px 18px 16px;
+  background:
+    radial-gradient(70% 60% at 50% 42%, color-mix(in srgb, var(--r-pos) 6%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--r-panel2), var(--r-panel));
+  border: 1px solid var(--r-borderStrong);
+  border-radius: var(--r-radius);
+  box-shadow: var(--r-shadowSoft);
+}
+.hub-core-head {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+}
+.hub-co { font: 600 17px/1.2 var(--r-font); }
+.hub-verdict {
+  padding: 3px 10px; border-radius: 999px;
+  font: 600 11px/1.4 var(--r-font); letter-spacing: 0.02em;
+  border: 1px solid var(--r-border); background: var(--r-inset);
+}
+.hub-verdict.cc-class-good { color: var(--r-pos); border-color: color-mix(in srgb, var(--r-pos) 45%, transparent); background: var(--r-posbg); }
+.hub-verdict.cc-class-bad { color: var(--r-neg); border-color: color-mix(in srgb, var(--r-neg) 45%, transparent); background: var(--r-negbg); }
+
+.radar-plot { width: 100%; max-width: 258px; height: auto; margin: 4px 0 0; display: block; }
+.radar-ring { fill: none; stroke: var(--r-border); stroke-width: 1; }
+.radar-zero {
+  fill: none;
+  stroke: color-mix(in srgb, var(--r-text) 48%, transparent);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+}
+.radar-spoke { stroke: var(--r-border); stroke-width: 1; }
+.radar-shape {
+  stroke-width: 2; stroke-linejoin: round;
+  fill: color-mix(in srgb, var(--r-pos) 16%, transparent);
+  stroke: var(--r-pos);
+}
+.radar-shape.is-neg { fill: color-mix(in srgb, var(--r-neg) 16%, transparent); stroke: var(--r-neg); }
+.radar-shape.is-flat { fill: color-mix(in srgb, var(--r-muted) 14%, transparent); stroke: var(--r-muted); }
+.radar-node { fill: var(--r-pos); stroke: var(--r-panel); stroke-width: 1.5; }
+.radar-node.is-neg { fill: var(--r-neg); }
+.radar-node.is-flat { fill: var(--r-muted); }
+
+.hub-legend {
+  display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  margin-top: 8px; font: 400 11.5px/1.4 var(--r-font); color: var(--r-muted);
+}
+.hub-legend i { display: inline-block; width: 14px; height: 0; vertical-align: middle; margin-right: 5px; }
+.hub-legend .k-ring { border-top: 1.5px dashed var(--r-borderStrong); }
+.hub-legend .k-fill { border-top: 2px solid var(--r-pos); }
+
+.hub-line {
+  margin: 10px 0 0; text-align: center; max-width: 46ch;
+  font: 400 13px/1.5 var(--r-font); color: var(--r-muted);
+}
+
+.hub-foot {
+  grid-area: foot;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--r-inset);
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius);
+}
+.hub-check { min-width: 0; flex: 1 1 340px; }
+.hub-check-h {
+  font: 600 10.5px/1.2 var(--r-mono);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--r-faint);
+}
+.hub-check-b { margin-top: 4px; font: 400 13.5px/1.5 var(--r-font); }
+.hub-cta { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* The hub also has to survive the narrow centre column at level 2, where the rails are open —
+   a viewport media query cannot see that, so the container query does. */
+@container (max-width: 700px) {
+  .hub {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "core core"
+      "nw   ne"
+      "sw   se"
+      "foot foot";
+  }
+  .hub-sat { border-width: 1px; border-color: var(--r-border); }
+  .hub-sat-val { font-size: 22px; }
+}
+
+/* Level 1 has the whole width and both rails closed, so the hub grows into it rather than
+   leaving the bottom two-thirds of the viewport empty — which was the original complaint.
+   The min-height is capped against the viewport so a short laptop screen never has to scroll
+   to reach the action row. */
+.hub.is-solo { min-height: min(540px, calc(100vh - 300px)); }
+.hub.is-solo .radar-plot { max-width: 330px; }
+.hub.is-solo .hub-core { padding: 18px 22px 20px; }
+/* The satellites are as tall as half the core, so their content is distributed across that
+   height on purpose rather than pooling in the middle of an obviously empty card. */
+.hub.is-solo .hub-sat { padding: 20px; justify-content: space-between; }
+.hub.is-solo .hub-sat-label { margin-bottom: 4px; }
+.hub.is-solo .hub-sat-trend { margin-top: 6px; }
+.hub.is-solo .hub-sat-val { font-size: 32px; }
+.hub.is-solo .hub-co { font-size: 19px; }
+
+.hub-signals {
+  width: 100%; margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--r-border);
+}
+.hub-signals-h {
+  font: 600 10.5px/1.2 var(--r-mono);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--r-faint);
+  text-align: center;
+}
+.hub-signals-row {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 9px;
+}
+.hub-sig {
+  display: inline-flex; align-items: baseline; gap: 7px;
+  padding: 5px 11px; border-radius: 999px;
+  border: 1px solid var(--r-border); background: var(--r-inset);
+  font: 400 12px/1.3 var(--r-font);
+}
+.hub-sig-k { color: var(--r-muted); }
+.hub-sig b { font-family: var(--r-mono); font-size: 12.5px; }
