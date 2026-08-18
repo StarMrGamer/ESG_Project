@@ -1,0 +1,1378 @@
+{
+ "_note": "Per-case momentum series behind docs/backtest/*.svg. Every point is a real engine run with its own cutoff — the value at date D is what the Radar would have said on D. Regenerate: `python backtest_timeline.py`.",
+ "generated_from": "data/backtest_cases.json",
+ "lookback_months": 30,
+ "cases": [
+  {
+   "case_id": "sembcorp",
+   "company": "Sembcorp Industries",
+   "ticker": "SGX:U96",
+   "profile": "Emerging winner — signals ran years ahead of recognition",
+   "cutoff_date": "2021-08-31",
+   "outcome_date": "2021-09-29",
+   "outcome": "S$675M sustainability-linked bond — IFC's first-ever SLB investment globally",
+   "outcome_source": "https://www.ifc.org/en/pressroom/2021/ifc-marks-first-ever-investment-in-a-sustainability-linked-bond-globally-with-s675-million-offering-by-pan-asian-energy-and-sustainable-solutions-provider-sembcorp-industries",
+   "is_known_failure": false,
+   "baseline": {
+    "value": 0.0,
+    "basis": "unavailable",
+    "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
+   },
+   "events": [
+    {
+     "date": "2020-09-15",
+     "text": "Sembcorp Marine demerger completes, separating the marine business from the energy group",
+     "source_type": "company_pr"
+    },
+    {
+     "date": "2021-05-15",
+     "text": "Brown-to-green Investor Day targets 10 GW of renewable energy capacity",
+     "source_type": "company_pr"
+    },
+    {
+     "date": "2021-06-15",
+     "text": "Inaugural S$400M green bond offering announced",
+     "source_type": "company_pr"
+    },
+    {
+     "date": "2021-08-15",
+     "text": "Launches Singapore's first sustainable financing framework for the energy sector",
+     "source_type": "company_pr"
+    }
+   ],
+   "points": [
+    {
+     "date": "2019-02-28",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-05-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-06-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-07-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-08-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-09-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-10-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-11-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2019-12-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-01-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-02-29",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-05-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-06-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-07-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-08-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-09-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-10-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-11-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-12-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-01-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-02-28",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-05-31",
+     "momentum": 0.260679,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-06-30",
+     "momentum": 0.420984,
+     "confidence": 0.089167,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-07-31",
+     "momentum": 0.392192,
+     "confidence": 0.089167,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-08-31",
+     "momentum": 0.582527,
+     "confidence": 0.13375,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    }
+   ],
+   "final": {
+    "momentum": 0.582527,
+    "confidence": 0.13375,
+    "signal_count": 3,
+    "label": "Future Leaders"
+   }
+  },
+  {
+   "case_id": "acen",
+   "company": "ACEN Corporation",
+   "ticker": "PSE:ACEN",
+   "profile": "Emerging winner — transition milestones before recognition",
+   "cutoff_date": "2022-09-30",
+   "outcome_date": "2022-11-07",
+   "outcome": "Completes the world's first market-based Energy Transition Mechanism: P7.2bn deal retiring the 246 MW SLTEC coal plant by 2040 instead of 2057",
+   "outcome_source": "https://www.acenrenewables.com/2022/11/acen-completes-worlds-first-energy-transition-mechanism-etm-transaction-246-mw-sltec-coal-plant/",
+   "is_known_failure": false,
+   "baseline": {
+    "value": 0.0,
+    "basis": "unavailable",
+    "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
+   },
+   "events": [
+    {
+     "date": "2019-02-15",
+     "text": "CBI-certified US dollar green bonds issued, among South-East Asia's first",
+     "source_type": "company_pr"
+    },
+    {
+     "date": "2019-06-15",
+     "text": "AC Energy and Phinma Energy merger consolidates the renewable energy platform",
+     "source_type": "company_pr"
+    },
+    {
+     "date": "2021-10-15",
+     "text": "First Philippine energy company to commit to net zero greenhouse gas emissions by 2050",
+     "source_type": "company_pr"
+    }
+   ],
+   "points": [
+    {
+     "date": "2019-02-28",
+     "momentum": 0.45423,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-03-31",
+     "momentum": 0.424832,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-04-30",
+     "momentum": 0.396878,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-05-31",
+     "momentum": 0.368684,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-06-30",
+     "momentum": 0.482729,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-07-31",
+     "momentum": 0.453017,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-08-31",
+     "momentum": 0.423637,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-09-30",
+     "momentum": 0.395707,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-10-31",
+     "momentum": 0.367545,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-11-30",
+     "momentum": 0.341125,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2019-12-31",
+     "momentum": 0.314824,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-01-31",
+     "momentum": 0.28966,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-02-29",
+     "momentum": 0.267232,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-03-31",
+     "momentum": 0.244515,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-04-30",
+     "momentum": 0.223808,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-05-31",
+     "momentum": 0.203755,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-06-30",
+     "momentum": 0.185653,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-07-31",
+     "momentum": 0.168277,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-08-31",
+     "momentum": 0.152224,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-09-30",
+     "momentum": 0.137907,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-10-31",
+     "momentum": 0.124318,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-11-30",
+     "momentum": 0.112278,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2020-12-31",
+     "momentum": 0.100918,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-01-31",
+     "momentum": 0.090591,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-02-28",
+     "momentum": 0.082092,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-03-31",
+     "momentum": 0.073534,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-04-30",
+     "momentum": 0.066041,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-05-31",
+     "momentum": 0.059048,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-06-30",
+     "momentum": 0.052947,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-07-31",
+     "momentum": 0.047271,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-08-31",
+     "momentum": 0.042176,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-09-30",
+     "momentum": 0.037748,
+     "confidence": 0.095,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-10-31",
+     "momentum": 0.279231,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-11-30",
+     "momentum": 0.256583,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-12-31",
+     "momentum": 0.234481,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-01-31",
+     "momentum": 0.213736,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-02-28",
+     "momentum": 0.196175,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-03-31",
+     "momentum": 0.17803,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-04-30",
+     "momentum": 0.161748,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-05-31",
+     "momentum": 0.146209,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-06-30",
+     "momentum": 0.132369,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-07-31",
+     "momentum": 0.11925,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-08-31",
+     "momentum": 0.107271,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-09-30",
+     "momentum": 0.096699,
+     "confidence": 0.15125,
+     "signal_count": 3,
+     "label": "Future Leaders"
+    }
+   ],
+   "final": {
+    "momentum": 0.096699,
+    "confidence": 0.15125,
+    "signal_count": 3,
+    "label": "Future Leaders"
+   }
+  },
+  {
+   "case_id": "topglove",
+   "company": "Top Glove Corporation",
+   "ticker": "KLSE:7113",
+   "profile": "The money case — a stable score masked deterioration",
+   "cutoff_date": "2020-06-30",
+   "outcome_date": "2020-07-15",
+   "outcome": "US Customs and Border Protection issues a Withhold Release Order; formal forced-labour Finding follows in Mar 2021, RM3.6bn revenue lost — while the company was retained on the Dow Jones Sustainability Index for a third straight year in Nov 2021",
+   "outcome_source": "https://www.cbp.gov/newsroom/national-media-release/cbp-issues-forced-labor-finding-top-glove-corporation-bhd",
+   "is_known_failure": false,
+   "baseline": {
+    "value": 0.0,
+    "basis": "unavailable",
+    "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
+   },
+   "events": [
+    {
+     "date": "2018-12-15",
+     "text": "Guardian investigation links its factories to forced labour indicators, including recruitment fees and debt bondage; the company's own rebuttal confirms the article",
+     "source_type": "news"
+    },
+    {
+     "date": "2019-06-30",
+     "text": "Continuing NGO and media reports on recruitment fees and debt bondage across its workforce",
+     "source_type": "ngo"
+    },
+    {
+     "date": "2020-03-15",
+     "text": "Further forced labour allegations over worker welfare and dormitory conditions remain unresolved",
+     "source_type": "ngo"
+    }
+   ],
+   "points": [
+    {
+     "date": "2017-12-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-01-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-02-28",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-05-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-06-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-07-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-08-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-09-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-10-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-11-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2018-12-31",
+     "momentum": -0.578967,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-01-31",
+     "momentum": -0.549626,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-02-28",
+     "momentum": -0.522818,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-03-31",
+     "momentum": -0.492991,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-04-30",
+     "momentum": -0.464171,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-05-31",
+     "momentum": -0.434641,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-06-30",
+     "momentum": -0.406497,
+     "confidence": 0.056208,
+     "signal_count": 1,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-07-31",
+     "momentum": -0.667289,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-08-31",
+     "momentum": -0.640279,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-09-30",
+     "momentum": -0.613263,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-10-31",
+     "momentum": -0.584597,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-11-30",
+     "momentum": -0.556298,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2019-12-31",
+     "momentum": -0.526669,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2020-01-31",
+     "momentum": -0.49685,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2020-02-29",
+     "momentum": -0.468972,
+     "confidence": 0.116292,
+     "signal_count": 2,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2020-03-31",
+     "momentum": -0.693689,
+     "confidence": 0.181917,
+     "signal_count": 3,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2020-04-30",
+     "momentum": -0.668608,
+     "confidence": 0.181917,
+     "signal_count": 3,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2020-05-31",
+     "momentum": -0.641647,
+     "confidence": 0.181917,
+     "signal_count": 3,
+     "label": "Overrated Leaders"
+    },
+    {
+     "date": "2020-06-30",
+     "momentum": -0.614673,
+     "confidence": 0.181917,
+     "signal_count": 3,
+     "label": "Overrated Leaders"
+    }
+   ],
+   "final": {
+    "momentum": -0.614673,
+    "confidence": 0.181917,
+    "signal_count": 3,
+    "label": "Overrated Leaders"
+   }
+  },
+  {
+   "case_id": "adaro",
+   "company": "Adaro Energy / Alamtri",
+   "ticker": "IDX:ADRO",
+   "profile": "The mandatory wrong case — where a naive momentum engine gets fooled",
+   "cutoff_date": "2023-02-28",
+   "outcome_date": "2023-05-15",
+   "outcome": "DBS, OCBC and Standard Chartered decline or withdraw financing over the coal reality; Jun 2023 Mongabay reports the smelter will run on 2.2 GW of new captive coal to at least 2030 (~5.2 Mt CO2e/yr); Dec 2024 thermal-coal spin-off is itself called greenwashing",
+   "outcome_source": "https://news.mongabay.com/2023/06/indonesian-coal-giant-adaros-sustainable-smelter-slammed-as-greenwashing/",
+   "is_known_failure": true,
+   "baseline": {
+    "value": 0.0,
+    "basis": "unavailable",
+    "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
+   },
+   "events": [
+    {
+     "date": "2021-12-15",
+     "text": "Announces a US$2bn aluminium smelter in a green industrial park, to be powered by planned renewable capacity",
+     "source_type": "company_pr"
+    },
+    {
+     "date": "2022-06-15",
+     "text": "Adaro Green branding positions the group in the EV supply chain and clean energy transition narrative",
+     "source_type": "company_pr"
+    }
+   ],
+   "points": [
+    {
+     "date": "2020-08-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-09-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-10-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-11-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-12-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-01-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-02-28",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-05-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-06-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-07-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-08-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-09-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-10-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-11-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-12-31",
+     "momentum": 0.260679,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-01-31",
+     "momentum": 0.238337,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-02-28",
+     "momentum": 0.219319,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-03-31",
+     "momentum": 0.199565,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-04-30",
+     "momentum": 0.181749,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-05-31",
+     "momentum": 0.164666,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-06-30",
+     "momentum": 0.46908,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-07-31",
+     "momentum": 0.439495,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-08-31",
+     "momentum": 0.410333,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-09-30",
+     "momentum": 0.382698,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-10-31",
+     "momentum": 0.354919,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-11-30",
+     "momentum": 0.328934,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-12-31",
+     "momentum": 0.303141,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2023-01-31",
+     "momentum": 0.278531,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2023-02-28",
+     "momentum": 0.257389,
+     "confidence": 0.083333,
+     "signal_count": 2,
+     "label": "Future Leaders"
+    }
+   ],
+   "final": {
+    "momentum": 0.257389,
+    "confidence": 0.083333,
+    "signal_count": 2,
+    "label": "Future Leaders"
+   }
+  },
+  {
+   "case_id": "ree",
+   "company": "REE Corporation",
+   "ticker": "HOSE:REE",
+   "profile": "Boundary case — honest uncertainty on thin coverage",
+   "cutoff_date": "2022-07-31",
+   "outcome_date": "2022-08-11",
+   "outcome": "HSBC arranges a VND900bn (~US$38.5M) green loan for REE's LEED-certified e.town 6 building",
+   "outcome_source": "https://www.about.hsbc.com.vn/-/media/vietnam/en/news-and-media/220811-hsbc-provides-green-financing-for-ree-real-estate-project-en.pdf",
+   "is_known_failure": false,
+   "baseline": {
+    "value": 0.0,
+    "basis": "unavailable",
+    "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
+   },
+   "events": [
+    {
+     "date": "2021-06-30",
+     "text": "Builds out a roughly 1 GW hydro, wind and solar power portfolio",
+     "source_type": "company_pr"
+    }
+   ],
+   "points": [
+    {
+     "date": "2020-01-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-02-29",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-05-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-06-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-07-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-08-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-09-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-10-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-11-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2020-12-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-01-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-02-28",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-03-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-04-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-05-31",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-06-30",
+     "momentum": 0.0,
+     "confidence": 0.0,
+     "signal_count": 0,
+     "label": "Consensus"
+    },
+    {
+     "date": "2021-07-31",
+     "momentum": 0.399618,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-08-31",
+     "momentum": 0.371349,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-09-30",
+     "momentum": 0.344804,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-10-31",
+     "momentum": 0.318357,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-11-30",
+     "momentum": 0.293829,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2021-12-31",
+     "momentum": 0.269683,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-01-31",
+     "momentum": 0.246827,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-02-28",
+     "momentum": 0.227333,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-03-31",
+     "momentum": 0.207049,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-04-30",
+     "momentum": 0.188723,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-05-31",
+     "momentum": 0.171121,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-06-30",
+     "momentum": 0.155351,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    },
+    {
+     "date": "2022-07-31",
+     "momentum": 0.140323,
+     "confidence": 0.041667,
+     "signal_count": 1,
+     "label": "Future Leaders"
+    }
+   ],
+   "final": {
+    "momentum": 0.140323,
+    "confidence": 0.041667,
+    "signal_count": 1,
+    "label": "Future Leaders"
+   }
+  }
+ ]
+}

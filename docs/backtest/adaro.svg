@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 322" width="760" height="322" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" role="img" aria-label="Adaro Energy / Alamtri momentum vs baseline">
+<rect width="760" height="322" fill="#FAF9F5"/>
+<line x1="58" y1="26.0" x2="628" y2="26.0" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="29.5" font-size="9" fill="#9A9A93" text-anchor="end">+1</text>
+<line x1="58" y1="84.5" x2="628" y2="84.5" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="88.0" font-size="9" fill="#9A9A93" text-anchor="end">+0.5</text>
+<line x1="58" y1="143.0" x2="628" y2="143.0" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="146.5" font-size="9" fill="#9A9A93" text-anchor="end">0</text>
+<line x1="58" y1="201.5" x2="628" y2="201.5" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="205.0" font-size="9" fill="#9A9A93" text-anchor="end">-0.5</text>
+<line x1="58" y1="260.0" x2="628" y2="260.0" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="263.5" font-size="9" fill="#9A9A93" text-anchor="end">-1</text>
+<rect x="58" y="26" width="526.1" height="234" fill="#3D3D3A" opacity="0.025"/>
+<line x1="584.1" y1="26" x2="584.1" y2="260" stroke="#3D3D3A" stroke-width="1.25" stroke-dasharray="4 3"/>
+<text x="579.1" y="36" font-size="9" fill="#3D3D3A" text-anchor="end">cutoff 2023-02-28</text>
+<line x1="330.0" y1="260" x2="330.0" y2="266" stroke="#9A9A93" stroke-width="1"><title>2021-12-15 · company_pr — Announces a US$2bn aluminium smelter in a green industrial park, to be powered by planned renewable capacity</title></line>
+<line x1="435.1" y1="260" x2="435.1" y2="266" stroke="#9A9A93" stroke-width="1"><title>2022-06-15 · company_pr — Adaro Green branding positions the group in the EV supply chain and clean energy transition narrative</title></line>
+<text x="58.0" y="278" font-size="8.5" fill="#9A9A93" text-anchor="start">2020-08-31</text>
+<text x="584.1" y="278" font-size="8.5" fill="#9A9A93" text-anchor="end">2023-02-28</text>
+<line x1="58" y1="143.0" x2="584.1" y2="143.0" stroke="#9A9A93" stroke-width="2.5"/>
+<polyline points="58.0,143.0 75.3,143.0 93.2,143.0 110.6,143.0 128.5,143.0 146.4,143.0 162.5,143.0 180.4,143.0 197.8,143.0 215.7,143.0 233.0,143.0 250.9,143.0 268.8,143.0 286.1,143.0 304.0,143.0 321.3,143.0 339.2,112.5" fill="none" stroke="#2F7D62" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.45"/>
+<text x="189.7" y="136.0" font-size="8" fill="#9A9A93" text-anchor="middle" opacity="0.9">no evidence yet</text>
+<polyline points="339.2,112.5 357.1,115.1 373.3,117.3 391.2,119.7 408.5,121.7 426.4,123.7 443.8,88.1 461.7,91.6 479.6,95.0 496.9,98.2 514.8,101.5 532.1,104.5 550.0,107.5 567.9,110.4 584.1,112.9" fill="none" stroke="#2F7D62" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="339.2" cy="112.5" r="2.53" fill="#2F7D62" opacity="0.38"><title>2021-12-31 · momentum +0.261 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="357.1" cy="115.1" r="2.53" fill="#2F7D62" opacity="0.38"><title>2022-01-31 · momentum +0.238 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="373.3" cy="117.3" r="2.53" fill="#2F7D62" opacity="0.38"><title>2022-02-28 · momentum +0.219 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="391.2" cy="119.7" r="2.53" fill="#2F7D62" opacity="0.38"><title>2022-03-31 · momentum +0.200 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="408.5" cy="121.7" r="2.53" fill="#2F7D62" opacity="0.38"><title>2022-04-30 · momentum +0.182 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="426.4" cy="123.7" r="2.53" fill="#2F7D62" opacity="0.38"><title>2022-05-31 · momentum +0.165 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="443.8" cy="88.1" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-06-30 · momentum +0.469 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="461.7" cy="91.6" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-07-31 · momentum +0.439 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="479.6" cy="95.0" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-08-31 · momentum +0.410 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="496.9" cy="98.2" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-09-30 · momentum +0.383 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="514.8" cy="101.5" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-10-31 · momentum +0.355 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="532.1" cy="104.5" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-11-30 · momentum +0.329 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="550.0" cy="107.5" r="2.67" fill="#2F7D62" opacity="0.40"><title>2022-12-31 · momentum +0.303 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="567.9" cy="110.4" r="2.67" fill="#2F7D62" opacity="0.40"><title>2023-01-31 · momentum +0.279 · confidence 0.083 · 2 signals</title></circle>
+<circle cx="584.1" cy="112.9" r="2.67" fill="#2F7D62" opacity="0.40"><title>2023-02-28 · momentum +0.257 · confidence 0.083 · 2 signals</title></circle>
+<line x1="628.0" y1="42" x2="628.0" y2="260" stroke="#3D3D3A" stroke-width="1" opacity="0.35"/>
+<circle cx="628.0" cy="42" r="4.5" fill="#3D3D3A"><title>2023-05-15 — DBS, OCBC and Standard Chartered decline or withdraw financing over the coal reality; Jun 2023 Mongabay reports the smelter will run on 2.2 GW of new captive coal to at least 2030 (~5.2 Mt CO2e/yr); Dec 2024 thermal-coal spin-off is itself called greenwashing</title></circle>
+<text x="636.0" y="45" font-size="9" fill="#3D3D3A">outcome 2023-05-15</text>
+<text x="58" y="16" font-size="11.5" fill="#3D3D3A" font-weight="600">Adaro Energy / Alamtri (IDX:ADRO)  — KNOWN FAILURE CASE</text>
+<text x="58" y="290" font-size="9" fill="#3D3D3A">at cutoff: momentum +0.257 · confidence 0.083 · 2 signals · Future Leaders</text>
+<text x="58" y="302" font-size="8" fill="#9A9A93">grey = incumbent baseline, flat: no rating action dated in this window (basis unavailable) · MOCK, not licensed LSEG</text>
+<text x="58" y="313" font-size="8" fill="#9A9A93">dashed = no evidence yet, not agreement · the drift back toward 0 between signals is time-decay, not recovery · dot size = confidence</text>
+<text x="638" y="137.0" font-size="9" fill="#9A9A93">LSEG baseline</text>
+<text x="638" y="115.9" font-size="9" fill="#2F7D62">our momentum</text>
+<text x="638" y="256" font-size="8" fill="#9A9A93">ticks = dated evidence</text>
+</svg>

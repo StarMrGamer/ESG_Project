@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 322" width="760" height="322" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" role="img" aria-label="Sembcorp Industries momentum vs baseline">
+<rect width="760" height="322" fill="#FAF9F5"/>
+<line x1="58" y1="26.0" x2="628" y2="26.0" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="29.5" font-size="9" fill="#9A9A93" text-anchor="end">+1</text>
+<line x1="58" y1="84.5" x2="628" y2="84.5" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="88.0" font-size="9" fill="#9A9A93" text-anchor="end">+0.5</text>
+<line x1="58" y1="143.0" x2="628" y2="143.0" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="146.5" font-size="9" fill="#9A9A93" text-anchor="end">0</text>
+<line x1="58" y1="201.5" x2="628" y2="201.5" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="205.0" font-size="9" fill="#9A9A93" text-anchor="end">-0.5</text>
+<line x1="58" y1="260.0" x2="628" y2="260.0" stroke="#E4E2DC" stroke-width="1"/>
+<text x="50" y="263.5" font-size="9" fill="#9A9A93" text-anchor="end">-1</text>
+<rect x="58" y="26" width="552.5" height="234" fill="#3D3D3A" opacity="0.025"/>
+<line x1="610.5" y1="26" x2="610.5" y2="260" stroke="#3D3D3A" stroke-width="1.25" stroke-dasharray="4 3"/>
+<text x="605.5" y="36" font-size="9" fill="#3D3D3A" text-anchor="end">cutoff 2021-08-31</text>
+<line x1="399.2" y1="260" x2="399.2" y2="266" stroke="#9A9A93" stroke-width="1"><title>2020-09-15 · company_pr — Sembcorp Marine demerger completes, separating the marine business from the energy group</title></line>
+<line x1="545.3" y1="260" x2="545.3" y2="266" stroke="#9A9A93" stroke-width="1"><title>2021-05-15 · company_pr — Brown-to-green Investor Day targets 10 GW of renewable energy capacity</title></line>
+<line x1="564.0" y1="260" x2="564.0" y2="266" stroke="#9A9A93" stroke-width="1"><title>2021-06-15 · company_pr — Inaugural S$400M green bond offering announced</title></line>
+<line x1="600.8" y1="260" x2="600.8" y2="266" stroke="#9A9A93" stroke-width="1"><title>2021-08-15 · company_pr — Launches Singapore's first sustainable financing framework for the energy sector</title></line>
+<text x="58.0" y="278" font-size="8.5" fill="#9A9A93" text-anchor="start">2019-02-28</text>
+<text x="610.5" y="278" font-size="8.5" fill="#9A9A93" text-anchor="end">2021-08-31</text>
+<line x1="58" y1="143.0" x2="610.5" y2="143.0" stroke="#9A9A93" stroke-width="2.5"/>
+<polyline points="58.0,143.0 76.7,143.0 94.8,143.0 113.6,143.0 131.7,143.0 150.4,143.0 169.1,143.0 187.2,143.0 205.9,143.0 224.0,143.0 242.8,143.0 261.5,143.0 279.0,143.0 297.7,143.0 315.8,143.0 334.5,143.0 352.7,143.0 371.4,143.0 390.1,143.0 408.2,143.0 426.9,143.0 445.0,143.0 463.8,143.0 482.5,143.0 499.4,143.0 518.1,143.0 536.2,143.0 554.9,112.5" fill="none" stroke="#2F7D62" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.45"/>
+<text x="297.1" y="136.0" font-size="8" fill="#9A9A93" text-anchor="middle" opacity="0.9">no evidence yet</text>
+<polyline points="554.9,112.5 573.1,93.7 591.8,97.1 610.5,74.8" fill="none" stroke="#2F7D62" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="554.9" cy="112.5" r="2.53" fill="#2F7D62" opacity="0.38"><title>2021-05-31 · momentum +0.261 · confidence 0.042 · 1 signals</title></circle>
+<circle cx="573.1" cy="93.7" r="2.69" fill="#2F7D62" opacity="0.41"><title>2021-06-30 · momentum +0.421 · confidence 0.089 · 2 signals</title></circle>
+<circle cx="591.8" cy="97.1" r="2.69" fill="#2F7D62" opacity="0.41"><title>2021-07-31 · momentum +0.392 · confidence 0.089 · 2 signals</title></circle>
+<circle cx="610.5" cy="74.8" r="2.83" fill="#2F7D62" opacity="0.44"><title>2021-08-31 · momentum +0.583 · confidence 0.134 · 3 signals</title></circle>
+<line x1="628.0" y1="42" x2="628.0" y2="260" stroke="#3D3D3A" stroke-width="1" opacity="0.35"/>
+<circle cx="628.0" cy="42" r="4.5" fill="#3D3D3A"><title>2021-09-29 — S$675M sustainability-linked bond — IFC's first-ever SLB investment globally</title></circle>
+<text x="636.0" y="45" font-size="9" fill="#3D3D3A">outcome 2021-09-29</text>
+<text x="58" y="16" font-size="11.5" fill="#3D3D3A" font-weight="600">Sembcorp Industries (SGX:U96)</text>
+<text x="58" y="290" font-size="9" fill="#3D3D3A">at cutoff: momentum +0.583 · confidence 0.134 · 3 signals · Future Leaders</text>
+<text x="58" y="302" font-size="8" fill="#9A9A93">grey = incumbent baseline, flat: no rating action dated in this window (basis unavailable) · MOCK, not licensed LSEG</text>
+<text x="58" y="313" font-size="8" fill="#9A9A93">dashed = no evidence yet, not agreement · the drift back toward 0 between signals is time-decay, not recovery · dot size = confidence</text>
+<text x="638" y="137.0" font-size="9" fill="#9A9A93">LSEG baseline</text>
+<text x="638" y="77.8" font-size="9" fill="#2F7D62">our momentum</text>
+<text x="638" y="256" font-size="8" fill="#9A9A93">ticks = dated evidence</text>
+</svg>

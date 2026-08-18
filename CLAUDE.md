@@ -50,8 +50,12 @@ esg-momentum-radar/
   pipeline_counts.py        # A6/B2 — N issuers · M pipeline · K review list (screen + money slide)
   anchor.py                 # C2/C3 — Merkle root per run + Sepolia anchoring (best-effort)
   contracts/EvidenceAnchor.sol  # C1 — append-only run_id -> root, ~20 lines
-  harness.py                # A8 — determinism · golden set · 5 backtest cases · merkle · sweep
+  harness.py                # A8 — determinism · stability · golden · cases · timelines · merkle · sweep · calibration
+  calibration.py            # A8 — BLIND rating sheet: 2 humans vs the model over 10 companies
+  backtest_timeline.py      # A8 — per-case validation chart (flat grey baseline vs moving momentum)
+  phase_b.py                # Playbook steps 7–8 — issuance backtest + the blind 17-pick run
   llm_cost.py               # cost per company off the golden set (no price is ever guessed)
+  cost_inputs.py            # the three cost-model cells for Sean (signals/co/month · tokens/signal · cache)
   scripts/                   # developer-only data builders and the LLM probe
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
     demo_diversify.py        # re-derives ONLY demo momentum/live_signals/news
@@ -60,6 +64,9 @@ esg-momentum-radar/
   data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
   data/hero_company.json    # SAMPLE only — offline-demo safety net + test fixture (PLACEHOLDER)
   data/watchlist.json       # runtime: pinned tickers (local, git-ignored — not source)
+  data/calibration_sheet.json  # the blind 10-company rating sheet (humans fill it; no model output in it)
+  data/phase_b/             # the two input SHAPES to ask CGSI for (templates only, never data)
+  docs/backtest/            # the five per-case timeline SVGs + the series.json behind them
   fixtures/                 # handoff batons: seeded in Phase 0, then REPLACED by each
     narrowed_question.json  #   stage's real verified output as the relay proceeds.
     stage2_answer.json      #   Each file = next stage's input + a regression check.
@@ -207,9 +214,14 @@ export DEEPSEEK_API_KEY="sk-..."          # Windows: $env:DEEPSEEK_API_KEY="sk-.
 python server.py                          # NEW PRIMARY UI: React (web/) + FastAPI -> http://localhost:8000
 cd web && npm install && npm run build    # one-time frontend build (dev: npm run dev, port 5173)
 python selftest.py                        # offline check — no key, no network
-python harness.py                         # ENGINE check (A8): Gate 1 determinism + golden set +
-                                          #   the 5 backtest cases + merkle + sensitivity sweep
+python harness.py                         # ENGINE check (A8): Gate 1 determinism + stability +
+                                          #   golden set + the 5 backtest cases + their timelines +
+                                          #   merkle + sensitivity sweep + calibration
 python harness.py --update-golden         # re-freeze the golden set (review the diff!)
+python backtest_timeline.py               # redraw docs/backtest/*.svg (harness checks they are current)
+python calibration.py --sheet             # (re)write the blind sheet; `python calibration.py` scores it
+python cost_inputs.py                     # the three numbers Sean's cost model is missing
+python phase_b.py --template              # the two Phase-B input shapes; --blind / --issuance to run
 python anchor.py                          # build + anchor the runs; --list, --verify RUN TICKER
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
 python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)

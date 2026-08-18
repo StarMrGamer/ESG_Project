@@ -1,0 +1,874 @@
+{
+ "_note": "BLIND calibration sheet (A8 / STEP 8.4). Two raters score each company's 12-month ESG DIRECTION from the excerpts below — the same evidence the engine saw — on the five-point scale in `scale`. The engine's own score is NOT in this file, by design: it is recomputed at report time so the rating cannot be anchored to it. Fill `rating` (-2..+2) and, please, `note`.",
+ "_how_to_fill": "Set `raters.rater_a.name` (and rater_b) to who scored it, then for each company set `ratings.<rater>.rating` to one of -2,-1,0,1,2. Leave a company null if you genuinely cannot call it — an honest abstention beats a coin flip, and the report counts it separately.",
+ "scale": {
+  "-2": "strongly deteriorating",
+  "-1": "deteriorating",
+  "0": "flat / unclear",
+  "1": "improving",
+  "2": "strongly improving"
+ },
+ "model_cutpoints": {
+  "weak": 0.1,
+  "strong": 0.45
+ },
+ "_cutpoints_note": "How the engine's continuous composite is put on the humans' five points: |m| < weak -> 0; weak <= |m| < strong -> +/-1; |m| >= strong -> +/-2. Frozen here with the sheet.",
+ "_what_is_graded": "The headline number is DIRECTION agreement (-/0/+) — that is the claim the product makes. The five-point intensity agreement is reported underneath it as detail. Score the direction carefully; give the intensity your honest best guess and move on.",
+ "frozen_against": {
+  "run_id": "921d0333b7528e82",
+  "engine_version": "engine-v2.0",
+  "config_hash": "e31cbdd64847b256",
+  "as_of": "2026-06-12",
+  "universe": "data/demo_universe.json"
+ },
+ "raters": {
+  "rater_a": {
+   "name": null,
+   "rated_at": null
+  },
+  "rater_b": {
+   "name": null,
+   "rated_at": null
+  }
+ },
+ "companies": [
+  {
+   "company_id": "IDX:NUSA",
+   "company": "NusaFoods",
+   "sector": "Consumer Staples",
+   "country": "Indonesia",
+   "signal_count": 11,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal board_ai_policy=True",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum +7%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum +25%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=+10%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=+70%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+50%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum -3%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum +22%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-09",
+     "source_type": "news",
+     "excerpt": "NusaFoods names sustainability & AI-governance lead",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "NusaFoods expands renewable-energy sourcing plan",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "NusaFoods lifts sustainable-finance disclosure",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "HOSE:HATL",
+   "company": "Hai Au Telecom",
+   "sector": "Communication Services — Telecom",
+   "country": "Vietnam",
+   "signal_count": 11,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum +12%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal board_ai_policy=True",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum +30%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+88%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=+11%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=+108%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum +5%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum +12%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-09",
+     "source_type": "news",
+     "excerpt": "Hai Au Telecom names sustainability & AI-governance lead",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Hai Au Telecom expands renewable-energy sourcing plan",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Hai Au Telecom lifts sustainable-finance disclosure",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "IDX:ASMB",
+   "company": "ASEAN Mobile",
+   "sector": "Communication Services — Telecom",
+   "country": "Indonesia",
+   "signal_count": 11,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum +4%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum -4%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=+12%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal board_ai_policy=True",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum +13%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=+186%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+50%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum +18%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-09",
+     "source_type": "news",
+     "excerpt": "ASEAN Mobile names sustainability & AI-governance lead",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "ASEAN Mobile expands renewable-energy sourcing plan",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "ASEAN Mobile lifts sustainable-finance disclosure",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "HOSE:RRRE",
+   "company": "Red River Renewables",
+   "sector": "Energy — Power & Renewables",
+   "country": "Vietnam",
+   "signal_count": 10,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum -2%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=-18%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=-11%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal controversy_flags=1",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=-18%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum -22%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum -19%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum -13%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Red River Renewables misses its emissions reduction target as disclosure slips",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Red River Renewables faces a regulatory investigation over effluent discharge",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "IDX:GRMB",
+   "company": "Garuda Mandiri Bank",
+   "sector": "Financials — Banks",
+   "country": "Indonesia",
+   "signal_count": 10,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=-6%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal controversy_flags=1",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum -19%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum -11%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=-14%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=-22%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum -15%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum -8%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Garuda Mandiri Bank misses its emissions reduction target as disclosure slips",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Garuda Mandiri Bank faces a regulatory investigation over effluent discharge",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "KLSE:SURP",
+   "company": "Suria Power",
+   "sector": "Energy — Power & Renewables",
+   "country": "Malaysia",
+   "signal_count": 12,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum -3%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=+6%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum -5%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal board_ai_policy=True",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum +3%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+11%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum -9%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=+89%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal controversy_flags=1",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-09",
+     "source_type": "news",
+     "excerpt": "Suria Power names sustainability & AI-governance lead",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Suria Power delays its renewable-energy sourcing milestone",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Suria Power reports flat emissions intensity for a second year",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "HOSE:LVTB",
+   "company": "Lac Viet Bank",
+   "sector": "Financials — Banks",
+   "country": "Vietnam",
+   "signal_count": 12,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum +14%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=+91%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+44%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum -5%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal board_ai_policy=True",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum +24%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum +25%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal controversy_flags=1",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=+14%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-09",
+     "source_type": "news",
+     "excerpt": "Lac Viet Bank names sustainability & AI-governance lead",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Lac Viet Bank expands renewable-energy sourcing plan",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Lac Viet Bank lifts sustainable-finance disclosure",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "IDX:JKLD",
+   "company": "Jakarta Land",
+   "sector": "Real Estate",
+   "country": "Indonesia",
+   "signal_count": 11,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=+13%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum +1%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal board_ai_policy=True",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+80%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum +12%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum +11%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=+99%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum +17%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-09",
+     "source_type": "news",
+     "excerpt": "Jakarta Land names sustainability & AI-governance lead",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Jakarta Land expands renewable-energy sourcing plan",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Jakarta Land lifts sustainable-finance disclosure",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "PSE:BYNR",
+   "company": "Bayan Realty",
+   "sector": "Real Estate",
+   "country": "Philippines",
+   "signal_count": 10,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal controversy_flags=1",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=-17%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum -15%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum +1%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum -6%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum -20%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=+3%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=-10%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Bayan Realty misses its emissions reduction target as disclosure slips",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Bayan Realty faces a regulatory investigation over effluent discharge",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "SET:BKHT",
+   "company": "Bangkok Heights",
+   "sector": "Real Estate",
+   "country": "Thailand",
+   "signal_count": 10,
+   "evidence": [
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored environment momentum -8%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal ai_hiring_surge=-42%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal green_patents=-19%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal carbon_disclosure=-13%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored digital_ai momentum -7%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored governance momentum -3%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "live signal controversy_flags=1",
+     "source_url": ""
+    },
+    {
+     "published_at": "2024-12-31",
+     "source_type": "dataset",
+     "excerpt": "stored social momentum -17%",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-05-28",
+     "source_type": "news",
+     "excerpt": "Bangkok Heights misses its emissions reduction target as disclosure slips",
+     "source_url": ""
+    },
+    {
+     "published_at": "2026-06-12",
+     "source_type": "news",
+     "excerpt": "Bangkok Heights faces a regulatory investigation over effluent discharge",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  }
+ ]
+}

@@ -3,29 +3,39 @@ harness.py — A8: the engine's test harness. Run this before believing any numb
 =================================================================================
 
     python harness.py                 # everything, in the order below
-    python harness.py --gate1         # Gate 1 only: determinism + cache + golden set + A2 routing
-    python harness.py --cases         # the five backtest cases + the cutoff assertion
+    python harness.py --gate1         # Gate 1 only: determinism + stability + golden set + A2 routing
+    python harness.py --stability     # 5 identical reruns -> same composite to 2 d.p.
+    python harness.py --cases         # the five backtest cases + the cutoff assertion + timelines
     python harness.py --merkle        # Merkle determinism + tamper-evidence
     python harness.py --guards        # the honesty guards
     python harness.py --sweep         # sensitivity sweep: quadrant churn under the CGSI names
+    python harness.py --calibration   # 2 humans vs the model over 10 companies (blind sheet)
     python harness.py --update-golden # re-freeze the golden set (review the diff before commit)
 
-Six checks, in the order they matter:
+Seven checks, in the order they matter:
 
 1. **Determinism** — the same universe scored twice (cold and cached) must produce a
    byte-identical run. This is Gate 1; if it fails, nothing downstream means anything.
+1b. **Stability** — the runbook's own promise, in its own words: five identical reruns agree
+   on every composite to 2 d.p. and nobody changes quadrant. Reports the observed spread.
 2. **Golden set** — a frozen expectation per company: label, composite momentum/confidence,
    signal count and the exact set of subcomponents it routes to (so the A2 additions,
    `digital_risk` and `platform_dominance`, cannot silently stop routing).
 3. **Backtest cases** — the five companies delivered 14 Aug, each scored with its lookback
    frozen at its cutoff. `signal.published_at < case.cutoff_date` is asserted and **fails
    loudly**; a backtest that can see the future is worse than no backtest.
+3b. **Timelines** — the deck's per-case chart: every point scored at its own cutoff, the whole
+   series reproducible, and the SVG committed under `docs/backtest/` still equal to what the
+   engine draws now. A stale chart on a slide is a false claim in our own handwriting.
 4. **Merkle determinism** — same run, same root, twice; every leaf verifies along its path.
 5. **Honesty guards** — the ways this system could lie *quietly*: a mistyped metadata path
    silently serving mock rows as verified, a company with no evidence showing a green MATCH, or
    an unrated name being handed an invented baseline. Each was a real defect; each is asserted.
 6. **Sensitivity sweep** — perturb one config knob at a time and report how many companies
    change quadrant, under the CGSI names. Churn is not a failure; UNREPORTED churn is.
+7. **Calibration** — two humans score ten companies from the same excerpts, blind, and we
+   report how far the engine sits from them. This is the only check whose answer no amount of
+   code can supply; with the sheet unfilled it reports UNMEASURED and never a pass.
 """
 
 import json
@@ -33,6 +43,8 @@ import os
 import sys
 
 import anchor
+import backtest_timeline
+import calibration
 import company_metadata
 import engine
 import engine_config
@@ -41,7 +53,6 @@ import universe
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GOLDEN_FILE = os.path.join(BASE_DIR, "data", "golden_set.json")
-CASES_FILE = os.path.join(BASE_DIR, "data", "backtest_cases.json")
 
 PASS, FAIL, INFO = "  PASS", "  FAIL", "  ····"
 
@@ -111,6 +122,52 @@ def check_determinism(report):
     report.info(f"{cold['company_count']} companies · {cold['signal_count']} signals · "
                 f"as_of {cold['as_of']} · config {cold['config_hash']}")
     return cold
+
+
+# --------------------------------------------------------------------------- #
+#  1b. stability  (STEP 8.4)
+#      The runbook promises "5 identical reruns -> same composite to 2 d.p.".
+#      Determinism above proves something stronger — the whole run is byte-identical —
+#      but this is the sentence we say out loud to a judge, so it is asserted in the
+#      words it is said in, and it reports the observed SPREAD rather than a boolean:
+#      the day this starts to drift, we want the size of the drift, not just a red line.
+# --------------------------------------------------------------------------- #
+STABILITY_RERUNS = 5
+
+
+def check_stability(report):
+    report.section(f"Stability — {STABILITY_RERUNS} identical reruns")
+    meta = company_metadata.load()
+    runs = [_demo_run(metadata=meta, use_cache=False) for _ in range(STABILITY_RERUNS)]
+    series = {}
+    for run in runs:
+        for rec in run["records"]:
+            series.setdefault(rec["company_id"], []).append(
+                (rec["composite_momentum"], rec["composite_confidence"], rec["label"]))
+
+    worst_m = worst_c = 0.0
+    unstable_2dp, relabelled = [], []
+    for cid, rows in sorted(series.items()):
+        moms = [r[0] for r in rows]
+        confs = [r[1] for r in rows]
+        worst_m = max(worst_m, max(moms) - min(moms))
+        worst_c = max(worst_c, max(confs) - min(confs))
+        if len({round(m, 2) for m in moms}) > 1:
+            unstable_2dp.append(cid)
+        if len({r[2] for r in rows}) > 1:
+            relabelled.append(cid)
+
+    report.check(len({r["run_id"] for r in runs}) == 1,
+                 f"{STABILITY_RERUNS} reruns produce ONE run_id",
+                 runs[0]["run_id"])
+    report.check(not unstable_2dp, "composite momentum identical to 2 d.p. across all reruns",
+                 f"spread {worst_m:.2e} — worst of {len(series)} companies"
+                 if not unstable_2dp else f"{len(unstable_2dp)} drifted: {unstable_2dp[:3]}")
+    report.check(not unstable_2dp, "composite confidence identical to 2 d.p. across all reruns",
+                 f"spread {worst_c:.2e}")
+    report.check(not relabelled, "no company changes quadrant between reruns",
+                 f"{len(series)} companies held their label"
+                 if not relabelled else f"{relabelled[:3]}")
 
 
 # --------------------------------------------------------------------------- #
@@ -233,16 +290,10 @@ def check_a2_routing(report):
 # --------------------------------------------------------------------------- #
 #  3. backtest cases  (+ the cutoff assertion)
 # --------------------------------------------------------------------------- #
-def load_cases():
-    with open(CASES_FILE, "r", encoding="utf-8") as fh:
-        return json.load(fh)
-
-
-def case_company(case):
-    """A backtest case as a company record the engine can score (its events are its evidence)."""
-    return {"company": case["company"], "ticker": case["ticker"], "sector": case["sector"],
-            "country": case.get("country", "unknown"), "as_of": case["cutoff_date"],
-            "events": case["events"]}
+# One definition, in backtest_timeline — the chart and this check must never be able to score a
+# case two different ways.
+load_cases = backtest_timeline.load_cases
+case_company = backtest_timeline.case_company
 
 
 def check_cases(report):
@@ -286,6 +337,59 @@ def check_cases(report):
         report.info(f"{label}: {record['label_display']} · momentum "
                     f"{record['composite_momentum']:+.3f} · confidence "
                     f"{record['composite_confidence']:.3f} · {record['signal_count']} signals")
+
+
+# --------------------------------------------------------------------------- #
+#  3b. per-case timelines  (STEP 8.3)
+#      The chart that goes in the deck. Two things have to be true about it, and
+#      both are easy to lose quietly: every point must have been computed with its
+#      OWN cutoff (so the line cannot see its own future), and the SVG committed to
+#      docs/backtest must still be what today's engine draws. A stale chart on a
+#      slide is a false claim made in our own handwriting.
+# --------------------------------------------------------------------------- #
+def check_timelines(report):
+    report.section("Backtest timelines (the deck's validation chart)")
+    data = backtest_timeline.all_series()
+    report.check(len(data) == len(load_cases()["cases"]), "one series per backtest case",
+                 f"{len(data)} series")
+
+    # Each point is generated with `cutoff` = its own date and `engine.enforce_cutoff` runs
+    # there, so a violation raises before it can ever be plotted. What is checked HERE is the
+    # observable consequence, because that is what survives into the JSON a slide is built from:
+    # a point can never carry more signals than there were events strictly before its date.
+    # (An event dated ON the sample date is correctly excluded — the cutoff is exclusive.)
+    lookahead = [f"{s['case_id']}@{p['date']} {p['signal_count']}>{n}"
+                 for s in data for p in s["points"]
+                 for n in [sum(1 for ev in s["events"] if ev["date"] < p["date"])]
+                 if p["signal_count"] > n]
+    report.check(not lookahead, "no plotted point carries evidence from its own date or later",
+                 f"{lookahead[:3]}" if lookahead else f"{sum(len(s['points']) for s in data)} "
+                 f"points, each scored at its own cutoff")
+
+    again = backtest_timeline.all_series()
+    report.check(json.dumps(data, sort_keys=True) == json.dumps(again, sort_keys=True),
+                 "the series is deterministic", "same cases -> same curve, twice")
+
+    stale = []
+    for s in data:
+        path = os.path.join(backtest_timeline.OUT_DIR, f"{s['case_id']}.svg")
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                on_disk = fh.read()
+        except OSError:
+            stale.append(f"{s['case_id']} (missing)")
+            continue
+        if on_disk.strip() != backtest_timeline.render_svg(s).strip():
+            stale.append(s["case_id"])
+    report.check(not stale, "the committed SVGs match what the engine draws today",
+                 f"stale: {stale} — re-run `python backtest_timeline.py`" if stale
+                 else f"{len(data)} charts in {os.path.relpath(backtest_timeline.OUT_DIR, BASE_DIR)}")
+
+    for s in data:
+        first = next((p for p in s["points"] if p["signal_count"]), None)
+        report.info(f"{s['case_id']:9s} first evidence {first['date'] if first else 'never':10s} "
+                    f"-> cutoff {s['cutoff_date']}: momentum {s['final']['momentum']:+.3f} · "
+                    f"{s['final']['label']} · outcome {s['outcome_date']}")
 
 
 # --------------------------------------------------------------------------- #
@@ -381,8 +485,16 @@ def check_guards(report, run):
 #  5. sensitivity sweep
 # --------------------------------------------------------------------------- #
 SWEEPS = [
-    ("theta -0.05", {"theta": 0.25}),
-    ("theta +0.05", {"theta": 0.35}),
+    # The two ranges the runbook names by number (STEP 8.4). Swept end to end, not just nudged:
+    # a knob that only ever moves +/-0.05 has not been tested, it has been reassured.
+    ("theta 0.30 -> 0.20", {"theta": 0.20}),
+    ("theta 0.30 -> 0.25", {"theta": 0.25}),
+    ("theta 0.30 -> 0.35", {"theta": 0.35}),
+    ("theta 0.30 -> 0.40", {"theta": 0.40}),
+    ("DIGITAL weight 0.15 -> 0.25", {"component_weights": {"DIGITAL": 0.25}}),
+    ("DIGITAL weight 0.15 -> 0.35", {"component_weights": {"DIGITAL": 0.35}}),
+    ("DIGITAL weight 0.15 -> 0.45", {"component_weights": {"DIGITAL": 0.45}}),
+    # Everything else we judged by hand and therefore owe a churn number for.
     ("E weight +20%", {"component_weights": {"E": 0.36}}),
     ("G weight -20%", {"component_weights": {"G": 0.24}}),
     ("platform_dominance .05 -> .15", {"digital_subweights": {"platform_dominance": 0.15}}),
@@ -416,6 +528,55 @@ def check_sweep(report, baseline):
 
 
 # --------------------------------------------------------------------------- #
+#  6. calibration  (STEP 8.4)
+#      The one check the machine cannot run for itself. Everything else here asks
+#      "is the engine consistent?"; this asks "is it RIGHT?" — and only two humans
+#      reading the same excerpts can answer that. So the harness verifies the
+#      apparatus (blind sheet, resolvable companies, on-scale ratings, frozen
+#      cut-points) and then reports the human numbers if, and only if, they exist.
+# --------------------------------------------------------------------------- #
+def check_calibration(report, run):
+    report.section("Calibration — 2 humans vs the model, 10 companies")
+    result = calibration.score(run=run)
+    if result.get("status") == "no_sheet":
+        report.check(False, "calibration sheet present", result["detail"])
+        return
+
+    report.check(result["companies"] == calibration.SET_SIZE,
+                 f"sheet holds {calibration.SET_SIZE} companies", f"{result['companies']} found")
+    report.check(not result["missing_from_run"],
+                 "every rated company still exists in the current run",
+                 f"orphaned: {result['missing_from_run']}" if result["missing_from_run"] else "")
+    report.check(not result["out_of_scale"], "no rating outside the five-point scale",
+                 f"{result['out_of_scale']}" if result["out_of_scale"] else "")
+    cp = result["cutpoints"]
+    report.check(0 < float(cp["weak"]) < float(cp["strong"]) <= 1.0,
+                 "model cut-points are frozen in the sheet and ordered",
+                 f"weak {cp['weak']} < strong {cp['strong']}")
+
+    if result["status"] == "unmeasured":
+        report.info(f"UNMEASURED — 0/{result['ratings_possible']} human ratings recorded. "
+                    f"The apparatus passes; the calibration itself has not been run.")
+        report.info("run `python calibration.py --sheet` (done), have two people fill "
+                    "data/calibration_sheet.json, then `python calibration.py`")
+        return
+
+    report.info(f"{result['ratings_recorded']}/{result['ratings_possible']} ratings recorded "
+                f"by {' and '.join(str(result['raters'][r]) for r in calibration.RATERS)}")
+    for key, title in (("direction_inter_rater", "direction: humans vs each other"),
+                       ("direction_model_vs_consensus", "direction: model vs consensus"),
+                       ("inter_rater", "intensity: humans vs each other"),
+                       ("model_vs_consensus", "intensity: model vs consensus")):
+        report.info(f"{title:32s} {calibration._fmt(result[key])}")
+    inter = result["direction_inter_rater"]
+    versus = result["direction_model_vs_consensus"]
+    if inter["n"] and versus["n"]:
+        report.info("the model is inside human noise" if versus["mae"] <= inter["mae"]
+                    else f"the model disagrees with the humans MORE than they disagree with each "
+                         f"other (MAE {versus['mae']} vs {inter['mae']}) — report that, don't bury it")
+
+
+# --------------------------------------------------------------------------- #
 def main(argv):
     flags = set(argv[1:])
     everything = not (flags - {"--quiet"})
@@ -428,18 +589,24 @@ def main(argv):
 
     baseline = check_determinism(report) if (everything or "--gate1" in flags) else \
         _demo_run(metadata=company_metadata.load(), use_cache=False)
+    if everything or "--gate1" in flags or "--stability" in flags:
+        check_stability(report)
     if everything or "--gate1" in flags or "--golden" in flags:
         check_golden(report, baseline)
     if everything or "--gate1" in flags or "--a2" in flags:
         check_a2_routing(report)
     if everything or "--cases" in flags:
         check_cases(report)
+    if everything or "--cases" in flags or "--timelines" in flags:
+        check_timelines(report)
     if everything or "--merkle" in flags:
         check_merkle(report, baseline)
     if everything or "--guards" in flags:
         check_guards(report, baseline)
     if everything or "--sweep" in flags:
         check_sweep(report, baseline)
+    if everything or "--calibration" in flags:
+        check_calibration(report, baseline)
 
     print("\n" + "=" * 70)
     if report.failures:

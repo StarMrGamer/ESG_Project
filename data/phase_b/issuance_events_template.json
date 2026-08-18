@@ -1,0 +1,17 @@
+{
+ "_note": "Playbook step 7 input — dated green-bond issuance / review events. One row per event. `event_date` is the date the market learned (exchange filing or AsianBondsOnline listing date), NOT the settlement date: the backtest freezes our lookback the instant before it, so a wrong date here silently grades us on evidence we should not have had.",
+ "events": [
+  {
+   "company_id": "SGX:U96",
+   "event_date": "2021-09-29",
+   "event_type": "issuance",
+   "source_url": "https://…"
+  },
+  {
+   "company_id": "PSE:ACEN",
+   "event_date": "2022-11-07",
+   "event_type": "review",
+   "source_url": "https://…"
+  }
+ ]
+}

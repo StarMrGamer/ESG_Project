@@ -26,3 +26,9 @@ web/dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Team hand-off pack (D/) — the briefs, the pitch deck and the Prototype_Pack zip.
+# Local-only: it is the team's source material, not this repo's source. Code that was built
+# FROM it cites it by path (data/backtest_cases.json -> D/Backtest_Candidates_for_Rai.md);
+# those citations name where the evidence came from, and stay accurate off-repo.
+D/

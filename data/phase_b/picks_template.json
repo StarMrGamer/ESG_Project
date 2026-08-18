@@ -1,0 +1,15 @@
+{
+ "_note": "Playbook step 8 input — CGSI's picks. Only `company_id` is used; it must match the ticker in data/asean_universe.json exactly (e.g. SGX:U96). Order is ignored. Anything else in a row is carried through untouched.",
+ "picks": [
+  {
+   "company_id": "SGX:U96",
+   "name": "(their name for it)",
+   "note": ""
+  },
+  {
+   "company_id": "PSE:ACEN",
+   "name": "",
+   "note": ""
+  }
+ ]
+}
