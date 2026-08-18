@@ -62,6 +62,18 @@ function Verification({ ticker, demo, horizon }:
         with the root anchored on the public chain. Proof on-chain, not data — no raw or licensed
         evidence ever leaves this machine.
       </div>
+      {/*
+        The claim discipline from the persona doc, on screen rather than only in a slide. A MATCH
+        is an integrity proof, and the obvious question from a judge — "so you have verified the
+        green bond?" — has to be answered before it is asked. The Radar informs; the analyst
+        verifies. Saying so costs one line and losing that distinction costs the whole pitch.
+      */}
+      <div className="cc-muted verify-scope">
+        <b>What this does not claim.</b> A match proves this evidence has not changed since the run
+        was anchored. It does not make the underlying claim true, and it does not verify a green
+        bond, a rating or a disclosure. The Radar surfaces what it found and where it came from —
+        the analyst still does the verifying.
+      </div>
       <div className="verify-actions">
         <button className="btn btn-primary" disabled={busy} onClick={() => run(false)}>
           {busy ? 'Verifying…' : 'Verify this evidence'}

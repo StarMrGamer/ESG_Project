@@ -1179,7 +1179,9 @@ label.field > span {
 .cot-list li {
   counter-increment: cot;
   position: relative;
-  padding: 9px 12px 9px 38px;
+  /* Left padding is a GUTTER for the absolutely-positioned counter below, not decoration:
+     10px offset + 22px badge + 8px gap. Change one and change the other. */
+  padding: 9px 12px 9px 40px;
   margin: 6px 0;
   background: var(--r-inset);
   border: 1px solid var(--r-border);
@@ -1196,8 +1198,12 @@ label.field > span {
   color: var(--r-pos);
   background: var(--r-posbg);
   border-radius: var(--r-radius-2xs);
-  padding: var(--pad-chip);
-  min-width: 18px;
+  /* Deliberately NOT --pad-chip. This badge is absolutely positioned inside a gutter the li
+     reserves, so its width has to be deterministic — a chip token is free to grow and would
+     silently eat the gap between the number and the text. It did exactly that: the token is
+     10px wider horizontally than the 6px this used to carry, which left 1px of clearance. */
+  padding: 3px 0;
+  width: 22px;
   text-align: center;
 }
 
@@ -2257,3 +2263,10 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 /* The plot box is now 3:2 rather than square, so it needs more width to stay legible. */
 .radar-plot { max-width: 400px; }
 .hub.is-solo .radar-plot { max-width: 480px; }
+.verify-scope {
+  margin-top: 8px; padding: var(--pad-row);
+  border-left: 2px solid var(--r-borderStrong);
+  background: color-mix(in srgb, var(--r-panel) 55%, transparent);
+  border-radius: 0 var(--r-radius-2xs) var(--r-radius-2xs) 0;
+}
+.verify-scope b { color: var(--r-text); }
