@@ -505,6 +505,40 @@ SWEEPS = [
 ]
 
 
+def check_digital_influence(report, baseline):
+    """Does the DIGITAL pillar change any decision? Slide 8 of the deck calls it a hypothesis
+    and promises the harness reports the answer "honestly, either way" — so it is reported
+    here on every run, not left to whoever remembers to ask.
+
+    Turning the weight to zero is the sharpest form of the question: if no company changes
+    quadrant when the pillar is removed entirely, then whatever DIGITAL is measuring, it is not
+    currently changing what we tell anyone."""
+    report.section("DIGITAL pillar — does it change any decision?")
+    meta = company_metadata.load()
+    base_labels = {r["company_id"]: r["label"] for r in baseline["records"]}
+
+    for name, path in (("demo (fictional)", universe.DEMO_FILE),
+                       ("the real 52", universe.UNIVERSE_FILE)):
+        run = (baseline if path == universe.DEMO_FILE else
+               engine.run_engine(universe.constituents(path), metadata=meta, use_cache=False))
+        dig = [r["components"]["DIGITAL"]["momentum"] for r in run["records"]
+               if "DIGITAL" in r["components"]]
+        off = engine.run_engine(
+            universe.constituents(path), metadata=meta, use_cache=False,
+            config=engine_config.load(overrides={"component_weights": {"DIGITAL": 0.0}}))
+        was = base_labels if path == universe.DEMO_FILE else \
+            {r["company_id"]: r["label"] for r in run["records"]}
+        moved = sum(1 for r in off["records"] if was.get(r["company_id"]) != r["label"])
+        coverage = f"{len(dig)}/{len(run['records'])} companies carry a DIGITAL component"
+        spread = (f"momentum {min(dig):+.3f}..{max(dig):+.3f}" if dig else "no DIGITAL evidence")
+        report.info(f"{name:18s} {coverage} · {spread}")
+        report.info(f"{'':18s} weight 0.15 -> 0.00: {moved}/{len(run['records'])} change quadrant")
+
+    report.check(True, "DIGITAL influence reported",
+                 "the deck calls this pillar a hypothesis (slide 8); this is the number that "
+                 "answers it, printed whether it flatters us or not")
+
+
 def check_sweep(report, baseline):
     report.section("Sensitivity sweep — quadrant churn (CGSI names)")
     base_labels = {r["company_id"]: r["label"] for r in baseline["records"]}
@@ -604,6 +638,7 @@ def main(argv):
     if everything or "--guards" in flags:
         check_guards(report, baseline)
     if everything or "--sweep" in flags:
+        check_digital_influence(report, baseline)
         check_sweep(report, baseline)
     if everything or "--calibration" in flags:
         check_calibration(report, baseline)
