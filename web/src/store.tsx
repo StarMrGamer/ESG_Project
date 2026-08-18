@@ -3,6 +3,25 @@ import type { ReactNode } from 'react'
 import { api } from './api'
 import type { Board, Entry, Health, HorizonKey, TierKey } from './types'
 
+/** The mandate the user set up with — the same vocabulary Contract A's `mandate` uses. */
+export type Mandate = 'risk' | 'return' | 'compliance'
+/** Which of the two journeys the setup handed off to. */
+export type Goal = 'screen' | 'investigate'
+/**
+ * How much of the board is on screen. This is the layering control: every widget declares the
+ * level it earns its place at, and nothing above the current level renders. Level 1 is the
+ * default for a first-time user — the dashboard used to open with all three at once, which is
+ * the "overstimulating" complaint this exists to answer.
+ */
+export type Level = 1 | 2 | 3
+
+export interface Profile {
+  mandate: Mandate | ''
+  goal: Goal | ''
+  /** One line describing the setup, shown back to the user so the personalisation is legible. */
+  label: string
+}
+
 export type View =
   | { name: 'dashboard' }
   | { name: 'deep'; ticker: string; mode: 'compete' | 'interrogate' }
@@ -12,7 +31,22 @@ export type View =
 export interface Settings {
   demo: boolean
   dark: boolean
+  /**
+   * Kept as the server-facing flag (the board endpoint tailors its copy on it) but no longer set
+   * directly — it is derived from `level` in setSettings, so the two can never disagree.
+   */
   simplified: boolean
+  /** Progressive disclosure: 1 Brief · 2 Analysis · 3 Everything. */
+  level: Level
+  /** False until the assistant-led setup has run; gates the whole dashboard. */
+  setupDone: boolean
+  profile: Profile
+  /**
+   * The universe filters live here, not in component state, because the setup chooses them and
+   * the header reports them back ("set up for … in Singapore · Banks"). Held outside the
+   * persisted blob they reset to All on the next reload while that line kept its promise.
+   */
+  filters: { country: string; sector: string }
   leftOpen: boolean
   rightOpen: boolean
   ragEnabled: boolean
@@ -28,12 +62,27 @@ export interface Settings {
   pipelineOnly: boolean
 }
 
+/** Everything the setup flow decides, applied in one shot so the board refetches once. */
+export interface SetupChoice {
+  mandate: Mandate
+  goal: Goal
+  country: string
+  sector: string
+  tier: TierKey
+  horizon: HorizonKey
+  level: Level
+  label: string
+}
+
 interface Toast { id: number; text: string; tone: 'good' | 'bad' | 'info' }
 interface ChatMsg { role: 'user' | 'assistant'; text: string }
 
 const SETTINGS_KEY = 'esg-radar-settings'
 const DEFAULTS: Settings = {
-  demo: true, dark: true, simplified: true, leftOpen: false, rightOpen: false,
+  demo: true, dark: true, simplified: true, level: 1, setupDone: false,
+  profile: { mandate: '', goal: '', label: '' },
+  filters: { country: 'All', sector: 'All' },
+  leftOpen: false, rightOpen: false,
   ragEnabled: true, ragTopK: 5, tier: 'balanced', horizon: 'long', pipelineOnly: false,
 }
 
@@ -71,6 +120,8 @@ interface Store {
   compareSel: string[]
   toggleCompare: (ticker: string) => void
   openCompare: () => void
+  applySetup: (c: SetupChoice) => void
+  restartSetup: () => void
   chatLog: ChatMsg[]
   sendChat: (text: string) => Promise<void>
   toasts: Toast[]
@@ -91,7 +142,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [settings, setSettingsState] = useState<Settings>(loadSettings)
   const [health, setHealth] = useState<Health | null>(null)
   const [view, setView] = useState<View>({ name: 'dashboard' })
-  const [filters, setFiltersState] = useState({ country: 'All', sector: 'All' })
   const [focusTicker, setFocusTicker] = useState('')
   const [board, setBoard] = useState<Board | null>(null)
   const [boardLoading, setBoardLoading] = useState(false)
@@ -103,9 +153,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
   const busyRef = useRef(false)
 
+  const filters = settings.filters
+
   const setSettings = useCallback((p: Partial<Settings>) => {
     setSettingsState(prev => {
       const next = { ...prev, ...p }
+      // `simplified` is the server's flag and `level` is the UI's. Deriving one from the other
+      // here means no caller has to remember to set both, and a stale localStorage blob that
+      // predates `level` still lands somewhere coherent.
+      if (p.level !== undefined) next.simplified = p.level === 1
+      else if (p.simplified !== undefined) next.level = p.simplified ? 1 : 3
       try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(next)) } catch { /* private mode */ }
       return next
     })
@@ -142,7 +199,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setFilters = useCallback((p: Partial<{ country: string; sector: string }>) => {
-    setFiltersState(prev => ({ ...prev, ...p }))
+    setSettingsState(prev => {
+      const next = { ...prev, filters: { ...prev.filters, ...p } }
+      try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(next)) } catch { /* private mode */ }
+      return next
+    })
   }, [])
 
   const setFocus = useCallback((ticker: string) => setFocusTicker(ticker), [])
@@ -246,6 +307,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (compareSel.length >= 2) setView({ name: 'compare', tickers: compareSel })
   }, [compareSel])
 
+  const applySetup = useCallback((c: SetupChoice) => {
+    setSettings({
+      filters: { country: c.country, sector: c.sector },
+      level: c.level, tier: c.tier, horizon: c.horizon, setupDone: true,
+      profile: { mandate: c.mandate, goal: c.goal, label: c.label },
+      // Screening wants the universe rails; investigating one name wants them out of the way.
+      leftOpen: c.goal === 'screen' && c.level > 1,
+      rightOpen: c.level > 1,
+    })
+  }, [setSettings])
+
+  const restartSetup = useCallback(() => {
+    setSettings({ setupDone: false })
+    setView({ name: 'dashboard' })
+  }, [setSettings])
+
   const sendChat = useCallback(async (text: string) => {
     const t = text.trim()
     if (!t || busyRef.current) return
@@ -258,10 +335,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setChatLog(log => [...log, { role: 'assistant', text: res.reply }])
       const a = res.action
       if (a.kind === 'filter') {
-        setFiltersState(prev => ({
-          country: a.country ?? prev.country,
-          sector: a.sector ?? prev.sector,
-        }))
+        setFilters({
+          ...(a.country ? { country: a.country } : {}),
+          ...(a.sector ? { sector: a.sector } : {}),
+        })
       } else if (a.kind === 'focus') {
         setFocusTicker(a.ticker)
         if (a.needs_build) {
@@ -282,17 +359,19 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     } finally {
       busyRef.current = false
     }
-  }, [settings.demo, settings.simplified, focusTicker, openDeepDive, buildLiveAndDive, saveEntry, refreshBoard])
+  }, [settings.demo, settings.simplified, focusTicker, openDeepDive, buildLiveAndDive, saveEntry,
+    refreshBoard, setFilters])
 
   const value = useMemo<Store>(() => ({
     settings, setSettings, health, view, goDashboard, filters, setFilters,
     focusTicker, setFocus, board, boardLoading, boardError, refreshBoard,
     entries, saveEntry, monitorOnly, openDeepDive, openEvidence, buildLiveAndDive, loadSample,
-    uploadFile, unpin, compareSel, toggleCompare, openCompare, chatLog, sendChat, toasts, toast,
+    uploadFile, unpin, compareSel, toggleCompare, openCompare, applySetup, restartSetup,
+    chatLog, sendChat, toasts, toast,
   }), [settings, setSettings, health, view, goDashboard, filters, setFilters, focusTicker,
     setFocus, board, boardLoading, boardError, refreshBoard, entries, saveEntry, monitorOnly,
     openDeepDive, openEvidence, buildLiveAndDive, loadSample, uploadFile, unpin, compareSel,
-    toggleCompare, openCompare, chatLog, sendChat, toasts, toast])
+    toggleCompare, openCompare, applySetup, restartSetup, chatLog, sendChat, toasts, toast])
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

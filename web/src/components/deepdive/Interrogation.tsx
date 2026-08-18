@@ -12,6 +12,51 @@ const QUICK_REPLIES: Record<string, string[]> = {
 }
 const MAX_QUESTIONS = 5
 
+/**
+ * The four ESG-native axes, drawn as a map above the thread.
+ *
+ * The axis was already on every question as a small badge, but a badge only says where you are —
+ * it never showed the shape being covered, so the interrogation read as an ordinary chatbot that
+ * happened to be labelled. Laid out as a rail, the same four labels show what has been asked,
+ * what is being asked now, and what is still open. That shape IS the pitch: this is interrogation
+ * along ESG-native axes rather than a chat window.
+ */
+type AxisKey = 'materiality' | 'time_horizon' | 'mandate' | 'blind_spot'
+const AXES: AxisKey[] = ['materiality', 'time_horizon', 'mandate', 'blind_spot']
+
+const AXIS_ASKS: Record<AxisKey, string> = {
+  materiality: 'Is this the ESG issue that actually moves this business?',
+  time_horizon: 'A catalyst in months, or a structural shift over years?',
+  mandate: 'Risk, return or compliance — what is the answer for?',
+  blind_spot: 'What is not in the rating at all?',
+}
+
+function AxisMap({ covered, active }: { covered: Set<string>; active: string | null }) {
+  return (
+    <div className="axis-map">
+      <div className="axis-map-h">
+        ESG-native axes
+        <span className="cc-muted">
+          {covered.size} of {AXES.length} covered — each question maps to exactly one
+        </span>
+      </div>
+      <div className="axis-rail">
+        {AXES.map(a => {
+          const meta = AXIS_META[a]
+          const state = active === a ? 'on' : covered.has(a) ? 'done' : ''
+          return (
+            <div key={a} className={`axis-node ${state}`} title={AXIS_ASKS[a]}>
+              <span className="axis-node-icon">{covered.has(a) && active !== a ? '✓' : meta.icon}</span>
+              <span className="axis-node-name">{meta.name}</span>
+              <span className="axis-node-ask">{AXIS_ASKS[a]}</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 interface Turn { user: string; env: Envelope; raw: string }
 
 function AxisBadge({ env }: { env: Envelope }) {
@@ -35,6 +80,9 @@ export default function Interrogation({ entry, onDone }: {
   const company = entry.company
   const last = turns.length > 0 ? turns[turns.length - 1].env : null
   const questionCount = turns.filter(t => t.env.type !== 'narrowed').length
+  // Everything the model has already probed, and where it is standing right now.
+  const covered = new Set(turns.map(t => t.env.axis).filter(Boolean) as string[])
+  const activeAxis = last && last.type !== 'narrowed' ? last.axis ?? null : null
 
   const submit = async (userText: string, force = false) => {
     const text = userText.trim()
@@ -85,6 +133,7 @@ export default function Interrogation({ entry, onDone }: {
 
   return (
     <div>
+      <AxisMap covered={covered} active={activeAxis} />
       <div className="chat-thread">
         {turns.map((t, i) => (
           <div key={i} style={{ display: 'contents' }}>

@@ -1,6 +1,6 @@
 import type {
-  AnchorSummary, Board, ChatResult, ComparePayload, Entry, Envelope, EvidencePayload, Health,
-  HorizonKey, NarrowedQuestion, Stage2Answer, VerifyPayload,
+  AnchorSummary, BenchmarksPayload, Board, ChatResult, ComparePayload, Entry, Envelope,
+  EvidencePayload, Health, HorizonKey, NarrowedQuestion, Quote, Stage2Answer, VerifyPayload,
 } from './types'
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
@@ -35,7 +35,15 @@ export const api = {
       '/api/monitor', { method: 'POST', body: JSON.stringify(p) }),
   unmonitor: (ticker: string) =>
     http<{ ok: boolean }>(`/api/monitor/${encodeURIComponent(ticker)}`, { method: 'DELETE' }),
-  entry: (ticker: string) => http<Entry>(`/api/entry/${encodeURIComponent(ticker)}`),
+  entry: (ticker: string, demo = false) =>
+    http<Entry>(`/api/entry/${encodeURIComponent(ticker)}?demo=${demo}`),
+  benchmarks: (demo: boolean, sector = '') => {
+    const q = new URLSearchParams({ demo: String(demo) })
+    if (sector) q.set('sector', sector)
+    return http<BenchmarksPayload>(`/api/benchmarks?${q}`)
+  },
+  quote: (ticker: string, demo = false) =>
+    http<Quote>(`/api/quote/${encodeURIComponent(ticker)}?demo=${demo}`),
   sample: () => http<{ ok: boolean; ticker: string; entry: Entry }>('/api/sample', { method: 'POST' }),
   upload: async (file: File) => {
     const fd = new FormData()

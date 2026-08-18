@@ -1,5 +1,17 @@
 import { useRef } from 'react'
 import { useStore } from '../store'
+import type { Level } from '../store'
+
+/**
+ * The layering control. Replaces the old Full/Simple pair: two states forced every widget to be
+ * either "always on" or "expert only", so the middle ground — charts and rankings without the
+ * engine internals — had nowhere to live, and the default landed on everything at once.
+ */
+const LEVELS: { n: Level; label: string; hint: string }[] = [
+  { n: 1, label: 'Brief', hint: 'The verdict and one thing to check. Rails closed.' },
+  { n: 2, label: 'Analysis', hint: 'Adds pillar momentum, the chart and the rankings.' },
+  { n: 3, label: 'Everything', hint: 'Adds the disagreement matrix, provenance and the evidence trail.' },
+]
 
 const RADAR_SVG = (
   <svg width="22" height="22" viewBox="0 0 34 34" aria-hidden>
@@ -11,7 +23,8 @@ const RADAR_SVG = (
 )
 
 export default function Header() {
-  const { settings, setSettings, board, health, loadSample, uploadFile, toast, goDashboard } = useStore()
+  const { settings, setSettings, board, health, loadSample, uploadFile, toast, goDashboard,
+    restartSetup } = useStore()
   const fileRef = useRef<HTMLInputElement>(null)
   const s = settings
 
@@ -34,6 +47,7 @@ export default function Header() {
           <div className="cc-meta">
             {board?.universe.quarter || ''} · {n} listed · {industries} industries · {tag}
             {health && !health.llm_configured && ' · no DEEPSEEK_API_KEY'}
+            {s.profile.label && <> · set up for <b>{s.profile.label}</b></>}
           </div>
         </div>
       </div>
@@ -43,11 +57,13 @@ export default function Header() {
       </div>
 
       <div className="cc-controls">
-        <div className="seg">
-          <button className={`btn ${!s.simplified ? 'on' : ''}`}
-            onClick={() => setSettings({ simplified: false, leftOpen: true, rightOpen: true })}>Full</button>
-          <button className={`btn ${s.simplified ? 'on' : ''}`}
-            onClick={() => setSettings({ simplified: true, leftOpen: false, rightOpen: false })}>Simple</button>
+        <div className="seg" role="group" aria-label="Detail level">
+          {LEVELS.map(l => (
+            <button key={l.n} className={`btn ${s.level === l.n ? 'on' : ''}`} title={l.hint}
+              onClick={() => setSettings({ level: l.n, leftOpen: l.n > 1, rightOpen: l.n > 1 })}>
+              {l.n} · {l.label}
+            </button>
+          ))}
         </div>
         <div className="seg">
           <button className={`btn ${s.dark ? 'on' : ''}`} onClick={() => setSettings({ dark: true })}>Dark</button>
@@ -68,6 +84,8 @@ export default function Header() {
         </button>
         <span className="cc-controls-spacer" />
         <button className="btn" onClick={goDashboard}>Dashboard</button>
+        <button className="btn" onClick={restartSetup}
+          title="Run the assistant setup again and re-shape the board.">Reconfigure</button>
         <button className="btn" onClick={loadSample}
           title="Pin the offline demo company (no network or key needed).">Sample</button>
         <button className="btn" onClick={() => fileRef.current?.click()}>Upload</button>

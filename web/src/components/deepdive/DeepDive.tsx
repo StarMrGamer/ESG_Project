@@ -1,17 +1,70 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../../store'
 import { api } from '../../api'
-import type { NarrowedQuestion, Stage2Answer } from '../../types'
+import type { NarrowedQuestion, Stage2Answer, TierKey } from '../../types'
 import Interrogation from './Interrogation'
 import Stage2Runner from './Stage2Runner'
 import AnswerPanel from './AnswerPanel'
 import { known, Spinner } from '../ui'
+import BenchmarkPanel from '../benchmark/BenchmarkPanel'
 
-function Step({ label, state }: { label: string; state: 'done' | 'active' | 'todo' }) {
+/**
+ * The relay, drawn as three stations.
+ *
+ * Each stage hands the next a verified contract output — that baton IS the architecture, and a
+ * row of small chips never showed it. Naming the baton under each station is what turns three
+ * screens into one visible pipeline for someone watching a demo.
+ */
+const STAGES: { n: number; name: string; what: string; baton: string }[] = [
+  { n: 1, name: 'Interrogate', what: 'Adaptive questions along four ESG-native axes. Never answers.',
+    baton: 'baton · NarrowedQuestion' },
+  { n: 2, name: 'Compete', what: 'Reasons over the data, the history and live retrieval — and disagrees.',
+    baton: 'baton · Stage2Answer' },
+  { n: 3, name: 'Answer', what: 'The verdict, the chain of thought, the evidence and the sources.',
+    baton: 'output' },
+]
+
+function StageRail({ idx }: { idx: number }) {
   return (
-    <span className={`step ${state === 'done' ? 'done' : state === 'active' ? 'active' : ''}`}>
-      {state === 'done' ? '✓' : state === 'active' ? '●' : '○'} {label}
-    </span>
+    <div className="stage-rail" role="list" aria-label="Three-stage relay">
+      {STAGES.map((st, i) => (
+        <div key={st.n} role="listitem"
+          className={`stage-card ${i < idx ? 'done' : i === idx ? 'on' : ''}`}>
+          <span className="stage-num">{i < idx ? '✓' : st.n}</span>
+          <span className="stage-name">{st.name}</span>
+          <span className="stage-what">{st.what}</span>
+          <span className="stage-baton">{st.baton}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/**
+ * Which risk tiers this company clears, from the engine record for the run on screen. The tiers
+ * were only ever visible as a filter on the matrix, so during a deep dive — the moment you most
+ * want to know whether this name survives a conservative screen — they were nowhere.
+ */
+function TierBadges({ ticker }: { ticker: string }) {
+  const { board, settings } = useStore()
+  const engine = board?.engine
+  const rec = engine?.records?.[ticker]
+  if (!engine || !rec) return null
+  const keys = Object.keys(engine.tiers) as TierKey[]
+  return (
+    <div className="tier-badges">
+      <span className="cc-muted" style={{ marginTop: 0 }}>Clears risk tier</span>
+      {keys.map(k => (
+        <span key={k}
+          className={`tier-badge ${rec.tiers?.[k] ? 'on' : ''} ${settings.tier === k ? 'is-current' : ''}`}
+          title={`${engine.tier_rules[k]}${rec.tiers?.[k] ? '' : ' — this company does not clear it.'}`}>
+          {rec.tiers?.[k] ? '✓' : '·'} {engine.tiers[k]}
+        </span>
+      ))}
+      <span className="cc-muted" style={{ marginTop: 0 }}>
+        · {engine.half_life_days}d decay · {rec.signal_count} signals
+      </span>
+    </div>
   )
 }
 
@@ -31,7 +84,7 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
   useEffect(() => {
     if (cached) { setEntry(cached); return }
     let cancel = false
-    api.entry(ticker)
+    api.entry(ticker, settings.demo)
       .then(e => {
         if (cancel) return
         setEntry(e)
@@ -109,8 +162,16 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
             G {entry.breakdown.g_score.toFixed(0)} · overall {entry.breakdown.overall.toFixed(0)} (0–100, higher=better)
           </div>
         )}
+        <TierBadges ticker={ticker} />
         {company._data_provenance && <div className="cc-muted">{String(company._data_provenance)}</div>}
       </div>
+
+      {/*
+        Benchmarks sit above the relay on purpose: "how does this compare" is the question a
+        reader has before they have any interest in a three-stage argument, and an uploaded file
+        reaches this exact panel with nothing extra wired.
+      */}
+      <BenchmarkPanel benchmark={entry.benchmark} quote={entry.quote} />
 
       {entry.financial.have && (
         <div className="panel-block" style={{ marginBottom: 14 }}>
@@ -127,13 +188,7 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
         </div>
       )}
 
-      <div className="stepper">
-        <Step label="Interrogate" state={stepIdx > 0 ? 'done' : 'active'} />
-        <span className="step-arrow">→</span>
-        <Step label="Compete" state={stepIdx > 1 ? 'done' : stepIdx === 1 ? 'active' : 'todo'} />
-        <span className="step-arrow">→</span>
-        <Step label="Answer" state={stepIdx === 2 ? 'active' : 'todo'} />
-      </div>
+      <StageRail idx={stepIdx} />
 
       {!s1Done && (
         <div className="panel-block" style={{ marginBottom: 14 }}>

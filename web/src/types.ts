@@ -117,6 +117,108 @@ export interface FinancialSnapshot {
   simple: { label: string; value: string }[]
 }
 
+/**
+ * The ASEAN peer average for an industry — same unit as the company's own score, so the
+ * comparison is direct. `available: false` carries the reason instead of a zero.
+ */
+export interface AseanBenchmark {
+  available: boolean
+  reason?: string
+  sector?: string
+  average?: number
+  n?: number
+  metric?: string
+  /** 'static' (comparable to a company's own score) or 'evidence' (a different measurement). */
+  metric_kind?: string
+  unit?: string
+  universe?: string
+}
+
+/**
+ * The OECD industry footprint: greenhouse-gas intensity in tonnes CO2e per US$m of gross value
+ * added, and where that industry ranks among the OECD's. A different unit and a different
+ * question from the ASEAN average, which is why the two are never combined into one number.
+ */
+export interface OecdBenchmark {
+  available: boolean
+  reason?: string
+  sector?: string
+  isic_code?: string
+  isic_label?: string
+  isic_sections?: string
+  /** How the crosswalk matched — 'sub-industry' is a specific rule, 'GICS sector' is the fallback. */
+  via?: string
+  matched_on?: string
+  intensity?: number
+  unit?: string
+  rank?: number
+  of?: number
+  percentile?: number
+  cleanest?: string
+  dirtiest?: string
+  median?: number
+  year?: string
+  basis?: string
+  retrieved?: string
+  sources?: string[]
+}
+
+export interface Benchmark {
+  company?: string
+  sector: string
+  own_score: number | null
+  /** Where the own score came from, when there is one. */
+  own_score_source: string
+  /** Why there is no gap — a missing score, or two measures that must not be differenced. */
+  own_score_note: string
+  asean: AseanBenchmark
+  oecd: OecdBenchmark
+  gap_vs_asean: number | null
+  verdict: string
+  disclaimer: string
+}
+
+/** A last traded price, for context only. Never an input to any score. */
+export interface Quote {
+  ticker: string
+  available: boolean
+  reason?: string
+  symbol?: string
+  price?: number
+  currency?: string
+  change_pct?: number | null
+  exchange?: string
+  as_of?: number
+  fifty_two_high?: number
+  fifty_two_low?: number
+  source?: string
+  note?: string
+}
+
+export interface IndustryRow {
+  sector: string
+  n: number
+  asean_avg: number | null
+  asean_metric?: string
+  oecd_isic: string | null
+  oecd_intensity: number | null
+  oecd_rank: number | null
+  oecd_of: number | null
+  oecd_percentile: number | null
+  oecd_via: string | null
+  matched: boolean
+}
+
+export interface BenchmarksPayload {
+  available: boolean
+  meta: Record<string, string>
+  industries: {
+    isic_code: string; isic_label: string; isic_sections: string; year: string
+    intensity_t_per_musd: number; rank_cleanest: number; cleanliness_percentile: number
+  }[]
+  table: IndustryRow[]
+}
+
 export interface Entry {
   ticker: string
   company: CompanyB
@@ -129,6 +231,8 @@ export interface Entry {
   breakdown: EsgBreakdown | null
   origin_badge: string
   origin_disclaimer: string
+  benchmark: Benchmark
+  quote: Quote
 }
 
 export interface Constituent {

@@ -39,6 +39,8 @@ esg-momentum-radar/
   datasource.py             # build a CompanyData LIVE (free-text OR constituent-anchored) / UPLOAD; + snapshot
   universe.py               # ASEAN base DB loader/filter/resolver (the watchlist menu)
   metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify
+  benchmarks.py             # industry benchmarks: ASEAN peer average + OECD GHG intensity (never merged)
+  quotes.py                 # live market quote strip (Yahoo, best-effort) — context only, never a signal
   server.py                 # FastAPI API boundary + static React host: dashboard · chat · relay · evidence
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
   stage2.py                 # AGENT 2 owns — reason over data + RAG + history (emits CoT + sources)
@@ -58,8 +60,10 @@ esg-momentum-radar/
   cost_inputs.py            # the three cost-model cells for Sean (signals/co/month · tokens/signal · cache)
   scripts/                   # developer-only data builders and the LLM probe
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
+    build_oecd_benchmark.py  # pulls OECD SDMX (emissions x value added) -> the industry benchmark CSV
     demo_diversify.py        # re-derives ONLY demo momentum/live_signals/news
                             #   (preserves esg_score — the MOCK baseline must not move)
+  data/oecd_industry_benchmark.csv  # REAL OECD GHG intensity per ISIC industry (built by the script below)
   data/asean_universe.json  # BASE DB — 52 ASEAN ESG improvers (evidence-based: esg_basis/source_url/confidence)
   data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
   data/hero_company.json    # SAMPLE only — offline-demo safety net + test fixture (PLACEHOLDER)
@@ -78,6 +82,34 @@ ASEAN base DB. The *universe* (`data/asean_universe.json`, loaded by `universe.p
 companies with consistent ESG improvement 2019–2023**" — the ESG Momentum foundation basket;
 **MSCI ASEAN is the BENCHMARK** it beat (55.1% vs 6.4%), NOT the source of names. Each constituent
 carries evidence (`esg_basis`/`source_url`/`confidence`).
+
+**The assistant comes first (added 2026-08-18).** A first-time visitor lands on an
+assistant-led **setup** (`web/src/components/setup/Setup.tsx`), not the board: four short
+questions — mandate, then the fork between *screen the universe* and *investigate one company*,
+then country/industry or a company name. The answers set the filters, and DERIVE the risk tier
+and decay horizon (both shown with their reason and left editable). Everything runs locally —
+chips plus a local matcher, no LLM call — because a demo cannot be one flaky network hop away
+from its opening screen. `settings.setupDone` persists, so a returning browser goes straight to
+the board; **Reconfigure** in the header re-runs it.
+
+**The board is layered.** `settings.level` is 1 Brief · 2 Analysis · 3 Everything, and every
+widget declares the level it earns: level 1 is the verdict, the pillar cards, one action and a
+one-line assistant bar; level 2 adds the momentum chart, the rankings, the industry-benchmark
+table and the universe grid; level 3 adds the disagreement matrix, provenance and the evidence
+trail. `simplified` is DERIVED from `level` in `setSettings`, so the server-facing flag and the
+UI control can never disagree. A step-up bar at the foot of levels 1 and 2 says what the next
+level would add. The matrix used to be the first thing on the page — a wall of dots before you
+knew what a dot meant — which was most of why the board read as overwhelming.
+
+**Industry benchmarks** (`benchmarks.py`) answer "compared to what?" with two numbers that are
+deliberately never merged: the **ASEAN peer average** (same unit as the company, from our own
+universe) and the **OECD industry footprint** (tonnes CO2e per US$m of gross value added, from
+the OECD's public SDMX API). A gap is computed ONLY when both sides are the same measure — a
+static score is not differenced against the evidence-leadership index, and an incumbent risk
+score is not read at all unless the snapshot has established which way it runs. Uploads land in
+the same panel, so a new file is benchmarked against its ASEAN peers and its OECD industry with
+no extra plumbing. The GICS -> ISIC crosswalk is a STATED MAPPING, reported as such (`via`), and
+an unmatched sector says so rather than falling into the nearest bucket.
 
 Layout (3 columns): **Left** = Filters (Industry/Country) + the **average ESG of the filtered set**
 (recomputes per industry — the user's key ask) + the Monitored list. **Center** = four pillar
@@ -228,6 +260,10 @@ python anchor.py                          # build + anchor EVERY (universe x hor
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
 python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
 python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata CSV
+python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.csv from OECD SDMX
+python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity
+python quotes.py                         # live quotes for one name per ASEAN exchange
+python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
 ```
 
 **The engine (Prototype Build Spec v2, `D/`).** `run_engine` is a PURE function — no clock, no

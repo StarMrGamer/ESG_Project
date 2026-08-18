@@ -1535,3 +1535,415 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .verify-result.is-empty { border-color: color-mix(in srgb, var(--r-amber) 45%, var(--r-border)); background: var(--r-amberbg); }
 .momentum-maths { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0 6px; padding: 8px 11px; border: 1px dashed var(--r-border); border-radius: 6px; color: var(--r-muted); font: 500 11.5px var(--r-mono); }
 .momentum-maths b { color: var(--r-text); }
+
+/* ==========================================================================
+   SETUP — the assistant-first configuration screen.
+   One question at a time, centred, no chrome. Deliberately quiet: this is the
+   answer to "the dashboard is overstimulating", so it must not itself be a
+   dashboard. Everything sits on the same --r-* tokens as the board.
+   ========================================================================== */
+
+.app-shell.is-setup {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 24px 16px;
+}
+
+.setup-wrap { width: 100%; max-width: 680px; }
+
+.setup-card {
+  background: linear-gradient(180deg, var(--r-panel2) 0%, var(--r-panel) 100%);
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius);
+  box-shadow: var(--r-shadow);
+  padding: 26px 28px 22px;
+  animation: fade-up 0.28s var(--r-ease);
+}
+
+.setup-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.setup-kicker {
+  font: 600 11px/1.2 var(--r-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--r-faint);
+}
+.setup-title { margin: 6px 0 0; font: 600 22px/1.25 var(--r-font); }
+.setup-skip { flex: none; }
+
+/* Progress: dots, not a bar. A bar promises a length the branching flow does not have. */
+.setup-dots { display: flex; gap: 6px; margin: 16px 0 4px; }
+.setup-dot {
+  height: 3px; flex: 1; border-radius: 999px;
+  background: var(--r-border);
+  transition: background 0.2s var(--r-ease);
+}
+.setup-dot.done { background: color-mix(in srgb, var(--r-pos) 55%, transparent); }
+.setup-dot.on { background: var(--r-pos); }
+
+/* The answered-so-far transcript. Dimmed — it is context, not the question. */
+.setup-thread { margin: 14px 0 0; }
+.setup-thread .setup-bubble,
+.setup-thread .setup-said { opacity: 0.55; font-size: 12.5px; }
+
+.setup-bubble {
+  font: 400 14px/1.55 var(--r-font);
+  color: var(--r-text);
+  margin: 10px 0 4px;
+}
+.setup-said {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--r-inset);
+  border: 1px solid var(--r-border);
+  font: 600 12.5px/1.3 var(--r-font);
+  color: var(--r-muted);
+}
+
+.setup-step { margin-top: 10px; animation: fade-up 0.2s var(--r-ease); }
+
+/* Stacked option rows — a heading and a reason, so a first-time judge knows what each does. */
+.setup-opts { display: grid; gap: 8px; margin-top: 12px; }
+.setup-opt {
+  appearance: none; text-align: left; cursor: pointer;
+  display: grid; gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-inset);
+  color: var(--r-text);
+  transition: border-color 0.14s var(--r-ease), background 0.14s var(--r-ease),
+              box-shadow 0.14s var(--r-ease), transform 0.08s ease;
+}
+.setup-opt:hover {
+  border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-border));
+  background: var(--r-panel2);
+  box-shadow: var(--r-glow);
+}
+.setup-opt:active { transform: translateY(1px); }
+.setup-opt b { font: 600 14px/1.3 var(--r-font); }
+.setup-opt span { font: 400 12.5px/1.45 var(--r-font); color: var(--r-muted); }
+
+.setup-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.setup-chip {
+  appearance: none; cursor: pointer;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--r-border);
+  background: var(--r-inset);
+  color: var(--r-text);
+  font: 600 12.5px/1.2 var(--r-font);
+  transition: border-color 0.14s var(--r-ease), background 0.14s var(--r-ease);
+}
+.setup-chip:hover {
+  border-color: color-mix(in srgb, var(--r-pos) 50%, var(--r-border));
+  background: var(--r-panel2);
+}
+
+/* The derived settings. Shown with their reason and left editable — a default the user cannot
+   see or change is just a hidden setting. */
+.setup-derived {
+  margin-top: 14px; padding: 12px 14px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-inset);
+}
+.setup-derived-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
+}
+.setup-derived-row:last-of-type { margin-bottom: 0; }
+.setup-derived-k { font: 600 12.5px/1.2 var(--r-font); color: var(--r-muted); }
+.setup-why { margin-top: 10px; font: 400 12px/1.5 var(--r-font); color: var(--r-faint); }
+
+.setup-levels { display: grid; gap: 7px; margin-top: 14px; }
+.setup-level {
+  appearance: none; text-align: left; cursor: pointer;
+  display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline;
+  padding: 9px 12px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-xs);
+  background: transparent;
+  color: var(--r-text);
+  transition: border-color 0.14s var(--r-ease), background 0.14s var(--r-ease);
+}
+.setup-level:hover { background: var(--r-inset); }
+.setup-level.on {
+  border-color: color-mix(in srgb, var(--r-pos) 55%, var(--r-border));
+  background: var(--r-posbg);
+}
+.setup-level b { font: 600 13px/1.3 var(--r-font); white-space: nowrap; }
+.setup-level span { font: 400 12px/1.45 var(--r-font); color: var(--r-muted); }
+
+.setup-go { width: 100%; margin-top: 16px; padding: 11px 14px; font-size: 14px; }
+
+.setup-form { display: flex; gap: 8px; margin-top: 16px; }
+.setup-form .input { flex: 1; }
+
+.setup-foot {
+  margin-top: 16px; padding-top: 12px;
+  border-top: 1px solid var(--r-border);
+  font: 400 11.5px/1.5 var(--r-font);
+  color: var(--r-faint);
+}
+
+@media (max-width: 560px) {
+  .setup-card { padding: 20px 18px 18px; }
+  .setup-head { flex-direction: column; }
+  .setup-title { font-size: 19px; }
+}
+
+/* ---- step-up bar: the invitation to the next layer ---- */
+.step-up {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  margin: 18px 0 4px; padding: 14px 16px;
+  border: 1px dashed var(--r-borderStrong);
+  border-radius: var(--r-radius);
+  background: color-mix(in srgb, var(--r-panel) 55%, transparent);
+}
+.step-up-h { font: 600 13.5px/1.3 var(--r-font); }
+.step-up .cc-muted { margin-top: 2px; }
+
+/* ---- level-1 assistant bar ---- */
+.abar {
+  margin-bottom: 14px; padding: 12px 14px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius);
+  background: linear-gradient(180deg, var(--r-panel2) 0%, var(--r-panel) 100%);
+  box-shadow: var(--r-shadowSoft);
+}
+.abar-row { display: flex; align-items: center; gap: 9px; }
+.abar-row .input { flex: 1; }
+.abar-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex: none;
+  background: var(--r-pos);
+  box-shadow: 0 0 0 4px var(--r-posbg);
+}
+.abar .quick-row { margin-top: 9px; }
+.abar-reply {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--r-border);
+  font: 400 13px/1.5 var(--r-font);
+  color: var(--r-muted);
+}
+.abar-more { margin-left: 8px; vertical-align: baseline; }
+
+/* ==========================================================================
+   AXIS MAP — the four ESG-native axes, shown as coverage rather than a badge.
+   ========================================================================== */
+.axis-map {
+  margin: 0 0 14px; padding: 12px 14px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-inset);
+}
+.axis-map-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  font: 600 12.5px/1.2 var(--r-font);
+}
+.axis-map-h .cc-muted { margin-top: 0; }
+.axis-rail {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 8px; margin-top: 10px;
+}
+.axis-node {
+  display: grid; gap: 3px; align-content: start;
+  padding: 9px 10px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-xs);
+  background: color-mix(in srgb, var(--r-panel) 60%, transparent);
+  opacity: 0.55;
+  transition: opacity 0.18s var(--r-ease), border-color 0.18s var(--r-ease),
+              background 0.18s var(--r-ease);
+}
+.axis-node.done {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--r-pos) 42%, var(--r-border));
+  background: var(--r-posbg);
+}
+.axis-node.on {
+  opacity: 1;
+  border-color: var(--r-blue);
+  background: var(--r-bluebg);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--r-blue) 30%, transparent);
+}
+.axis-node-icon { font-size: 14px; line-height: 1; }
+.axis-node-name { font: 600 12px/1.25 var(--r-font); }
+.axis-node-ask { font: 400 11px/1.4 var(--r-font); color: var(--r-muted); }
+
+/* ==========================================================================
+   STAGE RAIL — the three-stage relay, made the spine of the deep dive.
+   The old stepper was a row of 12px chips above the fold; the relay is the
+   product's whole architecture, so it now reads as three numbered stations
+   with their own state and a one-line description of the handoff.
+   ========================================================================== */
+.stage-rail {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; margin: 16px 0 18px;
+}
+.stage-card {
+  position: relative;
+  display: grid; gap: 4px; align-content: start;
+  padding: 12px 14px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-inset);
+  opacity: 0.5;
+  transition: opacity 0.2s var(--r-ease), border-color 0.2s var(--r-ease),
+              background 0.2s var(--r-ease), box-shadow 0.2s var(--r-ease);
+}
+.stage-card.done {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--r-pos) 40%, var(--r-border));
+  background: var(--r-posbg);
+}
+.stage-card.on {
+  opacity: 1;
+  border-color: var(--r-blue);
+  background: var(--r-bluebg);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--r-blue) 28%, transparent), var(--r-shadowSoft);
+}
+.stage-num {
+  display: inline-grid; place-items: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  font: 700 11px/1 var(--r-mono);
+  border: 1px solid currentColor;
+  color: var(--r-muted);
+}
+.stage-card.done .stage-num { color: var(--r-pos); }
+.stage-card.on .stage-num { color: var(--r-blue); }
+.stage-name { font: 600 13.5px/1.25 var(--r-font); }
+.stage-what { font: 400 11.5px/1.45 var(--r-font); color: var(--r-muted); }
+.stage-baton {
+  font: 600 10.5px/1.2 var(--r-mono);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--r-faint);
+}
+
+/* ---- risk-tier badges on the company being dived ---- */
+.tier-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
+.tier-badge {
+  padding: 3px 9px; border-radius: 999px;
+  border: 1px solid var(--r-border);
+  background: var(--r-inset);
+  font: 600 11px/1.35 var(--r-font);
+  color: var(--r-faint);
+}
+.tier-badge.on {
+  border-color: color-mix(in srgb, var(--r-pos) 50%, var(--r-border));
+  background: var(--r-posbg);
+  color: var(--r-pos);
+}
+.tier-badge.is-current { box-shadow: 0 0 0 2px color-mix(in srgb, var(--r-blue) 35%, transparent); }
+
+@media (max-width: 760px) {
+  .axis-rail { grid-template-columns: repeat(2, 1fr); }
+  .axis-node-ask { display: none; }
+  .stage-rail { grid-template-columns: 1fr; }
+}
+
+/* Axis names on the disagreement matrix. Bigger and higher-contrast than the ticks:
+   they carry the claim, so they are read before the dots. */
+.matrix-axis-name {
+  fill: var(--r-muted);
+  font: 600 13px/1 var(--r-font);
+  letter-spacing: 0.01em;
+}
+.matrix-axis-name-x {
+  color: var(--r-muted);
+  font: 600 12.5px/1.2 var(--r-font);
+  text-align: center;
+  flex: 1;
+}
+
+/* ==========================================================================
+   BENCHMARKS — peer average and industry footprint, kept visually separate
+   because they are different units answering different questions.
+   ========================================================================== */
+.bm-block {
+  margin-top: 14px; padding: 12px 14px;
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-inset);
+}
+.bm-block-h {
+  font: 600 12px/1.2 var(--r-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--r-faint);
+  margin-bottom: 10px;
+}
+.bm-nums { display: flex; flex-wrap: wrap; gap: 20px; }
+.bm-num { display: grid; gap: 2px; }
+.bm-num .l { font: 400 11px/1.2 var(--r-font); color: var(--r-muted); }
+.bm-num .v { font: 600 19px/1.15 var(--r-mono); }
+.bm-verdict { margin-top: 10px; font: 500 13.5px/1.5 var(--r-font); }
+.bm-oecd-head { display: grid; gap: 2px; margin-bottom: 10px; }
+.bm-oecd-head .cc-muted { margin-top: 0; }
+
+/* Log-scale locator: cleanest industry at the left, most intense at the right. */
+.bm-scale { margin-top: 14px; }
+.bm-scale-track {
+  position: relative; height: 6px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--r-pos), var(--r-amber) 55%, var(--r-neg));
+}
+.bm-scale-pin {
+  position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--r-text);
+  border: 2px solid var(--r-panel);
+  box-shadow: var(--r-shadowSoft);
+}
+.bm-scale-ends {
+  display: flex; justify-content: space-between; gap: 12px; margin-top: 6px;
+  font: 400 11px/1.35 var(--r-font); color: var(--r-faint);
+}
+.bm-scale-ends span:last-child { text-align: right; }
+.bm-src { margin-top: 6px; font: 400 11px/1.4 var(--r-mono); word-break: break-all; }
+
+.bm-quote { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; }
+.bm-quote-px { font: 600 20px/1.15 var(--r-mono); }
+.bm-quote-chg { font: 600 14px/1.2 var(--r-mono); }
+.bm-quote-note { flex-basis: 100%; margin-top: 0; }
+.bm-quote-none { margin-top: 0; }
+
+/* ---- the per-industry table ---- */
+.ind-scroll { overflow-x: auto; margin-top: 12px; }
+.ind-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.ind-table th, .ind-table td {
+  padding: 7px 10px; text-align: left;
+  border-bottom: 1px solid var(--r-border);
+  white-space: nowrap;
+}
+.ind-table th {
+  font: 600 11px/1.2 var(--r-mono);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--r-faint);
+  position: sticky; top: 0;
+  background: var(--r-panel);
+}
+.ind-table td.num, .ind-table th.num { text-align: right; font-family: var(--r-mono); }
+.ind-table tbody tr:hover { background: var(--r-inset); }
+.ind-table tr.is-current { background: var(--r-bluebg); }
+.ind-table .is-best { color: var(--r-pos); font-weight: 600; }
+.ind-table .is-worst { color: var(--r-neg); font-weight: 600; }
+.ind-sector {
+  appearance: none; background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--r-text); font: 500 12.5px/1.3 var(--r-font); text-align: left;
+}
+.ind-sector:hover { color: var(--r-pos); text-decoration: underline; }
+.ind-isic { white-space: normal; color: var(--r-muted); }
+.ind-via {
+  margin-left: 6px; padding: 1px 6px; border-radius: 999px;
+  border: 1px solid var(--r-border);
+  font: 600 10px/1.4 var(--r-font); color: var(--r-faint);
+}
+.bm-note { border-left: 2px solid var(--r-borderStrong); padding-left: 9px; margin-top: 8px; }

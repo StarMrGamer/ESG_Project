@@ -1,0 +1,19 @@
+# OECD greenhouse-gas intensity by industry, 2022.
+# basis: 29 OECD members reporting both series in full — AUT,BEL,BGR,CYP,CZE,DEU,DNK,ESP,EST,FIN,FRA,GRC,HRV,HUN,IRL,ISL,ITA,LTU,LUX,LVA,MLT,NLD,NOR,POL,PRT,ROU,SVK,SVN,SWE
+# intensity_t_per_musd = tonnes CO2e per million USD of gross value added.
+# cleanliness_percentile: 1.0 = least intense industry in this set, 0.0 = most.
+# emissions:   https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD.SEEA,DSD_AEA@DF_AEA,1.0/.A.EMISSIONS.T_CO2E...GHG...?startPeriod=2018&format=csvfilewithlabels
+# value added: https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_OUTPUT,2.0/A....B1G....USD_EXC.V..?startPeriod=2018&format=csvfilewithlabels
+# retrieved:   2026-08-18
+isic_code,isic_label,isic_sections,year,ghg_t_co2e,gva_usd,intensity_t_per_musd,rank_cleanest,cleanliness_percentile
+L,Real estate activities,L,2022,5971456.32,1652247369000.0,3.6141,1,1.0
+J,Information and communication,J,2022,7442540.99,829960925000.0,8.9673,2,0.9
+K,Financial and insurance activities,K,2022,6902472.1,693083016000.0,9.9591,3,0.8
+M_N,"Professional, scientific, technical and support services",M+N,2022,41306846.32,1810952901000.0,22.8095,4,0.7
+OTQ,"Public administration, defence, education, health",O+P+Q,2022,67514159.08,2916474462000.0,23.1492,5,0.6
+RTU,"Arts, entertainment, other services",R+S+T+U,2022,17579908.74,464713219000.0,37.8296,6,0.5
+F,Construction,F,2022,53530379.04,850760397000.0,62.9206,7,0.4
+GTI,"Wholesale, retail, transport, accommodation and food",G+H+I,2022,567709723.33,3027705016000.0,187.505,8,0.3
+C,Manufacturing,C,2022,758688186.75,2569583682000.0,295.2572,9,0.2
+BTE,Industry (except construction),B+C+D+E,2022,1721044338.66,3344275604000.0,514.624,10,0.1
+A,"Agriculture, forestry and fishing",A,2022,474519220.44,297051923000.0,1597.4285,11,0.0

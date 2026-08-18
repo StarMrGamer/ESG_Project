@@ -35,6 +35,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import anchor
+import benchmarks
 import company_metadata
 import contracts
 import core
@@ -43,6 +44,7 @@ import engine
 import engine_config
 import metrics
 import pipeline_counts
+import quotes
 import stage1
 import stage2
 import universe
@@ -140,8 +142,14 @@ def _unpin(ticker):
         _save_watchlist(_WATCHLIST)
 
 
-def _entry_json(ticker):
-    """Full deep-dive payload for one monitored company (Contract B + snap + cached batons)."""
+def _entry_json(ticker, demo=False):
+    """Full deep-dive payload for one monitored company (Contract B + snap + cached batons).
+
+    Also carries the two industry benchmarks and, for a real listing, a live quote. An UPLOADED
+    company arrives here like any other, so an upload gets benchmarked against its ASEAN peers
+    and its OECD industry with no extra plumbing — which is the whole point of hanging this off
+    the entry rather than off the universe.
+    """
     entry = _ENTRIES.get(ticker)
     if not entry:
         return None
@@ -161,6 +169,11 @@ def _entry_json(ticker):
         "breakdown": bd,
         "origin_badge": _ORIGIN_BADGE.get(company.get("_origin", "sample"), ""),
         "origin_disclaimer": _ORIGIN_DISCLAIMER.get(company.get("_origin", "sample"), ""),
+        # score_higher_better is the snapshot's own reading of which way this company's static
+        # rating runs; the benchmark needs it before it dares subtract anything from it.
+        "benchmark": benchmarks.compare_company(
+            company, demo=demo, higher_better=entry["snap"].get("score_higher_better")),
+        "quote": quotes.quote(ticker, demo=demo),
     }
 
 
@@ -551,6 +564,9 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
                             "source_url": focused.get("source_url"),
                             "confidence": focused.get("confidence")}
                            if focused.get("esg_basis") else None),
+            # Peer average and industry footprint for the focused name. Local and cheap — the
+            # OECD half is a parsed CSV, the ASEAN half is an average over the filtered set.
+            "benchmark": benchmarks.compare_company(focused, path=path),
         }
 
     # --- watchlist ---------------------------------------------------------------- #
@@ -729,7 +745,8 @@ class MonitorIn(BaseModel):
 def monitor(body: MonitorIn):
     if body.ticker:
         if body.ticker in _ENTRIES:
-            return {"ok": True, "ticker": body.ticker, "entry": _entry_json(body.ticker)}
+            return {"ok": True, "ticker": body.ticker,
+                    "entry": _entry_json(body.ticker, body.demo)}
         path = universe.active_file(body.demo)
         c = universe.get(body.ticker, path)
         if not c:
@@ -740,12 +757,12 @@ def monitor(body: MonitorIn):
         tk, err = _ensure_snapshot(c, body.demo)
         if not tk:
             raise HTTPException(502, err or "Couldn't build that snapshot.")
-        return {"ok": True, "ticker": tk, "entry": _entry_json(tk)}
+        return {"ok": True, "ticker": tk, "entry": _entry_json(tk, body.demo)}
     if body.text:
         tk, err = _add_live_company(body.text)
         if not tk:
             raise HTTPException(502, err or f"Couldn't build “{body.text}”.")
-        return {"ok": True, "ticker": tk, "entry": _entry_json(tk), "live_added": True}
+        return {"ok": True, "ticker": tk, "entry": _entry_json(tk), "live_added": True}  # live => real
     raise HTTPException(400, "Provide a ticker or free text.")
 
 
@@ -760,7 +777,7 @@ def watchlist():
     out = []
     stale = []
     for tk in _WATCHLIST:
-        e = _entry_json(tk)
+        e = _entry_json(tk, demo=True)  # summary rows: skip the per-name quote fetch
         if e:
             out.append(e)
         elif (universe.get(tk, universe.active_file(True)) or
@@ -778,8 +795,8 @@ def watchlist():
 
 
 @app.get("/api/entry/{ticker}")
-def entry(ticker: str):
-    e = _entry_json(ticker)
+def entry(ticker: str, demo: bool = Query(False)):
+    e = _entry_json(ticker, demo)
     if not e:
         raise HTTPException(404, "No built snapshot for that ticker — POST /api/monitor first.")
     return e
@@ -1082,6 +1099,32 @@ def verify(body: VerifyIn):
     payload["tampered"] = bool(evidence)
     payload["chain_config"] = {k: v for k, v in anchor.chain_config().items() if k != "has_key"}
     return payload
+
+
+@app.get("/api/benchmarks")
+def benchmarks_api(demo: bool = Query(True), sector: str = ""):
+    """Industry benchmarks: the ASEAN peer average and the OECD industry footprint.
+
+    Served on its own rather than inlined into /api/board because it is a level-2 panel — the
+    board should not pay for a table nobody has opened.
+    """
+    book = benchmarks.load_oecd()
+    payload = {
+        "available": book["available"],
+        "meta": book["meta"],
+        "industries": book["rows"],
+        "table": benchmarks.industry_table(demo=demo),
+    }
+    if sector:
+        payload["sector"] = {"asean": benchmarks.asean_for_sector(sector, demo=demo),
+                             "oecd": benchmarks.oecd_for_sector(sector)}
+    return payload
+
+
+@app.get("/api/quote/{ticker:path}")
+def quote_api(ticker: str, demo: bool = Query(False)):
+    """One live quote. Best-effort: an unavailable quote is a 200 with a reason, not an error."""
+    return quotes.quote(ticker, demo=demo)
 
 
 @app.get("/api/anchors")

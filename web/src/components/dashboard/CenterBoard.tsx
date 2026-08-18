@@ -51,7 +51,11 @@ export default function CenterBoard() {
   const { board, settings, setFocus, openDeepDive } = useStore()
   if (!board) return null
   const { mode, focused, hidden_winners, evidence } = board
-  const simple = settings.simplified
+  // `lv` is the layering control; `simple` stays as the level-1 copy switch the panels below
+  // already read. Level 1 promises "the verdict and one action" in the header tooltip and in the
+  // setup card, so anything that is not the verdict or the action has to earn level 2.
+  const lv = settings.level
+  const simple = lv === 1
   const dark = settings.dark
 
   const focusByTicker = (ticker: string) => setFocus(ticker)
@@ -210,8 +214,6 @@ export default function CenterBoard() {
             <>
               {classification}
               {checkPanel}
-              {forecast}
-              {newsPanel}
               {cta}
             </>
           )
@@ -233,9 +235,10 @@ export default function CenterBoard() {
                   onFocus={focusByTicker} />
               </div>
               {classification}
-              {pricePanel}
-              {forecast}
-              {newsPanel}
+              {checkPanel}
+              {lv >= 3 && pricePanel}
+              {lv >= 3 && forecast}
+              {lv >= 2 && newsPanel}
               {cta}
             </>
           )}
@@ -259,14 +262,7 @@ export default function CenterBoard() {
         ))}
       </div>
       {simple
-        ? (
-          <div className="panel-block">
-            <SectionTitle sub="90 days · % change">ESG momentum</SectionTitle>
-            {Object.keys(board.momentum_series).length === 0
-              ? <div className="empty-note">No momentum data for this filter yet.</div>
-              : <MomentumChart series={board.momentum_series} dark={dark} height={430} />}
-          </div>
-        )
+        ? null
         : (
           <div className="split-board">
             <div className="panel-block">
@@ -283,10 +279,10 @@ export default function CenterBoard() {
           </div>
         )}
       {classification}
-      {pricePanel}
-      {forecast}
-      {simple && checkPanel}
-      {newsPanel}
+      {checkPanel}
+      {lv >= 3 && pricePanel}
+      {lv >= 3 && forecast}
+      {lv >= 2 && newsPanel}
       {cta}
     </div>
   )

@@ -578,6 +578,33 @@ def _csv_to_text(text):
     return "HEADER: " + ", ".join(header) + "\n" + "\n".join(out) if out else text
 
 
+def _carry_peer_score(company: Dict[str, Any], data: Dict[str, Any]) -> None:
+    """Ride an uploaded ``esg_score`` through as a non-contract field, if it is one.
+
+    ``coerce_company_data`` keeps only contract keys, so an uploaded 0-100 score was dropped and
+    the industry benchmark had nothing to compare — the only figure left was
+    ``layer_a.esg_score_static``, which holds whatever the incumbent published and may run either
+    way (a risk score is better when it is lower). Rather than guess a direction off a bare
+    number, the benchmark uses this field, which is the SAME field name and the same convention
+    our own universe files use: 0-100, higher is better.
+
+    So an upload that follows the documented shape gets a peer comparison, and one that only
+    carries a foreign static rating is reported as not comparable instead of being differenced
+    against a scale it may not share. Same non-contract-field pattern as ``_market`` and
+    ``_esg_breakdown`` above, so contracts.py stays frozen.
+    """
+    raw = data.get("esg_score")
+    if isinstance(raw, bool) or raw is None:
+        return
+    try:
+        val = float(raw)
+    except (TypeError, ValueError):
+        return
+    if 0.0 <= val <= 100.0:
+        company["esg_score"] = val
+        company["_score_higher_better"] = True
+
+
 def load_upload(filename: str, content: bytes) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     """Load uploaded ESG data into a Contract B dict. Returns (company_dict, meta).
 
@@ -599,6 +626,7 @@ def load_upload(filename: str, content: bytes) -> Tuple[Dict[str, Any], Dict[str
         company = contracts.coerce_company_data(data, origin="upload")
         company["_sources"] = [{"title": f"Uploaded file: {filename}", "url": ""}]
         company["_build_status"] = "upload"
+        _carry_peer_score(company, data)
         return company, {"mode": "json", "filename": filename}
 
     if name.endswith(".csv") or name.endswith(".txt"):

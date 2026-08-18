@@ -1231,6 +1231,137 @@ def test_api_smoke():
         core.call_llm = original_llm
 
 
+
+# --------------------------------------------------------------------------- #
+#  BENCHMARKS + QUOTES  (industry comparison and the market-quote strip)
+# --------------------------------------------------------------------------- #
+def test_benchmark_crosswalk_order_and_refusal():
+    """The sector -> ISIC crosswalk resolves the overlapping cases, and refuses the rest."""
+    import benchmarks
+
+    # Real-estate rules are checked before the trade/transport ones: a landlord letting shop
+    # space is a real-estate business, and both of these strings contain a trade word.
+    for sector, want in (("Real Estate — Retail Malls", "L"),
+                         ("Real Estate — Industrial & Logistics REIT", "L"),
+                         ("Consumer Staples — Palm Oil Plantations", "A"),
+                         ("Materials — Metals & Mining (Nickel/Gold)", "BTE"),
+                         ("Financials — Banks", "K"),
+                         ("Communication Services — Telecom", "J")):
+        hit = benchmarks.isic_for_sector(sector)
+        assert hit and hit["code"] == want, f"{sector} -> {hit} (wanted {want})"
+
+    # Never guessed into the nearest bucket.
+    for sector in ("", "unknown", "All", "Fictional — Nonsense Industry"):
+        assert benchmarks.isic_for_sector(sector) is None, sector
+
+
+def test_benchmark_oecd_table_is_real_and_ordered():
+    """The bundled OECD table parses, carries its provenance, and ranks cleanest-first."""
+    import benchmarks
+
+    book = benchmarks.load_oecd()
+    assert book["available"], "no OECD benchmark file — run scripts/build_oecd_benchmark.py"
+    rows = book["rows"]
+    assert len(rows) >= 8, len(rows)
+    ints = [r["intensity_t_per_musd"] for r in rows]
+    assert ints == sorted(ints), "rows must be ordered cleanest-first"
+    assert all(r["rank_cleanest"] == i + 1 for i, r in enumerate(rows))
+    # Provenance is not optional: every number on screen has to be traceable.
+    for key in ("basis", "retrieved", "emissions", "value_added"):
+        assert book["meta"].get(key), f"missing provenance: {key}"
+    # A sanity anchor on the physics: finance is not more emissions-intense than agriculture.
+    by_code = {r["isic_code"]: r["intensity_t_per_musd"] for r in rows}
+    assert by_code["K"] < by_code["C"] < by_code["A"], by_code
+
+
+def test_benchmark_refuses_to_difference_unlike_measures():
+    """A static score and an evidence-leadership index are both 0-100 and still not comparable."""
+    import benchmarks
+
+    static_peers = {"available": True, "average": 59.5, "n": 9,
+                    "metric": "mean static ESG score", "metric_kind": "static", "unit": "0-100"}
+    evidence_peers = dict(static_peers, metric_kind="evidence",
+                          metric="mean ESG-leadership (derived from cited ratings)")
+
+    def compare(peers):
+        saved = benchmarks.asean_for_sector
+        benchmarks.asean_for_sector = lambda *a, **k: peers
+        try:
+            return benchmarks.compare_company(
+                {"company": "X", "sector": "Financials — Banks", "esg_score": 72.0})
+        finally:
+            benchmarks.asean_for_sector = saved
+
+    same = compare(static_peers)
+    assert same["gap_vs_asean"] == 12.5, same["gap_vs_asean"]
+    assert "Ahead" in same["verdict"]
+
+    unlike = compare(evidence_peers)
+    assert unlike["own_score"] == 72.0, "both numbers still shown"
+    assert unlike["gap_vs_asean"] is None, "must not difference unlike measures"
+    assert "Not differenced" in unlike["own_score_note"]
+
+
+def test_benchmark_never_reads_a_static_rating_of_unknown_direction():
+    """An incumbent risk score runs the other way; it is reported unknown, not differenced."""
+    import benchmarks
+
+    company = {"company": "Y", "sector": "Financials — Banks",
+               "layer_a": {"esg_score_static": "22.4 (Medium Risk)"}}
+    blind = benchmarks.compare_company(company)
+    assert blind["own_score"] is None, blind["own_score"]
+    assert "direction is not known" in blind["own_score_note"]
+    # With the snapshot's direction verdict in hand, the same number becomes usable.
+    told = benchmarks.compare_company(company, higher_better=True)
+    assert told["own_score"] == 22.4, told["own_score"]
+
+
+def test_upload_carries_its_peer_score():
+    """An uploaded esg_score rides through coercion so the benchmark has something to compare."""
+    import datasource
+
+    payload = json.dumps({"company": "Uploaded Co", "ticker": "SGX:UPLD",
+                          "sector": "Financials — Banks", "esg_score": 72.0}).encode()
+    company, meta = datasource.load_upload("x.json", payload)
+    assert meta["mode"] == "json"
+    assert company.get("esg_score") == 72.0, company.get("esg_score")
+    assert company.get("_score_higher_better") is True
+    # Out-of-range or non-numeric values are dropped rather than carried through.
+    for bad in (None, "n/a", 420, True):
+        body = json.dumps({"company": "C", "ticker": "T", "sector": "S", "esg_score": bad}).encode()
+        c, _ = datasource.load_upload("x.json", body)
+        assert "esg_score" not in c, bad
+
+
+def test_quotes_mapping_gaps_and_offline():
+    """Ticker mapping, the documented gaps, and best-effort failure — all without a network."""
+    import quotes
+
+    assert quotes.yahoo_symbol("SGX:D05") == "D05.SI"
+    assert quotes.yahoo_symbol("IDX:BBRI") == "BBRI.JK"
+    assert quotes.yahoo_symbol("PSE:AC") is None, "PSE is a documented gap, not a guess"
+    assert quotes.yahoo_symbol("nonsense") is None
+
+    # The fictional demo universe must never be handed a price.
+    demo = quotes.quote("SGX:DBKO", demo=True)
+    assert demo["available"] is False and "fictional" in demo["reason"]
+
+    # A documented gap explains itself rather than saying "unavailable".
+    gap = quotes.quote("PSE:AC")
+    assert gap["available"] is False and "Philippine" in gap["reason"]
+
+    # A dead network degrades, never raises (HARD RULE 1).
+    saved = quotes.core.http_get
+    quotes._CACHE.clear()
+    quotes.core.http_get = lambda *a, **k: (_ for _ in ()).throw(core.FetchError("boom"))
+    try:
+        out = quotes.quote("SGX:D05")
+    finally:
+        quotes.core.http_get = saved
+        quotes._CACHE.clear()
+    assert out["available"] is False and "D05.SI" in out["reason"]
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1324,6 +1455,12 @@ def main():
         ("[task-9] company_from_numeric rides esg_breakdown+provenance and flips note", lambda: test_company_from_numeric_rides_breakdown_and_note()),
         ("[task-9] metrics.esg_breakdown passthrough helper", lambda: test_metrics_esg_breakdown_passthrough()),
         ("snapshot band direction-aware (higher=better demo vs lower=better risk)", lambda: test_snapshot_band_direction_aware()),
+        ("benchmark crosswalk order + refuses to guess", lambda: test_benchmark_crosswalk_order_and_refusal()),
+        ("OECD industry table parses, ranks and carries provenance", lambda: test_benchmark_oecd_table_is_real_and_ordered()),
+        ("benchmark refuses to difference unlike measures", lambda: test_benchmark_refuses_to_difference_unlike_measures()),
+        ("benchmark never reads a static rating of unknown direction", lambda: test_benchmark_never_reads_a_static_rating_of_unknown_direction()),
+        ("upload carries its peer score through coercion", lambda: test_upload_carries_its_peer_score()),
+        ("quotes: mapping, documented gaps, offline degradation", lambda: test_quotes_mapping_gaps_and_offline()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0

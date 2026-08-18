@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Dashboard from './components/dashboard/Dashboard'
 import DeepDive from './components/deepdive/DeepDive'
 import CompareView from './components/compare/CompareView'
+import Setup from './components/setup/Setup'
 import EvidencePanel from './components/evidence/EvidencePanel'
 import './styles.css'
 
@@ -29,6 +30,18 @@ function Shell() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', settings.dark ? 'dark' : 'light')
   }, [settings.dark])
+
+  // The assistant configures the board before the board exists. Header and footer stay out of
+  // the way until it has — a first screen with a settings bar on it is already a dashboard.
+  if (!settings.setupDone) {
+    return (
+      <div className="app-shell is-setup">
+        <Setup />
+        <Toasts />
+      </div>
+    )
+  }
+
   return (
     <div className="app-shell">
       <Header />

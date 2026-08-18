@@ -150,6 +150,15 @@ export default function EngineBoard() {
       <div className="matrix-wrap">
         <svg viewBox={`0 0 ${VB.w} ${VB.h}`} className="matrix" role="img"
           aria-label="Quadrant matrix of incumbent rating percentile against live momentum">
+          {/*
+            The axes are the whole claim — x is the market's view, y is ours, and the gap between
+            them is the product. They were previously carried by two grey words under the plot and
+            a tick scale, which is not enough for someone seeing the chart for the first time.
+          */}
+          <text x={VB.left - 46} y={VB.midY} className="matrix-axis-name"
+            transform={`rotate(-90 ${VB.left - 46} ${VB.midY})`} textAnchor="middle">
+            our live momentum →
+          </text>
           <line x1={VB.midX} y1={VB.top - 16} x2={VB.midX} y2={VB.bottom + 4} className="matrix-guide" />
           <line x1={VB.left - 24} y1={VB.midY} x2={VB.right + 24} y2={VB.midY} className="matrix-guide" />
           <text x={VB.left - 28} y={VB.midY - 5} textAnchor="end" className="matrix-tick">0</text>
@@ -181,7 +190,11 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
             )
           })}
         </svg>
-        <div className="matrix-axis-x"><span>rating: laggard</span><span>rating: leader</span></div>
+        <div className="matrix-axis-x">
+          <span>rating: laggard</span>
+          <b className="matrix-axis-name-x">what the incumbent rating thinks (percentile) →</b>
+          <span>rating: leader</span>
+        </div>
       </div>
 
       {hidden.length > 0 && (

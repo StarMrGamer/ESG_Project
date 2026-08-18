@@ -24,7 +24,9 @@ import sys
 
 from scripts import demo_enrich
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# The repo root, not this file's directory: `data/` is a sibling of `scripts/`, so resolving
+# against __file__ alone pointed at scripts/data/ and the module form could never find the file.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEMO_FILE = os.path.join(BASE_DIR, "data", "demo_universe.json")
 PRESERVED = ("company", "ticker", "exchange", "country", "sector", "esg_score", "esg_as_of",
              "esg_breakdown", "data_provenance", "market", "analyst_coverage", "price_change_90d")
@@ -40,7 +42,7 @@ def diversify(universe):
                       news=c.get("news"))
         c["momentum"] = demo_enrich.momentum(name, c["esg_breakdown"], traj)
         c["live_signals"] = demo_enrich.live_signals(name, traj)
-        c["news"] = demo_enrich.news(name, traj)
+        c["news"] = demo_enrich.news(name, traj, c.get("sector"))
         c["trajectory"] = traj
         if any(before[k] != c[k] for k in before):
             changes.append((c["ticker"], traj))
