@@ -59,7 +59,11 @@ DEFAULT_CHARS_PER_TOKEN = 4.0
 # Completion budgets the app actually asks for (max_tokens at each call site). Asserted against
 # the source by _verify_budgets() — these are a cache of what the code does, never a claim.
 STAGE1_MAX_COMPLETION = 1000
-STAGE2_MAX_COMPLETION = 2000
+# Raised 2000 -> 4000 on 19 Aug 2026 with the stage2.py fix. Not a tuning choice: at 2000 the
+# reasoning model consumed the whole budget thinking and never emitted its JSON, so every
+# Contract C field coerced to "unknown". The ceiling below doubles for Stage 2 as a result, and
+# that is a real doubling of the worst case, not a bookkeeping change.
+STAGE2_MAX_COMPLETION = 4000
 
 # How many Stage-1 questions a dive actually asks. The cap is core.MAX_QUESTIONS; a user who
 # answers crisply narrows sooner. Named endpoints beat one averaged number nobody can audit.
@@ -183,9 +187,11 @@ def measure(constituents, *, chars_per_token=DEFAULT_CHARS_PER_TOKEN, sample=Non
             "completion_ceiling": float(questions * STAGE1_MAX_COMPLETION + STAGE2_MAX_COMPLETION),
             # Measured floor: the actual JSON each stage emits, sized off the VERIFIED fixtures on
             # disk. A real completion cannot be smaller than the payload it must contain. It can
-            # be much larger — stage2.py budgets 2000 precisely because a reasoning model spends
+            # be much larger — stage2.py budgets 4000 precisely because a reasoning model spends
             # tokens thinking BEFORE the JSON, and those bill as completion too. Nothing offline
             # can measure that thinking; only --live can. So this is a floor, never an estimate.
+            # The gap between this floor and the ceiling above IS the thinking, and on this model
+            # it is most of the bill — which is exactly why the two are reported separately.
             "completion_floor": float(questions * floor["stage1"] + floor["stage2"]),
         })
     return rows
@@ -254,9 +260,15 @@ def live_completion_sample(constituents, *, chars_per_token=DEFAULT_CHARS_PER_TO
     """Measure REAL completion length for one dive against the live API.
 
     The completion term is the biggest cost driver and the only one nothing offline can pin down
-    (reasoning tokens are emitted before the JSON and bill as completion). This resolves it — at
+    (reasoning tokens are emitted before the JSON and bill as completion). This narrows it — at
     the price of one real, billable dive. Raises rather than degrading: a cost tool that silently
     reports an estimate as a measurement is the exact failure this whole rewrite exists to fix.
+
+    It does NOT resolve it. core.call_llm returns the assistant string, so what is measured here
+    is what came back, not what was billed — and on a reasoning model those differ by about 10x.
+    Making this exact means returning the API's `usage` object (completion_tokens counts the
+    reasoning; prompt_cache_hit_tokens would also replace the 87-92% cache estimate with the
+    real rate), which is a change to a frozen file. Until then: the ceiling is the honest number.
     """
     if not os.environ.get("DEEPSEEK_API_KEY", "").strip():
         raise RuntimeError("--live needs DEEPSEEK_API_KEY. Refusing to pass the offline estimate "
@@ -275,8 +287,13 @@ def live_completion_sample(constituents, *, chars_per_token=DEFAULT_CHARS_PER_TO
     return {"company": c.get("ticker", ""),
             "stage1_completion_tokens": round(_tokens(s1_raw, chars_per_token)),
             "stage2_completion_tokens": round(_tokens(s2_raw, chars_per_token)),
-            "note": "Returned-string length only. Billed completion also includes any reasoning "
-                    "tokens the API did not return, so treat this as a lower bound on billing."}
+            "note": "Returned-string length only, and on a reasoning model that is not a near "
+                    "miss — it is off by roughly an order of magnitude. Measured 19 Aug 2026 on "
+                    "deepseek-v4-flash: a Stage-2 call capped at 2000 emitted ~2100 tokens of "
+                    "reasoning and never reached its JSON, so real billed completion sits near "
+                    "the CEILING column above, not near this number or the floor. Quote the "
+                    "ceiling. Pinning it exactly needs the API usage object, which core.call_llm "
+                    "does not return (frozen file — needs sign-off)."}
 
 
 def main(argv):
