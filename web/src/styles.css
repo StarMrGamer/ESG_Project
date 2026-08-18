@@ -1453,18 +1453,50 @@ kbd.kbd {
 .nmk b { color: var(--r-text); font: 600 12px var(--r-mono); margin-right: 4px; }
 
 .matrix-wrap { margin: 6px 0 4px; }
-.matrix { width: 100%; height: 300px; display: block; background: color-mix(in srgb, var(--r-bg) 55%, transparent); border: 1px solid var(--r-border); border-radius: 8px; }
+.matrix {
+  display: block; width: 100%; height: auto;
+  background: color-mix(in srgb, var(--r-bg) 55%, transparent);
+  border: 1px solid var(--r-border); border-radius: 8px;
+}
+
+/* Faint scaffolding for reading a position off the plot. */
+.matrix-grid {
+  stroke: var(--r-border); stroke-width: 1; vector-effect: non-scaling-stroke;
+}
+
+/* The axis frame and its tick marks: the strongest lines in the chart, because they are the
+   reference everything else is read against. */
+.matrix-axis {
+  stroke: color-mix(in srgb, var(--r-text) 55%, transparent);
+  stroke-width: 1.5; vector-effect: non-scaling-stroke;
+}
+
+/* The two quadrant boundaries. Dashed so they read as thresholds rather than as scale lines, and
+   stronger than the grid because crossing one changes a company's label. */
+.matrix-divide {
+  stroke: color-mix(in srgb, var(--r-text) 34%, transparent);
+  stroke-width: 1.5; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke;
+}
+.matrix-divide-label {
+  fill: var(--r-faint); font: 500 10px var(--r-mono);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.matrix-end {
+  fill: var(--r-faint); font: 500 11px var(--r-mono); letter-spacing: 0.04em;
+}
 .matrix-guide { stroke: var(--r-border); stroke-width: 1; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
 .matrix-quad { font-size: 15px; fill: var(--r-muted); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
 /* separator in a two-label corner caption — stays muted so neither label's colour bleeds */
 .matrix-quad-sep { fill: var(--r-muted); }
-.matrix-tick { font-size: 12px; fill: var(--r-muted); font-family: var(--r-mono); }
+.matrix-tick {
+  font: 500 12px var(--r-mono); fill: var(--r-muted);
+  font-variant-numeric: tabular-nums;
+}
 .matrix-dot { cursor: pointer; fill-opacity: 0.85; transition: opacity 0.18s var(--r-ease); }
 .matrix-dot.is-dim { opacity: 0.16; }
 .matrix-dot.is-focus { stroke: var(--r-text); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .matrix-dot:hover { fill-opacity: 1; }
 .matrix-dot:hover { opacity: 1; }
-.matrix-axis-x { display: flex; justify-content: space-between; color: var(--r-muted); font: 500 10.5px var(--r-mono); padding: 4px 4px 0; }
 
 .q-hidden, .q-hidden-winners { color: var(--r-pos); fill: var(--r-pos); }
 .q-future, .q-future-leaders { color: var(--r-blue); fill: var(--r-blue); }
@@ -1859,15 +1891,9 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 /* Axis names on the disagreement matrix. Bigger and higher-contrast than the ticks:
    they carry the claim, so they are read before the dots. */
 .matrix-axis-name {
-  fill: var(--r-muted);
-  font: 600 13px/1 var(--r-font);
-  letter-spacing: 0.01em;
-}
-.matrix-axis-name-x {
-  color: var(--r-muted);
-  font: 600 12.5px/1.2 var(--r-font);
-  text-align: center;
-  flex: 1;
+  fill: var(--r-text);
+  font: 600 13.5px/1 var(--r-font);
+  letter-spacing: 0.015em;
 }
 
 /* ==========================================================================

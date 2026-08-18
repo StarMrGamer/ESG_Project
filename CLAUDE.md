@@ -92,6 +92,16 @@ chips plus a local matcher, no LLM call — because a demo cannot be one flaky n
 from its opening screen. `settings.setupDone` persists, so a returning browser goes straight to
 the board; **Reconfigure** in the header re-runs it.
 
+**The disagreement matrix has real axes.** x and y are drawn as a framed L with gridlines, tick
+marks and labels on both (percentile 0–100%, momentum −1.0 to +1.0), named axes, and the two
+QUADRANT BOUNDARIES called out separately from the grid — dashed and captioned *median rating* /
+*no momentum*, because crossing one changes a company's label and no other gridline does that.
+The plot measures its own box with a ResizeObserver on a callback ref and sets its viewBox to
+that pixel width, so it draws 1:1 and fills the board. (A fixed viewBox with the default
+`preserveAspectRatio` letterboxed the whole chart on a wide monitor; a mount effect could not
+measure it, because `EngineBoard` returns null until the board loads and the element does not
+exist yet.)
+
 **The board is centred, not stacked.** At every numeric level the middle column opens with
 `RadarHub` (`web/src/components/dashboard/RadarHub.tsx`): the focused company in a core card with
 the four pillar readings as satellites at the corners around it. The plot is a real radar and it

@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react'
+import { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 import { useStore } from '../../store'
 import type { EngineRecord, HorizonKey, LabelKey, TierKey } from '../../types'
 
@@ -17,14 +17,35 @@ const LABEL_TONE: Record<string, string> = {
   value_traps: 'q-trap', consensus: 'q-consensus',
 }
 
-// The plot's own coordinate space. The viewBox is WIDE and the SVG scales uniformly
-// (`preserveAspectRatio` left at its default) so a dot is always a circle, never an ellipse
-// stretched by the container's width.
-const VB = { w: 1000, h: 300, left: 60, right: 940, top: 30, bottom: 270, midX: 500, midY: 150 }
+/**
+ * The plot's geometry.
+ *
+ * The viewBox is measured, not fixed. It used to be a constant 1000x300 rendered into a
+ * full-width box with the default `preserveAspectRatio`, which means `meet`: on a wide monitor
+ * the whole chart was letterboxed to 1000px and centred, so the dots crowded into the middle
+ * third and the axes had nowhere to breathe. Setting the viewBox to the element's own pixel size
+ * keeps the scale at 1:1 — dots stay circles, strokes stay hairlines — and lets the plot use the
+ * width the board now has.
+ *
+ * Padding is asymmetric because the axes need room: the left gutter holds the tick labels and the
+ * rotated axis name, the bottom holds the tick labels, the axis name and the two end captions.
+ */
+const H = 340
+const PAD = { l: 104, r: 30, t: 34, b: 66 }
+const MIN_W = 520
 
-// Where each region's caption sits. Three of these ARE their quadrant, exactly: future_leaders,
-// overrated_leaders and value_traps are defined as `lseg_percentile` either side of 0.5 crossed
-// with the sign of momentum, which is precisely the axes drawn here.
+/** Where the tick marks and gridlines fall on each axis. */
+const X_TICKS = [0, 0.25, 0.5, 0.75, 1]
+const Y_TICKS = [1, 0.5, 0, -0.5, -1]
+
+const fmtY = (v: number) => (v > 0 ? `+${v.toFixed(1)}` : v < 0 ? `−${Math.abs(v).toFixed(1)}` : '0')
+
+interface Rect { x0: number; x1: number; y0: number; y1: number; midX: number; midY: number }
+
+// Where each region's caption sits, as a fraction of the plot rect. Three of these ARE their
+// quadrant, exactly: future_leaders, overrated_leaders and value_traps are defined as
+// `lseg_percentile` either side of 0.5 crossed with the sign of momentum, which is precisely the
+// axes drawn here.
 //
 // The top-left corner is not one label but two. `consensus` is the fallback for that quadrant,
 // but `hidden_winners` is evaluated FIRST and carves companies out of it wherever the signed
@@ -32,11 +53,11 @@ const VB = { w: 1000, h: 300, left: 60, right: 940, top: 30, bottom: 270, midX: 
 // corner "Consensus" alone put the product's whole differentiator under the name of something
 // else, and a reader matching green dots to the nearest caption drew the wrong conclusion. So
 // the corner names both, and each half is drawn in the colour of its own dots.
-const QUADRANTS: { keys: LabelKey[]; x: number; y: number; anchor: 'start' | 'end' }[] = [
-  { keys: ['hidden_winners', 'consensus'], x: VB.left + 8, y: VB.top + 6, anchor: 'start' },
-  { keys: ['future_leaders'], x: VB.right - 8, y: VB.top + 6, anchor: 'end' },
-  { keys: ['value_traps'], x: VB.left + 8, y: VB.bottom + 18, anchor: 'start' },
-  { keys: ['overrated_leaders'], x: VB.right - 8, y: VB.bottom + 18, anchor: 'end' },
+const QUADRANTS: { keys: LabelKey[]; at: (r: Rect) => { x: number; y: number }; anchor: 'start' | 'end' }[] = [
+  { keys: ['hidden_winners', 'consensus'], anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y0 + 16 }) },
+  { keys: ['future_leaders'], anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y0 + 16 }) },
+  { keys: ['value_traps'], anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y1 - 8 }) },
+  { keys: ['overrated_leaders'], anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y1 - 8 }) },
 ]
 
 function matches(record: EngineRecord, tier: TierKey | 'all', pipelineOnly: boolean): boolean {
@@ -47,6 +68,26 @@ function matches(record: EngineRecord, tier: TierKey | 'all', pipelineOnly: bool
 
 export default function EngineBoard() {
   const { board, settings, setSettings, openEvidence, focusTicker, setFocus } = useStore()
+  // The plot draws itself at 1:1 with its own box, so it has to know how wide that box is.
+  //
+  // A callback ref rather than useRef + useEffect: this component returns null until the board
+  // has loaded, so a mount effect runs once against an element that does not exist yet and, with
+  // an empty dependency list, never runs again. The plot then kept its 1000px default forever and
+  // the browser scaled the whole chart up to fit — every stroke and label 2.5x oversized on a
+  // wide monitor. A callback ref fires when the node actually arrives, and again when it leaves.
+  const roRef = useRef<ResizeObserver | null>(null)
+  const [wide, setWide] = useState(1000)
+  const measureRef = useCallback((el: HTMLDivElement | null) => {
+    roRef.current?.disconnect()
+    roRef.current = null
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(entries => {
+      const w = Math.round(entries[0].contentRect.width)
+      if (w > 0) setWide(w)
+    })
+    ro.observe(el)
+    roRef.current = ro
+  }, [])
   const engine = board?.engine
   const nameOf = useMemo(() => {
     const map: Record<string, string> = {}
@@ -70,11 +111,18 @@ export default function EngineBoard() {
     horizons, half_life_days } = engine
   const dimmed = rows.length - shown.length
 
-  const point = (r: EngineRecord) => ({
-    // x: the incumbent percentile (0..1). y: our momentum (-1..+1), +1 at the top.
-    cx: VB.left + r.lseg_percentile * (VB.right - VB.left),
-    cy: VB.midY - Math.max(-1, Math.min(1, r.composite_momentum)) * (VB.midY - VB.top),
-  })
+  const W = Math.max(MIN_W, wide)
+  const rect: Rect = {
+    x0: PAD.l, x1: W - PAD.r, y0: PAD.t, y1: H - PAD.b,
+    midX: PAD.l + (W - PAD.r - PAD.l) / 2, midY: PAD.t + (H - PAD.b - PAD.t) / 2,
+  }
+  /** percentile 0..1 -> x */
+  const xOf = (p: number) => rect.x0 + p * (rect.x1 - rect.x0)
+  /** momentum -1..+1 -> y, +1 at the top */
+  const yOf = (m: number) =>
+    rect.y1 - ((Math.max(-1, Math.min(1, m)) + 1) / 2) * (rect.y1 - rect.y0)
+
+  const point = (r: EngineRecord) => ({ cx: xOf(r.lseg_percentile), cy: yOf(r.composite_momentum) })
 
   return (
     <div className="engine-board">
@@ -147,25 +195,72 @@ export default function EngineBoard() {
         </div>
       </div>
 
-      <div className="matrix-wrap">
-        <svg viewBox={`0 0 ${VB.w} ${VB.h}`} className="matrix" role="img"
+      <div className="matrix-wrap" ref={measureRef}>
+        <svg viewBox={`0 0 ${W} ${H}`} className="matrix" role="img"
           aria-label="Quadrant matrix of incumbent rating percentile against live momentum">
           {/*
-            The axes are the whole claim — x is the market's view, y is ours, and the gap between
-            them is the product. They were previously carried by two grey words under the plot and
-            a tick scale, which is not enough for someone seeing the chart for the first time.
+            The axes are the whole claim — x is the market's view of a company, y is ours, and the
+            gap between them is the product. They are drawn as a real pair of axes: a framed L,
+            ticked and labelled on both, with the two quadrant boundaries called out separately
+            because those carry a meaning no other gridline does.
           */}
-          <text x={VB.left - 46} y={VB.midY} className="matrix-axis-name"
-            transform={`rotate(-90 ${VB.left - 46} ${VB.midY})`} textAnchor="middle">
+
+          {/* gridlines first, so everything else sits on top of them */}
+          {X_TICKS.map(t => (
+            <line key={`gx${t}`} x1={xOf(t)} y1={rect.y0} x2={xOf(t)} y2={rect.y1}
+              className="matrix-grid" />
+          ))}
+          {Y_TICKS.map(t => (
+            <line key={`gy${t}`} x1={rect.x0} y1={yOf(t)} x2={rect.x1} y2={yOf(t)}
+              className="matrix-grid" />
+          ))}
+
+          {/* the two quadrant boundaries — the only gridlines that mean something */}
+          <line x1={rect.midX} y1={rect.y0} x2={rect.midX} y2={rect.y1} className="matrix-divide" />
+          <line x1={rect.x0} y1={rect.midY} x2={rect.x1} y2={rect.midY} className="matrix-divide" />
+          <text x={rect.midX + 6} y={rect.y0 + 13} className="matrix-divide-label">median rating</text>
+          <text x={rect.x1 - 6} y={rect.midY - 6} textAnchor="end" className="matrix-divide-label">
+            no momentum
+          </text>
+
+          {/* the axis frame */}
+          <line x1={rect.x0} y1={rect.y0} x2={rect.x0} y2={rect.y1} className="matrix-axis" />
+          <line x1={rect.x0} y1={rect.y1} x2={rect.x1} y2={rect.y1} className="matrix-axis" />
+
+          {/* y ticks + labels */}
+          {Y_TICKS.map(t => (
+            <g key={`y${t}`}>
+              <line x1={rect.x0 - 6} y1={yOf(t)} x2={rect.x0} y2={yOf(t)} className="matrix-axis" />
+              <text x={rect.x0 - 11} y={yOf(t) + 4} textAnchor="end" className="matrix-tick">
+                {fmtY(t)}
+              </text>
+            </g>
+          ))}
+
+          {/* x ticks + labels */}
+          {X_TICKS.map(t => (
+            <g key={`x${t}`}>
+              <line x1={xOf(t)} y1={rect.y1} x2={xOf(t)} y2={rect.y1 + 6} className="matrix-axis" />
+              <text x={xOf(t)} y={rect.y1 + 20} textAnchor="middle" className="matrix-tick">
+                {`${t * 100}%`}
+              </text>
+            </g>
+          ))}
+
+          {/* axis names */}
+          <text x={rect.x0 - 62} y={rect.midY} className="matrix-axis-name"
+            transform={`rotate(-90 ${rect.x0 - 62} ${rect.midY})`} textAnchor="middle">
             our live momentum →
           </text>
-          <line x1={VB.midX} y1={VB.top - 16} x2={VB.midX} y2={VB.bottom + 4} className="matrix-guide" />
-          <line x1={VB.left - 24} y1={VB.midY} x2={VB.right + 24} y2={VB.midY} className="matrix-guide" />
-          <text x={VB.left - 28} y={VB.midY - 5} textAnchor="end" className="matrix-tick">0</text>
-          <text x={VB.left - 28} y={VB.top + 5} textAnchor="end" className="matrix-tick">+1</text>
-          <text x={VB.left - 28} y={VB.bottom + 4} textAnchor="end" className="matrix-tick">−1</text>
+          <text x={(rect.x0 + rect.x1) / 2} y={rect.y1 + 44} textAnchor="middle"
+            className="matrix-axis-name">
+            what the incumbent rating thinks — percentile →
+          </text>
+          <text x={rect.x0} y={rect.y1 + 44} textAnchor="start" className="matrix-end">laggard</text>
+          <text x={rect.x1} y={rect.y1 + 44} textAnchor="end" className="matrix-end">leader</text>
+
           {QUADRANTS.map(q => (
-            <text key={q.keys.join('+')} x={q.x} y={q.y} textAnchor={q.anchor} className="matrix-quad">
+            <text key={q.keys.join('+')} {...q.at(rect)} textAnchor={q.anchor} className="matrix-quad">
               {q.keys.map((key, i) => (
                 <Fragment key={key}>
                   {i > 0 && <tspan className="matrix-quad-sep"> · </tspan>}
@@ -190,11 +285,6 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
             )
           })}
         </svg>
-        <div className="matrix-axis-x">
-          <span>rating: laggard</span>
-          <b className="matrix-axis-name-x">what the incumbent rating thinks (percentile) →</b>
-          <span>rating: leader</span>
-        </div>
       </div>
 
       {hidden.length > 0 && (
