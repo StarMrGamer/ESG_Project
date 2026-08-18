@@ -61,6 +61,7 @@ esg-momentum-radar/
   scripts/                   # developer-only data builders and the LLM probe
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
     build_oecd_benchmark.py  # pulls OECD SDMX (emissions x value added) -> the industry benchmark CSV
+    demo_reset.py            # puts the running app into a deterministic RECORDING state
     demo_diversify.py        # re-derives ONLY demo momentum/live_signals/news
                             #   (preserves esg_score — the MOCK baseline must not move)
   data/oecd_industry_benchmark.csv  # REAL OECD GHG intensity per ISIC industry (built by the script below)
@@ -296,6 +297,10 @@ python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.
 python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity
 python quotes.py                         # live quotes for one name per ASEAN exchange
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
+python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
+                                          #   pre-computes both Compete answers, prints the
+                                          #   localStorage blob for the UI half (--no-warm skips
+                                          #   the billable calls)
 ```
 
 **The engine (Prototype Build Spec v2, `D/`).** `run_engine` is a PURE function — no clock, no
