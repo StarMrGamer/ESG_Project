@@ -3,6 +3,8 @@ calibration.py — A8 / STEP 8.4: two humans score ten companies, blind, against
 =========================================================================================
 
     python calibration.py --sheet      # write the BLIND rating sheet (refuses to clobber ratings)
+    python calibration.py --sheet --universe cases   # ...backtest cases only (or real / demo)
+    python calibration.py --rate rater_a --name "Your Name"   # rate them, one keypress each
     python calibration.py              # score whatever ratings the sheet now holds
     python calibration.py --json       # the same report as JSON, for the eval appendix
 
@@ -33,6 +35,7 @@ import json
 import os
 import sys
 
+import backtest_timeline
 import company_metadata
 import engine
 import universe
@@ -65,19 +68,96 @@ DEFAULT_CUTPOINTS = {"weak": 0.10, "strong": 0.45}
 # --------------------------------------------------------------------------- #
 #  the set
 # --------------------------------------------------------------------------- #
-def _demo_run(config=None):
-    return engine.run_engine(universe.constituents(universe.DEMO_FILE),
+UNIVERSES = {"pooled": "data/backtest_cases.json + data/asean_universe.json",
+             "cases": "data/backtest_cases.json",
+             "real": universe.UNIVERSE_FILE,
+             "demo": universe.DEMO_FILE}
+DEFAULT_UNIVERSE = "pooled"
+MIN_EXCERPTS = 2       # below this there is nothing for a human to weigh
+
+# What each candidate set is actually good for. Printed into the sheet and the report, because
+# the honest reading of an agreement statistic depends entirely on which set produced it.
+UNIVERSE_CAVEAT = {
+    "pooled": "The backtest cases plus every real ASEAN name carrying at least two excerpts. "
+              "The cases are what put a DETERIORATING company in the set (Top Glove) and a "
+              "contested one (Adaro) — without them every rateable name is Future Leaders or "
+              "Consensus, and a rater answering '+1' to everything would score well. Where a "
+              "ticker appears in both, the case wins: its evidence is dated and cutoff-frozen. "
+              "Mixed provenance, stated here rather than smoothed over.",
+    "cases": "The backtest cases alone: real, dated, sourced prose, and the only set that "
+             "contains BOTH directions. Fewer companies than the runbook's ten — that is all "
+             "the evidence of this quality we hold, and padding it with one-sentence names "
+             "would buy a rounder number and a worse test.",
+    "real": "The real 52, restricted to names carrying at least two excerpts. Genuine prose, "
+            "but every qualifying company is Future Leaders or Consensus: there is no "
+            "deteriorating name in the set, so a rater who answers '+1' to everything scores "
+            "well and the statistic cannot tell them apart from someone reading carefully.",
+    "demo": "The demo fixture. CIRCULAR — its excerpts are the engine's own stored numbers "
+            "rendered as text ('stored environment momentum +7%'), so a rater is handed the "
+            "conclusion in words. Available for wiring tests; not a calibration.",
+}
+
+
+def _run(which=DEFAULT_UNIVERSE, config=None):
+    """Score one candidate set and hand back a run-shaped dict.
+
+    The default pools the backtest cases with the real 52, and that is a correctness choice
+    rather than a preference — see UNIVERSE_CAVEAT for what each set is worth.
+    """
+    if which == "pooled":
+        cases = _run("cases", config)
+        real = _run("real", config)
+        seen = {r["company_id"] for r in cases["records"]}
+        return dict(cases, records=cases["records"] + [r for r in real["records"]
+                                                       if r["company_id"] not in seen],
+                    run_id="pooled-" + cases["config_hash"][:8],
+                    company_count=len(cases["records"]) + len(real["records"]))
+    if which == "cases":
+        # Each case is scored with its lookback frozen at its own cutoff, exactly as the harness
+        # scores it, so the record a rater is compared against is the one we already publish.
+        records = []
+        for case in backtest_timeline.load_cases()["cases"]:
+            run = engine.run_engine([backtest_timeline.case_company(case)],
+                                    cutoff=case["cutoff_date"], use_cache=False, config=config)
+            records.append(run["records"][0])
+        cfg_run = run
+        return {"run_id": "cases-" + cfg_run["config_hash"][:8],
+                "engine_version": cfg_run["engine_version"],
+                "config_hash": cfg_run["config_hash"], "as_of": cfg_run["as_of"],
+                "records": records, "labels": cfg_run["labels"],
+                "company_count": len(records)}
+    path = UNIVERSES.get(which, universe.UNIVERSE_FILE)
+    return engine.run_engine(universe.constituents(path),
                              metadata=company_metadata.load(), use_cache=False, config=config)
 
 
-def select(run, size=SET_SIZE):
-    """Pick the calibration set: round-robin across quadrants, alphabetical within each.
+def _universe_of(sheet):
+    """Which set a sheet was frozen against — so a sheet is always scored against the same
+    names it was written from, even after the default changes."""
+    named = ((sheet or {}).get("frozen_against") or {}).get("universe") or ""
+    for key, path in UNIVERSES.items():
+        if named and (named == path or os.path.basename(path) == os.path.basename(named)):
+            return key
+    return DEFAULT_UNIVERSE
 
-    Deterministic, and deliberately NOT "the ten most interesting names" — a sheet of ten
-    Hidden Winners would tell us how well humans and the engine agree about companies the
-    engine already feels strongly about, which is the easy half of the question."""
+
+def select(run, size=SET_SIZE):
+    """Pick the calibration set.
+
+    Two rules, in order. First, a company must carry at least MIN_EXCERPTS excerpts — you
+    cannot ask a human which way a company is heading and then show them nothing, and a
+    one-line sheet produces a coin flip dressed as a judgement. Second, if more companies
+    qualify than we need, take them round-robin across quadrants, alphabetical within each:
+    a sheet of ten Hidden Winners would only tell us how well humans agree with the engine
+    about companies the engine already feels strongly about, which is the easy half.
+
+    If fewer qualify than `size`, the set is simply smaller. Padding it to a round number with
+    names we hold one sentence about would buy the number and lose the measurement."""
+    eligible = [r for r in run["records"] if r["signal_count"] >= MIN_EXCERPTS]
+    if len(eligible) <= size:
+        return sorted(eligible, key=lambda r: r["company_id"])
     by_label = {}
-    for rec in sorted(run["records"], key=lambda r: r["company_id"]):
+    for rec in sorted(eligible, key=lambda r: r["company_id"]):
         by_label.setdefault(rec["label"], []).append(rec)
     picked, i = [], 0
     while len(picked) < size and any(len(v) > i for v in by_label.values()):
@@ -100,7 +180,7 @@ def _evidence_for(record):
                             key=lambda s: (s.get("published_at", ""), s["signal_id"]))]
 
 
-def build_sheet(run):
+def build_sheet(run, which=DEFAULT_UNIVERSE):
     return {
         "_note": "BLIND calibration sheet (A8 / STEP 8.4). Two raters score each company's "
                  "12-month ESG DIRECTION from the excerpts below — the same evidence the engine "
@@ -120,9 +200,13 @@ def build_sheet(run):
                            "claim the product makes. The five-point intensity agreement is "
                            "reported underneath it as detail. Score the direction carefully; "
                            "give the intensity your honest best guess and move on.",
+        "set": which,
+        "_what_this_set_is_worth": UNIVERSE_CAVEAT[which],
         "frozen_against": {"run_id": run["run_id"], "engine_version": run["engine_version"],
                            "config_hash": run["config_hash"], "as_of": run["as_of"],
-                           "universe": os.path.relpath(universe.DEMO_FILE, BASE_DIR)},
+                           "universe": (os.path.relpath(UNIVERSES[which], BASE_DIR)
+                                        if os.path.isabs(UNIVERSES[which])
+                                        else UNIVERSES[which])},
         "raters": {r: {"name": None, "rated_at": None} for r in RATERS},
         "companies": [
             {"company_id": rec["company_id"], "company": rec["company"],
@@ -135,9 +219,9 @@ def build_sheet(run):
     }
 
 
-def write_sheet(force=False):
-    run = _demo_run()
-    fresh = build_sheet(run)
+def write_sheet(force=False, which=DEFAULT_UNIVERSE):
+    run = _run(which)
+    fresh = build_sheet(run, which)
     if os.path.exists(SHEET_FILE) and not force:
         existing = load_sheet()
         filled = sum(1 for c in existing.get("companies", [])
@@ -153,6 +237,10 @@ def write_sheet(force=False):
     print(f"  wrote {os.path.relpath(SHEET_FILE, BASE_DIR)} — {len(fresh['companies'])} companies, "
           f"{sum(len(c['evidence']) for c in fresh['companies'])} excerpts, "
           f"{len(RATERS)} blank rater columns")
+    if len(fresh["companies"]) < SET_SIZE:
+        print(f"  NOTE: {len(fresh['companies'])} companies, not {SET_SIZE} — only that many "
+              f"carry >= {MIN_EXCERPTS} excerpts in the '{which}' set.")
+    print(f"  set '{which}': {UNIVERSE_CAVEAT[which]}")
     return 0
 
 
@@ -162,6 +250,89 @@ def load_sheet(path=None):
             return json.load(fh)
     except (OSError, ValueError):
         return {}
+
+
+# --------------------------------------------------------------------------- #
+#  rating — the fast path
+# --------------------------------------------------------------------------- #
+KEYS = {"-2": -2, "2-": -2, "-1": -1, "1-": -1, "0": 0,
+        "1": 1, "+1": 1, "2": 2, "+2": 2}
+
+
+def rate(rater, name=None, path=None):
+    """Walk the sheet one company at a time and take a single keypress per call.
+
+    Hand-editing 108 excerpts of JSON is why calibration studies do not get done. This is the
+    same sheet and the same blindness — it just removes the typing. It saves after every answer,
+    so quitting halfway keeps what you did, and it never shows you the model's score.
+    """
+    if rater not in RATERS:
+        print(f"unknown rater {rater!r} — expected one of {', '.join(RATERS)}")
+        return 2
+    sheet = load_sheet(path)
+    if not sheet:
+        print(f"no sheet at {os.path.relpath(path or SHEET_FILE, BASE_DIR)} — "
+              f"run `python calibration.py --sheet` first")
+        return 2
+    if name:
+        sheet.setdefault("raters", {}).setdefault(rater, {})["name"] = name
+
+    companies = sheet.get("companies", [])
+    print(f"\nRATING AS {rater}"
+          f"{' (' + name + ')' if name else ''} — {len(companies)} companies, blind.")
+    print("You are judging ONE thing: which way is this company's ESG heading over the next "
+          "12 months,\non the evidence shown? The model's answer is not in this file and will "
+          "not be shown to you.\n")
+
+    for i, entry in enumerate(companies, 1):
+        slot = entry.setdefault("ratings", {}).setdefault(rater, {"rating": None, "note": ""})
+        if slot.get("rating") is not None:
+            print(f"[{i}/{len(companies)}] {entry['company']} — already rated "
+                  f"{slot['rating']:+d}, skipping")
+            continue
+        print("=" * 78)
+        print(f"[{i}/{len(companies)}] {entry['company']} · {entry.get('sector', '?')} · "
+              f"{entry.get('country', '?')} · {len(entry['evidence'])} excerpts")
+        print("=" * 78)
+        for ev in entry["evidence"]:
+            print(f"  {ev['published_at']}  [{ev['source_type']}]  {ev['excerpt']}")
+        print("\n  -2 strongly deteriorating   -1 deteriorating   0 flat/unclear"
+              "\n  +1 improving                +2 strongly improving"
+              "\n  s skip (honest abstention)  q save and quit")
+        while True:
+            try:
+                answer = input("  > ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                answer = "q"
+                print()
+            if answer in ("q", "quit"):
+                _save(sheet, path)
+                print(f"\nsaved. re-run the same command to pick up where you stopped.")
+                return 0
+            if answer in ("s", "skip", ""):
+                print("  abstained — counted separately, not as a zero.\n")
+                break
+            if answer in KEYS:
+                slot["rating"] = KEYS[answer]
+                note = input("  why, in a few words (optional) > ").strip()
+                if note:
+                    slot["note"] = note
+                _save(sheet, path)
+                print(f"  recorded {KEYS[answer]:+d}\n")
+                break
+            print("  -2 / -1 / 0 / +1 / +2, or s to skip, q to quit")
+
+    _save(sheet, path)
+    done = sum(1 for c in companies if (c["ratings"].get(rater) or {}).get("rating") is not None)
+    print(f"\ndone — {done}/{len(companies)} rated as {rater}.")
+    print("Once BOTH raters have a column, `python calibration.py` scores it.")
+    return 0
+
+
+def _save(sheet, path=None):
+    target = path or SHEET_FILE
+    with open(target, "w", encoding="utf-8") as fh:
+        json.dump(sheet, fh, indent=1, ensure_ascii=False)
 
 
 # --------------------------------------------------------------------------- #
@@ -216,7 +387,7 @@ def score(sheet=None, run=None):
         return {"status": "no_sheet",
                 "detail": f"{os.path.relpath(SHEET_FILE, BASE_DIR)} is missing — "
                           f"run `python calibration.py --sheet`"}
-    run = run or _demo_run()
+    run = run or _run(_universe_of(sheet))
     cutpoints = sheet.get("model_cutpoints") or DEFAULT_CUTPOINTS
     by_id = {r["company_id"]: r for r in run["records"]}
 
@@ -248,6 +419,8 @@ def score(sheet=None, run=None):
         "missing_from_run": missing, "out_of_scale": out_of_scale,
         "cutpoints": cutpoints, "rows": rows,
         "frozen_against": sheet.get("frozen_against", {}),
+        "set": sheet.get("set", _universe_of(sheet)),
+        "set_caveat": sheet.get("_what_this_set_is_worth", ""),
         "run": {"run_id": run["run_id"], "config_hash": run["config_hash"]},
     }
     a, b = RATERS
@@ -310,6 +483,8 @@ def report(result=None):
     cp = result["cutpoints"]
     print(f"  model cut-points          |m| < {cp['weak']} -> 0 · < {cp['strong']} -> +/-1 · "
           f"else +/-2")
+    print(f"  set                       {result.get('set', '?')} "
+          f"({result['frozen_against'].get('universe', '?')})")
     print(f"  scored against            run {result['run']['run_id']} "
           f"(config {result['run']['config_hash']})")
     if result["missing_from_run"]:
@@ -347,15 +522,38 @@ def report(result=None):
     if band:
         print(f"    |composite| on this set spans {band['min']:.2f}..{band['max']:.2f} — a narrow "
               f"band, so\n    intensity has little to separate and mostly reads out the fixture.")
+    if result.get("set_caveat"):
+        print(f"\n  WHAT THIS SET IS WORTH\n    {_wrap_c(result['set_caveat'], 4)}")
     print("\n  Read it honestly: if the model tracks the humans NO better than the humans track "
           "\n  each other, the engine is inside human noise — say that, don't claim more.")
     return 0
 
 
+def _wrap_c(text, indent, width=92):
+    words, lines, cur = str(text).split(), [], ""
+    for word in words:
+        if len(cur) + len(word) + 1 > width - indent:
+            lines.append(cur)
+            cur = word
+        else:
+            cur = f"{cur} {word}".strip()
+    lines.append(cur)
+    return ("\n" + " " * indent).join(lines)
+
+
 def main(argv):
-    flags = set(argv[1:])
+    args = argv[1:]
+    flags = set(args)
+
+    def _after(flag):
+        i = args.index(flag) if flag in args else -1
+        return args[i + 1] if 0 <= i < len(args) - 1 else None
+
     if "--sheet" in flags:
-        return write_sheet(force="--force" in flags)
+        return write_sheet(force="--force" in flags,
+                           which=_after("--universe") or DEFAULT_UNIVERSE)
+    if "--rate" in flags:
+        return rate(_after("--rate") or "", _after("--name"))
     result = score()
     if "--json" in flags:
         print(json.dumps(result, indent=1, ensure_ascii=False))

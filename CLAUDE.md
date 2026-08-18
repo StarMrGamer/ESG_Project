@@ -219,7 +219,9 @@ python harness.py                         # ENGINE check (A8): Gate 1 determinis
                                           #   merkle + sensitivity sweep + calibration
 python harness.py --update-golden         # re-freeze the golden set (review the diff!)
 python backtest_timeline.py               # redraw docs/backtest/*.svg (harness checks they are current)
-python calibration.py --sheet             # (re)write the blind sheet; `python calibration.py` scores it
+python calibration.py --sheet             # (re)write the blind sheet (cases + real names, >=2 excerpts)
+python calibration.py --rate rater_a --name "..."   # rate it, one keypress per company; resumable
+python calibration.py                     # score it once BOTH rater columns are filled
 python cost_inputs.py                     # the three numbers Sean's cost model is missing
 python phase_b.py --template              # the two Phase-B input shapes; --blind / --issuance to run
 python anchor.py                          # build + anchor the runs; --list, --verify RUN TICKER

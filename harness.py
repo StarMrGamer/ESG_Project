@@ -569,15 +569,30 @@ def check_sweep(report, baseline):
 #      apparatus (blind sheet, resolvable companies, on-scale ratings, frozen
 #      cut-points) and then reports the human numbers if, and only if, they exist.
 # --------------------------------------------------------------------------- #
-def check_calibration(report, run):
-    report.section("Calibration — 2 humans vs the model, 10 companies")
-    result = calibration.score(run=run)
+def check_calibration(report, _baseline=None):
+    report.section("Calibration — 2 humans vs the model")
+    # No run is passed in: the sheet names the set it was frozen against and calibration.score
+    # rebuilds exactly that. Handing it the demo baseline would orphan every row the moment the
+    # sheet is built from anything else, which is precisely what happened.
+    result = calibration.score()
     if result.get("status") == "no_sheet":
         report.check(False, "calibration sheet present", result["detail"])
         return
 
-    report.check(result["companies"] == calibration.SET_SIZE,
-                 f"sheet holds {calibration.SET_SIZE} companies", f"{result['companies']} found")
+    report.check(0 < result["companies"] <= calibration.SET_SIZE,
+                 f"sheet holds up to {calibration.SET_SIZE} companies",
+                 f"{result['companies']} from the '{result.get('set')}' set — fewer is allowed "
+                 f"and reported, never padded")
+    thin = [row["company_id"] for row in result["rows"]
+            if row["signal_count"] < calibration.MIN_EXCERPTS]
+    report.check(not thin, f"every rated company carries >= {calibration.MIN_EXCERPTS} excerpts",
+                 f"too thin to judge: {thin}" if thin else "nobody is asked to rate nothing")
+    directions = {1 if row["model"] > 0 else -1 if row["model"] < 0 else 0
+                  for row in result["rows"]}
+    report.check(len(directions) > 1, "the set contains more than one direction",
+                 "a set where everything improves cannot tell a careful rater from one who "
+                 "answers '+1' to everything" if len(directions) <= 1
+                 else f"model directions present: {sorted(directions)}")
     report.check(not result["missing_from_run"],
                  "every rated company still exists in the current run",
                  f"orphaned: {result['missing_from_run']}" if result["missing_from_run"] else "")
@@ -641,7 +656,7 @@ def main(argv):
         check_digital_influence(report, baseline)
         check_sweep(report, baseline)
     if everything or "--calibration" in flags:
-        check_calibration(report, baseline)
+        check_calibration(report)
 
     print("\n" + "=" * 70)
     if report.failures:

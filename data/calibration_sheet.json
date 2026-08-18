@@ -14,12 +14,14 @@
  },
  "_cutpoints_note": "How the engine's continuous composite is put on the humans' five points: |m| < weak -> 0; weak <= |m| < strong -> +/-1; |m| >= strong -> +/-2. Frozen here with the sheet.",
  "_what_is_graded": "The headline number is DIRECTION agreement (-/0/+) — that is the claim the product makes. The five-point intensity agreement is reported underneath it as detail. Score the direction carefully; give the intensity your honest best guess and move on.",
+ "set": "pooled",
+ "_what_this_set_is_worth": "The backtest cases plus every real ASEAN name carrying at least two excerpts. The cases are what put a DETERIORATING company in the set (Top Glove) and a contested one (Adaro) — without them every rateable name is Future Leaders or Consensus, and a rater answering '+1' to everything would score well. Where a ticker appears in both, the case wins: its evidence is dated and cutoff-frozen. Mixed provenance, stated here rather than smoothed over.",
  "frozen_against": {
-  "run_id": "921d0333b7528e82",
+  "run_id": "pooled-e31cbdd6",
   "engine_version": "engine-v2.0",
   "config_hash": "e31cbdd64847b256",
-  "as_of": "2026-06-12",
-  "universe": "data/demo_universe.json"
+  "as_of": "2022-07-31",
+  "universe": "data/backtest_cases.json + data/asean_universe.json"
  },
  "raters": {
   "rater_a": {
@@ -33,496 +35,23 @@
  },
  "companies": [
   {
-   "company_id": "IDX:NUSA",
-   "company": "NusaFoods",
-   "sector": "Consumer Staples",
-   "country": "Indonesia",
-   "signal_count": 11,
-   "evidence": [
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal board_ai_policy=True",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum +7%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum +25%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=+10%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=+70%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+50%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum -3%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum +22%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-09",
-     "source_type": "news",
-     "excerpt": "NusaFoods names sustainability & AI-governance lead",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "NusaFoods expands renewable-energy sourcing plan",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "NusaFoods lifts sustainable-finance disclosure",
-     "source_url": ""
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "HOSE:HATL",
-   "company": "Hai Au Telecom",
-   "sector": "Communication Services — Telecom",
-   "country": "Vietnam",
-   "signal_count": 11,
-   "evidence": [
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum +12%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal board_ai_policy=True",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum +30%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+88%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=+11%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=+108%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum +5%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum +12%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-09",
-     "source_type": "news",
-     "excerpt": "Hai Au Telecom names sustainability & AI-governance lead",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Hai Au Telecom expands renewable-energy sourcing plan",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Hai Au Telecom lifts sustainable-finance disclosure",
-     "source_url": ""
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "IDX:ASMB",
-   "company": "ASEAN Mobile",
-   "sector": "Communication Services — Telecom",
-   "country": "Indonesia",
-   "signal_count": 11,
-   "evidence": [
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum +4%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum -4%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=+12%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal board_ai_policy=True",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum +13%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=+186%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+50%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum +18%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-09",
-     "source_type": "news",
-     "excerpt": "ASEAN Mobile names sustainability & AI-governance lead",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "ASEAN Mobile expands renewable-energy sourcing plan",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "ASEAN Mobile lifts sustainable-finance disclosure",
-     "source_url": ""
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "HOSE:RRRE",
-   "company": "Red River Renewables",
-   "sector": "Energy — Power & Renewables",
-   "country": "Vietnam",
-   "signal_count": 10,
-   "evidence": [
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum -2%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=-18%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=-11%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal controversy_flags=1",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=-18%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum -22%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum -19%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum -13%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Red River Renewables misses its emissions reduction target as disclosure slips",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Red River Renewables faces a regulatory investigation over effluent discharge",
-     "source_url": ""
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "IDX:GRMB",
-   "company": "Garuda Mandiri Bank",
-   "sector": "Financials — Banks",
-   "country": "Indonesia",
-   "signal_count": 10,
-   "evidence": [
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=-6%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal controversy_flags=1",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum -19%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum -11%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=-14%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=-22%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum -15%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum -8%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Garuda Mandiri Bank misses its emissions reduction target as disclosure slips",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Garuda Mandiri Bank faces a regulatory investigation over effluent discharge",
-     "source_url": ""
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "KLSE:SURP",
-   "company": "Suria Power",
-   "sector": "Energy — Power & Renewables",
+   "company_id": "KLSE:5211",
+   "company": "Sunway Berhad",
+   "sector": "Industrials — Property & Construction Conglomerate",
    "country": "Malaysia",
-   "signal_count": 12,
+   "signal_count": 2,
    "evidence": [
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum -3%",
-     "source_url": ""
+     "published_at": "2022-03-15",
+     "source_type": "company_pr",
+     "excerpt": "MSCI ESG rating upgraded BBB->A (announced March 2022, in-window) and won the Long-Term Achiever award at The Edge Malaysia ESG Awards 2022",
+     "source_url": "https://www.sunway.com.my/media/press-release/sunway-rated-top-for-esg-efforts-by-global-indices-receives-esg-rating-upgrade-to-a/"
     },
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=+6%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum -5%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal board_ai_policy=True",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum +3%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+11%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum -9%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=+89%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal controversy_flags=1",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-09",
-     "source_type": "news",
-     "excerpt": "Suria Power names sustainability & AI-governance lead",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Suria Power delays its renewable-energy sourcing milestone",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Suria Power reports flat emissions intensity for a second year",
-     "source_url": ""
+     "published_at": "2022-06-30",
+     "source_type": "company_pr",
+     "excerpt": "began CDP Climate/Water disclosure in 2022",
+     "source_url": "https://www.sunway.com.my/media/press-release/sunway-rated-top-for-esg-efforts-by-global-indices-receives-esg-rating-upgrade-to-a/"
     }
    ],
    "ratings": {
@@ -537,167 +66,22 @@
    }
   },
   {
-   "company_id": "HOSE:LVTB",
-   "company": "Lac Viet Bank",
-   "sector": "Financials — Banks",
-   "country": "Vietnam",
-   "signal_count": 12,
-   "evidence": [
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum +14%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=+91%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+44%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum -5%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal board_ai_policy=True",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum +24%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum +25%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal controversy_flags=1",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=+14%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-09",
-     "source_type": "news",
-     "excerpt": "Lac Viet Bank names sustainability & AI-governance lead",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Lac Viet Bank expands renewable-energy sourcing plan",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Lac Viet Bank lifts sustainable-finance disclosure",
-     "source_url": ""
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "IDX:JKLD",
-   "company": "Jakarta Land",
-   "sector": "Real Estate",
+   "company_id": "IDX:ADRO",
+   "company": "Adaro Energy / Alamtri",
+   "sector": "Energy — Coal",
    "country": "Indonesia",
-   "signal_count": 11,
+   "signal_count": 2,
    "evidence": [
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=+13%",
+     "published_at": "2021-12-15",
+     "source_type": "company_pr",
+     "excerpt": "Announces a US$2bn aluminium smelter in a green industrial park, to be powered by planned renewable capacity",
      "source_url": ""
     },
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum +1%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal board_ai_policy=True",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+80%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum +12%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum +11%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=+99%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum +17%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-09",
-     "source_type": "news",
-     "excerpt": "Jakarta Land names sustainability & AI-governance lead",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Jakarta Land expands renewable-energy sourcing plan",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Jakarta Land lifts sustainable-finance disclosure",
+     "published_at": "2022-06-15",
+     "source_type": "company_pr",
+     "excerpt": "Adaro Green branding positions the group in the EV supply chain and clean energy transition narrative",
      "source_url": ""
     }
    ],
@@ -713,71 +97,190 @@
    }
   },
   {
-   "company_id": "PSE:BYNR",
-   "company": "Bayan Realty",
-   "sector": "Real Estate",
+   "company_id": "KLSE:7113",
+   "company": "Top Glove Corporation",
+   "sector": "Health Care — Equipment & Supplies",
+   "country": "Malaysia",
+   "signal_count": 3,
+   "evidence": [
+    {
+     "published_at": "2018-12-15",
+     "source_type": "news",
+     "excerpt": "Guardian investigation links its factories to forced labour indicators, including recruitment fees and debt bondage; the company's own rebuttal confirms the article",
+     "source_url": "https://www.topglove.com/single-press-release-en?id=89&title=top-glove-provides-clarifications-to-the-guardian-on-article-titled-uk-government-sourcing-nhs-ppe-from-company-repeatedly-accused-of-forced-labour"
+    },
+    {
+     "published_at": "2019-06-30",
+     "source_type": "ngo",
+     "excerpt": "Continuing NGO and media reports on recruitment fees and debt bondage across its workforce",
+     "source_url": ""
+    },
+    {
+     "published_at": "2020-03-15",
+     "source_type": "ngo",
+     "excerpt": "Further forced labour allegations over worker welfare and dormitory conditions remain unresolved",
+     "source_url": ""
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "SGX:AJBU",
+   "company": "Keppel DC REIT",
+   "sector": "Real Estate — Data Centre REIT",
+   "country": "Singapore",
+   "signal_count": 2,
+   "evidence": [
+    {
+     "published_at": "",
+     "source_type": "index_provider",
+     "excerpt": "an 'A' for GRESB Public Disclosure",
+     "source_url": "https://www.keppeldcreit.com/en/news-item.aspx?sid=64&aid=18753&title=keppels-esg-performance-recognised-at-gresb-2023"
+    },
+    {
+     "published_at": "2022-06-30",
+     "source_type": "index_provider",
+     "excerpt": "Clear improvement: attained a 3-Star rating and Green Star status in the 2023 GRESB Real Estate Assessment (up from 2-Star in 2022),",
+     "source_url": "https://www.keppeldcreit.com/en/news-item.aspx?sid=64&aid=18753&title=keppels-esg-performance-recognised-at-gresb-2023"
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "KLSE:1023",
+   "company": "CIMB Group Holdings",
+   "sector": "Financials — Banks",
+   "country": "Malaysia",
+   "signal_count": 2,
+   "evidence": [
+    {
+     "published_at": "",
+     "source_type": "company_pr",
+     "excerpt": "MSCI ESG 'AA' through the window",
+     "source_url": "https://www.theacmf.org/images/downloads/pdf/2021%20ACGS%20Country%20Reports%20and%20Assessment_Final_29Apr2025%20(1).pdf"
+    },
+    {
+     "published_at": "2019-06-30",
+     "source_type": "company_pr",
+     "excerpt": "FTSE4Good Bursa Malaysia 4-star top-band and a Top-20 ASEAN PLC in BOTH the 2019 and 2021 ASEAN CG Scorecard cycles",
+     "source_url": "https://www.theacmf.org/images/downloads/pdf/2021%20ACGS%20Country%20Reports%20and%20Assessment_Final_29Apr2025%20(1).pdf"
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "SGX:Z74",
+   "company": "Singapore Telecommunications (Singtel)",
+   "sector": "Communication Services — Telecom",
+   "country": "Singapore",
+   "signal_count": 2,
+   "evidence": [
+    {
+     "published_at": "",
+     "source_type": "company_pr",
+     "excerpt": "an upgrade reflecting demonstrated emissions reductions and improved climate disclosure",
+     "source_url": "https://www.singtel.com/about-us/media-centre/news-releases/singtel-is-southeast-asia-first-telco-on-cdp-a-list"
+    },
+    {
+     "published_at": "2024-02-15",
+     "source_type": "company_pr",
+     "excerpt": "Named SE-Asia's first telco on CDP's Climate Change 'A List' (announced Feb 2024, 2023 cycle)",
+     "source_url": "https://www.singtel.com/about-us/media-centre/news-releases/singtel-is-southeast-asia-first-telco-on-cdp-a-list"
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "KLSE:1155",
+   "company": "Malayan Banking (Maybank)",
+   "sector": "Financials — Banks",
+   "country": "Malaysia",
+   "signal_count": 2,
+   "evidence": [
+    {
+     "published_at": "",
+     "source_type": "company_pr",
+     "excerpt": "FTSE4Good Bursa Malaysia 4-star top-band (13 consecutive years)",
+     "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2023_20240327.pdf"
+    },
+    {
+     "published_at": "2021-06-30",
+     "source_type": "company_pr",
+     "excerpt": "CDP Climate score improving D(2021)->C(2022)->B(2023), MSCI ESG 'AA', and ACGS Top-20 ASEAN",
+     "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2023_20240327.pdf"
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "PSE:ACEN",
+   "company": "ACEN Corporation",
+   "sector": "Energy — Power & Renewables",
    "country": "Philippines",
-   "signal_count": 10,
+   "signal_count": 3,
    "evidence": [
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal controversy_flags=1",
-     "source_url": ""
+     "published_at": "2019-02-15",
+     "source_type": "company_pr",
+     "excerpt": "CBI-certified US dollar green bonds issued, among South-East Asia's first",
+     "source_url": "https://www.acenrenewables.com/issuances/"
     },
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=-17%",
-     "source_url": ""
+     "published_at": "2019-06-15",
+     "source_type": "company_pr",
+     "excerpt": "AC Energy and Phinma Energy merger consolidates the renewable energy platform",
+     "source_url": "https://www.acenrenewables.com/issuances/"
     },
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum -15%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum +1%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum -6%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum -20%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=+3%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=-10%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Bayan Realty misses its emissions reduction target as disclosure slips",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Bayan Realty faces a regulatory investigation over effluent discharge",
-     "source_url": ""
+     "published_at": "2021-10-15",
+     "source_type": "company_pr",
+     "excerpt": "First Philippine energy company to commit to net zero greenhouse gas emissions by 2050",
+     "source_url": "https://www.acenrenewables.com/2021/10/acen-commits-to-net-zero-greenhouse-gas-emissions-by-2050/"
     }
    ],
    "ratings": {
@@ -792,71 +295,54 @@
    }
   },
   {
-   "company_id": "SET:BKHT",
-   "company": "Bangkok Heights",
-   "sector": "Real Estate",
-   "country": "Thailand",
-   "signal_count": 10,
+   "company_id": "PSE:GLO",
+   "company": "Globe Telecom",
+   "sector": "Communication Services — Telecom",
+   "country": "Philippines",
+   "signal_count": 2,
    "evidence": [
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored environment momentum -8%",
-     "source_url": ""
+     "published_at": "2016-06-30",
+     "source_type": "company_pr",
+     "excerpt": "first PH-listed firm to commit to science-based targets, FTSE4Good constituent since 2016, and an ACGS ASEAN Asset Class awardee",
+     "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg"
     },
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal ai_hiring_surge=-42%",
-     "source_url": ""
+     "published_at": "2023-06-30",
+     "source_type": "company_pr",
+     "excerpt": "Highest-rated Philippine company in MSCI ESG Research, reaching 'AA' by 2023",
+     "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg"
+    }
+   ],
+   "ratings": {
+    "rater_a": {
+     "rating": null,
+     "note": ""
+    },
+    "rater_b": {
+     "rating": null,
+     "note": ""
+    }
+   }
+  },
+  {
+   "company_id": "SET:IVL",
+   "company": "Indorama Ventures",
+   "sector": "Materials — Chemicals (PET/Polyester)",
+   "country": "Thailand",
+   "signal_count": 2,
+   "evidence": [
+    {
+     "published_at": "2023-06-15",
+     "source_type": "index_provider",
+     "excerpt": "also No.1 in its FTSE4Good peer group (June 2023)",
+     "source_url": "https://www.indoramaventures.com/en/updates/other-release/2108/indorama-ventures-continues-to-be-a-member-of-the-djsi-world-and-djsi-emerging-markets"
     },
     {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal green_patents=-19%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal carbon_disclosure=-13%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored digital_ai momentum -7%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored governance momentum -3%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "live signal controversy_flags=1",
-     "source_url": ""
-    },
-    {
-     "published_at": "2024-12-31",
-     "source_type": "dataset",
-     "excerpt": "stored social momentum -17%",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-05-28",
-     "source_type": "news",
-     "excerpt": "Bangkok Heights misses its emissions reduction target as disclosure slips",
-     "source_url": ""
-    },
-    {
-     "published_at": "2026-06-12",
-     "source_type": "news",
-     "excerpt": "Bangkok Heights faces a regulatory investigation over effluent discharge",
-     "source_url": ""
+     "published_at": "2023-06-30",
+     "source_type": "index_provider",
+     "excerpt": "DJSI World member for the 5th consecutive year and DJSI Emerging Markets for the 7th in 2023 (92nd percentile of chemical firms)",
+     "source_url": "https://www.indoramaventures.com/en/updates/other-release/2108/indorama-ventures-continues-to-be-a-member-of-the-djsi-world-and-djsi-emerging-markets"
     }
    ],
    "ratings": {
