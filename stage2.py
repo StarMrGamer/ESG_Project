@@ -170,10 +170,18 @@ def reason(narrowed_question, company, on_delta=None, context=None):
     user_msg = build_user_message(narrowed_question, company, snippets, ai_summary)
     # Generous budget: this is the largest prompt, and a reasoning model spends tokens
     # thinking BEFORE the JSON — too small a cap returns empty content.
+    #
+    # 2000 was too small and failed silently, which is the worst way for it to fail. On
+    # deepseek-v4-flash the reasoning alone ran past the cap, so `content` came back empty,
+    # core.call_llm fell back to `reasoning_content`, and what reached parse_json was 8kB of
+    # "We need respond JSON only. Need craft answer. Need think." — unparseable twice over, so
+    # every one of Contract C's five text fields coerced to "unknown" while the sources list
+    # still filled in from real retrieval. An answer that looks retrieved but says nothing.
+    # Measured: 4000 completes in ~14s and returns all six keys. Raise this, do not lower it.
     raw = core.call_llm(
         [{"role": "user", "content": user_msg}],
         SYSTEM_PROMPT,
-        max_tokens=2000,
+        max_tokens=4000,
         temperature=0.5,
         json_mode=True,
         stream=bool(on_delta),
@@ -184,7 +192,7 @@ def reason(narrowed_question, company, on_delta=None, context=None):
         retry_raw = core.call_llm(
             [{"role": "user", "content": user_msg}],
             SYSTEM_PROMPT,
-            max_tokens=2000,
+            max_tokens=4000,
             temperature=0.4,
             json_mode=True,
         )
