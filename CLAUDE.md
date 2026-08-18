@@ -92,6 +92,17 @@ chips plus a local matcher, no LLM call — because a demo cannot be one flaky n
 from its opening screen. `settings.setupDone` persists, so a returning browser goes straight to
 the board; **Reconfigure** in the header re-runs it.
 
+**The stylesheet has a scale, and everything is on it** (`web/src/styles.css` `:root`).
+Spacing is `--sp-1..8` (multiples of 4, with 6px and 10px kept for chips and dense rows) and six
+component densities — `--pad-panel` / `--pad-card` / `--pad-row` / `--pad-pill` / `--pad-chip` /
+`--pad-btn` — which cover 67 of the sheet's 75 padding declarations. Radius is fully tokenised
+(`--r-radius`, `-sm`, `-xs`, `-2xs`; only `999px` and `50%` stay literal). Type runs
+10.5 / 11.5 / 12.5 / 13 / 14 / 15 / 17 / 19 / 22 plus a handful of one-per-component display
+sizes; letter-spacing runs four positive steps and three negative. Before this the sheet held
+~40 distinct padding pairs, 20 untokenised radii, 13 type steps between 10 and 14px and 14
+letter-spacing values — none of it decided, all of it accreted. **Do not invent a new value: pick
+the nearest token.**
+
 **The disagreement matrix has real axes.** x and y are drawn as a framed L with gridlines, tick
 marks and labels on both (percentile 0–100%, momentum −1.0 to +1.0), named axes, and the two
 QUADRANT BOUNDARIES called out separately from the grid — dashed and captioned *median rating* /
