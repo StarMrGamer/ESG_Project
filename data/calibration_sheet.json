@@ -14,57 +14,26 @@
  },
  "_cutpoints_note": "How the engine's continuous composite is put on the humans' five points: |m| < weak -> 0; weak <= |m| < strong -> +/-1; |m| >= strong -> +/-2. Frozen here with the sheet.",
  "_what_is_graded": "The headline number is DIRECTION agreement (-/0/+) — that is the claim the product makes. The five-point intensity agreement is reported underneath it as detail. Score the direction carefully; give the intensity your honest best guess and move on.",
- "set": "pooled",
- "_what_this_set_is_worth": "The backtest cases plus every real ASEAN name carrying at least two excerpts. The cases are what put a DETERIORATING company in the set (Top Glove) and a contested one (Adaro) — without them every rateable name is Future Leaders or Consensus, and a rater answering '+1' to everything would score well. Where a ticker appears in both, the case wins: its evidence is dated and cutoff-frozen. Mixed provenance, stated here rather than smoothed over.",
+ "set": "cases",
+ "_what_this_set_is_worth": "The backtest cases alone: real, dated, sourced prose, and the only set that contains BOTH directions. Fewer companies than the runbook's ten — that is all the evidence of this quality we hold, and padding it with one-sentence names would buy a rounder number and a worse test.",
  "frozen_against": {
-  "run_id": "pooled-e31cbdd6",
+  "run_id": "cases-e31cbdd6",
   "engine_version": "engine-v2.0",
   "config_hash": "e31cbdd64847b256",
   "as_of": "2022-07-31",
-  "universe": "data/backtest_cases.json + data/asean_universe.json"
+  "universe": "data/backtest_cases.json"
  },
  "raters": {
   "rater_a": {
-   "name": null,
+   "name": "Vrishabd Rai",
    "rated_at": null
   },
   "rater_b": {
-   "name": null,
+   "name": "Sean Liu",
    "rated_at": null
   }
  },
  "companies": [
-  {
-   "company_id": "KLSE:5211",
-   "company": "Sunway Berhad",
-   "sector": "Industrials — Property & Construction Conglomerate",
-   "country": "Malaysia",
-   "signal_count": 2,
-   "evidence": [
-    {
-     "published_at": "2022-03-15",
-     "source_type": "company_pr",
-     "excerpt": "MSCI ESG rating upgraded BBB->A (announced March 2022, in-window) and won the Long-Term Achiever award at The Edge Malaysia ESG Awards 2022",
-     "source_url": "https://www.sunway.com.my/media/press-release/sunway-rated-top-for-esg-efforts-by-global-indices-receives-esg-rating-upgrade-to-a/"
-    },
-    {
-     "published_at": "2022-06-30",
-     "source_type": "company_pr",
-     "excerpt": "began CDP Climate/Water disclosure in 2022",
-     "source_url": "https://www.sunway.com.my/media/press-release/sunway-rated-top-for-esg-efforts-by-global-indices-receives-esg-rating-upgrade-to-a/"
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
   {
    "company_id": "IDX:ADRO",
    "company": "Adaro Energy / Alamtri",
@@ -87,12 +56,12 @@
    ],
    "ratings": {
     "rater_a": {
-     "rating": null,
-     "note": ""
+     "rating": 1,
+     "note": "PR-only, coal core unchanged"
     },
     "rater_b": {
-     "rating": null,
-     "note": ""
+     "rating": 0,
+     "note": "all self-reported PR, planned capacity, no verified outcomes"
     }
    }
   },
@@ -124,136 +93,12 @@
    ],
    "ratings": {
     "rater_a": {
-     "rating": null,
-     "note": ""
+     "rating": -2,
+     "note": "repeated independent forced-labour reports, unresolved"
     },
     "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "SGX:AJBU",
-   "company": "Keppel DC REIT",
-   "sector": "Real Estate — Data Centre REIT",
-   "country": "Singapore",
-   "signal_count": 2,
-   "evidence": [
-    {
-     "published_at": "",
-     "source_type": "index_provider",
-     "excerpt": "an 'A' for GRESB Public Disclosure",
-     "source_url": "https://www.keppeldcreit.com/en/news-item.aspx?sid=64&aid=18753&title=keppels-esg-performance-recognised-at-gresb-2023"
-    },
-    {
-     "published_at": "2022-06-30",
-     "source_type": "index_provider",
-     "excerpt": "Clear improvement: attained a 3-Star rating and Green Star status in the 2023 GRESB Real Estate Assessment (up from 2-Star in 2022),",
-     "source_url": "https://www.keppeldcreit.com/en/news-item.aspx?sid=64&aid=18753&title=keppels-esg-performance-recognised-at-gresb-2023"
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "KLSE:1023",
-   "company": "CIMB Group Holdings",
-   "sector": "Financials — Banks",
-   "country": "Malaysia",
-   "signal_count": 2,
-   "evidence": [
-    {
-     "published_at": "",
-     "source_type": "company_pr",
-     "excerpt": "MSCI ESG 'AA' through the window",
-     "source_url": "https://www.theacmf.org/images/downloads/pdf/2021%20ACGS%20Country%20Reports%20and%20Assessment_Final_29Apr2025%20(1).pdf"
-    },
-    {
-     "published_at": "2019-06-30",
-     "source_type": "company_pr",
-     "excerpt": "FTSE4Good Bursa Malaysia 4-star top-band and a Top-20 ASEAN PLC in BOTH the 2019 and 2021 ASEAN CG Scorecard cycles",
-     "source_url": "https://www.theacmf.org/images/downloads/pdf/2021%20ACGS%20Country%20Reports%20and%20Assessment_Final_29Apr2025%20(1).pdf"
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "SGX:Z74",
-   "company": "Singapore Telecommunications (Singtel)",
-   "sector": "Communication Services — Telecom",
-   "country": "Singapore",
-   "signal_count": 2,
-   "evidence": [
-    {
-     "published_at": "",
-     "source_type": "company_pr",
-     "excerpt": "an upgrade reflecting demonstrated emissions reductions and improved climate disclosure",
-     "source_url": "https://www.singtel.com/about-us/media-centre/news-releases/singtel-is-southeast-asia-first-telco-on-cdp-a-list"
-    },
-    {
-     "published_at": "2024-02-15",
-     "source_type": "company_pr",
-     "excerpt": "Named SE-Asia's first telco on CDP's Climate Change 'A List' (announced Feb 2024, 2023 cycle)",
-     "source_url": "https://www.singtel.com/about-us/media-centre/news-releases/singtel-is-southeast-asia-first-telco-on-cdp-a-list"
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "KLSE:1155",
-   "company": "Malayan Banking (Maybank)",
-   "sector": "Financials — Banks",
-   "country": "Malaysia",
-   "signal_count": 2,
-   "evidence": [
-    {
-     "published_at": "",
-     "source_type": "company_pr",
-     "excerpt": "FTSE4Good Bursa Malaysia 4-star top-band (13 consecutive years)",
-     "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2023_20240327.pdf"
-    },
-    {
-     "published_at": "2021-06-30",
-     "source_type": "company_pr",
-     "excerpt": "CDP Climate score improving D(2021)->C(2022)->B(2023), MSCI ESG 'AA', and ACGS Top-20 ASEAN",
-     "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2023_20240327.pdf"
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
+     "rating": -2,
+     "note": "persistent independent forced-labour evidence"
     }
    }
   },
@@ -285,74 +130,49 @@
    ],
    "ratings": {
     "rater_a": {
-     "rating": null,
-     "note": ""
+     "rating": 2,
+     "note": "CBI-certified bonds plus net-zero commitment"
     },
     "rater_b": {
-     "rating": null,
-     "note": ""
+     "rating": 1,
+     "note": "certified bonds and commitment, but execution not yet shown"
     }
    }
   },
   {
-   "company_id": "PSE:GLO",
-   "company": "Globe Telecom",
-   "sector": "Communication Services — Telecom",
-   "country": "Philippines",
-   "signal_count": 2,
+   "company_id": "SGX:U96",
+   "company": "Sembcorp Industries",
+   "sector": "Energy — Power & Renewables",
+   "country": "Singapore",
+   "signal_count": 3,
    "evidence": [
     {
-     "published_at": "2016-06-30",
+     "published_at": "2021-05-15",
      "source_type": "company_pr",
-     "excerpt": "first PH-listed firm to commit to science-based targets, FTSE4Good constituent since 2016, and an ACGS ASEAN Asset Class awardee",
-     "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg"
+     "excerpt": "Brown-to-green Investor Day targets 10 GW of renewable energy capacity",
+     "source_url": "https://www.sembcorp.com/media/bpojt3bk/sembcorp_ar2022.pdf"
     },
     {
-     "published_at": "2023-06-30",
+     "published_at": "2021-06-15",
      "source_type": "company_pr",
-     "excerpt": "Highest-rated Philippine company in MSCI ESG Research, reaching 'AA' by 2023",
-     "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg"
+     "excerpt": "Inaugural S$400M green bond offering announced",
+     "source_url": "https://www.sembcorp.com/media/xnflei53/sembcorp-announces-inaugural-s-400m-green-bond-offering.pdf"
+    },
+    {
+     "published_at": "2021-08-15",
+     "source_type": "company_pr",
+     "excerpt": "Launches Singapore's first sustainable financing framework for the energy sector",
+     "source_url": "https://www.sembcorp.com/en/media/media-releases/corporate/2021/august/sembcorp-industries-launches-singapores-first-sustainable-financing-framework-for-the-energy-sector/"
     }
    ],
    "ratings": {
     "rater_a": {
-     "rating": null,
-     "note": ""
+     "rating": 2,
+     "note": "quantified GW target and actual green bond"
     },
     "rater_b": {
-     "rating": null,
-     "note": ""
-    }
-   }
-  },
-  {
-   "company_id": "SET:IVL",
-   "company": "Indorama Ventures",
-   "sector": "Materials — Chemicals (PET/Polyester)",
-   "country": "Thailand",
-   "signal_count": 2,
-   "evidence": [
-    {
-     "published_at": "2023-06-15",
-     "source_type": "index_provider",
-     "excerpt": "also No.1 in its FTSE4Good peer group (June 2023)",
-     "source_url": "https://www.indoramaventures.com/en/updates/other-release/2108/indorama-ventures-continues-to-be-a-member-of-the-djsi-world-and-djsi-emerging-markets"
-    },
-    {
-     "published_at": "2023-06-30",
-     "source_type": "index_provider",
-     "excerpt": "DJSI World member for the 5th consecutive year and DJSI Emerging Markets for the 7th in 2023 (92nd percentile of chemical firms)",
-     "source_url": "https://www.indoramaventures.com/en/updates/other-release/2108/indorama-ventures-continues-to-be-a-member-of-the-djsi-world-and-djsi-emerging-markets"
-    }
-   ],
-   "ratings": {
-    "rater_a": {
-     "rating": null,
-     "note": ""
-    },
-    "rater_b": {
-     "rating": null,
-     "note": ""
+     "rating": 2,
+     "note": "concrete GW target, actual issuance, first-of-kind framework"
     }
    }
   }
