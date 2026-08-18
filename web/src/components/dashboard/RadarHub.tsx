@@ -154,35 +154,45 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
             : <div className="hub-co">{board.counts.showing} companies in view</div>}
         </div>
 
-        <RadarPlot pillars={byKey} scale={scale} />
+        {/*
+          Plot and prose sit side by side once the core is wide enough to hold both, and stack
+          when it is not. On a wide monitor the board runs edge to edge, and a 330px plot centred
+          in a 1600px card would have re-created the dead ground the full-bleed change removed —
+          just on the inside of a panel instead of at the window's edge.
+        */}
+        <div className="hub-core-body">
+          <RadarPlot pillars={byKey} scale={scale} />
 
-        <div className="hub-legend">
-          <span><i className="k-ring" /> no change — what the stale rating assumes</span>
-          <span><i className="k-fill" /> our live momentum</span>
-        </div>
-
-        {summary && (
-          <p className="hub-line">
-            {summary.body}
-            {settings.demo && <span className="cc-tag-illus">illustrative demo</span>}
-          </p>
-        )}
-
-        {signals.length > 0 && (
-          <div className="hub-signals">
-            <div className="hub-signals-h">
-              {focused?.signals_kind === 'credentials' ? 'ESG credentials' : 'Live signals the rating cannot see'}
+          <div className="hub-core-side">
+            <div className="hub-legend">
+              <span><i className="k-ring" /> no change — what the stale rating assumes</span>
+              <span><i className="k-fill" /> our live momentum</span>
             </div>
-            <div className="hub-signals-row">
-              {signals.map((sg, i) => (
-                <span className="hub-sig" key={i}>
-                  <span className="hub-sig-k">{sg.label}</span>
-                  <Tone tone={sg.tone}>{sg.value}</Tone>
-                </span>
-              ))}
-            </div>
+
+            {summary && (
+              <p className="hub-line">
+                {summary.body}
+                {settings.demo && <span className="cc-tag-illus">illustrative demo</span>}
+              </p>
+            )}
+
+            {signals.length > 0 && (
+              <div className="hub-signals">
+                <div className="hub-signals-h">
+                  {focused?.signals_kind === 'credentials' ? 'ESG credentials' : 'Live signals the rating cannot see'}
+                </div>
+                <div className="hub-signals-row">
+                  {signals.map((sg, i) => (
+                    <span className="hub-sig" key={i}>
+                      <span className="hub-sig-k">{sg.label}</span>
+                      <Tone tone={sg.tone}>{sg.value}</Tone>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       <Satellite pillar={byKey.social} area="sw" scale={scale} />

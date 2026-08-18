@@ -96,12 +96,16 @@ a:hover { color: var(--r-pos); text-decoration: none; }
     radial-gradient(700px 400px at 50% 100%, rgba(167, 139, 250, 0.03), transparent 55%),
     var(--r-bg);
 }
+/* The command centre runs edge to edge.
+   The 1760px cap centred the board inside a wide monitor and left a few hundred pixels of dead
+   ground down each side, misaligned with the header, which is full-bleed. Horizontal padding now
+   matches the header's so the board's left edge lines up with the wordmark.
+   The reading views cap and centre themselves (.dd-shell, .evidence-view) — they were relying on
+   this rule for both, so they say it themselves now. */
 .app-main {
   flex: 1;
-  padding: 12px 20px 20px;
-  max-width: 1760px;
+  padding: 12px 22px 20px;
   width: 100%;
-  margin: 0 auto;
 }
 
 /* ---- scrollbars ---- */
@@ -874,7 +878,7 @@ label.field > span {
 /* ==========================================================================
    Deep dive
    ========================================================================== */
-.dd-shell { max-width: 1100px; }
+.dd-shell { max-width: 1100px; margin-inline: auto; }
 .dd-top {
   display: flex;
   align-items: center;
@@ -1489,7 +1493,8 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .uni-badges { margin: 8px 0 0; }
 
 /* ---- evidence trail + on-chain verification (C4) ---- */
-.evidence-view { display: flex; flex-direction: column; gap: 14px; }
+.evidence-view { display: flex; flex-direction: column; gap: 14px;
+                 max-width: 1200px; margin-inline: auto; }
 .evidence-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
 .evidence-head h2 { margin: 10px 0 6px; font: 600 22px/1.2 var(--r-font); letter-spacing: -0.02em; }
 .evidence-head h2 span { font: 500 13px var(--r-mono); margin-left: 8px; }
@@ -1956,7 +1961,7 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .hub {
   container-type: inline-size;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 1.5fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 400px) minmax(300px, 1fr) minmax(0, 400px);
   grid-template-rows: auto auto auto;
   grid-template-areas:
     "nw core ne"
@@ -2018,6 +2023,7 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .hub-sat.is-fast .hub-sat-trend { color: var(--r-amber); }
 
 .hub-core {
+  container-type: inline-size;
   grid-area: core;
   display: flex; flex-direction: column; align-items: center;
   padding: 14px 18px 16px;
@@ -2039,6 +2045,24 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 }
 .hub-verdict.cc-class-good { color: var(--r-pos); border-color: color-mix(in srgb, var(--r-pos) 45%, transparent); background: var(--r-posbg); }
 .hub-verdict.cc-class-bad { color: var(--r-neg); border-color: color-mix(in srgb, var(--r-neg) 45%, transparent); background: var(--r-negbg); }
+
+.hub-core-body {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; width: 100%; margin-top: 4px;
+}
+.hub-core-side { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+/* Wide enough to read a plot and a paragraph next to each other: put them next to each other. */
+@container (min-width: 620px) {
+  .hub-core-body { flex-direction: row; align-items: center; gap: 28px; justify-content: center; }
+  .hub-core-body .radar-plot { flex: 0 0 auto; margin-top: 0; }
+  .hub-core-side { align-items: flex-start; width: auto; max-width: 560px; }
+  .hub-core-side .hub-legend { justify-content: flex-start; }
+  .hub-core-side .hub-line { text-align: left; max-width: none; }
+  .hub-core-side .hub-signals-h { text-align: left; }
+  .hub-core-side .hub-signals-row { justify-content: flex-start; }
+  .hub-core-side .hub-signals { border-top: 0; padding-top: 0; margin-top: 14px; }
+}
 
 .radar-plot { width: 100%; max-width: 258px; height: auto; margin: 4px 0 0; display: block; }
 .radar-ring { fill: none; stroke: var(--r-border); stroke-width: 1; }
@@ -2111,6 +2135,7 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
    to reach the action row. */
 .hub.is-solo { min-height: min(540px, calc(100vh - 300px)); }
 .hub.is-solo .radar-plot { max-width: 330px; }
+.hub.is-solo .hub-sat-bar { max-width: 260px; }
 .hub.is-solo .hub-core { padding: 18px 22px 20px; }
 /* The satellites are as tall as half the core, so their content is distributed across that
    height on purpose rather than pooling in the middle of an obviously empty card. */
