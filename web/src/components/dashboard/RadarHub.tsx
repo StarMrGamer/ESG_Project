@@ -19,12 +19,17 @@ import type { Pillar } from '../../types'
  * have been the first thing to undo it.
  */
 
-const CX = 160
-const CY = 160
+/**
+ * Plot geometry. The box is wider than it is tall because the spoke LABELS live outside the
+ * rings — without them the chart was four unlabelled points and a dashed circle, which told a
+ * first-time reader nothing at all about which corner was which.
+ */
+const CX = 240
+const CY = 150
 /** Zero sits here; positive momentum pushes out toward RMAX, negative pulls in toward RMIN. */
-const R0 = 74
-const RMAX = 118
-const RMIN = 30
+const R0 = 66
+const RMAX = 106
+const RMIN = 26
 
 /** Where each pillar's spoke points, in degrees, 0 = east. Matches the satellite card layout. */
 const ANGLE: Record<string, number> = {
@@ -35,9 +40,24 @@ const ANGLE: Record<string, number> = {
 }
 const ORDER = ['environment', 'governance', 'digital_ai', 'social']
 
+/** Where each spoke's label sits, and how it is anchored. */
+const LABEL_AT: Record<string, { x: number; y: number; anchor: 'start' | 'middle' | 'end' }> = {
+  environment: { x: CX, y: CY - RMAX - 26, anchor: 'middle' },
+  governance: { x: CX + RMAX + 14, y: CY - 4, anchor: 'start' },
+  digital_ai: { x: CX, y: CY + RMAX + 22, anchor: 'middle' },
+  social: { x: CX - RMAX - 14, y: CY - 4, anchor: 'end' },
+}
+
 function polar(angleDeg: number, radius: number) {
   const a = (angleDeg * Math.PI) / 180
   return { x: CX + radius * Math.cos(a), y: CY + radius * Math.sin(a) }
+}
+
+/** A ring-shaped band, drawn as two circles in one path so evenodd punches the hole. */
+function annulus(rOuter: number, rInner: number) {
+  const ring = (r: number) =>
+    `M ${CX - r},${CY} a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${-r * 2},0 Z`
+  return `${ring(rOuter)} ${ring(rInner)}`
 }
 
 function RadarPlot({ pillars, scale }: { pillars: Record<string, Pillar>; scale: number }) {
@@ -57,10 +77,19 @@ function RadarPlot({ pillars, scale }: { pillars: Record<string, Pillar>; scale:
   const mean = known.length ? known.reduce((a, b) => a + b, 0) / known.length : 0
   const tone = mean > 0 ? 'is-pos' : mean < 0 ? 'is-neg' : 'is-flat'
 
+  // Spoken aloud for a screen reader, and it is also the sentence the picture is trying to say.
+  const spoken = ORDER
+    .map(k => `${pillars[k]?.label ?? k} ${fmtPct(pillars[k]?.value)}`)
+    .join(', ')
+
   return (
-    <svg viewBox="0 0 320 320" className="radar-plot" role="img"
-      aria-label="Live pillar momentum against the zero line a static rating assumes">
-      {/* Scale rings. The R0 one is emphasised because it carries a meaning the others don't. */}
+    <svg viewBox="0 0 480 320" className="radar-plot" role="img"
+      aria-label={`Live momentum per ESG pillar against the zero line a static rating assumes: ${spoken}`}>
+      {/* Bands first: outside the dashed ring is improvement, inside it is decline. Shading them
+          says which way is "better" before anyone has read a single label. */}
+      <path d={annulus(RMAX, R0)} fillRule="evenodd" className="radar-band is-up" />
+      <path d={annulus(R0, RMIN)} fillRule="evenodd" className="radar-band is-down" />
+
       {[RMIN, (RMIN + R0) / 2, (R0 + RMAX) / 2, RMAX].map(r => (
         <circle key={r} cx={CX} cy={CY} r={r} className="radar-ring" />
       ))}
@@ -78,6 +107,23 @@ function RadarPlot({ pillars, scale }: { pillars: Record<string, Pillar>; scale:
           <title>{`${pt.p?.label ?? pt.key}: ${fmtPct(pt.p?.value)}`}</title>
         </circle>
       ))}
+
+      {/* The labels. A radar with unlabelled spokes is a decoration, not a chart. */}
+      {ORDER.map(key => {
+        const at = LABEL_AT[key]
+        const p = pillars[key]
+        return (
+          <g key={`l${key}`}>
+            <text x={at.x} y={at.y} textAnchor={at.anchor} className="radar-axis-name">
+              {(p?.label ?? key).toUpperCase()}
+            </text>
+            <text x={at.x} y={at.y + 15} textAnchor={at.anchor}
+              className={`radar-axis-val ${signClass(p?.value)}`}>
+              {fmtPct(p?.value)}
+            </text>
+          </g>
+        )
+      })}
     </svg>
   )
 }
@@ -164,9 +210,21 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
           <RadarPlot pillars={byKey} scale={scale} />
 
           <div className="hub-core-side">
+            {/*
+              A shape and a dashed circle mean nothing on their own. This is the sentence that
+              turns the picture into a claim, and it sits above the legend rather than below the
+              plot because it is the first thing to read, not a footnote.
+            */}
+            <p className="hub-read">
+              Each corner is one ESG pillar. The dashed ring is <b>no change</b> — where a rating
+              that has not been refreshed still assumes this company sits. Outside the ring is
+              improvement it has not priced in; inside is deterioration.
+            </p>
+
             <div className="hub-legend">
-              <span><i className="k-ring" /> no change — what the stale rating assumes</span>
+              <span><i className="k-ring" /> no change · 0%</span>
               <span><i className="k-fill" /> our live momentum</span>
+              <span className="hub-scale">outer ring ±{scale.toFixed(1)}%</span>
             </div>
 
             {summary && (
@@ -175,6 +233,50 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
                 {settings.demo && <span className="cc-tag-illus">illustrative demo</span>}
               </p>
             )}
+
+            <details className="hub-how">
+              <summary>How do I read this?</summary>
+              <dl>
+                <dt>The four corners</dt>
+                <dd>
+                  The pillars we track: Environment, Social, Governance and Digital&nbsp;/&nbsp;AI.
+                  The last one is the point — conventional ESG ratings do not carry it at all.
+                </dd>
+
+                <dt>Distance from the centre</dt>
+                <dd>
+                  How fast that pillar is <em>moving</em>, not how good it is. A company can sit
+                  far out on a pillar it is still weak at, because it is improving quickly. That
+                  is deliberate: this is a momentum radar, not a scoreboard.
+                </dd>
+
+                <dt>Why the ring is the interesting part</dt>
+                <dd>
+                  A static ESG rating is a snapshot with a date on it, and until someone refreshes
+                  it, it implicitly assumes nothing has moved since. The dashed ring is that
+                  assumption drawn out. The filled shape is what our live signals say instead — so
+                  the gap between the two is the disagreement, which is the whole reason this tool
+                  exists.
+                </dd>
+
+                <dt>The scale is relative</dt>
+                <dd>
+                  The outer ring is the largest pillar move among the companies currently in view
+                  (±{scale.toFixed(1)}% right now), so the shape shows which pillars lead rather
+                  than an absolute score. Change the industry or country filter and it re-fits.
+                </dd>
+
+                {settings.demo && (
+                  <>
+                    <dt>These numbers</dt>
+                    <dd>
+                      Illustrative demo data from a fictional universe. Turn Demo off in the header
+                      for the real ASEAN base DB, where pillar momentum awaits the alt-data feed.
+                    </dd>
+                  </>
+                )}
+              </dl>
+            </details>
 
             {signals.length > 0 && (
               <div className="hub-signals">
