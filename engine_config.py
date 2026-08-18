@@ -59,6 +59,41 @@ def merge(base, patch):
     return out
 
 
+DEFAULT_HORIZON = "long"
+
+
+def horizons(cfg=None):
+    """The named decay horizons, from config — {"short": 45, "long": 180}.
+
+    Exposed so nothing outside this file ever writes "45" down. The toggle the UI renders, the
+    server's precompute list and the harness check all read the same two numbers, which is the
+    only way "it's a config swap" stays true."""
+    cfg = cfg or load()
+    return {k: int(v) for k, v in (cfg.get("decay", {}).get("horizons") or {}).items()}
+
+
+def for_horizon(name, cfg=None, path=None):
+    """A config with the decay half-life set to a named horizon.
+
+    Changing the half-life changes `config_hash`, and so the `run_id` — which is correct and
+    load-bearing: the Short and Long views are genuinely different runs over the same evidence,
+    and a record must never be ambiguous about which one produced it."""
+    base = cfg or load(path)
+    days = horizons(base).get(name)
+    if days is None or days == base.get("decay", {}).get("half_life_days"):
+        return base
+    return load(path, overrides={"decay": {"half_life_days": days}})
+
+
+def horizon_of(cfg):
+    """Which named horizon a config is currently on ("long", "short", or "" if neither)."""
+    days = (cfg.get("decay") or {}).get("half_life_days")
+    for name, value in horizons(cfg).items():
+        if value == days:
+            return name
+    return ""
+
+
 def threshold(cfg, value):
     """Resolve a threshold that may be the literal string "theta" (the spec writes tier and
     label rules in terms of theta so one number moves them all together)."""

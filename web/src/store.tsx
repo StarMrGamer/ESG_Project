@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { api } from './api'
-import type { Board, Entry, Health, TierKey } from './types'
+import type { Board, Entry, Health, HorizonKey, TierKey } from './types'
 
 export type View =
   | { name: 'dashboard' }
@@ -19,6 +19,11 @@ export interface Settings {
   ragTopK: number
   /** A5 — risk appetite. 'all' shows the whole matrix; a tier DIMS the rest, never hides it. */
   tier: TierKey | 'all'
+  /**
+   * Decay horizon. Unlike `tier` this is not a client-side filter — it re-scores on the server,
+   * so it belongs in the board fetch's dependency list below, not in the render path.
+   */
+  horizon: HorizonKey
   /** A6 — origination pipeline filter: the Balanced condition as a toggle. */
   pipelineOnly: boolean
 }
@@ -29,7 +34,7 @@ interface ChatMsg { role: 'user' | 'assistant'; text: string }
 const SETTINGS_KEY = 'esg-radar-settings'
 const DEFAULTS: Settings = {
   demo: true, dark: true, simplified: true, leftOpen: false, rightOpen: false,
-  ragEnabled: true, ragTopK: 5, tier: 'balanced', pipelineOnly: false,
+  ragEnabled: true, ragTopK: 5, tier: 'balanced', horizon: 'long', pipelineOnly: false,
 }
 
 function loadSettings(): Settings {
@@ -121,14 +126,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setBoardLoading(true)
     setBoardError('')
     api.board({
-      demo: settings.demo, country: filters.country, sector: filters.sector,
+      demo: settings.demo, horizon: settings.horizon,
+      country: filters.country, sector: filters.sector,
       focus: focusTicker, simplified: settings.simplified,
     })
       .then(b => { if (!cancel) setBoard(b) })
       .catch(e => { if (!cancel) setBoardError(String(e.message || e)) })
       .finally(() => { if (!cancel) setBoardLoading(false) })
     return () => { cancel = true }
-  }, [settings.demo, settings.simplified, filters.country, filters.sector, focusTicker, boardVersion])
+  }, [settings.demo, settings.horizon, settings.simplified, filters.country, filters.sector,
+      focusTicker, boardVersion])
 
   const saveEntry = useCallback((e: Entry) => {
     setEntries(prev => ({ ...prev, [e.ticker]: e }))

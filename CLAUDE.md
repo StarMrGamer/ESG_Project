@@ -45,7 +45,7 @@ esg-momentum-radar/
   stage3.py                 # Contract C Markdown/text export helpers (React owns live rendering)
   engine.py                 # run_engine(company_list) — the reproducible score records (Gate 1)
   signals.py                # deterministic signal extraction from stored evidence (no LLM, no clock)
-  engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers)
+  engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers · horizons)
   company_metadata.py       # A3 loader over the FROZEN green-bond CSV header + the A4 badge payloads
   pipeline_counts.py        # A6/B2 — N issuers · M pipeline · K review list (screen + money slide)
   anchor.py                 # C2/C3 — Merkle root per run + Sepolia anchoring (best-effort)
@@ -224,7 +224,7 @@ python calibration.py --rate rater_a --name "..."   # rate it, one keypress per 
 python calibration.py                     # score it once BOTH rater columns are filled
 python cost_inputs.py                     # the three numbers Sean's cost model is missing
 python phase_b.py --template              # the two Phase-B input shapes; --blind / --issuance to run
-python anchor.py                          # build + anchor the runs; --list, --verify RUN TICKER
+python anchor.py                          # build + anchor EVERY (universe x horizon) run; --list, --verify
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
 python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
 python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata CSV

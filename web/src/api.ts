@@ -1,6 +1,6 @@
 import type {
   AnchorSummary, Board, ChatResult, ComparePayload, Entry, Envelope, EvidencePayload, Health,
-  NarrowedQuestion, Stage2Answer, VerifyPayload,
+  HorizonKey, NarrowedQuestion, Stage2Answer, VerifyPayload,
 } from './types'
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
@@ -21,9 +21,9 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   health: () => http<Health>('/api/health'),
-  board: (p: { demo: boolean; country: string; sector: string; focus: string; simplified: boolean }) => {
+  board: (p: { demo: boolean; country: string; sector: string; focus: string; simplified: boolean; horizon: HorizonKey }) => {
     const q = new URLSearchParams({
-      demo: String(p.demo), country: p.country, sector: p.sector,
+      demo: String(p.demo), country: p.country, sector: p.sector, horizon: p.horizon,
       focus: p.focus, simplified: String(p.simplified),
     })
     return http<Board>(`/api/board?${q}`)
@@ -54,9 +54,10 @@ export const api = {
     http<{ narrowed_q: NarrowedQuestion }>('/api/stage1/narrow', { method: 'POST', body: JSON.stringify(p) }),
   compare: (tickers: string[]) =>
     http<ComparePayload>('/api/compare', { method: 'POST', body: JSON.stringify({ tickers }) }),
-  evidence: (ticker: string, demo: boolean) =>
-    http<EvidencePayload>(`/api/engine/company/${encodeURIComponent(ticker)}?demo=${demo}`),
-  verify: (p: { ticker: string; demo: boolean; tamper?: boolean; tamper_leaf_id?: string }) =>
+  evidence: (ticker: string, demo: boolean, horizon: HorizonKey = 'long') =>
+    http<EvidencePayload>(
+      `/api/engine/company/${encodeURIComponent(ticker)}?demo=${demo}&horizon=${horizon}`),
+  verify: (p: { ticker: string; demo: boolean; horizon?: HorizonKey; tamper?: boolean; tamper_leaf_id?: string }) =>
     http<VerifyPayload>('/api/verify', { method: 'POST', body: JSON.stringify(p) }),
   anchors: () => http<{ records: AnchorSummary[]; chain: Record<string, unknown> }>('/api/anchors'),
 }

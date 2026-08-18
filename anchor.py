@@ -429,6 +429,7 @@ def verify_company(run_id, company_id, *, evidence=None, check_chain=True):
 def _cli(argv):
     import company_metadata
     import engine
+    import engine_config
     import universe
 
     if "--list" in argv:
@@ -457,15 +458,22 @@ def _cli(argv):
 
     push = "--no-push" not in argv
     metadata = company_metadata.load()
+    # Every horizon is anchored, not just the default. The Short and Long views are different
+    # runs over the same evidence, so a judge who flips the toggle and clicks Verify must get a
+    # real answer either way — an unanchored half of the product is worse than no toggle. It is
+    # also the same rule as 9b: anchor every run, including the ones that do not flatter us.
+    horizons = sorted(engine_config.horizons()) or [engine_config.DEFAULT_HORIZON]
     for demo in (True, False):
         source = universe.active_file(demo)
-        run = engine.run_engine(universe.constituents(source), metadata=metadata)
-        record = anchor_run(run, metadata, push=push)
-        scope = "demo (fictional)" if demo else "real ASEAN base DB"
-        print(f"{scope:24s} run {record['run_id']}  root {record['root'][:20]}…  "
-              f"{record['leaf_count']} leaves  -> {record['status']}")
-        if record.get("anchor_note"):
-            print(f"{'':24s} note: {record['anchor_note']}")
+        for name in horizons:
+            cfg = engine_config.for_horizon(name)
+            run = engine.run_engine(universe.constituents(source), metadata=metadata, config=cfg)
+            record = anchor_run(run, metadata, push=push)
+            scope = ("demo (fictional)" if demo else "real ASEAN base DB") + f" · {name}"
+            print(f"{scope:26s} run {record['run_id']}  root {record['root'][:20]}…  "
+                  f"{record['leaf_count']} leaves  -> {record['status']}")
+            if record.get("anchor_note"):
+                print(f"{'':26s} note: {record['anchor_note']}")
     cfg = chain_config()
     if not cfg["ready"]:
         print("\nRecords stored locally and marked `anchor_pending` — they are NEVER silently "

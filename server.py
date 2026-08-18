@@ -279,9 +279,34 @@ def _uni_mode(cons):
 _ENGINE_MEMO = {}
 
 
-def _engine_run(demo):
-    """The scored run for a universe, with metadata joined and tiers stamped."""
-    cfg = engine_config.load()
+def precompute_engine():
+    """Warm every (universe, horizon) pair so the first toggle flip is a memo hit.
+
+    A5 says the matrix must re-segment in under a second and to precompute if it does not. The
+    tiers are already instant because they are flags on a finished record; the horizon is a
+    re-score, so this is where that promise is actually kept. Best-effort by design — a failure
+    here must never stop the server booting, it just means the first flip pays for itself."""
+    warmed = []
+    for demo in (True, False):
+        for name in sorted(engine_config.horizons()) or [engine_config.DEFAULT_HORIZON]:
+            try:
+                run, _meta, _cfg = _engine_run(demo, name)
+                warmed.append(f"{'demo' if demo else 'real'}/{name}:{run['run_id']}")
+            except Exception as exc:                                        # noqa: BLE001
+                warmed.append(f"{'demo' if demo else 'real'}/{name}:FAILED {type(exc).__name__}")
+    return warmed
+
+
+def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON):
+    """The scored run for a universe at a named decay horizon, metadata joined, tiers stamped.
+
+    The horizon is NOT a filter. The risk tiers are — they read flags already stamped on a
+    finished record, so the front-end can re-segment without asking us anything. Changing the
+    decay half-life changes the weight of every signal, so momentum, confidence, percentiles,
+    quadrants and N/M/K are all different numbers: it is a re-score, and it gets its own
+    `run_id`. Hence the memo below and the startup precompute — the spec's "<1 second" is met
+    by having both answers ready, not by making the flip cheap."""
+    cfg = engine_config.for_horizon(horizon)
     path = universe.active_file(demo)
     key = (path, cfg["config_hash"], os.path.getmtime(path) if os.path.exists(path) else 0,
            company_metadata.load_report().get("rows", 0))
@@ -290,7 +315,7 @@ def _engine_run(demo):
         return hit
     meta = company_metadata.load()
     run = engine.run_engine(universe.constituents(path), metadata=meta, config=cfg)
-    if len(_ENGINE_MEMO) > 4:                  # keys carry mtime+config, so stale ones pile up
+    if len(_ENGINE_MEMO) > 8:      # keys carry mtime+config; 2 universes x 2 horizons live here
         _ENGINE_MEMO.clear()
     _ENGINE_MEMO[key] = (run, meta, cfg)
     return _ENGINE_MEMO[key]
@@ -343,9 +368,9 @@ def _anchor_summary(run):
             "note": record.get("anchor_note", "")}
 
 
-def _engine_block(demo, filtered):
+def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
     """Everything the Build-Spec front-end needs for one filtered view."""
-    run, meta, cfg = _engine_run(demo)
+    run, meta, cfg = _engine_run(demo, horizon)
     tickers = [c["ticker"] for c in filtered]
     by_id = {r["company_id"]: r for r in run["records"]}
     subset = {"records": [by_id[t] for t in tickers if t in by_id],
@@ -369,6 +394,12 @@ def _engine_block(demo, filtered):
         "tier_rules": {k: cfg["risk_tiers"][k].get("rule", "") for k in
                        ("conservative", "balanced", "aggressive")},
         "default_tier": cfg["risk_tiers"]["default"],
+        # The horizon names and their half-lives come from config, never from a literal here —
+        # the UI renders whatever `decay.horizons` holds, so adding a third is a file edit.
+        "horizon": engine_config.horizon_of(cfg) or engine_config.DEFAULT_HORIZON,
+        "horizons": engine_config.horizons(cfg),
+        "default_horizon": engine_config.DEFAULT_HORIZON,
+        "half_life_days": cfg["decay"]["half_life_days"],
         "nmk": pipeline_counts.counts(subset, meta, cfg),
         "metadata": company_metadata.load_report(),
         "anchor": _anchor_summary(run),
@@ -460,7 +491,8 @@ def _board_watchlist(path):
 
 @app.get("/api/board")
 def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
-          focus: str = "", simplified: bool = Query(True)):
+          focus: str = "", simplified: bool = Query(True),
+          horizon: str = Query(engine_config.DEFAULT_HORIZON)):
     path = universe.active_file(demo)
     uni = universe.load_universe(path)
     cons = uni["constituents"]
@@ -553,7 +585,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         "hidden_winners": {"rows": hw_rows, "peer_avg": peer_avg, "n": peer_n},
         "evidence": {"coverage": metrics.credential_coverage(filtered), "leaders": leaders},
         "constituents": filtered,
-        "engine": _engine_block(demo, filtered),
+        "engine": _engine_block(demo, filtered, horizon),
         "focused": focused_payload,
         "watchlist": wl,
         "followups": followups,
@@ -966,13 +998,18 @@ def compare(body: CompareIn):
 #  EVIDENCE TRAIL + ON-CHAIN VERIFICATION  (Build Spec A4/A5 detail · C4)
 # --------------------------------------------------------------------------- #
 @app.get("/api/engine/company/{ticker:path}")
-def engine_company(ticker: str, demo: bool = Query(True)):
+def engine_company(ticker: str, demo: bool = Query(True),
+                   horizon: str = Query(engine_config.DEFAULT_HORIZON)):
     """One company's full score record + its evidence trail.
 
     Every trail row carries the stored `rationale` — the one-line justification for why that
     signal was routed and scored the way it was (INSTRUCTIONS step 5) — plus its real source
-    URL, so the three-click rule holds: card -> evidence -> source."""
-    run, meta, cfg = _engine_run(demo)
+    URL, so the three-click rule holds: card -> evidence -> source.
+
+    `horizon` must match whatever the matrix is showing. Serving the Long record behind a Short
+    matrix would put one set of numbers on the card and a different set one click away, which is
+    exactly the kind of quiet inconsistency the evidence trail exists to rule out."""
+    run, meta, cfg = _engine_run(demo, horizon)
     record = engine.record_for(run, ticker)
     if not record:
         raise HTTPException(404, f"{ticker} is not in the scored universe.")
@@ -1013,6 +1050,7 @@ def engine_company(ticker: str, demo: bool = Query(True)):
 class VerifyIn(BaseModel):
     ticker: str
     demo: bool = True
+    horizon: str = engine_config.DEFAULT_HORIZON   # verify the run the judge is LOOKING at
     tamper: bool = False              # rehearsal-only: corrupt one excerpt and watch it fail
     tamper_leaf_id: str = ""
 
@@ -1025,7 +1063,7 @@ def verify(body: VerifyIn):
 
     `tamper=true` edits one character of one excerpt before hashing — the five-second demo that
     a changed source breaks verification. It never touches the stored record."""
-    run, _meta, _cfg = _engine_run(body.demo)
+    run, _meta, _cfg = _engine_run(body.demo, body.horizon)
     record = anchor.load_record(run["run_id"])
     if not record:
         anchor.anchor_run(run, company_metadata.load(), push=False)
@@ -1061,6 +1099,8 @@ if os.path.isdir(WEB_DIST):
 
 if __name__ == "__main__":
     import uvicorn
+    for line in precompute_engine():
+        print(f"  precomputed  {line}")
     # HOST defaults to all interfaces for local dev. Behind a reverse proxy set HOST=127.0.0.1 so
     # the app port is not independently reachable — otherwise anyone can bypass the proxy (and
     # whatever auth it enforces) by hitting the port directly. See docs/DEPLOY.md.

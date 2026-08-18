@@ -8,6 +8,7 @@ harness.py — A8: the engine's test harness. Run this before believing any numb
     python harness.py --cases         # the five backtest cases + the cutoff assertion + timelines
     python harness.py --merkle        # Merkle determinism + tamper-evidence
     python harness.py --guards        # the honesty guards
+    python harness.py --horizons      # the Short/Long decay toggle: ids, churn, shared root
     python harness.py --sweep         # sensitivity sweep: quadrant churn under the CGSI names
     python harness.py --calibration   # 2 humans vs the model over 10 companies (blind sheet)
     python harness.py --update-golden # re-freeze the golden set (review the diff before commit)
@@ -505,6 +506,57 @@ SWEEPS = [
 ]
 
 
+def check_horizons(report, baseline):
+    """The Short/Long decay toggle (INSTRUCTIONS step 8, added on Jayden's call 18 Aug).
+
+    Three properties, and the third is the one that is easy to lose. (1) Each horizon is its own
+    reproducible run with its own id — the Short view must never be servable under the Long
+    view's identity. (2) The churn between them is REPORTED, because a toggle that silently
+    relabels companies is a toggle that lies. (3) Both horizons anchor the SAME Merkle root:
+    decay is applied at aggregation and never stored on a signal, so the evidence set is
+    identical and only the scoring moves. If that ever stops being true, the toggle has started
+    editing evidence, which is a different and much worse product."""
+    report.section("Horizon toggle — Short / Long decay")
+    names = sorted(engine_config.horizons())
+    report.check(len(names) >= 2, "config declares more than one horizon",
+                 " · ".join(f"{k} {v}d" for k, v in sorted(engine_config.horizons().items())))
+
+    meta = company_metadata.load()
+    runs, roots = {}, {}
+    for name in names:
+        cfg = engine_config.for_horizon(name)
+        run = _demo_run(metadata=meta, use_cache=False, config=cfg)
+        again = _demo_run(metadata=meta, use_cache=False, config=cfg)
+        report.check(engine.digest(run) == engine.digest(again),
+                     f"{name} horizon is deterministic", f"run {run['run_id']}")
+        runs[name] = run
+        roots[name] = anchor.build_anchor_record(run, meta)["root"]
+
+    ids = {name: run["run_id"] for name, run in runs.items()}
+    report.check(len(set(ids.values())) == len(ids),
+                 "each horizon gets its OWN run_id",
+                 " · ".join(f"{k}={v}" for k, v in sorted(ids.items())))
+    report.check(len(set(roots.values())) == 1,
+                 "every horizon anchors the SAME evidence root",
+                 f"{sorted(set(roots.values()))[0][:24]}… — decay scores the evidence, it never "
+                 f"edits it")
+
+    base = {r["company_id"]: r["label"] for r in runs[engine_config.DEFAULT_HORIZON]["records"]}
+    display = baseline["labels"]
+    for name in names:
+        if name == engine_config.DEFAULT_HORIZON:
+            continue
+        moved = [(cid, base[cid], r["label"]) for r in runs[name]["records"]
+                 for cid in [r["company_id"]] if base.get(cid) != r["label"]]
+        report.info(f"{engine_config.DEFAULT_HORIZON} -> {name}: {len(moved)}/{len(base)} "
+                    f"companies change quadrant "
+                    f"({100.0 * len(moved) / max(1, len(base)):.1f}%)")
+        for cid, was, now in moved[:4]:
+            report.info(f"{'':4s}{cid}: {display.get(was, was)} -> {display.get(now, now)}")
+    report.check(True, "horizon churn reported", "a toggle that silently relabels is a toggle "
+                                                "that lies")
+
+
 def check_digital_influence(report, baseline):
     """Does the DIGITAL pillar change any decision? Slide 8 of the deck calls it a hypothesis
     and promises the harness reports the answer "honestly, either way" — so it is reported
@@ -652,6 +704,8 @@ def main(argv):
         check_merkle(report, baseline)
     if everything or "--guards" in flags:
         check_guards(report, baseline)
+    if everything or "--horizons" in flags:
+        check_horizons(report, baseline)
     if everything or "--sweep" in flags:
         check_digital_influence(report, baseline)
         check_sweep(report, baseline)

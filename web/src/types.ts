@@ -257,6 +257,13 @@ export interface Board {
 //  Engine (Prototype Build Spec v2): score records, CGSI quadrants, tiers, N/M/K
 // --------------------------------------------------------------------------- //
 export type TierKey = 'conservative' | 'balanced' | 'aggressive'
+/**
+ * Decay horizon. NOT a filter like TierKey: the tiers are flags already stamped on a finished
+ * record, so switching one re-segments what is on screen. Switching the horizon changes the
+ * decay half-life, which re-scores everything — so it is a server round-trip, and each horizon
+ * carries its own run_id.
+ */
+export type HorizonKey = 'short' | 'long'
 export type LabelKey =
   | 'hidden_winners' | 'future_leaders' | 'overrated_leaders' | 'value_traps' | 'consensus'
 
@@ -317,6 +324,10 @@ export interface EngineBlock {
   tiers: Record<TierKey, string>
   tier_rules: Record<TierKey, string>
   default_tier: TierKey
+  horizon: HorizonKey
+  horizons: Record<HorizonKey, number>
+  default_horizon: HorizonKey
+  half_life_days: number
   nmk: {
     N: number; M: number; K: number
     labels: Record<'N' | 'M' | 'K', string>

@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from 'react'
 import { useStore } from '../../store'
-import type { EngineRecord, LabelKey, TierKey } from '../../types'
+import type { EngineRecord, HorizonKey, LabelKey, TierKey } from '../../types'
 
 /**
  * EngineBoard — the Build Spec v2 command strip: the CGSI quadrant matrix (A1), the risk-tier
@@ -66,7 +66,8 @@ export default function EngineBoard() {
     [rows])
 
   if (!engine) return null
-  const { nmk, labels, label_counts, label_tooltips, label_rules, tiers, tier_rules, anchor } = engine
+  const { nmk, labels, label_counts, label_tooltips, label_rules, tiers, tier_rules, anchor,
+    horizons, half_life_days } = engine
   const dimmed = rows.length - shown.length
 
   const point = (r: EngineRecord) => ({
@@ -94,6 +95,8 @@ export default function EngineBoard() {
         <div className="engine-run" title={`config ${engine.config_version} · ${engine.config_hash}`}>
           <span>run <b>{engine.run_id}</b></span>
           <span>as of {engine.as_of}</span>
+          <span title="The decay half-life this run was scored with. Flip it in the controls
+ below — the whole board re-scores.">{half_life_days}d half-life</span>
           <span className={`anchor-chip ${anchor.status === 'anchored' ? 'on' : ''}`}
             title={anchor.note || `${anchor.leaf_count} leaves · root ${anchor.root.slice(0, 24)}…`}>
             {anchor.status === 'anchored' ? '⛓ anchored' : '⛓ anchor pending'}
@@ -110,6 +113,23 @@ export default function EngineBoard() {
             <button key={key} className={`btn ${settings.tier === key ? 'on' : ''}`}
               title={tier_rules[key] || key} onClick={() => setSettings({ tier: key })}>
               {tiers[key]}
+            </button>
+          ))}
+        </div>
+        {/*
+          Horizon sits beside the tiers but does something different, and the copy says so.
+          A tier re-segments what is already scored; a horizon re-scores. Half-lives are printed
+          on the buttons because "Short" and "Long" mean nothing on their own, and the numbers
+          come from config — nothing here hard-codes 45 or 180.
+        */}
+        <div className="seg" role="group" aria-label="Decay horizon">
+          {(Object.keys(horizons) as HorizonKey[]).sort().map(key => (
+            <button key={key} className={`btn ${settings.horizon === key ? 'on' : ''}`}
+              title={`Re-score with a ${horizons[key]}-day decay half-life. This is not a `
+                + `filter: signal weights change, so momentum, quadrants and N/M/K all move, `
+                + `and the run gets its own id.`}
+              onClick={() => setSettings({ horizon: key })}>
+              {key === 'short' ? 'Short' : 'Long'} {horizons[key]}d
             </button>
           ))}
         </div>

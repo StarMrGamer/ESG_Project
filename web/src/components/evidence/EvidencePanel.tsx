@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../api'
 import { useStore } from '../../store'
 import { Spinner } from '../ui'
-import type { Badges, EvidencePayload, VerifyPayload } from '../../types'
+import type { Badges, EvidencePayload, HorizonKey, VerifyPayload } from '../../types'
 
 /**
  * EvidencePanel — the three-click destination: card → evidence → source.
@@ -37,7 +37,8 @@ function BadgeRow({ badges }: { badges: Badges }) {
   )
 }
 
-function Verification({ ticker, demo }: { ticker: string; demo: boolean }) {
+function Verification({ ticker, demo, horizon }:
+  { ticker: string; demo: boolean; horizon: HorizonKey }) {
   const [payload, setPayload] = useState<VerifyPayload | null>(null)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
@@ -45,13 +46,13 @@ function Verification({ ticker, demo }: { ticker: string; demo: boolean }) {
   const run = useCallback(async (tamper: boolean) => {
     setBusy(true); setErr('')
     try {
-      setPayload(await api.verify({ ticker, demo, tamper }))
+      setPayload(await api.verify({ ticker, demo, horizon, tamper }))
     } catch (e) {
       setErr(e instanceof Error ? e.message : 'Verification failed.')
     } finally {
       setBusy(false)
     }
-  }, [ticker, demo])
+  }, [ticker, demo, horizon])
 
   return (
     <div className="panel-block verify-block">
@@ -124,11 +125,11 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
   useEffect(() => {
     let cancel = false
     setData(null); setErr('')
-    api.evidence(ticker, settings.demo)
+    api.evidence(ticker, settings.demo, settings.horizon)
       .then(d => { if (!cancel) setData(d) })
       .catch(e => { if (!cancel) setErr(e instanceof Error ? e.message : String(e)) })
     return () => { cancel = true }
-  }, [ticker, settings.demo])
+  }, [ticker, settings.demo, settings.horizon])
 
   if (err) return <div className="error-note">Couldn't load the evidence trail: {err}</div>
   if (!data) return <Spinner label="Reading the evidence trail…" />
@@ -259,7 +260,7 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
         )}
       </div>
 
-      <Verification ticker={ticker} demo={settings.demo} />
+      <Verification ticker={ticker} demo={settings.demo} horizon={settings.horizon} />
     </div>
   )
 }
