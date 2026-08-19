@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../../store'
-import type { Goal, Level, Mandate, SetupChoice } from '../../store'
+import type { Focus, Goal, Holding, Level, Mandate, SetupChoice } from '../../store'
 import type { HorizonKey, TierKey } from '../../types'
 import { shortSector } from '../ui'
 
@@ -19,14 +19,55 @@ import { shortSector } from '../ui'
  * journeys, not one journey with a different filter:
  *   screen      — a universe question. Country and industry follow, and it lands on the board.
  *   investigate — a single-company question. It asks which name, and lands in the relay.
+ *
+ * WHY THERE IS A PROFILE STEP (added 2026-08-19, review feedback). The first version asked four
+ * questions and DERIVED the risk tier and decay horizon from the mandate alone. The reviewer's
+ * objection was fair: a vague question earns a vague answer, and "protect the downside" is a
+ * thin basis for setting somebody's risk appetite and evidence window for them. So the inputs
+ * that actually move the board are now asked for — risk appetite, how long you hold, and
+ * whether green finance is the point — as one step rather than three, because they are one
+ * thought. The mandate still PRE-FILLS every answer with its reason attached, so the fast path
+ * is unchanged and nothing is decided silently on the user's behalf.
+ *
+ * EVERY ANSWER HAS TO DO SOMETHING. A question whose answer only changes a summary line is
+ * decoration, and worse than not asking. Risk appetite sets the A5 tier, holding period sets the
+ * decay horizon (a re-score, not a filter), and the green-finance focus reads
+ * `green_bond_status` from the metadata CSV — real data, marked provisional where it is.
  */
 
-type StepKey = 'mandate' | 'goal' | 'country' | 'sector' | 'company' | 'ready'
+type StepKey = 'mandate' | 'profile' | 'goal' | 'country' | 'sector' | 'company' | 'ready'
 
 const MANDATES: { key: Mandate; label: string; blurb: string }[] = [
   { key: 'risk', label: 'Protect the downside', blurb: 'Find what the rating has not marked down yet.' },
   { key: 'return', label: 'Find the upside', blurb: 'Find improvement the rating has not priced in.' },
   { key: 'compliance', label: 'Satisfy a mandate', blurb: 'Show the evidence trail behind every claim.' },
+]
+
+/** Risk appetite — the A5 tiers, in the user's words rather than the config's. */
+const RISKS: { key: TierKey; label: string; blurb: string }[] = [
+  { key: 'conservative', label: 'Low', blurb: 'Only labelled, reviewed, profitable issuers, and only where the evidence is strong.' },
+  { key: 'balanced', label: 'Moderate', blurb: 'Profitable names where we disagree with the rating and no reviewed label has priced it.' },
+  { key: 'aggressive', label: 'High', blurb: 'Includes loss-making names with traction — thinner evidence, earlier.' },
+]
+
+/**
+ * How long you hold. This sets the decay horizon, which is a genuinely different quantity —
+ * days of evidence memory, not years of holding — so the mapping is stated on screen rather
+ * than implied. A short holder wants only what is moving now; a longer one wants the record.
+ */
+const HOLDINGS: { key: Holding; label: string; blurb: string; horizon: HorizonKey }[] = [
+  { key: 'under_2y', label: 'Under 2 years', horizon: 'short',
+    blurb: 'Signals decay fast (45 days) — only what is moving now counts.' },
+  { key: '2_5y', label: '2 to 5 years', horizon: 'long',
+    blurb: 'Signals decay slowly (180 days) — the fuller record counts.' },
+  { key: '5y_plus', label: '5 to 10 years+', horizon: 'long',
+    blurb: 'Signals decay slowly (180 days) — structural change over noise.' },
+]
+
+/** Thematic focus. `green` is backed by the green-bond metadata, not by sentiment. */
+const FOCUSES: { key: Focus; label: string; blurb: string }[] = [
+  { key: 'broad', label: 'Broad ESG', blurb: 'Every improver in the universe, whatever it funds with.' },
+  { key: 'green', label: 'Green finance', blurb: 'Lean towards issuers carrying a labelled green bond.' },
 ]
 
 const GOALS: { key: Goal; label: string; blurb: string }[] = [
@@ -39,13 +80,13 @@ const GOALS: { key: Goal; label: string; blurb: string }[] = [
  * summary card and both stay editable there — a derived default the user cannot see or change
  * is just a hidden setting.
  */
-const DERIVED: Record<Mandate, { tier: TierKey; horizon: HorizonKey; why: string }> = {
-  risk: { tier: 'balanced', horizon: 'short',
-    why: 'Downside work reacts to what is happening now, so signals decay fast (45 days) and the tier stays Balanced.' },
-  return: { tier: 'aggressive', horizon: 'long',
-    why: 'Upside work needs a longer memory, so signals decay slowly (180 days) and the tier opens up to Aggressive.' },
-  compliance: { tier: 'conservative', horizon: 'long',
-    why: 'A mandate wants corroboration over reach, so the tier is Conservative and signals decay slowly (180 days).' },
+const DERIVED: Record<Mandate, { tier: TierKey; holding: Holding; focus: Focus; why: string }> = {
+  risk: { tier: 'balanced', holding: 'under_2y', focus: 'broad',
+    why: 'Downside work reacts to what is happening now, so I have started you on a short evidence window and a moderate appetite. Change either.' },
+  return: { tier: 'aggressive', holding: '5y_plus', focus: 'broad',
+    why: 'Upside work needs a longer memory and tolerates thinner evidence, so I have started you high and long. Change either.' },
+  compliance: { tier: 'conservative', holding: '2_5y', focus: 'green',
+    why: 'A mandate wants corroboration over reach, so I have started you low, long, and pointed at labelled issuance. Change any of it.' },
 }
 
 const LEVELS: { key: Level; label: string; blurb: string }[] = [
@@ -71,7 +112,11 @@ export default function Setup() {
   const [company, setCompany] = useState('')
   const [level, setLevel] = useState<Level>(1)
   const [tier, setTier] = useState<TierKey>('balanced')
-  const [horizon, setHorizon] = useState<HorizonKey>('long')
+  const [holding, setHolding] = useState<Holding>('2_5y')
+  const [focus, setFocus] = useState<Focus>('broad')
+  // The horizon is not asked for directly — it is what the holding period MEANS in evidence
+  // days, so it is derived here and shown with that reason on the summary card.
+  const horizon: HorizonKey = HOLDINGS.find(h => h.key === holding)!.horizon
   const [typed, setTyped] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -83,17 +128,23 @@ export default function Setup() {
   // the screening arm carries its own cursor instead.
   const [screenStep, setScreenStep] = useState<'country' | 'sector' | 'ready'>('country')
 
+  // The profile step is pre-filled by the mandate, so it is a confirmation, not a blocker —
+  // `profileDone` flips on the first interaction OR on Continue.
+  const [profileDone, setProfileDone] = useState(false)
+
   const effStep: StepKey = !mandate ? 'mandate'
-    : !goal ? 'goal'
-      : goal === 'investigate' ? (company ? 'ready' : 'company')
-        : screenStep === 'ready' ? 'ready' : screenStep
+    : !profileDone ? 'profile'
+      : !goal ? 'goal'
+        : goal === 'investigate' ? (company ? 'ready' : 'company')
+          : screenStep === 'ready' ? 'ready' : screenStep
 
   const suggestions = names.slice(0, 6)
 
   const pickMandate = (m: Mandate) => {
     setMandate(m)
     setTier(DERIVED[m].tier)
-    setHorizon(DERIVED[m].horizon)
+    setHolding(DERIVED[m].holding)
+    setFocus(DERIVED[m].focus)
   }
 
   /** Free text, matched locally against whatever the current step is asking for. */
@@ -107,6 +158,19 @@ export default function Setup() {
         : /return|upside|alpha|growth|outperform/.test(low) ? 'return'
           : /compl|mandate|regul|report|audit/.test(low) ? 'compliance' : ''
       if (hit) pickMandate(hit as Mandate)
+      return
+    }
+    if (effStep === 'profile') {
+      if (/high|aggress|risky/.test(low)) setTier('aggressive')
+      else if (/low|conserv|safe|cautious/.test(low)) setTier('conservative')
+      else if (/mod|balanc|medium/.test(low)) setTier('balanced')
+      if (/green|climate|transition|bond/.test(low)) setFocus('green')
+      const yrs = low.match(/(\d+)\s*(?:to|-|–)?\s*(\d+)?\s*year/)
+      if (yrs) {
+        const n = Number(yrs[2] || yrs[1])
+        setHolding(n < 2 ? 'under_2y' : n <= 5 ? '2_5y' : '5y_plus')
+      }
+      setProfileDone(true)
       return
     }
     if (effStep === 'goal') {
@@ -133,11 +197,15 @@ export default function Setup() {
     mandate ? MANDATES.find(m => m.key === mandate)!.label.toLowerCase() : '',
     goal === 'investigate' ? `on ${company}` : country === 'All' ? 'across ASEAN' : `in ${country}`,
     goal === 'screen' && sector !== 'All' ? `· ${shortSector(sector)}` : '',
+    `· ${RISKS.find(r => r.key === tier)!.label.toLowerCase()} risk`,
+    `· ${HOLDINGS.find(h => h.key === holding)!.label.toLowerCase()}`,
+    focus === 'green' ? '· green finance' : '',
   ].filter(Boolean).join(' ')
 
   const finish = () => {
     const choice: SetupChoice = {
       mandate: (mandate || 'risk') as Mandate, goal: (goal || 'screen') as Goal,
+      holding, focus,
       country: goal === 'investigate' ? 'All' : country,
       sector: goal === 'investigate' ? 'All' : sector,
       tier, horizon, level, label,
@@ -153,13 +221,14 @@ export default function Setup() {
   }
 
   const skip = () => applySetup({
-    mandate: 'risk', goal: 'screen', country: 'All', sector: 'All',
+    mandate: 'risk', goal: 'screen', holding: '2_5y', focus: 'broad',
+    country: 'All', sector: 'All',
     tier: 'balanced', horizon: 'long', level: 3, label: 'everything, unfiltered',
   })
 
   const order: StepKey[] = goal === 'investigate'
-    ? ['mandate', 'goal', 'company', 'ready']
-    : ['mandate', 'goal', 'country', 'sector', 'ready']
+    ? ['mandate', 'profile', 'goal', 'company', 'ready']
+    : ['mandate', 'profile', 'goal', 'country', 'sector', 'ready']
   const idx = Math.max(0, order.indexOf(effStep))
 
   return (
@@ -184,6 +253,16 @@ export default function Setup() {
             <>
               <Bubble>What are you trying to do?</Bubble>
               <Said>{MANDATES.find(m => m.key === mandate)!.label}</Said>
+            </>
+          )}
+          {profileDone && (
+            <>
+              <Bubble>And a bit about you?</Bubble>
+              <Said>
+                {RISKS.find(r => r.key === tier)!.label} risk ·{' '}
+                {HOLDINGS.find(h => h.key === holding)!.label} ·{' '}
+                {FOCUSES.find(f => f.key === focus)!.label}
+              </Said>
             </>
           )}
           {goal && (
@@ -225,6 +304,58 @@ export default function Setup() {
                 </button>
               ))}
             </div>
+          </div>
+        )}
+
+        {effStep === 'profile' && (
+          <div className="setup-step">
+            <Bubble>
+              Before I show you anything — a bit about you, so what I show is about you too.
+              I have guessed from your mandate; correct whatever is wrong.
+            </Bubble>
+
+            <div className="setup-profile">
+              <div className="setup-q">
+                <div className="setup-q-h">How much risk do you take?</div>
+                <div className="setup-chips">
+                  {RISKS.map(r => (
+                    <button key={r.key} className={`setup-chip ${tier === r.key ? 'on' : ''}`}
+                      title={r.blurb} onClick={() => setTier(r.key)}>{r.label}</button>
+                  ))}
+                </div>
+                <div className="setup-q-f">{RISKS.find(r => r.key === tier)!.blurb}</div>
+              </div>
+
+              <div className="setup-q">
+                <div className="setup-q-h">How long do you hold?</div>
+                <div className="setup-chips">
+                  {HOLDINGS.map(h => (
+                    <button key={h.key} className={`setup-chip ${holding === h.key ? 'on' : ''}`}
+                      title={h.blurb} onClick={() => setHolding(h.key)}>{h.label}</button>
+                  ))}
+                </div>
+                {/* Years of holding and days of evidence memory are different quantities, so
+                    the translation between them is printed rather than assumed. */}
+                <div className="setup-q-f">{HOLDINGS.find(h => h.key === holding)!.blurb}</div>
+              </div>
+
+              <div className="setup-q">
+                <div className="setup-q-h">Anything you are specifically after?</div>
+                <div className="setup-chips">
+                  {FOCUSES.map(f => (
+                    <button key={f.key} className={`setup-chip ${focus === f.key ? 'on' : ''}`}
+                      title={f.blurb} onClick={() => setFocus(f.key)}>{f.label}</button>
+                  ))}
+                </div>
+                <div className="setup-q-f">{FOCUSES.find(f => f.key === focus)!.blurb}</div>
+              </div>
+            </div>
+
+            {mandate && <div className="setup-why">{DERIVED[mandate].why}</div>}
+
+            <button className="btn btn-primary setup-go" onClick={() => setProfileDone(true)}>
+              That's me →
+            </button>
           </div>
         )}
 
@@ -302,15 +433,30 @@ export default function Setup() {
                 </div>
               </div>
               <div className="setup-derived-row">
-                <span className="setup-derived-k">Signal decay</span>
+                <span className="setup-derived-k">Holding period</span>
                 <div className="seg">
-                  {(['short', 'long'] as HorizonKey[]).map(h => (
-                    <button key={h} className={`btn ${horizon === h ? 'on' : ''}`}
-                      onClick={() => setHorizon(h)}>
-                      {h === 'short' ? 'Short 45d' : 'Long 180d'}
-                    </button>
+                  {HOLDINGS.map(h => (
+                    <button key={h.key} className={`btn ${holding === h.key ? 'on' : ''}`}
+                      onClick={() => setHolding(h.key)}>{h.label}</button>
                   ))}
                 </div>
+              </div>
+              <div className="setup-derived-row">
+                <span className="setup-derived-k">Focus</span>
+                <div className="seg">
+                  {FOCUSES.map(f => (
+                    <button key={f.key} className={`btn ${focus === f.key ? 'on' : ''}`}
+                      onClick={() => setFocus(f.key)}>{f.label}</button>
+                  ))}
+                </div>
+              </div>
+              {/* The one derived value left, and it says both what it is and where it came from. */}
+              <div className="setup-derived-row">
+                <span className="setup-derived-k">Signal decay</span>
+                <span className="setup-derived-v">
+                  {horizon === 'short' ? '45 days' : '180 days'}
+                  <span className="cc-muted"> — from your holding period</span>
+                </span>
               </div>
               {mandate && <div className="setup-why">{DERIVED[mandate].why}</div>}
             </div>

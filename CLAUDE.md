@@ -48,6 +48,7 @@ esg-momentum-radar/
   stage3.py                 # Contract C Markdown/text export helpers (React owns live rendering)
   engine.py                 # run_engine(company_list) — the reproducible score records (Gate 1)
   signals.py                # deterministic signal extraction from stored evidence (no LLM, no clock)
+  sensitivity.py            # what would CHANGE a verdict — leave-one-out + boundary margins (pure)
   engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers · horizons)
   company_metadata.py       # A3 loader over the FROZEN green-bond CSV header + the A4 badge payloads
   pipeline_counts.py        # A6/B2 — N issuers · M pipeline · K review list (screen + money slide)
@@ -151,6 +152,43 @@ widget has this bug); and an uncovered issuer is `{}` → `None`, never zeros. *
 non-commercial reference/publication needs written approval, and commercial use, redistribution or
 **systematic reproduction** needs a licence — so this is attributed, on-demand, one company at a
 time, cached locally, and **`data/` never receives a scrape**.
+
+**"But what about the future?"** (added 2026-08-19, review feedback). The fair objection to
+everything above is that evidence keeps arriving — so a verdict on screen is a snapshot, which is
+exactly what we criticise a rating for being. Two surfaces answer it, and neither predicts
+anything, because the engine cannot and will not. **Forwards** (`sensitivity.py`, drawn by
+`web/src/components/future/VerdictSensitivity.tsx`): re-score the company with each signal
+removed in turn and report which removals change the quadrant label, plus the signed distance
+from every boundary in `engine.label_for`, nearest first. Pure — no clock, no RNG, no network —
+so it replays with the run it describes. The cohort is held fixed and only this company is
+re-ranked, because `momentum_percentile` is a RANK: re-scoring in isolation gets the momentum
+right and the quadrant wrong. Reading the count needs care and the copy does it for you — "10 of
+11 signals are load-bearing" is not ten important findings, it is a company balanced on a
+boundary, so the summary line reads the nearest margin to tell the two apart. Margins are drawn
+NEUTRAL, never green/red: "below the median rating" is the defining property of a Hidden Winner,
+and colouring it red would call the thesis a warning. **Backwards** (`/api/backtest` ->
+`TrackRecord.tsx`): the five validation cases redrawn from the same `docs/backtest/series.json`
+the SVGs come from, where every point is a real engine run at its own cutoff — what the Radar
+would have said on that date — against an incumbent view that did not move. Adaro stays in,
+flagged: a backtest you can only pass is not a backtest.
+
+**The setup asks about YOU now** (added 2026-08-19, review feedback). The first version asked
+four questions and DERIVED the risk tier and decay horizon from the mandate alone; the objection
+was that a vague question earns a vague answer. So the inputs that actually move the board are
+asked for — **risk appetite** (sets the A5 tier), **holding period** (sets the decay horizon) and
+**green-finance focus** (reads `green_bond_status`, the same field the Conservative tier and the
+N bucket use) — as ONE profile step rather than three, because they are one thought. The mandate
+still pre-fills every answer with its reason attached, so the fast path is unchanged and nothing
+is decided silently. **Every answer has to do something**: a question whose answer only changes a
+summary line is decoration, and worse than not asking. Years of holding and days of evidence
+memory are different quantities, so the translation between them is printed rather than implied.
+`greenFocus` DIMS non-matching names rather than hiding them — the same A5 discipline.
+
+**The evidence is reachable from level 1.** The trail, provenance and matrix are level-3
+furniture and setup lands a first-time visitor on level 1, so the backing was real but invisible
+— "fancy UI, no explanation of where the evidence is from" was literally true of what a new
+visitor saw. `RadarHub` now carries one always-present row — *N dated sources behind this
+verdict* — one click from every excerpt, source and date.
 
 **Industry benchmarks** (`benchmarks.py`) answer "compared to what?" with two numbers that are
 deliberately never merged: the **ASEAN peer average** (same unit as the company, from our own
@@ -315,6 +353,7 @@ python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.
 python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity
 python quotes.py                         # live quotes for one name per ASEAN exchange
 python lseg.py "DBS Group Holdings" SGX  # one company's real LSEG ESG score; no args = all 52
+python sensitivity.py IDX:ASMB           # what would change this verdict (--real, --horizon, --json)
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
 python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
                                           #   pre-computes both Compete answers, prints the

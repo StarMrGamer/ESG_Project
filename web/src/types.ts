@@ -610,3 +610,94 @@ export interface Health {
   entries: number
   watchlist: number
 }
+
+/* ------------------------------------------------------------------------- *
+ *  "But what about the future?" — the two payloads that answer it.
+ *
+ *  Neither is a forecast. `SensitivityPayload` looks forward by measuring what the CURRENT
+ *  verdict is standing on; `BacktestPayload` looks back at what the verdict actually did as
+ *  evidence arrived. Between them they answer the question a static rating never faces: the
+ *  data will change — then what?
+ * ------------------------------------------------------------------------- */
+
+/** One signal, re-scored with itself removed. `flips` is the whole point of the row. */
+export interface FlipRow {
+  signal_id: string
+  published_at: string
+  source_type: string
+  source_url: string
+  rationale: string
+  excerpt: string
+  component: string
+  direction: number
+  momentum_without: number
+  momentum_delta: number
+  label_without: string
+  label_without_display: string
+  flips: boolean
+}
+
+/** Distance from one label boundary. A measurement of the record, never a prediction. */
+export interface MarginRow {
+  key: string
+  label: string
+  value: number
+  boundary: number
+  boundary_name: string
+  distance: number
+  side: 'above' | 'below'
+  note: string
+}
+
+export interface SensitivityPayload {
+  company_id: string
+  company: string
+  run_id: string
+  as_of: string
+  horizon: HorizonKey
+  label: LabelKey
+  label_display: string
+  signal_count: number
+  signals: FlipRow[]
+  load_bearing_count: number
+  /** How many signals would have to go before the label moved. null = not even all of them. */
+  smallest_flip_set: number | null
+  margins: MarginRow[]
+  verdict_note: string
+  disclaimer: string
+}
+
+/** One monthly re-run: what the Radar would have said on `date`, from evidence dated before it. */
+export interface BacktestPoint {
+  date: string
+  momentum: number
+  confidence: number
+  signal_count: number
+  label: string
+}
+
+export interface BacktestCase {
+  case_id: string
+  company: string
+  ticker: string
+  profile: string
+  cutoff_date: string
+  outcome_date: string
+  outcome: string
+  outcome_source: string
+  is_known_failure: boolean
+  baseline: { value: number; basis: string; note: string }
+  events: { date: string; text: string; source_type: string }[]
+  points: BacktestPoint[]
+  final: { momentum: number; confidence: number; signal_count: number; label: string }
+}
+
+export interface BacktestPayload {
+  available: boolean
+  note?: string
+  reason?: string
+  lookback_months?: number
+  generated_from?: string
+  cases: BacktestCase[]
+  disclaimer?: string
+}

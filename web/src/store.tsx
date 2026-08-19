@@ -8,6 +8,18 @@ export type Mandate = 'risk' | 'return' | 'compliance'
 /** Which of the two journeys the setup handed off to. */
 export type Goal = 'screen' | 'investigate'
 /**
+ * How long the user expects to hold. NOT the same quantity as the decay horizon — that is how
+ * fast EVIDENCE goes stale, measured in days — but it is the honest input the horizon should be
+ * derived FROM, which is why it is asked for directly instead of inferred from the mandate.
+ */
+export type Holding = 'under_2y' | '2_5y' | '5y_plus'
+/**
+ * Thematic focus. `green` prefers issuers carrying a labelled green bond — real metadata
+ * (`green_bond_status`), not a sentiment guess. Non-matching names DIM, never disappear, which
+ * is the same discipline the risk tiers already follow.
+ */
+export type Focus = 'broad' | 'green'
+/**
  * How much of the board is on screen. This is the layering control: every widget declares the
  * level it earns its place at, and nothing above the current level renders. Level 1 is the
  * default for a first-time user — the dashboard used to open with all three at once, which is
@@ -18,6 +30,8 @@ export type Level = 1 | 2 | 3
 export interface Profile {
   mandate: Mandate | ''
   goal: Goal | ''
+  holding: Holding | ''
+  focus: Focus | ''
   /** One line describing the setup, shown back to the user so the personalisation is legible. */
   label: string
 }
@@ -60,12 +74,19 @@ export interface Settings {
   horizon: HorizonKey
   /** A6 — origination pipeline filter: the Balanced condition as a toggle. */
   pipelineOnly: boolean
+  /**
+   * Thematic preference from the setup. Like `tier` this DIMS rather than hides: a green-finance
+   * mandate still has to be able to see the name it is choosing not to hold.
+   */
+  greenFocus: boolean
 }
 
 /** Everything the setup flow decides, applied in one shot so the board refetches once. */
 export interface SetupChoice {
   mandate: Mandate
   goal: Goal
+  holding: Holding
+  focus: Focus
   country: string
   sector: string
   tier: TierKey
@@ -80,10 +101,11 @@ interface ChatMsg { role: 'user' | 'assistant'; text: string }
 const SETTINGS_KEY = 'esg-radar-settings'
 const DEFAULTS: Settings = {
   demo: true, dark: true, simplified: true, level: 1, setupDone: false,
-  profile: { mandate: '', goal: '', label: '' },
+  profile: { mandate: '', goal: '', holding: '', focus: '', label: '' },
   filters: { country: 'All', sector: 'All' },
   leftOpen: false, rightOpen: false,
   ragEnabled: true, ragTopK: 5, tier: 'balanced', horizon: 'long', pipelineOnly: false,
+  greenFocus: false,
 }
 
 function loadSettings(): Settings {
@@ -311,7 +333,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setSettings({
       filters: { country: c.country, sector: c.sector },
       level: c.level, tier: c.tier, horizon: c.horizon, setupDone: true,
-      profile: { mandate: c.mandate, goal: c.goal, label: c.label },
+      greenFocus: c.focus === 'green',
+      profile: { mandate: c.mandate, goal: c.goal, holding: c.holding, focus: c.focus,
+                 label: c.label },
       // Screening wants the universe rails; investigating one name wants them out of the way.
       leftOpen: c.goal === 'screen' && c.level > 1,
       rightOpen: c.level > 1,

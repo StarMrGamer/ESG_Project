@@ -1705,6 +1705,27 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   background: var(--r-panel2);
 }
 
+/* Selected state for the chips. The profile step pre-fills every answer from the mandate, so
+   the chips have to show what is currently chosen — an unmarked pre-fill is a hidden setting
+   wearing a question's clothes. */
+.setup-chip.on {
+  border-color: color-mix(in srgb, var(--r-pos) 60%, var(--r-border));
+  background: var(--r-posbg);
+  color: var(--r-text);
+}
+
+/* The profile step: three short questions that are one thought, so they share one card. */
+.setup-profile { display: grid; gap: var(--sp-5); margin-top: var(--sp-5); }
+.setup-q {
+  padding: var(--pad-card);
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-inset);
+}
+.setup-q-h { font: 600 13px/1.3 var(--r-font); color: var(--r-text); }
+.setup-q-f { margin-top: var(--sp-4); font: 400 11.5px/1.5 var(--r-font); color: var(--r-muted); }
+.setup-derived-v { font: 600 12.5px/1.2 var(--r-font); color: var(--r-text); }
+
 /* The derived settings. Shown with their reason and left editable — a default the user cannot
    see or change is just a hidden setting. */
 .setup-derived {
@@ -2389,3 +2410,203 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
    white that lands paler than LSEG's own wheel, which paints saturated hues on a white page —
    so light mode deepens the whole plate rather than re-deriving twelve opacities. */
 [data-theme='light'] .lseg-wheel { filter: saturate(1.35) brightness(0.94); }
+
+/* ==========================================================================
+   "But what about the future?" — the sensitivity panel and the track record.
+
+   Both answer the same objection (the evidence keeps changing, so what?) and both are read as
+   ARGUMENT rather than dashboard: a claim in words, then the numbers under it. Nothing here
+   invents a value — every size, pad and radius is a token from :root.
+   ========================================================================== */
+
+.sens { display: flex; flex-direction: column; gap: var(--sp-5); }
+
+.sens-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-5); }
+
+.sens-verdict {
+  padding: var(--pad-chip);
+  border-radius: var(--r-radius-2xs);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid var(--r-border);
+}
+/* A narrow verdict is not a wrong one — amber says "watch this", never "distrust this". */
+.sens-verdict.narrow { background: var(--r-amberbg); color: var(--r-amber); }
+.sens-verdict.solid { background: var(--r-posbg); color: var(--r-pos); }
+
+.sens-note {
+  padding: var(--pad-card);
+  border-radius: var(--r-radius-xs);
+  background: var(--r-inset);
+  border-left: 2px solid var(--r-borderStrong);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.sens-sub {
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--r-text);
+  font-weight: 600;
+}
+
+.sens-margins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--sp-4);
+}
+
+.sens-margin {
+  padding: var(--pad-row);
+  border-radius: var(--r-radius-xs);
+  background: var(--r-panel2);
+  border: 1px solid var(--r-border);
+}
+/* The nearest boundary is the only one worth acting on, so it is the only one lifted. */
+.sens-margin.near { border-color: var(--r-borderStrong); background: var(--r-inset); }
+
+.sens-margin-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-2); }
+.sens-margin-name { font-size: 11.5px; color: var(--r-muted); }
+.sens-margin-d { font-family: var(--r-mono); font-size: 11.5px; color: var(--r-text); }
+.sens-margin.near .sens-margin-d { color: var(--r-amber); }
+
+.sens-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--r-border);
+  margin: var(--sp-2) 0 var(--sp-1);
+  overflow: hidden;
+}
+.sens-bar-fill { height: 100%; border-radius: 999px; background: var(--r-borderStrong); }
+.sens-margin.near .sens-bar-fill { background: var(--r-amber); }
+
+.sens-margin-f { font-size: 10.5px; color: var(--r-faint); font-family: var(--r-mono); }
+.sens-margin-note { font-size: 10.5px; color: var(--r-muted); margin-top: var(--sp-2); line-height: 1.45; }
+
+.sens-tag {
+  margin-left: var(--sp-2);
+  padding: 1px var(--sp-2);
+  border-radius: var(--r-radius-2xs);
+  background: var(--r-amberbg);
+  color: var(--r-amber);
+  font-family: var(--r-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sens-rows { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+.sens-row {
+  padding: var(--pad-row);
+  border-radius: var(--r-radius-xs);
+  background: var(--r-panel2);
+  border: 1px solid var(--r-border);
+  border-left: 2px solid var(--r-border);
+}
+.sens-row.flip { border-left-color: var(--r-amber); background: var(--r-inset); }
+
+.sens-row-h { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.sens-date { font-family: var(--r-mono); font-size: 11.5px; color: var(--r-muted); }
+.sens-comp {
+  padding: var(--pad-chip);
+  border-radius: var(--r-radius-2xs);
+  background: var(--r-border);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+.sens-flag { font-size: 11.5px; color: var(--r-amber); font-weight: 600; }
+.sens-hold { font-size: 11.5px; color: var(--r-faint); }
+.sens-rationale { font-size: 12.5px; margin-top: var(--sp-2); line-height: 1.5; }
+.sens-row-f { font-size: 10.5px; color: var(--r-faint); margin-top: var(--sp-2); font-family: var(--r-mono); }
+.sens-row-f a { color: var(--r-blue); }
+.sens-more { align-self: flex-start; }
+.sens-foot { font-size: 10.5px; line-height: 1.5; }
+.sens-foot code { font-family: var(--r-mono); }
+
+/* -- track record ---------------------------------------------------------- */
+
+.bt { display: flex; flex-direction: column; gap: var(--sp-5); }
+.bt-head { display: flex; justify-content: space-between; gap: var(--sp-5); }
+.bt-tabs { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+.bt-tab {
+  padding: var(--pad-pill);
+  border-radius: var(--r-radius-2xs);
+  border: 1px solid var(--r-border);
+  background: var(--r-panel2);
+  color: var(--r-muted);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: all 0.18s var(--r-ease);
+}
+.bt-tab:hover { color: var(--r-text); border-color: var(--r-borderStrong); }
+.bt-tab.on { background: var(--r-inset); color: var(--r-text); border-color: var(--r-borderStrong); }
+
+/* The case we got wrong is marked, not hidden — a backtest you can only pass is not one. */
+.bt-fail { margin-left: var(--sp-2); color: var(--r-amber); font-weight: 700; }
+
+.bt-case { display: flex; flex-direction: column; gap: var(--sp-4); }
+.bt-case-h { display: flex; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap; }
+.bt-co { font-size: 15px; font-weight: 600; }
+
+.bt-badge {
+  padding: var(--pad-chip);
+  border-radius: var(--r-radius-2xs);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+}
+.bt-badge.ok { background: var(--r-posbg); color: var(--r-pos); }
+.bt-badge.fail { background: var(--r-amberbg); color: var(--r-amber); }
+
+.bt-chart {
+  background: var(--r-inset);
+  border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-xs);
+  padding: var(--sp-3) var(--sp-2) var(--sp-2) 0;
+}
+
+.bt-legend { display: flex; gap: var(--sp-6); flex-wrap: wrap; font-size: 11.5px; color: var(--r-muted); }
+.bt-key { display: inline-block; width: 18px; height: 2px; margin-right: var(--sp-2); vertical-align: middle; }
+.bt-key.rating { background: var(--r-muted); }
+.bt-key.mom { background: var(--r-pos); height: 3px; }
+.bt-key.mom.fail { background: var(--r-amber); }
+
+.bt-outcome {
+  padding: var(--pad-card);
+  border-radius: var(--r-radius-xs);
+  background: var(--r-panel2);
+  border-left: 2px solid var(--r-borderStrong);
+}
+.bt-outcome-h { font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--r-muted); }
+.bt-outcome-t { font-size: 13px; margin-top: var(--sp-2); line-height: 1.5; }
+.bt-src { font-size: 10.5px; color: var(--r-blue); }
+
+.bt-gap { font-size: 12.5px; line-height: 1.55; }
+.bt-note, .bt-foot, .bt-axis { font-size: 10.5px; line-height: 1.5; }
+
+/* -- level-1 evidence affordance ------------------------------------------- */
+
+/* Level 1 is where a first-time visitor lands, and it was the one level with no route to the
+   evidence at all. One row, always visible, one click from every excerpt and source. */
+.hub-backing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  width: 100%;
+  margin-top: var(--sp-4);
+  padding: var(--pad-row);
+  border-radius: var(--r-radius-xs);
+  border: 1px solid var(--r-border);
+  background: var(--r-inset);
+  color: var(--r-muted);
+  font-family: var(--r-font);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s var(--r-ease);
+}
+.hub-backing:hover { border-color: var(--r-borderStrong); color: var(--r-text); }
+.hub-backing-n { font-family: var(--r-mono); font-size: 17px; font-weight: 600; color: var(--r-text); }
+.hub-backing-t { font-size: 12.5px; }
+.hub-backing-go { margin-left: auto; font-size: 11.5px; color: var(--r-blue); white-space: nowrap; }

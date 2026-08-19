@@ -159,7 +159,7 @@ function Satellite({ pillar, area, scale }: {
 }
 
 export default function RadarHub({ solo = false }: { solo?: boolean }) {
-  const { board, settings, openDeepDive } = useStore()
+  const { board, settings, openDeepDive, openEvidence } = useStore()
   if (!board) return null
   const focused = board.focused
 
@@ -178,6 +178,14 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
   // At level 1 both rails are closed, so the live signals — the thing the rating cannot see, and
   // the reason any of this is interesting — have nowhere else to appear. They ride in the core.
   const signals = solo ? (focused?.signals ?? []).slice(0, 4) : []
+
+  // The signal count comes off the engine record the board already carries, so this costs no
+  // extra request. No record (a name outside the scored universe) means no claim is made.
+  const focusTicker = (focused?.constituent as { ticker?: string } | undefined)?.ticker || ''
+  const rec = focusTicker ? board.engine?.records?.[focusTicker] : undefined
+  const backing = solo && rec && rec.signal_count > 0
+    ? { ticker: focusTicker, n: rec.signal_count }
+    : null
 
   return (
     <div className={`hub ${solo ? 'is-solo' : ''}`}>
@@ -277,6 +285,21 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
                 )}
               </dl>
             </details>
+
+            {/* "Fancy UI, but no explanation of where the evidence is from." Fair, and it was
+                literally true at this level: the evidence trail is level-3 furniture and a
+                first-time visitor lands on level 1, so the backing was real but invisible. One
+                line, always present, one click from the receipts. */}
+            {backing && (
+              <button className="hub-backing" onClick={() => openEvidence(backing.ticker)}
+                title="Every signal with its excerpt, source, date and the reason it counted">
+                <span className="hub-backing-n">{backing.n}</span>
+                <span className="hub-backing-t">
+                  dated {backing.n === 1 ? 'source behind' : 'sources behind'} this verdict
+                </span>
+                <span className="hub-backing-go">see the evidence ›</span>
+              </button>
+            )}
 
             {signals.length > 0 && (
               <div className="hub-signals">

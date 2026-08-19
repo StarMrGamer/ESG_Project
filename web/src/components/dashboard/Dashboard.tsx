@@ -6,6 +6,7 @@ import AssistantRail from './AssistantRail'
 import AssistantBar from './AssistantBar'
 import EngineBoard from './EngineBoard'
 import UniverseGrid from './UniverseGrid'
+import TrackRecord from '../future/TrackRecord'
 import IndustryTable from '../benchmark/IndustryTable'
 
 /**
@@ -77,6 +78,10 @@ export default function Dashboard() {
             {ro && <div><AssistantRail /></div>}
           </div>
           {lv >= 2 && <IndustryTable />}
+          {/* "The AI can see now and last time, but not the future." This is the honest half of
+              the answer and it earns level 2: it is evidence about the method, not another
+              reading to interpret. */}
+          {lv >= 2 && <div className="panel-block"><TrackRecord /></div>}
           {lv >= 2 && <UniverseGrid />}
           <StepUp />
         </>

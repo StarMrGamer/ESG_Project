@@ -60,7 +60,20 @@ const QUADRANTS: { keys: LabelKey[]; at: (r: Rect) => { x: number; y: number }; 
   { keys: ['overrated_leaders'], anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y1 - 8 }) },
 ]
 
-function matches(record: EngineRecord, tier: TierKey | 'all', pipelineOnly: boolean): boolean {
+/**
+ * The A5 discipline: a non-matching company DIMS, it never disappears. A green-finance mandate
+ * still has to be able to see the name it is choosing not to hold — hiding it would turn a
+ * preference into a claim that the company does not exist.
+ *
+ * `greenLabelled` is read from the metadata CSV's `green_bond_status`, the same field the
+ * Conservative tier and the N bucket use, so the setup's focus answer and the origination
+ * counts can never mean different things by "green".
+ */
+const GREEN_LABELLED = ['cbi_certified', 'labelled_reviewed']
+
+function matches(record: EngineRecord, tier: TierKey | 'all', pipelineOnly: boolean,
+                 greenFocus: boolean, greenStatus: string): boolean {
+  if (greenFocus && !GREEN_LABELLED.includes(greenStatus)) return false
   if (pipelineOnly && !record.tiers?.balanced) return false
   if (tier === 'all') return true
   return Boolean(record.tiers?.[tier])
@@ -97,8 +110,9 @@ export default function EngineBoard() {
 
   const rows = useMemo(() => Object.values(engine?.records ?? {}), [engine])
   const shown = useMemo(
-    () => rows.filter(r => matches(r, settings.tier, settings.pipelineOnly)),
-    [rows, settings.tier, settings.pipelineOnly])
+    () => rows.filter(r => matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
+      engine?.badges?.[r.company_id]?.green_bond?.status || '')),
+    [rows, engine, settings.tier, settings.pipelineOnly, settings.greenFocus])
   // The 90-second walk has to reach a Hidden Winner without hunting for a dot, so the strongest
   // disagreements get a named, one-click route straight into the evidence trail.
   const hidden = useMemo(
@@ -271,7 +285,8 @@ export default function EngineBoard() {
           ))}
           {rows.map(r => {
             const { cx, cy } = point(r)
-            const on = matches(r, settings.tier, settings.pipelineOnly)
+            const on = matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
+              engine.badges?.[r.company_id]?.green_bond?.status || '')
             const isFocus = r.company_id === focusTicker
             return (
               <circle key={r.company_id} cx={cx} cy={cy}

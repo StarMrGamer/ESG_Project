@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../api'
+import VerdictSensitivity from '../future/VerdictSensitivity'
 import { useStore } from '../../store'
 import { Spinner } from '../ui'
 import type { Badges, EvidencePayload, HorizonKey, VerifyPayload } from '../../types'
@@ -210,6 +211,12 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
           corroboration {data.corroboration.toFixed(2)} · mean source quality
           {' '}{data.mean_source_quality.toFixed(2)}.
         </div>
+      </div>
+
+      {/* Between "where the number came from" and "here is every row" sits the question a
+          reviewer asks next: the evidence will change, so what is this actually standing on? */}
+      <div className="panel-block">
+        <VerdictSensitivity ticker={ticker} />
       </div>
 
       <div className="panel-block">

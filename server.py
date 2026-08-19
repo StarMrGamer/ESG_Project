@@ -46,6 +46,7 @@ import lseg
 import metrics
 import pipeline_counts
 import quotes
+import sensitivity
 import stage1
 import stage2
 import universe
@@ -1177,6 +1178,69 @@ def lseg_api(ticker: str, demo: bool = Query(False), company: str = "", exchange
 def anchors():
     """Every anchored run on disk — the comply-or-explain run list (C2: anchor every run)."""
     return {"records": anchor.list_records(), "chain": anchor.chain_config()}
+
+
+# --------------------------------------------------------------------------- #
+#  "BUT WHAT ABOUT THE FUTURE?" — the two honest answers
+#
+#  Neither endpoint predicts anything, because the engine cannot and will not. Between them
+#  they answer the question a static rating never has to face: the evidence WILL change, so
+#  what is this verdict actually standing on, and has it moved before?
+#
+#    /api/sensitivity  — forwards. Which signals carry the label right now, and how close is
+#                        it to a boundary. Measured by re-scoring, not estimated.
+#    /api/backtest     — backwards. Five real cases where each point is a real engine run at
+#                        its own cutoff: what the Radar would have said on that date, against
+#                        a rating that did not move.
+# --------------------------------------------------------------------------- #
+@app.get("/api/sensitivity/{ticker:path}")
+def sensitivity_for(ticker: str, demo: bool = Query(True),
+                    horizon: str = Query(engine_config.DEFAULT_HORIZON)):
+    """What would change this verdict — leave-one-out over the evidence, plus the margins.
+
+    `horizon` must match the matrix on screen for the same reason `/api/engine/company` insists
+    on it: a sensitivity report computed against a different re-score would name signals that
+    are not the ones behind the number the reader is looking at."""
+    run, _meta, cfg = _engine_run(demo, horizon)
+    out = sensitivity.flip_analysis(run, ticker, cfg)
+    if out is None:
+        raise HTTPException(404, f"{ticker} is not in the scored universe.")
+    out["horizon"] = horizon
+    return out
+
+
+@app.get("/api/backtest")
+def backtest(case: str = Query("")):
+    """The per-case validation timelines: our reading moving while the rating stayed flat.
+
+    Read straight off `docs/backtest/series.json`, which `backtest_timeline.py` regenerates and
+    `harness.py` checks is current — so this endpoint can never quietly serve a stale chart that
+    disagrees with the one in the docs. Best-effort: a missing file is an empty case list and a
+    reason, never a 500 that takes the board down with it."""
+    path = os.path.join(BASE_DIR, "docs", "backtest", "series.json")
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            blob = json.load(fh)
+    except (OSError, ValueError) as exc:                                    # noqa: BLE001
+        return {"available": False, "cases": [],
+                "reason": f"No backtest series on disk ({type(exc).__name__}). "
+                          "Run `python backtest_timeline.py`."}
+    cases = blob.get("cases") or []
+    if case:
+        cases = [c for c in cases if c.get("case_id") == case]
+        if not cases:
+            raise HTTPException(404, f"No backtest case {case!r}.")
+    return {
+        "available": True,
+        "note": blob.get("_note", ""),
+        "lookback_months": blob.get("lookback_months"),
+        "generated_from": blob.get("generated_from", ""),
+        "cases": cases,
+        "disclaimer": ("Each point is a real engine run with its own cutoff — what the Radar "
+                       "would have said on that date. The baseline is a MOCK stand-in for the "
+                       "incumbent view, not a licensed rating series. Past behaviour of the "
+                       "signal is not a prediction and never investment advice."),
+    }
 
 
 # --------------------------------------------------------------------------- #

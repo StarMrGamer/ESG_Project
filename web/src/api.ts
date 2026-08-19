@@ -1,7 +1,7 @@
 import type {
-  AnchorSummary, BenchmarksPayload, Board, ChatResult, ComparePayload, Entry, Envelope,
-  EvidencePayload, Health, HorizonKey, LsegPayload, NarrowedQuestion, Quote, Stage2Answer,
-  VerifyPayload,
+  AnchorSummary, BacktestPayload, BenchmarksPayload, Board, ChatResult, ComparePayload, Entry,
+  Envelope, EvidencePayload, Health, HorizonKey, LsegPayload, NarrowedQuestion, Quote,
+  SensitivityPayload, Stage2Answer, VerifyPayload,
 } from './types'
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
@@ -73,6 +73,12 @@ export const api = {
   verify: (p: { ticker: string; demo: boolean; horizon?: HorizonKey; tamper?: boolean; tamper_leaf_id?: string }) =>
     http<VerifyPayload>('/api/verify', { method: 'POST', body: JSON.stringify(p) }),
   anchors: () => http<{ records: AnchorSummary[]; chain: Record<string, unknown> }>('/api/anchors'),
+  // The horizon rides along for the same reason `evidence` carries it: a sensitivity report
+  // computed against a different re-score would name signals behind a number nobody is looking at.
+  sensitivity: (ticker: string, demo: boolean, horizon: HorizonKey = 'long') =>
+    http<SensitivityPayload>(
+      `/api/sensitivity/${encodeURIComponent(ticker)}?demo=${demo}&horizon=${horizon}`),
+  backtest: () => http<BacktestPayload>('/api/backtest'),
 }
 
 export interface Stage2Events {
