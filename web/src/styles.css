@@ -2270,3 +2270,122 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   border-radius: 0 var(--r-radius-2xs) var(--r-radius-2xs) 0;
 }
 .verify-scope b { color: var(--r-text); }
+
+/* ── LSEG panel — the real incumbent rating, drawn the way LSEG draws it ──────────────────
+   Their page is white with three flat brand hues; ours is near-black and has a light theme
+   too. Everything below is on the sheet's own scale — no new spacing, radius or type steps —
+   and the only literal colours are LSEG's three pillar hues, which are their identity and
+   belong to the data rather than to our chrome. */
+.lseg-panel { margin-bottom: var(--sp-6); }
+.lseg-panel.is-empty { opacity: 0.75; }
+
+.lseg-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--sp-5); flex-wrap: wrap; margin-bottom: var(--sp-5);
+}
+.lseg-title { font: 400 17px/1.35 var(--r-font); color: var(--r-text); }
+.lseg-title b { font-weight: 600; }
+.lseg-band {
+  margin-left: var(--sp-3); padding: var(--pad-chip); border-radius: 999px;
+  background: var(--r-bluebg); color: var(--r-blue);
+  font: 600 11.5px/1.3 var(--r-font); letter-spacing: 0.02em;
+  vertical-align: 2px;
+}
+.lseg-src { text-decoration: none; white-space: nowrap; }
+
+/* Rail · wheel · rank — LSEG's own three-up. Collapses to one column on a narrow board. */
+.lseg-body {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--sp-7); align-items: start;
+}
+@media (max-width: 1100px) {
+  .lseg-body { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .lseg-rail, .lseg-rank { width: 100%; max-width: 460px; }
+}
+
+.lseg-pillar { margin-bottom: var(--sp-6); }
+.lseg-pillar:last-child { margin-bottom: 0; }
+.lseg-pillar-h {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding-bottom: var(--sp-2); margin-bottom: var(--sp-1);
+  border-bottom: 1px solid var(--r-border);
+  cursor: default; transition: color 0.14s var(--r-ease);
+}
+.lseg-swatch { width: 12px; height: 12px; border-radius: var(--r-radius-2xs); flex: none; }
+.lseg-pillar-l {
+  flex: 1; font: 600 15px/1.3 var(--r-font); color: var(--r-text);
+  text-decoration: underline dotted var(--r-faint); text-underline-offset: 4px;
+}
+.lseg-pillar-v { font: 600 15px/1.3 var(--r-mono); color: var(--r-text); }
+.lseg-pillar-h.is-on .lseg-pillar-l, .lseg-pillar-h.is-on .lseg-pillar-v { color: var(--r-blue); }
+
+.lseg-theme {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-4);
+  padding: var(--sp-2) 0; border-bottom: 1px dashed var(--r-border);
+  cursor: default; transition: background 0.14s var(--r-ease);
+}
+.lseg-theme:last-child { border-bottom: 0; }
+.lseg-theme.is-on { background: var(--r-bluebg); }
+.lseg-theme-l { font: 400 13px/1.4 var(--r-font); color: var(--r-muted); }
+.lseg-theme-v { font: 600 13px/1.4 var(--r-mono); color: var(--r-text); }
+/* "not published" must never look like a nought. */
+.lseg-theme-v.is-missing { color: var(--r-faint); font-weight: 400; font-size: 11.5px; }
+
+.lseg-wheel-wrap { display: flex; flex-direction: column; align-items: center; }
+.lseg-wheel { width: 320px; height: 320px; max-width: 100%; }
+.lseg-wheel-note { max-width: 30ch; text-align: center; }
+.lseg-seg {
+  stroke: var(--r-panel); stroke-width: 1.5;
+  transition: fill-opacity 0.16s var(--r-ease);
+  cursor: default;
+}
+.lseg-seg.is-on { stroke: var(--r-text); stroke-width: 1.5; }
+.lseg-hole { fill: var(--r-panel); stroke: var(--r-border); stroke-width: 1; }
+.lseg-hole-l { fill: var(--r-muted); font: 500 12.5px/1 var(--r-font); }
+.lseg-hole-v { fill: var(--r-text); font: 600 34px/1 var(--r-font); letter-spacing: -0.02em; }
+
+.lseg-rank-h {
+  font: 600 11.5px/1.3 var(--r-font); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--r-muted); margin-bottom: var(--sp-4);
+}
+.lseg-rank-sub { font: 400 13px/1.5 var(--r-font); color: var(--r-muted); }
+.lseg-rank-v {
+  font: 600 34px/1.15 var(--r-font); color: var(--r-text);
+  letter-spacing: -0.02em; margin: var(--sp-2) 0 var(--sp-3);
+}
+.lseg-rank-v span { font: 400 15px/1.2 var(--r-font); color: var(--r-muted); }
+.lseg-rank-bar {
+  height: 6px; border-radius: 999px; background: var(--r-inset);
+  overflow: hidden; margin-bottom: var(--sp-4);
+}
+.lseg-rank-bar span { display: block; height: 100%; background: var(--r-blue); }
+.lseg-rank-note { font: 400 13px/1.6 var(--r-font); color: var(--r-muted); }
+.lseg-rank-note b { color: var(--r-text); }
+
+.lseg-legend { margin-top: var(--sp-6); }
+.lseg-legend-h {
+  font: 600 11.5px/1.3 var(--r-font); color: var(--r-muted); margin-bottom: var(--sp-3);
+}
+.lseg-legend-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.lseg-legend-b {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  padding: var(--pad-chip); border-radius: 999px; border: 1px solid transparent;
+  font: 500 10.5px/1.3 var(--r-font); color: var(--r-faint);
+}
+.lseg-legend-b i { width: 9px; height: 9px; border-radius: 50%; }
+.lseg-legend-b.is-on {
+  border-color: var(--r-border); background: var(--r-inset); color: var(--r-text);
+}
+
+.lseg-foot {
+  margin-top: var(--sp-7); padding-top: var(--sp-5);
+  border-top: 1px solid var(--r-border);
+  font: 400 13px/1.6 var(--r-font); color: var(--r-muted); max-width: 92ch;
+}
+.lseg-foot b { color: var(--r-text); }
+.lseg-attr { margin-top: var(--sp-3); font-size: 11.5px; }
+
+/* Depth is expressed as opacity so one set of numbers reads correctly in both themes. Over
+   white that lands paler than LSEG's own wheel, which paints saturated hues on a white page —
+   so light mode deepens the whole plate rather than re-deriving twelve opacities. */
+[data-theme='light'] .lseg-wheel { filter: saturate(1.35) brightness(0.94); }

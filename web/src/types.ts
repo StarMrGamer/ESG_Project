@@ -209,6 +209,56 @@ export interface IndustryRow {
   matched: boolean
 }
 
+/**
+ * LSEG's own published ESG score — the REAL incumbent view, on LSEG's 0–5 scale where HIGHER
+ * IS BETTER. Deliberately a separate shape from anything of ours: it is never averaged into
+ * our momentum, and its scale runs the opposite way to the Sustainalytics-style risk score in
+ * the sample company, so the two can only ever sit side by side.
+ */
+export interface LsegTheme {
+  key: string
+  label: string
+  score: number | null
+  band: string
+}
+
+export interface LsegPillar extends LsegTheme {
+  short: string
+  tooltip: string
+  themes: LsegTheme[]
+}
+
+export interface LsegScores {
+  company: string
+  ric: string
+  esg_score: number | null
+  band: string
+  scale_max: number
+  scale_note: string
+  fiscal_year: string
+  basis: string
+  industry: string
+  rank: number | null
+  rank_total: number | null
+  rank_top_pct: number | null
+  pillars: LsegPillar[]
+  _origin: string
+  source_url: string
+  attribution: string
+  note: string
+  matched_from?: string
+}
+
+export interface LsegPayload {
+  ticker: string
+  company: string
+  available: boolean
+  reason?: string
+  scores?: LsegScores
+  source_url: string
+  attribution: string
+}
+
 export interface BenchmarksPayload {
   available: boolean
   meta: Record<string, string>

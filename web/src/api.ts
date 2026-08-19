@@ -1,6 +1,7 @@
 import type {
   AnchorSummary, BenchmarksPayload, Board, ChatResult, ComparePayload, Entry, Envelope,
-  EvidencePayload, Health, HorizonKey, NarrowedQuestion, Quote, Stage2Answer, VerifyPayload,
+  EvidencePayload, Health, HorizonKey, LsegPayload, NarrowedQuestion, Quote, Stage2Answer,
+  VerifyPayload,
 } from './types'
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
@@ -44,6 +45,10 @@ export const api = {
   },
   quote: (ticker: string, demo = false) =>
     http<Quote>(`/api/quote/${encodeURIComponent(ticker)}?demo=${demo}`),
+  // One outbound call to LSEG per company, so it is asked for on the deep dive and never from
+  // the board — a screen of 52 cards must not fan out into a rating provider.
+  lseg: (ticker: string, demo = false) =>
+    http<LsegPayload>(`/api/lseg/${encodeURIComponent(ticker)}?demo=${demo}`),
   sample: () => http<{ ok: boolean; ticker: string; entry: Entry }>('/api/sample', { method: 'POST' }),
   upload: async (file: File) => {
     const fd = new FormData()

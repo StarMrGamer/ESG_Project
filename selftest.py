@@ -1362,6 +1362,125 @@ def test_quotes_mapping_gaps_and_offline():
     assert out["available"] is False and "D05.SI" in out["reason"]
 
 
+def test_lseg_shape_cache_bust_and_offline():
+    """LSEG's public ESG scores: the wire shape, the cache-busting URL, and degradation.
+
+    Three things are pinned here because all three are load-bearing and none is obvious:
+
+    1. **The RIC has to sit in the URL PATH.** LSEG's dispatcher caches
+       `esg_ratings_copy.details.json` by path and ignores `?ricCode=`, so a plain querystring
+       call returns whichever company was asked for FIRST — under that company's own name, so
+       nothing looks broken. Wiring it up naively paints one issuer's rating onto another
+       issuer's card. If someone "simplifies" `_details_url` back to a bare querystring, this
+       test is what stops it reaching a demo.
+    2. **An uncovered company is `{}`, never zeros.** LSEG answer 200-with-empty-body for a
+       name they do not cover; turning that into a wall of 0.0 scores would be fabrication
+       (rule 2).
+    3. **A dead network degrades** to None rather than raising (rule 1).
+    """
+    import lseg
+
+    ric = "DBSM.SI"
+    url = lseg._details_url(ric)
+    # The RIC must be in the path, not only the querystring — see point 1.
+    assert ".details.dbsm-si.json" in url, url
+    assert url.split("?")[0].endswith(".details.dbsm-si.json")
+    assert "ricCode=DBSM.SI" in url, "the servlet still reads the param; the path is for the cache"
+
+    wire = {
+        "TR.ESGScore": "3.3",
+        "TR.EnvironmentalPillarESGScore": "3.8", "TR.ClimateTransitionThemeScore": "4",
+        "TR.EnergyandResourceUseThemeScore": "3", "TR.BiodiversityThemeScore": "3",
+        "TR.WaterUseThemeScore": "3", "TR.WasteandPollutionThemeScore": "2",
+        "TR.SocialPillarESGScore": "5.0", "TR.LabourRelationsThemeScore": "5",
+        "TR.HealthandSafetyThemeScore": "2", "TR.HumanRightsandCommunityThemeScore": "5",
+        "TR.GovernancePillarESGScore": "2.9", "TR.BoardandManagementThemeScore": "3",
+        "TR.ShareholdersRightsThemeScore": "1", "TR.ConductandAntiCorruptionThemeScore": "3",
+        "TR.TaxTransparencyandAccountingThemeScore": "4",
+        "TR.CommonName": "DBS Group Holdings Ltd", "industryType": "Banking Services",
+        "periodenddate": "2025", "esgLsegRank": "70", "esgLsegTotalIndustries": "936",
+    }
+
+    seen = {}
+
+    def fake_get(url, **kw):
+        seen["url"] = url
+        seen["headers"] = kw.get("headers") or {}
+        return json.dumps(wire)
+
+    saved = lseg.core.http_get
+    lseg.core.http_get = fake_get
+    try:
+        out = lseg.fetch_scores(ric, use_cache=False)
+    finally:
+        lseg.core.http_get = saved
+
+    # The Referer is mandatory: without it the endpoint 200s with an empty body.
+    assert "Referer" in seen["headers"], "the endpoint returns {} with no Referer"
+
+    assert out["company"] == "DBS Group Holdings Ltd"
+    assert out["esg_score"] == 3.3 and out["scale_max"] == 5
+    assert out["band"] == "Established", out["band"]          # LSEG's own 0-5 legend
+    assert out["fiscal_year"] == "2025" and out["industry"] == "Banking Services"
+    assert out["rank"] == 70 and out["rank_total"] == 936 and out["rank_top_pct"] == 7.5
+    assert out["_origin"] == "lseg-public" and out["attribution"]
+
+    # Twelve themes under three pillars — LSEG's taxonomy, in their order.
+    assert [p["label"] for p in out["pillars"]] == ["Environmental", "Social", "Governance"]
+    assert [len(p["themes"]) for p in out["pillars"]] == [5, 3, 4]
+    assert out["pillars"][1]["score"] == 5.0 and out["pillars"][1]["band"] == "Leading"
+
+    # An uncovered issuer is empty, and empty is None — never a wall of zeros (point 2).
+    lseg.core.http_get = lambda *a, **k: "{}"
+    try:
+        assert lseg.fetch_scores("NOPE.XX", use_cache=False) is None
+    finally:
+        lseg.core.http_get = saved
+
+    # A dead network degrades rather than raising (point 3).
+    lseg.core.http_get = lambda *a, **k: (_ for _ in ()).throw(core.FetchError("boom"))
+    try:
+        assert lseg.fetch_scores(ric, use_cache=False) is None
+        assert lseg.fetch_covered_universe(use_cache=False) == []
+        assert lseg.resolve_ric("DBS Group Holdings", "SGX", use_cache=False) is None
+    finally:
+        lseg.core.http_get = saved
+
+
+def test_lseg_resolves_asean_names_without_a_network():
+    """Name -> RIC matching, on a stubbed cover list. Strict on purpose.
+
+    A loose matcher does not fail loudly — it silently returns a DIFFERENT company's rating,
+    which is worse than returning nothing. So the ASEAN legal-form noise ('Malayan Banking
+    (Maybank)' vs 'Malayan Banking Bhd') must resolve, an unrelated name must not, and the
+    exchange must scope the search so two markets cannot cross-match.
+    """
+    import lseg
+
+    rows = [
+        {"companyName": "DBS Group Holdings Ltd", "ricCode": "DBSM.SI"},
+        {"companyName": "Malayan Banking Bhd", "ricCode": "MBBM.KL"},
+        {"companyName": "Bank Central Asia Tbk PT", "ricCode": "BBCA.JK"},
+        {"companyName": "Antam (Persero) Tbk PT", "ricCode": "ANTM.JK"},
+        {"companyName": "DBS Bank India Ltd", "ricCode": "DBSI.NS"},
+    ]
+    saved = lseg.core.http_get
+    lseg.core.http_get = lambda *a, **k: json.dumps(rows)
+    try:
+        r = lambda n, x="": lseg.resolve_ric(n, x, use_cache=False)  # noqa: E731
+        assert r("DBS Group Holdings", "SGX") == "DBSM.SI"
+        assert r("Malayan Banking (Maybank)", "Bursa Malaysia") == "MBBM.KL"
+        assert r("Bank Central Asia (BCA)", "IDX") == "BBCA.JK"
+        # The one name the fuzzy matcher cannot reach is a hand-checked override, not a guess.
+        assert r("Aneka Tambang (ANTAM)", "IDX") == "ANTM.JK"
+        # The exchange scopes the pool, so an Indian DBS listing cannot answer for the SGX one.
+        assert r("DBS Group Holdings", "SGX") != "DBSI.NS"
+        # Nothing plausible -> nothing, rather than the nearest row.
+        assert r("Totally Unrelated Mining Corp", "SGX") is None
+    finally:
+        lseg.core.http_get = saved
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -1461,6 +1580,8 @@ def main():
         ("benchmark never reads a static rating of unknown direction", lambda: test_benchmark_never_reads_a_static_rating_of_unknown_direction()),
         ("upload carries its peer score through coercion", lambda: test_upload_carries_its_peer_score()),
         ("quotes: mapping, documented gaps, offline degradation", lambda: test_quotes_mapping_gaps_and_offline()),
+        ("LSEG scores: wire shape, path cache-bust, no-zeros, offline", lambda: test_lseg_shape_cache_bust_and_offline()),
+        ("LSEG name -> RIC resolution (strict, exchange-scoped)", lambda: test_lseg_resolves_asean_names_without_a_network()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0

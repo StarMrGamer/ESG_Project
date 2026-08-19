@@ -7,6 +7,7 @@ import Stage2Runner from './Stage2Runner'
 import AnswerPanel from './AnswerPanel'
 import { known, Spinner } from '../ui'
 import BenchmarkPanel from '../benchmark/BenchmarkPanel'
+import LsegPanel from '../lseg/LsegPanel'
 
 /**
  * The relay, drawn as three stations.
@@ -165,6 +166,14 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
         <TierBadges ticker={ticker} />
         {company._data_provenance && <div className="cc-muted">{String(company._data_provenance)}</div>}
       </div>
+
+      {/*
+        The incumbent rating comes FIRST, before any benchmark and long before the relay. The
+        argument this product makes only lands if the reader has seen what it is arguing with —
+        and until now the board only ever showed a MOCK stand-in for it. Real LSEG, dated, on
+        LSEG's own scale.
+      */}
+      <LsegPanel ticker={ticker} demo={settings.demo} />
 
       {/*
         Benchmarks sit above the relay on purpose: "how does this compare" is the question a

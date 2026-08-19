@@ -42,6 +42,7 @@ import core
 import datasource
 import engine
 import engine_config
+import lseg
 import metrics
 import pipeline_counts
 import quotes
@@ -1125,6 +1126,51 @@ def benchmarks_api(demo: bool = Query(True), sector: str = ""):
 def quote_api(ticker: str, demo: bool = Query(False)):
     """One live quote. Best-effort: an unavailable quote is a 200 with a reason, not an error."""
     return quotes.quote(ticker, demo=demo)
+
+
+@app.get("/api/lseg/{ticker:path}")
+def lseg_api(ticker: str, demo: bool = Query(False), company: str = "", exchange: str = ""):
+    """LSEG's own published ESG score for one company — the REAL incumbent view.
+
+    This is the only number on the board that the rating agency itself published, so it is the
+    honest left-hand side of "what the rating sees vs what we see". Everywhere else the
+    incumbent baseline is `baseline_origin: "MOCK-LSEG"`; here it is sourced, dated by fiscal
+    year, and attributed on its face.
+
+    Deliberately NOT part of /api/board. It is one outbound call per company and the board
+    paints 52 of them — a screen must never fan out into a rating provider. The deep dive asks
+    for the focused name only.
+
+    Best-effort like every other live panel (rule 1): an uncovered issuer, a blocked network or
+    a slow endpoint all return `available: false` with a reason, at 200. Nothing on the board
+    is allowed to hard-fail because a third party is down.
+
+    `demo=true` is refused rather than answered: the demo universe is FICTIONAL, and asking a
+    real rating provider about an invented company can only produce a wrong-name match.
+    """
+    row = universe.get(ticker, universe.active_file(demo)) or {}
+    name = company or row.get("company", "")
+    market = exchange or row.get("exchange", "")
+    base = {"ticker": ticker, "company": name, "source_url": lseg.PUBLIC_URL,
+            "attribution": lseg.ATTRIBUTION}
+
+    if demo or (row and row.get("_demo")):
+        return {**base, "available": False,
+                "reason": "Demo universe names are illustrative, so there is no real rating to "
+                          "fetch. Switch off Demo data to look this up."}
+    if not name:
+        return {**base, "available": False, "reason": f"{ticker} is not in the loaded universe."}
+
+    try:
+        scores = lseg.lookup(name, market)
+    except Exception as exc:  # noqa: BLE001 — rule 1: a third party never breaks the board.
+        return {**base, "available": False, "reason": f"LSEG lookup failed: {type(exc).__name__}"}
+
+    if not scores:
+        return {**base, "available": False,
+                "reason": f"{name} is not in LSEG's ~12.5k covered issuers, or the finder is "
+                          f"unreachable right now."}
+    return {**base, "available": True, "scores": scores}
 
 
 @app.get("/api/anchors")

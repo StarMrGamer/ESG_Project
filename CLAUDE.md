@@ -41,6 +41,7 @@ esg-momentum-radar/
   metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify
   benchmarks.py             # industry benchmarks: ASEAN peer average + OECD GHG intensity (never merged)
   quotes.py                 # live market quote strip (Yahoo, best-effort) — context only, never a signal
+  lseg.py                   # LSEG's REAL published ESG score (public finder, keyless) — the incumbent view
   server.py                 # FastAPI API boundary + static React host: dashboard · chat · relay · evidence
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
   stage2.py                 # AGENT 2 owns — reason over data + RAG + history (emits CoT + sources)
@@ -133,6 +134,23 @@ trail. `simplified` is DERIVED from `level` in `setSettings`, so the server-faci
 UI control can never disagree. A step-up bar at the foot of levels 1 and 2 says what the next
 level would add. The matrix used to be the first thing on the page — a wall of dots before you
 knew what a dot meant — which was most of why the board read as overwhelming.
+
+**The incumbent rating is now REAL** (`lseg.py`, added 2026-08-19, Jayden's ask). LSEG publish a
+free, keyless **Company ESG scores finder** on lseg.com — the overall 0–5 score (higher is better),
+the three pillar scores, the twelve theme scores under them, the fiscal year, and the rank inside
+the TRBC industry, for ~12.5k issuers. **All 52 of our universe resolve.** The deep dive opens with
+it (`web/src/components/lseg/LsegPanel.tsx`) drawn as LSEG's own wheel — 12 outer theme segments,
+3 inner pillar arcs sized 5/3/4, depth by score — so "what the rating sees" is finally the rating
+rather than a stand-in. `engine.py`'s `lseg_percentile` is STILL the MOCK baseline and still says
+so; wiring the real score into the engine is a Gate-1 decision (the engine is pure — it would have
+to read a dated snapshot file, never fetch), NOT something to do quietly. Three traps, all pinned
+by `selftest.py`: the endpoint needs a **`Referer`** header or it 200s with `{}`; their dispatcher
+**caches by path and ignores `?ricCode=`**, so the RIC goes in the URL path as an AEM selector or
+every company gets served the first company's scores under the first company's name (LSEG's own
+widget has this bug); and an uncovered issuer is `{}` → `None`, never zeros. **Terms of use**:
+non-commercial reference/publication needs written approval, and commercial use, redistribution or
+**systematic reproduction** needs a licence — so this is attributed, on-demand, one company at a
+time, cached locally, and **`data/` never receives a scrape**.
 
 **Industry benchmarks** (`benchmarks.py`) answer "compared to what?" with two numbers that are
 deliberately never merged: the **ASEAN peer average** (same unit as the company, from our own
@@ -296,6 +314,7 @@ python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata C
 python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.csv from OECD SDMX
 python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity
 python quotes.py                         # live quotes for one name per ASEAN exchange
+python lseg.py "DBS Group Holdings" SGX  # one company's real LSEG ESG score; no args = all 52
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
 python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
                                           #   pre-computes both Compete answers, prints the
