@@ -358,10 +358,39 @@ def _record_summary(record):
     }
 
 
-def _badges(ticker, meta, cfg):
+def _badges(ticker, meta, cfg, record=None):
+    """The per-company badges. `delisted` is CGSI's own note carried onto the record, and it is
+    surfaced deliberately: two of their 52 (MAHB, INTUCH) went private in 2025 while sitting in
+    a basket meant to be current. A static list going stale IS the product's argument, so the
+    row stays and wears a badge rather than disappearing (Prototype_Build_Notes.md §3)."""
     row = meta.get(ticker, {})
-    return {"green_bond": company_metadata.green_bond_badge(row, cfg),
-            "profitability": company_metadata.profitability_badge(row)}
+    out = {"green_bond": company_metadata.green_bond_badge(row, cfg),
+           "profitability": company_metadata.profitability_badge(row)}
+    if record and record.get("delisted"):
+        out["delisted"] = {
+            "label": "delisted",
+            "value": "delisted — basket membership stale",
+            "note": (record.get("company", ticker) + " is no longer listed. Kept in the basket "
+                     "and excluded from investable output."),
+            "tone": "warn",
+        }
+    # The industry's transition bar, joined on CGSI's own industry label. Context for the
+    # evidence trail, never differenced against the company (see benchmarks.sector_benchmark).
+    bar = benchmarks.sector_benchmark((record or {}).get("industry", ""))
+    if bar.get("available"):
+        out["sector_benchmark"] = {
+            "label": "industry bar",
+            "value": "%s g CO2e/EUR GVA" % bar["intensity"],
+            "industry": bar["industry"],
+            "nace": bar["nace_code"],
+            "rank": bar["rank_cleanest"], "of": bar["of"],
+            "above_median": bar["above_median"],
+            "attribution": bar["attribution"],
+            "caveat": bar["caveat"],
+            "note": ("Sector bar only — we hold no per-company emissions intensity for this "
+                     "basket, so this is never subtracted from the company."),
+        }
+    return out
 
 
 def _anchor_summary(run):
@@ -419,7 +448,7 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
         "metadata": company_metadata.load_report(),
         "anchor": _anchor_summary(run),
         "records": {t: _record_summary(by_id[t]) for t in tickers if t in by_id},
-        "badges": {t: _badges(t, meta, cfg) for t in tickers},
+        "badges": {t: _badges(t, meta, cfg, by_id.get(t)) for t in tickers},
     }
 
 
@@ -1053,7 +1082,7 @@ def engine_company(ticker: str, demo: bool = Query(True),
         "corroboration": record["corroboration"],
         "mean_source_quality": record["mean_source_quality"],
         "trail": trail,
-        "badges": _badges(ticker, meta, cfg),
+        "badges": _badges(ticker, meta, cfg, record),
         "metadata_row": {k: v for k, v in (meta.get(ticker) or {}).items()
                          if k not in ("notes",)} or {},
         "metadata_note": (meta.get(ticker) or {}).get("notes", ""),
@@ -1240,6 +1269,36 @@ def backtest(case: str = Query("")):
                        "would have said on that date. The baseline is a MOCK stand-in for the "
                        "incumbent view, not a licensed rating series. Past behaviour of the "
                        "signal is not a prediction and never investment advice."),
+    }
+
+
+@app.get("/api/claim-evidence")
+def claim_evidence(ticker: str = Query("")):
+    """Claim vs Evidence — what a company SAYS against what an independent source can see.
+
+    ILLUSTRATIVE by construction (Prototype_Build_Notes.md §6) and the payload says so in its
+    own header: no satellite query is run here. Each row carries `checked` on BOTH sides and on
+    the verdict, so the one genuine determination in the set — a bank's financed emissions,
+    where no independent dataset exists at all — is visibly a result rather than a mock-up.
+
+    Best-effort: a missing file is `available: False` and a reason, never a 500."""
+    path = os.path.join(BASE_DIR, "data", "claim_vs_evidence.json")
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            blob = json.load(fh)
+    except (OSError, ValueError) as exc:                                    # noqa: BLE001
+        return {"available": False, "rows": [],
+                "reason": f"No claim/evidence file on disk ({type(exc).__name__})."}
+    rows = blob.get("rows") or []
+    if ticker:
+        rows = [r for r in rows if r.get("company_id") == ticker]
+    return {
+        "available": True,
+        "header": blob.get("header", ""),
+        "deck_line": blob.get("deck_line", ""),
+        "verdicts": blob.get("verdicts", {}),
+        "rows": rows,
+        "illustrative": True,
     }
 
 

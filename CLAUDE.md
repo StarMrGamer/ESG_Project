@@ -61,13 +61,19 @@ esg-momentum-radar/
   llm_cost.py               # cost per company off the golden set (no price is ever guessed)
   cost_inputs.py            # the three cost-model cells for Sean (signals/co/month · tokens/signal · cache)
   scripts/                   # developer-only data builders and the LLM probe
+    build_cgsi_basket.py     # CGSI's verified 52 -> the universe + the frozen-shape metadata CSV
+    refresh_eurostat_benchmark.py  # verifies/refreshes the industry bar from the free Eurostat API
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
     build_oecd_benchmark.py  # pulls OECD SDMX (emissions x value added) -> the industry benchmark CSV
     demo_reset.py            # puts the running app into a deterministic RECORDING state
     demo_diversify.py        # re-derives ONLY demo momentum/live_signals/news
                             #   (preserves esg_score — the MOCK baseline must not move)
   data/oecd_industry_benchmark.csv  # REAL OECD GHG intensity per ISIC industry (built by the script below)
-  data/asean_universe.json  # BASE DB — 52 ASEAN ESG improvers (evidence-based: esg_basis/source_url/confidence)
+  data/asean_universe.json  # BASE DB — CGSI's REAL verified 52 (built by scripts/build_cgsi_basket.py)
+  data/asean_universe_reconstructed.json  # the public-evidence 52 we built while waiting — kept, superseded
+  data/company_metadata.csv # the VERIFIED green-bond/profitability rows, frozen 29-column shape
+  data/oecd_sector_benchmark.csv  # the industry bar, joined on CGSI's `industry` (Eurostat EU-27 2023)
+  data/claim_vs_evidence.json     # the ILLUSTRATIVE claim-vs-satellite panel (3 rows)
   data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
   data/hero_company.json    # SAMPLE only — offline-demo safety net + test fixture (PLACEHOLDER)
   data/watchlist.json       # runtime: pinned tickers (local, git-ignored — not source)
@@ -189,6 +195,88 @@ furniture and setup lands a first-time visitor on level 1, so the backing was re
 — "fancy UI, no explanation of where the evidence is from" was literally true of what a new
 visitor saw. `RadarHub` now carries one always-present row — *N dated sources behind this
 verdict* — one click from every excerpt, source and date.
+
+**THE REAL BASKET LANDED** (2026-08-21, `CGSI_52_verified.csv`). Until now the universe was our
+own public-evidence *reconstruction* of "52 ASEAN ESG improvers" — its own note said it would not
+reproduce CGSI's basket, and it did not: only **22 of CGSI's 52 names appear in it**. CGSI's real
+list is now `data/asean_universe.json`, built by `scripts/build_cgsi_basket.py`; the
+reconstruction is kept as `asean_universe_reconstructed.json` and still donates **aliases** so
+"add BCA" and "show Maybank" survive CGSI's terser legal names. Four things to know:
+
+- **"Same schema, zero code changes" was wrong.** CGSI's file has **23** columns against our
+  **29**-column frozen contract (renamed `company_id`→`bbg_code`, dropped `traction_flag` /
+  `sgx_recognised` / `bond_isin`, added `esg_score_2023` / `esg_cagr_5y` / `high_conviction_17`).
+  The adapter absorbs it and writes `data/company_metadata.csv` in the frozen shape — which is
+  exactly what freezing the header was *for*. `traction_flag` stays EMPTY because CGSI ran no
+  traction screen, and inventing one would drive a tier the data cannot support.
+- **The baseline is real now.** `_baseline_score` returns a third value, `baseline_origin`:
+  `SUPPLIED` (a score WITH a stated basis — CGSI's 2023 number, read from a dated file, so the
+  engine stays pure), `MOCK` (a score with no basis — the fictional demo set, which must keep
+  saying so), or `DERIVED-EVIDENCE`. The old hard-coded `MOCK-LSEG` was true then and would be a
+  lie now. **None of the three is LSEG's published score** — `lseg.py` still fetches that live,
+  separately, on its own 0–5 scale.
+- **CGSI's `lseg_rating` column is not LSEG.** Its values are BB / BBB / B — the **MSCI** notch
+  scale; LSEG's runs A+ to D−. Verified against the live endpoint: SGX 62 vs LSEG 52, Siam Cement
+  70 vs 78, PTT 73 vs 78 on a 0–100 basis. It is carried as `incumbent_notch`, displayed
+  unattributed, and **never called LSEG's**.
+- **`esg_cagr_5y` is display-only and deliberately unscored.** It is derived from the rating's own
+  history, so scoring it as our momentum would make us agree with the incumbent by construction.
+
+The numbers the deck was waiting on, frozen in `data/nmk_frozen.json`: **N = 13** issuers (12
+`labelled_reviewed` + PTT `cbi_certified` — reproducing CGSI's own count independently), **M = 4**
+bond-ready pipeline, **K = 1** review list. The blind 17-pick test agrees on **5 of 17 (29.4%)**,
+and 8 of the 12 misses have **zero signals** — we have no evidence for them, which is a different
+statement from disagreeing, and the report says which. **M was redefined** per the build notes to
+"below sector benchmark + positive momentum + passes profitability/traction"; "below sector
+benchmark" is measured as the company's ESG score against **its own industry's ASEAN peer
+average**, because that is the only unit we hold per company — it is NOT the Eurostat GHG
+intensity, which sizes the *industry's* bar and is carried alongside as context. Differencing a
+company ESG score against an industry emissions intensity would be two different measures
+subtracted, which is the thing this project exists to refuse.
+
+**A threshold worth knowing about.** `hidden_winners` needs `signal_count >= 10` and
+`confidence >= 0.5`, calibrated when the only rich universe was the demo set (10–15 signals a
+name). The real basket, scored deterministically off a verification CSV, tops out at **5**, so
+**no real company can currently be labelled a Hidden Winner** — RHB Bank sits at disagreement
++0.80 on 5 signals and lands in `consensus`. That is a calibration mismatch, not a data error,
+and it has been left alone on purpose: lowering our own bar until the screen returns the answer
+we want is the exact failure the Adaro case exists to warn about. Fix it with evidence (live
+retrieval over the 30 names that have none), not with a smaller number.
+
+**The two delisted names are a feature.** MAHB (25 Feb 2025) and INTUCH (3 Apr 2025) went private
+while sitting in a basket meant to be current. They keep their row, wear a `delisted — basket
+membership stale` badge, and are excluded from investable output by rule. A static list going
+stale IS the argument.
+
+**"Even the yardstick can't be quietly swapped"** — the Merkle tree is now `leaf-v2`: signals, the
+green-bond verification rows (already there), **and the hash of each benchmark FILE**. Hashing the
+file rather than the parsed rows is deliberate: a reference year or a fallback flag edited in
+place changes the meaning of a published gap and would survive a row-level digest. A run over the
+real 52 is 130 leaves — 76 signals, 52 rows, 2 benchmarks.
+
+**The industry bar is reproducible from a judge's laptop** (`scripts/refresh_eurostat_benchmark.py`).
+`data/oecd_sector_benchmark.csv` joins **directly** on CGSI's own `industry` label — no crosswalk
+guessing — and every one of its **22 rows reproduces from the free, keyless Eurostat API**
+(`env_ac_aeint_r2`, pin `airpol=GHG&na_item=B1G&unit=G_EUR_CP` or the response carries several
+series and you pick the wrong one). Banks (K), EU-27, 2023 = **7.89 g CO₂e/€**. Despite the
+filename CGSI gave it, this is **Eurostat, not the OECD** — every surface says "OECD-Europe
+(EU-27) benchmark", cites the dataset, keeps the nine Germany-fallback rows flagged, and carries
+the PCAF caveat for financials.
+
+**Claim vs Evidence** (`data/claim_vs_evidence.json`, drawn by `ClaimVsEvidence.tsx`) answers "you
+only read what companies say". Three rows: PTT's CBI-certified forestry bond against Global Forest
+Watch, a plantation no-deforestation claim against GFW alerts, and a bank's financed emissions
+against **nothing at all**. It is labelled ILLUSTRATIVE **per row, not once at the top** — because
+the third row is a *genuine* determination ("no independent dataset exists; this needs PCAF
+disclosure") and a blanket disclaimer would teach the reader to discount the best row in the set.
+Every claim, every piece of evidence and every verdict carries `checked`; an unchecked verdict is
+drawn hollow. No satellite query is run.
+
+**"AI-assisted · human-reviewed"** is the maker-checker chip the panel asked for, driven off the
+metadata report (`verified` / `review_chip` / `header`). The green-bond header reads *"Team-verified
+per the ICMA-based process, 2 sources per company — not CGSI-confirmed"* — verified BY US is not an
+endorsement CGSI gave, and the panel never received the 52-name results. A chip plus a named
+reviewer is the whole control: **no review workflow before the freeze.**
 
 **Industry benchmarks** (`benchmarks.py`) answer "compared to what?" with two numbers that are
 deliberately never merged: the **ASEAN peer average** (same unit as the company, from our own
@@ -348,6 +436,10 @@ python phase_b.py --template              # the two Phase-B input shapes; --blin
 python anchor.py                          # build + anchor EVERY (universe x horizon) run; --list, --verify
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
 python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
+python -m scripts.build_cgsi_basket       # rebuild the basket from CGSI_52_verified.csv (--check)
+python -m scripts.refresh_eurostat_benchmark  # verify the industry bar live (--write to refresh)
+python pipeline_counts.py --real --freeze     # N/M/K on the real basket -> data/nmk_frozen.json
+python phase_b.py --blind data/phase_b/cgsi_picks_17.json --real   # the blind 17-pick test
 python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata CSV
 python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.csv from OECD SDMX
 python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity

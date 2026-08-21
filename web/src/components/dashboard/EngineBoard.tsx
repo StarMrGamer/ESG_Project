@@ -334,10 +334,19 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
         )}
       </div>
 
-      {engine.metadata.provisional > 0 && (
+      {/* Provenance + maker-checker. Two different claims, kept apart on purpose: the rows are
+          verified BY US against the ICMA-based process, which is not the same as CGSI having
+          confirmed them — the panel never received the 52-name results, so the header says so
+          rather than letting "verified" imply an endorsement nobody gave. */}
+      {engine.metadata.rows > 0 && (
         <div className="cc-muted engine-foot">
-          Green-bond &amp; profitability metadata: {engine.metadata.note} Badges show
-          <b> PROVISIONAL</b> until the verified CSV lands — {engine.metadata.path}
+          <span className={`review-chip ${engine.metadata.verified ? 'on' : 'pending'}`}>
+            {engine.metadata.review_chip || 'AI-assisted · pending review'}
+          </span>
+          {engine.metadata.header}{' '}
+          {engine.metadata.verified
+            ? <>Reviewer: {engine.metadata.verified_by} — {engine.metadata.path}</>
+            : <><b>PROVISIONAL</b> until the verified CSV lands — {engine.metadata.path}</>}
         </div>
       )}
     </div>

@@ -447,8 +447,27 @@ export interface Badge {
   note: string
 }
 export interface GreenBondBadge extends Badge { status: string; rank: number; provisional: boolean }
+
+/** CGSI's own note that a basket member has gone private. Surfaced, not hidden — a static
+ *  list going stale is the product's argument (Prototype_Build_Notes.md §3). */
+export interface DelistedBadge extends Badge { value: string; note: string; tone: string }
+
+/** The INDUSTRY's transition bar, joined on CGSI's industry label. Never differenced against
+ *  the company: we hold no per-company emissions intensity for this basket. */
+export interface SectorBenchmarkBadge extends Badge {
+  value: string; industry: string; nace: string
+  rank: number; of: number; above_median: boolean
+  attribution: string; caveat: string; note: string
+}
 export interface ProfitabilityBadge extends Badge { state: string; traction: boolean }
-export interface Badges { green_bond: GreenBondBadge; profitability: ProfitabilityBadge }
+export interface Badges {
+  green_bond: GreenBondBadge
+  profitability: ProfitabilityBadge
+  /** Present only when CGSI's own notes record a delisting. */
+  delisted?: DelistedBadge
+  /** Present when the company's industry has a benchmark row. */
+  sector_benchmark?: SectorBenchmarkBadge
+}
 
 export interface AnchorSummary {
   status: string
@@ -490,7 +509,13 @@ export interface EngineBlock {
     universe_size: number
     theta: number
   }
-  metadata: { path: string; rows: number; provisional: number; ok: boolean; note: string }
+  metadata: {
+    path: string; rows: number; provisional: number; ok: boolean; note: string
+    /** Honesty layer — see Prototype_Build_Notes.md §4/§5. `header` is the exact wording the
+     *  green-bond table must carry; `review_chip` is the maker-checker state. */
+    verified?: boolean; verified_by?: string; review_state?: string
+    review_chip?: string; header?: string
+  }
   anchor: AnchorSummary
   records: Record<string, EngineRecord>
   badges: Record<string, Badges>
@@ -700,4 +725,38 @@ export interface BacktestPayload {
   generated_from?: string
   cases: BacktestCase[]
   disclaimer?: string
+}
+
+
+/** Claim vs Evidence (Prototype_Build_Notes.md §6) — ILLUSTRATIVE, and `checked` says which
+ *  side of a row has actually been determined. See ClaimVsEvidence.tsx for why that is per-row
+ *  rather than one banner. */
+export interface ClaimSide {
+  text: string
+  source: string
+  date: string
+  source_url: string
+  checked: boolean
+  basis: string
+}
+
+export interface ClaimEvidenceRow {
+  company_id: string
+  company: string
+  why_this_one: string
+  claim: ClaimSide
+  evidence: ClaimSide
+  verdict: string
+  verdict_checked: boolean
+  verdict_note: string
+}
+
+export interface ClaimEvidencePayload {
+  available: boolean
+  header: string
+  deck_line: string
+  verdicts: Record<string, string>
+  rows: ClaimEvidenceRow[]
+  illustrative: boolean
+  reason?: string
 }

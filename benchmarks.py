@@ -33,6 +33,12 @@ import universe
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 OECD_FILE = os.path.join(DATA_DIR, "oecd_industry_benchmark.csv")
+#: The CGSI pack's own benchmark, keyed on the exact `industry` label their basket uses, so the
+#: 52 join with no crosswalk guessing at all. Numbers are EUROSTAT (EU-27, 2023) despite the
+#: filename CGSI gave it; `scripts/refresh_eurostat_benchmark.py` reproduces every row from the
+#: free API and all 22 matched on 2026-08-21.
+SECTOR_FILE = os.path.join(DATA_DIR, "oecd_sector_benchmark.csv")
+_SECTOR_CACHE = {}
 
 # --------------------------------------------------------------------------- #
 #  The crosswalk
@@ -126,6 +132,79 @@ def isic_for_sector(sector):
     if head in SECTOR_RULES:
         return {"code": SECTOR_RULES[head], "via": "GICS sector", "matched_on": head}
     return None
+
+
+def load_sector_benchmark(path=SECTOR_FILE):
+    """`{industry_label: row}` from the CGSI/Eurostat sector benchmark. `{}` if absent."""
+    try:
+        mtime = os.path.getmtime(path)
+    except OSError:
+        return {}
+    hit = _SECTOR_CACHE.get(path)
+    if hit and hit[0] == mtime:
+        return hit[1]
+    book = {}
+    try:
+        with open(path, "r", encoding="utf-8-sig", newline="") as fh:
+            for row in csv.DictReader(fh):
+                label = (row.get("basket_industry") or "").strip()
+                raw = (row.get("ghg_intensity_g_co2e_per_eur_gva") or "").strip()
+                if not label or not raw:
+                    continue
+                try:
+                    intensity = float(raw)
+                except ValueError:
+                    continue
+                book[label.lower()] = {
+                    "industry": label,
+                    "sector_label": (row.get("benchmark_sector_label") or "").strip(),
+                    "nace_code": (row.get("nace_rev2_code") or "").strip(),
+                    "intensity": intensity,
+                    "geo": (row.get("reference_geo") or "").strip(),
+                    "year": (row.get("reference_year") or "").strip(),
+                    "is_fallback": bool((row.get("fallback_flag") or "").strip()),
+                    "note": (row.get("mapping_note") or "").strip(),
+                }
+    except (OSError, csv.Error, UnicodeDecodeError):
+        return {}
+    _SECTOR_CACHE[path] = (mtime, book)
+    return book
+
+
+def sector_benchmark(industry, path=SECTOR_FILE):
+    """The industry's transition bar: GHG intensity per euro of gross value added.
+
+    A DIRECT join on CGSI's own industry label — no crosswalk, no nearest-bucket guessing, so
+    an industry we have no row for says so instead of borrowing someone else's number.
+
+    This sizes the bar the SECTOR faces. It is never differenced against a company, because we
+    hold no per-company GHG intensity for this basket; a gap computed from two different things
+    would be exactly the fabrication the whole project argues against."""
+    book = load_sector_benchmark(path)
+    if not book:
+        return {"available": False,
+                "reason": "no sector benchmark file — expected data/oecd_sector_benchmark.csv"}
+    row = book.get((industry or "").strip().lower())
+    if not row:
+        return {"available": False, "sector": industry,
+                "reason": "no benchmark row for “%s”" % industry}
+    ranked = sorted(book.values(), key=lambda r: r["intensity"])
+    rank = next(i for i, r in enumerate(ranked, 1) if r["industry"] == row["industry"])
+    out = dict(row)
+    out.update({
+        "available": True,
+        "unit": "g CO2e per EUR of gross value added",
+        "rank_cleanest": rank,
+        "of": len(ranked),
+        "median": _median([r["intensity"] for r in ranked]),
+        "above_median": row["intensity"] > _median([r["intensity"] for r in ranked]),
+        "source": "Eurostat env_ac_aeint_r2 — GHG (CO2e) per EUR gross value added",
+        "attribution": ("OECD-Europe (EU-27) benchmark · Eurostat env_ac_aeint_r2 · %s %s%s"
+                        % (row["geo"], row["year"],
+                           " † Germany fallback" if row["is_fallback"] else "")),
+        "caveat": row["note"],
+    })
+    return out
 
 
 def oecd_for_sector(sector, path=OECD_FILE):

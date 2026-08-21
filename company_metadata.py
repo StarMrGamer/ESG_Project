@@ -137,12 +137,29 @@ def _load(path=None):
         rows = {}
 
     report["rows"] = len(rows)
+    # The honesty layer (Prototype_Build_Notes.md §4/§5). `verified_by` is whoever signed the
+    # rows off; `review_state` is the maker-checker chip the CGSI panel asked for. A row set
+    # with zero provisional entries is human-reviewed BY US, which is a different claim from
+    # "CGSI confirmed it" — the header below says so in as many words, because the panel never
+    # received the 52-name results.
+    reviewers = sorted({r.get("verified_by", "") for r in rows.values() if r.get("verified_by")})
+    report["verified_by"] = reviewers[0] if len(reviewers) == 1 else "; ".join(reviewers)
+    report["verified"] = bool(rows) and report["provisional"] == 0
+    report["review_state"] = "human-reviewed" if report["verified"] else "pending review"
+    report["review_chip"] = ("AI-assisted · human-reviewed" if report["verified"]
+                             else "AI-assisted · pending review")
+    report["header"] = ("Team-verified per the ICMA-based process, 2 sources per company — "
+                        "not CGSI-confirmed." if report["verified"] else
+                        "PROVISIONAL — every green-bond field is unverified until the "
+                        "verified CSV lands.")
     if report["missing_columns"]:
         report["ok"] = False
         report["note"] = ("Header drift — the frozen schema is missing "
                           f"{len(report['missing_columns'])} column(s); rows still loaded.")
     elif not report["note"]:
-        report["note"] = (f"{report['rows']} rows, {report['provisional']} provisional "
+        report["note"] = (f"{report['rows']} rows, verified — {report['verified_by']}."
+                          if report["verified"] else
+                          f"{report['rows']} rows, {report['provisional']} provisional "
                           "(awaiting verification).")
     _CACHE[target] = {"mtime": mtime, "rows": rows, "report": report}
     return rows, report

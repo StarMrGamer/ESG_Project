@@ -239,8 +239,11 @@ def test_universe_loads_and_resolves():
     # resolve maps names / tickers / parenthetical aliases; nonsense -> None (stays in-universe)
     dbs = universe.resolve("DBS")
     assert dbs and dbs["ticker"].startswith("SGX"), dbs
+    # Short-form aliases must survive CGSI's terser legal names ("Bank Central Asia", not
+    # "Bank Central Asia (BCA)") — the basket carries an `aliases` list for exactly this.
     assert universe.resolve("BCA")["country"] == "Indonesia", universe.resolve("BCA")
-    assert universe.resolve("SET:KBANK")["company"] == "Kasikornbank", universe.resolve("SET:KBANK")
+    assert universe.resolve("Maybank")["ticker"] == "KLSE:MAY", universe.resolve("Maybank")
+    assert universe.resolve("SET:PTT")["company"] == "PTT", universe.resolve("SET:PTT")
     assert universe.resolve("totally fake nonexistent xyz") is None
     sg = universe.filter_constituents(country="Singapore")
     assert sg and all(c["country"] == "Singapore" for c in sg), sg
@@ -1175,6 +1178,120 @@ def test_snapshot_band_direction_aware():
     assert rsnap["band"] == "Severe Risk" and rsnap["band_tone"] == "bad", rsnap
 
 
+# --- CGSI verified basket (2026-08-21 data swap) ------------------------------
+def test_cgsi_basket_adapts_onto_the_frozen_schema():
+    """The real 52 load, N reproduces CGSI's own count, and the frozen header still holds.
+
+    The handover note claimed "same schema, zero code changes"; it is a 23-column file against
+    our 29-column frozen contract, so this pins that the ADAPTER — not a loosened header — is
+    what absorbed the difference."""
+    import company_metadata, pipeline_counts, engine, engine_config
+    rows = company_metadata.load()
+    report = company_metadata.load_report()
+    assert len(rows) == 52, len(rows)
+    assert report["ok"] and not report["missing_columns"], report
+    assert report["provisional"] == 0 and report["verified"], report
+    # the honesty layer the panel asked for: verified BY US is not CGSI-confirmed
+    assert "not CGSI-confirmed" in report["header"], report["header"]
+    assert report["review_chip"] == "AI-assisted \u00b7 human-reviewed", report["review_chip"]
+
+    cons = universe.constituents()
+    assert len(cons) == 52, len(cons)
+    assert sum(1 for c in cons if c.get("high_conviction")) == 17
+    assert sorted(c["ticker"] for c in cons if c.get("delisted")) == ["KLSE:MAHB", "SET:INTUCH"]
+    # every constituent carries a DATED baseline, which is what keeps the engine pure while
+    # using a real number instead of the old mock
+    assert all(c.get("esg_score") and c.get("esg_score_basis") for c in cons)
+
+    cfg = engine_config.load()
+    run = engine.run_engine(cons, metadata=rows, config=cfg, use_cache=False)
+    assert {r["baseline_origin"] for r in run["records"]} == {"SUPPLIED"}
+    counts = pipeline_counts.counts(run, rows, cfg)
+    assert counts["N"] == 13, counts          # CGSI computed 13 independently; so do we
+    # M excludes the delisted and the already-priced-in, by rule not by luck
+    assert not ({"KLSE:MAHB", "SET:INTUCH"} & set(counts["members"]["M"])), counts["members"]
+    assert not (set(counts["members"]["N"]) & set(counts["members"]["M"])), counts["members"]
+
+    # no reviewer is ever named "none" — Keppel's cell reads "none (SL framework...)"
+    bogus = [e["text"] for c in cons for e in (c.get("events") or [])
+             if "from none" in e["text"].lower()]
+    assert not bogus, bogus
+
+
+def test_sector_benchmark_joins_directly_and_refuses_to_guess():
+    """The Eurostat bar joins on CGSI's own industry label, and an unknown industry says so."""
+    import benchmarks
+    banks = benchmarks.sector_benchmark("Banks")
+    assert banks["available"] and banks["intensity"] == 7.89, banks
+    assert banks["nace_code"] == "K" and banks["geo"] == "EU-27", banks
+    # the wording rule: OECD-Europe, named dataset, and the Germany fallback stays flagged
+    assert "OECD-Europe (EU-27) benchmark" in banks["attribution"], banks["attribution"]
+    assert "env_ac_aeint_r2" in banks["attribution"], banks["attribution"]
+    air = benchmarks.sector_benchmark("Airlines")
+    assert air["is_fallback"] and "Germany fallback" in air["attribution"], air
+    # a banks row must carry the financed-emissions caveat, not just the operational number
+    assert "financed emissions" in banks["caveat"].lower(), banks["caveat"]
+    # no nearest-bucket guessing
+    miss = benchmarks.sector_benchmark("Underwater Basket Weaving")
+    assert not miss["available"] and "no benchmark row" in miss["reason"], miss
+
+
+def test_merkle_covers_the_yardstick_and_detects_a_swap():
+    """leaf-v2: the benchmark FILE is a leaf, so the bar cannot be quietly swapped."""
+    import anchor, company_metadata, engine, tempfile, shutil
+    meta = company_metadata.load()
+    run = engine.run_engine(universe.constituents(), metadata=meta, use_cache=False)
+    leaves = anchor.leaves_for_run(run, meta)
+    kinds = {}
+    for leaf in leaves:
+        kinds[leaf["kind"]] = kinds.get(leaf["kind"], 0) + 1
+    assert kinds.get("benchmark", 0) >= 1, kinds
+    assert kinds.get("green_bond", 0) == 52, kinds
+    root = anchor.merkle_root([l["hash"] for l in leaves])
+
+    # swap one character of the yardstick -> the root moves
+    path = anchor.BENCHMARK_FILES[0]
+    backup = path + ".selftest-bak"
+    shutil.copyfile(path, backup)
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            blob = fh.read()
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(blob.replace("7.89", "7.88", 1))
+        tampered = anchor.merkle_root(
+            [l["hash"] for l in anchor.leaves_for_run(run, meta)])
+        assert tampered != root, "a swapped benchmark left the root unchanged"
+    finally:
+        shutil.move(backup, path)
+    # and it comes back
+    assert anchor.merkle_root([l["hash"] for l in anchor.leaves_for_run(run, meta)]) == root
+    # an absent benchmark contributes NO leaf rather than a leaf over the empty string
+    assert anchor.benchmark_preimage("data/definitely-not-a-benchmark.csv") == ""
+
+
+def test_claim_vs_evidence_is_labelled_illustrative_per_row():
+    """§6's panel must never present an un-run check as a finding."""
+    blob = _load("data/claim_vs_evidence.json")
+    rows = blob["rows"]
+    assert len(rows) == 3, len(rows)
+    assert "illustrative" in blob["header"].lower() and "not a live feed" in blob["header"].lower()
+    verdicts = set(blob["verdicts"])
+    for row in rows:
+        assert row["verdict"] in verdicts, row["verdict"]
+        for side in ("claim", "evidence"):
+            assert isinstance(row[side]["checked"], bool) and row[side]["basis"], row
+        # an unchecked verdict must say so in its own note, not lean on the panel header
+        if not row["verdict_checked"]:
+            assert "not a finding" in row["verdict_note"].lower() or \
+                   "realistic outcome" in row["verdict_note"].lower(), row["verdict_note"]
+    # the honest negative is a REAL determination and has to stay one
+    negative = [r for r in rows if r["verdict"] == "no_independent_data"]
+    assert len(negative) == 1 and negative[0]["verdict_checked"], negative
+    # nobody claims a satellite query was run
+    assert not any(r["evidence"]["checked"] and "forest" in r["evidence"]["source"].lower()
+                   for r in rows)
+
+
 def test_api_smoke():
     """Exercise the primary FastAPI boundary without network, LLM, or a browser."""
     try:
@@ -1674,6 +1791,14 @@ def main():
          lambda: test_sensitivity_is_pure_and_finds_load_bearing_signals()),
         ("backtest series shaped for the track-record panel",
          lambda: test_backtest_series_on_disk_is_shaped_for_the_panel()),
+        ("CGSI verified 52 adapts onto the frozen schema (N=13 reproduces)",
+         lambda: test_cgsi_basket_adapts_onto_the_frozen_schema()),
+        ("sector benchmark joins directly and refuses to guess",
+         lambda: test_sector_benchmark_joins_directly_and_refuses_to_guess()),
+        ("merkle covers the yardstick and detects a swap",
+         lambda: test_merkle_covers_the_yardstick_and_detects_a_swap()),
+        ("claim vs evidence labelled illustrative per row",
+         lambda: test_claim_vs_evidence_is_labelled_illustrative_per_row()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0

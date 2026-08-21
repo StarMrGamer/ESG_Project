@@ -1,5 +1,6 @@
 import type {
-  AnchorSummary, BacktestPayload, BenchmarksPayload, Board, ChatResult, ComparePayload, Entry,
+  AnchorSummary, BacktestPayload, BenchmarksPayload, Board, ChatResult, ClaimEvidencePayload,
+  ComparePayload, Entry,
   Envelope, EvidencePayload, Health, HorizonKey, LsegPayload, NarrowedQuestion, Quote,
   SensitivityPayload, Stage2Answer, VerifyPayload,
 } from './types'
@@ -79,6 +80,9 @@ export const api = {
     http<SensitivityPayload>(
       `/api/sensitivity/${encodeURIComponent(ticker)}?demo=${demo}&horizon=${horizon}`),
   backtest: () => http<BacktestPayload>('/api/backtest'),
+  claimEvidence: (ticker?: string) =>
+    http<ClaimEvidencePayload>(
+      `/api/claim-evidence${ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''}`),
 }
 
 export interface Stage2Events {

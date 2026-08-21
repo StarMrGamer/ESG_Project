@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../api'
 import VerdictSensitivity from '../future/VerdictSensitivity'
+import ClaimVsEvidence from './ClaimVsEvidence'
 import { useStore } from '../../store'
 import { Spinner } from '../ui'
 import type { Badges, EvidencePayload, HorizonKey, VerifyPayload } from '../../types'
@@ -34,6 +35,30 @@ function BadgeRow({ badges }: { badges: Badges }) {
             rel="noreferrer" title={`${b.note}\n\nOpens the evidence source.`}>{inner}</a>
           : <span key={key} className={`badge tone-${b.tone}`} title={b.note || 'No evidence URL on file yet.'}>{inner}</span>
       })}
+
+      {/* CGSI's own delisting note, worn rather than hidden: a basket meant to be current
+          holding two companies that went private in 2025 is a finding about static baskets,
+          which is the argument the whole tool makes. */}
+      {badges.delisted && (
+        <span className={`badge tone-${badges.delisted.tone}`} title={badges.delisted.note}>
+          <span className="badge-label">Listing</span>
+          <b>{badges.delisted.value}</b>
+        </span>
+      )}
+
+      {/* The INDUSTRY's bar. Deliberately worded as the industry's, and deliberately not
+          differenced against the company — we hold no per-company emissions intensity here. */}
+      {badges.sector_benchmark && (
+        <span className="badge tone-neutral"
+          title={`${badges.sector_benchmark.attribution}\n\n${badges.sector_benchmark.note}` +
+                 (badges.sector_benchmark.caveat ? `\n\n${badges.sector_benchmark.caveat}` : '')}>
+          <span className="badge-label">Industry bar ({badges.sector_benchmark.industry})</span>
+          <b>{badges.sector_benchmark.value}</b>
+          <i className="badge-sub">
+            {badges.sector_benchmark.rank} of {badges.sector_benchmark.of} — vs sector peers
+          </i>
+        </span>
+      )}
     </div>
   )
 }
@@ -217,6 +242,10 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
           reviewer asks next: the evidence will change, so what is this actually standing on? */}
       <div className="panel-block">
         <VerdictSensitivity ticker={ticker} />
+      </div>
+
+      <div className="panel-block">
+        <ClaimVsEvidence ticker={ticker} />
       </div>
 
       <div className="panel-block">

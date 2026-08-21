@@ -838,9 +838,9 @@
    ]
   }
  },
- "config_hash": "e31cbdd64847b256",
+ "config_hash": "1883eb466795c332",
  "config_version": "v2.0",
- "digest": "69dbc53740d4bfc8e92c76126ced351ac774be94b87b88e2dcaeb10ec0bca8eb",
+ "digest": "21f3e737d0e22c0bc04663136f35df1baa4c380d8e56ccbe5f7a618349f578c0",
  "engine_version": "engine-v2.0",
  "label_counts": {
   "consensus": 8,
@@ -849,5 +849,5 @@
   "overrated_leaders": 3,
   "value_traps": 2
  },
- "run_id": "2f27566608ee5d45"
+ "run_id": "8f1891cdebeac8e5"
 }

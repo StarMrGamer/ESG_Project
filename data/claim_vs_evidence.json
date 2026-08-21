@@ -1,0 +1,85 @@
+{
+  "_note": "ILLUSTRATIVE. Prototype_Build_Notes.md §6. This panel demonstrates the intended verification capability — checking what a company SAYS against an independent observation — using three cases from the CGSI basket. It is NOT a live feed: no satellite query has been run, and every row says which of its two sides has actually been checked. The four verdict values are the ones the finished capability would emit.",
+  "header": "Claim vs Evidence (illustrative — demonstrates intended verification capability; not a live feed).",
+  "deck_line": "Ratings read what companies say; we built the panel that checks it against what satellites see.",
+  "verdicts": {
+    "corroborated": "Independent data agrees with the claim.",
+    "partial": "Independent data agrees in part, or only for part of the period.",
+    "not_corroborated": "Independent data contradicts the claim.",
+    "no_independent_data": "No independent dataset exists that could settle it. The honest answer, and the one a rating never gives."
+  },
+  "rows": [
+    {
+      "company_id": "SET:PTT",
+      "company": "PTT",
+      "why_this_one": "The only cbi_certified issuer in the basket, and its use-of-proceeds is a physical thing a satellite can see.",
+      "claim": {
+        "text": "Green bond proceeds allocated to reforestation.",
+        "source": "PTT green bond framework, CBI certification (forestry)",
+        "date": "2020",
+        "source_url": "https://www.climatebonds.net/certification/certified-bonds",
+        "checked": true,
+        "basis": "Read from the basket's own verified row: classification cbi_certified."
+      },
+      "evidence": {
+        "text": "Tree-cover change over the financed area is independently observable in the Global Forest Watch / Hansen tree-cover dataset — annual, global, free, and produced by nobody with a stake in the bond.",
+        "source": "Global Forest Watch (Hansen et al., University of Maryland)",
+        "date": "annual series",
+        "source_url": "https://www.globalforestwatch.org/",
+        "checked": false,
+        "basis": "The dataset and the method are real. We have NOT run the query — that is the capability this panel illustrates, not a result it reports."
+      },
+      "verdict": "corroborated",
+      "verdict_checked": false,
+      "verdict_note": "Shown as the outcome this check would produce if the allocation holds. Not a finding."
+    },
+    {
+      "company_id": "SGX:WIL",
+      "company": "Wilmar",
+      "why_this_one": "A no-deforestation commitment is a claim about land, and land is exactly what the same dataset watches.",
+      "claim": {
+        "text": "No-deforestation commitment across the supply base.",
+        "source": "Issuer sustainability policy",
+        "date": "policy in force",
+        "source_url": "",
+        "checked": false,
+        "basis": "Company-stated policy. Company PR is capped at 0.5 confidence everywhere in this engine — the Adaro lesson."
+      },
+      "evidence": {
+        "text": "GFW integrated deforestation alerts flag clearance inside concession boundaries within weeks, independently of what the supply-base report says.",
+        "source": "Global Forest Watch integrated alerts",
+        "date": "near-real-time series",
+        "source_url": "https://www.globalforestwatch.org/",
+        "checked": false,
+        "basis": "Method shown, not run. A real check needs the concession boundaries, which we do not hold."
+      },
+      "verdict": "partial",
+      "verdict_checked": false,
+      "verdict_note": "The realistic outcome for a large agri supply base: some of it verifies, some of it has no boundary data at all."
+    },
+    {
+      "company_id": "SGX:DBS",
+      "company": "DBS Group",
+      "why_this_one": "The honest negative. For a bank the material number is financed emissions, and no satellite can see a loan book.",
+      "claim": {
+        "text": "Green and sustainable financing commitments across the loan book.",
+        "source": "Issuer green bond framework and allocation reporting",
+        "date": "2017 framework; allocation report Aug 2022",
+        "source_url": "",
+        "checked": true,
+        "basis": "Read from the basket's own verified row: labelled_reviewed, allocation report present."
+      },
+      "evidence": {
+        "text": "There is no independent dataset that measures a bank's financed emissions. Settling this needs PCAF-standard disclosure from the bank itself — which is to say, more of the same self-reporting.",
+        "source": "PCAF (Partnership for Carbon Accounting Financials) — required disclosure, absent here",
+        "date": "not disclosed in our sources",
+        "source_url": "https://carbonaccountingfinancials.com/",
+        "checked": true,
+        "basis": "A real determination over the sources we hold: none of them carries financed emissions for this issuer."
+      },
+      "verdict": "no_independent_data",
+      "verdict_checked": true,
+      "verdict_note": "This one is a genuine result, not an illustration. The tool says we do not know, which is the whole point — and it is why the operational OECD/Eurostat bar for banks is shown for completeness only."
+    }
+  ]
+}

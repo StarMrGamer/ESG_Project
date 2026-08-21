@@ -673,12 +673,14 @@ def plain_summary(company, answer=None):
     template; verdict is the cleaned competes_summary (or '' when absent). No I/O."""
     c = company or {}
     name = _clean(c.get("company")) or "this company"
+    cls, tmpl = {"label": "AWAITING DATA", "tone": "neutral"}, _PLAIN_NUMERIC
     if has_numbers([c]):
         cls, tmpl = classify(c), _PLAIN_NUMERIC
-    elif c.get("esg_basis"):
+    # A CGSI basket row carries a static score AND evidence text but no pillar momentum, so the
+    # numeric classifier cannot reach a verdict on it. Falling straight through to "awaiting
+    # data" would throw away evidence we hold: try the evidence classifier before giving up.
+    if cls["label"] == "AWAITING DATA" and c.get("esg_basis"):
         cls, tmpl = classify_evidence(c), _PLAIN_EVIDENCE
-    else:
-        cls, tmpl = {"label": "AWAITING DATA", "tone": "neutral"}, _PLAIN_NUMERIC
     label, tone = cls["label"], cls["tone"]
     headline, body = tmpl.get(label, tmpl["AWAITING DATA"])
     verdict = _clean((answer or {}).get("competes_summary"))

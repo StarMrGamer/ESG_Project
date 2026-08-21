@@ -31,12 +31,21 @@ import json
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#: Files whose CONTENT is an input to a published gap, hashed into every run's tree (leaf-v2).
+#: Order is fixed; leaves sort by id afterwards, so it only has to be deterministic.
+BENCHMARK_FILES = (
+    os.path.join(BASE_DIR, "data", "oecd_sector_benchmark.csv"),
+    os.path.join(BASE_DIR, "data", "oecd_industry_benchmark.csv"),
+)
 ANCHOR_DIR = os.path.join(BASE_DIR, "data", "anchors")
 CONTRACT_FILE = os.path.join(BASE_DIR, "contracts", "EvidenceAnchor.sol")
 DEFAULT_EXPLORER = "https://sepolia.etherscan.io"
 CHAIN_NAME = "sepolia"
 
-LEAF_VERSION = "leaf-v1"          # bump ONLY with sign-off: it changes every historical root
+LEAF_VERSION = "leaf-v2"          # bump ONLY with sign-off: it changes every historical root
+#: v2 (2026-08-21) adds the BENCHMARK leaf below. Signed off in `Prototype_Build_Notes.md` §7:
+#: "even the yardstick can't be quietly swapped." Adding a leaf kind moves every root, which is
+#: why the version moves with it — a v1 anchor stays verifiable as a v1 anchor.
 
 
 # --------------------------------------------------------------------------- #
@@ -70,6 +79,25 @@ def metadata_preimage(row, as_of=""):
     ])
 
 
+def benchmark_preimage(path):
+    """`benchmark|filename|sha256(file bytes)|byte length` — the yardstick itself, as a leaf.
+
+    Hashing the FILE rather than the parsed rows is deliberate: a comment line, a reference
+    year or a fallback flag edited in place all change the meaning of a published gap, and all
+    of them would survive a row-level digest.
+
+    Returns "" when the file is absent, and an absent benchmark contributes NO leaf rather than
+    a leaf hashing the empty string — otherwise "we had no yardstick" and "our yardstick was an
+    empty file" would anchor to the same root."""
+    try:
+        with open(path, "rb") as fh:
+            blob = fh.read()
+    except OSError:
+        return ""
+    return "|".join(["benchmark", os.path.basename(path),
+                     hashlib.sha256(blob).hexdigest(), str(len(blob))])
+
+
 def _leaf_hash(preimage):
     return hashlib.sha256(preimage.encode("utf-8")).hexdigest()
 
@@ -93,6 +121,12 @@ def leaves_for_run(run, metadata=None):
         preimage = metadata_preimage(row, as_of=run.get("as_of", ""))
         leaves.append({"leaf_id": f"gb:{cid}", "kind": "green_bond", "company_id": cid,
                        "hash": _leaf_hash(preimage), "preimage": preimage})
+    for path in BENCHMARK_FILES:
+        preimage = benchmark_preimage(path)
+        if not preimage:
+            continue
+        leaves.append({"leaf_id": "bm:%s" % os.path.basename(path), "kind": "benchmark",
+                       "company_id": "", "hash": _leaf_hash(preimage), "preimage": preimage})
     leaves.sort(key=lambda leaf: (leaf["leaf_id"], leaf["hash"]))
     return leaves
 

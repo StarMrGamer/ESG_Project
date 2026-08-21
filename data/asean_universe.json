@@ -1,73 +1,2337 @@
 {
-  "note": "EVIDENCE-BASED ESG-improver universe: 52 real ASEAN-listed companies across the 5 markets (Singapore, Malaysia, Indonesia, Thailand, Philippines), each selected for DOCUMENTED sustained ESG improvement or leadership over 2019-2023 (DJSI / S&P Global Sustainability Yearbook & Industry Movers, FTSE4Good, MSCI ESG upgrades, Sustainalytics risk-rating drops, IDX ESG Leaders / SRI-KEHATI, SET ESG Ratings, ASEAN CG Scorecard). Each constituent carries an `esg_basis` (the specific evidence + improvement signal), a `source_url`, and a `confidence` flag. THIS IS A DEFENSIBLE PROXY, not the authoritative backtest basket: the real foundation is the team's own 'ESG Momentum 2.0' backtest of '52 ASEAN companies with consistent ESG improvement 2019-2023' (positive ESG-score 5-year CAGR), which is not publicly published — so these names are reconstructed from public ESG evidence and will NOT exactly reproduce that basket. `esg_cagr_2019_2023` is intentionally left blank (we do not have the per-name ESG-score CAGR and do not fabricate it). The loader keeps company/ticker/exchange/country/sector/esg_cagr; esg_basis/source_url/confidence ride as documentation. Tickers are EXCHANGE:CODE; sector strings are descriptive, not GICS-exact.",
-  "selection": "documented sustained ESG improvement or leadership 2019-2023 (DJSI, S&P Global Yearbook/Industry Movers, FTSE4Good, MSCI/Sustainalytics rating upgrades, national ESG indices, ASEAN CG Scorecard) — a public-evidence reconstruction of the ESG Momentum 2.0 foundation basket",
-  "benchmark": "MSCI ASEAN",
-  "benchmark_stats": {
-    "basket_return": "55.1%",
-    "benchmark_return": "6.4%",
-    "basket_sharpe": "0.57",
-    "benchmark_sharpe": "-0.22",
-    "high_conviction_picks": 17,
-    "source": "ESG Momentum 2.0 foundation backtest (provided) — display only, refers to the team's original basket, NOT recomputed on this reconstructed list"
+ "note": "THE REAL BASKET. CGSI's own 52-name ESG Momentum 2.0 foundation basket, delivered 2026-08-20 as `CGSI_52_verified.csv` and adapted here by `scripts/build_cgsi_basket.py`. Every constituent carries CGSI's 2023 ESG score (0-100, higher is better) as a DATED on-disk baseline, their 5-year ESG CAGR, their green-bond classification reached through the ICMA-first process with >=2 sources per row, a profitability flag, and the high_conviction_17 flag behind the blind agreement test. This REPLACES the public-evidence reconstruction we built while waiting for the real list, which is kept beside it as `asean_universe_reconstructed.json` and whose own note says it would not reproduce this basket -- it does not, and only 22 of these 52 names appear in it. TWO WARNINGS THAT TRAVEL WITH THIS FILE. (1) `incumbent_notch` is CGSI's `lseg_rating` column carried through under a neutral name: its values are BB / BBB / B, which is the MSCI notch scale, NOT LSEG's (A+ to D-), and the scores do not reconcile to LSEG's live published figures (SGX 62 vs 52, Siam Cement 70 vs 78, PTT 73 vs 78 on a 0-100 basis). It is displayed as an unattributed incumbent notch and never as LSEG's. `lseg.py` fetches the genuine LSEG score live and separately. (2) `esg_cagr_2019_2023` is DISPLAY ONLY and is deliberately not scored: it is derived from the rating's own history, so treating it as our momentum would make us agree with the incumbent by construction.",
+ "selection": "CGSI ESG Momentum 2.0 foundation basket -- 52 ASEAN-listed companies with consistent ESG improvement 2019-2023 (positive 5-year ESG-score CAGR). Supplied by CGSI, verified row-by-row by Quill & Candle.",
+ "benchmark": "MSCI ASEAN",
+ "benchmark_stats": {
+  "basket_return": "55.1%",
+  "benchmark_return": "6.4%",
+  "basket_sharpe": "0.57",
+  "benchmark_sharpe": "-0.22",
+  "high_conviction_picks": 17,
+  "source": "CGSI, \"ESG Momentum 2.0\" (2026), indicative -- CGSI's own backtest of this exact basket, display only, not recomputed here"
+ },
+ "source_file": "D/ESG_Radar_Final_Pack/01_DATA/CGSI_52_verified.csv",
+ "as_of": "2026-08-20",
+ "is_provisional": false,
+ "countries": [
+  "Indonesia",
+  "Malaysia",
+  "Philippines",
+  "Singapore",
+  "Thailand"
+ ],
+ "constituents": [
+  {
+   "company": "Bank Central Asia",
+   "ticker": "IDX:BBCA",
+   "bbg_code": "BBCA IJ",
+   "exchange": "IDX",
+   "country": "Indonesia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 68.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "0.25%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "BBCA",
+    "BCA",
+    "Bank Central Asia (BCA)"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled bonds; deposit-funded Negative finding",
+   "source_url": "https://cbonds.com/bonds/501863/",
+   "source_url_2": "https://digivestasi.com/news/detail/bisnis_ekonomi/2025-big-indonesian-banks-profit-report-bca-vs-bri-vs-mandiri-vs-bni-which-is-the-most-profitable",
+   "events": [
+    {
+     "text": "No labelled bonds; deposit-funded",
+     "source_url": "https://cbonds.com/bonds/501863/",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "IDX:BBCA-cgsi-0"
+    },
+    {
+     "text": "Negative finding",
+     "source_url": "https://digivestasi.com/news/detail/bisnis_ekonomi/2025-big-indonesian-banks-profit-report-bca-vs-bri-vs-mandiri-vs-bni-which-is-the-most-profitable",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "IDX:BBCA-cgsi-1"
+    }
+   ]
   },
-  "as_of": "2026-06-25",
-  "countries": ["Singapore", "Malaysia", "Indonesia", "Thailand", "Philippines"],
-  "constituents": [
-    { "company": "DBS Group Holdings", "ticker": "SGX:D05", "exchange": "SGX", "country": "Singapore", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "First SE-Asian bank in DJSI Asia Pacific (since 2018), retained through 2019-2023; FTSE4Good member; sustainable-finance book hit SGD 61bn by end-2022 (target beaten two years early); Euromoney 'World's Best Bank for Corporate Responsibility' 2023.", "source_url": "https://www.dbs.com/newsroom/DBS_first_bank_in_southeast_Asia_included_in_Dow_Jones_Sustainability_Index_Asia_Pacific" },
-    { "company": "United Overseas Bank (UOB)", "ticker": "SGX:U11", "exchange": "SGX", "country": "Singapore", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "Holds MSCI ESG 'AA' (Leader) and ranks among top Singapore names on the NUS-CGS Governance & Transparency Index and ASEAN CG Scorecard, reflecting strengthened ESG governance + sustainable-finance build-out 2019-2023.", "source_url": "https://www.uobgroup.com/sustainability/highlights/recognition/esg-ratings.page" },
-    { "company": "Singapore Telecommunications (Singtel)", "ticker": "SGX:Z74", "exchange": "SGX", "country": "Singapore", "sector": "Communication Services — Telecom", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Named SE-Asia's first telco on CDP's Climate Change 'A List' (announced Feb 2024, 2023 cycle) — an upgrade reflecting demonstrated emissions reductions and improved climate disclosure.", "source_url": "https://www.singtel.com/about-us/media-centre/news-releases/singtel-is-southeast-asia-first-telco-on-cdp-a-list" },
-    { "company": "Keppel Ltd", "ticker": "SGX:BN4", "exchange": "SGX", "country": "Singapore", "sector": "Industrials — Infrastructure & Asset Management", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Added to DJSI World and DJSI Asia Pacific in Dec 2022 and retained in the Dec 2023 review (top ~20% of 600 regional firms on S&P Global's CSA); MSCI ESG AAA since 2020 — a clear in-window inclusion event.", "source_url": "https://www.eco-business.com/news/asian-representation-on-dow-jones-sustainability-index-grows-after-methodology-overhaul/" },
-    { "company": "Singapore Technologies Engineering", "ticker": "SGX:S63", "exchange": "SGX", "country": "Singapore", "sector": "Industrials — Aerospace, Defence & Smart City", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Retained its place on the DJSI Asia Pacific Index (top ~20% of the 600 largest regional companies on S&P Global's CSA) in the December 2023 annual review.", "source_url": "https://www.eco-business.com/news/asian-representation-on-dow-jones-sustainability-index-grows-after-methodology-overhaul/" },
-    { "company": "ComfortDelGro Corporation", "ticker": "SGX:C52", "exchange": "SGX", "country": "Singapore", "sector": "Industrials — Land Transport Operator", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "First Singapore transport operator added to the DJSI Asia Pacific Index, and retained its position in the December 2023 DJSI Asia Pacific annual review.", "source_url": "https://www.eco-business.com/news/asian-representation-on-dow-jones-sustainability-index-grows-after-methodology-overhaul/" },
-    { "company": "Wilmar International", "ticker": "SGX:F34", "exchange": "SGX", "country": "Singapore", "sector": "Consumer Staples — Agribusiness", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Awarded MSCI ESG 'A' (Jan 2022) and added to FTSE4Good Developed + FTSE4Good ASEAN 5, while lifting its SPOTT palm-oil transparency score to ~93% (ranked #1 of 100 producers) by 2022 — a clear 2019-2023 improvement trajectory.", "source_url": "https://www.marketscreener.com/quote/stock/WILMAR-INTERNATIONAL-LIMI-6497470/news/Wilmar-International-Receives-A-Rating-by-MSCI-for-ESG-Performance-37459107/" },
-    { "company": "CapitaLand Investment", "ticker": "SGX:9CI", "exchange": "SGX", "country": "Singapore", "sector": "Real Estate — Investment Management & Developer", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Holds MSCI ESG AAA (multi-year), a DJSI World/Asia Pacific component, and top 5-Star GRESB recognition across its listed trusts in the 2023 GRESB Real Estate Assessment.", "source_url": "https://www.capitaland.com/en/about-capitaland/newsroom/news-releases/international/2023/october/CapitaLand-Investment-and-its-listed-trusts-achieve-top-sustainability-recognition-in-2023-GRESB-Real-Estate-Assessment.html" },
-    { "company": "City Developments (CDL)", "ticker": "SGX:C09", "exchange": "SGX", "country": "Singapore", "sector": "Real Estate — Diversified Developer", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Sustained ESG leader: MSCI ESG 'AAA' and a DJSI World/Asia Pacific component for over a decade, with double-'A' CDP scores (note: dropped from DJSI Asia Pacific in Dec 2023 on methodology changes — leadership signal, not improvement).", "source_url": "https://cdl.com.sg/newsroom/cdl-maintains-double-as-in-2020-cdp-a-list-and-top-scores-in-gresb-djsi-msci-and-sustainalytics-ratings" },
-    { "company": "CapitaLand Ascendas REIT", "ticker": "SGX:A17U", "exchange": "SGX", "country": "Singapore", "sector": "Real Estate — Industrial & Logistics REIT", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Achieved a 4-Star GRESB rating with an 'A' for Public Disclosure in the 2023 assessment and an MSCI ESG 'AA' rating driven by strengthened corporate-governance practices.", "source_url": "https://www.capitaland.com/en/about-capitaland/newsroom/news-releases/international/2023/october/CapitaLand-Investment-and-its-listed-trusts-achieve-top-sustainability-recognition-in-2023-GRESB-Real-Estate-Assessment.html" },
-    { "company": "Keppel DC REIT", "ticker": "SGX:AJBU", "exchange": "SGX", "country": "Singapore", "sector": "Real Estate — Data Centre REIT", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Clear improvement: attained a 3-Star rating and Green Star status in the 2023 GRESB Real Estate Assessment (up from 2-Star in 2022), plus an 'A' for GRESB Public Disclosure.", "source_url": "https://www.keppeldcreit.com/en/news-item.aspx?sid=64&aid=18753&title=keppels-esg-performance-recognised-at-gresb-2023" },
-
-    { "company": "Top Glove Corporation", "ticker": "KLSE:7113", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Health Care — Medical Gloves", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI Emerging Markets member 5 consecutive years (2019-2023), improving from ~top 33% of healthcare peers at 2019 inclusion to top 3% of Healthcare Equipment & Supplies by 2023; also F4GBM 4-star.", "source_url": "https://www.freemalaysiatoday.com/category/business/2023/09/18/top-glove-retains-dow-jones-sustainability-index-spot-for-5th-year/" },
-    { "company": "Malayan Banking (Maybank)", "ticker": "KLSE:1155", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "FTSE4Good Bursa Malaysia 4-star top-band (13 consecutive years) plus CDP Climate score improving D(2021)->C(2022)->B(2023), MSCI ESG 'AA', and ACGS Top-20 ASEAN — a multi-stream ESG improver.", "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2023_20240327.pdf" },
-    { "company": "CIMB Group Holdings", "ticker": "KLSE:1023", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "FTSE4Good Bursa Malaysia 4-star top-band and a Top-20 ASEAN PLC in BOTH the 2019 and 2021 ASEAN CG Scorecard cycles; MSCI ESG 'AA' through the window.", "source_url": "https://www.theacmf.org/images/downloads/pdf/2021%20ACGS%20Country%20Reports%20and%20Assessment_Final_29Apr2025%20(1).pdf" },
-    { "company": "Alliance Bank Malaysia", "ticker": "KLSE:2488", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Governance improver in the ASEAN CG Scorecard: rose into the Top-20 ASEAN PLCs and Top-3 Malaysia in the 2021 cycle (a stronger placement than 2019), sustaining ASEAN Asset Class across 2019 and 2021.", "source_url": "https://www.theacmf.org/images/downloads/pdf/2021%20ACGS%20Country%20Reports%20and%20Assessment_Final_29Apr2025%20(1).pdf" },
-    { "company": "Petronas Chemicals Group", "ticker": "KLSE:5183", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Materials — Chemicals", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI World 2021 member (top 10% globally / top-10 chemical company worldwide), sustained into 2022 as the only Malaysian DJSI World name; also F4GBM 4-star and ACGS ASEAN Asset Class.", "source_url": "https://www.petronas.com/pcg/sites/pcg/files/2022-03/PCG%20Sustainability%20Report%202021%20%E2%80%93%C2%A0Website.pdf" },
-    { "company": "MISC Berhad", "ticker": "KLSE:3816", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Industrials — Marine Shipping & Logistics", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Debuted on DJSI Emerging Markets in 2021 (only Malaysian transportation-sector constituent) and retained it in 2022 — a clean new-entrant improvement signal; also F4GBM 4-star.", "source_url": "https://www.offshore-energy.biz/misc-berhad-debuts-on-djsi-emerging-markets-index/" },
-    { "company": "Press Metal Aluminium Holdings", "ticker": "KLSE:8869", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Materials — Aluminium", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Debuted as an F4GBM constituent with a 4-star rating in June 2022 (clear in-window inclusion), then the biggest equities winner at The Edge Malaysia ESG Awards 2023 with two Golds incl. the Green Transition Award.", "source_url": "https://theedgemalaysia.com/article/ftse4good-bursa-malaysia-index-adds-10-new-constituents" },
-    { "company": "Telekom Malaysia", "ticker": "KLSE:4863", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Communication Services — Telecom", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "F4GBM 4-star top-band with CDP Climate Change score improving C(2021)->B(2022) and ~22% emissions cut vs a 2019 baseline; also ACGS ASEAN Asset Class.", "source_url": "https://tm.com.my/iar2023/assets/files/TM_IAR23_Our_Sustainability_Journey.pdf" },
-    { "company": "Sunway Berhad", "ticker": "KLSE:5211", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Industrials — Property & Construction Conglomerate", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "MSCI ESG rating upgraded BBB->A (announced March 2022, in-window) and won the Long-Term Achiever award at The Edge Malaysia ESG Awards 2022; began CDP Climate/Water disclosure in 2022.", "source_url": "https://www.sunway.com.my/media/press-release/sunway-rated-top-for-esg-efforts-by-global-indices-receives-esg-rating-upgrade-to-a/" },
-    { "company": "Tenaga Nasional", "ticker": "KLSE:5347", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Utilities — Electric Power", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "MSCI ESG rating on a documented upward path off a 2023 baseline (BBB -> A -> AA), the cleanest single MSCI improver story among Malaysian utilities; also an ACGS ASEAN Asset Class awardee.", "source_url": "https://www.tnb.com.my/assets/annual_report/TNB_IAR_2024.pdf" },
-    { "company": "IOI Corporation", "ticker": "KLSE:1961", "exchange": "Bursa Malaysia", "country": "Malaysia", "sector": "Consumer Staples — Palm Oil Plantations", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "F4GBM 4-star with a reported improving ESG score and CDP Forests score improving C->B; also an ACGS ASEAN Asset Class awardee across 2019-2021.", "source_url": "https://www.ioigroup.com/sustainability/ftse4good-index" },
-
-    { "company": "Bank Rakyat Indonesia (BRI)", "ticker": "IDX:BBRI", "exchange": "IDX", "country": "Indonesia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "MSCI ESG rating upgraded BBB->A (2019) on stronger information-security disclosure; long-standing SRI-KEHATI and IDX ESG Leaders constituent with rising S&P Global CSA participation through 2023.", "source_url": "https://knowesg.com/esg-ratings/bank-rakyat-indonesia-persero-tbk-pt" },
-    { "company": "Bank Central Asia (BCA)", "ticker": "IDX:BBCA", "exchange": "IDX", "country": "Indonesia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "Largest SRI-KEHATI constituent (~15% weight) with an MSCI 'A' rating and an S&P Global CSA/DJSI score of 62 (87th percentile), reflecting steadily strengthening ESG disclosure through 2022-2023.", "source_url": "https://www.bca.co.id/-/media/Feature/Report/File/S8/Laporan-Keberlanjutan/2023/20230216-bca-sustainability-report-2022-eng.pdf" },
-    { "company": "Bank Mandiri", "ticker": "IDX:BMRI", "exchange": "IDX", "country": "Indonesia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "Active S&P Global CSA respondent and top-3 SRI-KEHATI constituent with concrete sustainable-finance milestones (USD 300M inaugural Sustainability Bond 2021; first Indonesian ESG Repo 2022).", "source_url": "https://www.bankmandiri.co.id/en/esg-sustainability-report" },
-    { "company": "Bank Negara Indonesia (BNI)", "ticker": "IDX:BBNI", "exchange": "IDX", "country": "Indonesia", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "MSCI ESG 'A' (among the highest of Indonesian banks) and a top-5 ESG-score weight in the MSCI Indonesia ESG Universal Index, plus SRI-KEHATI / ESG Sector Leaders membership and fast-growing green financing (~28.5% of loans by Sep 2022).", "source_url": "https://infobanknews.com/jadi-konstituen-indeks-msci-esg-indonesia-skor-esg-bbni-masuk-5-terbaik/" },
-    { "company": "Chandra Asri Pacific", "ticker": "IDX:TPIA", "exchange": "IDX", "country": "Indonesia", "sector": "Materials — Chemicals", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Entered the IDX ESG Leaders Index in Sept 2023, with MSCI upgrading BB->BBB and Sustainalytics ESG risk improving 17.7 (2022)->16.6 (2023) — a documented late-window improvement trajectory.", "source_url": "https://jakartaglobe.id/special-updates/chandra-asri-group-posts-improved-esg-ratings-from-msci-and-morningstar-sustainalytics" },
-    { "company": "Semen Indonesia (SIG)", "ticker": "IDX:SMGR", "exchange": "IDX", "country": "Indonesia", "sector": "Materials — Construction Materials (Cement)", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Sole building-materials constituent of the IDX ESG Leaders Index, best-in-SE-Asia Sustainalytics 'Medium Risk' (25.1) in its category, and Scope 2 emissions down 16.4% vs a 2019 baseline.", "source_url": "https://voi.id/en/economy/482702" },
-    { "company": "AKR Corporindo", "ticker": "IDX:AKRA", "exchange": "IDX", "country": "Indonesia", "sector": "Energy — Fuel & Chemical Distribution / Logistics", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Constituent of the IDX ESG Leaders Index since its Dec 2020 launch, added to SRI-KEHATI in Dec 2021, and reported across 'all IDX ESG indices' by mid-2022 — a clear broadening of ESG-index recognition.", "source_url": "https://www.akr.co.id/news-detail/idx-esg-leaders-index" },
-    { "company": "Tower Bersama Infrastructure", "ticker": "IDX:TBIG", "exchange": "IDX", "country": "Indonesia", "sector": "Communication Services — Telecom Towers", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Constituent of the ESG Sector Leaders IDX KEHATI index from its Dec 2021 launch, with an escalating ESG/governance award trail (TrenAsia ESG Excellence, ESG Disclosure Award, Gold emissions transparency) through 2022-2023.", "source_url": "https://www.tower-bersama.com/en/about/awards" },
-    { "company": "Aneka Tambang (ANTAM)", "ticker": "IDX:ANTM", "exchange": "IDX", "country": "Indonesia", "sector": "Materials — Metals & Mining (Nickel/Gold)", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "New entrant to the ESG Sector Leaders IDX KEHATI index in the Dec 2022 review (also ESG Quality 45 / SRI-KEHATI), backed by government PROPER Green/Gold environmental ratings for multiple business units.", "source_url": "https://www.idxchannel.com/market-news/antam-antm-jadi-penghuni-baru-indeks-esg-sector-leaders-idx-kehati" },
-    { "company": "Kalbe Farma", "ticker": "IDX:KLBF", "exchange": "IDX", "country": "Indonesia", "sector": "Health Care — Pharmaceuticals", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "Clearest quantified de-risking of the Indonesian set: Sustainalytics ESG risk improved from ~44.3 (2021) -> 21.6 (2023), moving 'Severe' to 'Medium' risk; covered under IDX/KEHATI ESG reporting.", "source_url": "https://www.morningstar.com/stocks/xidx/klbf/sustainability" },
-
-    { "company": "Delta Electronics (Thailand)", "ticker": "SET:DELTA", "exchange": "SET", "country": "Thailand", "sector": "Technology — Electronic Components", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Joined DJSI World for the 3rd consecutive year in 2023 and entered the FTSE4Good Index Series (June 2023); S&P Global ESG Score 76/100 with 92/97 in Environment — a clear climb into global ESG leadership.", "source_url": "https://www.prnewswire.com/apac/news-releases/delta-electronics-thailand-joins-dow-jones-sustainability-indices-2023-in-3rd-consecutive-year-of-esg-recognition-302014912.html" },
-    { "company": "Indorama Ventures", "ticker": "SET:IVL", "exchange": "SET", "country": "Thailand", "sector": "Materials — Chemicals (PET/Polyester)", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI World member for the 5th consecutive year and DJSI Emerging Markets for the 7th in 2023 (92nd percentile of chemical firms); also No.1 in its FTSE4Good peer group (June 2023).", "source_url": "https://www.indoramaventures.com/en/updates/other-release/2108/indorama-ventures-continues-to-be-a-member-of-the-djsi-world-and-djsi-emerging-markets" },
-    { "company": "Bangchak Corporation", "ticker": "SET:BCP", "exchange": "SET", "country": "Thailand", "sector": "Energy — Oil Refining & Marketing", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Earned a 2023 SET ESG Rating of 'AAA' (the highest in Thailand's Resources Group) and named to the Thailand Sustainability Investment / SET ESG list for the 9th consecutive year — a durable, climbing track record.", "source_url": "https://www.bangchak.co.th/en/newsroom/bangchak-news/1223/bangchak-receives-a-2023-set-esg-rating-of-aaa-included-in-the-thailand-sustainability-investment-index-for-the-ninth-consecutive-year-while-earning-an-excellent-5-star-cgr-rating" },
-    { "company": "SCG Packaging", "ticker": "SET:SCGP", "exchange": "SET", "country": "Thailand", "sector": "Materials — Containers & Packaging", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Named an S&P Global 'Industry Mover' in the 2023 Sustainability Yearbook for a significant year-on-year sustainability-score increase (Top 1% globally, total ESG score 85) — a direct improvement signal.", "source_url": "https://www.bangkokpost.com/business/general/2519154/thai-firms-top-sp-sustainability-index" },
-    { "company": "Central Retail Corporation", "ticker": "SET:CRC", "exchange": "SET", "country": "Thailand", "sector": "Consumer Discretionary — Retail", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI World member in 2023 AND named an S&P Global 'Industry Mover' the same year for a significant year-on-year sustainability-score jump — both leadership and a clear improvement signal.", "source_url": "https://www.bangkokpost.com/business/general/2519154/thai-firms-top-sp-sustainability-index" },
-    { "company": "WHA Corporation", "ticker": "SET:WHA", "exchange": "SET", "country": "Thailand", "sector": "Industrials — Industrial Estates & Logistics/Utilities", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Named an S&P Global 'Industry Mover' in the 2023 Sustainability Yearbook for a significant year-on-year rise in its sustainability score — a direct improvement signal.", "source_url": "https://www.bangkokpost.com/business/general/2519154/thai-firms-top-sp-sustainability-index" },
-    { "company": "Asset World Corp", "ticker": "SET:AWC", "exchange": "SET", "country": "Thailand", "sector": "Real Estate — Hospitality & Commercial Property", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Named an S&P Global 'Industry Mover' in the 2023 Sustainability Yearbook for a significant year-on-year improvement; also a DJSI Emerging Markets constituent in 2023.", "source_url": "https://www.bangkokpost.com/business/general/2519154/thai-firms-top-sp-sustainability-index" },
-    { "company": "Thai Union Group", "ticker": "SET:TU", "exchange": "SET", "country": "Thailand", "sector": "Consumer Staples — Packaged Seafood / Food", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Listed on DJSI for the 10th consecutive year (Dec 2023) and ranked Top 1% globally in the S&P Global Sustainability Yearbook 2023, alongside a SET ESG Rating of AA — sustained ESG leadership.", "source_url": "https://www.thaiunion.com/en/newsroom/press-release/1670/thai-union-group-listed-on-dow-jones-sustainability-indices-for-10th-consecutive-year-marking-a-decade-of-transformation" },
-    { "company": "Kasikornbank", "ticker": "SET:KBANK", "exchange": "SET", "country": "Thailand", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI World member in 2023 (top ~10% of banks globally on S&P Global's Corporate Sustainability Assessment) — sustained ESG leadership among ASEAN financials.", "source_url": "https://www.nationthailand.com/sustainability/40044490" },
-    { "company": "Central Pattana", "ticker": "SET:CPN", "exchange": "SET", "country": "Thailand", "sector": "Real Estate — Retail Malls", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI World member in 2023 (Real Estate Management & Development) — global top-decile ESG performance among listed property firms.", "source_url": "https://www.nationthailand.com/sustainability/40044490" },
-    { "company": "Airports of Thailand", "ticker": "SET:AOT", "exchange": "SET", "country": "Thailand", "sector": "Industrials — Airports", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "DJSI World member in 2023 in the Transportation industry group — sustained global top-tier ESG standing for the airport operator.", "source_url": "https://www.nationthailand.com/sustainability/40044490" },
-
-    { "company": "Ayala Corporation", "ticker": "PSE:AC", "exchange": "PSE", "country": "Philippines", "sector": "Industrials — Conglomerate", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "First Philippine conglomerate admitted to the DJSI Emerging Markets Index and a continuous FTSE4Good constituent since 2015, sustaining ESG-leader status across 2019-2023.", "source_url": "https://business.inquirer.net/537355/5-ayala-led-firms-keep-spots-in-ftse4good-index-series" },
-    { "company": "Ayala Land", "ticker": "PSE:ALI", "exchange": "PSE", "country": "Philippines", "sector": "Real Estate — Developers", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Only Philippine real-estate name in the DJSI (member for a 9th consecutive year as of 2022) with a sustained CDP Climate Change 'A-' leadership score, and a FTSE4Good constituent since 2015.", "source_url": "https://ir.ayalaland.com.ph/sustainability/our-sustainability-history/" },
-    { "company": "Globe Telecom", "ticker": "PSE:GLO", "exchange": "PSE", "country": "Philippines", "sector": "Communication Services — Telecom", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Highest-rated Philippine company in MSCI ESG Research, reaching 'AA' by 2023; first PH-listed firm to commit to science-based targets, FTSE4Good constituent since 2016, and an ACGS ASEAN Asset Class awardee.", "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg" },
-    { "company": "PLDT Inc.", "ticker": "PSE:TEL", "exchange": "PSE", "country": "Philippines", "sector": "Communication Services — Telecom", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "MSCI ESG rating upgraded to 'BBB' (from 'BB') and posted year-on-year FTSE4Good score gains in human rights, environmental supply chain and governance — sustained ESG improvement.", "source_url": "https://manilastandard.net/business/314637512/pldt-gets-msci-esg-rating-upgrade-to-bbb.html" },
-    { "company": "Bank of the Philippine Islands", "ticker": "PSE:BPI", "exchange": "PSE", "country": "Philippines", "sector": "Financials — Banks", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "FTSE4Good Index Series member since 2015 and a recurring ACGS ASEAN Asset Class awardee (2021), with maintained CDP Climate Change disclosure — a consistent performer across 2019-2023.", "source_url": "https://www.bpi.com.ph/about-bpi/sustainability/ratings-accolades" },
-    { "company": "Aboitiz Equity Ventures", "ticker": "PSE:AEV", "exchange": "PSE", "country": "Philippines", "sector": "Industrials — Conglomerate", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Ranked #1 in the Industrial Conglomerates sector of S&P Global's 2022 Corporate Sustainability Assessment for the second straight year (upper-quartile globally) — rising S&P Global ESG scores through the window.", "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg" },
-    { "company": "Manila Water Company", "ticker": "PSE:MWC", "exchange": "PSE", "country": "Philippines", "sector": "Utilities — Water", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Sustainalytics ESG Risk Rating improved from 27.1 (2022) to 22.1 (2023) — top water utility in Asia-Pacific — with an MSCI upgrade from 'B' to 'BB', a clear documented improvement trajectory.", "source_url": "https://www.manilawater.com/corporate/agos/2023-12-06/manila-water-achieves-improved-esg-ratings-with-strengthened-commitment-to-sustainability" },
-    { "company": "SM Investments Corporation", "ticker": "PSE:SM", "exchange": "PSE", "country": "Philippines", "sector": "Industrials — Conglomerate", "esg_cagr_2019_2023": "", "confidence": "high", "esg_basis": "Named among Sustainalytics' Top-Rated ESG Companies in Asia-Pacific 2023 (ESG Risk Rating ~13.3, Low Risk) and a multi-year ACGS ASEAN Asset Class / ASEAN Top-20 governance awardee.", "source_url": "https://aboitizdatainnovation.com/blog/philippine-companies-taking-the-lead-in-esg" },
-    { "company": "Jollibee Foods Corporation", "ticker": "PSE:JFC", "exchange": "PSE", "country": "Philippines", "sector": "Consumer Discretionary — Restaurants", "esg_cagr_2019_2023": "", "confidence": "medium", "esg_basis": "Holds an MSCI ESG rating of 'BBB' reflecting integration of its 'Joy for Tomorrow' agenda and is covered by Sustainalytics; improvement signal is qualitative (rating level + program build-out) rather than a documented multi-year jump.", "source_url": "https://www.jollibeegroup.com/news/jollibee-group-earns-bbb-rating-in-latest-msci-esg-assessment/" }
-  ]
+  {
+   "company": "Bank Negara Indonesia",
+   "ticker": "IDX:BBNI",
+   "bbg_code": "BBNI IJ",
+   "exchange": "IDX",
+   "country": "Indonesia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 60.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.21%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "BBNI",
+    "BNI",
+    "BRI",
+    "Bank Negara Indonesia (BNI)",
+    "Bank Rakyat Indonesia (BRI)"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "IDR5T green bond Jun 2022 under BNI Green Bond Framework (Mar 2022); Sustainability Bonds Framework SPO 2025 BNI Green Bond Report Jun 2025",
+   "source_url": "https://www.bni.co.id/Portals/1/BNI/Perusahaan/ESG/Docs/Report-Green-Bond-BNI-2025-EN.pdf",
+   "source_url_2": "https://www.marketscreener.com/quote/stock/PT-BANK-NEGARA-INDONESIA--6493911/news/PT-Bank-Negara-Indonesia-Persero-Tbk-BNI-Green-Bond-Report-2025-50284830/",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.bni.co.id/Portals/1/BNI/Perusahaan/ESG/Docs/BNI-Green-Bond-Framework-20220308.pdf",
+     "published_at": "2022-06-01",
+     "source_type": "external_reviewer",
+     "event_id": "IDX:BBNI-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.bni.co.id/Portals/1/BNI/Perusahaan/ESG/Docs/Report-Green-Bond-BNI-2025-EN.pdf",
+     "published_at": "2025-06-01",
+     "source_type": "company_pr",
+     "event_id": "IDX:BBNI-cgsi-1"
+    },
+    {
+     "text": "IDR5T green bond Jun 2022 under BNI Green Bond Framework (Mar 2022); Sustainability Bonds Framework SPO 2025",
+     "source_url": "https://www.bni.co.id/Portals/1/BNI/Perusahaan/ESG/Docs/BNI-Green-Bond-Framework-20220308.pdf",
+     "published_at": "2022-06-01",
+     "source_type": "company_pr",
+     "event_id": "IDX:BBNI-cgsi-2"
+    },
+    {
+     "text": "BNI Green Bond Report Jun 2025",
+     "source_url": "https://www.marketscreener.com/quote/stock/PT-BANK-NEGARA-INDONESIA--6493911/news/PT-Bank-Negara-Indonesia-Persero-Tbk-BNI-Green-Bond-Report-2025-50284830/",
+     "published_at": "2025-06-01",
+     "source_type": "dataset",
+     "event_id": "IDX:BBNI-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Bank Rakyat Indonesia",
+   "ticker": "IDX:BBRI",
+   "bbg_code": "BBRI IJ",
+   "exchange": "IDX",
+   "country": "Indonesia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 66.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.73%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "BBRI",
+    "BNI",
+    "BRI",
+    "Bank Negara Indonesia (BNI)",
+    "Bank Rakyat Indonesia (BRI)"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "US$500m sustainability bond Mar 2019 (first Indonesian corporate); IDR green bond shelf tranches 2022-2024 Only SOE green bond issuer 2024 (per press)",
+   "source_url": "https://bri.co.id/web/guest/api/files?path=%2Fsites%2Fdefault%2Ffiles%2Fdocuments%2FAnnual+Sustainability+Bond+Report+Review+BRI+2021.pdf",
+   "source_url_2": "https://www.prnewswire.com/news-releases/bri-strengthens-commitment-to-sustainable-finance-with-new-green-bonds-301946738.html",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://bri.co.id/documents/20123/56999/BRI+Sustainability+Framework+Second+Party+Opinion.pdf",
+     "published_at": "2019-03-01",
+     "source_type": "external_reviewer",
+     "event_id": "IDX:BBRI-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://bri.co.id/web/guest/api/files?path=%2Fsites%2Fdefault%2Ffiles%2Fdocuments%2FAnnual+Sustainability+Bond+Report+Review+BRI+2021.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "IDX:BBRI-cgsi-1"
+    },
+    {
+     "text": "US$500m sustainability bond Mar 2019 (first Indonesian corporate); IDR green bond shelf tranches 2022-2024",
+     "source_url": "https://bri.co.id/documents/20123/56999/BRI+Sustainability+Framework+Second+Party+Opinion.pdf",
+     "published_at": "2019-03-01",
+     "source_type": "company_pr",
+     "event_id": "IDX:BBRI-cgsi-2"
+    },
+    {
+     "text": "Only SOE green bond issuer 2024 (per press)",
+     "source_url": "https://www.prnewswire.com/news-releases/bri-strengthens-commitment-to-sustainable-finance-with-new-green-bonds-301946738.html",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "IDX:BBRI-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Bank Mandiri",
+   "ticker": "IDX:BMRI",
+   "bbg_code": "BMRI IJ",
+   "exchange": "IDX",
+   "country": "Indonesia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.23%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "BMRI"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "US$300m sustainability bond Apr 2021; IDR green bond shelf (Rp5T, first tranche 2023); Sustainable Finance Framework Oct 2024 Sustainability Bond Report Jan 2025",
+   "source_url": "https://www.bankmandiri.co.id/en/web/ir/sustainability-bond",
+   "source_url_2": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/pt-bank-mandiri-(persero)-tbk.-(or-bank-mandiri-)/bank-mandiri-sustainability-bond-framework-second-party-opinion-(2021)/bank-mandiri-sustainability-bond-framework-second-party-opinion-(2021)",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.bankmandiri.co.id/documents/20143/249042147/NEW+BMRI_Sustainable+Finance+Framework+Okt+2024.pdf",
+     "published_at": "2021-04-01",
+     "source_type": "external_reviewer",
+     "event_id": "IDX:BMRI-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.bankmandiri.co.id/en/web/ir/sustainability-bond",
+     "published_at": "2025-01-01",
+     "source_type": "company_pr",
+     "event_id": "IDX:BMRI-cgsi-1"
+    },
+    {
+     "text": "US$300m sustainability bond Apr 2021; IDR green bond shelf (Rp5T, first tranche 2023); Sustainable Finance Framework Oct 2024",
+     "source_url": "https://www.bankmandiri.co.id/documents/20143/249042147/NEW+BMRI_Sustainable+Finance+Framework+Okt+2024.pdf",
+     "published_at": "2021-04-01",
+     "source_type": "company_pr",
+     "event_id": "IDX:BMRI-cgsi-2"
+    },
+    {
+     "text": "Sustainability Bond Report Jan 2025",
+     "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/pt-bank-mandiri-(persero)-tbk.-(or-bank-mandiri-)/bank-mandiri-sustainability-bond-framework-second-party-opinion-(2021)/bank-mandiri-sustainability-bond-framework-second-party-opinion-(2021)",
+     "published_at": "2025-01-01",
+     "source_type": "dataset",
+     "event_id": "IDX:BMRI-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Charoen Pokphand Indonesia",
+   "ticker": "IDX:CPIN",
+   "bbg_code": "CPIN IJ",
+   "exchange": "IDX",
+   "country": "Indonesia",
+   "sector": "Food & Beverages",
+   "industry": "Food & Beverages",
+   "esg_score": 51.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.45%",
+   "incumbent_notch": "B",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "CPIN"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Conventional IDR bonds only FY2025 +52%",
+   "source_url": "https://cp.co.id/wp-content/uploads/2026/04/Annual-Report-CPIN-2025.pdf",
+   "source_url_2": "https://www.idnfinancials.com/news/62303/cpin-profit-up-52-to-idr-5-6-trillion-as-feed-segment-drives-growth",
+   "events": [
+    {
+     "text": "Conventional IDR bonds only",
+     "source_url": "https://cp.co.id/wp-content/uploads/2026/04/Annual-Report-CPIN-2025.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "IDX:CPIN-cgsi-0"
+    },
+    {
+     "text": "FY2025 +52%",
+     "source_url": "https://www.idnfinancials.com/news/62303/cpin-profit-up-52-to-idr-5-6-trillion-as-feed-segment-drives-growth",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "IDX:CPIN-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "AMMB Holdings",
+   "ticker": "KLSE:AMM",
+   "bbg_code": "AMM MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 70.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "6.34%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "AMM"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No own-name labelled issuance; arranger of clients' SL sukuk Absence-of-evidence basis",
+   "source_url": "https://www.ambank.com.my/announcements/2024/paramount-issues-its-first-sustainability-linked-sukuk-wakalah-with-ambank-islamic-berhad-and-aminvestment-bank-berhad",
+   "source_url_2": "https://www.businesstoday.com.my/2026/05/28/ammb-fy26-net-profit-rises-to-rm2-1-billion-on-stronger-interest-income-trading-gains/",
+   "events": [
+    {
+     "text": "No own-name labelled issuance; arranger of clients' SL sukuk",
+     "source_url": "https://www.ambank.com.my/announcements/2024/paramount-issues-its-first-sustainability-linked-sukuk-wakalah-with-ambank-islamic-berhad-and-aminvestment-bank-berhad",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:AMM-cgsi-0"
+    },
+    {
+     "text": "Absence-of-evidence basis",
+     "source_url": "https://www.businesstoday.com.my/2026/05/28/ammb-fy26-net-profit-rises-to-rm2-1-billion-on-stronger-interest-income-trading-gains/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:AMM-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Axiata Group",
+   "ticker": "KLSE:AXIATA",
+   "bbg_code": "AXIATA MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Telco - Mobile",
+   "industry": "Telco - Mobile",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.59%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "AXIATA"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "2020 US$1.5b dual-tranche unlabelled; RM3.5b Islamic SL financing is an SLL — excluded FY25 PATAMI -61% partly on XLSmart merger effects; FY2023 was a loss year",
+   "source_url": "https://www.axiata.com/media/news/2026/axiata-posts-rm365-million-in-profits-for-fy25",
+   "source_url_2": "https://www.malaymail.com/news/money/2020/05/11/axiata-secures-rm3.5b-islamic-sustainability-linked-syndicated-financing/1865104",
+   "events": [
+    {
+     "text": "2020 US$1.5b dual-tranche unlabelled; RM3.5b Islamic SL financing is an SLL — excluded",
+     "source_url": "https://www.axiata.com/media/news/2026/axiata-posts-rm365-million-in-profits-for-fy25",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:AXIATA-cgsi-0"
+    },
+    {
+     "text": "FY25 PATAMI -61% partly on XLSmart merger effects; FY2023 was a loss year",
+     "source_url": "https://www.malaymail.com/news/money/2020/05/11/axiata-secures-rm3.5b-islamic-sustainability-linked-syndicated-financing/1865104",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:AXIATA-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "CelcomDigi Bhd",
+   "ticker": "KLSE:CDB",
+   "bbg_code": "CDB MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Telco - Mobile",
+   "industry": "Telco - Mobile",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.97%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "CDB"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled issuance; legacy sukuk conventional",
+   "source_url": "https://corporate.celcomdigi.com/news/celcomdigi-delivers-resilient-fy2025-growth-driven-by-strong-execution-and-operational-efficiencies",
+   "source_url_2": "https://www.bernama.com/en/news.php?id=2522759",
+   "events": [
+    {
+     "text": "No labelled issuance; legacy sukuk conventional",
+     "source_url": "https://corporate.celcomdigi.com/news/celcomdigi-delivers-resilient-fy2025-growth-driven-by-strong-execution-and-operational-efficiencies",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:CDB-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "CIMB Group Holdings Bhd",
+   "ticker": "KLSE:CIMB",
+   "bbg_code": "CIMB MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 72.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.37%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "CIMB",
+    "CIMB Group Holdings"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "USD500m SDG bond 2021 (first intl SDG bond by MY bank); RM sustainability sukuk under SDG Bond & Sukuk Framework Sustainability Sukuk Progress Report 2022/23 published",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/cimb/cimb-sdgs-bond-framework-second-party-opinion/cimb-sdgs-bond-second-party-opinion-pdf",
+   "source_url_2": "https://www.cimb.com/content/dam/cimb/group/documents/sustainbility/our-publication/cimb-sustainability-sukuk-progress-report-2022-2023.pdf",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.cimb.com/content/dam/cimb/group/documents/sustainbility/sustainable-finance-framework.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "external_reviewer",
+     "event_id": "KLSE:CIMB-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/cimb/cimb-sdgs-bond-framework-second-party-opinion/cimb-sdgs-bond-second-party-opinion-pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:CIMB-cgsi-1"
+    },
+    {
+     "text": "USD500m SDG bond 2021 (first intl SDG bond by MY bank); RM sustainability sukuk under SDG Bond & Sukuk Framework",
+     "source_url": "https://www.cimb.com/content/dam/cimb/group/documents/sustainbility/sustainable-finance-framework.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:CIMB-cgsi-2"
+    },
+    {
+     "text": "Sustainability Sukuk Progress Report 2022/23 published",
+     "source_url": "https://www.cimb.com/content/dam/cimb/group/documents/sustainbility/our-publication/cimb-sustainability-sukuk-progress-report-2022-2023.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:CIMB-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Hong Leong Bank",
+   "ticker": "KLSE:HLBK",
+   "bbg_code": "HLBK MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 71.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.27%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "HLBK"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "RM900m green AT1 (Apr 2022, MY-first) + RM500m Green Senior MTN (Sep 2024); HLB Green Bond Framework (ICMA GBP + ASEAN GBS) Allocation reporting likely inside sustainability report — verify",
+   "source_url": "https://www.ram.com.my/pressrelease/?prviewid=5959",
+   "source_url_2": "https://www.hlb.com.my/en/personal-banking/about-us/investor-relations/capital-and-debt-securities.html",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from RAM Sustainability.",
+     "source_url": "https://www.hlb.com.my/content/dam/hlb/my/docs/pdf/About-Us/Investor-Relations/Capital-and-Debt-Securities/hlb-green-bond-framework.pdf",
+     "published_at": "2022-04-01",
+     "source_type": "external_reviewer",
+     "event_id": "KLSE:HLBK-cgsi-0"
+    },
+    {
+     "text": "RM900m green AT1 (Apr 2022, MY-first) + RM500m Green Senior MTN (Sep 2024); HLB Green Bond Framework (ICMA GBP + ASEAN GBS)",
+     "source_url": "https://www.hlb.com.my/content/dam/hlb/my/docs/pdf/About-Us/Investor-Relations/Capital-and-Debt-Securities/hlb-green-bond-framework.pdf",
+     "published_at": "2022-04-01",
+     "source_type": "company_pr",
+     "event_id": "KLSE:HLBK-cgsi-1"
+    },
+    {
+     "text": "Allocation reporting likely inside sustainability report — verify",
+     "source_url": "https://www.hlb.com.my/en/personal-banking/about-us/investor-relations/capital-and-debt-securities.html",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:HLBK-cgsi-2"
+    }
+   ]
+  },
+  {
+   "company": "IHH Healthcare Bhd",
+   "ticker": "KLSE:IHH",
+   "bbg_code": "IHH MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Hospitals",
+   "industry": "Hospitals",
+   "esg_score": 64.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.91%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "IHH"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "RM15b sukuk programme permits sustainability labels but inaugural RM4b (Nov 2024) unlabelled; SGD SLLs excluded Island Hospital acquisition funded via RM4b sukuk; watch for labelled tranche",
+   "source_url": "https://www.ddcap.com/corporate-sukuk-ihh-healthcare-rm4bn-usd890mn-sukuk/",
+   "source_url_2": "https://www.theedgesingapore.com/capital/results/ihh-healthcares-fy2025-earnings-down-21-stronger-ringgit",
+   "events": [
+    {
+     "text": "RM15b sukuk programme permits sustainability labels but inaugural RM4b (Nov 2024) unlabelled; SGD SLLs excluded",
+     "source_url": "https://www.ddcap.com/corporate-sukuk-ihh-healthcare-rm4bn-usd890mn-sukuk/",
+     "published_at": "2024-11-01",
+     "source_type": "company_pr",
+     "event_id": "KLSE:IHH-cgsi-0"
+    },
+    {
+     "text": "Island Hospital acquisition funded via RM4b sukuk; watch for labelled tranche",
+     "source_url": "https://www.theedgesingapore.com/capital/results/ihh-healthcares-fy2025-earnings-down-21-stronger-ringgit",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:IHH-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "IOI Corporation",
+   "ticker": "KLSE:IOI",
+   "bbg_code": "IOI MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Agribusiness",
+   "industry": "Agribusiness",
+   "esg_score": 62.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.88%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "IOI"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled green/SRI sukuk found; debt unlabelled FY2026(Jun) results due ~late Aug 2026",
+   "source_url": "https://theedgemalaysia.com/node/768610",
+   "source_url_2": "https://finance.yahoo.com/news/ioi-corporation-berhad-full-2025-222641306.html",
+   "events": [
+    {
+     "text": "No labelled green/SRI sukuk found; debt unlabelled",
+     "source_url": "https://theedgemalaysia.com/node/768610",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:IOI-cgsi-0"
+    },
+    {
+     "text": "FY2026(Jun) results due ~late Aug 2026",
+     "source_url": "https://finance.yahoo.com/news/ioi-corporation-berhad-full-2025-222641306.html",
+     "published_at": "2026-08-01",
+     "source_type": "dataset",
+     "event_id": "KLSE:IOI-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Malaysia Airports Holdings Bhd",
+   "ticker": "KLSE:MAHB",
+   "bbg_code": "MAHB MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Transportation Infrastructure",
+   "industry": "Transportation Infrastructure",
+   "esg_score": 61.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.98%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": true,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "MAHB"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Sukuk programmes unlabelled DELISTED 25 Feb 2025 (GDA privatisation) — ticker defunct; EXCLUDE from investable universe",
+   "source_url": "https://www.thestar.com.my/business/business-news/2025/02/24/mahb-delisting-after-25-years---watershed-moment-for-airport-operators-privatisation",
+   "source_url_2": "https://www.malaysiaairports.com.my/en/media-centre/news/1468",
+   "events": [
+    {
+     "text": "Sukuk programmes unlabelled",
+     "source_url": "https://www.thestar.com.my/business/business-news/2025/02/24/mahb-delisting-after-25-years---watershed-moment-for-airport-operators-privatisation",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:MAHB-cgsi-0"
+    },
+    {
+     "text": "DELISTED 25 Feb 2025 (GDA privatisation) — ticker defunct; EXCLUDE from investable universe",
+     "source_url": "https://www.malaysiaairports.com.my/en/media-centre/news/1468",
+     "published_at": "2025-02-25",
+     "source_type": "dataset",
+     "event_id": "KLSE:MAHB-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Malayan Banking Bhd",
+   "ticker": "KLSE:MAY",
+   "bbg_code": "MAY MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 73.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.76%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "MAY",
+    "Malayan Banking (Maybank)",
+    "Maybank"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Sustainable Product Framework governs lending, not UoP bonds; major arranger, no own-name labelled bond found Recheck funding programmes before final print",
+   "source_url": "https://www.maybank.com/en/news/2026/02/26/maybank-fy25-net-profit-up-4-2-percent-to-rm10-51b-roe-11-7.page",
+   "source_url_2": "https://www.asiafinancial.com/malaysias-maybank-commits-to-11-9bn-sustainable-finance-framework",
+   "events": [
+    {
+     "text": "Sustainable Product Framework governs lending, not UoP bonds; major arranger, no own-name labelled bond found",
+     "source_url": "https://www.maybank.com/en/news/2026/02/26/maybank-fy25-net-profit-up-4-2-percent-to-rm10-51b-roe-11-7.page",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:MAY-cgsi-0"
+    },
+    {
+     "text": "Recheck funding programmes before final print",
+     "source_url": "https://www.asiafinancial.com/malaysias-maybank-commits-to-11-9bn-sustainable-finance-framework",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:MAY-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "MISC Bhd",
+   "ticker": "KLSE:MISC",
+   "bbg_code": "MISC MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Tanker Shipping",
+   "industry": "Tanker Shipping",
+   "esg_score": 61.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.01%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "MISC",
+    "MISC Berhad"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "US$527m sustainability-LINKED term loan (2021) — SLL excluded; no UoP bond",
+   "source_url": "https://www.miscgroup.com/media/media-releases/misc-group-financial-results-for-the-fourth-quarter-of-2025",
+   "source_url_2": "https://www.miscgroup.com/media/media-releases/standard-chartered-leads-misc%E2%80%99s-usd527-million-sustainable-linked-term-loan-financing",
+   "events": [
+    {
+     "text": "US$527m sustainability-LINKED term loan (2021) — SLL excluded; no UoP bond",
+     "source_url": "https://www.miscgroup.com/media/media-releases/misc-group-financial-results-for-the-fourth-quarter-of-2025",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:MISC-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Nestle (Malaysia)",
+   "ticker": "KLSE:NESZ",
+   "bbg_code": "NESZ MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Food & Beverages",
+   "industry": "Food & Beverages",
+   "esg_score": 66.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.40%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "NESZ"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No bonds of any label; bank facilities FY2024 was multi-year low (boycott); recovered FY2025",
+   "source_url": "https://www.businesstoday.com.my/2026/02/25/nestle-malaysia-fy25-profit-up-23-to-rm513-million-stages-solid-q4/",
+   "source_url_2": "https://www.nst.com.my/business/corporate/2026/02/1384998/nestl%C3%A9-malaysias-q4-net-profit-surges-205pct-rm1255mil",
+   "events": [
+    {
+     "text": "No bonds of any label; bank facilities",
+     "source_url": "https://www.businesstoday.com.my/2026/02/25/nestle-malaysia-fy25-profit-up-23-to-rm513-million-stages-solid-q4/",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:NESZ-cgsi-0"
+    },
+    {
+     "text": "FY2024 was multi-year low (boycott); recovered FY2025",
+     "source_url": "https://www.nst.com.my/business/corporate/2026/02/1384998/nestl%C3%A9-malaysias-q4-net-profit-surges-205pct-rm1255mil",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:NESZ-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Petronas Chemicals Group",
+   "ticker": "KLSE:PCHEM",
+   "bbg_code": "PCHEM MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Petrochemical",
+   "industry": "Petrochemical",
+   "esg_score": 65.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.85%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "loss_making",
+   "confidence": "high",
+   "aliases": [
+    "PCHEM"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled instruments Swung to loss FY2025 (Pengerang drag, weak spreads) — TRACTION SCREEN REQUIRED",
+   "source_url": "https://www.bernama.com/en/news.php?id=2526639",
+   "source_url_2": "https://www.petronas.com/pcg/media/media-releases/fy2025-results-reflect-challenging-market-pcg-prioritises-operational-and",
+   "events": [
+    {
+     "text": "No labelled instruments",
+     "source_url": "https://www.bernama.com/en/news.php?id=2526639",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:PCHEM-cgsi-0"
+    },
+    {
+     "text": "Swung to loss FY2025 (Pengerang drag, weak spreads) — TRACTION SCREEN REQUIRED",
+     "source_url": "https://www.petronas.com/pcg/media/media-releases/fy2025-results-reflect-challenging-market-pcg-prioritises-operational-and",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:PCHEM-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Petronas Dagangan Bhd",
+   "ticker": "KLSE:PETD",
+   "bbg_code": "PETD MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Oil & Gas - Retail",
+   "industry": "Oil & Gas - Retail",
+   "esg_score": 59.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "0.33%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "PETD"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled instruments; debt-light",
+   "source_url": "https://www.bernama.com/en/news.php?id=2527058",
+   "source_url_2": "https://www.mymesra.com.my/media/media-releases/petronas-dagangan-posts-record-fy2025-profit-higher-fuel-sales-and-digital",
+   "events": [
+    {
+     "text": "No labelled instruments; debt-light",
+     "source_url": "https://www.bernama.com/en/news.php?id=2527058",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:PETD-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Press Metal Aluminium Holdings Bhd",
+   "ticker": "KLSE:PMAH",
+   "bbg_code": "PMAH MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Metals & Mining",
+   "industry": "Metals & Mining",
+   "esg_score": 62.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "0.90%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "PMAH",
+    "Press Metal Aluminium Holdings"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "RM5b IMTN sukuk programme unlabelled (RM1.5b Mar 2025 conventional); PMHB SRI sukuk is Pesona Metro, NOT Press Metal",
+   "source_url": "https://www.nst.com.my/business/corporate/2026/02/1385892/press-metal-aluminium-fy25-net-profit-rises-19pct-rm21bil",
+   "source_url_2": "https://www.sarawaktribune.com/press-metal-completes-rm1-5-bln-sukuk-issuance/",
+   "events": [
+    {
+     "text": "RM5b IMTN sukuk programme unlabelled (RM1.5b Mar 2025 conventional); PMHB SRI sukuk is Pesona Metro, NOT Press Metal",
+     "source_url": "https://www.nst.com.my/business/corporate/2026/02/1385892/press-metal-aluminium-fy25-net-profit-rises-19pct-rm21bil",
+     "published_at": "2025-03-01",
+     "source_type": "company_pr",
+     "event_id": "KLSE:PMAH-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "RHB Bank Bhd",
+   "ticker": "KLSE:RHBBANK",
+   "bbg_code": "RHBBANK MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 61.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.75%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "RHBBANK"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "ISSUER-READY: Sustainability Sukuk & Bond Framework (2023, Sustainalytics SPO, ICMA-aligned) but NO labelled issuance found — framework-only; Jul 2025 sukuk unlabelled PIPELINE-ADJACENT: framework+SPO in place, no issuance — a near-term issuer candidate",
+   "source_url": "https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Sustainability-Report/Sustainalytics-Second-Party-Opinion.pdf",
+   "source_url_2": "https://www.nst.com.my/business/corporate/2026/02/1386321/rhb-bank-posts-higher-net-profit-rm33bil-fy25",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Sustainability-Report/RHB-Sustainability-Sukuk-and-Bond-Framework.pdf",
+     "published_at": "2025-07-01",
+     "source_type": "external_reviewer",
+     "event_id": "KLSE:RHBBANK-cgsi-0"
+    },
+    {
+     "text": "ISSUER-READY: Sustainability Sukuk & Bond Framework (2023, Sustainalytics SPO, ICMA-aligned) but NO labelled issuance found — framework-only; Jul 2025 sukuk unlabelled",
+     "source_url": "https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Sustainability-Report/RHB-Sustainability-Sukuk-and-Bond-Framework.pdf",
+     "published_at": "2025-07-01",
+     "source_type": "company_pr",
+     "event_id": "KLSE:RHBBANK-cgsi-1"
+    },
+    {
+     "text": "PIPELINE-ADJACENT: framework+SPO in place, no issuance — a near-term issuer candidate",
+     "source_url": "https://www.nst.com.my/business/corporate/2026/02/1386321/rhb-bank-posts-higher-net-profit-rm33bil-fy25",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:RHBBANK-cgsi-2"
+    }
+   ]
+  },
+  {
+   "company": "Sime Darby Bhd",
+   "ticker": "KLSE:SIME",
+   "bbg_code": "SIME MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Autos",
+   "industry": "Autos",
+   "esg_score": 68.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.60%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "SIME"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled issuance by Sime Darby Bhd — do not confuse with Sime Darby Property (SDPR) green data-centre sukuk 2026 (different listco) FY2026(Jun) not yet released",
+   "source_url": "https://www.sime.com/media/news-release/2025/08/sime-reports-rm2-billion-in-net-profit-for-fy2025/",
+   "source_url_2": "https://www.businesstoday.com.my/2025/08/27/sime-darbys-fy25-profit-drops-38-to-rm2-billion-declares-10-sen-dividend/",
+   "events": [
+    {
+     "text": "No labelled issuance by Sime Darby Bhd — do not confuse with Sime Darby Property (SDPR) green data-centre sukuk 2026 (different listco)",
+     "source_url": "https://www.sime.com/media/news-release/2025/08/sime-reports-rm2-billion-in-net-profit-for-fy2025/",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:SIME-cgsi-0"
+    },
+    {
+     "text": "FY2026(Jun) not yet released",
+     "source_url": "https://www.businesstoday.com.my/2025/08/27/sime-darbys-fy25-profit-drops-38-to-rm2-billion-declares-10-sen-dividend/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "KLSE:SIME-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Telekom Malaysia",
+   "ticker": "KLSE:T",
+   "bbg_code": "T MK",
+   "exchange": "KLSE",
+   "country": "Malaysia",
+   "sector": "Telco - Integrated",
+   "industry": "Telco - Integrated",
+   "esg_score": 69.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.63%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "T"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled issuance; sukuk conventional",
+   "source_url": "https://www.bernama.com/en/region/news.php?id=2527434",
+   "source_url_2": "https://www.tm.com.my/news/q4_revenue_increase",
+   "events": [
+    {
+     "text": "No labelled issuance; sukuk conventional",
+     "source_url": "https://www.bernama.com/en/region/news.php?id=2527434",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "KLSE:T-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Ayala Corporation",
+   "ticker": "PSE:AC",
+   "bbg_code": "AC PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Conglomerate",
+   "industry": "Conglomerate",
+   "esg_score": 65.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.54%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "AC"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Parent-level SOCIAL bond 2021 only (PH's first healthcare social bond, IFC) — social-only excluded; green issuance sits at subsidiaries (ACEN/BPI/ALI) Core income used (statutory FY2025 has one-offs)",
+   "source_url": "https://www.ifc.org/en/pressroom/2021/ayala-group-to-issue-the-philippines-first-healthcare-focused-so",
+   "source_url_2": "https://business.inquirer.net/579220/ayala-core-profit-hits-record-p48-3b-in-2025",
+   "events": [
+    {
+     "text": "Parent-level SOCIAL bond 2021 only (PH's first healthcare social bond, IFC) — social-only excluded; green issuance sits at subsidiaries (ACEN/BPI/ALI)",
+     "source_url": "https://www.ifc.org/en/pressroom/2021/ayala-group-to-issue-the-philippines-first-healthcare-focused-so",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "PSE:AC-cgsi-0"
+    },
+    {
+     "text": "Core income used (statutory FY2025 has one-offs)",
+     "source_url": "https://business.inquirer.net/579220/ayala-core-profit-hits-record-p48-3b-in-2025",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "PSE:AC-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Ayala Land Inc",
+   "ticker": "PSE:ALI",
+   "bbg_code": "ALI PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Property Development",
+   "industry": "Property Development",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.43%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "ALI",
+    "Ayala Land"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "SLBs only (PHP8b 2024 IFC-partnered first PH real-estate SLB; 3rd SLB PHP15b Aug 2025) — excluded; AREIT separate FY2025 includes one-off gains",
+   "source_url": "https://ayalaland.com/blog/ayala-land-lists-p8-billion-sustainability-linked-bonds-strengthens-commitment-to-sustainable-growth-in-the-philippines",
+   "source_url_2": "https://ayalaland.com/blog/ayala-land-delivers-fy25-consolidated-net-income-of-php39-1bn",
+   "events": [
+    {
+     "text": "SLBs only (PHP8b 2024 IFC-partnered first PH real-estate SLB; 3rd SLB PHP15b Aug 2025) — excluded; AREIT separate",
+     "source_url": "https://ayalaland.com/blog/ayala-land-lists-p8-billion-sustainability-linked-bonds-strengthens-commitment-to-sustainable-growth-in-the-philippines",
+     "published_at": "2025-08-01",
+     "source_type": "company_pr",
+     "event_id": "PSE:ALI-cgsi-0"
+    },
+    {
+     "text": "FY2025 includes one-off gains",
+     "source_url": "https://ayalaland.com/blog/ayala-land-delivers-fy25-consolidated-net-income-of-php39-1bn",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "PSE:ALI-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "BDO Unibank Inc",
+   "ticker": "PSE:BDO",
+   "bbg_code": "BDO PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 64.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "5.09%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "BDO"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "USD150m green bond 2017 (IFC-subscribed); PHP52.7b (2022) + PHP63.3b (2024) ASEAN Sustainability Bonds under BDO Sustainable Finance Framework 2nd ASEAN Sustainability Bond Impact Report 2024",
+   "source_url": "https://www.bdo.com.ph/about-bdo/learn/news-and-features/bdo-asean-sustainability-bond-impact-report-2024",
+   "source_url_2": "https://www.bworldonline.com/banking-finance/2026/02/27/733286/bdo-net-profit-hits-all-time-high-of-p87-17-billion-in-2025/",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.bdo.com.ph/about-bdo/sustainability/sustainable-finance",
+     "published_at": "2026-08-20",
+     "source_type": "external_reviewer",
+     "event_id": "PSE:BDO-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.bdo.com.ph/about-bdo/learn/news-and-features/bdo-asean-sustainability-bond-impact-report-2024",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "PSE:BDO-cgsi-1"
+    },
+    {
+     "text": "USD150m green bond 2017 (IFC-subscribed); PHP52.7b (2022) + PHP63.3b (2024) ASEAN Sustainability Bonds under BDO Sustainable Finance Framework",
+     "source_url": "https://www.bdo.com.ph/about-bdo/sustainability/sustainable-finance",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "PSE:BDO-cgsi-2"
+    },
+    {
+     "text": "2nd ASEAN Sustainability Bond Impact Report 2024",
+     "source_url": "https://www.bworldonline.com/banking-finance/2026/02/27/733286/bdo-net-profit-hits-all-time-high-of-p87-17-billion-in-2025/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "PSE:BDO-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Bank of the Philippine Islands",
+   "ticker": "PSE:BPI",
+   "bbg_code": "BPI PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 69.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.14%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "BPI"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "USD300m ASEAN Green Bond (Sep 2019) + CHF100m green bond (2019) under Green Finance Framework; PHP33.7b SEED sustainable bonds (Aug 2024) Sustainalytics annual allocation reviews 2024+2025",
+   "source_url": "https://www.bpi.com.ph/content/dam/bau/sustainability/sustainability-together/pdfs/2025_bpi-annual-review-sustainalytics.pdf",
+   "source_url_2": "https://business.inquirer.net/572041/bpi-posts-p66-6b-net-income-in-2025-up-7-4",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.bpi.com.ph/about-bpi/sustainability/funding-framework",
+     "published_at": "2019-09-01",
+     "source_type": "external_reviewer",
+     "event_id": "PSE:BPI-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.bpi.com.ph/content/dam/bau/sustainability/sustainability-together/pdfs/2025_bpi-annual-review-sustainalytics.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "PSE:BPI-cgsi-1"
+    },
+    {
+     "text": "USD300m ASEAN Green Bond (Sep 2019) + CHF100m green bond (2019) under Green Finance Framework; PHP33.7b SEED sustainable bonds (Aug 2024)",
+     "source_url": "https://www.bpi.com.ph/about-bpi/sustainability/funding-framework",
+     "published_at": "2019-09-01",
+     "source_type": "company_pr",
+     "event_id": "PSE:BPI-cgsi-2"
+    },
+    {
+     "text": "Sustainalytics annual allocation reviews 2024+2025",
+     "source_url": "https://business.inquirer.net/572041/bpi-posts-p66-6b-net-income-in-2025-up-7-4",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "PSE:BPI-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "SM Investments Corp",
+   "ticker": "PSE:SM",
+   "bbg_code": "SM PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Conglomerate",
+   "industry": "Conglomerate",
+   "esg_score": 61.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.47%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "SM",
+    "SM Investments Corporation"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled bonds at SMIC parent; subsidiaries (BDO, China Bank) carry group ESG issuance",
+   "source_url": "https://www.sminvestments.com/press_release/sm-investments-fy-2025-net-income-up-10-to-php90-5-billion/",
+   "source_url_2": "https://www.manilatimes.net/2025/03/03/tmt-newswire/sm-posts-7-growth-in-net-earnings-to-p826b-in-2024/2065449",
+   "events": [
+    {
+     "text": "No labelled bonds at SMIC parent; subsidiaries (BDO, China Bank) carry group ESG issuance",
+     "source_url": "https://www.sminvestments.com/press_release/sm-investments-fy-2025-net-income-up-10-to-php90-5-billion/",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "PSE:SM-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "SM Prime Holdings Inc",
+   "ticker": "PSE:SMPH",
+   "bbg_code": "SMPH PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Property Development",
+   "industry": "Property Development",
+   "esg_score": 57.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "0.45%",
+   "incumbent_notch": "B",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "SMPH"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Nothing issued; stated Aug 2025 still 'looking into green financing options' Green financing under evaluation — near-term candidate",
+   "source_url": "https://www.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+   "source_url_2": "https://www.smprime.com/company_releases/sm-prime-net-income-hits-p48-8b-in-2025/",
+   "events": [
+    {
+     "text": "Nothing issued; stated Aug 2025 still 'looking into green financing options'",
+     "source_url": "https://www.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+     "published_at": "2025-08-01",
+     "source_type": "company_pr",
+     "event_id": "PSE:SMPH-cgsi-0"
+    },
+    {
+     "text": "Green financing under evaluation — near-term candidate",
+     "source_url": "https://www.smprime.com/company_releases/sm-prime-net-income-hits-p48-8b-in-2025/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "PSE:SMPH-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "PLDT Inc",
+   "ticker": "PSE:TEL",
+   "bbg_code": "TEL PM",
+   "exchange": "PSE",
+   "country": "Philippines",
+   "sector": "Telco - Integrated",
+   "industry": "Telco - Integrated",
+   "esg_score": 69.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.33%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "PLDT Inc.",
+    "TEL"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled issuance; conventional USD/PHP notes Core income used for latest FY",
+   "source_url": "https://insiderph.com/pldt-2025-core-income-up-1-as-maya-profit-boost-cushions-telco-drag",
+   "source_url_2": "https://www.philstar.com/business/2025/02/28/2424663/pldt-hits-income-target-nets-21-more-p323-billion",
+   "events": [
+    {
+     "text": "No labelled issuance; conventional USD/PHP notes",
+     "source_url": "https://insiderph.com/pldt-2025-core-income-up-1-as-maya-profit-boost-cushions-telco-drag",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "PSE:TEL-cgsi-0"
+    },
+    {
+     "text": "Core income used for latest FY",
+     "source_url": "https://www.philstar.com/business/2025/02/28/2424663/pldt-hits-income-target-nets-21-more-p323-billion",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "PSE:TEL-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Advanced Info Service",
+   "ticker": "SET:ADVANC",
+   "bbg_code": "ADVANC TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Telco - Mobile",
+   "industry": "Telco - Mobile",
+   "esg_score": 70.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.30%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "ADVANC"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "THB25b Sustainability Bond No.1/2024 (Nov 2024; green+social UoP; first Thai telecom sustainability bond) under Sustainable Financing Framework (Sep 2024) Sustainable Financing Report 2025 = allocation report",
+   "source_url": "https://investor.ais.co.th/sustainable_finance.html",
+   "source_url_2": "https://en.thairath.co.th/money/investment/capital_market/2911930",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from DNV.",
+     "source_url": "https://investor.ais.co.th/storage/document/sustainable-finance/2024/advanc-sustainable-finance-framework-sep-2024-en.pdf",
+     "published_at": "2024-11-01",
+     "source_type": "external_reviewer",
+     "event_id": "SET:ADVANC-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://investor.ais.co.th/sustainable_finance.html",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:ADVANC-cgsi-1"
+    },
+    {
+     "text": "THB25b Sustainability Bond No.1/2024 (Nov 2024; green+social UoP; first Thai telecom sustainability bond) under Sustainable Financing Framework (Sep 2024)",
+     "source_url": "https://investor.ais.co.th/storage/document/sustainable-finance/2024/advanc-sustainable-finance-framework-sep-2024-en.pdf",
+     "published_at": "2024-11-01",
+     "source_type": "company_pr",
+     "event_id": "SET:ADVANC-cgsi-2"
+    },
+    {
+     "text": "Sustainable Financing Report 2025 = allocation report",
+     "source_url": "https://en.thairath.co.th/money/investment/capital_market/2911930",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:ADVANC-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Bangkok Dusit Med Service",
+   "ticker": "SET:BDMS",
+   "bbg_code": "BDMS TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Hospitals",
+   "industry": "Hospitals",
+   "esg_score": 63.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.94%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "BDMS"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Conventional debentures only",
+   "source_url": "https://investor.bdms.co.th/storage/downloads/financial-highlights/financial-highlights-4q2025-en-1.pdf",
+   "source_url_2": "https://investor.bdms.co.th/en/financial-info/financial-highlights",
+   "events": [
+    {
+     "text": "Conventional debentures only",
+     "source_url": "https://investor.bdms.co.th/storage/downloads/financial-highlights/financial-highlights-4q2025-en-1.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:BDMS-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Bangkok Expressway and Metro PCL",
+   "ticker": "SET:BEM",
+   "bbg_code": "BEM TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Transportation Infrastructure",
+   "industry": "Transportation Infrastructure",
+   "esg_score": 52.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.38%",
+   "incumbent_notch": "B",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "BEM"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "THB5b sustainability (green+social UoP) debentures Feb 2024 (MRT Blue Line; Thailand's first 2024 sustainability bond, 5.2x oversubscribed); framework refreshed Oct 2025 Impact report published; aligned ICMA + ASEAN + Thailand Taxonomy",
+   "source_url": "https://investor.bemplc.co.th/en/sustainability-finance",
+   "source_url_2": "https://www.krungsri.com/en/newsandactivities/krungsri-banking-news/bem-appreciated-support-from-thai-investors",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from DNV.",
+     "source_url": "https://investor.bemplc.co.th/storage/document/sustainable-finance/2025/sustainability-framework-oct-2025-en.pdf",
+     "published_at": "2024-02-01",
+     "source_type": "external_reviewer",
+     "event_id": "SET:BEM-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://investor.bemplc.co.th/en/sustainability-finance",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:BEM-cgsi-1"
+    },
+    {
+     "text": "THB5b sustainability (green+social UoP) debentures Feb 2024 (MRT Blue Line; Thailand's first 2024 sustainability bond, 5.2x oversubscribed); framework refreshed Oct 2025",
+     "source_url": "https://investor.bemplc.co.th/storage/document/sustainable-finance/2025/sustainability-framework-oct-2025-en.pdf",
+     "published_at": "2024-02-01",
+     "source_type": "company_pr",
+     "event_id": "SET:BEM-cgsi-2"
+    },
+    {
+     "text": "Impact report published; aligned ICMA + ASEAN + Thailand Taxonomy",
+     "source_url": "https://www.krungsri.com/en/newsandactivities/krungsri-banking-news/bem-appreciated-support-from-thai-investors",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:BEM-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "CP All",
+   "ticker": "SET:CPALL",
+   "bbg_code": "CPALL TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Retail",
+   "industry": "Retail",
+   "esg_score": 66.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.27%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "CPALL"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled issuance; large conventional debenture programme",
+   "source_url": "https://lssmedia.setlink.set.or.th/2025/YE/CPALL-YE68-ListedCompanySnapshot-EN.html",
+   "source_url_2": "https://www.cpall.co.th/en/news-en/coporate-news/",
+   "events": [
+    {
+     "text": "No labelled issuance; large conventional debenture programme",
+     "source_url": "https://lssmedia.setlink.set.or.th/2025/YE/CPALL-YE68-ListedCompanySnapshot-EN.html",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:CPALL-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Charoen Pokphand Foods PCL",
+   "ticker": "SET:CPF",
+   "bbg_code": "CPF TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Food & Beverages",
+   "industry": "Food & Beverages",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.32%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "CPF"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled bonds; large conventional debenture issuer FY2023 was a loss year; last two FYs profitable",
+   "source_url": "https://www.cpfworldwide.com/en/media-center/2604",
+   "source_url_2": "https://www.bangkokpost.com/business/general/3206843/cpf-confident-for-2026-after-profit-surge",
+   "events": [
+    {
+     "text": "No labelled bonds; large conventional debenture issuer",
+     "source_url": "https://www.cpfworldwide.com/en/media-center/2604",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:CPF-cgsi-0"
+    },
+    {
+     "text": "FY2023 was a loss year; last two FYs profitable",
+     "source_url": "https://www.bangkokpost.com/business/general/3206843/cpf-confident-for-2026-after-profit-surge",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:CPF-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Central Pattana",
+   "ticker": "SET:CPN",
+   "bbg_code": "CPN TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Property Development",
+   "industry": "Property Development",
+   "esg_score": 59.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "0.79%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "CPN"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "SLBs only (2024, incl ~THB4b IFC-subscribed — first Thai real estate SLB) — excluded",
+   "source_url": "https://www.ifc.org/en/pressroom/2024/ifc-invests-in-sustainability-linked-bond-issued-by-central-pattana-in-thailand",
+   "source_url_2": "https://www.bangkokpost.com/property/3203730/central-pattana-sees-net-profit-surge-by-13-in-2025",
+   "events": [
+    {
+     "text": "SLBs only (2024, incl ~THB4b IFC-subscribed — first Thai real estate SLB) — excluded",
+     "source_url": "https://www.ifc.org/en/pressroom/2024/ifc-invests-in-sustainability-linked-bond-issued-by-central-pattana-in-thailand",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:CPN-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Home Product Center",
+   "ticker": "SET:HMPRO",
+   "bbg_code": "HMPRO TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Retail",
+   "industry": "Retail",
+   "esg_score": 61.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.74%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "HMPRO"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Conventional debentures only",
+   "source_url": "https://www.utrade.co.th/content/uploads/research/639076969250587474260226_HMPRO_TB_Results.pdf",
+   "source_url_2": "https://www.set.or.th/en/market/product/stock/quote/hmpro/factsheet",
+   "events": [
+    {
+     "text": "Conventional debentures only",
+     "source_url": "https://www.utrade.co.th/content/uploads/research/639076969250587474260226_HMPRO_TB_Results.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:HMPRO-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "Intouch Holdings PCL",
+   "ticker": "SET:INTUCH",
+   "bbg_code": "INTUCH TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Telco - Mobile",
+   "industry": "Telco - Mobile",
+   "esg_score": 62.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "0.27%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": true,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "INTUCH"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Never issued green bonds (holding co) DELISTED 3 Apr 2025 — amalgamated into Gulf Development (GULF); EXCLUDE from investable universe",
+   "source_url": "https://www.set.or.th/en/market/news-and-alert/newsdetails?id=95444200&symbol=INTUCH",
+   "source_url_2": "https://www.gulf.co.th/en/newsroom/news-and-activities/67/gulf-and-intuch-announce-a-strategic-amalgamation",
+   "events": [
+    {
+     "text": "Never issued green bonds (holding co)",
+     "source_url": "https://www.set.or.th/en/market/news-and-alert/newsdetails?id=95444200&symbol=INTUCH",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:INTUCH-cgsi-0"
+    },
+    {
+     "text": "DELISTED 3 Apr 2025 — amalgamated into Gulf Development (GULF); EXCLUDE from investable universe",
+     "source_url": "https://www.gulf.co.th/en/newsroom/news-and-activities/67/gulf-and-intuch-announce-a-strategic-amalgamation",
+     "published_at": "2025-04-03",
+     "source_type": "dataset",
+     "event_id": "SET:INTUCH-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Krung Thai Bank",
+   "ticker": "SET:KTB",
+   "bbg_code": "KTB TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 64.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.83%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "KTB"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled issuance; green-loan lender + ESG bond underwriter Negative finding",
+   "source_url": "https://krungthai.com/en/sustainability/growing-together/sustainable-finance",
+   "source_url_2": "https://en.moneyandbanking.co.th/2025/151748/",
+   "events": [
+    {
+     "text": "No labelled issuance; green-loan lender + ESG bond underwriter",
+     "source_url": "https://krungthai.com/en/sustainability/growing-together/sustainable-finance",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:KTB-cgsi-0"
+    },
+    {
+     "text": "Negative finding",
+     "source_url": "https://en.moneyandbanking.co.th/2025/151748/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:KTB-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Minor International",
+   "ticker": "SET:MINT",
+   "bbg_code": "MINT TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Hotels",
+   "industry": "Hotels",
+   "esg_score": 66.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.60%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "MINT"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "SLB issuer only (incl. Thailand's first zero-coupon SLB Dec 2025) — SLBs excluded",
+   "source_url": "https://www.kaohooninternational.com/markets/572295",
+   "source_url_2": "https://www.minor.com/en/investor-relations/newsroom/press-releases/2458610/mint-completed-thailands-first-sustainability-linked-syndicated-loan-in-tourism-and-leisure-sector",
+   "events": [
+    {
+     "text": "SLB issuer only (incl. Thailand's first zero-coupon SLB Dec 2025) — SLBs excluded",
+     "source_url": "https://www.kaohooninternational.com/markets/572295",
+     "published_at": "2025-12-01",
+     "source_type": "company_pr",
+     "event_id": "SET:MINT-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "PTT",
+   "ticker": "SET:PTT",
+   "bbg_code": "PTT TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Oil & Gas - Integrated",
+   "industry": "Oil & Gas - Integrated",
+   "esg_score": 73.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.98%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "cbi_certified",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [],
+   "as_of": "2026-08-20",
+   "esg_basis": "THB2b 3yr green debenture Jul 2020 (forest conservation) — world-first CBI-certified forestry green bond; MATURED 2023, no further green bonds found Historical issuance (matured) — classify carefully on slides; satellite-monitorable reforestation UoP = ideal claim-vs-evidence example",
+   "source_url": "https://www.pttdebenture.com/src/upload/fckfiles/green-bond/20200908-ptt-debenture-cbi-certification.pdf",
+   "source_url_2": "https://en.thairath.co.th/money/investment/capital_market/2915360",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from DNV GL.",
+     "source_url": "https://www.pttdebenture.com/src/upload/fckfiles/green-bond/20200908-ptt-debenture-bond-framework.pdf",
+     "published_at": "2020-07-01",
+     "source_type": "external_reviewer",
+     "event_id": "SET:PTT-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.pttdebenture.com/src/upload/fckfiles/green-bond/20200908-ptt-debenture-cbi-certification.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:PTT-cgsi-1"
+    },
+    {
+     "text": "THB2b 3yr green debenture Jul 2020 (forest conservation) — world-first CBI-certified forestry green bond; MATURED 2023, no further green bonds found",
+     "source_url": "https://www.pttdebenture.com/src/upload/fckfiles/green-bond/20200908-ptt-debenture-bond-framework.pdf",
+     "published_at": "2020-07-01",
+     "source_type": "company_pr",
+     "event_id": "SET:PTT-cgsi-2"
+    },
+    {
+     "text": "Historical issuance (matured) — classify carefully on slides; satellite-monitorable reforestation UoP = ideal claim-vs-evidence example",
+     "source_url": "https://en.thairath.co.th/money/investment/capital_market/2915360",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:PTT-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "PTT Exploration & Production",
+   "ticker": "SET:PTTEP",
+   "bbg_code": "PTTEP TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Oil & Gas Exp & Prodn",
+   "industry": "Oil & Gas Exp & Prodn",
+   "esg_score": 66.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.55%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "PTTEP"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Conventional notes; parent PTT's green bond is a separate entity",
+   "source_url": "https://www.pttep.com/en/newsroom/press-releases/1147/pttep-announces-2025-operational-performance",
+   "source_url_2": "https://www.pttep.com/en/newsroom/press-releases/1039/pttep-announces-2024-performance-and-2025-operational-plan-investing-over-thb-261-billion-to-continuously-ensure-national-energy-security",
+   "events": [
+    {
+     "text": "Conventional notes; parent PTT's green bond is a separate entity",
+     "source_url": "https://www.pttep.com/en/newsroom/press-releases/1147/pttep-announces-2025-operational-performance",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:PTTEP-cgsi-0"
+    }
+   ]
+  },
+  {
+   "company": "PTT Global Chemical",
+   "ticker": "SET:PTTGC",
+   "bbg_code": "PTTGC TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Petrochemical",
+   "industry": "Petrochemical",
+   "esg_score": 68.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.06%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "loss_making",
+   "confidence": "medium",
+   "aliases": [
+    "PTTGC"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "ISSUER-READY: Sustainable Finance Framework w/ DNV SPO (Oct 2023) but no labelled bond issued; 2025 issuance = conventional + hybrid debentures TWO consecutive loss years — TRACTION SCREEN REQUIRED; loss narrowing",
+   "source_url": "https://lssmedia.setlink.set.or.th/2025/YE/PTTGC-YE68-ListedCompanySnapshot-EN.html",
+   "source_url_2": "https://www.pttgcgroup.com/en/newsroom/news/1568/gc-announces-interest-rate-of-440-per-annum-for-the-first-5-years-and-6-months-of-its-baht-subordinated-hybrid-debentures-to-be-offered-to-public-from-27-november-to-3-december-2025",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from DNV.",
+     "source_url": "https://sustainability.pttgcgroup.com/storage/document/second-party-opinion-report/2023/second-party-opinion-report-2023.pdf",
+     "published_at": "2023-10-01",
+     "source_type": "external_reviewer",
+     "event_id": "SET:PTTGC-cgsi-0"
+    },
+    {
+     "text": "ISSUER-READY: Sustainable Finance Framework w/ DNV SPO (Oct 2023) but no labelled bond issued; 2025 issuance = conventional + hybrid debentures",
+     "source_url": "https://sustainability.pttgcgroup.com/storage/document/second-party-opinion-report/2023/second-party-opinion-report-2023.pdf",
+     "published_at": "2023-10-01",
+     "source_type": "company_pr",
+     "event_id": "SET:PTTGC-cgsi-1"
+    },
+    {
+     "text": "TWO consecutive loss years — TRACTION SCREEN REQUIRED; loss narrowing",
+     "source_url": "https://www.pttgcgroup.com/en/newsroom/news/1568/gc-announces-interest-rate-of-440-per-annum-for-the-first-5-years-and-6-months-of-its-baht-subordinated-hybrid-debentures-to-be-offered-to-public-from-27-november-to-3-december-2025",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:PTTGC-cgsi-2"
+    }
+   ]
+  },
+  {
+   "company": "Siam Cement",
+   "ticker": "SET:SCC",
+   "bbg_code": "SCC TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Cement",
+   "industry": "Cement",
+   "esg_score": 70.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.86%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "SCC"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Conventional retail debentures (THB25b Sep 2025) THB5.3b restructuring charges 2025; major deleveraging",
+   "source_url": "https://www.kaohooninternational.com/markets/577394",
+   "source_url_2": "https://www.infoquest.co.th/2025/523535",
+   "events": [
+    {
+     "text": "Conventional retail debentures (THB25b Sep 2025)",
+     "source_url": "https://www.kaohooninternational.com/markets/577394",
+     "published_at": "2025-09-01",
+     "source_type": "company_pr",
+     "event_id": "SET:SCC-cgsi-0"
+    },
+    {
+     "text": "THB5.3b restructuring charges 2025; major deleveraging",
+     "source_url": "https://www.infoquest.co.th/2025/523535",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:SCC-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Thai Oil",
+   "ticker": "SET:TOP",
+   "bbg_code": "TOP TB",
+   "exchange": "SET",
+   "country": "Thailand",
+   "sector": "Oil & Gas Refinery",
+   "industry": "Oil & Gas Refinery",
+   "esg_score": 70.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "6.02%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "TOP"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Conventional THB debentures + USD notes only FY2025 boosted by debenture-repurchase + bargain-purchase gains",
+   "source_url": "https://investor.thaioilgroup.com/en/financial-information/bond-and-credit-rating",
+   "source_url_2": "https://www.marketscreener.com/news/thai-oil-q4-2025-ce7e5ad2d188f727",
+   "events": [
+    {
+     "text": "Conventional THB debentures + USD notes only",
+     "source_url": "https://investor.thaioilgroup.com/en/financial-information/bond-and-credit-rating",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SET:TOP-cgsi-0"
+    },
+    {
+     "text": "FY2025 boosted by debenture-repurchase + bargain-purchase gains",
+     "source_url": "https://www.marketscreener.com/news/thai-oil-q4-2025-ce7e5ad2d188f727",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SET:TOP-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "DBS Group",
+   "ticker": "SGX:DBS",
+   "bbg_code": "DBS SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.36%",
+   "incumbent_notch": "BBB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "DBS",
+    "DBS Group Holdings"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "US$500m green bond Jul 2017 (first SG bank green bond); DBS Green Bond Framework Latest located allocation report Aug 2022",
+   "source_url": "https://www.dbs.com/iwov-resources/images/sustainability/featured/DBS_Green_Bond_Report_August_2022.pdf",
+   "source_url_2": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/dbs/dbs-green-bond/green-bond-framework-and-opinion-20170713-pdf",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.dbs.com/sustainability/reports-and-disclosures/green-bond-report",
+     "published_at": "2017-07-01",
+     "source_type": "external_reviewer",
+     "event_id": "SGX:DBS-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.dbs.com/iwov-resources/images/sustainability/featured/DBS_Green_Bond_Report_August_2022.pdf",
+     "published_at": "2022-08-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:DBS-cgsi-1"
+    },
+    {
+     "text": "US$500m green bond Jul 2017 (first SG bank green bond); DBS Green Bond Framework",
+     "source_url": "https://www.dbs.com/sustainability/reports-and-disclosures/green-bond-report",
+     "published_at": "2017-07-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:DBS-cgsi-2"
+    },
+    {
+     "text": "Latest located allocation report Aug 2022",
+     "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/dbs/dbs-green-bond/green-bond-framework-and-opinion-20170713-pdf",
+     "published_at": "2022-08-01",
+     "source_type": "dataset",
+     "event_id": "SGX:DBS-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Keppel Ltd",
+   "ticker": "SGX:KEP",
+   "bbg_code": "KEP SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Conglomerate",
+   "industry": "Conglomerate",
+   "esg_score": 64.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "4.86%",
+   "incumbent_notch": "BB",
+   "high_conviction": true,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "KEP"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "SLL/SLB only (Sustainability-Linked Financing Framework Jan 2024); green financing sits at separately-listed Keppel REITs Renamed Keppel Ltd 2023; M1 divestment loss S$222m in FY2025",
+   "source_url": "https://www.keppel.com/media/keppels-financial-results-for-fy-2025/",
+   "source_url_2": "https://www.keppel.com/media/keppel-launches-sustainability-linked-financing-framework-and-secures-s1-billion-of-sustainability-linked-revolving-credit-facilities/",
+   "events": [
+    {
+     "text": "SLL/SLB only (Sustainability-Linked Financing Framework Jan 2024); green financing sits at separately-listed Keppel REITs",
+     "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/ZDDZGXVNAY8HFYTR/783579_GCAT_Keppel%20Sustainability-Linked%20Financing%20Framework.pdf",
+     "published_at": "2024-01-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:KEP-cgsi-0"
+    },
+    {
+     "text": "Renamed Keppel Ltd 2023; M1 divestment loss S$222m in FY2025",
+     "source_url": "https://www.keppel.com/media/keppel-launches-sustainability-linked-financing-framework-and-secures-s1-billion-of-sustainability-linked-revolving-credit-facilities/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SGX:KEP-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "OCBC",
+   "ticker": "SGX:OCBC",
+   "bbg_code": "OCBC SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 63.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "5.61%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [],
+   "as_of": "2026-08-20",
+   "esg_basis": "USD500m green bond 2019; OCBC Sustainability Bond Framework (Jun 2023), green+social UoP Green Bond Report 2022 + Sustainalytics review 2024",
+   "source_url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/ocbc%20green%20bond%20report%202022%20(publication).pdf",
+   "source_url_2": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-second-party-opinion/ocbc-sustainability-bond-framework-second-party-opinion-pdf",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/OCBC%20SUSTAINABILITY%20BOND%20FRAMEWORK%20June%202023.pdf",
+     "published_at": "2023-06-01",
+     "source_type": "external_reviewer",
+     "event_id": "SGX:OCBC-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/ocbc%20green%20bond%20report%202022%20(publication).pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SGX:OCBC-cgsi-1"
+    },
+    {
+     "text": "USD500m green bond 2019; OCBC Sustainability Bond Framework (Jun 2023), green+social UoP",
+     "source_url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/OCBC%20SUSTAINABILITY%20BOND%20FRAMEWORK%20June%202023.pdf",
+     "published_at": "2023-06-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:OCBC-cgsi-2"
+    },
+    {
+     "text": "Green Bond Report 2022 + Sustainalytics review 2024",
+     "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-second-party-opinion/ocbc-sustainability-bond-framework-second-party-opinion-pdf",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SGX:OCBC-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Singapore Exchange",
+   "ticker": "SGX:SGX",
+   "bbg_code": "SGX SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Stockbroking & Exchanges",
+   "industry": "Stockbroking & Exchanges",
+   "esg_score": 62.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.34%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "SGX"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No labelled bonds; SGX is a listing venue, not an issuer June FYE; record FY2026",
+   "source_url": "https://investorrelations.sgx.com/",
+   "source_url_2": "https://ng.investing.com/news/company-news/sgx-group-fy2026-slides-record-revenue-52-dividend-surge-93CH-2643091",
+   "events": [
+    {
+     "text": "No labelled bonds; SGX is a listing venue, not an issuer",
+     "source_url": "https://investorrelations.sgx.com/",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SGX:SGX-cgsi-0"
+    },
+    {
+     "text": "June FYE; record FY2026",
+     "source_url": "https://ng.investing.com/news/company-news/sgx-group-fy2026-slides-record-revenue-52-dividend-surge-93CH-2643091",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SGX:SGX-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "Singapore Airlines",
+   "ticker": "SGX:SIA",
+   "bbg_code": "SIA SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Airlines",
+   "industry": "Airlines",
+   "esg_score": 62.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.10%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "SIA"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "No green/SLB bonds; plain SGD/USD notes + convertibles FY25/26 -57% on absence of prior-yr merger gain + Air India associate losses",
+   "source_url": "https://www.singaporeair.com/content/dam/sia/web-assets/pdfs/about-us/information-for-investors/financial-results/nr-q4fy2526.pdf",
+   "source_url_2": "https://cbonds.com/bonds/840221/",
+   "events": [
+    {
+     "text": "No green/SLB bonds; plain SGD/USD notes + convertibles",
+     "source_url": "https://www.singaporeair.com/content/dam/sia/web-assets/pdfs/about-us/information-for-investors/financial-results/nr-q4fy2526.pdf",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SGX:SIA-cgsi-0"
+    },
+    {
+     "text": "FY25/26 -57% on absence of prior-yr merger gain + Air India associate losses",
+     "source_url": "https://cbonds.com/bonds/840221/",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SGX:SIA-cgsi-1"
+    }
+   ]
+  },
+  {
+   "company": "SingTel",
+   "ticker": "SGX:ST",
+   "bbg_code": "ST SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Telco - Integrated",
+   "industry": "Telco - Integrated",
+   "esg_score": 67.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "1.74%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "ST"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "SLBs only (Optus A$300m+A$100m under Singtel SLB Framework Oct 2021) — SLBs excluded SLB issuer is Optus subsidiary",
+   "source_url": "https://www.singtel.com/about-us/media-centre/news-releases/singtel-posts-fy26-net-profit",
+   "source_url_2": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/singapore-telecommunications-limited/singapore-telecommunications-limited-sustainability-linked-bond-framework-second-party-opinion-(2021)/singapore-telecommunications-limited-sustainability-linked-bond-framework-second-party-opinion",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.singtel.com/content/dam/singtel/about-us-singtel/investor-relations/debt/singtel-group-sustainability-linked-bond-framework-hr.pdf",
+     "published_at": "2021-10-01",
+     "source_type": "external_reviewer",
+     "event_id": "SGX:ST-cgsi-0"
+    },
+    {
+     "text": "SLBs only (Optus A$300m+A$100m under Singtel SLB Framework Oct 2021) — SLBs excluded",
+     "source_url": "https://www.singtel.com/content/dam/singtel/about-us-singtel/investor-relations/debt/singtel-group-sustainability-linked-bond-framework-hr.pdf",
+     "published_at": "2021-10-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:ST-cgsi-1"
+    },
+    {
+     "text": "SLB issuer is Optus subsidiary",
+     "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/singapore-telecommunications-limited/singapore-telecommunications-limited-sustainability-linked-bond-framework-second-party-opinion-(2021)/singapore-telecommunications-limited-sustainability-linked-bond-framework-second-party-opinion",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SGX:ST-cgsi-2"
+    }
+   ]
+  },
+  {
+   "company": "United Overseas Bank",
+   "ticker": "SGX:UOB",
+   "bbg_code": "UOB SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Banks",
+   "industry": "Banks",
+   "esg_score": 60.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "2.03%",
+   "incumbent_notch": "BB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "labelled_reviewed",
+   "profitability_flag": "profitable",
+   "confidence": "high",
+   "aliases": [
+    "UOB",
+    "United Overseas Bank (UOB)"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Green + sustainability (green+social UoP) bonds since Apr 2021; UOB Sustainable Bond Framework (Mar 2021) Allocation & Impact Report Aug 2025; FY25 profit -22.5%",
+   "source_url": "https://www.uobgroup.com.sg/assets/web-resources/sustainability/pdf/sustainability-bond-impact-report.pdf",
+   "source_url_2": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/united-overseas-bank-limited/uob-sustainable-bond-framework-second-party-opinion/uob-sustainable-bond-framework-second-party-opinion-pdf",
+   "events": [
+    {
+     "text": "Sustainable-finance framework carries a second-party opinion from Sustainalytics.",
+     "source_url": "https://www.uob.com.sg/investor-relations/assets/pdfs/investor/capital-funding/sustainable-bond-framework-final.pdf",
+     "published_at": "2021-04-01",
+     "source_type": "external_reviewer",
+     "event_id": "SGX:UOB-cgsi-0"
+    },
+    {
+     "text": "Publishes an allocation report against issued proceeds.",
+     "source_url": "https://www.uobgroup.com.sg/assets/web-resources/sustainability/pdf/sustainability-bond-impact-report.pdf",
+     "published_at": "2025-08-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:UOB-cgsi-1"
+    },
+    {
+     "text": "Green + sustainability (green+social UoP) bonds since Apr 2021; UOB Sustainable Bond Framework (Mar 2021)",
+     "source_url": "https://www.uob.com.sg/investor-relations/assets/pdfs/investor/capital-funding/sustainable-bond-framework-final.pdf",
+     "published_at": "2021-04-01",
+     "source_type": "company_pr",
+     "event_id": "SGX:UOB-cgsi-2"
+    },
+    {
+     "text": "Allocation & Impact Report Aug 2025; FY25 profit -22.5%",
+     "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/united-overseas-bank-limited/uob-sustainable-bond-framework-second-party-opinion/uob-sustainable-bond-framework-second-party-opinion-pdf",
+     "published_at": "2025-08-01",
+     "source_type": "dataset",
+     "event_id": "SGX:UOB-cgsi-3"
+    }
+   ]
+  },
+  {
+   "company": "Wilmar International",
+   "ticker": "SGX:WIL",
+   "bbg_code": "WIL SP",
+   "exchange": "SGX",
+   "country": "Singapore",
+   "sector": "Agribusiness",
+   "industry": "Agribusiness",
+   "esg_score": 69.0,
+   "esg_as_of": "2023-12-31",
+   "esg_score_basis": "CGSI ESG Momentum 2.0 basket score, 2023 vintage (0-100, higher is better). Supplied by CGSI, not recomputed here.",
+   "esg_cagr_2019_2023": "3.95%",
+   "incumbent_notch": "BBB",
+   "high_conviction": false,
+   "delisted": false,
+   "green_bond_classification": "none",
+   "profitability_flag": "profitable",
+   "confidence": "medium",
+   "aliases": [
+    "WIL"
+   ],
+   "as_of": "2026-08-20",
+   "esg_basis": "Sustainability-linked LOANS only; no labelled bond SLLs excluded per rules",
+   "source_url": "https://www.wilmar-international.com/sustainability/resource-library",
+   "source_url_2": "https://sg.finance.yahoo.com/news/wilmar-internationals-fy2025-earnings-reached-020549342.html",
+   "events": [
+    {
+     "text": "Sustainability-linked LOANS only; no labelled bond",
+     "source_url": "https://www.wilmar-international.com/sustainability/resource-library",
+     "published_at": "2026-08-20",
+     "source_type": "company_pr",
+     "event_id": "SGX:WIL-cgsi-0"
+    },
+    {
+     "text": "SLLs excluded per rules",
+     "source_url": "https://sg.finance.yahoo.com/news/wilmar-internationals-fy2025-earnings-reached-020549342.html",
+     "published_at": "2026-08-20",
+     "source_type": "dataset",
+     "event_id": "SGX:WIL-cgsi-1"
+    }
+   ]
+  }
+ ]
 }

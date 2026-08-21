@@ -1,53 +1,55 @@
 {
  "_note": "Frozen N/M/K for the money slide (B2). Re-derivable: same run_id + same metadata file -> same three numbers.",
- "as_of": "2026-06-12",
- "caveat": "Counts derived from PROVISIONAL metadata \u2014 every green-bond field is unverified until the Phase B1 CSV swap.",
- "config_hash": "e31cbdd64847b256",
+ "as_of": "2026-08-20",
+ "caveat": "",
+ "config_hash": "1883eb466795c332",
  "config_version": "v2.0",
  "counts": {
-  "K": 3,
-  "M": 1,
-  "N": 12
+  "K": 1,
+  "M": 4,
+  "N": 13
  },
  "engine_version": "engine-v2.0",
- "frozen_at": "2026-08-15",
+ "frozen_at": "2026-08-21",
  "labels": {
   "K": "review list",
-  "M": "pipeline",
+  "M": "pipeline (bond-ready)",
   "N": "issuers (priced in)"
  },
  "members": {
   "K": [
-   "IDX:JKLD",
-   "KLSE:SLTP",
-   "KLSE:TBFD"
+   "SGX:SIA"
   ],
   "M": [
-   "KLSE:SLTB"
+   "KLSE:RHBBANK",
+   "SET:CPN",
+   "SET:KTB",
+   "SGX:ST"
   ],
   "N": [
-   "HOSE:LVTB",
-   "HOSE:MKHV",
-   "HOSE:RRRE",
-   "IDX:ASMB",
-   "IDX:SATB",
-   "KLSE:KLCT",
-   "KLSE:TBTL",
-   "PSE:BYNP",
-   "PSE:LUNA",
-   "PSE:PRLS",
-   "SET:FRHV",
-   "SET:MKCB"
+   "IDX:BBNI",
+   "IDX:BBRI",
+   "IDX:BMRI",
+   "KLSE:CIMB",
+   "KLSE:HLBK",
+   "PSE:BDO",
+   "PSE:BPI",
+   "SET:ADVANC",
+   "SET:BEM",
+   "SET:PTT",
+   "SGX:DBS",
+   "SGX:OCBC",
+   "SGX:UOB"
   ]
  },
- "metadata_file": "data/company_metadata_mock.csv",
- "metadata_provisional": 88,
- "metadata_rows": 88,
+ "metadata_file": "data/company_metadata.csv",
+ "metadata_provisional": 0,
+ "metadata_rows": 52,
  "rules": {
-  "K": "disagreement >= theta but not in N or M \u2014 we disagree, something (confidence, profitability, unverified metadata) still blocks it. A human looks at these.",
-  "M": "matches the Balanced tier \u2014 our disagreement is material, the company is investable, and no reviewed label has priced it yet",
+  "K": "disagreement >= theta but not in N or M -- we disagree, something (confidence, profitability, sector position, unverified metadata) still blocks it. A human looks at these.",
+  "M": "below its ASEAN sector-peer ESG average AND positive evidenced momentum AND passes the financial screen (profitable, or loss_making with traction) AND not already a reviewed/certified issuer AND not delisted",
   "N": "green_bond_status in {cbi_certified, labelled_reviewed}"
  },
- "run_id": "2139d0085bd7a119",
- "universe_size": 36
+ "run_id": "cc9e111528774ead",
+ "universe_size": 52
 }

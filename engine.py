@@ -217,14 +217,31 @@ def _baseline_score(company):
 
     Numeric universes carry `esg_score`; the real ASEAN names carry no number, so we use the
     GROUNDED leadership score `metrics.parse_evidence` derives from the ratings their evidence
-    text actually cites. Either way it is a MOCK stand-in for a licensed LSEG percentile and the
-    record says so."""
+    text actually cites.
+
+    THREE PROVENANCES, and the record carries which one it got (`baseline_origin`) because they
+    are not interchangeable:
+
+    * `SUPPLIED` — the company carries BOTH `esg_score` and an `esg_score_basis` saying where
+      that number came from. The CGSI basket is this case: their real 2023 basket score, read
+      from a DATED file on disk. Real, sourced, and still pure — the engine never fetches it.
+    * `MOCK` — an `esg_score` with no stated basis. The fictional demo universe is this case,
+      and it must keep saying so on every record.
+    * `DERIVED-EVIDENCE` — no number at all, so the grounded leadership score above is used.
+      That was every real name before the CGSI basket landed on 2026-08-21.
+
+    Until then this was hard-coded `MOCK-LSEG` for all three, which was true then and would be
+    a lie now. None of the three is LSEG's published score: `lseg.py` fetches the genuine
+    article live, on its own 0-5 scale, and it is never mixed in here."""
     score = metrics.num(company.get("esg_score"))
     if score is not None:
-        return float(score), "stored_esg_score"
+        if str(company.get("esg_score_basis") or "").strip():
+            return float(score), "stored_esg_score", "SUPPLIED"
+        return float(score), "stored_esg_score", "MOCK"
     if company.get("esg_basis"):
-        return float(metrics.evidence_profile(company)["score"]), "evidence_leadership_score"
-    return None, "unavailable"
+        return (float(metrics.evidence_profile(company)["score"]),
+                "evidence_leadership_score", "DERIVED-EVIDENCE")
+    return None, "unavailable", "UNAVAILABLE"
 
 
 def label_for(record, cfg):
@@ -332,13 +349,14 @@ def _prepare_signals(companies, cfg, cutoff):
 
 def _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run_id):
     """Build sorted records from frozen signals; kept separate to protect determinism."""
-    aggregates, baselines, bases = [], [], []
+    aggregates, baselines, bases, origins = [], [], [], []
     for company in companies:
         cid = _company_id(company)
         aggregates.append(_aggregate(sigs_by_company[cid], cfg, as_of))
-        score, basis = _baseline_score(company)
+        score, basis, origin = _baseline_score(company)
         baselines.append(score)
         bases.append(basis)
+        origins.append(origin)
     known = [score for score in baselines if score is not None]
     base_ranks = dict(zip([i for i, score in enumerate(baselines) if score is not None],
                           _percentiles(known)))
@@ -351,6 +369,12 @@ def _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run
         record = {
             "run_id": run_id, "company_id": cid, "company": company.get("company", cid),
             "sector": company.get("sector", "unknown"), "country": company.get("country", "unknown"),
+            # Basket facts carried onto the record so every downstream screen reads ONE object.
+            # `delisted` is CGSI's own note (MAHB, INTUCH): the row stays, but it is excluded
+            # from investable output and badged, because a stale basket member is a finding.
+            "industry": company.get("industry", company.get("sector", "unknown")),
+            "delisted": bool(company.get("delisted")),
+            "high_conviction": bool(company.get("high_conviction")),
             "as_of": as_of, "cutoff": cutoff or "", "signal_count": len(sigs_by_company[cid]),
             "signal_ids": [s["signal_id"] for s in sigs_by_company[cid]],
             "composite_momentum": aggregate["composite_momentum"],
@@ -360,7 +384,7 @@ def _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run
             "coverage": aggregate["coverage"], "mean_source_quality": aggregate["mean_source_quality"],
             "breadth": aggregate["breadth"], "corroboration": aggregate["corroboration"],
             "components": aggregate["components"], "subcomponents": aggregate["subcomponents"],
-            "baseline_score": baselines[i], "baseline_basis": bases[i], "baseline_origin": "MOCK-LSEG",
+            "baseline_score": baselines[i], "baseline_basis": bases[i], "baseline_origin": origins[i],
             "lseg_percentile": lseg_p, "momentum_percentile": mom_p,
             "disagreement": round(mom_p - lseg_p, 6), "disagreement_abs": round(abs(mom_p - lseg_p), 6),
             "signals": sigs_by_company[cid],

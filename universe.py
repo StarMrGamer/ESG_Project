@@ -81,9 +81,27 @@ def _coerce_constituent(c):
     if "data_provenance" in c:
         out["data_provenance"] = c["data_provenance"]
     # Optional DOCUMENTATION fields — the evidence for why a name is an ESG improver.
-    for k in ("esg_basis", "source_url", "confidence"):
+    for k in ("esg_basis", "source_url", "source_url_2", "confidence", "esg_score_basis",
+              "as_of"):
         if c.get(k):
             out[k] = str(c[k]).strip()
+    # `events` is the DATED evidence block `signals.from_company` scores: each item carries its
+    # own text, source URL, publication date and source type. The CGSI basket ships it (built
+    # by `scripts/build_cgsi_basket.py` from their verified rows); dropping it here would leave
+    # the engine scoring nothing but `esg_basis` prose and silently starve every real name.
+    if isinstance(c.get("events"), list):
+        out["events"] = c["events"]
+    # CGSI basket fields. `industry` is their own label and is what the OECD benchmark joins
+    # on, so it must survive alongside the descriptive `sector`.
+    if isinstance(c.get("aliases"), list):
+        out["aliases"] = [str(a) for a in c["aliases"] if a]
+    for k in ("bbg_code", "industry", "incumbent_notch", "green_bond_classification",
+              "profitability_flag"):
+        if c.get(k):
+            out[k] = str(c[k]).strip()
+    for k in ("high_conviction", "delisted"):
+        if c.get(k) is not None:
+            out[k] = bool(c[k])
     return out
 
 
@@ -189,10 +207,21 @@ def resolve(text: str, path: Optional[str] = None, *, min_score: int = 2) -> Opt
         code = tick.split(":")[-1]
         if tick in low or (code and code in qtoks):
             score += 5
-        # Parenthetical alias, e.g. "(BCA)" / "(OCBC)" — a common way users name these.
-        for alias in re.findall(r"\(([^)]+)\)", c["company"]):
-            if alias.lower() in low or alias.lower() in qtoks:
+        # Parenthetical alias, e.g. "(BCA)" / "(OCBC)" — a common way users name these — plus
+        # any alias the basket carries. CGSI write terse names ("Bank Central Asia"), so without
+        # the alias list "add BCA" and "show Maybank" stop resolving.
+        alias_pool = list(re.findall(r"\(([^)]+)\)", c["company"]))
+        alias_pool += [a for a in (c.get("aliases") or []) if isinstance(a, str)]
+        for alias in alias_pool:
+            alias = alias.lower().strip()
+            if not alias:
+                continue
+            if alias in qtoks or (len(alias) > 3 and alias in low):
                 score += 4
+            else:
+                alias_toks = set(_tokens(alias)) - _GENERIC_TOKENS
+                if alias_toks and alias_toks <= qtoks:
+                    score += 4
         ntoks = set(_tokens(c["company"])) - _GENERIC_TOKENS
         overlap = (qtoks - _GENERIC_TOKENS) & ntoks
         score += 2 * len(overlap)

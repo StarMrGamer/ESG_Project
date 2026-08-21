@@ -31,6 +31,63 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FROZEN_FILE = os.path.join(BASE_DIR, "data", "nmk_frozen.json")
 
 
+def _sector_peer_averages(run):
+    """`{industry: mean baseline score}` over the run's own records.
+
+    Computed from the RUN, not from the universe file, so the peer bar a company is measured
+    against is exactly the cohort it was ranked in — and a filtered or backtested run cannot
+    silently compare against a different set of peers."""
+    buckets = {}
+    for record in run.get("records", []):
+        score = record.get("baseline_score")
+        if score is None:
+            continue
+        buckets.setdefault(record.get("industry") or record.get("sector"), []).append(score)
+    return {k: sum(v) / len(v) for k, v in buckets.items() if v}
+
+
+def _is_bond_ready(record, meta, rule, peer_avg):
+    """M: the origination pipeline — a company with a fundable gap and evidence it is closing it.
+
+    Five conditions, all from `data/engine_config.json` (see the `_note` there for why "below
+    sector benchmark" is measured in ESG-score terms and not in the Eurostat GHG intensity):
+
+      1. not delisted            — a stale basket member is a finding, never a recommendation
+      2. below its peer average  — the gap the use-of-proceeds would close
+      3. positive momentum       — evidence that management is actually moving
+      4. passes the financial screen — profitable, or loss_making WITH traction
+      5. not already an issuer   — N is priced in; M is the opportunity that is not
+
+    This screen sets ISSUER SELECTION and ORIGINATION PRIORITY. Eligibility is a bond-level
+    question that attaches to use-of-proceeds, framework and external review under ICMA /
+    ASEAN GBS — never to the company, and never to this number."""
+    if rule.get("exclude_delisted") and record.get("delisted"):
+        return False
+
+    if rule.get("below_sector_peer_average"):
+        score = record.get("baseline_score")
+        average = peer_avg.get(record.get("industry") or record.get("sector"))
+        if score is None or average is None or score >= average:
+            return False
+
+    if record.get("composite_momentum", 0.0) <= rule.get("min_momentum_exclusive", 0.0):
+        return False
+
+    profitability = meta.get("profitability_flag", "unknown")
+    if profitability not in rule.get("profitability_in", ["profitable"]):
+        # The traction screen (playbook step 4): a loss-maker is routed here rather than being
+        # failed on the profit flag. Thresholds are the TEAM's, never CGSI-approved, and an
+        # unrun screen is a miss — `has_traction` is False until somebody fills the column.
+        if not (profitability == "loss_making"
+                and rule.get("loss_making_requires_traction")
+                and meta.get("has_traction")):
+            return False
+
+    if meta.get("green_bond_status") in rule.get("exclude_green_bond_status_in", []):
+        return False
+    return True
+
+
 def counts(run, metadata, cfg=None):
     """`{N, M, K, labels, members}` for a scored run. `members` lists the company ids behind each
     number so any count on a slide can be opened up and defended."""
@@ -39,13 +96,14 @@ def counts(run, metadata, cfg=None):
     theta = engine_config.threshold(cfg, rules["K"]["min_disagreement"])
     buckets = {"N": [], "M": [], "K": []}
 
+    peer_avg = _sector_peer_averages(run)
+
     for record in run.get("records", []):
         meta = (metadata or {}).get(record["company_id"], {})
         status = meta.get("green_bond_status", "unknown")
-        tiers = record.get("tiers") or engine.apply_tiers(dict(record), meta, cfg)["tiers"]
 
         in_n = status in rules["N"]["green_bond_status_in"]
-        in_m = bool(tiers.get(rules["M"]["tier"]))
+        in_m = _is_bond_ready(record, meta, rules["M"], peer_avg)
         if in_n:
             buckets["N"].append(record["company_id"])
         if in_m:

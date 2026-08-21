@@ -1,0 +1,23 @@
+basket_industry,benchmark_sector_label,nace_rev2_code,ghg_intensity_g_co2e_per_eur_gva,reference_geo,reference_year,fallback_flag,mapping_note
+Banks,Financial and insurance activities,K,7.89,EU-27,2023,,Operational (Scope 1+2-dominant) intensity only; financed emissions are the material metric for banks - pair with PCAF framing on the slide
+Stockbroking & Exchanges,Financial and insurance activities,K,7.89,EU-27,2023,,Same NACE section as banks; financed/facilitated emissions caveat applies
+Conglomerate,Total economy - all NACE activities,TOTAL,170.86,EU-27,2023,,No single-sector match for diversified holdings; use total-economy bar and state the limitation
+Telco - Integrated,Telecommunications,J61,10.61,EU-27,2023,,Direct NACE match
+Telco - Mobile,Telecommunications,J61,10.61,EU-27,2023,,Direct NACE match
+Agribusiness,Crop and animal production,A01,1851.35,EU-27,2023,,Plantation/upstream agri; if positioning Wilmar/IOI as processors use C10-12 (180.95) instead and say which
+Food & Beverages,Manufacture of food beverages tobacco,C10-C12,180.95,EU-27,2023,,Direct NACE match
+Retail,Wholesale and retail trade,G,42.22,EU-27,2023,,Direct NACE match (CP All Home Product Center)
+Hotels,Accommodation and food service activities,I,31.93,EU-27,2023,,Direct NACE match (Minor International)
+Hospitals,Human health and social work activities,Q,23.41,EU-27,2023,,Direct NACE match (IHH BDMS)
+Property Development,Real estate activities,L,3.11,EU-27,2023,,Development-stage construction emissions sit in NACE F; state that L reflects operating real estate
+Autos,Wholesale and retail trade,G,42.22,EU-27,2023,,Sime Darby is distribution/dealership not manufacturing; G is the honest match
+Oil & Gas - Retail,Wholesale and retail trade,G,42.22,EU-27,2023,,Petronas Dagangan is fuel retail; Scope 3 (sold product combustion) is the material issue - caveat on slide
+Airlines,Air transport,H51,2441.42,DE (Germany),2023,DAGGER,EU-27 value not published at this level in extract; Germany 2023 used - flag on slide
+Tanker Shipping,Water transport,H50,967.62,DE (Germany),2023,DAGGER,Germany 2023 fallback - flag on slide
+Transportation Infrastructure,Warehousing and support activities for transportation,H52,144.65,DE (Germany),2023,DAGGER,Covers airports/toll infrastructure (MAHB BEM); Germany 2023 fallback - flag on slide
+Petrochemical,Manufacture of chemicals and chemical products,C20,514.52,DE (Germany),2023,DAGGER,PCHEM PTTGC; Germany 2023 fallback - flag on slide
+Oil & Gas Refinery,Manufacture of coke and refined petroleum products,C19,2563.23,DE (Germany),2023,DAGGER,Thai Oil; Germany 2023 fallback - flag on slide
+Oil & Gas - Integrated,Mining and quarrying,B,875.33,EU-27,2023,,PTT upstream anchor; downstream/refining arms sit in C19 - say benchmark reflects extraction segment
+Oil & Gas Exp & Prodn,Mining and quarrying,B,875.33,EU-27,2023,,PTTEP direct match
+Cement,Manufacture of other non-metallic mineral products,C23,1787.07,EU-27,2023,,Siam Cement direct match
+Metals & Mining,Manufacture of basic metals,C24,1859.92,EU-27,2023,,Press Metal (aluminium smelting) direct match

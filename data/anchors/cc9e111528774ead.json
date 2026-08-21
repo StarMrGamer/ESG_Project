@@ -1,0 +1,929 @@
+{
+ "anchor_note": "no ESG_ANCHOR_RPC configured",
+ "as_of": "2026-08-20",
+ "block_number": null,
+ "block_timestamp": null,
+ "chain": "sepolia",
+ "config_hash": "1883eb466795c332",
+ "contract": "",
+ "engine_version": "engine-v2.0",
+ "leaf_count": 130,
+ "leaf_version": "leaf-v2",
+ "leaves": [
+  {
+   "company_id": "SGX:ST",
+   "hash": "5820b0fb188e34f69f573e6d93f4bc196b9751898a468811448e4c9d0b8c274f",
+   "kind": "signal",
+   "leaf_id": "02c5daa51fd441ce",
+   "preimage": "02c5daa51fd441ce|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:ADVANC",
+   "hash": "ef14b6fd2633dd0090880fac3bd32086b32248eb0347114a99efce28a5526338",
+   "kind": "signal",
+   "leaf_id": "13caa3f12a67e015",
+   "preimage": "13caa3f12a67e015|fb9ce61b8ab5027969662af37fcbec99f6618b7d42617ff87d9a45db56370e15|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "fa7039d7fbbdec1c160e1311cf023abc753453177edb8b99177e047406dca14f",
+   "kind": "signal",
+   "leaf_id": "14c7ec841b6143dd",
+   "preimage": "14c7ec841b6143dd|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTTEP",
+   "hash": "8db563c84e29e08a8c5b100c5a8f7be4426d1328a29f96881ce852841accc37c",
+   "kind": "signal",
+   "leaf_id": "1737f5ae9b3339b3",
+   "preimage": "1737f5ae9b3339b3|25a785676e26ca168616a68809f0ab8f85bcc36c0665f2c93a39837a957a7572|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBS",
+   "hash": "28920c0d43456e2501ca03c4732d7857b52b47a84ec5b3d97906fdf1e9004b2c",
+   "kind": "signal",
+   "leaf_id": "18e905878d9ac331",
+   "preimage": "18e905878d9ac331|e87bada47a0fbee977330140f6e96a90a46df7a021c4c06f0384cfaeca01af79|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "f0a79f42e4187920d73dcfcb13b29a0ef6803540f2b1ba81a71290b735bc1d0c",
+   "kind": "signal",
+   "leaf_id": "1a012d216477bf3b",
+   "preimage": "1a012d216477bf3b|902a3658f43ee943b2397b62ad500ae4fff6b42215023dc81a2c1c6893d9920c|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BDO",
+   "hash": "66ad2275e7ecd27ea6e2faa008b8b5071a4f008e9019c732c361ff71b97159f9",
+   "kind": "signal",
+   "leaf_id": "1b5c3f1b87e50f33",
+   "preimage": "1b5c3f1b87e50f33|fbe38690099061b79fa7a3279c00f16e8aa8d860f59b5ee797b33bb6b80c0758|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "b49d523b45b581437b8918f991efe707f634ad37a2c6d3278c8f93f8b48cf6bf",
+   "kind": "signal",
+   "leaf_id": "1b7b984858e9e3d2",
+   "preimage": "1b7b984858e9e3d2|41832ca1c5fbbf14ba52e67424fd148f314c060ff7f9482e1db11a155ae64b9b|+1|0.5500|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BDO",
+   "hash": "1be5f91b05cc0674e5aac508d9f0b23822a9fa5f990cfc40a34b73d2d6112794",
+   "kind": "signal",
+   "leaf_id": "1db54658247b14e1",
+   "preimage": "1db54658247b14e1|f9848343d1733689cb8e7a7a41ed29e91df9a728cd19ed9fd1e99ba9bbf104c8|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTT",
+   "hash": "f851d1ee228e8096ed20db09e6314b059ff7a68e6ebdafb63b7e7a53991cfb1d",
+   "kind": "signal",
+   "leaf_id": "1f09e1b73f5db68e",
+   "preimage": "1f09e1b73f5db68e|e38bd0d5511b0b07864410b3dfc4ed4a74cf57259d3d662a601e2613609d7887|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "3b40dcd24d54ed6dbb150505234e02ba5fc6c3335609a63a882055509994a2ab",
+   "kind": "signal",
+   "leaf_id": "1fba5e97f068b871",
+   "preimage": "1fba5e97f068b871|2fdc99b76518cf5a56c1201f1136f80926095efc98ab6d55a3c29a6c485724f8|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTT",
+   "hash": "3a4ac4b9c414cef423a012b7d6d6bd5dd27dfe92d845c046b6a4c36665671acc",
+   "kind": "signal",
+   "leaf_id": "288b9c8adb81c00c",
+   "preimage": "288b9c8adb81c00c|4ba31e6ff365a50c221bdf0e44386cfdbdcf23f43b1255b2a9dc7a79e1469d14|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:HLBK",
+   "hash": "776984b8e8c6a3c1d64bdeb05cbb54768926190d67f63e442a877d5fd63972d6",
+   "kind": "signal",
+   "leaf_id": "29a806affadf3ac1",
+   "preimage": "29a806affadf3ac1|bf11dc10e12113e0208b19376a29639b4b85b6a2b8188f7de7b76f6d7beec00a|+1|0.5500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:HLBK",
+   "hash": "367b470872a0ba4cafcb3df31cfe520816ad4d1bdf34214d265ac6d9814ddacb",
+   "kind": "signal",
+   "leaf_id": "3818aa139c3c4e29",
+   "preimage": "3818aa139c3c4e29|318d70ecaaa18aea7fcd3c1c6eeecfc26e38f7c2d4e435101ebc33a30cdf2d93|+1|0.5500|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTTGC",
+   "hash": "cda90e22f81921207fc010fe2c43bcc5c69d732a4911ce904d38d03627bf8953",
+   "kind": "signal",
+   "leaf_id": "38766252581b4523",
+   "preimage": "38766252581b4523|b11f17697e4d6f498a43c9e3038c19cb27e3ad596a84c9c1d30c070cb9ee3b6b|+1|0.5500|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTT",
+   "hash": "2ca0086c081b72d4352fad5f7e5e649aee15cce7f7fa3c37c7b5a3e66725de14",
+   "kind": "signal",
+   "leaf_id": "3a63825e7c7245bb",
+   "preimage": "3a63825e7c7245bb|3cde2e9704c508e9a7f824143e2d31c692b04daabc3c3103987c8ea64176344b|+1|0.5500|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SIME",
+   "hash": "a15895ff29d59b43cde077b8d9f8eb3bf52f4fb51b556fefd834cc3d71ffb181",
+   "kind": "signal",
+   "leaf_id": "3c4b0af395fd8302",
+   "preimage": "3c4b0af395fd8302|2d3faddc98dcbd0dcbfe583614e770109ea130c4ac9cc23a4319cf0b862b2419|+1|0.5000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBS",
+   "hash": "ef9de7f95ff39840a742767029b5f766cc17528fc898a77c762bf62b42d77726",
+   "kind": "signal",
+   "leaf_id": "40441d2aac9b6e12",
+   "preimage": "40441d2aac9b6e12|5d9c79e19098f408de3eb50e9ff261580d0070e0c7d79876c8aa2daea15a17ea|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:BEM",
+   "hash": "9a72b8eb02513f0e3f84bc1d8e1e8a55717497ce77b5c5f54650d26e368e63ba",
+   "kind": "signal",
+   "leaf_id": "42e241196d21f6ba",
+   "preimage": "42e241196d21f6ba|b11f17697e4d6f498a43c9e3038c19cb27e3ad596a84c9c1d30c070cb9ee3b6b|+1|0.5500|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:ALI",
+   "hash": "3e3be7c341272e803c8bfc074f43b209eed2b69936e7227aa85ffdbe79ac378f",
+   "kind": "signal",
+   "leaf_id": "44f460f15ce50e29",
+   "preimage": "44f460f15ce50e29|2f29a74c0c61a8707782bf0472e56cbaee11575ac22c38f4ebe25210044e4fba|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBRI",
+   "hash": "f3f9e35ce5963d7922248942ecbd6b5da2cb3176548db5de7f0123332bf11a8f",
+   "kind": "signal",
+   "leaf_id": "4541ceed6b665cea",
+   "preimage": "4541ceed6b665cea|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTTGC",
+   "hash": "bab86dff7d49bcd589fd78b9c67e6f4907779d0cbab4632d72eb7b5ca527bd88",
+   "kind": "signal",
+   "leaf_id": "45db7480bab720a0",
+   "preimage": "45db7480bab720a0|eb403644318190123ac5994ea917320dd9ff169748f9298c66a503ae1b2ef544|+1|0.5500|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:KEP",
+   "hash": "0e2cd20d12730b473ef4e31f30d9babc1641c35177c4deb4da203faf9bd97a9d",
+   "kind": "signal",
+   "leaf_id": "4958219f2e62c515",
+   "preimage": "4958219f2e62c515|e9296e64844aadb9b5d2908802bd1dd339db6d85a7b849992659e4e418bdf383|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "cdd2da95b7c641da9d3e417d7470d4803998b558863befc31b152bab8e384044",
+   "kind": "signal",
+   "leaf_id": "4a3ff2123341a91a",
+   "preimage": "4a3ff2123341a91a|09df4cd8b103c9fa327ab002bb7c2e025faa7a0e04a6e4c37e95e294bc71dd5e|+1|0.5500|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MINT",
+   "hash": "e692a9dc7c6ad57561d734217b842245aa91c46fc94b36dd76e7e110b70da48e",
+   "kind": "signal",
+   "leaf_id": "4d3885ab48bdd8bb",
+   "preimage": "4d3885ab48bdd8bb|e265e13ecc5754325bc2d8290e9b79b7c2797456b9c5b2f54db908c54c2486f6|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BMRI",
+   "hash": "4b4675f678cd4430e8bbb785e28e2264816241ed36b4cf5d7c1b7fa9f762f8e7",
+   "kind": "signal",
+   "leaf_id": "4dac2cc7c4de9905",
+   "preimage": "4dac2cc7c4de9905|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:ADVANC",
+   "hash": "a95d659305a9855c477cb6d99b3fbfb328da9560bef40c55b8fb1c1342a7b46f",
+   "kind": "signal",
+   "leaf_id": "4e3a773e535362e2",
+   "preimage": "4e3a773e535362e2|9aefb48baa6f2ef2bd76e4ec37c35c39a60ec569b6acd3c234bd5012e82ce406|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:RHBBANK",
+   "hash": "21fb5c2ed3756943cdd0db5beb3e7e8a9a511dbf42c846423b8cb64166e469a7",
+   "kind": "signal",
+   "leaf_id": "5032ff9f7b0eac1a",
+   "preimage": "5032ff9f7b0eac1a|0229d305d331e57965538a9725165b802ce1c7a6edbc44e1251c73484fb4ff60|+1|0.5500|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTTGC",
+   "hash": "5d48e54ced7ffe1af3042f59d802b4697cc0ece77410227b06725680282f705d",
+   "kind": "signal",
+   "leaf_id": "52a6211035db27ee",
+   "preimage": "52a6211035db27ee|19e0c097003ad1927d4df3e83d7c366262e3410631b024b6a8c9a8cc39f2cf8d|+1|0.5500|0.9500|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:PTTEP",
+   "hash": "50cef7287b88f4e6501e492391f31859621298a705b890b675c58c38c3fd1e18",
+   "kind": "signal",
+   "leaf_id": "560b9dccddd5b22f",
+   "preimage": "560b9dccddd5b22f|e38d381af3ceb9f4a3abb295422f185e2cda7fe5886d7ea8b58955497435c2e4|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBRI",
+   "hash": "c4fa2f9581e832234e683aa0555faefb3a2a8b9f7f8ce581bb0a31e358d36e58",
+   "kind": "signal",
+   "leaf_id": "5a8bf51c2ae01604",
+   "preimage": "5a8bf51c2ae01604|e36c61f071249cc7a0f4a36748efc2421876a3d2bf2afa4fe9c83b5ed1f41638|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:RHBBANK",
+   "hash": "80a17d16ad81db8d12102ac3787791dd5dd71a4d4d3e5111ccf2d8611d692897",
+   "kind": "signal",
+   "leaf_id": "5d5bc27bdbed5ac7",
+   "preimage": "5d5bc27bdbed5ac7|218432de5c01ecce54f0d3b6e169585d756b4a692ea8be6291a14ae3e4dbd272|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:OCBC",
+   "hash": "345bd4a5bce533f7225c39ab010bd554c24a7b075784da5089412d8d264964e2",
+   "kind": "signal",
+   "leaf_id": "5dca6a77fd3f6992",
+   "preimage": "5dca6a77fd3f6992|b4bbe0d1dc99dcbe4d3ab2035fb9674608acda5785f08070b6a9e45709d0d50d|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:KTB",
+   "hash": "be34eeeefa850afb477317b58e9fba46d0cdeb0597c3fe0ed374296d587995b1",
+   "kind": "signal",
+   "leaf_id": "61d06d373617de47",
+   "preimage": "61d06d373617de47|01a4e33418fe04b4d3d47d6912cc9c1be2b2ebbb980c4eb0cd7878c4cc97928e|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "7f30252be874666b31edb5c55e2dabb8b7eb16350eebf42e79efd20fc4e0b37b",
+   "kind": "signal",
+   "leaf_id": "637c9a20a578049d",
+   "preimage": "637c9a20a578049d|abb55dc62fb70307a521e39f87b9b4f724bea9d1dcef05d7cae833f414dfcd89|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:ALI",
+   "hash": "e69d3b4a78ba524b98a2d00226ce3542ba85bcd6147efbc2ed80872ff3438040",
+   "kind": "signal",
+   "leaf_id": "6f39a0e2525c492d",
+   "preimage": "6f39a0e2525c492d|495a5193104d2dffbc26cfa11494fd0fe7e9ef73b184224c9eae80887ed62355|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ST",
+   "hash": "aa14e53046f170cad9d400145ee3e261f977f37e20edb6ce09236886694ba420",
+   "kind": "signal",
+   "leaf_id": "6fca4d2d68488ada",
+   "preimage": "6fca4d2d68488ada|809900e4984f4125d083348360c94dcf3ac2ea341173d38822a7ad3c035df48f|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBRI",
+   "hash": "1b7a7e7e7e9f079deaed96b5f26b2e30f3007adeb14f3fa612654f86e5221ba1",
+   "kind": "signal",
+   "leaf_id": "706c5635b40dc96c",
+   "preimage": "706c5635b40dc96c|6094b7528b9952da46528e2bc529c2388e96e15662223d7a4dc510a89a561b22|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:CPN",
+   "hash": "d1e27304e5167ee1322ed0f069ef5902d6cdd284772253dd075b8df8b9a8b0ba",
+   "kind": "signal",
+   "leaf_id": "709a5ffe7dd4c54e",
+   "preimage": "709a5ffe7dd4c54e|a98e642d6f089715ecbb54e402e079c9e39ff31e4f2a5528a0cf46001c6782d8|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:ALI",
+   "hash": "baa004024be745d6451241147214481895a49ebcc1401e6b89c028819d409df6",
+   "kind": "signal",
+   "leaf_id": "70b456fd88bdb641",
+   "preimage": "70b456fd88bdb641|fdc60c10234c21d2f7964208e923fc26ba8b11f018756aa9fbd13fc126aa44a8|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:KEP",
+   "hash": "14627fdb1e9e8437f65ec833349c8d8ffec261480188fe7d2f5a23e65f54b9a9",
+   "kind": "signal",
+   "leaf_id": "735d8aa5f9a3c3c9",
+   "preimage": "735d8aa5f9a3c3c9|f648bfdb061074ba4a9f8576f7311bd6fd95fb6d4da5792dc57f16d9cdbcc178|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:UOB",
+   "hash": "bc403b45ccf3250b6d97f6c12d09c6bdb4d9efa2675c4cae2ba4851202e0c306",
+   "kind": "signal",
+   "leaf_id": "75b4d4d72a719afd",
+   "preimage": "75b4d4d72a719afd|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:ADVANC",
+   "hash": "d7b8f0c0ace57e78acceacd443024bfde3b99964c47075a0b6bce36e090d8753",
+   "kind": "signal",
+   "leaf_id": "7881849ec3822d5e",
+   "preimage": "7881849ec3822d5e|65497dfb4a3b6dae003a6c185d12b737c5baa9e6eed81ce39946a3e8f04f24ae|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "99d1b10d859d31221ce57e897bfede0d61d5c4e73a4ad18f508eac9409aa8e78",
+   "kind": "signal",
+   "leaf_id": "79284f753af04901",
+   "preimage": "79284f753af04901|2f8ad32f6ba537e1593f09724785eb7a14ed0a82df049c11cb4867c579402bd2|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BMRI",
+   "hash": "c22c8363980c7f0ba1e98ee4189d0889d5139a9e24f4d661eacbc71174935864",
+   "kind": "signal",
+   "leaf_id": "87ddf65a5029bfc5",
+   "preimage": "87ddf65a5029bfc5|11df9e03d778f15a4df79ec44ee9028cbefbcccf7d93e657a46cea96bbb11887|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:RHBBANK",
+   "hash": "668996b387c93a92d005cb5f24e5c2025c4efa9745a095ec5a9e20ef508292c1",
+   "kind": "signal",
+   "leaf_id": "8b4538be213ff0ed",
+   "preimage": "8b4538be213ff0ed|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BMRI",
+   "hash": "870d208c31211bf8982a2cc31c7b2f454d9c422c16b4762f8550231b64b51c41",
+   "kind": "signal",
+   "leaf_id": "8bffe8bc8510b18a",
+   "preimage": "8bffe8bc8510b18a|86ec2ada5dfaf4f3915af32dbf7970f124b0fa7fbbead922a49ecde561e3d9cb|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBS",
+   "hash": "bf4d96567f4125ada3d8c168284b4f547dc487ef59132d32779eb3f9036584e9",
+   "kind": "signal",
+   "leaf_id": "8cb9964a5021a28c",
+   "preimage": "8cb9964a5021a28c|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:DBS",
+   "hash": "c64bc9f7f36fae3e1a17f8985b1a923ed7da2a4b6e9a9b3deb3ac3c1aa001269",
+   "kind": "signal",
+   "leaf_id": "9188b3de6fa87b36",
+   "preimage": "9188b3de6fa87b36|218e97fa624e8b08e269567c96ca439cc7ab1feb2bbf5581606332339370411c|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ST",
+   "hash": "a61ba3578c11450ec2aa654dd4ac85482f5fc5731b5723b8b632d1ac380837f7",
+   "kind": "signal",
+   "leaf_id": "97eb254fd1c351e3",
+   "preimage": "97eb254fd1c351e3|d6f812a6236dc4b6681ad4fb763680d0316d26930f05176149a4d51fa49215e0|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:RHBBANK",
+   "hash": "5bd76c64b65d79cdd66e209d7a803d4c074c689d1bb605a262ccb50248206ee2",
+   "kind": "signal",
+   "leaf_id": "9e93b2b9784e9697",
+   "preimage": "9e93b2b9784e9697|0009ae06b730ca05e26aa3cdcc400f3ef603100ebe0f152650a5409a3dff09c3|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:CIMB",
+   "hash": "9054fd58d765953b13b2c4e11006950d341ea8d0930128d9649f33b79ecaef6d",
+   "kind": "signal",
+   "leaf_id": "9ec132c52aee0735",
+   "preimage": "9ec132c52aee0735|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:OCBC",
+   "hash": "8f50fe7cb215f0fffcf61395d95dafa647b4b032855f1d4acef15001a7777e99",
+   "kind": "signal",
+   "leaf_id": "a1643e5d1f3c5e98",
+   "preimage": "a1643e5d1f3c5e98|11b78f72bf5333fbdda436b581c357e58193ce23dd0c6628ff2adf7214b8934e|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:HLBK",
+   "hash": "4121da0081bb23e0230e35fbd6cdd3375ec7e06a76051a957424159a4eb87db3",
+   "kind": "signal",
+   "leaf_id": "ae4fee61ae3b4abb",
+   "preimage": "ae4fee61ae3b4abb|90cbd7717e6596054a617f3dad0c3fc3fb9f6ac19eadd50a3992828c2a9eda3c|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BDO",
+   "hash": "08a49cec4d2632935854ea073a2fe6e14ed6d19da881dbc1c3aaec8952d5e109",
+   "kind": "signal",
+   "leaf_id": "bfb6275a6eeaed0a",
+   "preimage": "bfb6275a6eeaed0a|a2610993ba22158acf2671a622eefa61e3561f1cc52f2d97af0869c186a8ad85|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "",
+   "hash": "084129d92c5346b1f5388f4941046e8e5fe6f13518353d1173d7813a2c050e2d",
+   "kind": "benchmark",
+   "leaf_id": "bm:oecd_industry_benchmark.csv",
+   "preimage": "benchmark|oecd_industry_benchmark.csv|43d561fa169fdc003d787583b3a0f6fca5ddb7b0394a3b07a127945420a90d64|1842"
+  },
+  {
+   "company_id": "",
+   "hash": "48f81226c7975cc884e203b9fb12917c3e784b387d0749ca6dac8e8328810d32",
+   "kind": "benchmark",
+   "leaf_id": "bm:oecd_sector_benchmark.csv",
+   "preimage": "benchmark|oecd_sector_benchmark.csv|06b17d97864dba46a692015cdda80e01cfb8bd8da69b3dafd9b4229c76360eca|3099"
+  },
+  {
+   "company_id": "SGX:OCBC",
+   "hash": "5194f62f96c8f88c976099a25c5f775855bec0b0f12fea616ab2d66b7320c817",
+   "kind": "signal",
+   "leaf_id": "c196412d492b0448",
+   "preimage": "c196412d492b0448|7dce1a2c23af73cd9d1e4647207c9403eb96b1c9523d2cd63e5289132d716820|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "cb760642bad07d52d01401b7f3f3d986b93b3f08e3513cb7aa89469962f10612",
+   "kind": "signal",
+   "leaf_id": "c36d44e5321baab1",
+   "preimage": "c36d44e5321baab1|1824286dae3298715e36b432717343c2b276c64d2d8cbfd76340cc1de0e1468e|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:OCBC",
+   "hash": "8fab5c0937d3b2e96b166aaea911b0a8aecca19036833d5b1c7f96a6d65a5ea8",
+   "kind": "signal",
+   "leaf_id": "c5eb63bdf06c878d",
+   "preimage": "c5eb63bdf06c878d|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "9c9895a62ba8e365af0e6dd2cf6c0df0994bfca0989aef6926b53fb52936ff0b",
+   "kind": "signal",
+   "leaf_id": "cd105f6bc3f8e48a",
+   "preimage": "cd105f6bc3f8e48a|1f025bd947b9b1b60fd9fb4ecbc1d20cbfd10a4d6a80813e6a1f4789545d9107|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:RHBBANK",
+   "hash": "eec648a442b030e8afbf6bb0d3c96524fc76cad5adde51083710b0a9da6523dc",
+   "kind": "signal",
+   "leaf_id": "cf774bce25a5d0ad",
+   "preimage": "cf774bce25a5d0ad|0a0caa63c825c7cb5c957a993c0b44b1c182153f20f4a00e3f40e218a3f92cb7|+1|0.5500|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:SIME",
+   "hash": "cf4855076f0b40d0b0644eabc27fc15897915ef04d009a6cd9776684bb0475f6",
+   "kind": "signal",
+   "leaf_id": "d0a7b84fef8e33aa",
+   "preimage": "d0a7b84fef8e33aa|7074aaa5318daa9edb12470a12970b5f9015ff65e6d245f622bb99b768478c73|+1|0.5000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MINT",
+   "hash": "c303891f4ee9ce1785195341099bda7a4930a6719e40ea59cfcf6ee0cb4c9b92",
+   "kind": "signal",
+   "leaf_id": "d0d68afb1edba0e7",
+   "preimage": "d0d68afb1edba0e7|f9c8d90e2ca672297bebc4799b5aa36365e88fd57d91f818772e712862032c7a|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBRI",
+   "hash": "7442b36c9681e88ea8dd633476f886c9dca602ae1a72219b6dacf3f0904f02a0",
+   "kind": "signal",
+   "leaf_id": "d780373e9371aedf",
+   "preimage": "d780373e9371aedf|5ab67aa8fe6a1db3a7f55adfc96f58101234cc283de55ff35c8ec4c66414c163|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:ADVANC",
+   "hash": "5eb4015163455e8b15bf4ef8af5e75548f8d262a07e424616878c33a89af6761",
+   "kind": "signal",
+   "leaf_id": "da3ab5f1635d98bc",
+   "preimage": "da3ab5f1635d98bc|b11f17697e4d6f498a43c9e3038c19cb27e3ad596a84c9c1d30c070cb9ee3b6b|+1|0.5500|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:CPN",
+   "hash": "8cecff68fd8c9e20cfda7b3bec532b4297511d9c273cae6c729da1f14ce691de",
+   "kind": "signal",
+   "leaf_id": "dd36436af300c279",
+   "preimage": "dd36436af300c279|63b594517b35e7b97abd22872818f4f54be456a96be882beab5eecf1dbeb04af|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:SIA",
+   "hash": "ee452c0bf3eb9fc808573a1b9e2766d129e17d903ad4356ff670b4680d428fdd",
+   "kind": "signal",
+   "leaf_id": "e2d97cb3f8539938",
+   "preimage": "e2d97cb3f8539938|e6f2d152644b3f919bc750ae2ab243544a1c0819959b594f580abd8bd7b2f683|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "abc70197b3548424ee6b31bec4cdd9b6dc116ea11072fbe32fd04650c2d7df6d",
+   "kind": "signal",
+   "leaf_id": "e3fa8ee46f84889e",
+   "preimage": "e3fa8ee46f84889e|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:OCBC",
+   "hash": "2950b88722bf5ddec015542514bc94fd3c5a121966cc9483b30dd9aec77f056e",
+   "kind": "signal",
+   "leaf_id": "ecf595280127adca",
+   "preimage": "ecf595280127adca|89671d1646379b3c18bb322fc26ff598c134fb386903cd52717c4e56544eb0d9|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:SIA",
+   "hash": "d66e25ddc090928fd4b091632cfa690a9cd2157c5657289646e674c3b749e759",
+   "kind": "signal",
+   "leaf_id": "ed9b6296f3f7e6b4",
+   "preimage": "ed9b6296f3f7e6b4|c7b32de63a030870451864873c6c55eea7b0976a1b7019d17ee410d0e7f76d50|+1|0.7000|0.4250|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ST",
+   "hash": "23df94e561d06ed0bfcca9535015343865c02e6c4145c33be5ee689fc507fb62",
+   "kind": "signal",
+   "leaf_id": "edd485ceb2518b7a",
+   "preimage": "edd485ceb2518b7a|dfeff7acdb6e312944491da3878aab03152b31d71a314d8a225ce32cf6ccd03e|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:KTB",
+   "hash": "1ff6024616c99e44cd296a911873c54dcf27b51982dfe92c78da7230ec5e255a",
+   "kind": "signal",
+   "leaf_id": "ee9d825f98c6171e",
+   "preimage": "ee9d825f98c6171e|e4207d2640eb52b360575060e34d98ef0b2006ba5d43f4f2d6c801a958e76b2c|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SGX:ST",
+   "hash": "6e79934cc20beb439d6d424df9f4d1c232a4c6ba80a0b49bb6168ee313863740",
+   "kind": "signal",
+   "leaf_id": "f41aa66830cda26b",
+   "preimage": "f41aa66830cda26b|b8a727d2dfa02d1e214f94872759961fcb8f1935d73210c6a534aa82a8c9e960|+1|0.7000|0.6000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "KLSE:HLBK",
+   "hash": "81575f1918bfaaff1c2aba6be76859dc38c22d877fe440f420e8377c834b75e8",
+   "kind": "signal",
+   "leaf_id": "f6b09dbd7a41d935",
+   "preimage": "f6b09dbd7a41d935|df492380a0a034fa72c1271745878dae9f7e64adac41098794d522edb031f52c|+1|0.5500|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BMRI",
+   "hash": "4678a473f840c08f24d62be00cd06dba8780057b0edc84a3b8eb9c69bc3d424e",
+   "kind": "signal",
+   "leaf_id": "fa8eba763ea8ae94",
+   "preimage": "fa8eba763ea8ae94|c110198f03000a077706b6fee85f5adea5401838568d9f795d6680c91b9e64f1|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "SET:MINT",
+   "hash": "3ec03a947d0f0e33b71c98118590ddc0b8b34a3a5ca869a39831309bbc0aac2f",
+   "kind": "signal",
+   "leaf_id": "fee48b20fb86a28e",
+   "preimage": "fee48b20fb86a28e|da261367576631602b08ac46e0dea8a4492676f880bf425b5498ab89e94cf207|+1|0.7000|0.5000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "PSE:BDO",
+   "hash": "bb612f9feead4d48f436eadbd573f7bcec5b4a4fa7342032ecf1c0ee45dee813",
+   "kind": "signal",
+   "leaf_id": "ff361529fc17f24e",
+   "preimage": "ff361529fc17f24e|78c6697ea71383fec6a2bd66d300bf275a8c8aa3d7080f8b86da636cda48f445|+1|0.7000|0.9000|rules-v1|n/a-rules"
+  },
+  {
+   "company_id": "IDX:BBCA",
+   "hash": "39fbe3d52cca55f4fe21007cddfe33a0c9c0661dc15131b046194a7ea49fdcac",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BBCA",
+   "preimage": "IDX:BBCA|none||https://cbonds.com/bonds/501863/|2026-08-20"
+  },
+  {
+   "company_id": "IDX:BBNI",
+   "hash": "307229faaf3cb248b04563652f67591d1f1625f4d0c6b50c20cb8882144f4b13",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BBNI",
+   "preimage": "IDX:BBNI|labelled_reviewed||https://www.bni.co.id/Portals/1/BNI/Perusahaan/ESG/Docs/Report-Green-Bond-BNI-2025-EN.pdf|2026-08-20"
+  },
+  {
+   "company_id": "IDX:BBRI",
+   "hash": "36a1a942fabe77306584d7898e41a4730c79404a597457152e4d2665d83ec343",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BBRI",
+   "preimage": "IDX:BBRI|labelled_reviewed||https://bri.co.id/web/guest/api/files?path=%2Fsites%2Fdefault%2Ffiles%2Fdocuments%2FAnnual+Sustainability+Bond+Report+Review+BRI+2021.pdf|2026-08-20"
+  },
+  {
+   "company_id": "IDX:BMRI",
+   "hash": "772a2fd9b291683d494981930721bab762fe92bb6251d92de1650346e5cb5a64",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:BMRI",
+   "preimage": "IDX:BMRI|labelled_reviewed||https://www.bankmandiri.co.id/en/web/ir/sustainability-bond|2026-08-20"
+  },
+  {
+   "company_id": "IDX:CPIN",
+   "hash": "f2aa42d9b03dfc29433bcd05f8a5973693921367a911ffce28d2084afc6a0e4a",
+   "kind": "green_bond",
+   "leaf_id": "gb:IDX:CPIN",
+   "preimage": "IDX:CPIN|none||https://cp.co.id/wp-content/uploads/2026/04/Annual-Report-CPIN-2025.pdf|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:AMM",
+   "hash": "a6420f8438dd5601a99cb73521711b0f07e2e06f4015c0b9c5465468c4708b22",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:AMM",
+   "preimage": "KLSE:AMM|none||https://www.ambank.com.my/announcements/2024/paramount-issues-its-first-sustainability-linked-sukuk-wakalah-with-ambank-islamic-berhad-and-aminvestment-bank-berhad|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:AXIATA",
+   "hash": "6aeb06d6bae2fed977aacf0d98e769e978cbd902b5d86919895452d1a6cfe14f",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:AXIATA",
+   "preimage": "KLSE:AXIATA|none||https://www.axiata.com/media/news/2026/axiata-posts-rm365-million-in-profits-for-fy25|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:CDB",
+   "hash": "eeeffcd5500544b1a40a177ec87db78b0d500c610102cb25e9802396a3d735a0",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:CDB",
+   "preimage": "KLSE:CDB|none||https://corporate.celcomdigi.com/news/celcomdigi-delivers-resilient-fy2025-growth-driven-by-strong-execution-and-operational-efficiencies|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:CIMB",
+   "hash": "48f68cf3440dd0e03b9c4ccb0fc763e31904a9304d96041c88035a1ea516359c",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:CIMB",
+   "preimage": "KLSE:CIMB|labelled_reviewed||https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/cimb/cimb-sdgs-bond-framework-second-party-opinion/cimb-sdgs-bond-second-party-opinion-pdf|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:HLBK",
+   "hash": "bab02f56ce0c5e1054a1bbf2aecc0c9585a70e012373d21afd2290ec405d7000",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:HLBK",
+   "preimage": "KLSE:HLBK|labelled_reviewed||https://www.ram.com.my/pressrelease/?prviewid=5959|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:IHH",
+   "hash": "f8009e7c146e36222a08d50c709ef113270fc3b5117ccc5e31ac4b2db599fbbd",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:IHH",
+   "preimage": "KLSE:IHH|none||https://www.ddcap.com/corporate-sukuk-ihh-healthcare-rm4bn-usd890mn-sukuk/|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:IOI",
+   "hash": "a4815f965ac366f1a03acffcea708265ab38fc1d6262494a2d0b94410ca86539",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:IOI",
+   "preimage": "KLSE:IOI|none||https://theedgemalaysia.com/node/768610|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:MAHB",
+   "hash": "8e66b3acbde7131110d087bb4aee246c7222332664cdf8df06aed567f0d19b0b",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:MAHB",
+   "preimage": "KLSE:MAHB|none||https://www.thestar.com.my/business/business-news/2025/02/24/mahb-delisting-after-25-years---watershed-moment-for-airport-operators-privatisation|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:MAY",
+   "hash": "6154f8cd4c7834dbe5acf2b2c5a1d514cb9efb240c5ff88f1f74f60625771d40",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:MAY",
+   "preimage": "KLSE:MAY|none||https://www.maybank.com/en/news/2026/02/26/maybank-fy25-net-profit-up-4-2-percent-to-rm10-51b-roe-11-7.page|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:MISC",
+   "hash": "5bbaba6898327118086fea2d6c72d48d3f3e938e339597a51c2e5a18836e6263",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:MISC",
+   "preimage": "KLSE:MISC|none||https://www.miscgroup.com/media/media-releases/misc-group-financial-results-for-the-fourth-quarter-of-2025|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:NESZ",
+   "hash": "31362ac699ce1bf12dfe61bf99068b796a664c79d69616158004003a42faa2d1",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:NESZ",
+   "preimage": "KLSE:NESZ|none||https://www.businesstoday.com.my/2026/02/25/nestle-malaysia-fy25-profit-up-23-to-rm513-million-stages-solid-q4/|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:PCHEM",
+   "hash": "d64d128a46eb38e0352683f286b8c57e310e6c1595659d04d64c867cb3a99f44",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:PCHEM",
+   "preimage": "KLSE:PCHEM|none||https://www.bernama.com/en/news.php?id=2526639|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:PETD",
+   "hash": "caef81a4e4625d0244886ef9a9176f19514ba0c641b401b396f3f2d0dca1a627",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:PETD",
+   "preimage": "KLSE:PETD|none||https://www.bernama.com/en/news.php?id=2527058|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:PMAH",
+   "hash": "54c317203013c604a94ac2b46ffb8f3d350b47e9e0c44658e9e2b53944c2f2f6",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:PMAH",
+   "preimage": "KLSE:PMAH|none||https://www.nst.com.my/business/corporate/2026/02/1385892/press-metal-aluminium-fy25-net-profit-rises-19pct-rm21bil|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:RHBBANK",
+   "hash": "b6a6aafb45196e3c4ebe31fd2cd554c994a9c10c79c39f9af1869b2b7537700d",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:RHBBANK",
+   "preimage": "KLSE:RHBBANK|none||https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Sustainability-Report/Sustainalytics-Second-Party-Opinion.pdf|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:SIME",
+   "hash": "ec762a6bd93eccd88b0dd2c48eb0c52910658a867f757452a6ce1a3e7495d3e8",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:SIME",
+   "preimage": "KLSE:SIME|none||https://www.sime.com/media/news-release/2025/08/sime-reports-rm2-billion-in-net-profit-for-fy2025/|2026-08-20"
+  },
+  {
+   "company_id": "KLSE:T",
+   "hash": "56b3d1498ebb82a36b2611999adb8eac985e10e79a5b70eb32283f60145fca99",
+   "kind": "green_bond",
+   "leaf_id": "gb:KLSE:T",
+   "preimage": "KLSE:T|none||https://www.bernama.com/en/region/news.php?id=2527434|2026-08-20"
+  },
+  {
+   "company_id": "PSE:AC",
+   "hash": "7a05ecfb4bddab4f197ce729eade368d9ef584396146a4c724e0aaddc62341f9",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:AC",
+   "preimage": "PSE:AC|none||https://www.ifc.org/en/pressroom/2021/ayala-group-to-issue-the-philippines-first-healthcare-focused-so|2026-08-20"
+  },
+  {
+   "company_id": "PSE:ALI",
+   "hash": "bf79324cc2074b2908a7f2a20ffabd323303c7cdce6e379382f7f8dde3dcdad1",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:ALI",
+   "preimage": "PSE:ALI|none||https://ayalaland.com/blog/ayala-land-lists-p8-billion-sustainability-linked-bonds-strengthens-commitment-to-sustainable-growth-in-the-philippines|2026-08-20"
+  },
+  {
+   "company_id": "PSE:BDO",
+   "hash": "05ffdc5c9747f939535a804fa71cde392459fd623ea82155dee4c26ec942a469",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:BDO",
+   "preimage": "PSE:BDO|labelled_reviewed||https://www.bdo.com.ph/about-bdo/learn/news-and-features/bdo-asean-sustainability-bond-impact-report-2024|2026-08-20"
+  },
+  {
+   "company_id": "PSE:BPI",
+   "hash": "de216059fa7f6ebb5e3bc0280bfb7dbd247a3d59bab23ebe224eb1a38f009b40",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:BPI",
+   "preimage": "PSE:BPI|labelled_reviewed||https://www.bpi.com.ph/content/dam/bau/sustainability/sustainability-together/pdfs/2025_bpi-annual-review-sustainalytics.pdf|2026-08-20"
+  },
+  {
+   "company_id": "PSE:SM",
+   "hash": "de4c4c8ee9557eacfaebfff0ce0c4cb05dd5c954b105b01fd328325eb44e2682",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:SM",
+   "preimage": "PSE:SM|none||https://www.sminvestments.com/press_release/sm-investments-fy-2025-net-income-up-10-to-php90-5-billion/|2026-08-20"
+  },
+  {
+   "company_id": "PSE:SMPH",
+   "hash": "b790bf1da4a463c1174a70bd739a965eb829edd47f8a2aedd8fe26b961d89d53",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:SMPH",
+   "preimage": "PSE:SMPH|none||https://www.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options|2026-08-20"
+  },
+  {
+   "company_id": "PSE:TEL",
+   "hash": "e9decd46d568bf29ff23c79459267e8354515f224eb8a07afe74810279467890",
+   "kind": "green_bond",
+   "leaf_id": "gb:PSE:TEL",
+   "preimage": "PSE:TEL|none||https://insiderph.com/pldt-2025-core-income-up-1-as-maya-profit-boost-cushions-telco-drag|2026-08-20"
+  },
+  {
+   "company_id": "SET:ADVANC",
+   "hash": "2c004082f47fdea4aacd8d6a6bbb0c3de50791d9a39514bf7ee0ab25c317860a",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:ADVANC",
+   "preimage": "SET:ADVANC|labelled_reviewed||https://investor.ais.co.th/sustainable_finance.html|2026-08-20"
+  },
+  {
+   "company_id": "SET:BDMS",
+   "hash": "39d79b4e29ffcabc8687094e8e81252e6d81b9a17c268b0838e484632a5de87a",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:BDMS",
+   "preimage": "SET:BDMS|none||https://investor.bdms.co.th/storage/downloads/financial-highlights/financial-highlights-4q2025-en-1.pdf|2026-08-20"
+  },
+  {
+   "company_id": "SET:BEM",
+   "hash": "09e4fdc6da8d5aae4be1cb84b3f010a4977e18601c75a85154f0883cbeb96184",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:BEM",
+   "preimage": "SET:BEM|labelled_reviewed||https://investor.bemplc.co.th/en/sustainability-finance|2026-08-20"
+  },
+  {
+   "company_id": "SET:CPALL",
+   "hash": "db2ceca81aed224d90f5a51e0396e02cb806bc43659ebb784acdbb3ce56ec712",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:CPALL",
+   "preimage": "SET:CPALL|none||https://lssmedia.setlink.set.or.th/2025/YE/CPALL-YE68-ListedCompanySnapshot-EN.html|2026-08-20"
+  },
+  {
+   "company_id": "SET:CPF",
+   "hash": "dc700ebf427309680fe0b2657784bb84a3e83eb2d1df5305aea01b7960d45a8e",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:CPF",
+   "preimage": "SET:CPF|none||https://www.cpfworldwide.com/en/media-center/2604|2026-08-20"
+  },
+  {
+   "company_id": "SET:CPN",
+   "hash": "f4acd24439df43327901d03d6624f8b89a86384490563b89b7f51244c574a4b0",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:CPN",
+   "preimage": "SET:CPN|none||https://www.ifc.org/en/pressroom/2024/ifc-invests-in-sustainability-linked-bond-issued-by-central-pattana-in-thailand|2026-08-20"
+  },
+  {
+   "company_id": "SET:HMPRO",
+   "hash": "2110fe83c1b620db5d2d8b34a055cef4c0707bfdfd990fca46d50f40d3845c1e",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:HMPRO",
+   "preimage": "SET:HMPRO|none||https://www.utrade.co.th/content/uploads/research/639076969250587474260226_HMPRO_TB_Results.pdf|2026-08-20"
+  },
+  {
+   "company_id": "SET:INTUCH",
+   "hash": "4c891ea8df8a39b584149810eb59f07349c687816fac3ed81b250305ba59fe9b",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:INTUCH",
+   "preimage": "SET:INTUCH|none||https://www.set.or.th/en/market/news-and-alert/newsdetails?id=95444200&symbol=INTUCH|2026-08-20"
+  },
+  {
+   "company_id": "SET:KTB",
+   "hash": "31d0750810dbe940bb1f7c2bf270ecc966e1bcbe02b58644333744cce872f992",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:KTB",
+   "preimage": "SET:KTB|none||https://krungthai.com/en/sustainability/growing-together/sustainable-finance|2026-08-20"
+  },
+  {
+   "company_id": "SET:MINT",
+   "hash": "b200dbb863ffeef392acb4844fc48a86ff27e7395617ba2af4b5dfacc8043f43",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:MINT",
+   "preimage": "SET:MINT|none||https://www.kaohooninternational.com/markets/572295|2026-08-20"
+  },
+  {
+   "company_id": "SET:PTT",
+   "hash": "5543ad58d21f8459c5b4912d350c52f9db07a93e0f5dc568402ec225e9e1f695",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:PTT",
+   "preimage": "SET:PTT|cbi_certified||https://www.pttdebenture.com/src/upload/fckfiles/green-bond/20200908-ptt-debenture-cbi-certification.pdf|2026-08-20"
+  },
+  {
+   "company_id": "SET:PTTEP",
+   "hash": "482b541a7031a4e71e6c385a013c72766ca235270c18e51102493fefa17546d8",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:PTTEP",
+   "preimage": "SET:PTTEP|none||https://www.pttep.com/en/newsroom/press-releases/1147/pttep-announces-2025-operational-performance|2026-08-20"
+  },
+  {
+   "company_id": "SET:PTTGC",
+   "hash": "1cf4b4eb67491bb61e4f6658551a2759b4a8e67502d6fcc5ce8557380c02a431",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:PTTGC",
+   "preimage": "SET:PTTGC|none||https://lssmedia.setlink.set.or.th/2025/YE/PTTGC-YE68-ListedCompanySnapshot-EN.html|2026-08-20"
+  },
+  {
+   "company_id": "SET:SCC",
+   "hash": "62e5acb6b5e3c405f2e378c1dd190aae32fc9921a0664b259d5dd263fa8b1492",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:SCC",
+   "preimage": "SET:SCC|none||https://www.kaohooninternational.com/markets/577394|2026-08-20"
+  },
+  {
+   "company_id": "SET:TOP",
+   "hash": "66a6ac2deaa11a383f2c47a011e34520c6c62d8a372df4c46a1291ed17235802",
+   "kind": "green_bond",
+   "leaf_id": "gb:SET:TOP",
+   "preimage": "SET:TOP|none||https://investor.thaioilgroup.com/en/financial-information/bond-and-credit-rating|2026-08-20"
+  },
+  {
+   "company_id": "SGX:DBS",
+   "hash": "6f2bdc43fea31c2e50e4cc0539ffdfad66bde54d4dfb921b80ba5c53349f8544",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:DBS",
+   "preimage": "SGX:DBS|labelled_reviewed||https://www.dbs.com/iwov-resources/images/sustainability/featured/DBS_Green_Bond_Report_August_2022.pdf|2026-08-20"
+  },
+  {
+   "company_id": "SGX:KEP",
+   "hash": "4bbce29c749b67379adaebe46e45d34a70a3d144545f81359bf575f9604781ed",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:KEP",
+   "preimage": "SGX:KEP|none||https://www.keppel.com/media/keppels-financial-results-for-fy-2025/|2026-08-20"
+  },
+  {
+   "company_id": "SGX:OCBC",
+   "hash": "68599deeffb18622dcb896eb9216ca64b5f38309595f735afaa7af228993cf94",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:OCBC",
+   "preimage": "SGX:OCBC|labelled_reviewed||https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/ocbc%20green%20bond%20report%202022%20(publication).pdf|2026-08-20"
+  },
+  {
+   "company_id": "SGX:SGX",
+   "hash": "5d167063db2073b7dc950b8f64817702868f2f7180918193fb8fc2acd59c3dd3",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:SGX",
+   "preimage": "SGX:SGX|none||https://investorrelations.sgx.com/|2026-08-20"
+  },
+  {
+   "company_id": "SGX:SIA",
+   "hash": "e96a3ebfc2d0c6cc6ea8793214540d9fa665430df1b4ee8644639bb84d1d1bd1",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:SIA",
+   "preimage": "SGX:SIA|none||https://www.singaporeair.com/content/dam/sia/web-assets/pdfs/about-us/information-for-investors/financial-results/nr-q4fy2526.pdf|2026-08-20"
+  },
+  {
+   "company_id": "SGX:ST",
+   "hash": "0961b8be95e36f8594d63f1888c2d7f23e4f9518686628d9efc73475a7d74ee2",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:ST",
+   "preimage": "SGX:ST|none||https://www.singtel.com/about-us/media-centre/news-releases/singtel-posts-fy26-net-profit|2026-08-20"
+  },
+  {
+   "company_id": "SGX:UOB",
+   "hash": "fcbfdefc7b5ff1390d45ccae61586e67966eddb55afd4f0033872ae29f0865d6",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:UOB",
+   "preimage": "SGX:UOB|labelled_reviewed||https://www.uobgroup.com.sg/assets/web-resources/sustainability/pdf/sustainability-bond-impact-report.pdf|2026-08-20"
+  },
+  {
+   "company_id": "SGX:WIL",
+   "hash": "edaa9f338a2525f102257dc9fe4e7604ce0371130573c0d1d4246e7a4b35f48c",
+   "kind": "green_bond",
+   "leaf_id": "gb:SGX:WIL",
+   "preimage": "SGX:WIL|none||https://www.wilmar-international.com/sustainability/resource-library|2026-08-20"
+  }
+ ],
+ "root": "8c74afcebca695a0caa00ca1096117732f815c15d1735145ba02a03d7567c166",
+ "run_id": "cc9e111528774ead",
+ "signer": "",
+ "status": "anchor_pending",
+ "tx_hash": ""
+}
