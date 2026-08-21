@@ -121,7 +121,7 @@ def counts(run, metadata, cfg=None):
     }
 
 
-def freeze(run, metadata, cfg=None, frozen_at="", demo=False):
+def freeze(run, metadata, cfg=None, frozen_at="", demo=False, evidence_basis=""):
     """The record handed to Brina/Grace: the counts plus everything needed to re-derive them."""
     result = counts(run, metadata, cfg)
     cfg = cfg or engine_config.load()
@@ -138,6 +138,9 @@ def freeze(run, metadata, cfg=None, frozen_at="", demo=False):
         "metadata_file": report.get("path", ""),
         "metadata_rows": report.get("rows", 0),
         "metadata_provisional": report.get("provisional", 0),
+        # WHICH evidence produced these counts. A frozen number that does not say what it was
+        # computed over cannot be reconciled against the screen six weeks later.
+        "evidence_basis": evidence_basis or "verified basket only",
         "counts": {k: result[k] for k in ("N", "M", "K")},
         "labels": result["labels"],
         "rules": result["rules"],
@@ -162,7 +165,14 @@ def main(argv):
     # describes the real 52, and crossing them joins nothing.
     metadata = company_metadata.load(demo=not real)
     source = universe.active_file(demo=not real)
-    run = engine.run_engine(universe.constituents(source), metadata=metadata, use_cache=False)
+    cons = universe.constituents(source)
+    if real:
+        # The board merges harvested evidence for the real basket, so this must too — otherwise
+        # the money slide and the screen quietly report different M, which is the one thing this
+        # module exists to prevent.
+        import harvest
+        cons = harvest.apply_overlay(cons)
+    run = engine.run_engine(cons, metadata=metadata, use_cache=False)
     result = counts(run, metadata, cfg)
 
     scope = "real ASEAN base DB" if real else "demo universe (fictional)"
@@ -172,7 +182,16 @@ def main(argv):
     print(f"  universe {result['universe_size']} · theta {result['theta']}")
 
     if "--freeze" in argv:
-        record = freeze(run, metadata, cfg, frozen_at=_today(), demo=not real)
+        basis = "verified basket only"
+        if real:
+            import harvest
+            overlay = harvest.load_overlay()
+            events = sum(len(v) for v in overlay.values())
+            if events:
+                basis = ("verified basket + %d harvested events across %d companies"
+                         % (events, len(overlay)))
+        record = freeze(run, metadata, cfg, frozen_at=_today(), demo=not real,
+                        evidence_basis=basis)
         with open(FROZEN_FILE, "w", encoding="utf-8") as fh:
             json.dump(record, fh, indent=1, sort_keys=True)
         print(f"\nfroze -> {os.path.relpath(FROZEN_FILE, BASE_DIR)} "

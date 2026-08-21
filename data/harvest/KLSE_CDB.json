@@ -1,0 +1,71 @@
+{
+ "company_id": "KLSE:CDB",
+ "company": "CelcomDigi Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:CDB-harvest-0",
+   "text": "CelcomDigi Berhad's Corporate Governance Report 2025 (STOCK CODE: 6947) is for the FINANCIAL YEAR December 31, 2025 and includes disclosures pursuant to Paragraph 15.25 of Bursa Malaysia Listing Requirements.",
+   "published_at": "2025-12-31",
+   "source_url": "https://www.marketscreener.com/news/digi-com-corporate-governance-report-2025-ce7e50dfd08ef322",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-1",
+   "text": "CelcomDigi Bhd's wholly-owned subsidiary CelcomDigi Mobile Sdn Bhd plans to defend claims filed by IMMA Technology Sdn Bhd over an alleged breach of a services agreement.",
+   "published_at": "2025-10-07",
+   "source_url": "https://www.thestar.com.my/business/business-news/2025/10/07/celcomdigi-to-contest-claims-filed-by-imma",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-2",
+   "text": "CelcomDigi Mobile Sdn Bhd will defend the RM72.6 million arbitration claim by IMMA Technology over an alleged breach of a services agreement signed in March 2022.",
+   "published_at": "2025-10-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2025/10/1455015/celcomdigi-pertahan-tuntutan-timbang-tara-rm726-juta",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-3",
+   "text": "CelcomDigi Berhad's wholly-owned unit CelcomDigi Mobile Sdn Bhd received a notice of arbitration from IMMA Technology Sdn Bhd over alleged losses arising from a services agreement, and denies liability.",
+   "published_at": "2025-10-06",
+   "source_url": "https://themalaysianreserve.com/2025/10/06/celcomdigi-hit-with-rm72-6m-arbitration-claim-denies-liability/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-4",
+   "text": "CelcomDigi Bhd paid RM139 million in employee termination costs involving 600 employees in the first quarter of 2024.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2024/06/1260910/celcomdigi-bayar-rm139-juta-kos-pemberhentian-pekerja",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live"
+  }
+ },
+ "kept": 5
+}

@@ -25,38 +25,6 @@
    "source_url": "https://www.globalcement.com/news/item/17881-siam-cement-group-to-invest-us-6bn-in-eco-friendly-initiatives",
    "source_type": "company_pr",
    "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:SCC-harvest-3",
-   "text": "SCG Cleanergy will increase its renewable power capacity to 3500MW by 2030.",
-   "published_at": "2030-12-31",
-   "source_url": "https://www.globalcement.com/news/item/17881-siam-cement-group-to-invest-us-6bn-in-eco-friendly-initiatives",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:SCC-harvest-4",
-   "text": "SCG will spend 100 billion baht ($2.89 billion) until 2027 end on venues like renewable energy.",
-   "published_at": "2027-12-31",
-   "source_url": "https://list.solar/news/thailands-largest-1/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:SCC-harvest-5",
-   "text": "SCG plans to produce 3,000 MW of solar power by 2027, 15 times greater than current capacity.",
-   "published_at": "2027-12-31",
-   "source_url": "https://list.solar/news/thailands-largest-1/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:SCC-harvest-6",
-   "text": "SCG aims to achieve net-zero greenhouse gas emissions by 2050.",
-   "published_at": "2050-12-31",
-   "source_url": "https://www.scgsustainability.com/en/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
   }
  ],
  "status": "emissions: unparsed reply; controversy: offline",
@@ -83,5 +51,5 @@
    "status": "offline"
   }
  },
- "kept": 7
+ "kept": 3
 }

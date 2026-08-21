@@ -516,6 +516,8 @@ export interface EngineBlock {
     verified?: boolean; verified_by?: string; review_state?: string
     review_chip?: string; header?: string
   }
+  /** Live-gathered evidence merged into this run (real universe only). */
+  harvest?: { companies: number; events: number; note: string }
   anchor: AnchorSummary
   records: Record<string, EngineRecord>
   badges: Record<string, Badges>

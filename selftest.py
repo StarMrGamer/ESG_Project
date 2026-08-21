@@ -1238,6 +1238,24 @@ def test_harvest_guards_reject_ungrounded_events():
     assert len(kept) == 1, [k["text"] for k in kept]
     assert kept[0]["source_url"] == "https://reuters.com/a"
 
+    # guard 2b — a TARGET year is not a publication date, and letting one through is not a
+    # small error. `engine._as_of_from` takes the newest date in the data as the decay
+    # reference, so a single "net zero by 2050" event dated 2050-12-31 moved as_of 24 years
+    # forward, decayed every genuine signal in the basket to zero weight, and took composite
+    # momentum for the WHOLE universe to 0.000 — with every signal_count still showing intact.
+    future = [{"text": "The company aims to reach net zero across all scopes by twenty fifty.",
+               "published_at": "2050-12-31", "source_url": "https://reuters.com/a"}]
+    assert harvest._clean_events(future, allowed, "SGX:TEST", "2026-08-20") == []
+    assert len(harvest._clean_events(raw, allowed, "SGX:TEST", "2026-08-20")) == 1
+
+    # and the end-to-end consequence: merging the overlay must not move the run's as_of
+    import engine
+    base = universe.constituents()
+    cap = max(str(c.get("as_of") or "")[:10] for c in base)
+    for events in harvest.load_overlay().values():
+        for e in events:
+            assert e["published_at"] <= cap, ("harvested event post-dates the basket", e)
+
     # guard 3 — source_type comes from the DOMAIN, never from the model
     assert harvest._source_type_for("https://www.mas.gov.sg/news/x") == "regulator"
     assert harvest._source_type_for("https://links.sgx.com/filing") == "exchange_filing"

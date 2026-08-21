@@ -1,0 +1,63 @@
+{
+ "company_id": "KLSE:IHH",
+ "company": "IHH Healthcare Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:IHH-harvest-0",
+   "text": "IHH Healthcare's Sustainability Report captures the Group's sustainability performance for the financial year 1 January 2023 to 31 December 2023, with overall approval granted by the Board of Directors.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.scribd.com/document/799171619/Sustainability-Report-2023",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-1",
+   "text": "IHH Healthcare secured its first sustainability-linked loan, a landmark S$300 million facility with UOB, marking UOB's first sustainability-linked loan for the healthcare sector.",
+   "published_at": "2025-04-29",
+   "source_url": "https://www.uobgroup.com/web-resources/uobgroup/pdf/newsroom/2025/ihh-x-uob-sll.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-2",
+   "text": "In a lawsuit, Emqore Envesecure Private Capital Trust is seeking in excess of $6.5 billion in damages from IHH Healthcare and more than two dozen named defendants.",
+   "published_at": "2022-01-05",
+   "source_url": "https://www.reuters.com/legal/litigation/us-fund-seeks-65-bln-damages-lawsuit-against-malaysias-ihh-2022-01-05/",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-3",
+   "text": "IHH Healthcare Malaysia CEO Dr Kamal Amzan directed hospitals under the group to treat insurer-driven delays to urgent treatment as patient safety incidents, warning that coverage decisions that stall care can worsen outcomes.",
+   "published_at": "2026-03-09",
+   "source_url": "https://codeblue.galencentre.org/2026/03/ihh-manages-insurance-driven-delays-as-patient-safety-events/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  }
+ },
+ "kept": 4
+}

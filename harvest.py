@@ -88,8 +88,11 @@ company. Return ONLY facts that the snippets themselves state.
 
 RULES — a violation makes the whole answer useless:
 - Use ONLY the snippets below. Do not use anything you know about this company.
-- Every fact needs a date the snippet actually states, as YYYY-MM-DD. If the snippet gives only \
-a month, use the first of that month. If it states no date at all, DROP the fact.
+- `published_at` is when the source was PUBLISHED, or when the event HAPPENED. It is never a
+  target year. "aims for net zero by 2050" is a fact published in some past year about 2050 —
+  if the snippet does not say WHEN it was published, DROP the fact. Never write a future date.
+- Format YYYY-MM-DD. If the snippet gives only a month, use the first of that month. If it
+  states no date at all, DROP the fact.
 - Every fact needs `source_url` copied EXACTLY from the snippet it came from.
 - One specific, checkable fact per item, in one sentence, quoting the snippet's own numbers.
 - Prefer: emissions and targets, renewable or transition capex, green/sustainability financing, \
@@ -143,8 +146,17 @@ def _query_for(constituent: Dict[str, Any], angle: str = "") -> str:
     ]).strip()
 
 
-def _clean_events(raw: Any, allowed_urls: set, cid: str) -> List[Dict[str, Any]]:
-    """Guards 1 and 2: drop anything the model cited or dated beyond what it was shown."""
+def _clean_events(raw: Any, allowed_urls: set, cid: str,
+                  max_date: str = "") -> List[Dict[str, Any]]:
+    """Guards 1 and 2: drop anything the model cited or dated beyond what it was shown.
+
+    `max_date` is the real teeth on the date guard. Models reliably read a TARGET year as a
+    publication date — "aims for net zero by 2050" came back as `published_at: 2050-12-31`. That
+    is not a small error: `engine._as_of_from` takes the newest date in the data as the decay
+    reference, so one 2050 event moved `as_of` 24 years into the future, decayed every genuine
+    signal in the basket to zero weight, and took composite momentum for the WHOLE universe to
+    0.000 — M went 4 -> 0 while every affected company still showed its original signal count.
+    A future publication date is impossible; anything past `max_date` is dropped."""
     out, seen = [], set()
     for item in (raw or []):
         if not isinstance(item, dict):
@@ -157,6 +169,8 @@ def _clean_events(raw: Any, allowed_urls: set, cid: str) -> List[Dict[str, Any]]
         if url not in allowed_urls:               # guard 1 — a URL it was not given
             continue
         if not _DATE_ISO.fullmatch(date):         # guard 2 — undated, or a made-up shape
+            continue
+        if max_date and date > max_date:          # guard 2b — a target year, not a publication
             continue
         key = (text[:90].lower(), url)
         if key in seen:
@@ -173,7 +187,7 @@ def _clean_events(raw: Any, allowed_urls: set, cid: str) -> List[Dict[str, Any]]
     return out
 
 
-def _extract_from(constituent, cid, query, use_cache):
+def _extract_from(constituent, cid, query, use_cache, max_date=""):
     """One search angle -> (events, snippet_count, status). Never raises."""
     try:
         ctx = rag.gather_context(query, k=TOP_K, use_cache=use_cache)
@@ -221,7 +235,8 @@ def _extract_from(constituent, cid, query, use_cache):
         # and read as a finding about the company.
         return [], len(snippets), "unparsed reply"
 
-    return _clean_events(parsed.get("events"), allowed, cid), len(snippets), ctx.get("status", "")
+    return (_clean_events(parsed.get("events"), allowed, cid, max_date),
+            len(snippets), ctx.get("status", ""))
 
 
 def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True) -> Dict[str, Any]:
@@ -232,11 +247,14 @@ def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True) -> D
     cid = constituent.get("ticker", "unknown")
     record = {"company_id": cid, "company": constituent.get("company", cid),
               "events": [], "status": "", "snippet_count": 0, "angles": {}}
+    # The latest date the VERIFIED data itself asserts. Nothing harvested may post-date it —
+    # and this keeps the bound clock-free, like everything else the engine reads.
+    max_date = str(constituent.get("as_of") or "").strip()[:10]
 
     merged, statuses = {}, []
     for name, angle in ANGLES:
         events, n, status = _extract_from(constituent, cid, _query_for(constituent, angle),
-                                          use_cache)
+                                          use_cache, max_date)
         record["snippet_count"] += n
         record["angles"][name] = {"snippets": n, "kept": len(events), "status": status}
         if status and status not in ("live", "cache"):

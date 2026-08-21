@@ -392,6 +392,11 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
           {/* `header` already states the provisional-vs-verified claim in full; repeating it
               here read as "PROVISIONAL ... PROVISIONAL ...". Only the reviewer and the file
               path are added. */}
+          {engine.harvest && engine.harvest.events > 0 && (
+            <span className="harvest-note" title={engine.harvest.note}>
+              +{engine.harvest.events} harvested across {engine.harvest.companies}
+            </span>
+          )}
           {engine.metadata.header}{' '}
           {engine.metadata.verified && <>Reviewer: {engine.metadata.verified_by} — </>}
           <span className="mono-path">{engine.metadata.path}</span>

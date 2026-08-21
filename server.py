@@ -42,6 +42,7 @@ import core
 import datasource
 import engine
 import engine_config
+import harvest
 import lseg
 import metrics
 import pipeline_counts
@@ -326,12 +327,21 @@ def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON):
     # The metadata file follows the UNIVERSE, not the preference order: the fictional demo set
     # is keyed on invented tickers and joins nothing against the verified 52.
     key = (path, cfg["config_hash"], os.path.getmtime(path) if os.path.exists(path) else 0,
-           company_metadata.load_report(demo=demo).get("rows", 0), demo)
+           company_metadata.load_report(demo=demo).get("rows", 0), demo,
+           0 if demo else sum(len(v) for v in harvest.load_overlay().values()))
     hit = _ENGINE_MEMO.get(key)
     if hit:
         return hit
     meta = company_metadata.load(demo=demo)
-    run = engine.run_engine(universe.constituents(path), metadata=meta, config=cfg)
+    cons = universe.constituents(path)
+    if not demo:
+        # Harvested evidence merges in for the REAL basket only — searching live news about a
+        # fictional company would be nonsense, and the demo set already carries rich momentum.
+        # This changes the run's INPUTS, so it changes the run_id, which is correct: a run over
+        # more evidence is a different run. The engine itself stays pure, and the harvest files
+        # are committed, so a fresh clone reproduces the same id.
+        cons = harvest.apply_overlay(cons)
+    run = engine.run_engine(cons, metadata=meta, config=cfg)
     if len(_ENGINE_MEMO) > 8:      # keys carry mtime+config; 2 universes x 2 horizons live here
         _ENGINE_MEMO.clear()
     _ENGINE_MEMO[key] = (run, meta, cfg)
@@ -414,6 +424,21 @@ def _anchor_summary(run):
             "note": record.get("anchor_note", "")}
 
 
+def _harvest_summary(demo):
+    """How much live-gathered evidence is in this run, and how much of the basket it touched."""
+    if demo:
+        return {"companies": 0, "events": 0, "note": ""}
+    overlay = harvest.load_overlay()
+    events = sum(len(v) for v in overlay.values())
+    return {
+        "companies": len(overlay),
+        "events": events,
+        "note": ("%d dated, sourced facts gathered live for %d companies and merged into this "
+                 "run. The model only read them — every direction, weight and label below is "
+                 "still assigned by rule." % (events, len(overlay))) if events else "",
+    }
+
+
 def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
     """Everything the Build-Spec front-end needs for one filtered view."""
     run, meta, cfg = _engine_run(demo, horizon)
@@ -448,6 +473,9 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
         "half_life_days": cfg["decay"]["half_life_days"],
         "nmk": pipeline_counts.counts(subset, meta, cfg),
         "metadata": company_metadata.load_report(demo=demo),
+        # Say how much of this run's evidence was harvested rather than supplied. A board that
+        # silently mixes the two invites exactly the question we would have no answer to.
+        "harvest": _harvest_summary(demo),
         "anchor": _anchor_summary(run),
         "records": {t: _record_summary(by_id[t]) for t in tickers if t in by_id},
         "badges": {t: _badges(t, meta, cfg, by_id.get(t)) for t in tickers},

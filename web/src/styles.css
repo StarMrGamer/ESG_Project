@@ -2747,3 +2747,11 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   padding: var(--pad-chip); border: 1px solid var(--r-amber); border-radius: var(--r-radius-2xs);
   color: var(--r-amber); background: var(--r-amberbg);
 }
+/* Live-gathered evidence, counted separately from what CGSI supplied — a board that silently
+   mixes the two invites a question it would have no answer to. */
+.harvest-note {
+  display: inline-block; padding: var(--pad-chip); margin-right: var(--sp-2);
+  border: 1px solid var(--r-blue); border-radius: var(--r-radius-2xs);
+  color: var(--r-blue); background: var(--r-bluebg);
+  font-size: 10.5px; letter-spacing: 0.05em; white-space: nowrap;
+}
