@@ -408,11 +408,20 @@ def main(argv: List[str]) -> int:
         return 0
 
     limit = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 10**9
+    # Delisted names are excluded from investable output by rule, so gathering fresh evidence
+    # for them spends calls on companies that no longer trade. Explicitly naming one still
+    # harvests it — the facts are real and someone may want them — but a sweep skips them.
+    def _live(ts):
+        skipped = [t for t in ts if cons[t].get("delisted")]
+        if skipped:
+            print("skipping %d delisted: %s\n" % (len(skipped), ", ".join(skipped)))
+        return [t for t in ts if not cons[t].get("delisted")]
+
     if "--empty" in argv:
         counts = _scored_counts()
-        targets = [t for t in sorted(cons) if counts.get(t, 0) == 0]
+        targets = _live([t for t in sorted(cons) if counts.get(t, 0) == 0])
     elif "--all" in argv:
-        targets = sorted(cons)
+        targets = _live(sorted(cons))
     else:
         targets = [a for a in argv if not a.startswith("--") and a in cons]
     targets = targets[:limit]

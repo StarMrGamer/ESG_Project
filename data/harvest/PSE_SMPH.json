@@ -1,0 +1,95 @@
+{
+ "company_id": "PSE:SMPH",
+ "company": "SM Prime Holdings Inc",
+ "events": [
+  {
+   "event_id": "PSE:SMPH-harvest-0",
+   "text": "SM Prime Holdings, Inc. commits to achieve net zero greenhouse gas (GHG) emissions by 2040.",
+   "published_at": "2023-08-05",
+   "source_url": "https://philippinesgraphic.com.ph/2023/08/05/sm-prime-commits-to-net-zero-by-2040/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-1",
+   "text": "SM Prime Holdings, Inc. commits to achieve net zero greenhouse gas (GHG) emissions by 2040.",
+   "published_at": "2023-08-06",
+   "source_url": "https://mb.com.ph/2023/8/6/sm-prime-commits-to-net-zero-by-2040/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-2",
+   "text": "On November 10, 2025, the Board of Directors of SM Prime Holdings, Inc. reviewed and approved the revised Manual on Corporate Governance.",
+   "published_at": "2025-11-10",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=cb238e289a2f17beec6e1601ccee8f59",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-3",
+   "text": "SM Prime is exploring sustainability-linked financing instruments given the company's strong environmental, social and governance rating.",
+   "published_at": "2025-08-10",
+   "source_url": "https://qa.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-4",
+   "text": "SM Prime president Jeffrey Lim said the company is evaluating the viability of issuing green bonds or sustainability-linked financing instruments.",
+   "published_at": "2025-08-10",
+   "source_url": "https://www.pressreader.com/philippines/the-philippine-star/20250810/281998973534353",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-5",
+   "text": "On February 4, 2002, the Pollution Control Division of the LLDA inspected wastewater discharged by SM City Manila, operated by SM Prime Holdings, and laboratory tests revealed effluent samples failed to conform to inland water standards.",
+   "published_at": "2002-02-04",
+   "source_url": "https://angkaalaman.com/buod/public-hearing-committee-of-the-llda-vs-sm-prime-holdings-inc-2010-09-22/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-6",
+   "text": "On March 12, 2002, the LLDA directed SM Prime Holdings to perform corrective measures to control pollution and to pay P1,000 per day for discharging pollutive wastewater as penalty.",
+   "published_at": "2002-03-12",
+   "source_url": "https://www.studocu.com/ph/document/de-la-salle-university/natural-resources-and-environmental-law/llda-v-sm-summary-natural-resources-and-environmental-law/80445232",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-7",
+   "text": "On September 22, 2010, the Supreme Court of the Philippines ruled in G.R. No. 170599 that the LLDA is not precluded from assuming jurisdiction of pollution cases within its area of responsibility and imposing fines as penalty.",
+   "published_at": "2010-09-22",
+   "source_url": "https://lawphil.net/judjuris/juri2010/sep2010/gr_170599_2010.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  }
+ },
+ "kept": 8
+}
