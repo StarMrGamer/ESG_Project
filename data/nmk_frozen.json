@@ -5,12 +5,13 @@
  "config_hash": "1883eb466795c332",
  "config_version": "v2.0",
  "counts": {
-  "K": 1,
-  "M": 4,
+  "K": 3,
+  "M": 10,
   "N": 13
  },
  "engine_version": "engine-v2.0",
- "frozen_at": "2026-08-21",
+ "evidence_basis": "verified basket + 149 harvested events across 26 companies",
+ "frozen_at": "2026-08-22",
  "labels": {
   "K": "review list",
   "M": "pipeline (bond-ready)",
@@ -18,11 +19,19 @@
  },
  "members": {
   "K": [
+   "KLSE:MISC",
+   "KLSE:PETD",
    "SGX:SIA"
   ],
   "M": [
+   "IDX:CPIN",
+   "KLSE:IOI",
    "KLSE:RHBBANK",
+   "PSE:SM",
+   "PSE:SMPH",
+   "SET:BDMS",
    "SET:CPN",
+   "SET:HMPRO",
    "SET:KTB",
    "SGX:ST"
   ],
@@ -50,6 +59,6 @@
   "M": "below its ASEAN sector-peer ESG average AND positive evidenced momentum AND passes the financial screen (profitable, or loss_making with traction) AND not already a reviewed/certified issuer AND not delisted",
   "N": "green_bond_status in {cbi_certified, labelled_reviewed}"
  },
- "run_id": "cc9e111528774ead",
+ "run_id": "569d0322e0f5d771",
  "universe_size": 52
 }

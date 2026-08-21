@@ -12,7 +12,7 @@
   },
   {
    "event_id": "SET:SCC-harvest-1",
-   "text": "SCG's 2025 sustainability report reports 29.06 million tCO2e of GHG emissions and a 15.14% reduction from the 2020 baseline.",
+   "text": "SCG's 2025 Sustainability Report reports 29.06 million tCO2e of GHG emissions and a 15.14% reduction from the 2020 baseline.",
    "published_at": "2025-01-01",
    "source_url": "https://www.sustainabilityreports.com/siam-cement/2025/sustainability-narrative",
    "source_type": "company_pr",
@@ -20,36 +20,44 @@
   },
   {
    "event_id": "SET:SCC-harvest-2",
-   "text": "Siam Cement Group (SCG) will allocate US$6bn between 2025 and 2030 to improve the sustainability of its businesses.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.globalcement.com/news/item/17881-siam-cement-group-to-invest-us-6bn-in-eco-friendly-initiatives",
+   "text": "The Pollution Control Department's investigation revealed that surface water around Siam Cement's facility has high levels of acidity and lead contamination, underground water quality at 12 locations was below standard, and a watercourse was contaminated, resulting in a significant fine on soil pollution.",
+   "published_at": "2023-02-01",
+   "source_url": "https://www.dfdl.com/insights/legal-and-tax-updates/thailand-significant-fine-on-soil-pollution/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-3",
+   "text": "Pattaya City officials inspected environmental issues caused by a cement plant near Sukhumvit Soi 91/1 in response to complaints about dust pollution.",
+   "published_at": "2024-07-12",
+   "source_url": "https://www.pattayamail.com/news/pattaya-authorities-inspect-dust-pollution-from-cement-plant-near-sukhumvit-soi-91-1-493049",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply; controversy: offline",
- "snippet_count": 24,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
    "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply"
+   "kept": 4,
+   "status": "cache"
   },
   "governance": {
    "snippets": 8,
    "kept": 2,
-   "status": "live"
+   "status": "cache"
   },
   "financing": {
    "snippets": 8,
-   "kept": 5,
-   "status": "live"
+   "kept": 0,
+   "status": "cache"
   },
   "controversy": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline"
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
   }
  },
- "kept": 3
+ "kept": 4
 }

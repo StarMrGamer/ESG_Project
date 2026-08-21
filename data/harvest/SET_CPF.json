@@ -1,0 +1,111 @@
+{
+ "company_id": "SET:CPF",
+ "company": "Charoen Pokphand Foods PCL",
+ "events": [
+  {
+   "event_id": "SET:CPF-harvest-0",
+   "text": "CPF's 2024 Sustainability Report reports a 27% reduction in direct and indirect GHG emissions per production unit in Thailand against a 2015 base year.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-1",
+   "text": "CPF's 2024 Sustainability Report reports that 56% of revenue came from green products.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-2",
+   "text": "CPF's 2025 Sustainability Report states the company became the first food producer with SBTi-validated near-term and long-term net-zero targets for 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-3",
+   "text": "CPF's 2025 Sustainability Report states the company achieved 100% coal-free operations across nine countries.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-4",
+   "text": "In 2025, the Company conducted a sustainability materiality assessment across its agro-industrial and food value chain, reviewing key internal and external factors including major economic, social, and environmental risks.",
+   "published_at": "2025-01-01",
+   "source_url": "https://sustainability.cpfworldwide.com/en/sustainability-at-cpf/sustainability-at-cpf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-5",
+   "text": "Key achievements in 2025 include becoming the first food producer with SBTi-validated near-term and long-term net-zero targets for 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-6",
+   "text": "Key achievements in 2025 include achieving 100% coal-free operations across nine countries.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-7",
+   "text": "A Thai court accepted a class action lawsuit against Charoen Pokphand Foods for causing environmental damage from the rapid spread of an invasive fish species.",
+   "published_at": "2025-03-04",
+   "source_url": "https://www.thejakartapost.com/business/2025/03/04/thai-lawsuit-targets-charoen-pokphand-foods-over-invasive-fish-impact",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-8",
+   "text": "The first hearing was held in a defamation lawsuit brought in Thailand by Charoen Pokphand Foods (CPF) against an environmental group that allegedly suggested the seafood giant introduced blackchin tilapia.",
+   "published_at": "2025-10-06",
+   "source_url": "https://www.undercurrentnews.com/2025/10/06/cp-foods-lawsuit-fights-claims-it-brought-invasive-tilapia-to-thailand/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-9",
+   "text": "Witoon Lianchamroon, secretary-general of the BIOTHAI Foundation, appeared in court on October 22 to face charges filed by Charoen Pokphand Foods (CPF).",
+   "published_at": "2025-10-22",
+   "source_url": "https://www.envirolink.org/2025/11/04/thai-food-giant-sues-activist-over-invasive-fish-crisis-claims/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  }
+ },
+ "kept": 10
+}

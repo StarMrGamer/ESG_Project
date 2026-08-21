@@ -200,6 +200,36 @@ different run — and the board states the count rather than mixing the two sile
 `pipeline_counts` applies the same overlay so the money slide and the screen can never report a
 different M, and the frozen record carries `evidence_basis` naming which run produced it.
 
+**WHAT THE HARVEST ACTUALLY DID** (measured 2026-08-22, full sweep of every zero-signal name):
+
+| | verified only | + harvested |
+|---|---|---|
+| signals | 76 | **180** |
+| companies with NO evidence | 28 | **3** |
+| max signals on one company | 5 | 7 |
+| companies at the 10-signal bar | 0 | **0** |
+| N / M / K | 13 / 4 / 1 | **13 / 10 / 3** |
+| quadrants populated | 2 of 4 | **4 of 4** |
+
+149 dated, sourced events across 26 companies. The evidence gap essentially closed, the
+origination pipeline more than doubled, and `overrated_leaders` and `value_traps` appeared on
+real data for the first time — the negative quadrants existing at all is what makes the matrix an
+argument rather than a ranking.
+
+**And still zero Hidden Winners — but the reason is NOT the signal count.** Twelve companies now
+clear the disagreement bar; every one fails on CONFIDENCE, and lowering `min_signal_count` alone
+changes nothing (at n>=4 with confidence>=0.5 the answer is still 0). The binding constraint is
+that **92% of what live search returns is company-published**, which `source_quality` caps at 0.5
+— the Adaro rule — so mean harvested quality is 0.52 and confidence cannot climb past roughly
+half of coverage however much of it we gather.
+
+That is the confidence model working exactly as designed: it refuses to be confident about
+self-reported evidence, which is the entire reason the cap exists. So the route to an honest
+Hidden Winner is **better sources, not more of them** — regulator actions, exchange filings,
+index-provider decisions — which is the alt-data roadmap item, not a threshold to tune. Do not
+lower the bar to populate the quadrant; the label would then mean "we found a lot of press
+releases", which is precisely what Adaro looked like.
+
 **The traction screen runs now** (`traction.py`, playbook step 4 / Methodology §B.4). Four tests
 — revenue growth >=10% compound over two FYs, operating cash flow positive or improving, a
 disclosed order book, signed PPAs or committed green capex. **>=2 met = flag; 0 met =

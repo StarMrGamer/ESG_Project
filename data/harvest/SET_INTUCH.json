@@ -1,0 +1,30 @@
+{
+ "company_id": "SET:INTUCH",
+ "company": "Intouch Holdings PCL",
+ "events": [],
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline",
+ "snippet_count": 0,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline"
+  },
+  "governance": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline"
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline"
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline"
+  }
+ },
+ "kept": 0
+}

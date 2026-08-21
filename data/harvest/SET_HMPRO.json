@@ -1,0 +1,71 @@
+{
+ "company_id": "SET:HMPRO",
+ "company": "Home Product Center",
+ "events": [
+  {
+   "event_id": "SET:HMPRO-harvest-0",
+   "text": "Home Product Center's 2023 Sustainability Report states HomePro's commitment to achieving Net Zero greenhouse gas emissions by 2050.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2023/sustainability-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-1",
+   "text": "In 2023, Home Product Center expanded its renewable energy use with 90 solar roof projects, according to its 2023 Sustainability Report.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2023/sustainability-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-2",
+   "text": "In 2023, Home Product Center introduced the 'Trade In' campaign to promote a circular economy, managing over 122,000 old items, according to its 2023 Sustainability Report.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2023/sustainability-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-3",
+   "text": "In 2024, Home Product Center achieved a 51.4% sales mix of eco-friendly products.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-4",
+   "text": "Home Product Center maintained its target for Net Zero emissions by 2050.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 31,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 7,
+   "kept": 2,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  }
+ },
+ "kept": 5
+}

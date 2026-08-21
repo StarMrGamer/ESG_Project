@@ -4,16 +4,76 @@
  "events": [
   {
    "event_id": "SGX:SGX-harvest-0",
-   "text": "SGX RegCo will mandate Scope 1 and Scope 2 emissions reporting for listed companies starting from the 2025 financial year.",
+   "text": "SGX is committing to a 42% reduction in Scope 2 emissions by FY2031 from the base as at FY2021, pledging to set science-based emissions reduction targets consistent with keeping global warming to 1.5°C.",
+   "published_at": "2021-07-15",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/unsa8akfuf7i8noc/674901_20210715_SGX_first_Asian_exchange_to_commit_to_1.5C_science-based_emission_targets.pdf",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SGX-harvest-1",
+   "text": "From the 2025 financial year onwards, Singapore-listed companies must report their scope 1 and scope 2 greenhouse gas emissions.",
    "published_at": "2024-10-01",
-   "source_url": "https://kpmg.com/sg/en/media/press-contributions/2024/10/the-role-of-listed-companies-in-leading-singapore-s-esg-shift.html",
+   "source_url": "https://greencentralbanking.com/2024/10/01/singapore-moves-forward-with-issb-standards-despite-scope-3-delay/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SGX-harvest-2",
+   "text": "Singapore Exchange added a rule requiring an issuer to issue a sustainability report on 20 July 2016, amended on 1 January 2022 and 1 January 2026.",
+   "published_at": "2016-07-20",
+   "source_url": "https://rulebook.sgx.com/rulebook/sustainability-report",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SGX-harvest-3",
+   "text": "Since 2016, the Singapore Exchange has required every listed issuer to prepare an annual sustainability report.",
+   "published_at": "2016-01-01",
+   "source_url": "https://greenco-esg.sg/sgx-sustainability-reporting-guide/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SGX-harvest-4",
+   "text": "From FY 2025 onwards, the Singapore Exchange requires all listed issuers to publish climate-related disclosures aligned with the International Sustainability Standards Board framework.",
+   "published_at": "2025-01-01",
+   "source_url": "https://rafflescorporateservices.com/singapore-sustainability-reporting-2026-sgx-issb-sra-roadmap/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SGX-harvest-5",
+   "text": "The 2026 enhanced requirements introduce more rigorous climate disclosure obligations aligned with international best practices.",
+   "published_at": "2026-01-01",
+   "source_url": "https://xcelgreen.com/insights/sgx-sustainability-reporting-2026",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "cache",
- "snippet_count": 8,
- "query": "Singapore Exchange Singapore ESG sustainability emissions target green financing governance controversy",
- "kept": 1,
- "proposed": 1
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  }
+ },
+ "kept": 6
 }
