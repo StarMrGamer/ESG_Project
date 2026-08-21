@@ -159,6 +159,32 @@ non-commercial reference/publication needs written approval, and commercial use,
 **systematic reproduction** needs a licence — so this is attributed, on-demand, one company at a
 time, cached locally, and **`data/` never receives a scrape**.
 
+**The matrix has a shape now** (2026-08-22). `H` was a constant 340 against a MEASURED width, so
+the plot area got flatter the wider the board went — about 7:1 on a 1920 monitor and 20:1 on a
+2550 one, where every dot collapsed onto a single horizontal line and the four quadrants stopped
+reading as quadrants at all. y is the axis carrying our half of the argument, so a chart that
+cannot show vertical separation is not showing the disagreement. The plot now holds a fixed
+~2.6:1 ratio, `MAX_W` (1180) caps how wide it gets, and past ~1500px the legend and the
+hidden-winner shortcuts move up BESIDE it rather than leaving a band of empty panel either side.
+The panel stays full-bleed, so the board still lines up with the header. Two traps if you touch
+this: `margin-inline: auto` on a flex child cancels `stretch` and the SVG collapses to a few
+hundred pixels (centring is the container's job), and `flex: 0 0 auto` in a row means
+shrink-to-fit, which an SVG with no intrinsic width has nothing to fit to.
+
+**"No evidence" and "evidence says flat" are different claims** and both land on exactly y=0. On
+the verified basket that is 28 of 52 names overplotting into an unreadable smear, so a
+zero-signal company is drawn HOLLOW and the count is stated beside the chart. An absence of
+evidence is a finding, not a blank.
+
+**Metadata follows its universe** (regression fixed 2026-08-22, pinned by `selftest.py`).
+`company_metadata.active_file()` preferred the real CSV as soon as one existed, so the moment the
+verified 52 landed the FICTIONAL demo universe started joining 52 real companies and matched
+none of them: every demo badge silently went unverified and the demo board reported **N 0 · M 0**
+— a join miss rendered as an origination finding, which is the exact failure this module exists
+to prevent arriving through the other door. `load(demo=...)` now pins the pairing, and every
+caller that knows which universe it is scoring passes it. Note `_metadata_hash` is an input to
+`run_id`, so swapping the metadata file legitimately changes the run id and the golden digest.
+
 **"But what about the future?"** (added 2026-08-19, review feedback). The fair objection to
 everything above is that evidence keeps arriving — so a verdict on screen is a snapshot, which is
 exactly what we criticise a rating for being. Two surfaces answer it, and neither predicts

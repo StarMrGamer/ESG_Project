@@ -121,11 +121,11 @@ def counts(run, metadata, cfg=None):
     }
 
 
-def freeze(run, metadata, cfg=None, frozen_at=""):
+def freeze(run, metadata, cfg=None, frozen_at="", demo=False):
     """The record handed to Brina/Grace: the counts plus everything needed to re-derive them."""
     result = counts(run, metadata, cfg)
     cfg = cfg or engine_config.load()
-    report = company_metadata.load_report()
+    report = company_metadata.load_report(demo=demo)
     return {
         "_note": "Frozen N/M/K for the money slide (B2). Re-derivable: same run_id + same "
                  "metadata file -> same three numbers.",
@@ -158,7 +158,9 @@ def _today():
 def main(argv):
     real = "--real" in argv
     cfg = engine_config.load()
-    metadata = company_metadata.load()
+    # Metadata follows the universe: the mock rows describe the fictional set, the verified CSV
+    # describes the real 52, and crossing them joins nothing.
+    metadata = company_metadata.load(demo=not real)
     source = universe.active_file(demo=not real)
     run = engine.run_engine(universe.constituents(source), metadata=metadata, use_cache=False)
     result = counts(run, metadata, cfg)
@@ -170,7 +172,7 @@ def main(argv):
     print(f"  universe {result['universe_size']} · theta {result['theta']}")
 
     if "--freeze" in argv:
-        record = freeze(run, metadata, cfg, frozen_at=_today())
+        record = freeze(run, metadata, cfg, frozen_at=_today(), demo=not real)
         with open(FROZEN_FILE, "w", encoding="utf-8") as fh:
             json.dump(record, fh, indent=1, sort_keys=True)
         print(f"\nfroze -> {os.path.relpath(FROZEN_FILE, BASE_DIR)} "

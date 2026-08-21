@@ -29,10 +29,33 @@ const LABEL_TONE: Record<string, string> = {
  *
  * Padding is asymmetric because the axes need room: the left gutter holds the tick labels and the
  * rotated axis name, the bottom holds the tick labels, the axis name and the two end captions.
+ *
+ * HEIGHT FOLLOWS WIDTH (fixed 2026-08-22). `H` used to be a constant 340 against a measured
+ * width, so the plot area got flatter the wider the board went: ~7:1 on a 1920 monitor and ~20:1
+ * on a 2550 one, where every dot collapsed onto a single horizontal line and the four quadrants
+ * stopped being readable as quadrants at all. y is the axis that carries our half of the argument
+ * — a chart that cannot show vertical separation is not showing the disagreement. So the plot
+ * area now holds a fixed ratio and the SVG grows taller as it grows wider, with `MAX_W` capping
+ * how wide it is allowed to get before it simply centres in the panel. The panel itself stays
+ * full-bleed, so the board still lines up with the header.
  */
-const H = 340
 const PAD = { l: 104, r: 30, t: 34, b: 66 }
 const MIN_W = 520
+/** Beyond this the chart centres instead of stretching — past it, extra width buys nothing. */
+const MAX_W = 1180
+/** plot width : plot height. Landscape enough for a dashboard, square enough to read quadrants. */
+const PLOT_RATIO = 2.6
+/** Keeps the chart from dominating the page on a wide screen, and readable on a narrow one. */
+const H_MIN = 300
+const H_MAX = 520
+
+const clamp = (lo: number, v: number, hi: number) => Math.min(hi, Math.max(lo, v))
+
+/** The SVG height that gives the PLOT area its target ratio at this width. */
+function heightFor(width: number): number {
+  const plotW = width - PAD.l - PAD.r
+  return Math.round(clamp(H_MIN, plotW / PLOT_RATIO + PAD.t + PAD.b, H_MAX))
+}
 
 /** Where the tick marks and gridlines fall on each axis. */
 const X_TICKS = [0, 0.25, 0.5, 0.75, 1]
@@ -124,8 +147,10 @@ export default function EngineBoard() {
   const { nmk, labels, label_counts, label_tooltips, label_rules, tiers, tier_rules, anchor,
     horizons, half_life_days } = engine
   const dimmed = rows.length - shown.length
+  const blankCount = rows.filter(r => r.signal_count === 0).length
 
-  const W = Math.max(MIN_W, wide)
+  const W = clamp(MIN_W, wide, MAX_W)
+  const H = heightFor(W)
   const rect: Rect = {
     x0: PAD.l, x1: W - PAD.r, y0: PAD.t, y1: H - PAD.b,
     midX: PAD.l + (W - PAD.r - PAD.l) / 2, midY: PAD.t + (H - PAD.b - PAD.t) / 2,
@@ -209,6 +234,10 @@ export default function EngineBoard() {
         </div>
       </div>
 
+      {/* The chart stops widening at MAX_W, so on a wide board the legend and the hidden-winner
+          shortcuts move up beside it instead of leaving a band of empty panel either side. Below
+          that width they fall back under the chart, which is the narrow-screen order anyway. */}
+      <div className="matrix-row">
       <div className="matrix-wrap" ref={measureRef}>
         <svg viewBox={`0 0 ${W} ${H}`} className="matrix" role="img"
           aria-label="Quadrant matrix of incumbent rating percentile against live momentum">
@@ -288,10 +317,14 @@ export default function EngineBoard() {
             const on = matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
               engine.badges?.[r.company_id]?.green_bond?.status || '')
             const isFocus = r.company_id === focusTicker
+            // No evidence is not the same claim as evidence that says flat, and on this plot
+            // both land on exactly y=0 — so they are drawn differently. A hollow dot reads as
+            // "nothing to say about this one yet", which is what a zero signal count means.
+            const blank = r.signal_count === 0
             return (
               <circle key={r.company_id} cx={cx} cy={cy}
                 r={r.label === 'hidden_winners' ? 8 : 6}
-                className={`matrix-dot ${LABEL_TONE[r.label]} ${on ? '' : 'is-dim'} ${isFocus ? 'is-focus' : ''}`}
+                className={`matrix-dot ${LABEL_TONE[r.label]} ${on ? '' : 'is-dim'} ${isFocus ? 'is-focus' : ''}${blank ? ' is-blank' : ''}`}
                 onClick={() => { setFocus(r.company_id); openEvidence(r.company_id) }}>
                 <title>{`${nameOf[r.company_id] || r.company_id} — ${r.label_display}
 rating percentile ${(r.lseg_percentile * 100).toFixed(0)}% · momentum ${r.composite_momentum >= 0 ? '+' : ''}${r.composite_momentum.toFixed(2)}
@@ -302,6 +335,17 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
         </svg>
       </div>
 
+      <div className="matrix-side">
+      {/* Overplotting on the zero line is a real reading hazard on the verified basket, where
+          more than half the names have nothing scorable yet. Saying the number out loud turns
+          an unreadable smear into the finding it actually is. */}
+      {blankCount > 0 && (
+        <p className="matrix-blank-note">
+          <b>{blankCount}</b> of {rows.length} companies have no scorable evidence yet and sit on
+          the zero line, drawn hollow. That is an absence of evidence, not evidence of no
+          movement — and closing that gap is what the alt-data feeds are for.
+        </p>
+      )}
       {hidden.length > 0 && (
         <div className="hw-strip">
           <span className="hw-strip-label" title={label_tooltips.hidden_winners}>
@@ -333,6 +377,8 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
           </span>
         )}
       </div>
+      </div>
+      </div>
 
       {/* Provenance + maker-checker. Two different claims, kept apart on purpose: the rows are
           verified BY US against the ICMA-based process, which is not the same as CGSI having
@@ -343,10 +389,12 @@ disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · co
           <span className={`review-chip ${engine.metadata.verified ? 'on' : 'pending'}`}>
             {engine.metadata.review_chip || 'AI-assisted · pending review'}
           </span>
+          {/* `header` already states the provisional-vs-verified claim in full; repeating it
+              here read as "PROVISIONAL ... PROVISIONAL ...". Only the reviewer and the file
+              path are added. */}
           {engine.metadata.header}{' '}
-          {engine.metadata.verified
-            ? <>Reviewer: {engine.metadata.verified_by} — {engine.metadata.path}</>
-            : <><b>PROVISIONAL</b> until the verified CSV lands — {engine.metadata.path}</>}
+          {engine.metadata.verified && <>Reviewer: {engine.metadata.verified_by} — </>}
+          <span className="mono-path">{engine.metadata.path}</span>
         </div>
       )}
     </div>

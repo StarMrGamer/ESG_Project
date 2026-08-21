@@ -89,7 +89,7 @@ def _demo_run(*, metadata=None, use_cache=False, config=None):
 # --------------------------------------------------------------------------- #
 def check_determinism(report):
     report.section("Gate 1 — determinism")
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=True)
     cold = _demo_run(metadata=meta, use_cache=False)
     again = _demo_run(metadata=meta, use_cache=False)
     cached = _demo_run(metadata=meta, use_cache=True)
@@ -138,7 +138,7 @@ STABILITY_RERUNS = 5
 
 def check_stability(report):
     report.section(f"Stability — {STABILITY_RERUNS} identical reruns")
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=True)
     runs = [_demo_run(metadata=meta, use_cache=False) for _ in range(STABILITY_RERUNS)]
     series = {}
     for run in runs:
@@ -398,7 +398,7 @@ def check_timelines(report):
 # --------------------------------------------------------------------------- #
 def check_merkle(report, run):
     report.section("Merkle / anchoring determinism")
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=True)
     first = anchor.build_anchor_record(run, meta)
     second = anchor.build_anchor_record(run, meta)
     report.check(first["root"] == second["root"], "same run -> same root, twice",
@@ -435,11 +435,11 @@ def check_guards(report, run):
     report.check(missing == {}, "an explicit missing CSV loads NOTHING",
                  "no silent fallback to the mock — a Phase B1 typo must not serve mock rows "
                  "as verified")
-    report.check(len(company_metadata.load()) > 0, "…while the default lookup still resolves")
+    report.check(len(company_metadata.load(demo=True)) > 0, "…while the default lookup still resolves")
 
     # A config change gives the run a new id, so its anchor record may not exist yet; build it
     # locally (never pushed from the harness) exactly as the server does before verifying.
-    anchor.anchor_run(run, company_metadata.load(), push=False)
+    anchor.anchor_run(run, company_metadata.load(demo=True), push=False)
 
     verdict = anchor.verify_company(run["run_id"], "NOT:AREALTICKER", check_chain=False)
     report.check(verdict["status"] == "no_evidence" and not verdict["ok"],
@@ -521,7 +521,7 @@ def check_horizons(report, baseline):
     report.check(len(names) >= 2, "config declares more than one horizon",
                  " · ".join(f"{k} {v}d" for k, v in sorted(engine_config.horizons().items())))
 
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=True)
     runs, roots = {}, {}
     for name in names:
         cfg = engine_config.for_horizon(name)
@@ -566,7 +566,7 @@ def check_digital_influence(report, baseline):
     quadrant when the pillar is removed entirely, then whatever DIGITAL is measuring, it is not
     currently changing what we tell anyone."""
     report.section("DIGITAL pillar — does it change any decision?")
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=True)
     base_labels = {r["company_id"]: r["label"] for r in baseline["records"]}
 
     for name, path in (("demo (fictional)", universe.DEMO_FILE),
@@ -597,7 +597,7 @@ def check_sweep(report, baseline):
     display = baseline["labels"]
     report.info("baseline: " + " · ".join(
         f"{display.get(k, k)} {v}" for k, v in sorted(engine.label_counts(baseline).items())))
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=True)
     for name, patch in SWEEPS:
         cfg = engine_config.load(overrides=patch)
         run = _demo_run(metadata=meta, use_cache=False, config=cfg)
@@ -685,11 +685,11 @@ def main(argv):
 
     if "--update-golden" in flags:
         print("=== Re-freezing the golden set " + "=" * 34)
-        update_golden(_demo_run(metadata=company_metadata.load(), use_cache=False))
+        update_golden(_demo_run(metadata=company_metadata.load(demo=True), use_cache=False))
         return 0
 
     baseline = check_determinism(report) if (everything or "--gate1" in flags) else \
-        _demo_run(metadata=company_metadata.load(), use_cache=False)
+        _demo_run(metadata=company_metadata.load(demo=True), use_cache=False)
     if everything or "--gate1" in flags or "--stability" in flags:
         check_stability(report)
     if everything or "--gate1" in flags or "--golden" in flags:

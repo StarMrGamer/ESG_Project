@@ -323,12 +323,14 @@ def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON):
     by having both answers ready, not by making the flip cheap."""
     cfg = engine_config.for_horizon(horizon)
     path = universe.active_file(demo)
+    # The metadata file follows the UNIVERSE, not the preference order: the fictional demo set
+    # is keyed on invented tickers and joins nothing against the verified 52.
     key = (path, cfg["config_hash"], os.path.getmtime(path) if os.path.exists(path) else 0,
-           company_metadata.load_report().get("rows", 0))
+           company_metadata.load_report(demo=demo).get("rows", 0), demo)
     hit = _ENGINE_MEMO.get(key)
     if hit:
         return hit
-    meta = company_metadata.load()
+    meta = company_metadata.load(demo=demo)
     run = engine.run_engine(universe.constituents(path), metadata=meta, config=cfg)
     if len(_ENGINE_MEMO) > 8:      # keys carry mtime+config; 2 universes x 2 horizons live here
         _ENGINE_MEMO.clear()
@@ -445,7 +447,7 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
         "default_horizon": engine_config.DEFAULT_HORIZON,
         "half_life_days": cfg["decay"]["half_life_days"],
         "nmk": pipeline_counts.counts(subset, meta, cfg),
-        "metadata": company_metadata.load_report(),
+        "metadata": company_metadata.load_report(demo=demo),
         "anchor": _anchor_summary(run),
         "records": {t: _record_summary(by_id[t]) for t in tickers if t in by_id},
         "badges": {t: _badges(t, meta, cfg, by_id.get(t)) for t in tickers},
@@ -1114,7 +1116,7 @@ def verify(body: VerifyIn):
     run, _meta, _cfg = _engine_run(body.demo, body.horizon)
     record = anchor.load_record(run["run_id"])
     if not record:
-        anchor.anchor_run(run, company_metadata.load(), push=False)
+        anchor.anchor_run(run, company_metadata.load(demo=body.demo), push=False)
     evidence = None
     if body.tamper:
         stored = anchor.load_record(run["run_id"]) or {}
@@ -1164,7 +1166,7 @@ def lseg_api(ticker: str, demo: bool = Query(False), company: str = "", exchange
 
     This is the only number on the board that the rating agency itself published, so it is the
     honest left-hand side of "what the rating sees vs what we see". Everywhere else the
-    incumbent baseline is `baseline_origin: "MOCK-LSEG"`; here it is sourced, dated by fiscal
+    incumbent baseline is a SUPPLIED or MOCK figure; here it is sourced, dated by fiscal
     year, and attributed on its face.
 
     Deliberately NOT part of /api/board. It is one outbound call per company and the board
@@ -1191,8 +1193,18 @@ def lseg_api(ticker: str, demo: bool = Query(False), company: str = "", exchange
     if not name:
         return {**base, "available": False, "reason": f"{ticker} is not in the loaded universe."}
 
+    # CGSI write short trading names ("OCBC", "SingTel"); LSEG index the full legal ones
+    # ("Oversea-Chinese Banking Corporation Ltd", "Singapore Telecommunications Ltd"). The
+    # basket already carries the longer forms as aliases, so try those before concluding an
+    # issuer is uncovered — otherwise "not in LSEG's 12.5k" is reported for a company LSEG
+    # covers perfectly well, which is the worst kind of wrong answer: a confident one.
+    candidates = [name] + [a for a in (row.get("aliases") or []) if len(a) > 3 and a != name]
+    scores = None
     try:
-        scores = lseg.lookup(name, market)
+        for candidate in candidates:
+            scores = lseg.lookup(candidate, market)
+            if scores:
+                break
     except Exception as exc:  # noqa: BLE001 — rule 1: a third party never breaks the board.
         return {**base, "available": False, "reason": f"LSEG lookup failed: {type(exc).__name__}"}
 

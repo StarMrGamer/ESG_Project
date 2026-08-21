@@ -1473,7 +1473,14 @@ kbd.kbd {
 .nmk { display: flex; gap: 12px; flex-wrap: wrap; color: var(--r-muted); font-size: 12.5px; }
 .nmk b { color: var(--r-text); font: 600 12.5px var(--r-mono); margin-right: 4px; }
 
-.matrix-wrap { margin: 6px 0 4px; }
+/* The chart stops widening at MAX_W (EngineBoard.tsx) and centres in the panel instead. The
+   PANEL still runs full-bleed so the board keeps its alignment with the header; it is only the
+   plot that stops stretching, because past about 1200px extra width buys a flatter chart rather
+   than a more readable one. */
+/* No `margin-inline: auto` here: an auto cross-axis margin on a flex child cancels `stretch`,
+   so the wrap shrink-to-fits and the SVG (width:100%) collapses to a few hundred pixels.
+   Centring is the container's job — see `.matrix-row` below. */
+.matrix-wrap { margin: 6px 0 4px; width: 100%; max-width: 1180px; }
 .matrix {
   display: block; width: 100%; height: auto;
   background: color-mix(in srgb, var(--r-bg) 55%, transparent);
@@ -2699,3 +2706,38 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   .cve-arrow { padding-top: 0; transform: rotate(90deg); }
 }
 .badge-sub { color: var(--r-faint); font-size: 10.5px; font-style: normal; margin-left: var(--sp-2); }
+
+/* --- matrix + its side rail ---------------------------------------------------------------
+   The plot caps at MAX_W (EngineBoard.tsx). Past roughly 1500px of panel there is room for the
+   legend and the hidden-winner shortcuts to sit BESIDE it rather than under it, which fills what
+   would otherwise be a wide band of empty panel on both sides of a centred chart. Under that
+   width they stack, which is the narrow-screen order regardless. */
+.matrix-row { display: flex; flex-direction: column; align-items: center; }
+.matrix-side { display: flex; flex-direction: column; gap: var(--sp-3); width: 100%; }
+@media (min-width: 1500px) {
+  .matrix-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--sp-7);
+  }
+  /* An explicit basis, because `auto` in a row means shrink-to-fit and the SVG has no
+     intrinsic width to fit to. 1180 is MAX_W in EngineBoard.tsx. */
+  .matrix-wrap { flex: 0 0 1180px; }
+  .matrix-side { flex: 1 1 0; min-width: 0; justify-content: flex-start; padding-top: var(--sp-4); }
+  /* Stacked in the rail, the legend and picks read as a list rather than a ticker tape. */
+  .matrix-side .matrix-legend,
+  .matrix-side .hw-strip { flex-wrap: wrap; }
+}
+.mono-path { font-family: var(--r-mono); font-size: 11px; color: var(--r-faint); }
+
+/* A company with no scorable evidence lands on exactly y=0, same as one whose evidence nets to
+   flat. They are different claims, so the empty one is drawn hollow. */
+.matrix-dot.is-blank { fill: transparent; stroke: currentColor; stroke-width: 1.5; opacity: 0.55; }
+.matrix-blank-note {
+  margin: 0; padding: var(--pad-card);
+  border: 1px solid var(--r-border); border-left: 2px solid var(--r-borderStrong);
+  border-radius: var(--r-radius-xs);
+  background: color-mix(in srgb, var(--r-inset) 70%, transparent);
+  color: var(--r-muted); font-size: 12px; line-height: 1.55;
+}
+.matrix-blank-note b { color: var(--r-text); }

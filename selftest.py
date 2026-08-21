@@ -1179,6 +1179,39 @@ def test_snapshot_band_direction_aware():
 
 
 # --- CGSI verified basket (2026-08-21 data swap) ------------------------------
+def test_metadata_follows_its_universe():
+    """The demo universe joins the MOCK rows; the real basket joins the VERIFIED CSV.
+
+    Regression for 2026-08-22. `active_file` preferred the real CSV as soon as it existed, so
+    the fictional demo tickers joined 52 real companies and matched none of them — every demo
+    badge silently went unverified and the demo board reported N 0 · M 0. A join miss rendered
+    as an origination finding is exactly the failure this module exists to prevent, arriving
+    through the other door, and nothing raised."""
+    import company_metadata, engine, engine_config, pipeline_counts
+
+    real_rows, demo_rows = company_metadata.load(), company_metadata.load(demo=True)
+    assert real_rows and demo_rows, (len(real_rows), len(demo_rows))
+    assert company_metadata.load_report()["path"].endswith("company_metadata.csv")
+    assert company_metadata.load_report(demo=True)["path"].endswith("_mock.csv")
+    # They are different row sets. (They are not disjoint — the mock file also carries the real
+    # ASEAN tickers our earlier universe used — so the meaningful assertion is the join coverage
+    # below, not an emptiness check here.)
+    assert real_rows != demo_rows
+
+    cfg = engine_config.load()
+    for demo, rows in ((False, real_rows), (True, demo_rows)):
+        cons = universe.constituents(universe.active_file(demo))
+        matched = sum(1 for c in cons if c["ticker"] in rows)
+        assert matched >= len(cons) * 0.9, (
+            f"{'demo' if demo else 'real'} universe joined only {matched}/{len(cons)} "
+            "metadata rows — the metadata file does not describe this universe")
+        run = engine.run_engine(cons, metadata=rows, config=cfg, use_cache=False)
+        counts = pipeline_counts.counts(run, rows, cfg)
+        # N is a straight read of a verified column; zero here means the join failed, not that
+        # a 52-name ASEAN basket contains no green-bond issuers.
+        assert counts["N"] > 0, (demo, counts)
+
+
 def test_cgsi_basket_adapts_onto_the_frozen_schema():
     """The real 52 load, N reproduces CGSI's own count, and the frozen header still holds.
 
@@ -1791,6 +1824,8 @@ def main():
          lambda: test_sensitivity_is_pure_and_finds_load_bearing_signals()),
         ("backtest series shaped for the track-record panel",
          lambda: test_backtest_series_on_disk_is_shaped_for_the_panel()),
+        ("metadata follows its universe (demo -> mock, real -> verified)",
+         lambda: test_metadata_follows_its_universe()),
         ("CGSI verified 52 adapts onto the frozen schema (N=13 reproduces)",
          lambda: test_cgsi_basket_adapts_onto_the_frozen_schema()),
         ("sector benchmark joins directly and refuses to guess",

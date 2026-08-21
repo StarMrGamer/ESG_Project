@@ -311,7 +311,8 @@ def main(argv):
     price_cached = _float_arg(argv, "--price-cached", "ESG_LLM_PRICE_CACHED")
 
     constituents = universe.constituents(universe.DEMO_FILE)
-    run = engine.run_engine(constituents, metadata=company_metadata.load(), use_cache=False)
+    run = engine.run_engine(constituents, metadata=company_metadata.load(demo=True),
+                            use_cache=False)   # constituents above are the DEMO universe
     floor = _measured_floor(chars)
 
     print("LLM cost per DEEP DIVE — prompts measured off the golden-set universe")

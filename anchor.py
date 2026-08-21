@@ -491,7 +491,6 @@ def _cli(argv):
         return 0 if payload.get("ok") else 1
 
     push = "--no-push" not in argv
-    metadata = company_metadata.load()
     # Every horizon is anchored, not just the default. The Short and Long views are different
     # runs over the same evidence, so a judge who flips the toggle and clicks Verify must get a
     # real answer either way — an unanchored half of the product is worse than no toggle. It is
@@ -499,6 +498,10 @@ def _cli(argv):
     horizons = sorted(engine_config.horizons()) or [engine_config.DEFAULT_HORIZON]
     for demo in (True, False):
         source = universe.active_file(demo)
+        # Metadata follows the universe — the mock rows key on the fictional tickers, the
+        # verified CSV on the real 52. Loading one set for both anchors a tree whose green-bond
+        # leaves belong to companies that are not in the run.
+        metadata = company_metadata.load(demo=demo)
         for name in horizons:
             cfg = engine_config.for_horizon(name)
             run = engine.run_engine(universe.constituents(source), metadata=metadata, config=cfg)

@@ -283,7 +283,69 @@ def resolve_ric(company: str, exchange: str = "", *, use_cache: bool = True) -> 
 
     import difflib
     close = difflib.get_close_matches(target, [n for n in by_norm if n], n=1, cutoff=0.80)
-    return by_norm[close[0]] if close else None
+    if close:
+        return by_norm[close[0]]
+
+    # Last tier: a CONTRACTION of the legal name. Baskets carry trading names ("OCBC",
+    # "SingTel"); LSEG index legal ones ("Oversea-Chinese Banking Corporation Ltd", "Singapore
+    # Telecommunications Ltd"). Those share no whole token and score far below the difflib
+    # cutoff, so a real issuer was being reported as "not in LSEG's ~12.5k covered issuers" —
+    # a confidently wrong answer, which is the worst kind.
+    #
+    # The rule: does the query read as this name's words clipped and run together, in order?
+    # "oversea|chinese|banking|corporation" -> o+c+b+c, and "singapore|telecommunications" ->
+    # sing+tel. Both are the same rule at different prefix lengths.
+    #
+    # Guarded hard, because a loose acronym match is exactly how you paint one bank's ESG
+    # breakdown onto another's: at least four characters, and the match must be UNIQUE inside
+    # the exchange. "OCBC" hits "Oversea-Chinese Banking Corporation" on SGX and must never
+    # reach "Bank OCBC NISP Tbk PT" on IDX, which is a different company.
+    if len(target) >= 4:
+        hits = {r["ricCode"] for r in pool
+                if _is_contraction(target, _contraction_words(r.get("companyName", "")))}
+        if len(hits) == 1:
+            return hits.pop()
+    return None
+
+
+#: Legal forms that trail a company name. Stripped from the END only — "Corporation" is the
+#: fourth letter of OCBC and sits in the middle of "Oversea-Chinese Banking Corporation Ltd",
+#: so a blanket stopword pass (which is what `_norm` does, correctly, for its own purpose)
+#: deletes exactly the word the acronym needs.
+#: Deliberately NARROW: only unambiguous entity forms. "Corporation", "Group" and "Holdings"
+#: stay, because they carry letters an acronym uses — strip "Corporation" and OCBC's name is
+#: three words and can no longer spell OCBC.
+_LEGAL_TAIL = frozenset("""ltd limited plc pcl bhd berhad inc incorporated tbk pt
+    sa nv ag gmbh pjsc""".split())
+
+
+def _contraction_words(name: str) -> List[str]:
+    """A company name as its significant words, trailing legal forms removed."""
+    words = [w for w in re.split(r"[^a-z0-9]+", (name or "").lower()) if w]
+    while words and words[-1] in _LEGAL_TAIL:
+        words.pop()
+    return words
+
+
+def _is_contraction(query: str, words: List[str]) -> bool:
+    """True when `query` is `words` clipped to prefixes and concatenated, in order.
+
+    Every word must be consumed, so "sing" alone does not match ["singapore",
+    "telecommunications"] — otherwise one prefix would match half the exchange."""
+    if not words or len(words) > len(query):
+        return False
+
+    def walk(w_i: int, q_i: int) -> bool:
+        if w_i == len(words):
+            return q_i == len(query)
+        word = words[w_i]
+        # try the longest prefix first so "sing"+"tel" is preferred over "s"+"ingtel"
+        for take in range(min(len(word), len(query) - q_i), 0, -1):
+            if query[q_i:q_i + take] == word[:take] and walk(w_i + 1, q_i + take):
+                return True
+        return False
+
+    return walk(0, 0)
 
 
 # --------------------------------------------------------------------------- #

@@ -66,7 +66,7 @@ def _load_json(path, what):
 
 def _score_universe(demo=False):
     path = universe.DEMO_FILE if demo else universe.UNIVERSE_FILE
-    run = engine.run_engine(universe.constituents(path), metadata=company_metadata.load(),
+    run = engine.run_engine(universe.constituents(path), metadata=company_metadata.load(demo=demo),
                             use_cache=False)
     return run, os.path.relpath(path, BASE_DIR)
 

@@ -128,7 +128,8 @@ def _run(which=DEFAULT_UNIVERSE, config=None):
                 "company_count": len(records)}
     path = UNIVERSES.get(which, universe.UNIVERSE_FILE)
     return engine.run_engine(universe.constituents(path),
-                             metadata=company_metadata.load(), use_cache=False, config=config)
+                             metadata=company_metadata.load(demo=path == universe.DEMO_FILE),
+                             use_cache=False, config=config)
 
 
 def _universe_of(sheet):

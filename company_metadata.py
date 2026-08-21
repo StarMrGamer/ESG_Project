@@ -47,15 +47,25 @@ _TRUEY = ("true", "t", "yes", "y", "1")
 _CACHE = {}          # path -> {"mtime", "rows", "report"}
 
 
-def active_file(path=None):
+def active_file(path=None, demo=False):
     """The real verified CSV once Phase B1 lands, else the provisional mock, else the template.
 
     An EXPLICIT path is used or it is not — never silently replaced by a fallback. Falling back
     would mean a typo in the Phase B1 filename quietly serves mock rows while everyone believes
     they are looking at verified data, which is the one failure this whole module exists to
-    prevent."""
+    prevent.
+
+    `demo=True` pins the MOCK file, because the metadata has to describe the universe it is
+    joined to. The demo universe is fictional and its rows are keyed on invented tickers; the
+    verified CSV describes 52 real companies and matches none of them. Once the real CSV landed
+    (2026-08-21) it won the preference order for BOTH universes, so every demo badge silently
+    went unverified and the demo board reported N 0 · M 0 — a join miss rendered as a finding,
+    which is precisely the failure mode this module exists to prevent, arriving through the
+    other door."""
     if path:
         return path if os.path.exists(path) else ""
+    if demo:
+        return MOCK_FILE if os.path.exists(MOCK_FILE) else ""
     for candidate in (REAL_FILE, MOCK_FILE, TEMPLATE_FILE):
         if os.path.exists(candidate):
             return candidate
@@ -88,19 +98,19 @@ def _norm(row):
     }
 
 
-def load(path=None):
+def load(path=None, demo=False):
     """`{company_id: normalised_row}`. Missing/unreadable file -> `{}` (never raises)."""
-    return _load(path)[0]
+    return _load(path, demo)[0]
 
 
-def load_report(path=None):
+def load_report(path=None, demo=False):
     """`{path, rows, provisional, missing_columns, extra_columns, ok, note}` — what the loader
     actually found. The UI shows this as the data-provenance line under the badges."""
-    return _load(path)[1]
+    return _load(path, demo)[1]
 
 
-def _load(path=None):
-    target = active_file(path)
+def _load(path=None, demo=False):
+    target = active_file(path, demo)
     if not target:
         return {}, {"path": "", "rows": 0, "provisional": 0, "missing_columns": list(HEADER),
                     "extra_columns": [], "ok": False,
