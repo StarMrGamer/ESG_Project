@@ -66,6 +66,8 @@ esg-momentum-radar/
   scripts/                   # developer-only data builders and the LLM probe
     build_cgsi_basket.py     # CGSI's verified 52 -> the universe + the frozen-shape metadata CSV
     refresh_eurostat_benchmark.py  # verifies/refreshes the industry bar from the free Eurostat API
+    sg_day_rates.py          # blended day rates from LIVE MyCareersFuture postings
+    build_cost_workbook.py   # writes the cost model as a real, calculating .xlsx
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
     build_oecd_benchmark.py  # pulls OECD SDMX (emissions x value added) -> the industry benchmark CSV
     demo_reset.py            # puts the running app into a deterministic RECORDING state
@@ -230,6 +232,34 @@ Hidden Winner is **better sources, not more of them** — regulator actions, exc
 index-provider decisions — which is the alt-data roadmap item, not a threshold to tune. Do not
 lower the bar to populate the quadrant; the label would then mean "we found a lot of press
 releases", which is precisely what Adaro looked like.
+
+**DAY RATES FROM REAL POSTINGS** (`scripts/sg_day_rates.py`). The workbook marks four day-rate
+cells "NEEDS SOURCE: MyCareersFuture or Michael Page". MyCareersFuture is Workforce Singapore's
+job portal and its public API returns the salary range employers actually advertised, so the
+rates derive from live postings rather than a remembered band:
+`monthly median midpoint x 12 x (1 + 17% employer CPF) / 260 working days`. Measured 2026-08-22:
+Data/ML **S$405**, Full-stack **S$398**, PM **S$435**, ESG analyst **S$290** — against the
+skeleton's placeholder 500 / 450 / 450 / 400, so the estimates were high.
+
+Three honesty notes ride with them. Singapore gazettes 11 public holidays, so dividing by 260
+rather than ~249 makes every rate a **floor** by ~4%. These are **permanent-employment** costs
+per working day, NOT contractor or agency rates, which carry a margin on top. And the ESG analyst
+figure comes from a wide "ESG" search (143 matches) that sweeps in junior operations roles;
+narrower terms return far higher rates on samples too small to trust (2 postings at ~S$628, 1 at
+~S$594), so that one is flagged in the data and in the workbook as a floor to check against a
+salary guide.
+
+**THE WORKBOOK NOW CALCULATES** (`scripts/build_cost_workbook.py` ->
+`data/ESG_Radar_Cost_Model_filled.xlsx`). Real formulas, so it can be sensitivity-tested, with
+the original's colour convention actually applied: BLUE input (with a Source on its row), BLACK
+formula, AMBER **empty** where a number is still needed — empty rather than placeholder, because
+a plausible number in a cost model is worse than a blank one, and a blank gets asked about.
+Verified by recalculating in LibreOffice and cross-checking against `cost_model.py`, which
+computes the same figures by a separate implementation: **S$0.0793 per company per year**,
+inference at 52 / 500 / 2000 companies of **S$4.12 / S$39.65 / S$158.60**. Pilot people subtotal
+**S$34,965**; the pilot total is stamped INCOMPLETE while the licence and compliance rows are
+blank, rather than presented as fully loaded. Hackathon actuals total **S$118.45**.
+`openpyxl` is an OPTIONAL requirement — nothing in the app, engine or tests imports it.
 
 **THE COST MODEL, BUILT** (`cost_model.py`, 2026-08-22). The business pack's
 `ESG_Radar_Cost_and_Scale_Model.xlsx` is a SKELETON — labels, a colour convention and prose
@@ -640,6 +670,8 @@ python harvest.py --refilter             # re-apply the guards to stored harvest
 python traction.py --sheet --gather      # the loss-maker screen + retrieved candidate sources
 python harvest.py --cost                 # measured tokens/company (writes data/harvest_cost.json)
 python cost_model.py --price-hit 0.007 --price-miss 0.22 --price-out 0.66 --window off-peak
+python -m scripts.sg_day_rates --write   # day rates from live SG postings
+python -m scripts.build_cost_workbook --price-hit 0.007 --price-miss 0.22 --price-out 0.66
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
 python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
                                           #   pre-computes both Compete answers, prints the

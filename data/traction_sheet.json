@@ -132,7 +132,7 @@
     "green_pipeline": "unknown",
     "revenue_growth_evidence": "Revenue FELL 20%: FY2024 THB604,045m -> FY2025 THB484,907m, on lower product prices and planned maintenance shutdowns at MEG, the Refinery and Aromatics Unit 2.",
     "revenue_growth_source": "https://www.kaohooninternational.com/markets/576586",
-    "cash_flow_evidence": "No full-year operating cash flow figure located. Adjusted EBITDA was POSITIVE at THB20,846m (down 34%) and the net loss narrowed 51% (THB29,811m -> THB14,600m) - but EBITDA is not operating cash flow, and substituting it would answer an easier question than the test asks. Needs the FY2025 cash flow statement.",
+    "cash_flow_evidence": "No full-year operating cash flow figure located. Adjusted EBITDA was POSITIVE at THB20,846m (down 34%) and the net loss narrowed 51% (THB29,811m -> THB14,600m) - but EBITDA is not operating cash flow, and substituting it would answer an easier question than the test asks. Needs the FY2025 cash flow statement. TRIED AND FAILED 2026-08-22: DuckDuckGo search (rate-limited), pttgcgroup.com IR (JS-rendered, no figures in HTML), Thai SEC market.sec.or.th (blocked), SET.or.th page + three API shapes (blocked), stockanalysis.com (blocked). This needs a human to open the FY2025 financial statement PDF - do not repeat the automated attempts.",
     "cash_flow_source": "https://www.kaohooninternational.com/markets/576586",
     "order_book_evidence": "Not located - retrieval returned nothing on this angle. Needs the FY2025 annual report.",
     "order_book_source": "",

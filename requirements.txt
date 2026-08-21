@@ -9,3 +9,8 @@ httpx>=0.27  # FastAPI TestClient used by the offline API smoke tests
 # the harness and the whole demo run fine without it: an unreachable chain degrades to
 # `anchor_pending`, which the UI shows rather than hiding.
 # web3>=6.0
+
+# OPTIONAL — only for `scripts/build_cost_workbook.py`, which writes the business team's cost
+# model as a real calculating .xlsx. Nothing in the app, the engine or the tests imports it;
+# `cost_model.py` computes the same figures without it and cross-checks the workbook's output.
+# openpyxl>=3.1

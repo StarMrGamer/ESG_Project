@@ -1,0 +1,59 @@
+{
+ "_note": "Blended day rates derived from LIVE MyCareersFuture postings (Workforce Singapore). Median midpoint of the advertised monthly range, grossed up by employer CPF, divided by working days. Every rate re-runs from the URL on its own row.",
+ "_formula": "monthly x 12 x (1 + employer_cpf) / working_days_per_year",
+ "_basis": {
+  "employer_cpf": 0.17,
+  "employer_cpf_source": "https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay",
+  "working_days_per_year": 260,
+  "working_days_note": "52 x 5. Singapore gazettes 11 public holidays, so the real figure is nearer 249 and these rates are a FLOOR by ~4%.",
+  "salary_basis": "midpoint of the advertised range; MEDIAN across postings, not mean",
+  "monthly_only": "hourly and annual postings are excluded, not converted"
+ },
+ "_not": "NOT a contractor or agency day rate. This is permanent-employment cost per working day; an agency rate carries a margin on top.",
+ "roles": [
+  {
+   "key": "data_ml_engineer",
+   "label": "Data / ML engineer",
+   "search_term": "data engineer",
+   "postings_sampled": 60,
+   "postings_matching_search": 335,
+   "median_monthly_sgd": 7500,
+   "day_rate_sgd": 405,
+   "source": "https://api.mycareersfuture.gov.sg/v2/jobs?search=data%20engineer&limit=60",
+   "caveat": ""
+  },
+  {
+   "key": "fullstack_engineer",
+   "label": "Full-stack engineer",
+   "search_term": "full stack developer",
+   "postings_sampled": 60,
+   "postings_matching_search": 114,
+   "median_monthly_sgd": 7375,
+   "day_rate_sgd": 398,
+   "source": "https://api.mycareersfuture.gov.sg/v2/jobs?search=full%20stack%20developer&limit=60",
+   "caveat": ""
+  },
+  {
+   "key": "esg_analyst",
+   "label": "Domain / ESG analyst",
+   "search_term": "ESG",
+   "postings_sampled": 60,
+   "postings_matching_search": 143,
+   "median_monthly_sgd": 5375,
+   "day_rate_sgd": 290,
+   "source": "https://api.mycareersfuture.gov.sg/v2/jobs?search=ESG&limit=60",
+   "caveat": "WIDE SAMPLE, LOW MEDIAN. 'ESG' matches any posting mentioning it, including junior operations roles, which pulls the median down. Narrower terms return far higher rates on samples too small to trust: 'sustainability analyst' 2 postings at ~S$628/day, 'ESG analyst' 1 posting at ~S$594/day, 'sustainability manager' 8 at ~S$526/day. The true analyst rate is very likely ABOVE the figure shown here — treat it as a floor and check a salary guide before it reaches a slide."
+  },
+  {
+   "key": "project_manager",
+   "label": "Project manager",
+   "search_term": "project manager",
+   "postings_sampled": 60,
+   "postings_matching_search": 3450,
+   "median_monthly_sgd": 8050,
+   "day_rate_sgd": 435,
+   "source": "https://api.mycareersfuture.gov.sg/v2/jobs?search=project%20manager&limit=60",
+   "caveat": ""
+  }
+ ]
+}
