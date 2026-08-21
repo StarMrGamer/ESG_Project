@@ -1,0 +1,47 @@
+{
+ "company_id": "SET:CPALL",
+ "company": "CP All",
+ "events": [
+  {
+   "event_id": "SET:CPALL-harvest-0",
+   "text": "CP All set a GHG emissions reduction target aligned with Thailand's national target, which pledged 20-25% GHG emissions reduction by 2030, as Thailand ratified the Paris Agreement on September 21, 2016.",
+   "published_at": "2016-09-21",
+   "source_url": "https://www.cpall.co.th/wp-content/uploads/2020/11/Greenhouse-Gases-Analysis-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPALL-harvest-1",
+   "text": "A Thai court took on a US$73 million lawsuit against conglomerate CP, filed six months ago on behalf of more than 1,400 fishing professionals, accusing CP of introducing blackchin tilapia into Thailand by importing the species from Ghana in 2010 and demanding 2.48 billion baht in compensation.",
+   "published_at": "2025-03-04",
+   "source_url": "https://www.malaymail.com/news/world/2025/03/04/thai-court-takes-on-us73m-lawsuit-against-conglomerate-cp-owned-by-thailands-second-richest-family-over-invasive-fish-crisis/168628",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  }
+ },
+ "kept": 2
+}

@@ -1,0 +1,47 @@
+{
+ "company_id": "IDX:BBCA",
+ "company": "Bank Central Asia",
+ "events": [
+  {
+   "event_id": "IDX:BBCA-harvest-0",
+   "text": "In 2024, the company's sustainable financing portfolio grew by 12.5% to Rp229 trillion, accounting for 24.8% of its total loans.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-1",
+   "text": "OJK dikenakan sanksi administrasi berupa denda sebesar Rp 100 juta terhadap PT Bank Central Asia Tbk selaku bank kustodian, berdasarkan pengumuman resmi yang dikutip pada Senin (16/10/2023).",
+   "published_at": "2023-10-16",
+   "source_url": "https://money.kompas.com/read/2023/10/17/112500426/kena-denda-rp-100-juta-bca-bakal-patuhi-keputusan-dan-ketentuan-ojk-",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  }
+ },
+ "kept": 2
+}

@@ -32,3 +32,7 @@ web/dist/
 # FROM it cites it by path (data/backtest_cases.json -> D/Backtest_Candidates_for_Rai.md);
 # those citations name where the evidence came from, and stay accurate off-repo.
 D/
+
+# Harvested evidence is COMMITTED (it is dated, sourced, and part of what a run scored) —
+# but the in-progress scratch of a partial sweep is not. Nothing to ignore here yet; this
+# note exists so nobody adds data/harvest/ to this file by reflex.

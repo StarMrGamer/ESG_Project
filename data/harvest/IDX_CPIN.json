@@ -1,0 +1,63 @@
+{
+ "company_id": "IDX:CPIN",
+ "company": "Charoen Pokphand Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:CPIN-harvest-0",
+   "text": "PT Charoen Pokphand Indonesia Tbk reported Not available CO2 emissions in 2023.",
+   "published_at": "2023-01-01",
+   "source_url": "https://polluer.com/companies/MjYwNzU2MDkxMw",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:CPIN-harvest-1",
+   "text": "In its 2025 Sustainability Report, PT Charoen Pokphand Indonesia Tbk reported key achievements including expanding the use of renewable energy such as biomass and solar power.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-charoen-pokphand-indonesia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:CPIN-harvest-2",
+   "text": "PT Charoen Pokphand Indonesia Tbk's 2024 Sustainability Report highlights a 9.51% revenue increase to IDR 67.48 trillion.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-charoen-pokphand-indonesia/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:CPIN-harvest-3",
+   "text": "PT Charoen Pokphand Indonesia Tbk expanded its partnership network to 12,845 poultry farmers and 13,485 corn farmers in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-charoen-pokphand-indonesia/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  }
+ },
+ "kept": 4
+}

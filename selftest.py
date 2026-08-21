@@ -1179,6 +1179,84 @@ def test_snapshot_band_direction_aware():
 
 
 # --- CGSI verified basket (2026-08-21 data swap) ------------------------------
+def test_traction_screen_states_and_rule():
+    """§B.4's four tests, and the distinction that matters: unknown is not failure."""
+    import traction
+
+    rows = traction.loss_makers()
+    assert set(rows) == {"KLSE:PCHEM", "SET:PTTGC"}, sorted(rows)
+
+    row = rows["SET:PTTGC"]
+    # nothing answered -> the screen has NOT run; the company is neither cleared nor disqualified
+    blank = traction.screen(row)
+    assert blank["verdict"] == "screen_not_run" and blank["traction_flag"] is False, blank
+    assert blank["unknown"] == 4
+
+    # two met -> flag; the rule is >= 2 of 4
+    two = traction.screen(row, {"revenue_growth": "met", "order_book": "met",
+                                "cash_flow": "not_met", "green_pipeline": "not_met"})
+    assert two["verdict"] == "traction" and two["traction_flag"] is True, two
+    one = traction.screen(row, {"revenue_growth": "met", "order_book": "not_met",
+                                "cash_flow": "not_met", "green_pipeline": "not_met"})
+    assert one["verdict"] == "insufficient_traction" and one["traction_flag"] is False, one
+    none = traction.screen(row, {k: "not_met" for k, _, _ in traction.TESTS})
+    assert none["verdict"] == "disqualified", none
+
+    # the label travels — these thresholds are ours and the panel never confirmed them
+    assert "team-designed" in blank["label"].lower(), blank["label"]
+    assert "not credit analysis" in blank["label"].lower(), blank["label"]
+
+    # net income is READ but never counted as one of the four (it is not operating cash flow)
+    ni = blank["net_income"]
+    assert ni["direction"] == "narrowing", ni      # -THB29.8b -> -THB14.6b
+    assert "not" in ni["note"].lower() and "cash flow" in ni["note"].lower(), ni["note"]
+    # the fiscal-year label must not be parsed as the amount
+    assert traction._net_income_trend(rows["KLSE:PCHEM"])["direction"] == "swung to loss"
+
+
+def test_harvest_guards_reject_ungrounded_events():
+    """The model may only cite what it was shown, and may not date what the source did not."""
+    import engine_config, harvest
+
+    allowed = {"https://reuters.com/a", "https://sgx.com/b"}
+    raw = [
+        {"text": "A properly dated, properly cited emissions reduction of 25% versus 2020.",
+         "published_at": "2024-06-01", "source_url": "https://reuters.com/a"},
+        # guard 1 — a URL it was never given
+        {"text": "A plausible-sounding fact with a fabricated citation attached to it.",
+         "published_at": "2024-06-01", "source_url": "https://invented.example/x"},
+        # guard 2 — no date
+        {"text": "An undated claim about a sustainability programme with no year at all.",
+         "published_at": "", "source_url": "https://reuters.com/a"},
+        # guard 2 — a date shape that is not a date
+        {"text": "Another claim, this time with a garbage date field attached to it.",
+         "published_at": "sometime in 2024", "source_url": "https://reuters.com/a"},
+        # too short to be a checkable fact
+        {"text": "Good ESG.", "published_at": "2024-06-01", "source_url": "https://reuters.com/a"},
+    ]
+    kept = harvest._clean_events(raw, allowed, "SGX:TEST")
+    assert len(kept) == 1, [k["text"] for k in kept]
+    assert kept[0]["source_url"] == "https://reuters.com/a"
+
+    # guard 3 — source_type comes from the DOMAIN, never from the model
+    assert harvest._source_type_for("https://www.mas.gov.sg/news/x") == "regulator"
+    assert harvest._source_type_for("https://links.sgx.com/filing") == "exchange_filing"
+    assert harvest._source_type_for("https://www.reuters.com/x") == "news"
+    assert harvest._source_type_for("https://someissuer.com/press") == "company_pr"
+    assert harvest._source_type_for("") == "unknown"
+    # every type it can emit must be priced in the config, or a signal silently scores at 0
+    quality = engine_config.load()["source_quality"]
+    for fragments, kind in harvest._DOMAIN_RULES:
+        assert kind in quality, kind
+
+    # guard 4 — the overlay never mutates the basket on disk
+    cons = universe.constituents()
+    before = [len(c.get("events") or []) for c in cons]
+    merged = harvest.apply_overlay(cons, {cons[0]["ticker"]: [dict(kept[0])]})
+    assert [len(c.get("events") or []) for c in universe.constituents()] == before
+    assert len(merged[0]["events"]) == before[0] + 1
+
+
 def test_lseg_never_serves_another_companys_scores():
     """A lookup returns THIS issuer's numbers or nothing. Never a near-miss.
 
@@ -1861,6 +1939,10 @@ def main():
          lambda: test_sensitivity_is_pure_and_finds_load_bearing_signals()),
         ("backtest series shaped for the track-record panel",
          lambda: test_backtest_series_on_disk_is_shaped_for_the_panel()),
+        ("traction screen: four tests, unknown is not failure",
+         lambda: test_traction_screen_states_and_rule()),
+        ("harvest guards reject ungrounded events",
+         lambda: test_harvest_guards_reject_ungrounded_events()),
         ("LSEG never serves another company's scores",
          lambda: test_lseg_never_serves_another_companys_scores()),
         ("metadata follows its universe (demo -> mock, real -> verified)",

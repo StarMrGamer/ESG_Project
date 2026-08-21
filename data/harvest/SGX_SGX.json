@@ -1,0 +1,19 @@
+{
+ "company_id": "SGX:SGX",
+ "company": "Singapore Exchange",
+ "events": [
+  {
+   "event_id": "SGX:SGX-harvest-0",
+   "text": "SGX RegCo will mandate Scope 1 and Scope 2 emissions reporting for listed companies starting from the 2025 financial year.",
+   "published_at": "2024-10-01",
+   "source_url": "https://kpmg.com/sg/en/media/press-contributions/2024/10/the-role-of-listed-companies-in-leading-singapore-s-esg-shift.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "cache",
+ "snippet_count": 8,
+ "query": "Singapore Exchange Singapore ESG sustainability emissions target green financing governance controversy",
+ "kept": 1,
+ "proposed": 1
+}

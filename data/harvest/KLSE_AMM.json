@@ -1,0 +1,47 @@
+{
+ "company_id": "KLSE:AMM",
+ "company": "AMMB Holdings",
+ "events": [
+  {
+   "event_id": "KLSE:AMM-harvest-0",
+   "text": "AMMB Holdings agreed to pay RM2.83 billion to the Malaysian government as a global settlement over its involvement in the 1MDB matter, announced on Feb 26.",
+   "published_at": "2021-02-26",
+   "source_url": "https://www.bernama.com/en/news.php?id=1935616",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-1",
+   "text": "As part of the 1MDB global settlement, the Securities Commission Malaysia will require AmInvestment Bank Bhd to take corrective measures, including putting in place systems and processes to strengthen their due diligence.",
+   "published_at": "2021-02-26",
+   "source_url": "https://www.mof.gov.my/portal/en/news/press-citations/ammb-to-pay-rm2-83-bln-to-malaysian-govt-for-1mdb-related-settlement",
+   "source_type": "regulator",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  }
+ },
+ "kept": 2
+}

@@ -1,0 +1,150 @@
+{
+ "_note": "Traction screen sheet — playbook step 4, Methodology Additions §B.4. Set each answer to met / not_met / unknown and paste the figure plus its source. `unknown` is not a failure: it means nobody has looked yet, and a company is neither cleared nor disqualified while any test is unanswered.",
+ "_owner": "Sean & Cayden",
+ "_label": "Traction screen — team-designed measure. Thresholds are ours and were NOT confirmed by the CGSI panel. A context flag, not credit analysis: green-bond eligibility attaches to use-of-proceeds and external review, never to issuer profitability.",
+ "_states": [
+  "met",
+  "not_met",
+  "unknown"
+ ],
+ "_rule": "met >= 2 -> traction flag; met == 0 and all four answered -> disqualified",
+ "_candidate_evidence": "Retrieved, not decided. Every item is a real search result with its URL — it is there to save the lookup, and it never sets a state. A human sets the state.",
+ "companies": {
+  "KLSE:PCHEM": {
+   "company": "Petronas Chemicals Group",
+   "industry": "Petrochemical",
+   "note_from_cgsi": "Swung to loss FY2025 (Pengerang drag, weak spreads) — TRACTION SCREEN REQUIRED",
+   "net_income": {
+    "latest": "FY2025 ~-RM2.14b LOSS",
+    "prior": "FY2024 ~RM1.18b",
+    "direction": "swung to loss",
+    "note": "Net income, not operating cash flow — reported for context, and NOT counted toward the four tests."
+   },
+   "answers": {
+    "revenue_growth": "unknown",
+    "cash_flow": "unknown",
+    "order_book": "unknown",
+    "green_pipeline": "unknown",
+    "revenue_growth_evidence": "",
+    "revenue_growth_source": "",
+    "cash_flow_evidence": "",
+    "cash_flow_source": "",
+    "order_book_evidence": "",
+    "order_book_source": "",
+    "green_pipeline_evidence": "",
+    "green_pipeline_source": ""
+   },
+   "candidate_evidence": {
+    "revenue_growth": [
+     {
+      "title": "PCG reports FY 2024 PAT of RM1.3 billion",
+      "url": "https://www.indianchemicalnews.com/general/pcg-reports-fy-2024-pat-of-rm13-billion-25252",
+      "snippet": "PCG reports FY 2024 PAT of RM1.3 billion — PETRONAS Chemicals Group Berhad (PCG or the Group ), announced its financial results for the fourth quarter (4Q 2024) and audited financial year ended 31 December 2024 (FY2024). Demonstrating PCG's operational resilience, the Group recorded 7% higher revenue of RM30.7 billion ",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS CHEMICALS GROUP BERHAD Investor Relations — Annual Reports ...",
+      "url": "https://financialfilings.com/companies/petronas-chemicals-group-berhad/",
+      "snippet": "PETRONAS CHEMICALS GROUP BERHAD Investor Relations — Annual Reports ... — PETRONAS CHEMICALS GROUP BERHAD investor relations — annual reports, interim results , earnings releases and regulatory filings. Free to browse on FinancialFilings.",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) Revenue",
+      "url": "https://stockanalysis.com/quote/klse/PCHEM/revenue/",
+      "snippet": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) Revenue — PETRONAS Chemicals Group Berhad had revenue of 7.02B MYR in the quarter ending March 31, 2026, a decrease of -8.37%. This brings the company's revenue in the last twelve months to 26.84B, down -12.94% year -over- year . In the year 2025, PETRONAS Chemicals Group Be",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (5183.KL) - Yahoo Finance",
+      "url": "https://finance.yahoo.com/quote/5183.KL/financials/",
+      "snippet": "PETRONAS Chemicals Group Berhad (5183.KL) - Yahoo Finance — Get the detailed quarterly/ annual income statement for PETRONAS Chemicals Group Berhad (5183.KL). Find out the revenue , expenses and profit or loss over the last fiscal year .",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) - Earnings & Revenue ...",
+      "url": "https://simplywall.st/stocks/my/materials/klse-pchem/petronas-chemicals-group-berhad-shares/past",
+      "snippet": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) - Earnings & Revenue ... — PETRONAS Chemicals Group Berhad's earnings have been declining at an average annual rate of -58%, while the Chemicals industry saw earnings declining at 9.7% annually. Revenues have been growing at an average rate of 5.8% per year .",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "FY2025 Results Reflect Challenging Market; PCG ... - PETRONAS Global",
+      "url": "https://www.petronas.com/pcg/media/media-releases/fy2025-results-reflect-challenging-market-pcg-prioritises-operational-and",
+      "snippet": "FY2025 Results Reflect Challenging Market; PCG ... - PETRONAS Global — Kuala Lumpur, 23 February - PETRONAS Chemicals Group Berhad (PCG), today announced its financial results for the fourth quarter (4Q 2025) and audited financial year ended 31 December 2025 (FY2025). Revenue for FY2025 stood at RM27.5 billion, support",
+      "source_type": "company_pr"
+     }
+    ],
+    "cash_flow": [
+     {
+      "title": "PETRONAS Chemicals Group Berhad Cash Flow Statement Annual",
+      "url": "https://discountingcashflows.com/company/5183.KL/cash-flow-statement/",
+      "snippet": "PETRONAS Chemicals Group Berhad Cash Flow Statement Annual — Annual cash flow statements for PETRONAS Chemicals Group Berhad (5183.KL). Explore the full history of free cash flow and operating , financing, and investing cash flow .",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) Cash Flow Statement",
+      "url": "https://stockanalysis.com/quote/klse/PCHEM/financials/cash-flow-statement/",
+      "snippet": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) Cash Flow Statement — Detailed cash flow statements for PETRONAS Chemicals Group Berhad (KLSE:PCHEM), including operating cash flow , capex and free cash flow .",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "5183.MY | Petronas Chemicals Group Bhd Annual Cash Flow - WSJ",
+      "url": "https://www.wsj.com/market-data/quotes/MY/XKLS/5183/financials/annual/cash-flow",
+      "snippet": "5183.MY | Petronas Chemicals Group Bhd Annual Cash Flow - WSJ — Petronas Chemicals Group Bhd annual cash flow and in depth look at 5183.MY operating , investing, and financing activities .",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (PCHEM) Cash Flow Statement - Annual ...",
+      "url": "https://fiscal.ai/company/KLSE-PCHEM/financials/cash-flow-statement/annual/",
+      "snippet": "PETRONAS Chemicals Group Berhad (PCHEM) Cash Flow Statement - Annual ... — See the annual free cash flow , capital expenditures, share repurchases and more for PETRONAS Chemicals Group Berhad (PCHEM).",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (5183.KL) - Yahoo Finance",
+      "url": "https://finance.yahoo.com/quote/5183.KL/cash-flow/",
+      "snippet": "PETRONAS Chemicals Group Berhad (5183.KL) - Yahoo Finance — Understand the cash flow statement for PETRONAS Chemicals Group Berhad (5183.KL), learn where the money comes from and how the company spends it.",
+      "source_type": "company_pr"
+     },
+     {
+      "title": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) Financials Overview",
+      "url": "https://stockanalysis.com/quote/klse/PCHEM/financials/",
+      "snippet": "PETRONAS Chemicals Group Berhad (KLSE:PCHEM) Financials Overview — Financials overview for PETRONAS Chemicals Group Berhad (KLSE:PCHEM) with charts and tables for revenue, profits, cash , debt, cash flow , margins and dividends.",
+      "source_type": "company_pr"
+     }
+    ],
+    "order_book": [],
+    "green_pipeline": []
+   }
+  },
+  "SET:PTTGC": {
+   "company": "PTT Global Chemical",
+   "industry": "Petrochemical",
+   "note_from_cgsi": "TWO consecutive loss years — TRACTION SCREEN REQUIRED; loss narrowing",
+   "net_income": {
+    "latest": "FY2025 -THB14.6b LOSS",
+    "prior": "FY2024 -THB29.8b LOSS",
+    "direction": "narrowing",
+    "note": "Net income, not operating cash flow — reported for context, and NOT counted toward the four tests."
+   },
+   "answers": {
+    "revenue_growth": "unknown",
+    "cash_flow": "unknown",
+    "order_book": "unknown",
+    "green_pipeline": "unknown",
+    "revenue_growth_evidence": "",
+    "revenue_growth_source": "",
+    "cash_flow_evidence": "",
+    "cash_flow_source": "",
+    "order_book_evidence": "",
+    "order_book_source": "",
+    "green_pipeline_evidence": "",
+    "green_pipeline_source": ""
+   },
+   "candidate_evidence": {
+    "revenue_growth": [],
+    "cash_flow": [],
+    "order_book": [],
+    "green_pipeline": []
+   }
+  }
+ }
+}

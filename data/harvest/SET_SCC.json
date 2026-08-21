@@ -1,0 +1,87 @@
+{
+ "company_id": "SET:SCC",
+ "company": "Siam Cement",
+ "events": [
+  {
+   "event_id": "SET:SCC-harvest-0",
+   "text": "The Board of Directors approved the INSEE Sustainability Ambition 2030 pillars and targets in 2023 and assigned the Group CEO to establish the Sustainability Steering Committee (SSC).",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.siamcitycement.com/front/template/default/assets_country/download/thailand/esg_publication/ESG-2024.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-1",
+   "text": "SCG's 2025 sustainability report reports 29.06 million tCO2e of GHG emissions and a 15.14% reduction from the 2020 baseline.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/siam-cement/2025/sustainability-narrative",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-2",
+   "text": "Siam Cement Group (SCG) will allocate US$6bn between 2025 and 2030 to improve the sustainability of its businesses.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.globalcement.com/news/item/17881-siam-cement-group-to-invest-us-6bn-in-eco-friendly-initiatives",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-3",
+   "text": "SCG Cleanergy will increase its renewable power capacity to 3500MW by 2030.",
+   "published_at": "2030-12-31",
+   "source_url": "https://www.globalcement.com/news/item/17881-siam-cement-group-to-invest-us-6bn-in-eco-friendly-initiatives",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-4",
+   "text": "SCG will spend 100 billion baht ($2.89 billion) until 2027 end on venues like renewable energy.",
+   "published_at": "2027-12-31",
+   "source_url": "https://list.solar/news/thailands-largest-1/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-5",
+   "text": "SCG plans to produce 3,000 MW of solar power by 2027, 15 times greater than current capacity.",
+   "published_at": "2027-12-31",
+   "source_url": "https://list.solar/news/thailands-largest-1/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-6",
+   "text": "SCG aims to achieve net-zero greenhouse gas emissions by 2050.",
+   "published_at": "2050-12-31",
+   "source_url": "https://www.scgsustainability.com/en/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply; controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline"
+  }
+ },
+ "kept": 7
+}
