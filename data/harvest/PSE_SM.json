@@ -1,0 +1,119 @@
+{
+ "company_id": "PSE:SM",
+ "company": "SM Investments Corp",
+ "events": [
+  {
+   "event_id": "PSE:SM-harvest-0",
+   "text": "SM Investments Corporation reported total carbon emissions of 4,881,360 tCO2e for 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.roundarc.com/data/sm-investments-corporation-philippines",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-1",
+   "text": "In 2024, SM Investments completed a corporate carbon footprint assessment and publicly disclosed its GHG emissions according to the GHG Protocol, covering Scope 1, 2 and 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/sm-investments/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-2",
+   "text": "SM Investments said it remains on track to reduce greenhouse gas emissions by 40% by 2040.",
+   "published_at": "2026-07-24",
+   "source_url": "https://www.sminvestments.com/press_release/sm-remains-on-track-to-cut-emissions-by-40-by-2040/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-3",
+   "text": "In 2025, SM Investments recorded Scope 1 emissions of 487,370.06 tCO2e.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/sm-investments/2025/sustainability-notes-and-indices",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-4",
+   "text": "SM Investments has P1.2 trillion in sustainable financing as part of its green investments.",
+   "published_at": "2026-07-24",
+   "source_url": "https://tribune.net.ph/2026/07/24/sm-uses-green-investments-to-cut-costs-lift-resilience",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-5",
+   "text": "SM Investments Corporation's 2024 Sustainability Report projected a cumulative greenhouse gas reduction of up to 40% by 2040 across its four largest emitting businesses.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/sm-investments/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-6",
+   "text": "SM Investments Corporation filed SEC Form I-ACGR (Integrated Annual Corporate Governance Report) with SEC Identification Number 16342 for the fiscal year ended Dec 31, 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=25077e8cc3e216e1abca0fa0c5b4e4d0",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-7",
+   "text": "SM Investments Corporation said the SM Group increased its renewable energy sourcing to 31% in 2025.",
+   "published_at": "2026-05-25",
+   "source_url": "https://www.prnewswire.com/apac/news-releases/sm-group-raises-renewable-energy-sourcing-to-31-in-2025-302780867.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-8",
+   "text": "SM Investments Corporation said it remains on track to reduce greenhouse gas emissions by 40% by 2040.",
+   "published_at": "2026-07-24",
+   "source_url": "https://www.sminvestments.com/press_release/sm-remains-on-track-to-cut-emissions-by-40-by-2040/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-9",
+   "text": "On March 12, 2002, the LLDA directed SM Prime Holdings to perform corrective measures to control pollution and to pay P1,000 per day of discharging pollutive wastewater as a penalty for the violation.",
+   "published_at": "2002-03-12",
+   "source_url": "https://www.studocu.com/ph/document/de-la-salle-university/natural-resources-and-environmental-law/llda-v-sm-summary-natural-resources-and-environmental-law/80445232",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-10",
+   "text": "SMIC disclosed a Statement of Changes in Beneficial Ownership of Securities (SEC Form 23-B) as of July 2026 for SMPH.",
+   "published_at": "2026-07-01",
+   "source_url": "https://www.sminvestments.com/corporate-disclosures/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  }
+ },
+ "kept": 11
+}

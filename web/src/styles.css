@@ -1536,7 +1536,13 @@ kbd.kbd {
 .legend-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--r-border); background: transparent; border-radius: 999px; padding: var(--pad-chip); font: 500 11.5px var(--r-font); cursor: pointer; color: inherit; }
 .legend-chip i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .legend-chip b { color: var(--r-text); font: 600 11.5px var(--r-mono); }
-.engine-foot { margin-top: 8px; }
+/* Chips and prose on one line, spaced by the container rather than by margins on each chip —
+   inline-block siblings with no whitespace in the JSX otherwise butt straight into the text
+   ("HUMAN-REVIEWED+85 harvested across 19Team-verified per..."). */
+.engine-foot {
+  margin-top: 8px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-2) var(--sp-3);
+}
 
 /* ---- A4 badges ---- */
 .badge-row, .uni-badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
@@ -2624,7 +2630,6 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .review-chip {
   display: inline-block;
   padding: var(--pad-chip);
-  margin-right: var(--sp-2);
   border: 1px solid var(--r-border);
   border-radius: var(--r-radius-2xs);
   font-size: 10.5px;
@@ -2750,7 +2755,7 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 /* Live-gathered evidence, counted separately from what CGSI supplied — a board that silently
    mixes the two invites a question it would have no answer to. */
 .harvest-note {
-  display: inline-block; padding: var(--pad-chip); margin-right: var(--sp-2);
+  display: inline-block; padding: var(--pad-chip);
   border: 1px solid var(--r-blue); border-radius: var(--r-radius-2xs);
   color: var(--r-blue); background: var(--r-bluebg);
   font-size: 10.5px; letter-spacing: 0.05em; white-space: nowrap;
