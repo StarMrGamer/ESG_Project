@@ -74,6 +74,8 @@ esg-momentum-radar/
   data/company_metadata.csv # the VERIFIED green-bond/profitability rows, frozen 29-column shape
   data/oecd_sector_benchmark.csv  # the industry bar, joined on CGSI's `industry` (Eurostat EU-27 2023)
   data/claim_vs_evidence.json     # the ILLUSTRATIVE claim-vs-satellite panel (3 rows)
+  data/cgsi_note_figures.json     # figures transcribed from CGSI's published note (perf, filters, provenance)
+  data/cgsi_rics.json             # CGSI's own Reuters codes for the 52 -> exact LSEG lookup
   data/demo_universe.json   # FICTIONAL fully-numeric demo set — makes the command center alive (labelled illustrative)
   data/hero_company.json    # SAMPLE only — offline-demo safety net + test fixture (PLACEHOLDER)
   data/watchlist.json       # runtime: pinned tickers (local, git-ignored — not source)
@@ -158,6 +160,46 @@ widget has this bug); and an uncovered issuer is `{}` → `None`, never zeros. *
 non-commercial reference/publication needs written approval, and commercial use, redistribution or
 **systematic reproduction** needs a licence — so this is attributed, on-demand, one company at a
 time, cached locally, and **`data/` never receives a scrape**.
+
+**THE SOURCE DOCUMENT** (`D/ESG 52 Comapnies Data.pdf`, read 2026-08-22). The CSV was not the
+original — CGSI's published 43-page research note is, *"ASEAN Strategy — ESG momentum as an Alpha
+selection tool"*, 29 Aug 2025. Figures transcribed into `data/cgsi_note_figures.json` and
+`data/cgsi_rics.json`; the PDF itself stays in the git-ignored hand-off pack. What it settles:
+
+- **The CSV is faithful.** All 52 rows of the note's Figure 5 parsed and compared field by field
+  against `CGSI_52_verified.csv`: **zero mismatches** on ESG Rating, ESG Score, 5Y CAGR and
+  Industry. The note even flags `MAHB.KL^B25` — Refinitiv's delisting marker — corroborating the
+  delisted note independently.
+- **The `lseg_rating` column is confirmed mislabelled.** CGSI's own header reads **"ESG Rating"**,
+  unattributed. The SAME document prints LSEG's grades in its per-company briefs as an *"LSEG ESG
+  Combined Score"* on the A+..D- scale (A, A-, B+, B, B-, C observed). Two different scales, and
+  only the second is attributed to LSEG. Carrying it as `incumbent_notch` was right.
+- **MSCI AC ASEAN is the SELECTION UNIVERSE, not only the benchmark.** The 52 are index
+  constituents that stayed in throughout AND posted positive 2019-2023 ESG-score CAGR. Our
+  earlier reconstruction treated the index as the benchmark alone and rebuilt names from public
+  evidence — which is why only 22 of them overlapped.
+- **Reuters codes for all 52** were in the note the whole time. `lseg.py` now looks companies up
+  by exact RIC instead of matching names; **50 of 52 resolve, and the 2 that do not are the 2
+  delisted names.**
+- **The foundation backtest has a second half.** CGSI report the basket **lagging the index by
+  -4.6% YTD as of 28 Aug 2025** on a ~45% banking weight, and that ESG improvement alone does not
+  predict single-stock performance (probability an improver beats the index: 28.9% at 1y, 46.2%
+  at 3y, 61.5% at 5y). The board now shows that beside the 55.1% vs 6.4%. A tool arguing that
+  inconvenient evidence must surface cannot make an exception for its own foundation.
+- **The blind-17 number was being read wrong.** CGSI's three filters are (i) above-average ESG
+  CAGR, (ii) inclusion in their coverage universe, (iii) an **Add recommendation**. Only the
+  first is an ESG signal; the other two are invisible to this engine, and HARD RULE 4 forbids it
+  from ever forming the third. 29.4% is agreement on one criterion of three — **not** a 70%
+  disagreement about ESG, and `phase_b.py` now prints the filters with the number.
+
+**A wrong company is worse than no company** (fixed 2026-08-22, pinned by `selftest.py`). Clicking
+the delisted Malaysia Airports rendered **I-Bhd's** ESG breakdown under Malaysia Airports' name.
+Two holes lined up: `_norm("I-Bhd")` is the single letter `"i"`, which `resolve_ric`'s containment
+tier matched as a raw substring of `"malaysia airports"`; and a RIC handed in from the basket was
+fetched without checking it was a covered issuer. Containment now matches **whole words** and
+requires 5+ characters, an explicit RIC is validated against the covered list first, and the
+returned payload is cross-checked against the name LSEG files that RIC under. All three guards
+matter — the failure looked completely normal on screen, which is what made it dangerous.
 
 **The matrix has a shape now** (2026-08-22). `H` was a constant 340 against a MEASURED width, so
 the plot area got flatter the wider the board went — about 7:1 on a 1920 monitor and 20:1 on a

@@ -2741,3 +2741,9 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   color: var(--r-muted); font-size: 12px; line-height: 1.55;
 }
 .matrix-blank-note b { color: var(--r-text); }
+/* The half of the foundation backtest that does not flatter it. Amber, not red: the basket
+   lagging in one period is a caveat on the claim, not a warning about a company. */
+.bench-against {
+  padding: var(--pad-chip); border: 1px solid var(--r-amber); border-radius: var(--r-radius-2xs);
+  color: var(--r-amber); background: var(--r-amberbg);
+}

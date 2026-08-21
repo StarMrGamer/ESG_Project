@@ -277,7 +277,13 @@ def resolve_ric(company: str, exchange: str = "", *, use_cache: bool = True) -> 
     if target in by_norm:
         return by_norm[target]
 
-    contained = [ric for n, ric in by_norm.items() if n and (n in target or target in n)]
+    # Containment, but on WHOLE WORDS and only for names with enough substance to mean
+    # something. A raw substring test let `_norm("I-Bhd") == "i"` match inside "malaysia
+    # airports" and return I-Bhd's scores for Malaysia Airports Holdings — a different company,
+    # rendered under the right name. Short names are the dangerous ones precisely because they
+    # fit inside everything.
+    contained = [ric for n, ric in by_norm.items()
+                 if n and len(n) >= 5 and (_covers(n, target) or _covers(target, n))]
     if len(contained) == 1:
         return contained[0]
 
@@ -450,14 +456,66 @@ def _shape(ric: str, d: Dict[str, Any]) -> Dict[str, Any]:
 
 def lookup(company: str, exchange: str = "", *, ric: str = "",
            use_cache: bool = True) -> Optional[Dict[str, Any]]:
-    """The one call the server needs: name (+ exchange) or an explicit RIC -> scores or None."""
+    """The one call the server needs: name (+ exchange) or an explicit RIC -> scores or None.
+
+    An explicit `ric` is CHECKED against the covered list before it is fetched, and the payload
+    that comes back is checked against the name LSEG file that RIC under. Both guards exist
+    because of one observed failure: `MAHB.KL` (delisted in 2025, so absent from the list) was
+    fetched anyway and the endpoint returned **I-Bhd's** scores, which would have rendered one
+    issuer's ESG breakdown on another issuer's card — the exact fabrication the module docstring
+    says it exists to prevent. `resolve_ric` never had this hole because it only ever returns a
+    code it found in the list; passing a RIC in from outside bypassed that, so the check moved
+    here where both paths meet."""
     resolved = ric or resolve_ric(company, exchange, use_cache=use_cache)
     if not resolved:
         return None
+
+    covered = {r["ricCode"]: r.get("companyName", "")
+               for r in fetch_covered_universe(use_cache=use_cache)}
+    # An empty list means the covered-universe fetch failed, not that nothing is covered — in
+    # that case fall through rather than refusing every lookup because the network blinked.
+    if covered and resolved not in covered:
+        return None
+
     out = fetch_scores(resolved, use_cache=use_cache)
-    if out and company:
+    if not out:
+        return None
+
+    # Defence in depth against their path-keyed cache (point 2 in the module docstring): if the
+    # payload's own name is not the one LSEG file this RIC under, we are holding someone else's
+    # numbers and must say nothing rather than something wrong.
+    expected = covered.get(resolved, "")
+    if expected and out.get("company") and not _same_issuer(out["company"], expected):
+        return None
+
+    if company:
         out["matched_from"] = company  # so the UI can show WHICH name we resolved
     return out
+
+
+def _covers(haystack: str, needle: str) -> bool:
+    """Is every word of `needle` present in `haystack`, as a whole word and in order?"""
+    hay, ned = haystack.split(), needle.split()
+    if not ned or len(ned) > len(hay):
+        return False
+    for start in range(len(hay) - len(ned) + 1):
+        if hay[start:start + len(ned)] == ned:
+            return True
+    return False
+
+
+def _same_issuer(returned: str, expected: str) -> bool:
+    """Do two spellings of a company name refer to the same issuer? Deliberately lenient about
+    legal forms and punctuation, strict about the actual words."""
+    a, b = _norm(returned), _norm(expected)
+    if not a or not b:
+        return True                      # nothing to contradict
+    # Whole words, not raw substrings — for the same reason as `resolve_ric`'s containment
+    # tier: `_norm("I-Bhd")` is "i", and "i" sits inside "malaysia airports".
+    if a == b or _covers(a, b) or _covers(b, a):
+        return True
+    ta, tb = set(a.split()), set(b.split())
+    return bool(ta & tb) and len(ta & tb) >= min(len(ta), len(tb)) / 2
 
 
 # --------------------------------------------------------------------------- #

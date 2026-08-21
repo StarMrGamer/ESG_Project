@@ -95,7 +95,7 @@ def _coerce_constituent(c):
     # on, so it must survive alongside the descriptive `sector`.
     if isinstance(c.get("aliases"), list):
         out["aliases"] = [str(a) for a in c["aliases"] if a]
-    for k in ("bbg_code", "industry", "incumbent_notch", "green_bond_classification",
+    for k in ("bbg_code", "ric", "industry", "incumbent_notch", "green_bond_classification",
               "profitability_flag"):
         if c.get(k):
             out[k] = str(c[k]).strip()

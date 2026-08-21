@@ -1,0 +1,75 @@
+{
+  "_note": "Figures transcribed from CGSI's own published research note, which is the SOURCE DOCUMENT behind CGSI_52_verified.csv. Nothing here is derived or estimated — every value is read off a numbered figure in the note, and the figure is cited per block. The note lives in the team hand-off pack (`D/ESG 52 Comapnies Data.pdf`), which is git-ignored, so the numbers are transcribed into this file rather than parsed at runtime.",
+  "source": {
+    "title": "ASEAN Strategy — ESG momentum as an Alpha selection tool",
+    "publisher": "CGS International (CGSI Research)",
+    "date": "2025-08-29",
+    "pages": 43,
+    "citation": "Source: CGSI, \"ESG Momentum 2.0\" (2026), indicative.",
+    "file": "D/ESG 52 Comapnies Data.pdf",
+    "transcribed_on": "2026-08-22"
+  },
+
+  "universe_definition": {
+    "figure": "page 1 body text",
+    "text": "Of the c.140 MSCI AC ASEAN Index constituents at the start of 2020 and c.110 by end-2024, 52 companies remained in the index throughout AND registered positive ESG score compound annual growth over 2019-2023.",
+    "correction": "The index is the SELECTION UNIVERSE, not only the benchmark. Our own earlier reconstruction treated MSCI ASEAN as the benchmark alone and rebuilt the names from public ESG evidence; CGSI drew them from the index membership itself.",
+    "benchmark_ticker": "MXSO (MSCI AC ASEAN Index)"
+  },
+
+  "performance": {
+    "figure": "Figures 2 and 3",
+    "window": "Jan 2021 to 28 Aug 2025",
+    "basket": {
+      "annualised_return": "9.05%",
+      "cumulative_return": "55.14%",
+      "annualised_alpha": "7.74%",
+      "ann_standard_deviation": "9.11%",
+      "sharpe_ratio": "0.57",
+      "maximum_drawdown": "-14.63%"
+    },
+    "benchmark": {
+      "annualised_return": "1.31%",
+      "cumulative_return": "6.36%",
+      "annualised_alpha": "0.00%",
+      "ann_standard_deviation": "11.46%",
+      "sharpe_ratio": "-0.22",
+      "maximum_drawdown": "-24.15%"
+    },
+    "caveat_2025": {
+      "text": "As of YTD-28 Aug 2025 the ESG momentum basket UNDERPERFORMED the MSCI AC ASEAN Index by -4.6%, largely due to its ~45% weighting in the banking sector, which has lagged amid interest rate cuts tied to growth concerns. CGSI state that further analysis is required to isolate the precise drivers.",
+      "shortfall_ytd_2025": "-4.6%",
+      "as_of": "2025-08-28",
+      "why_it_travels": "The headline 55.1% vs 6.4% is a 2021-2025 cumulative figure and is the number every deck reaches for. Showing it without this line presents a strategy as uniformly winning when its own author reports it lagging in the most recent period. A tool whose entire argument is that inconvenient evidence should be surfaced cannot omit its own."
+    },
+    "single_stock_caveat": {
+      "text": "ESG improvements alone do not guarantee stronger share price performance at the single-stock level; the outperformance is a basket property.",
+      "probability_an_improver_beats_the_index": {"1y": "28.9%", "3y": "46.2%", "5y": "61.5%"}
+    }
+  },
+
+  "high_conviction_17": {
+    "figure": "page 1 body text",
+    "filters": [
+      "above-average ESG score CAGR (2019-2023)",
+      "inclusion in CGSI's own coverage universe",
+      "an Add recommendation"
+    ],
+    "how_to_read_our_agreement": "Only the FIRST filter is an ESG signal. The second is sell-side coverage and the third is a buy recommendation — our engine has no view on either, and by HARD RULE 4 never issues a recommendation at all. So the blind-17 overlap measures agreement on one of three criteria, two of which we cannot see by construction. Report it as such: it is not a 70% disagreement about ESG.",
+    "list_valuation": "average core P/E 14.9x, 31.2% implied upside"
+  },
+
+  "esg_rating_column": {
+    "figure": "Figure 5 — 'Malaysian market exhibits the strongest score momentum'",
+    "header_verbatim": "Reuters Code | Bloomberg Code | Company Name | Industry | ESG Rating | ESG Score | 5Y CAGR ESG Growth",
+    "finding": "CGSI's own column is headed 'ESG Rating' and carries BB / BBB / B. It is NOT attributed to LSEG anywhere in that figure. The same document prints LSEG's own grades in its per-company briefs as an 'LSEG ESG Combined Score' on the A+..D- scale (A, A-, B+, B, B-, C observed). Two different scales, and only the second is attributed to LSEG.",
+    "consequence": "`CGSI_52_verified.csv` renames this column to `lseg_rating`, which is an attribution CGSI did not make. We carry it as `incumbent_notch`, unattributed, and fetch the genuine LSEG score separately and live."
+  },
+
+  "verification": {
+    "checked_on": "2026-08-22",
+    "method": "All 52 rows of Figure 5 parsed from the note and compared field-by-field against CGSI_52_verified.csv.",
+    "result": "Zero mismatches across ESG Rating, ESG Score, 5Y CAGR and Industry for all 52 companies. The CSV is a faithful transcription of the note.",
+    "delisting_marker": "The note itself flags MAHB as MAHB.KL^B25 — Refinitiv's delisting convention — independently corroborating the CSV's delisted note."
+  }
+}

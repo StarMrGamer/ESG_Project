@@ -99,6 +99,38 @@ def _why(record, top_n=3):
 # --------------------------------------------------------------------------- #
 #  step 8 — the blind run against CGSI's picks
 # --------------------------------------------------------------------------- #
+def _wrap(text, width):
+    """Tiny greedy wrapper — `textwrap` for one paragraph, without the import."""
+    words, line, out = (text or "").split(), "", []
+    for w in words:
+        if len(line) + len(w) + 1 > width:
+            out.append(line); line = w
+        else:
+            line = f"{line} {w}".strip()
+    if line:
+        out.append(line)
+    return out
+
+
+def _their_filters():
+    """CGSI's own three filters for the high-conviction list, and what they mean for our number.
+
+    Read from `data/cgsi_note_figures.json`, transcribed from their published note. Only the
+    first filter is an ESG signal; the second is sell-side coverage and the third is a buy
+    recommendation, which HARD RULE 4 forbids this system from ever forming. So the overlap
+    measures agreement on one criterion out of three, and a low number is not a disagreement
+    about ESG — it is two filters we cannot see."""
+    path = os.path.join(BASE_DIR, "data", "cgsi_note_figures.json")
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            block = json.load(fh).get("high_conviction_17", {})
+    except (OSError, ValueError):
+        return {}
+    return {"filters": block.get("filters", []),
+            "how_to_read": block.get("how_to_read_our_agreement", ""),
+            "source": "CGSI research note, 29 Aug 2025"}
+
+
 def blind_run(picks_path, demo=False):
     # ORDER MATTERS: score and rank first, open their list second.
     run, source = _score_universe(demo)
@@ -127,6 +159,10 @@ def blind_run(picks_path, demo=False):
         "ranked_by": list(RANK_BY),
         "blind": "the ranking above was computed and frozen before the picks file was opened; "
                  "recompute run_id from the universe alone and you get the same order",
+        # Without this, the agreement percentage reads as "we disagree with CGSI about ESG",
+        # which is not what it measures. CGSI's own note states the three filters behind the 17,
+        # and two of them are invisible to this engine by construction.
+        "their_filters": _their_filters(),
         "their_count": len(theirs), "our_top_k": k,
         "agreement_pct": round(100.0 * len(overlap) / len(theirs), 1),
         "agreed": sorted(overlap),
@@ -281,6 +317,14 @@ def report_blind(result):
     print(f"  their picks   {result['their_count']}")
     print(f"  our top {result['our_top_k']:<5} {len(result['agreed'])} of the same names")
     print(f"  AGREEMENT     {result['agreement_pct']}%\n")
+    filters = result.get("their_filters") or {}
+    if filters.get("filters"):
+        print("  HOW TO READ THAT NUMBER — CGSI's own three filters for the 17:")
+        for i, f in enumerate(filters["filters"], 1):
+            print(f"    {i}. {f}")
+        for line in _wrap(filters.get("how_to_read", ""), 92):
+            print(f"    {line}")
+        print()
     if result["unknown_to_us"]:
         print(f"  !! not in our universe at all: {result['unknown_to_us']}\n")
     for title, key in (("THEY PICKED, WE DID NOT", "they_picked_we_did_not"),

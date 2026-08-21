@@ -66,6 +66,14 @@ SOURCE_CSV = os.path.join(BASE_DIR, "D", "ESG_Radar_Final_Pack", "01_DATA",
 OUT_METADATA = os.path.join(DATA_DIR, "company_metadata.csv")
 OUT_UNIVERSE = os.path.join(DATA_DIR, "asean_universe.json")
 PRIOR_UNIVERSE = os.path.join(DATA_DIR, "asean_universe_reconstructed.json")
+#: CGSI's own Reuters codes, transcribed from Figure 5 of their note. With these, `lseg.py`
+#: looks a company up EXACTLY instead of matching its trading name against a 12.5k-row issuer
+#: list — no contraction rule, no near-miss, no chance of painting one issuer's ESG breakdown
+#: onto another's.
+RIC_FILE = os.path.join(DATA_DIR, "cgsi_rics.json")
+#: Figures transcribed from the same note: performance, the high-conviction filters, and the
+#: 2025 shortfall that the headline cumulative number does not show on its own.
+FIGURES_FILE = os.path.join(DATA_DIR, "cgsi_note_figures.json")
 
 #: The frozen 29-column contract, mirrored from `company_metadata.HEADER`. Imported rather
 #: than retyped would be tidier, but this script must run standalone from `scripts/`.
@@ -270,7 +278,17 @@ def metadata_row(row):
     }
 
 
-def constituent(row, alias_book=None):
+def _load_json(path, key=None, default=None):
+    """Best-effort read of one of the transcribed note files. Absent -> `default`."""
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            blob = json.load(fh)
+    except (OSError, ValueError):
+        return default if default is not None else {}
+    return blob.get(key, default if default is not None else {}) if key else blob
+
+
+def constituent(row, alias_book=None, rics=None):
     """One CGSI row -> one universe constituent."""
     cid, exchange, country = company_id(row["bbg_code"])
     bbg_root = (row["bbg_code"] or "").rsplit(" ", 1)[0].strip()
@@ -280,6 +298,8 @@ def constituent(row, alias_book=None):
         "company": row["company"],
         "ticker": cid,
         "bbg_code": row["bbg_code"],
+        # CGSI's own Reuters code. `lseg.py` prefers it over name matching.
+        "ric": (rics or {}).get(row["bbg_code"], {}).get("ric", ""),
         "exchange": exchange,
         "country": country,
         "sector": row["industry"],
@@ -307,6 +327,39 @@ def constituent(row, alias_book=None):
         "source_url": (row.get("source_url_1") or "").strip(),
         "source_url_2": (row.get("source_url_2") or "").strip(),
         "events": _events(row, cid, as_of),
+    }
+
+
+def _benchmark_stats(constituents):
+    """CGSI's published performance for this exact basket, read from the transcribed note.
+
+    Carries the 2025 shortfall alongside the headline. The cumulative 55.1% vs 6.4% is a
+    2021-2025 figure and is the number every deck reaches for; CGSI's own note reports the
+    basket lagging the index by -4.6% YTD as of 28 Aug 2025 on a ~45% banking weight. Showing
+    the first without the second presents a strategy as uniformly winning when its author says
+    otherwise, which a tool built to surface inconvenient evidence cannot do about itself."""
+    figures = _load_json(FIGURES_FILE) or {}
+    perf = figures.get("performance", {})
+    basket, bench = perf.get("basket", {}), perf.get("benchmark", {})
+    caveat = perf.get("caveat_2025", {})
+    return {
+        "basket_return": basket.get("cumulative_return", ""),
+        "benchmark_return": bench.get("cumulative_return", ""),
+        "basket_annualised": basket.get("annualised_return", ""),
+        "benchmark_annualised": bench.get("annualised_return", ""),
+        "basket_sharpe": basket.get("sharpe_ratio", ""),
+        "benchmark_sharpe": bench.get("sharpe_ratio", ""),
+        "basket_max_drawdown": basket.get("maximum_drawdown", ""),
+        "benchmark_max_drawdown": bench.get("maximum_drawdown", ""),
+        "annualised_alpha": basket.get("annualised_alpha", ""),
+        "window": perf.get("window", ""),
+        "high_conviction_picks": sum(1 for c in constituents if c["high_conviction"]),
+        "shortfall_ytd_2025": caveat.get("shortfall_ytd_2025", ""),
+        "shortfall_note": caveat.get("text", ""),
+        "single_stock_caveat": (perf.get("single_stock_caveat") or {}).get("text", ""),
+        "source": ((figures.get("source") or {}).get("citation", "")
+                   + " CGSI's own backtest of this exact basket -- display only, not "
+                     "recomputed here."),
     }
 
 
@@ -351,20 +404,15 @@ def build():
     rows.sort(key=lambda r: company_id(r["bbg_code"])[0])
 
     alias_book = _alias_book()
-    constituents = [constituent(r, alias_book) for r in rows]
+    rics = _load_json(RIC_FILE, "codes")
+    constituents = [constituent(r, alias_book, rics) for r in rows]
     universe = {
         "note": NOTE,
         "selection": ("CGSI ESG Momentum 2.0 foundation basket -- 52 ASEAN-listed companies "
                       "with consistent ESG improvement 2019-2023 (positive 5-year ESG-score "
                       "CAGR). Supplied by CGSI, verified row-by-row by Quill & Candle."),
-        "benchmark": "MSCI ASEAN",
-        "benchmark_stats": {
-            "basket_return": "55.1%", "benchmark_return": "6.4%",
-            "basket_sharpe": "0.57", "benchmark_sharpe": "-0.22",
-            "high_conviction_picks": sum(1 for c in constituents if c["high_conviction"]),
-            "source": ("CGSI, \"ESG Momentum 2.0\" (2026), indicative -- CGSI's own backtest "
-                       "of this exact basket, display only, not recomputed here"),
-        },
+        "benchmark": "MSCI AC ASEAN (MXSO)",
+        "benchmark_stats": _benchmark_stats(constituents),
         "source_file": "D/ESG_Radar_Final_Pack/01_DATA/CGSI_52_verified.csv",
         "as_of": rows[0].get("as_of", ""),
         "is_provisional": False,

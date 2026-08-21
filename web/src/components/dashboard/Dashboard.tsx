@@ -60,9 +60,22 @@ export default function Dashboard() {
     <div>
       {lv > 1 && !settings.demo && bs.basket_return && board && (
         <div className="bench-strip">
-          <span>Foundation backtest</span>
+          <span>Foundation backtest{bs.window ? ` · ${bs.window}` : ''}</span>
           <span>basket <b>{bs.basket_return || '—'}</b> vs {board.universe.benchmark} <b>{bs.benchmark_return || '—'}</b></span>
           <span>Sharpe <b>{bs.basket_sharpe || '—'}</b> vs <b>{bs.benchmark_sharpe || '—'}</b></span>
+          {bs.basket_max_drawdown && (
+            <span>max drawdown <b>{bs.basket_max_drawdown}</b> vs <b>{bs.benchmark_max_drawdown}</b></span>
+          )}
+          {/* CGSI's own note reports the basket LAGGING the index in the most recent period.
+              The cumulative figure above is the number every deck reaches for, and showing it
+              alone presents a strategy as uniformly winning when its author says otherwise.
+              A tool whose whole argument is that inconvenient evidence should surface cannot
+              make an exception for its own foundation. */}
+          {bs.shortfall_ytd_2025 && (
+            <span className="bench-against" title={bs.shortfall_note}>
+              but <b>{bs.shortfall_ytd_2025}</b> vs the index YTD 2025 — ~45% bank weight
+            </span>
+          )}
           {bs.source && <span className="src">{bs.source}</span>}
         </div>
       )}

@@ -1,0 +1,266 @@
+{
+ "_note": "Reuters Instrument Codes for the verified 52, read off the 'Reuters Code' column of Figure 5 in CGSI's research note (D/ESG 52 Comapnies Data.pdf, 29 Aug 2025). These are CGSI's own codes, so `lseg.py` can look a company up EXACTLY instead of matching its name against LSEG's 12.5k-row issuer list. A `^B25`-style suffix is Refinitiv's delisting marker and is kept out of the lookup code but recorded in `flag`.",
+ "_source": "D/ESG 52 Comapnies Data.pdf, Figure 5, transcribed 2026-08-22",
+ "codes": {
+  "AC PM": {
+   "ric": "AC.PS",
+   "flag": "",
+   "name_in_note": "Ayala Corporation"
+  },
+  "ADVANC TB": {
+   "ric": "ADVANC.BK",
+   "flag": "",
+   "name_in_note": "Advanced Info Service"
+  },
+  "ALI PM": {
+   "ric": "ALI.PS",
+   "flag": "",
+   "name_in_note": "Ayala Land Inc"
+  },
+  "AMM MK": {
+   "ric": "AMMB.KL",
+   "flag": "",
+   "name_in_note": "AMMB Holdings"
+  },
+  "AXIATA MK": {
+   "ric": "AXIA.KL",
+   "flag": "",
+   "name_in_note": "Axiata Group"
+  },
+  "BBCA IJ": {
+   "ric": "BBCA.JK",
+   "flag": "",
+   "name_in_note": "Bank Central Asia"
+  },
+  "BBNI IJ": {
+   "ric": "BBNI.JK",
+   "flag": "",
+   "name_in_note": "Bank Negara Indonesia"
+  },
+  "BBRI IJ": {
+   "ric": "BBRI.JK",
+   "flag": "",
+   "name_in_note": "Bank Rakyat Indonesia"
+  },
+  "BDMS TB": {
+   "ric": "BDMS.BK",
+   "flag": "",
+   "name_in_note": "Bangkok Dusit Med Service"
+  },
+  "BDO PM": {
+   "ric": "BDO.PS",
+   "flag": "",
+   "name_in_note": "BDO Unibank Inc"
+  },
+  "BEM TB": {
+   "ric": "BEM.BK",
+   "flag": "",
+   "name_in_note": "Bangkok Expressway and Metro PCL"
+  },
+  "BMRI IJ": {
+   "ric": "BMRI.JK",
+   "flag": "",
+   "name_in_note": "Bank Mandiri"
+  },
+  "BPI PM": {
+   "ric": "BPI.PS",
+   "flag": "",
+   "name_in_note": "Bank of the Philippine Islands"
+  },
+  "CDB MK": {
+   "ric": "CELC.KL",
+   "flag": "",
+   "name_in_note": "CelcomDigi Bhd"
+  },
+  "CIMB MK": {
+   "ric": "CIMB.KL",
+   "flag": "",
+   "name_in_note": "CIMB Group Holdings Bhd"
+  },
+  "CPALL TB": {
+   "ric": "CPALL.BK",
+   "flag": "",
+   "name_in_note": "CP All"
+  },
+  "CPF TB": {
+   "ric": "CPF.BK",
+   "flag": "",
+   "name_in_note": "Charoen Pokphand Foods PCL"
+  },
+  "CPIN IJ": {
+   "ric": "CPIN.JK",
+   "flag": "",
+   "name_in_note": "Charoen Pokphand Indonesia"
+  },
+  "CPN TB": {
+   "ric": "CPN.BK",
+   "flag": "",
+   "name_in_note": "Central Pattana"
+  },
+  "DBS SP": {
+   "ric": "DBSM.SI",
+   "flag": "",
+   "name_in_note": "DBS Group"
+  },
+  "HLBK MK": {
+   "ric": "HLBB.KL",
+   "flag": "",
+   "name_in_note": "Hong Leong Bank"
+  },
+  "HMPRO TB": {
+   "ric": "HMPRO.BK",
+   "flag": "",
+   "name_in_note": "Home Product Center"
+  },
+  "IHH MK": {
+   "ric": "IHHH.KL",
+   "flag": "",
+   "name_in_note": "IHH Healthcare Bhd"
+  },
+  "INTUCH TB": {
+   "ric": "INTUCH.BK",
+   "flag": "",
+   "name_in_note": "Intouch Holdings PCL"
+  },
+  "IOI MK": {
+   "ric": "IOIB.KL",
+   "flag": "",
+   "name_in_note": "IOI Corporation"
+  },
+  "KEP SP": {
+   "ric": "KPLM.SI",
+   "flag": "",
+   "name_in_note": "Keppel Ltd"
+  },
+  "KTB TB": {
+   "ric": "KTB.BK",
+   "flag": "",
+   "name_in_note": "Krung Thai Bank"
+  },
+  "MAHB MK": {
+   "ric": "MAHB.KL",
+   "flag": "^B25",
+   "name_in_note": "Malaysia Airports Holdings Bhd"
+  },
+  "MAY MK": {
+   "ric": "MBBM.KL",
+   "flag": "",
+   "name_in_note": "Malayan Banking Bhd"
+  },
+  "MINT TB": {
+   "ric": "MINT.BK",
+   "flag": "",
+   "name_in_note": "Minor International"
+  },
+  "MISC MK": {
+   "ric": "MISC.KL",
+   "flag": "",
+   "name_in_note": "MISC Bhd"
+  },
+  "NESZ MK": {
+   "ric": "NESM.KL",
+   "flag": "",
+   "name_in_note": "Nestle (Malaysia)"
+  },
+  "OCBC SP": {
+   "ric": "OCBC.SI",
+   "flag": "",
+   "name_in_note": "OCBC"
+  },
+  "PCHEM MK": {
+   "ric": "PCGB.KL",
+   "flag": "",
+   "name_in_note": "Petronas Chemicals Group"
+  },
+  "PETD MK": {
+   "ric": "PETR.KL",
+   "flag": "",
+   "name_in_note": "Petronas Dagangan Bhd"
+  },
+  "PMAH MK": {
+   "ric": "PMET.KL",
+   "flag": "",
+   "name_in_note": "Press Metal Aluminium Holdings Bhd"
+  },
+  "PTT TB": {
+   "ric": "PTT.BK",
+   "flag": "",
+   "name_in_note": "PTT"
+  },
+  "PTTEP TB": {
+   "ric": "PTTEP.BK",
+   "flag": "",
+   "name_in_note": "PTT Exploration & Production"
+  },
+  "PTTGC TB": {
+   "ric": "PTTGC.BK",
+   "flag": "",
+   "name_in_note": "PTT Global Chemical"
+  },
+  "RHBBANK MK": {
+   "ric": "RHBC.KL",
+   "flag": "",
+   "name_in_note": "RHB Bank Bhd"
+  },
+  "SCC TB": {
+   "ric": "SCC.BK",
+   "flag": "",
+   "name_in_note": "Siam Cement"
+  },
+  "SGX SP": {
+   "ric": "SGXL.SI",
+   "flag": "",
+   "name_in_note": "Singapore Exchange"
+  },
+  "SIA SP": {
+   "ric": "SIAL.SI",
+   "flag": "",
+   "name_in_note": "Singapore Airlines"
+  },
+  "SIME MK": {
+   "ric": "SIME.KL",
+   "flag": "",
+   "name_in_note": "Sime Darby Bhd"
+  },
+  "SM PM": {
+   "ric": "SM.PS",
+   "flag": "",
+   "name_in_note": "SM Investments Corp"
+  },
+  "SMPH PM": {
+   "ric": "SMPH.PS",
+   "flag": "",
+   "name_in_note": "SM Prime Holdings Inc"
+  },
+  "ST SP": {
+   "ric": "STEL.SI",
+   "flag": "",
+   "name_in_note": "SingTel"
+  },
+  "T MK": {
+   "ric": "TLMM.KL",
+   "flag": "",
+   "name_in_note": "Telekom Malaysia"
+  },
+  "TEL PM": {
+   "ric": "TEL.PS",
+   "flag": "",
+   "name_in_note": "PLDT Inc"
+  },
+  "TOP TB": {
+   "ric": "TOP.BK",
+   "flag": "",
+   "name_in_note": "Thai Oil"
+  },
+  "UOB SP": {
+   "ric": "UOBH.SI",
+   "flag": "",
+   "name_in_note": "United Overseas Bank"
+  },
+  "WIL SP": {
+   "ric": "WLIL.SI",
+   "flag": "",
+   "name_in_note": "Wilmar International"
+  }
+ }
+}

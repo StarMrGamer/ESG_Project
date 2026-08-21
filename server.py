@@ -1193,18 +1193,20 @@ def lseg_api(ticker: str, demo: bool = Query(False), company: str = "", exchange
     if not name:
         return {**base, "available": False, "reason": f"{ticker} is not in the loaded universe."}
 
-    # CGSI write short trading names ("OCBC", "SingTel"); LSEG index the full legal ones
-    # ("Oversea-Chinese Banking Corporation Ltd", "Singapore Telecommunications Ltd"). The
-    # basket already carries the longer forms as aliases, so try those before concluding an
-    # issuer is uncovered — otherwise "not in LSEG's 12.5k" is reported for a company LSEG
-    # covers perfectly well, which is the worst kind of wrong answer: a confident one.
+    # CGSI publish the Reuters code for every one of the 52 in Figure 5 of their note, and the
+    # basket carries it. Using it means an EXACT lookup — no name matching, so no chance of
+    # serving one issuer's ESG breakdown under another's name. Name matching stays as the
+    # fallback for anything reached outside the basket (an upload, a free-text company).
+    ric = (row.get("ric") or "").strip()
     candidates = [name] + [a for a in (row.get("aliases") or []) if len(a) > 3 and a != name]
     scores = None
     try:
+        if ric:
+            scores = lseg.lookup("", market, ric=ric)
         for candidate in candidates:
-            scores = lseg.lookup(candidate, market)
             if scores:
                 break
+            scores = lseg.lookup(candidate, market)
     except Exception as exc:  # noqa: BLE001 — rule 1: a third party never breaks the board.
         return {**base, "available": False, "reason": f"LSEG lookup failed: {type(exc).__name__}"}
 

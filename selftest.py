@@ -1179,6 +1179,43 @@ def test_snapshot_band_direction_aware():
 
 
 # --- CGSI verified basket (2026-08-21 data swap) ------------------------------
+def test_lseg_never_serves_another_companys_scores():
+    """A lookup returns THIS issuer's numbers or nothing. Never a near-miss.
+
+    Regression for 2026-08-22, found by clicking a delisted name. Malaysia Airports Holdings
+    resolved to `IBHD.KL` and rendered **I-Bhd's** ESG breakdown under Malaysia Airports' name.
+    Two independent holes lined up: `_norm("I-Bhd")` is the single letter "i", which the
+    containment tier matched as a raw substring of "malaysia airports"; and an explicit RIC
+    passed in from the basket was fetched without ever checking it was a covered issuer. Both
+    are HARD RULE 2 violations that look completely normal on screen, which is what makes them
+    worth a test rather than a fix."""
+    import lseg
+
+    # a one-letter normalised name must not match inside a longer one
+    assert lseg._norm("I-Bhd") == "i", lseg._norm("I-Bhd")
+    assert not lseg._covers("malaysia airports", "i")
+    assert lseg._covers("malayan banking", "malayan banking")
+    assert lseg._covers("oversea chinese banking corporation", "chinese banking")
+    # word-boundary, not substring: "sea" is not "oversea"
+    assert not lseg._covers("oversea chinese banking", "sea")
+
+    # the payload cross-check rejects a different issuer, accepts spelling drift
+    assert lseg._same_issuer("Malayan Banking Berhad", "Malayan Banking Bhd")
+    assert lseg._same_issuer("PTT PCL", "PTT")
+    assert not lseg._same_issuer("I-Bhd", "Malaysia Airports Holdings Bhd")
+
+    # And the end-to-end guard, when the covered list is available locally (it is cached; on a
+    # cold machine with no network there is nothing to check against and the test says so
+    # rather than pretending). A RIC that is not a covered issuer must resolve to nothing —
+    # this is the assertion that would have caught MAHB.
+    covered = {r["ricCode"] for r in lseg.fetch_covered_universe()}
+    if not covered:
+        raise Skipped("LSEG covered-issuer list not cached locally — nothing to check a RIC against")
+    assert "MAHB.KL" not in covered, "MAHB is delisted; it should not be a covered issuer"
+    assert lseg.resolve_ric("Malaysia Airports Holdings Bhd", "KLSE") is None, \
+        "a delisted issuer resolved to SOMETHING — check which company it just claimed to be"
+
+
 def test_metadata_follows_its_universe():
     """The demo universe joins the MOCK rows; the real basket joins the VERIFIED CSV.
 
@@ -1824,6 +1861,8 @@ def main():
          lambda: test_sensitivity_is_pure_and_finds_load_bearing_signals()),
         ("backtest series shaped for the track-record panel",
          lambda: test_backtest_series_on_disk_is_shaped_for_the_panel()),
+        ("LSEG never serves another company's scores",
+         lambda: test_lseg_never_serves_another_companys_scores()),
         ("metadata follows its universe (demo -> mock, real -> verified)",
          lambda: test_metadata_follows_its_universe()),
         ("CGSI verified 52 adapts onto the frozen schema (N=13 reproduces)",
