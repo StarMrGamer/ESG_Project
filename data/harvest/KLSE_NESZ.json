@@ -1,0 +1,71 @@
+{
+ "company_id": "KLSE:NESZ",
+ "company": "Nestle (Malaysia)",
+ "events": [
+  {
+   "event_id": "KLSE:NESZ-harvest-0",
+   "text": "Nestlé Malaysia's Board of Directors presented its Corporate Governance Overview Statement for the year ended 31 December 2025, committing to the highest standards of integrity, accountability and transparency.",
+   "published_at": "2025-12-31",
+   "source_url": "https://www.nestle.com.my/sites/g/files/pydnoa251/files/2026-03/Corporate-Governance-Financial-Report-2025.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-1",
+   "text": "In January 2022, Nestlé Malaysia successfully transitioned to utilising 100% renewable electricity for all Nestlé facilities in both East and West Malaysia, by subscribing to the Green Electricity Tariff (GET) Programme by Tenaga Nasional Berhad (TNB) and the Renewable Energy Certificate (REC) by Sarawak Energy.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.nestle.com.my/sustainability/climate-change",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-2",
+   "text": "On December 8, 2021, Nestlé Malaysia announced it will be fully transitioning to 100% renewable electricity across all its operations in Malaysia as of 1 January 2022, allowing the company to reduce emissions by 75,000 tonnes of CO2 equivalent every year.",
+   "published_at": "2021-12-08",
+   "source_url": "https://www.nestle.com.my/media/pressreleases/renewable-energy",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-3",
+   "text": "Nestlé Malaysia will be fully transitioning to 100% renewable electricity (RE) across all its operations in Malaysia as of Jan 1, 2022.",
+   "published_at": "2022-01-01",
+   "source_url": "https://theedgemalaysia.com/article/nestl%C3%A9-malaysia-fully-transitioning-100-re-36",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-4",
+   "text": "Nestle Manufacturing (Malaysia) Sdn Bhd was fined RM90,000 by the Shah Alam Sessions Court on two counts of releasing industrial effluent in excess of the acceptable limit.",
+   "published_at": "2020-12-24",
+   "source_url": "https://www.themalaysianinsight.com/s/291579",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  }
+ },
+ "kept": 5
+}

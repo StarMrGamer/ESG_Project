@@ -1,0 +1,63 @@
+{
+ "company_id": "KLSE:MISC",
+ "company": "MISC Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:MISC-harvest-0",
+   "text": "MISC's total emissions for Scope 1 and 2 stood at 4.2 million tonnes carbon dioxide equivalent and would amount to seven million if Scope 3 is included.",
+   "published_at": "2023-12-19",
+   "source_url": "https://www.pressreader.com/malaysia/the-star-malaysia/20231219/282999699635778",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MISC-harvest-1",
+   "text": "MISC has set an interim target of reducing 50% greenhouse gas (GHG) intensity by 2030 and achieve net zero by 2050.",
+   "published_at": "2022-07-27",
+   "source_url": "https://klse.i3investor.com/web/blog/detail/rhbinvest/2022-07-27-story-h1626993912-MISC_Stays_Committed_on_Sustainability",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MISC-harvest-2",
+   "text": "MISC's total GHG emission (scope 1 and 2) was 4.19m mt CO2 equivalent, of which 98% is attributable to its shipping business.",
+   "published_at": "2022-07-27",
+   "source_url": "https://klse.i3investor.com/web/blog/detail/rhbinvest/2022-07-27-story-h1626993912-MISC_Stays_Committed_on_Sustainability",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MISC-harvest-3",
+   "text": "MISC Berhad announced the resignation of Encik Mohammad Suhaimi bin Mohd Yasin from its Audit Committee, effective 13 May 2026, following his appointment as Chairman of the Board.",
+   "published_at": "2026-05-13",
+   "source_url": "https://klse.i3investor.com/web/announcement/detail/2059941",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline"
+  }
+ },
+ "kept": 4
+}

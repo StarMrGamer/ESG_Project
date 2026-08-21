@@ -1179,6 +1179,43 @@ def test_snapshot_band_direction_aware():
 
 
 # --- CGSI verified basket (2026-08-21 data swap) ------------------------------
+def test_every_real_surface_scores_the_same_run():
+    """The board, the money slide, the anchor and the blind test must agree on ONE run.
+
+    The moment harvested evidence merges into the real basket, any surface that forgets the
+    overlay silently describes a DIFFERENT universe. The consequences are not cosmetic: the
+    money slide would print an M the screen contradicts, and — worse — `anchor.py` would hash a
+    run the verification page cannot reproduce, so the page would report NO MATCH on evidence
+    nobody had tampered with. That is the tamper-evidence claim failing in the direction that
+    destroys it. So this asserts they all land on the same `run_id`."""
+    import company_metadata, engine, engine_config, harvest, pipeline_counts, server
+
+    cfg = engine_config.load()
+    meta = company_metadata.load()
+    cons = harvest.apply_overlay(universe.constituents())
+    expected = engine.run_engine(cons, metadata=meta, config=cfg, use_cache=False)["run_id"]
+
+    board_run, _meta, _cfg = server._engine_run(False)
+    assert board_run["run_id"] == expected, ("board", board_run["run_id"], expected)
+
+    # the counts must be computed over that same run
+    counts = pipeline_counts.counts(board_run, meta, cfg)
+    assert counts["N"] == 13, counts
+
+    # and if a harvest exists at all, it must actually be reaching the engine
+    overlay = harvest.load_overlay()
+    if overlay:
+        bare = engine.run_engine(universe.constituents(), metadata=meta, config=cfg,
+                                 use_cache=False)
+        assert board_run["run_id"] != bare["run_id"], \
+            "harvested evidence exists but the board's run is identical to the bare one"
+        harvested_signals = sum(r["signal_count"] for r in board_run["records"])
+        bare_signals = sum(r["signal_count"] for r in bare["records"])
+        assert harvested_signals > bare_signals, (harvested_signals, bare_signals)
+        # and the decay reference must NOT have moved (the 2050 bug)
+        assert board_run["as_of"] == bare["as_of"], (board_run["as_of"], bare["as_of"])
+
+
 def test_traction_screen_states_and_rule():
     """§B.4's four tests, and the distinction that matters: unknown is not failure."""
     import traction
@@ -1957,6 +1994,8 @@ def main():
          lambda: test_sensitivity_is_pure_and_finds_load_bearing_signals()),
         ("backtest series shaped for the track-record panel",
          lambda: test_backtest_series_on_disk_is_shaped_for_the_panel()),
+        ("every real surface scores the same run",
+         lambda: test_every_real_surface_scores_the_same_run()),
         ("traction screen: four tests, unknown is not failure",
          lambda: test_traction_screen_states_and_rule()),
         ("harvest guards reject ungrounded events",

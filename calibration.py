@@ -127,8 +127,12 @@ def _run(which=DEFAULT_UNIVERSE, config=None):
                 "records": records, "labels": cfg_run["labels"],
                 "company_count": len(records)}
     path = UNIVERSES.get(which, universe.UNIVERSE_FILE)
-    return engine.run_engine(universe.constituents(path),
-                             metadata=company_metadata.load(demo=path == universe.DEMO_FILE),
+    demo = path == universe.DEMO_FILE
+    cons = universe.constituents(path)
+    if not demo:
+        import harvest
+        cons = harvest.apply_overlay(cons)     # rate what the board actually shows
+    return engine.run_engine(cons, metadata=company_metadata.load(demo=demo),
                              use_cache=False, config=config)
 
 

@@ -1,0 +1,71 @@
+{
+ "company_id": "KLSE:MAHB",
+ "company": "Malaysia Airports Holdings Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:MAHB-harvest-0",
+   "text": "In 2023, Malaysia Airports set interim targets to reduce Scope 1 emissions by 25% and Scope 2 emissions by 15%.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.scribd.com/document/887920656/Sustainability-Report-for-Airports-Under-Malaysia-Airports",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAHB-harvest-1",
+   "text": "In 2023, Malaysia Airports focused on collaboration with stakeholders to address Scope 3 emissions, which constitute 86.5% of total emissions.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.scribd.com/document/887920656/Sustainability-Report-for-Airports-Under-Malaysia-Airports",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAHB-harvest-2",
+   "text": "In 2022, Malaysia Airports began reviewing its sustainability framework and addressing climate change by developing a net-zero carbon emissions strategy and roadmap.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.scribd.com/document/680530441/MAHB-Annual-Report-2022-Part-2",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAHB-harvest-3",
+   "text": "Malaysia Airports Holdings Berhad published a full annual report (75.44 MB) on April 29, 2024.",
+   "published_at": "2024-04-29",
+   "source_url": "https://www.publicnow.com/view/225F9D28909812B8648D6CCC4A449E201DE9013B?1714373173",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAHB-harvest-4",
+   "text": "In 2025, Malaysia Airports Holdings Berhad intensified its commitment to sustainability, aligning its initiatives with the United Nations Sustainable Development Goals and Malaysia's target of carbon neutrality by 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://myaviationmagazine.com/green-airports-2025-the-runway-to-a-sustainable-future/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  }
+ },
+ "kept": 5
+}

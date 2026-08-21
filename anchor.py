@@ -502,9 +502,17 @@ def _cli(argv):
         # verified CSV on the real 52. Loading one set for both anchors a tree whose green-bond
         # leaves belong to companies that are not in the run.
         metadata = company_metadata.load(demo=demo)
+        # The board merges harvested evidence for the real basket, so this MUST too. Anchoring a
+        # run built from different inputs would produce a root the verification page can never
+        # reproduce — it recomputes leaves from the run the user is looking at, and would report
+        # NO MATCH on evidence nobody had tampered with.
+        cons = universe.constituents(source)
+        if not demo:
+            import harvest
+            cons = harvest.apply_overlay(cons)
         for name in horizons:
             cfg = engine_config.for_horizon(name)
-            run = engine.run_engine(universe.constituents(source), metadata=metadata, config=cfg)
+            run = engine.run_engine(cons, metadata=metadata, config=cfg)
             record = anchor_run(run, metadata, push=push)
             scope = ("demo (fictional)" if demo else "real ASEAN base DB") + f" · {name}"
             print(f"{scope:26s} run {record['run_id']}  root {record['root'][:20]}…  "

@@ -1,0 +1,47 @@
+{
+ "company_id": "KLSE:PCHEM",
+ "company": "Petronas Chemicals Group",
+ "events": [
+  {
+   "event_id": "KLSE:PCHEM-harvest-0",
+   "text": "PCG's 2025 Sustainability Report records zero fatalities.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/petronas-chemicals/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PCHEM-harvest-1",
+   "text": "PCG's 2025 Sustainability Report records strengthened Board oversight of sustainability, climate and integrity matters.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/petronas-chemicals/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  }
+ },
+ "kept": 2
+}

@@ -1092,7 +1092,14 @@ def engine_company(ticker: str, demo: bool = Query(True),
     if not record:
         raise HTTPException(404, f"{ticker} is not in the scored universe.")
     constituent = universe.get(ticker, universe.active_file(demo)) or {}
+    # Which of these facts we gathered ourselves, rather than receiving in the verified basket.
+    # Matched on (url, date) because that pair is what the harvest actually stored; a reader
+    # looking at a mixed trail is entitled to know which rows came from where.
+    harvested = {(e.get("source_url", ""), e.get("published_at", ""))
+                 for e in harvest.load_overlay().get(ticker, [])}
     trail = [{
+        "origin": ("harvested" if (s["source_url"], s["published_at"]) in harvested
+                   else "supplied"),
         "signal_id": s["signal_id"], "routes": s["routes"], "component": s["component"],
         "subcomponent": s["subcomponent"], "direction": s["direction"],
         "materiality": s["materiality"], "confidence": s["confidence"],

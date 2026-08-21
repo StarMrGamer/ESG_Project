@@ -43,6 +43,7 @@ harvested evidence", never to a crash and never to an invented fact.
     python harvest.py SGX:DBS                 # one company
     python harvest.py --empty                 # every company the engine currently scores at 0
     python harvest.py --all --limit 10        # the whole basket, capped
+    python harvest.py --refilter              # re-apply the guards to what is already stored
 """
 
 import json
@@ -343,7 +344,54 @@ def _scored_counts() -> Dict[str, int]:
             for c in universe.constituents()}
 
 
+def refilter() -> Dict[str, int]:
+    """Re-apply the guards to everything already on disk, without re-fetching.
+
+    Exists because the guards get stronger over time and re-running a sweep costs real money
+    and real calls to other people's servers. The events are already stored with their source
+    and date, so a tightened rule can simply be re-applied to them. Currently this is what
+    removes target-year dates (2050 "net zero" commitments read as publication dates) from
+    harvests taken before that guard existed."""
+    caps = {c["ticker"]: str(c.get("as_of") or "")[:10] for c in universe.constituents()}
+    files = dropped = kept = 0
+    try:
+        names = sorted(os.listdir(HARVEST_DIR))
+    except OSError:
+        return {"files": 0, "dropped": 0, "kept": 0}
+    for name in names:
+        if not name.endswith(".json"):
+            continue
+        path = os.path.join(HARVEST_DIR, name)
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                rec = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        cid = rec.get("company_id", "")
+        cap = caps.get(cid, "")
+        before = rec.get("events") or []
+        after = [e for e in before
+                 if _DATE_ISO.fullmatch(str(e.get("published_at", "")))
+                 and (not cap or str(e.get("published_at", "")) <= cap)]
+        for i, e in enumerate(after):
+            e["event_id"] = "%s-harvest-%d" % (cid, i)
+        rec["events"], rec["kept"] = after, len(after)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, indent=1, ensure_ascii=False)
+            fh.write("\n")
+        files += 1
+        dropped += len(before) - len(after)
+        kept += len(after)
+    return {"files": files, "dropped": dropped, "kept": kept}
+
+
 def main(argv: List[str]) -> int:
+    if "--refilter" in argv:
+        out = refilter()
+        print("re-filtered %d file(s): dropped %d, kept %d"
+              % (out["files"], out["dropped"], out["kept"]))
+        return 0
+
     cons = {c["ticker"]: c for c in universe.constituents()}
     overlay = load_overlay()
 

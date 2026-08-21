@@ -241,8 +241,13 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     cfg = engine_config.for_horizon(a.horizon)
     path = universe.active_file(not a.real)
-    run = engine.run_engine(universe.constituents(path),
-                            metadata=company_metadata.load(demo=not a.real), config=cfg)
+    cons = universe.constituents(path)
+    if a.real:
+        # The board merges harvested evidence for the real basket. A sensitivity report computed
+        # without it would name a different signal set than the verdict the reader is looking at.
+        import harvest
+        cons = harvest.apply_overlay(cons)
+    run = engine.run_engine(cons, metadata=company_metadata.load(demo=not a.real), config=cfg)
     out = flip_analysis(run, a.ticker, cfg)
     if out is None:
         print(f"{a.ticker} is not in the scored universe.")

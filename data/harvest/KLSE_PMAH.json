@@ -1,0 +1,55 @@
+{
+ "company_id": "KLSE:PMAH",
+ "company": "Press Metal Aluminium Holdings Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:PMAH-harvest-0",
+   "text": "Press Metal presents its tenth annual Sustainability Statement (SS 2025) covering the reporting period from 1 January 2025 to 31 December 2025.",
+   "published_at": "2025-01-01",
+   "source_url": "https://pressmetal.com/esg/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PMAH-harvest-1",
+   "text": "Press Metal Aluminium Holdings Berhad presents its tenth annual Sustainability Statement ('SS 2025') for the reporting period from 1 January 2025 to 31 December 2025.",
+   "published_at": "2025-01-01",
+   "source_url": "https://pressmetal.com/esg/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PMAH-harvest-2",
+   "text": "Press Metal Aluminium Holdings Bhd is investigating the cause of a fire that broke out at its wooden stick storage facility in Samalaju; no injuries were reported.",
+   "published_at": "2025-07-18",
+   "source_url": "https://www.theborneopost.com/2025/07/18/press-metal-probes-samalaju-facility-fire-no-injuries-reported/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  }
+ },
+ "kept": 3
+}

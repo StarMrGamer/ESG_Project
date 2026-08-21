@@ -285,6 +285,14 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
                     materiality {row.materiality.toFixed(2)} · confidence {row.confidence.toFixed(2)}
                     {' · '}{row.source_type.replace(/_/g, ' ')}
                   </span>
+                  {/* Where this fact came from. A trail that mixes what CGSI verified with what
+                      we went and found is fine — a trail that does not say which is not. */}
+                  {row.origin === 'harvested' && (
+                    <span className="route-chip origin-harvested"
+                      title="Gathered live by us from public sources, then routed and scored by the same rules as everything else. Not part of the verified basket.">
+                      gathered live
+                    </span>
+                  )}
                 </div>
                 <div className="trail-text">“{row.raw_text}”</div>
                 <div className="trail-rationale" title="Stored per-signal justification">

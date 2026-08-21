@@ -2755,3 +2755,4 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   color: var(--r-blue); background: var(--r-bluebg);
   font-size: 10.5px; letter-spacing: 0.05em; white-space: nowrap;
 }
+.route-chip.origin-harvested { color: var(--r-blue); border-color: var(--r-blue); }

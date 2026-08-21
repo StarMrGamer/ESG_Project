@@ -1,0 +1,87 @@
+{
+ "company_id": "KLSE:PETD",
+ "company": "Petronas Dagangan Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:PETD-harvest-0",
+   "text": "PETRONAS Dagangan Berhad formally adopted the PETRONAS Commitment to Net Zero Carbon Emissions by 2050, according to its 2025 Sustainability Report.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/petronas-dagangan/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-1",
+   "text": "PETRONAS Dagangan Berhad solarised 121 additional stations in fiscal year 2025, bringing the cumulative solarised network to 303 sites.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/petronas-dagangan/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-2",
+   "text": "PETRONAS Dagangan Berhad's Sustainability Action Committee (SAC) and Board Sustainability and Risk Committee (BSRC) oversee climate-related risks, opportunities and other sustainability-related matters.",
+   "published_at": "2024-12-31",
+   "source_url": "https://cdn1.i3investor.com/my/files/st88k/5681_PETDAG/annual/2024-12-31/5681_PETDAG_AnnualReport_2024-12-31_PDBIntegratedReport2024Part1_958811205.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-3",
+   "text": "PETRONAS Dagangan Bhd published its Integrated Report titled 'Thriving Forward' on March 17, 2025.",
+   "published_at": "2025-03-17",
+   "source_url": "https://www.marketscreener.com/quote/stock/PETRONAS-DAGANGAN-6491623/news/PETRONAS-Dagangan-Integrated-Report-Thriving-Forward-49410845/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-4",
+   "text": "Syed Zainal, a former non-independent and non-executive director at PETRONAS Dagangan Bhd, said a safety review was urged a year after the gas pipeline explosion, explaining the 2,623km gas pipeline network in Peninsular Malaysia.",
+   "published_at": "2026-04-01",
+   "source_url": "https://www.thestar.com.my/news/nation/2026/04/01/safety-review-urged-a-year-after-gas-pipeline-explosion",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-5",
+   "text": "The Industrial Court awarded a former aircraft refueller RM86,450 in compensation and back wages after ruling his dismissal by Petronas Dagangan Berhad was without just cause or excuse.",
+   "published_at": "2025-05-01",
+   "source_url": "https://www.nst.com.my/news/crime-courts/2025/05/1220221/court-awards-rm86k-ex-aircraft-refueller-over-unjust-dismissal",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-6",
+   "text": "Mohd Taufik bin Mohd Aris was dismissed by Petronas Dagangan Berhad on December 22, 2022, over alleged misconduct including falsifying attendance records and forging signatures on training documents.",
+   "published_at": "2022-12-22",
+   "source_url": "https://www.scribd.com/document/872572409/INDUSTRIAL-COURT-Terminate-without-just-n-cause-PETRONAS",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  }
+ },
+ "kept": 7
+}

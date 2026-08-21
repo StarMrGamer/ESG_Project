@@ -524,6 +524,8 @@ export interface EngineBlock {
 }
 
 export interface TrailRow {
+  /** "harvested" = gathered live by us; "supplied" = came in the verified basket. */
+  origin?: string
   signal_id: string
   routes: { component: string; subcomponent: string }[]
   component: string

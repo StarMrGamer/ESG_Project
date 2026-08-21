@@ -1,0 +1,111 @@
+{
+ "company_id": "KLSE:T",
+ "company": "Telekom Malaysia",
+ "events": [
+  {
+   "event_id": "KLSE:T-harvest-0",
+   "text": "Telekom Malaysia Berhad total emissions reported as 295,901 t CO2e for 2023, covering Scope 1, 2 & 3 GHG data from sustainability reports.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.roundarc.com/data/telekom-malaysia-berhad-malaysia",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-1",
+   "text": "Telekom Malaysia Berhad reported 384.4K tCO2e (2023) CO2 emissions in 2023, a -981.2% reduction since 2021.",
+   "published_at": "2023-01-01",
+   "source_url": "https://polluer.com/companies/MTM4MjQ1MzYy",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-2",
+   "text": "Telekom Malaysia Bhd's 2025 Integrated Report highlights a 34% reduction in Scope 1 and Scope 2 emissions compared to the 2019 baseline, driven by energy efficiency and renewable energy adoption, and expanded waste and water reporting boundaries.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/integrated-annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-3",
+   "text": "Telekom Malaysia achieved a 34% reduction in carbon emissions compared to its 2019 baseline for the 2025 fiscal year.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-4",
+   "text": "Telekom Malaysia reaffirmed its commitment to achieving net-zero emissions by 2050 in its 2025 sustainability statement.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-5",
+   "text": "Telekom Malaysia procured 96,587 MWh of renewable energy through the Green initiative in the 2025 fiscal year.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-6",
+   "text": "Telekom Malaysia's 2025 sustainability report marked its first adoption of IFRS Sustainability Disclosure Standards (S1 and S2).",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-7",
+   "text": "2025 marks the second year that sustainability metrics and targets have been embedded into the KPIs and remuneration of key leadership positions at Telekom Malaysia.",
+   "published_at": "2025-01-01",
+   "source_url": "https://tm.com.my/sites/default/files/2026-05/%5BPages%20100-251%5D%20Telekom%20Malaysia%20Berhad%20IAR25.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-8",
+   "text": "The United States has charged three senior employees of Telekom Malaysia (TM) for allegedly misappropriating over $20 million from the Malaysian state telecommunications firm, the U.S. Department of Justice said.",
+   "published_at": "2026-05-20",
+   "source_url": "https://www.reuters.com/legal/government/us-charges-three-malaysian-state-telecoms-officials-for-multimillion-dollar-2026-05-20/",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-9",
+   "text": "Telekom Malaysia Bhd (TM) said it will continue to extend its full cooperation with the US Department of Justice (DOJ) concerning former employees of TM USA Inc., and that it had earlier initiated its own investigation pursuant to the suspicion of misconduct by the individuals, which led to their dismissal.",
+   "published_at": "2026-05-20",
+   "source_url": "https://www.malaymail.com/news/malaysia/2026/05/20/telekom-malaysia-says-cooperating-with-us-doj-over-alleged-misconduct-by-former-tm-usa-employees/220667",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  }
+ },
+ "kept": 10
+}

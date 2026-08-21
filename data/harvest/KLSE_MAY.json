@@ -1,0 +1,63 @@
+{
+ "company_id": "KLSE:MAY",
+ "company": "Malayan Banking Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:MAY-harvest-0",
+   "text": "Maybank's sustainable finance disclosures for the period from 1 January 2024 to 31 December 2024 were subjected to independent limited assurance by PricewaterhouseCoopers PLT, Malaysia (PwC), with details on pages 151 and 152.",
+   "published_at": "2024-12-31",
+   "source_url": "https://illuminem.b-cdn.net/datahub/Sustainability_Reports/2024_malayan%20banking%20bhd..pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-1",
+   "text": "Maybank Group's Sustainability Report 2024, externally assured by SIRIM QAS International, includes sustainability disclosures for the financial year 2024 covering the Group's global operations.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.scribd.com/document/860029030/Maybank-Sustainability-Report-2024-20250326",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-2",
+   "text": "Bank Negara Malaysia imposed an Administrative Monetary Penalty of RM4.32 million against Malayan Banking Bhd and Maybank for non-compliance with the Financial Services Act 2013 and Islamic Financial Services Act 2013 due to prolonged disruptions of several banking services, on 29 July 2024.",
+   "published_at": "2024-07-29",
+   "source_url": "https://www.bharian.com.my/berita/nasional/2024/08/1284818/bnm-kenakan-penalti-rm432-juta-kepada-maybank",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-3",
+   "text": "Maybank Islamic Bhd, a unit of Malayan Banking Bhd, was fined RM1.2 million by Bank Negara Malaysia for failing to comply with financial services laws, as reported on May 28.",
+   "published_at": "2025-05-28",
+   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-05-29-story-h499513667-Bank_Negara_Fines_Four_Lenders_for_Non_compliance_With_Financial_Service",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply"
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live"
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live"
+  }
+ },
+ "kept": 4
+}

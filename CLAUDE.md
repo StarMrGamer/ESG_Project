@@ -49,6 +49,8 @@ esg-momentum-radar/
   engine.py                 # run_engine(company_list) — the reproducible score records (Gate 1)
   signals.py                # deterministic signal extraction from stored evidence (no LLM, no clock)
   sensitivity.py            # what would CHANGE a verdict — leave-one-out + boundary margins (pure)
+  harvest.py                # AI READS, rules score — live evidence for the thin names (overlay)
+  traction.py               # §B.4 four-test screen for loss-makers (unknown != not_met)
   engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers · horizons)
   company_metadata.py       # A3 loader over the FROZEN green-bond CSV header + the A4 badge payloads
   pipeline_counts.py        # A6/B2 — N issuers · M pipeline · K review list (screen + money slide)
@@ -160,6 +162,60 @@ widget has this bug); and an uncovered issuer is `{}` → `None`, never zeros. *
 non-commercial reference/publication needs written approval, and commercial use, redistribution or
 **systematic reproduction** needs a licence — so this is attributed, on-demand, one company at a
 time, cached locally, and **`data/` never receives a scrape**.
+
+**THE ANSWER TO "NO COMPANY CLEARS HIDDEN WINNERS"** (`harvest.py`, added 2026-08-22). The
+verified basket is a green-bond verification sheet, not an evidence base: 28 of 52 companies
+score ZERO signals off it and `hidden_winners` needs 10. The fix is not a lower threshold — that
+is the Adaro failure precisely — it is more evidence, gathered where the model already belongs:
+**it reads, the rules score.** Live search per company -> the LLM turns snippets into
+`{text, published_at, source_url}` -> `signals.py` routes by rule -> `engine.py` scores
+deterministically. The model never sets a direction, a confidence or a label.
+
+**Four search angles, not one.** A single blended query returns one page and yields about one
+usable fact; emissions / governance / financing / controversy return four disjoint result sets.
+Measured on Siam Cement: blended kept 1 event, four angles kept 7, engine went 0 signals -> 4.
+`controversy` is in the list deliberately, so a harvest cannot quietly become a press-release
+collector.
+
+**Five guards, because this is the one place fabrication could enter.** (1) A `source_url` not in
+the retrieved snippets is dropped — the model cannot cite what it was not shown. (2) A date the
+snippet does not state is dropped; nothing is back-filled to "today". (2b) **A date later than
+the basket's own `as_of` is dropped** — see below. (3) `source_type` comes from the URL's domain,
+decided by us, or a press release can label itself `regulator` and score at double weight.
+(4) The verified basket is never overwritten: harvests land in `data/harvest/` and merge as an
+OVERLAY, so CGSI's rows stay exactly as CGSI supplied them and any harvest can be thrown away.
+
+**Guard 2b is there because of a real bug that hid completely.** The model read TARGET years as
+publication dates — "aims for net zero by 2050" came back as `published_at: 2050-12-31`. Since
+`engine._as_of_from` takes the newest date in the data as the decay reference, ONE such event
+moved `as_of` 24 years forward, decayed every genuine signal in the basket to zero weight, and
+took composite momentum for the **entire universe** to 0.000 — while every company still showed
+its original `signal_count`. Nothing raised. The board would have rendered a universe with no
+momentum as though that were the finding. `harvest.py --refilter` re-applies the guards to stored
+harvests without re-fetching, because tightening a rule should not cost another sweep.
+
+The overlay is applied for the REAL universe only (searching live news about a fictional demo
+company is nonsense), it changes the `run_id` — correctly, since a run over more evidence is a
+different run — and the board states the count rather than mixing the two silently.
+`pipeline_counts` applies the same overlay so the money slide and the screen can never report a
+different M, and the frozen record carries `evidence_basis` naming which run produced it.
+
+**The traction screen runs now** (`traction.py`, playbook step 4 / Methodology §B.4). Four tests
+— revenue growth >=10% compound over two FYs, operating cash flow positive or improving, a
+disclosed order book, signed PPAs or committed green capex. **>=2 met = flag; 0 met =
+disqualified.** The thresholds are OURS and the panel never confirmed them, so every surface says
+*team-designed measure*.
+
+The distinction that carries the module: **`unknown` is not `not_met`.** The basket holds net
+income and nothing else, so tests 1 and 2 are unanswered for both loss-makers (PCHEM, PTTGC) and
+both return `screen_not_run` — neither cleared nor disqualified. Scoring an unrun test as a
+failure would disqualify a company for OUR missing data rather than its own numbers.
+`--sheet --gather` builds the fill-in sheet with real candidate sources already retrieved per
+test; `--apply` folds a filled sheet back into the metadata CSV and SKIPS any company whose
+screen is still unrun. Net income trend is read and displayed but explicitly NOT counted as one
+of the four — §B.4 asks about operating cash flow, and a narrowing loss is not that. (Parsing it
+surfaced its own bug: `"FY2025 -THB14.6b"` yielded 2025, the year, so PTTGC's halving loss read
+as widening.)
 
 **THE SOURCE DOCUMENT** (`D/ESG 52 Comapnies Data.pdf`, read 2026-08-22). The CSV was not the
 original — CGSI's published 43-page research note is, *"ASEAN Strategy — ESG momentum as an Alpha
@@ -514,6 +570,9 @@ python benchmarks.py                     # the per-industry table: ASEAN average
 python quotes.py                         # live quotes for one name per ASEAN exchange
 python lseg.py "DBS Group Holdings" SGX  # one company's real LSEG ESG score; no args = all 52
 python sensitivity.py IDX:ASMB           # what would change this verdict (--real, --horizon, --json)
+python harvest.py --empty                # gather evidence for every zero-signal company
+python harvest.py --refilter             # re-apply the guards to stored harvests (no re-fetch)
+python traction.py --sheet --gather      # the loss-maker screen + retrieved candidate sources
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
 python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
                                           #   pre-computes both Compete answers, prints the
