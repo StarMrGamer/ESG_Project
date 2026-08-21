@@ -1,0 +1,14 @@
+{
+ "companies": 28,
+ "calls_per_company_per_sweep": 4,
+ "avg_prompt_tokens_per_company": 5604,
+ "avg_output_tokens_per_company": 455,
+ "avg_total_tokens_per_company": 6059,
+ "cacheable_prompt_share": 28.8,
+ "avg_events_kept": 5.3,
+ "tokens_per_kept_event": 1139,
+ "replayed_retrievals": 28,
+ "basis": "Estimated at 3.7 chars/token - core.py is frozen and does not return the API usage block. Output is measured from STORED events, so it is a floor: facts the guards dropped were generated and billed and cannot be seen here.",
+ "_measured_by": "harvest.py --cost over the full 28-company sweep, 2026-08-22",
+ "_note": "Harvests taken from 2026-08-22 record `prompt_chars` at harvest time, so re-measurement no longer replays retrieval. These 28 predate that and were measured by replay."
+}

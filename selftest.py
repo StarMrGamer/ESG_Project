@@ -1179,6 +1179,54 @@ def test_snapshot_band_direction_aware():
 
 
 # --- CGSI verified basket (2026-08-21 data swap) ------------------------------
+def test_cost_model_prices_cache_hits_rather_than_writing_them_off():
+    """A cache hit is a cheaper RATE, not free — and the cache never touches output.
+
+    DeepSeek bill a hit at $0.007/1M against $0.22 on a miss: 31x cheaper, not zero. Modelling
+    the cache as "those tokens are free" overstates the saving, and applying a flat percentage
+    off the whole prompt overstates it far worse. Both mistakes flatter a cost model, which is
+    the one place this project cannot afford to be generous with itself."""
+    import cost_model
+
+    measured = {"prompt_tokens_per_company_per_sweep": 10000,
+                "output_tokens_per_company_per_sweep": 1000,
+                "cacheable_prompt_share_pct": 50.0}
+    kw = dict(price_hit=0.007, price_miss=0.22, price_out=0.66, fx=1.0, sweeps_per_month=1)
+
+    full = cost_model.unit_economics(measured, cache_hit=1.0, **kw)
+    none = cost_model.unit_economics(measured, cache_hit=0.0, **kw)
+
+    # with a perfect hit rate only the CACHEABLE half moves to the hit rate
+    assert full["cache_hit_tokens_per_sweep"] == 5000, full
+    assert full["cache_miss_tokens_per_sweep"] == 5000, full
+    # ...and it still costs something: 5000 tokens at $0.007/1M is not zero
+    hit_cost = 5000 / 1e6 * 0.007
+    expected = hit_cost + 5000 / 1e6 * 0.22 + 1000 / 1e6 * 0.66
+    assert abs(full["usd_per_company_per_sweep"] - expected) < 1e-9, full
+    assert full["usd_per_company_per_sweep"] > 0
+
+    # no cache at all -> the whole prompt bills at the miss rate
+    assert none["cache_miss_tokens_per_sweep"] == 10000, none
+    assert none["usd_per_company_per_sweep"] > full["usd_per_company_per_sweep"]
+
+    # output is never discounted by the cache
+    out_only = 1000 / 1e6 * 0.66
+    assert full["usd_per_company_per_sweep"] > out_only
+
+    # the scoring path is structurally zero-token, and the model must keep saying so
+    inputs = cost_model.measured_inputs()
+    if inputs.get("available"):
+        assert inputs["tokens_per_signal_scoring_path"] == 0, inputs
+
+    # and it refuses to run without prices
+    try:
+        cost_model.main(["--price-hit", "0.007"])
+    except SystemExit as exc:
+        assert exc.code != 0
+    else:
+        raise AssertionError("cost_model ran without being given every price")
+
+
 def test_every_real_surface_scores_the_same_run():
     """The board, the money slide, the anchor and the blind test must agree on ONE run.
 
@@ -2004,6 +2052,8 @@ def main():
          lambda: test_sensitivity_is_pure_and_finds_load_bearing_signals()),
         ("backtest series shaped for the track-record panel",
          lambda: test_backtest_series_on_disk_is_shaped_for_the_panel()),
+        ("cost model prices cache hits, never writes them off",
+         lambda: test_cost_model_prices_cache_hits_rather_than_writing_them_off()),
         ("every real surface scores the same run",
          lambda: test_every_real_surface_scores_the_same_run()),
         ("traction screen: four tests, unknown is not failure",

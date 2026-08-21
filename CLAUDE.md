@@ -51,6 +51,7 @@ esg-momentum-radar/
   sensitivity.py            # what would CHANGE a verdict — leave-one-out + boundary margins (pure)
   harvest.py                # AI READS, rules score — live evidence for the thin names (overlay)
   traction.py               # §B.4 four-test screen for loss-makers (unknown != not_met)
+  cost_model.py             # unit economics from MEASURED tokens; never guesses a price
   engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers · horizons)
   company_metadata.py       # A3 loader over the FROZEN green-bond CSV header + the A4 badge payloads
   pipeline_counts.py        # A6/B2 — N issuers · M pipeline · K review list (screen + money slide)
@@ -229,6 +230,40 @@ Hidden Winner is **better sources, not more of them** — regulator actions, exc
 index-provider decisions — which is the alt-data roadmap item, not a threshold to tune. Do not
 lower the bar to populate the quadrant; the label would then mean "we found a lot of press
 releases", which is precisely what Adaro looked like.
+
+**THE COST MODEL, BUILT** (`cost_model.py`, 2026-08-22). The business pack's
+`ESG_Radar_Cost_and_Scale_Model.xlsx` is a SKELETON — labels, a colour convention and prose
+descriptions of formulas ("day rate x weeks x days/week x FTE"), with zero formulas and zero
+values across Pilot Cost, Unit Economics and Scale Scenarios. Its headline assumption is also
+wrong for this architecture: it models **40 signals/company/month at 1500 tokens/signal**, which
+describes a system where a model does the scoring.
+
+Ours does not. **The scoring path costs ZERO tokens** — `signals.py` routes by rule, `engine.py`
+scores deterministically, and no LLM is reachable from either. All LLM cost sits in GATHERING
+(`harvest.py`) and is charged **per sweep of a company, not per signal**. So the variable-cost
+line reads *tokens per company per sweep x sweeps per month*, and the two formulations give very
+different answers.
+
+Measured over the full 28-company sweep (`harvest.py --cost`): **4 calls and 6,059 tokens per
+company per sweep** (5,604 prompt + 455 output), 28.8% of the prompt cacheable (the byte-identical
+system prompt), yielding 5.3 dated facts. At DeepSeek's published off-peak card and weekly sweeps
+that is **SGD 0.0793 per company per year** — about **S$4/year to cover the whole CGSI basket**,
+S$159/year at 2,000 companies. Peak is exactly 2x, and a sweep is a batch job, so running
+off-peak is a free halving.
+
+Two disciplines the module keeps. **It will not guess a price**: `--price-hit`, `--price-miss`
+and `--price-out` are all required, because a made-up per-token rate flatters a cost model more
+effectively than any other single number. And **a cache hit is a cheaper RATE, not free** —
+DeepSeek bill $0.007/1M against $0.22 on a miss, so the prompt is split into hit and miss slices
+and priced separately; treating cached tokens as free, or applying a flat percentage to the whole
+prompt, both overstate the saving. Pinned by `selftest.py`.
+
+**It also refuses to draw the falling marginal-cost line the workbook asks for.** Inference is
+linear in companies, so on this cost alone that line is FLAT. It only falls once the fixed data
+licence is spread across clients — and no licence quote exists. Drawing it before that number
+arrives is drawing the conclusion first, which is what the model exists to prevent. Day rates,
+the two licence quotes, the price point and the milestone stay listed as MISSING with the
+document that settles each.
 
 **The traction screen runs now** (`traction.py`, playbook step 4 / Methodology §B.4). Four tests
 — revenue growth >=10% compound over two FYs, operating cash flow positive or improving, a
@@ -603,6 +638,8 @@ python sensitivity.py IDX:ASMB           # what would change this verdict (--rea
 python harvest.py --empty                # gather evidence for every zero-signal company
 python harvest.py --refilter             # re-apply the guards to stored harvests (no re-fetch)
 python traction.py --sheet --gather      # the loss-maker screen + retrieved candidate sources
+python harvest.py --cost                 # measured tokens/company (writes data/harvest_cost.json)
+python cost_model.py --price-hit 0.007 --price-miss 0.22 --price-out 0.66 --window off-peak
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
 python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
                                           #   pre-computes both Compete answers, prints the

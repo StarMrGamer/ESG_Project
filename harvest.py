@@ -44,6 +44,7 @@ harvested evidence", never to a crash and never to an invented fact.
     python harvest.py --empty                 # every company the engine currently scores at 0
     python harvest.py --all --limit 10        # the whole basket, capped
     python harvest.py --refilter              # re-apply the guards to what is already stored
+    python harvest.py --cost                  # measured tokens per company (for the cost model)
 """
 
 import json
@@ -193,11 +194,11 @@ def _extract_from(constituent, cid, query, use_cache, max_date=""):
     try:
         ctx = rag.gather_context(query, k=TOP_K, use_cache=use_cache)
     except Exception as exc:                                    # noqa: BLE001
-        return [], 0, "retrieval failed (%s)" % type(exc).__name__
+        return [], 0, "retrieval failed (%s)" % type(exc).__name__, 0
 
     snippets = ctx.get("snippets") or []
     if not snippets:
-        return [], 0, ctx.get("status") or "no snippets"
+        return [], 0, ctx.get("status") or "no snippets", 0
 
     allowed = {str(s.get("url") or "").strip() for s in snippets}
     allowed.discard("")
@@ -226,7 +227,7 @@ def _extract_from(constituent, cid, query, use_cache, max_date=""):
                                   json_mode=True)
             parsed = core.parse_json(reply) or {}
         except Exception as exc:                                # noqa: BLE001
-            return [], len(snippets), "extraction failed (%s)" % type(exc).__name__
+            return [], len(snippets), "extraction failed (%s)" % type(exc).__name__, 0
         if isinstance(parsed, dict) and "events" in parsed:
             break
 
@@ -234,10 +235,10 @@ def _extract_from(constituent, cid, query, use_cache, max_date=""):
         # A reply we could not parse is a FAILED harvest, not an empty one. Reporting "0 facts"
         # when the truth is "the answer did not come back as JSON" would under-report evidence
         # and read as a finding about the company.
-        return [], len(snippets), "unparsed reply"
+        return [], len(snippets), "unparsed reply", len(_SYSTEM) + len(user)
 
     return (_clean_events(parsed.get("events"), allowed, cid, max_date),
-            len(snippets), ctx.get("status", ""))
+            len(snippets), ctx.get("status", ""), len(_SYSTEM) + len(user))
 
 
 def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True) -> Dict[str, Any]:
@@ -254,10 +255,16 @@ def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True) -> D
 
     merged, statuses = {}, []
     for name, angle in ANGLES:
-        events, n, status = _extract_from(constituent, cid, _query_for(constituent, angle),
-                                          use_cache, max_date)
+        events, n, status, chars = _extract_from(
+            constituent, cid, _query_for(constituent, angle), use_cache, max_date)
         record["snippet_count"] += n
-        record["angles"][name] = {"snippets": n, "kept": len(events), "status": status}
+        # Prompt size is recorded HERE, at the only moment it is known for free. Deriving it
+        # later means replaying every retrieval, which needs a warm cache and stalls outright
+        # when the search endpoint is rate-limited — a cost measurement should not depend on
+        # the network being friendly.
+        record["prompt_chars"] = record.get("prompt_chars", 0) + chars
+        record["angles"][name] = {"snippets": n, "kept": len(events), "status": status,
+                                  "prompt_chars": chars}
         if status and status not in ("live", "cache"):
             statuses.append("%s: %s" % (name, status))
         for e in events:
@@ -385,7 +392,149 @@ def refilter() -> Dict[str, int]:
     return {"files": files, "dropped": dropped, "kept": kept}
 
 
+#: Characters per token. `core.py` is frozen and returns the assistant string rather than the
+#: API's usage block, so token counts here are ESTIMATED the same way `llm_cost.py` estimates
+#: them — and reported as estimates, never as metered figures.
+CHARS_PER_TOKEN = 3.7
+
+
+COST_FILE = os.path.join(BASE_DIR, "data", "harvest_cost.json")
+
+
+def load_cost_profile() -> Dict[str, Any]:
+    """The last measured cost profile, read from disk. `{}` if never measured.
+
+    Measuring rebuilds every prompt, which means 4 retrieval calls per company — cheap when the
+    cache is warm and very slow when it is not. The result is a property of a completed sweep,
+    not something a caller should pay for repeatedly, so `--cost` persists it and everything
+    downstream reads the file."""
+    try:
+        with open(COST_FILE, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return {}
+
+
+def cost_profile(sample: Optional[int] = None, *, use_cache: bool = True) -> Dict[str, Any]:
+    """Measured LLM cost of ONE harvest sweep, per company. Feeds the cost model's yellow cells.
+
+    Rebuilds the exact prompts (retrieval is cached, so this costs nothing) and measures them.
+    Output is measured from the events actually stored, which makes it a FLOOR: facts the guards
+    dropped were still generated and still billed, and this cannot see them.
+
+    This is the number the cost model was missing. Its skeleton assumes 40 signals/company/month
+    at 1500 tokens/signal, which describes a system where an LLM does the scoring. Ours does not
+    — scoring is rule-based and costs zero tokens. The LLM cost sits entirely in GATHERING, and
+    it is per sweep, not per signal."""
+    cons = universe.constituents()
+    stored = {}
+    try:
+        names = sorted(os.listdir(HARVEST_DIR))
+    except OSError:
+        names = []
+    for name in names:
+        if not name.endswith(".json"):
+            continue
+        try:
+            with open(os.path.join(HARVEST_DIR, name), "r", encoding="utf-8") as fh:
+                rec = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        stored[rec.get("company_id", "")] = rec
+
+    targets = [c for c in cons if c["ticker"] in stored]
+    if sample:
+        targets = targets[:sample]
+
+    rows, replayed = [], 0
+    for c in targets:
+        rec = stored[c["ticker"]]
+        prompt_chars = rec.get("prompt_chars", 0)
+        for _name, angle in (() if prompt_chars else ANGLES):
+            try:
+                ctx = rag.gather_context(_query_for(c, angle), k=TOP_K, use_cache=use_cache)
+            except Exception:                                   # noqa: BLE001
+                continue
+            snippets = ctx.get("snippets") or []
+            block = "\n\n".join(
+                "[%d] %s\n%s\nURL: %s" % (i + 1, s.get("title", ""),
+                                          (s.get("snippet") or "")[:700], s.get("url", ""))
+                for i, s in enumerate(snippets))
+            user = (_USER.replace("{company}", c.get("company", ""))
+                    .replace("{ticker}", c["ticker"])
+                    .replace("{industry}", c.get("industry", c.get("sector", "")))
+                    .replace("{country}", c.get("country", ""))
+                    .replace("{snippets}", block))
+            prompt_chars += len(_SYSTEM) + len(user)
+        out_chars = len(json.dumps({"events": [
+            {k: e[k] for k in ("text", "published_at", "source_url")}
+            for e in rec.get("events", [])]}))
+        if not rec.get("prompt_chars"):
+            replayed += 1
+        rows.append({
+            "company_id": c["ticker"],
+            "calls": len(ANGLES),
+            "prompt_tokens": round(prompt_chars / CHARS_PER_TOKEN),
+            "output_tokens": round(out_chars / CHARS_PER_TOKEN),
+            "events_kept": len(rec.get("events", [])),
+        })
+
+    if not rows:
+        return {"companies": 0, "note": "no harvests on disk to measure"}
+    n = len(rows)
+    prompt = sum(r["prompt_tokens"] for r in rows) / n
+    output = sum(r["output_tokens"] for r in rows) / n
+    # The system prompt is byte-identical on every call and every company, so it is the part a
+    # prefix cache serves. That is the cacheable SHARE, not an observed hit rate.
+    cacheable = len(_SYSTEM) / CHARS_PER_TOKEN * len(ANGLES)
+    return {
+        "companies": n,
+        "calls_per_company_per_sweep": len(ANGLES),
+        "avg_prompt_tokens_per_company": round(prompt),
+        "avg_output_tokens_per_company": round(output),
+        "avg_total_tokens_per_company": round(prompt + output),
+        "cacheable_prompt_share": round(100.0 * cacheable / prompt, 1) if prompt else 0.0,
+        "avg_events_kept": round(sum(r["events_kept"] for r in rows) / n, 1),
+        "tokens_per_kept_event": round((prompt + output) /
+                                       max(1, sum(r["events_kept"] for r in rows) / n)),
+        "replayed_retrievals": replayed,
+        "basis": ("Estimated at %.1f chars/token — core.py is frozen and does not return the "
+                  "API usage block. Output is measured from STORED events, so it is a floor: "
+                  "facts the guards dropped were generated and billed and cannot be seen here."
+                  % CHARS_PER_TOKEN),
+        "rows": rows,
+    }
+
+
 def main(argv: List[str]) -> int:
+    if "--cost" in argv:
+        out = load_cost_profile() if "--cached" in argv else cost_profile()
+        if out.get("companies") and "--cached" not in argv:
+            os.makedirs(os.path.dirname(COST_FILE), exist_ok=True)
+            with open(COST_FILE, "w", encoding="utf-8") as fh:
+                json.dump({k: v for k, v in out.items() if k != "rows"}, fh, indent=1)
+                fh.write("\n")
+            print("(measured and saved to %s)\n" % os.path.relpath(COST_FILE, BASE_DIR))
+        if not out.get("companies"):
+            print(out.get("note", "nothing to measure"))
+            return 1
+        print("HARVEST COST — measured over %d harvested companies\n" % out["companies"])
+        print("  LLM calls per company per sweep      %6d   (%d search angles)"
+              % (out["calls_per_company_per_sweep"], len(ANGLES)))
+        print("  Prompt tokens per company            %6d" % out["avg_prompt_tokens_per_company"])
+        print("  Output tokens per company            %6d" % out["avg_output_tokens_per_company"])
+        print("  TOTAL tokens per company per sweep   %6d" % out["avg_total_tokens_per_company"])
+        print("  Cacheable prompt share               %6.1f%%  (the byte-identical system prompt)"
+              % out["cacheable_prompt_share"])
+        print("  Dated facts kept per company         %6.1f" % out["avg_events_kept"])
+        print("  Tokens per kept fact                 %6d" % out["tokens_per_kept_event"])
+        print("\n  %s" % out["basis"])
+        print("\n  NOTE FOR THE COST MODEL: the scoring path costs ZERO tokens — it is rule-based.")
+        print("  All LLM cost is in GATHERING, and it is per SWEEP, not per signal. The model's")
+        print("  skeleton assumes 40 signals/co/month at 1500 tokens/signal, which describes a")
+        print("  system where the model does the scoring. Ours does not.")
+        return 0
+
     if "--refilter" in argv:
         out = refilter()
         print("re-filtered %d file(s): dropped %d, kept %d"
