@@ -6,7 +6,7 @@
  "config_version": "v2.0",
  "counts": {
   "K": 3,
-  "M": 10,
+  "M": 11,
   "N": 13
  },
  "engine_version": "engine-v2.0",
@@ -26,6 +26,7 @@
   "M": [
    "IDX:CPIN",
    "KLSE:IOI",
+   "KLSE:PCHEM",
    "KLSE:RHBBANK",
    "PSE:SM",
    "PSE:SMPH",
@@ -59,6 +60,6 @@
   "M": "below its ASEAN sector-peer ESG average AND positive evidenced momentum AND passes the financial screen (profitable, or loss_making with traction) AND not already a reviewed/certified issuer AND not delisted",
   "N": "green_bond_status in {cbi_certified, labelled_reviewed}"
  },
- "run_id": "569d0322e0f5d771",
+ "run_id": "2fed18d9d019270a",
  "universe_size": 52
 }

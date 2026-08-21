@@ -1239,6 +1239,16 @@ def test_traction_screen_states_and_rule():
     none = traction.screen(row, {k: "not_met" for k, _, _ in traction.TESTS})
     assert none["verdict"] == "disqualified", none
 
+    # a verdict is reached as soon as two tests are met, even with a blank cell left over:
+    # the remaining tests cannot unsatisfy a rule that is already satisfied
+    partial = traction.screen(row, {"revenue_growth": "met", "cash_flow": "met"})
+    assert partial["verdict"] == "traction" and partial["unknown"] == 2, partial
+
+    # integrity: a flag written into the metadata must carry the evidence behind it
+    for cid, meta_row in traction.loss_makers().items():
+        if meta_row.get("traction_flag"):
+            assert meta_row.get("traction_evidence"), (cid, "flag with no evidence")
+
     # the label travels — these thresholds are ours and the panel never confirmed them
     assert "team-designed" in blank["label"].lower(), blank["label"]
     assert "not credit analysis" in blank["label"].lower(), blank["label"]

@@ -21,18 +21,18 @@
     "note": "Net income, not operating cash flow — reported for context, and NOT counted toward the four tests."
    },
    "answers": {
-    "revenue_growth": "unknown",
-    "cash_flow": "unknown",
+    "revenue_growth": "not_met",
+    "cash_flow": "met",
     "order_book": "unknown",
-    "green_pipeline": "unknown",
-    "revenue_growth_evidence": "",
-    "revenue_growth_source": "",
-    "cash_flow_evidence": "",
-    "cash_flow_source": "",
-    "order_book_evidence": "",
+    "green_pipeline": "met",
+    "revenue_growth_evidence": "Revenue FELL ~10%: FY2024 RM30,671m -> FY2025 RM27,480m. The test asks for >=10% compound GROWTH over two FYs; this is a decline of similar size.",
+    "revenue_growth_source": "https://www.petronas.com/pcg/media/media-releases/pcg-records-fy2024-pat-rm13-billion-driven-im",
+    "cash_flow_evidence": "Operating cash flow POSITIVE in both years: FY2024 RM4.55b; 9M FY2025 RM2.1b (down 31% YoY but still positive). Full-year FY2025 figure not located in public sources - the nine-month number is what is evidenced.",
+    "cash_flow_source": "https://www.tradingview.com/symbols/MYX-PCHEM/financials-cash-flow/",
+    "order_book_evidence": "Not located. Commodity petrochemical producers do not typically disclose an order book or backlog, but that is an expectation, not a finding - needs a read of the FY2025 annual report.",
     "order_book_source": "",
-    "green_pipeline_evidence": "",
-    "green_pipeline_source": ""
+    "green_pipeline_evidence": "40-megawatt solar energy project, a PCG / LG Chem collaboration at the Pengerang Integrated Complex, for nitrile butadiene latex production. Reported by The Star and Malay Mail (14 Nov 2024) as part of a RM7.5b Pengerang investment - note the RM7.5b is PETRONAS parent-level; the 40MW solar project is the specifically PCG-linked component, and it is what satisfies this test.",
+    "green_pipeline_source": "https://www.thestar.com.my/business/business-news/2024/11/14/petronas-invests-another-rm75"
    },
    "candidate_evidence": {
     "revenue_growth": [
@@ -126,17 +126,17 @@
     "note": "Net income, not operating cash flow — reported for context, and NOT counted toward the four tests."
    },
    "answers": {
-    "revenue_growth": "unknown",
+    "revenue_growth": "not_met",
     "cash_flow": "unknown",
     "order_book": "unknown",
     "green_pipeline": "unknown",
-    "revenue_growth_evidence": "",
-    "revenue_growth_source": "",
-    "cash_flow_evidence": "",
-    "cash_flow_source": "",
-    "order_book_evidence": "",
+    "revenue_growth_evidence": "Revenue FELL 20%: FY2024 THB604,045m -> FY2025 THB484,907m, on lower product prices and planned maintenance shutdowns at MEG, the Refinery and Aromatics Unit 2.",
+    "revenue_growth_source": "https://www.kaohooninternational.com/markets/576586",
+    "cash_flow_evidence": "No full-year operating cash flow figure located. Adjusted EBITDA was POSITIVE at THB20,846m (down 34%) and the net loss narrowed 51% (THB29,811m -> THB14,600m) - but EBITDA is not operating cash flow, and substituting it would answer an easier question than the test asks. Needs the FY2025 cash flow statement.",
+    "cash_flow_source": "https://www.kaohooninternational.com/markets/576586",
+    "order_book_evidence": "Not located - retrieval returned nothing on this angle. Needs the FY2025 annual report.",
     "order_book_source": "",
-    "green_pipeline_evidence": "",
+    "green_pipeline_evidence": "Not located - retrieval returned nothing on this angle. Note the Portfolio Transformation / deleveraging programme is a COST programme, not a green capex commitment. Needs the sustainability report or a signed-PPA announcement.",
     "green_pipeline_source": ""
    },
    "candidate_evidence": {
@@ -146,5 +146,6 @@
     "green_pipeline": []
    }
   }
- }
+ },
+ "_filled_by": "Rai (AI-assisted) 2026-08-22 - public sources only. Every \"met\"/\"not_met\" carries the figure and its URL. Every \"unknown\" names the document that would settle it. NOTHING here is a Bloomberg-terminal figure and nothing is estimated."
 }

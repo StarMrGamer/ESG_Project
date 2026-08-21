@@ -330,8 +330,12 @@ def main(argv: List[str]) -> int:
     for cid, row in rows.items():
         _report(cid, row, (sheet.get(cid) or {}).get("answers"))
 
+    # Keyed on the VERDICT, not on leftover unknowns: once two tests are met the rule is
+    # satisfied and the remaining ones cannot unsatisfy it, so a company that has reached
+    # `traction` is done even with a blank cell left on the sheet.
     unfilled = [cid for cid in rows
-                if screen(rows[cid], (sheet.get(cid) or {}).get("answers"))["unknown"]]
+                if screen(rows[cid], (sheet.get(cid) or {}).get("answers"))["verdict"]
+                == "screen_not_run"]
     if unfilled:
         print("The screen has NOT run for: %s" % ", ".join(unfilled))
         print("Neither cleared nor disqualified — `python traction.py --sheet --gather` builds "
