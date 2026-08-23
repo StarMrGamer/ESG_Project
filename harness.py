@@ -43,6 +43,10 @@ import json
 import os
 import sys
 
+# `calibration` and `backtest_timeline` moved to tools/ — they are dev CLIs, not app modules.
+# The harness still drives them, so tools/ goes on the path BEFORE they are imported.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+
 import anchor
 import backtest_timeline
 import calibration

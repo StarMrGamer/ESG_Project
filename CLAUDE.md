@@ -58,11 +58,16 @@ esg-momentum-radar/
   anchor.py                 # C2/C3 — Merkle root per run + Sepolia anchoring (best-effort)
   contracts/EvidenceAnchor.sol  # C1 — append-only run_id -> root, ~20 lines
   harness.py                # A8 — determinism · stability · golden · cases · timelines · merkle · sweep · calibration
-  calibration.py            # A8 — BLIND rating sheet: 2 humans vs the model over 10 companies
-  backtest_timeline.py      # A8 — per-case validation chart (flat grey baseline vs moving momentum)
-  phase_b.py                # Playbook steps 7–8 — issuance backtest + the blind 17-pick run
-  llm_cost.py               # cost per company off the golden set (no price is ever guessed)
-  cost_inputs.py            # the three cost-model cells for Sean (signals/co/month · tokens/signal · cache)
+  tools/                    # developer CLIs — nothing in the app imports these.
+                            #   harness.py deliberately stays at the root: it IS the engine gate.
+    calibration.py          #   A8 — BLIND rating sheet: 2 humans vs the model
+    backtest_timeline.py    #   A8 — per-case validation chart
+    phase_b.py              #   Playbook 7-8 — issuance backtest + blind 17-pick
+    llm_cost.py             #   cost per company off the golden set
+    cost_inputs.py          #   the three cost-model cells for Sean
+  legacy/                   # PRE-REWRITE (July). Nothing in the app imports these; kept only
+    esg_data.py             #   because selftest still covers them. Deleting is a DECISION.
+    esg_scoring.py
   scripts/                   # developer-only data builders and the LLM probe
     build_cgsi_basket.py     # CGSI's verified 52 -> the universe + the frozen-shape metadata CSV
     refresh_eurostat_benchmark.py  # verifies/refreshes the industry bar from the free Eurostat API
@@ -646,19 +651,19 @@ python harness.py                         # ENGINE check (A8): Gate 1 determinis
                                           #   golden set + the 5 backtest cases + their timelines +
                                           #   merkle + sensitivity sweep + calibration
 python harness.py --update-golden         # re-freeze the golden set (review the diff!)
-python backtest_timeline.py               # redraw docs/backtest/*.svg (harness checks they are current)
-python calibration.py --sheet             # (re)write the blind sheet (cases + real names, >=2 excerpts)
-python calibration.py --rate rater_a --name "..."   # rate it, one keypress per company; resumable
-python calibration.py                     # score it once BOTH rater columns are filled
-python cost_inputs.py                     # the three numbers Sean's cost model is missing
-python phase_b.py --template              # the two Phase-B input shapes; --blind / --issuance to run
+python tools/backtest_timeline.py               # redraw docs/backtest/*.svg (harness checks they are current)
+python tools/calibration.py --sheet             # (re)write the blind sheet (cases + real names, >=2 excerpts)
+python tools/calibration.py --rate rater_a --name "..."   # rate it, one keypress per company; resumable
+python tools/calibration.py                     # score it once BOTH rater columns are filled
+python tools/cost_inputs.py                     # the three numbers Sean's cost model is missing
+python tools/phase_b.py --template              # the two Phase-B input shapes; --blind / --issuance to run
 python anchor.py                          # build + anchor EVERY (universe x horizon) run; --list, --verify
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
-python llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
+python tools/llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
 python -m scripts.build_cgsi_basket       # rebuild the basket from CGSI_52_verified.csv (--check)
 python -m scripts.refresh_eurostat_benchmark  # verify the industry bar live (--write to refresh)
 python pipeline_counts.py --real --freeze     # N/M/K on the real basket -> data/nmk_frozen.json
-python phase_b.py --blind data/phase_b/cgsi_picks_17.json --real   # the blind 17-pick test
+python tools/phase_b.py --blind data/phase_b/cgsi_picks_17.json --real   # the blind 17-pick test
 python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata CSV
 python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.csv from OECD SDMX
 python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity
@@ -697,6 +702,16 @@ Sepolia; with no RPC configured the run is recorded `anchor_pending` and says so
 never silently unanchored.
 
 ---
+
+**The root is not a junk drawer** (tidied 2026-08-24). 32 loose `.py` files became 25: the
+developer CLIs moved to `tools/` and the two pre-rewrite July modules to `legacy/`. Nothing the
+app imports at runtime moved — `core`, `universe`, `signals`, `engine`, `server` and friends stay
+flat, because **19 modules anchor their `data/` paths off `__file__`** and moving one silently
+repoints it at a directory that does not exist. That is not hypothetical: `esg_data.py` started
+reading `legacy/data/` the moment it moved, and the tools all lost their imports until the
+`sys.path` bootstrap went in ABOVE them rather than below. Each moved file now derives the repo
+root one level up and says so in a comment. A proper `src/` package is a real option, but it is a
+40-edit change whose failure mode is a silent empty read — do it after a deadline, never before.
 
 ## HARD RULES (never violate)
 

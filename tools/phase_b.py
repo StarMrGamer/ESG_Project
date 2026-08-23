@@ -24,6 +24,11 @@ an already-final `run_id` you can recompute yourself. The engine has no code pat
 the picks, and this file is short enough to check that claim by reading it.
 """
 
+
+import os as _os, sys as _sys
+# tools/ -> repo root, BEFORE any app import below.
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import json
 import os
 import sys
@@ -33,7 +38,7 @@ import engine
 import engine_config
 import universe
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "data", "phase_b")
 
 # How we rank when asked "which names would you put forward?". Disclosed, and deliberately the

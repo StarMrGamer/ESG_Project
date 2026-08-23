@@ -41,6 +41,11 @@ The engine itself costs **zero** LLM tokens: signal extraction is rule-based and
 (`signals.py`), which is why this number is per *deep dive*, not per scored company.
 """
 
+
+import os as _os, sys as _sys
+# tools/ -> repo root, BEFORE any app import below.
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import json
 import os
 import re

@@ -31,6 +31,11 @@ Nothing here fabricates a human. With the rater slots empty the report says UNME
 harness says so too; it never quietly reports "calibrated" on zero human ratings.
 """
 
+
+import os as _os, sys as _sys
+# tools/ -> repo root, BEFORE any app import below.
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import json
 import os
 import sys
@@ -40,7 +45,7 @@ import company_metadata
 import engine
 import universe
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHEET_FILE = os.path.join(BASE_DIR, "data", "calibration_sheet.json")
 
 SET_SIZE = 10

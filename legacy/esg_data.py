@@ -10,10 +10,13 @@ import core
 WB_BASE = "https://api.worldbank.org/v2"
 
 # Separate cache for live pulls — never overwrites the bundled reference CSV.
-_CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".cache")
+#: This module lives in legacy/, so the repo root is one level up. Both paths point at the
+#: REPO's .cache and data directories, not at legacy/ copies of them.
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_CACHE_DIR = os.path.join(_ROOT, ".cache")
 _LIVE_CACHE_CSV = os.path.join(_CACHE_DIR, "wb_live_cache.csv")
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+DATA_DIR = os.path.join(_ROOT, "data")
 FALLBACK_CSV = os.path.join(DATA_DIR, "fallback_oecd_wgi_asean.csv")
 
 COUNTRIES = {"SGP": "Singapore", "MYS": "Malaysia", "IDN": "Indonesia",

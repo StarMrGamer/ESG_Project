@@ -14,6 +14,7 @@ Proves the contracts and the wiring without calling DeepSeek OR the network:
 
 import json
 import os
+import sys
 
 import core
 import contracts
@@ -39,6 +40,10 @@ _FAKE_DDG_HTML = """<html><body>
 </body></html>"""
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+# `esg_data` / `esg_scoring` are the pre-rewrite July modules. Nothing in the app imports
+# them any more, so they live in legacy/ — kept only because these tests still cover them.
+# Deleting them is a decision, not a tidy-up.
+sys.path.insert(0, os.path.join(ROOT, "legacy"))
 
 
 class Skipped(Exception):

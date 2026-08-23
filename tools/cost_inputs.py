@@ -28,6 +28,11 @@ Run it, read the caveats, and send the whole output rather than the three number
 figure this soft is worse than useless once it is separated from what it means.
 """
 
+
+import os as _os, sys as _sys
+# tools/ -> repo root, BEFORE any app import below.
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import json
 import os
 import sys
@@ -38,7 +43,7 @@ import harness
 import llm_cost
 import universe
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def _months_between(later, earlier):

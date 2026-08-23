@@ -23,13 +23,18 @@ never see its own future: the value plotted for March is what the Radar would ha
 March. That is the whole reason the chart is worth showing.
 """
 
+
+import os as _os, sys as _sys
+# tools/ -> repo root, BEFORE any app import below.
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+
 import json
 import os
 import sys
 
 import engine
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(BASE_DIR, "docs", "backtest")
 CASES_FILE = os.path.join(BASE_DIR, "data", "backtest_cases.json")
 
