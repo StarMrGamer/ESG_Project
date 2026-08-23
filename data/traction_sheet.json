@@ -23,14 +23,14 @@
    "answers": {
     "revenue_growth": "not_met",
     "cash_flow": "met",
-    "order_book": "unknown",
+    "order_book": "not_met",
     "green_pipeline": "met",
     "revenue_growth_evidence": "Revenue FELL ~10%: FY2024 RM30,671m -> FY2025 RM27,480m. The test asks for >=10% compound GROWTH over two FYs; this is a decline of similar size.",
     "revenue_growth_source": "https://www.petronas.com/pcg/media/media-releases/pcg-records-fy2024-pat-rm13-billion-driven-im",
     "cash_flow_evidence": "Operating cash flow POSITIVE in both years: FY2024 RM4.55b; 9M FY2025 RM2.1b (down 31% YoY but still positive). Full-year FY2025 figure not located in public sources - the nine-month number is what is evidenced.",
     "cash_flow_source": "https://www.tradingview.com/symbols/MYX-PCHEM/financials-cash-flow/",
-    "order_book_evidence": "Not located. Commodity petrochemical producers do not typically disclose an order book or backlog, but that is an expectation, not a finding - needs a read of the FY2025 annual report.",
-    "order_book_source": "",
+    "order_book_evidence": "No contracted order book or backlog disclosed. Full-text search of Integrated Report 2025 for 'order book', 'backlog', 'contracted', 'offtake' and 'performance obligation' returns no backlog figure - only Order Fulfilment Reliability of 93% (a service-level KPI, not a backlog) and a forward-looking intent to secure long-term offtake agreements in the risk section. Note the report carries a summarised Financial Review, not the audited FS notes.",
+    "order_book_source": "https://www.petronas.com/pcg/sites/default/files/uploads/content/2026/PCG%20IR2025%20%5BInteractive%20PDF%5D%203.pdf",
     "green_pipeline_evidence": "40-megawatt solar energy project, a PCG / LG Chem collaboration at the Pengerang Integrated Complex, for nitrile butadiene latex production. Reported by The Star and Malay Mail (14 Nov 2024) as part of a RM7.5b Pengerang investment - note the RM7.5b is PETRONAS parent-level; the 40MW solar project is the specifically PCG-linked component, and it is what satisfies this test.",
     "green_pipeline_source": "https://www.thestar.com.my/business/business-news/2024/11/14/petronas-invests-another-rm75"
    },
@@ -127,17 +127,17 @@
    },
    "answers": {
     "revenue_growth": "not_met",
-    "cash_flow": "unknown",
-    "order_book": "unknown",
-    "green_pipeline": "unknown",
+    "cash_flow": "met",
+    "order_book": "not_met",
+    "green_pipeline": "not_met",
     "revenue_growth_evidence": "Revenue FELL 20%: FY2024 THB604,045m -> FY2025 THB484,907m, on lower product prices and planned maintenance shutdowns at MEG, the Refinery and Aromatics Unit 2.",
     "revenue_growth_source": "https://www.kaohooninternational.com/markets/576586",
-    "cash_flow_evidence": "No full-year operating cash flow figure located. Adjusted EBITDA was POSITIVE at THB20,846m (down 34%) and the net loss narrowed 51% (THB29,811m -> THB14,600m) - but EBITDA is not operating cash flow, and substituting it would answer an easier question than the test asks. Needs the FY2025 cash flow statement. TRIED AND FAILED 2026-08-22: DuckDuckGo search (rate-limited), pttgcgroup.com IR (JS-rendered, no figures in HTML), Thai SEC market.sec.or.th (blocked), SET.or.th page + three API shapes (blocked), stockanalysis.com (blocked). This needs a human to open the FY2025 financial statement PDF - do not repeat the automated attempts.",
-    "cash_flow_source": "https://www.kaohooninternational.com/markets/576586",
-    "order_book_evidence": "Not located - retrieval returned nothing on this angle. Needs the FY2025 annual report.",
-    "order_book_source": "",
-    "green_pipeline_evidence": "Not located - retrieval returned nothing on this angle. Note the Portfolio Transformation / deleveraging programme is a COST programme, not a green capex commitment. Needs the sustainability report or a signed-PPA announcement.",
-    "green_pipeline_source": ""
+    "cash_flow_evidence": "Net cash from operating activities (consolidated): FY2025 THB 40,830m vs FY2024 THB 32,322m - positive both years, up ~26%. Read from the audited FY2025 financial statements (year ended 31 Dec 2025), statement of cash flows, p.13. Note the contrast with the net loss of THB 15,572m: non-cash addbacks (depreciation THB 26,383m, impairment THB 1,984m) plus a THB 15,728m swing in trade payables carry operating cash positive. EBITDA was NOT substituted.",
+    "cash_flow_source": "https://hub.optiwise.io/en/documents/205641/download",
+    "order_book_evidence": "No contracted order book or backlog disclosed. Full-text search of Form 56-1 One Report 2025 (207pp, text layer present on every page) for 'backlog', 'order book', 'contracted revenue' and 'offtake' returns no disclosure. Nearest items, neither qualifying: a qualitative credit-risk note that the majority of customers are on long-term contracted commitments (no figure attached), and capital commitments contracted but not provided for of THB 3,868m (capex GC owes, not a revenue backlog).",
+    "order_book_source": "https://www.pttgcgroup.com/en/document/viewer/187379/form-56-1-one-report-2025",
+    "green_pipeline_evidence": "No signed PPAs and no committed green capex. Zero hits for 'solar', 'PPA', 'power purchase agreement', 'photovoltaic' or 'biomass' in the 2025 One Report. Five-year CAPEX plan (p.134) breaks committed spend into US$55m IT/digital/office/operational excellence, US$110m ethane feedstock security, US$388m allnex expansion - none green. Only MW-scale agreements are GC SELLING gas-fired cogeneration to EGAT (30MW firm / 60MW non-firm), which is the opposite of green procurement. Portfolio Transformation confirmed as a cost programme, not green capex.",
+    "green_pipeline_source": "https://www.pttgcgroup.com/en/document/viewer/187379/form-56-1-one-report-2025"
    },
    "candidate_evidence": {
     "revenue_growth": [],
@@ -147,5 +147,5 @@
    }
   }
  },
- "_filled_by": "Rai (AI-assisted) 2026-08-22 - public sources only. Every \"met\"/\"not_met\" carries the figure and its URL. Every \"unknown\" names the document that would settle it. NOTHING here is a Bloomberg-terminal figure and nothing is estimated."
+ "_filled_by": "Rai (AI-assisted) 2026-08-22 - public sources only. Every \"met\"/\"not_met\" carries the figure and its URL. Every \"unknown\" names the document that would settle it. NOTHING here is a Bloomberg-terminal figure and nothing is estimated. | Amber cells completed by Cayden 2026-08-23 from primary documents: PTTGC audited FY2025 financial statements and Form 56-1 One Report 2025; PCHEM Integrated Report 2025."
 }
