@@ -43,6 +43,17 @@ import signals as signal_lib
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_DIR = os.path.join(BASE_DIR, ".cache", "engine")
+#: The SHAPE of a record, versioned separately from `engine_version`.
+#:
+#: `run_id` hashes every INPUT — config, metadata, companies, signals — which is what makes a
+#: cache hit safe and what `anchor.py` keys its Merkle roots on. But the record's shape is
+#: decided by CODE, not by an input, so adding a display-only field leaves the id untouched and
+#: a warm cache would serve the OLD shape under the SAME id. On screen that reads as "the field
+#: is empty for this company", not "your cache is stale" — a false negative, which is the
+#: failure mode this codebase keeps getting bitten by. Bump this when a record gains or loses a
+#: field; `_read_cache` then discards the older shape instead of serving it. Deliberately NOT in
+#: `run_id`: the scores, the evidence and the root are unchanged, so it is the same run.
+RECORD_SCHEMA = "record-v3"
 COMPONENTS = ("E", "S", "G", "DIGITAL")
 
 
@@ -375,6 +386,12 @@ def _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run
             "industry": company.get("industry", company.get("sector", "unknown")),
             "delisted": bool(company.get("delisted")),
             "high_conviction": bool(company.get("high_conviction")),
+            # The notch grade carried in the basket (BBB / BB / B). CGSI's own column, whose
+            # header reads "ESG Rating" with NO agency named, so it travels unattributed and is
+            # never called anyone's — see `scripts/build_cgsi_basket.py`. It is displayed, not
+            # scored: `baseline_score` is the numeric ESG score, and letting a second incumbent
+            # measure into the maths would be two rulers in one number.
+            "incumbent_notch": str(company.get("incumbent_notch") or ""),
             "as_of": as_of, "cutoff": cutoff or "", "signal_count": len(sigs_by_company[cid]),
             "signal_ids": [s["signal_id"] for s in sigs_by_company[cid]],
             "composite_momentum": aggregate["composite_momentum"],
@@ -437,7 +454,7 @@ def run_engine(company_list: List[Dict[str, Any]], *, config: Optional[Dict[str,
     records = _build_records(companies, sigs_by_company, cfg, as_of, cutoff, metadata, run_id)
     run = {
         "run_id": run_id,
-        "engine_version": cfg["engine_version"],
+        "engine_version": cfg["engine_version"], "record_schema": RECORD_SCHEMA,
         "extractor_version": signal_lib.EXTRACTOR_VERSION,
         "config_version": cfg["config_version"],
         "config_hash": cfg["config_hash"],
@@ -496,9 +513,13 @@ def label_counts(run: Dict[str, Any]) -> Dict[str, int]:
 def _read_cache(path):
     try:
         with open(path, "r", encoding="utf-8") as fh:
-            return json.load(fh)
+            run = json.load(fh)
     except (OSError, ValueError):
         return None
+    # Same id, older record shape -> recompute. See RECORD_SCHEMA.
+    if run.get("record_schema") != RECORD_SCHEMA:
+        return None
+    return run
 
 
 def _write_cache(path, run):

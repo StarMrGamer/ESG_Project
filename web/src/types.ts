@@ -436,6 +436,9 @@ export interface EngineRecord {
   signal_count: number
   baseline_origin: string
   baseline_basis: string
+  /** Notch grade from the basket (BBB / BB / B). Unattributed by design — CGSI's column names
+   *  no agency — and displayed only; it never enters the maths. '' where none is carried. */
+  incumbent_notch: string
   components: Record<string, number>
   tiers: Record<TierKey, boolean>
 }

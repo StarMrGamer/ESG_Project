@@ -478,6 +478,69 @@ file rather than the parsed rows is deliberate: a reference year or a fallback f
 place changes the meaning of a published gap and would survive a row-level digest. A run over the
 real 52 is 130 leaves — 76 signals, 52 rows, 2 benchmarks.
 
+**SENSORS · VERIFICATION · LEDGER — where the chain actually sits** (framing settled 2026-08-24,
+Jayden relaying the Blockchain Council line). The objection is correct and worth stating in full:
+a blockchain is a closed, deterministic system that cannot reach real-world information, so *"put
+ESG data on a blockchain"* is a meaningless sentence until you answer how the data got there and
+whether it can be trusted. Read against this codebase it is not a gap — it is a description of
+the three layers we already have, and the useful discipline is naming which file is which layer.
+
+| layer | what it is here | where it lives |
+|---|---|---|
+| **1 · sensors** | evidence acquisition — four-angle live search, TF-IDF retrieval, the live incumbent rating, the industry bar, the verified basket | `harvest.py` · `rag.py` · `lseg.py` · `benchmarks.py` · `data/asean_universe.json` |
+| **2 · verification** | the five harvest guards, source type decided by domain, company-PR capped at 0.5, forward-looking materiality halved, rule-based routing and deterministic scoring, the frozen 29-column header, `is_provisional` until reviewed, maker-checker | `harvest.py` · `signals.py` · `engine.py` · `company_metadata.py` · `harness.py` |
+| **3 · ledger** | one Merkle root per run (`leaf-v2`), append-only `run_id -> root`, `anchor_pending` when no chain is reachable | `anchor.py` · `contracts/EvidenceAnchor.sol` |
+
+**Our sensor layer is documentary, not telemetry, and that is a real limit** — we read filings,
+regulator actions, exchange notices and press, we do not meter a smokestack. Say so plainly; the
+alt-data roadmap (regulator actions, exchange filings, index-provider decisions, satellite) is
+the honest answer to it, and it is also the binding constraint on Hidden Winners above.
+
+**One correction to carry: the chain is NOT the verification layer.** By the Blockchain Council's
+own argument it cannot be — a chain has no way to check an off-chain fact, and immutability
+applied to a false claim just makes the false claim permanent. Verification here is done entirely
+off-chain by rules that any reviewer can read, and the chain records a *commitment* to what those
+rules saw: no token, no DAO, no on-chain scoring, and no raw or licensed data ever written. The
+one `require` that reverts a second anchor on the same `run_id` **is** the tamper-evidence story.
+Claiming the chain verifies anything would be the exact overclaim the quote is warning about.
+
+**The two named comparables sit in a different layer, on the other side of the table.** TraceX and
+Sustainability Track are supply-chain platforms: the company itself writes its own operational
+data to a chain to evidence its own claims — issuer-side layer 1 and 3, with layer 2 amounting to
+"immutable once written". We are investor-side and adversarial to the issuer: the company's own
+publication is the *least* trusted source we hold, capped at 0.5 confidence by rule, and the
+product's whole output is a disagreement with a rating rather than a report for the rated. Not a
+competitor — the opposite end of the same pipe.
+
+**Which rater, and why LSEG** (raised 2026-08-24: investors read MSCI, Sustainalytics and S&P, not
+OECD reports). Two separate things were being conflated, and both answers are already in the code.
+The OECD/Eurostat figure is **not an ESG rating and never stood in for one** — it is an industry
+GHG intensity in g CO2e per euro of gross value added, which sizes the industry's structural bar;
+`benchmarks.py` refuses to difference it against a company ESG score precisely because they are
+different measures. The *incumbent rating* layer is separate: `lseg.py` fetches LSEG's real
+published score live, because **LSEG is the one major rater with a free, keyless, per-company
+endpoint** — MSCI, Sustainalytics and S&P are licensed products that cannot be fetched, shown or
+redistributed without a contract, so quoting them would be a licence breach and inventing them
+would be a HARD RULE 2 breach. The other houses are not absent: `metrics.parse_evidence` reads
+MSCI, Sustainalytics, S&P Global / DJSI, CDP, FTSE4Good and GRESB wherever a company's own
+`esg_basis` cites them, and the basket carries a notch grade (`incumbent_notch`, BBB / BB / B) on
+the MSCI scale. That notch is now **on the engine record and shown in the evidence panel** — it
+had been carried in the data and displayed nowhere, which meant the one industry-standard grade we
+hold was invisible to a reader asking exactly this question. It travels **unattributed** (CGSI's
+column header reads "ESG Rating" and names no agency) and is **display-only, never scored**:
+`baseline_score` is the numeric score, and letting a second incumbent measure into the maths would
+be two rulers in one number.
+
+**`RECORD_SCHEMA` — a record shape is not a run input** (added with the notch). `run_id` hashes
+every *input*, which is what makes a cache hit safe and what `anchor.py` keys its roots on. A
+record's *shape* is decided by code, so adding a display field left the id untouched and a warm
+cache would have served the old shape under the same id — on screen that reads "this company has
+no notch", not "your cache is stale". `engine.RECORD_SCHEMA` is bumped when a record gains or
+loses a field and `_read_cache` discards an older shape rather than serving it. It is deliberately
+**not** in `run_id`: the scores, the evidence and the Merkle root are unchanged, so it is the same
+run, and every existing anchor stays valid. Adding the notch moved the golden digest and nothing
+else — same `run_id`, same labels, same momenta, zero per-company drift.
+
 **The industry bar is reproducible from a judge's laptop** (`scripts/refresh_eurostat_benchmark.py`).
 `data/oecd_sector_benchmark.csv` joins **directly** on CGSI's own `industry` label — no crosswalk
 guessing — and every one of its **22 rows reproduces from the free, keyless Eurostat API**

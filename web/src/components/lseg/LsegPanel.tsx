@@ -6,8 +6,9 @@ import { Spinner } from '../ui'
 /**
  * LSEG's published ESG score, drawn the way LSEG draws it.
  *
- * WHY THIS PANEL EXISTS. Everywhere else on the board the incumbent rating is a MOCK stand-in
- * (`baseline_origin: "MOCK-LSEG"` — our stored static rating, percentile-ranked in the cohort).
+ * WHY THIS PANEL EXISTS. Everywhere else on the board the incumbent rating is the basket's own
+ * stored score, percentile-ranked in the cohort and labelled by `baseline_origin` (SUPPLIED /
+ * MOCK / DERIVED-EVIDENCE) — none of which is LSEG's published number.
  * This is the genuine article, fetched live from LSEG's own public ESG scores finder. It is the
  * left-hand side of the argument the whole product makes: *this* is what the rating sees, dated
  * to a fiscal year that has already closed. Our momentum read is what disagrees with it.
@@ -17,6 +18,15 @@ import { Spinner } from '../ui'
  * evidence-leadership score is 0–100. Three different rulers. Nothing here is differenced
  * against anything of ours, and the footer says so — the same discipline `benchmarks.py` applies
  * when it refuses to subtract a static score from an evidence index.
+ *
+ * WHY LSEG AND NOT MSCI / SUSTAINALYTICS / S&P. Those three are what most investors read, and
+ * all three are licensed products with no free per-company endpoint — they cannot be fetched,
+ * shown or redistributed here without a contract. LSEG is the one major rater that publishes a
+ * keyless, per-company score, which is why it is the incumbent this panel argues with. The
+ * others are not absent from the system: the basket carries a notch grade on their scale
+ * (`incumbent_notch`, shown in the evidence panel), and `metrics.parse_evidence` reads MSCI,
+ * Sustainalytics, S&P Global / DJSI, CDP, FTSE4Good and GRESB out of the evidence text where a
+ * company's own basis cites them. What we never do is claim a rating we did not fetch.
  *
  * THE WHEEL. Twelve theme segments in the outer ring, thirty degrees each, grouped into three
  * pillar arcs in the inner ring sized by their theme count (5 environmental, 3 social, 4
@@ -313,6 +323,12 @@ export default function LsegPanel({ ticker, demo }: { ticker: string; demo: bool
           Source: {s.attribution}. Fetched live, cached locally, attributed on its face.
           LSEG ESG Scores may be referenced for non-commercial purposes with written approval;
           commercial use, redistribution or systematic reproduction requires a licence.
+          <div>
+            MSCI, Sustainalytics and S&amp;P are the ratings most investors read, and all three
+            are licensed with no free per-company endpoint. LSEG is the one major rater that
+            publishes a keyless score, so it is the incumbent shown here. The others are read
+            where a company's own evidence cites them — never asserted where it does not.
+          </div>
         </div>
       </div>
     </div>

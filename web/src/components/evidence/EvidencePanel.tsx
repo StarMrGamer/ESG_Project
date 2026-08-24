@@ -232,7 +232,18 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
         </div>
         <div className="cc-muted">
           Baseline: {r.baseline_origin} ({r.baseline_basis.replace(/_/g, ' ')}) at percentile
-          {' '}{(r.lseg_percentile * 100).toFixed(0)}%. Coverage {data.coverage.toFixed(2)} ·
+          {' '}{(r.lseg_percentile * 100).toFixed(0)}%.
+          {/* The notch grade is shown beside the percentile and NOT folded into it. It is a
+              second incumbent measure on a different ruler; naming it here is what lets a
+              reader see we hold one, and keeping it out of the maths is what stops it
+              becoming a silent second baseline. */}
+          {r.incumbent_notch ? (
+            <> Notch grade carried in the basket: <b>{r.incumbent_notch}</b>{' '}
+              <span title="The basket's own column, headed 'ESG Rating' with no agency named.
+Displayed unattributed and never scored — it is a different scale from the numeric baseline,
+and from LSEG's published 0–5.">(unattributed · display only)</span>.</>
+          ) : null}
+          {' '}Coverage {data.coverage.toFixed(2)} ·
           corroboration {data.corroboration.toFixed(2)} · mean source quality
           {' '}{data.mean_source_quality.toFixed(2)}.
         </div>
