@@ -315,6 +315,16 @@ export interface Pillar {
   arrow: string
   trend: string
   fast: boolean
+  /** Which SCALE `value` is on. 'numeric' = a momentum percent from a constituent's own fields
+   *  (the fictional demo set). 'evidence' = the engine's -1..+1 direction consensus, derived
+   *  from dated signals for universes that carry no numeric block (the real ASEAN basket).
+   *  The two are not interchangeable: rendering a consensus of 0.59 as "+0.59%" is a real
+   *  number under a wrong unit. Absent on older payloads -> treat as 'numeric'. */
+  basis?: 'numeric' | 'evidence'
+  /** How many companies in view actually carried a reading for this pillar, out of how many are
+   *  in view at all. A mean over 3 names and a mean over 44 are different claims. */
+  n?: number
+  of?: number
 }
 
 export interface WinnerRow {
@@ -337,18 +347,15 @@ export interface FocusedPayload {
   credentials: Credential[]
   leadership: { score: number; band: string; has: boolean } | null
   signals: { label: string; value: string; tone: Tone }[]
-  signals_kind: 'signals' | 'credentials'
+  signals_kind: 'signals' | 'credentials' | 'scored signals'
+  /** Why a company WITH evidence can read zero momentum on this horizon: its signals have all
+   *  decayed past the half-life. '' when it does not apply. */
+  decay_note?: string
+  /** The pro/con case behind the verdict — both axes, never merged. null outside the scored
+   *  universe, because a case with no cohort behind it is a verdict about nobody. */
+  case?: CompanyCase | null
   why_wrong: string
   plain_summary: { headline: string; body: string; verdict: string; tone: Tone; label: string }
-  forecast: {
-    available: boolean
-    label: string
-    tone: Tone
-    headline: string
-    mean: number | null
-    lead: { key: string; label: string; value: number; arrow: string; word: string } | null
-    pillars: { key: string; label: string; value: number; arrow: string; word: string }[]
-  }
   news: {
     name: string
     illustrative: boolean
@@ -359,7 +366,9 @@ export interface FocusedPayload {
   }
   analyst: { covered: boolean; analysts: number | null; as_of: string; label: string; illustrative: boolean }
   check_action: { check: string; verdict: string; has: boolean }
-  price: { pct: number | null; series: number[] }
+  /** `source` is set ONLY for a real fetched series (Yahoo); the demo's synthetic curve leaves
+   *  it null, which is how the strip knows whether it may drop the "illustrative" label. */
+  price: { pct: number | null; series: number[]; source?: string | null; points?: number | null }
   foundation: { basis: string; source_url?: string; confidence?: string } | null
 }
 
@@ -766,4 +775,29 @@ export interface ClaimEvidencePayload {
   rows: ClaimEvidenceRow[]
   illustrative: boolean
   reason?: string
+}
+
+
+/** The rule-derived case for one company: why this verdict, what argues against it, and what
+ *  would change it. Built by `rationale.py` — no LLM, so it replays with the run it describes.
+ *  ESG and financial are reported SIDE BY SIDE and never combined into a single judgement: the
+ *  financial read gates whether an ESG disagreement is worth acting on, it never moves the ESG
+ *  verdict. Nothing here is a recommendation. */
+export interface CompanyCase {
+  company_id: string
+  company: string
+  label: string
+  label_display: string
+  summary: string
+  esg: { pros: string[]; cons: string[] }
+  financial: {
+    pros: string[]
+    cons: string[]
+    /** strong | adequate | weak | unknown — `unknown` is deliberately NOT a failure. */
+    verdict: string
+    earnings: { latest_text: string; prior_text: string; growth_pct: number | null; direction: string; note: string }
+    label: string
+  }
+  watch_outs: string[]
+  counts: { esg_pros: number; esg_cons: number; fin_pros: number; fin_cons: number }
 }

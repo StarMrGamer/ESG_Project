@@ -128,13 +128,116 @@ def pillar_momentum(constituents):
         avg = round(sum(vals) / len(vals), 1) if vals else None
         arrow, trend = trend_label(avg)
         out.append({"key": p, "label": PILLAR_LABEL[p], "value": avg, "arrow": arrow,
-                    "trend": trend, "fast": False})
+                    "trend": trend, "fast": False,
+                    # `basis` names the SCALE, not the quality: "numeric" is a momentum percent
+                    # from a constituent's own fields, "evidence" is a -1..+1 direction consensus
+                    # from the engine (see `pillar_momentum_from_records`). The card renders a
+                    # different unit for each, so it must never have to guess which it holds.
+                    "basis": "numeric", "n": len(vals), "of": len(constituents or [])})
         if avg is not None and (best_val is None or avg > best_val):
             best_key, best_val = p, avg
     for row in out:                       # highlight the strongest riser (the orange card)
         if row["key"] == best_key and best_val is not None and best_val > 0:
             row["fast"] = True
     return out
+
+
+#: Engine component key -> the board's pillar key. The engine scores on E/S/G/DIGITAL (the
+#: Build-Spec component names); the board has always spoken environment/social/governance/
+#: digital_ai. Nothing is renamed on either side — this is the join between them.
+_COMPONENT_PILLAR = {"E": "environment", "S": "social", "G": "governance", "DIGITAL": "digital_ai"}
+
+
+def consensus_trend(value, n=0):
+    """Arrow + word for an EVIDENCE-derived pillar reading on the -1..+1 consensus scale.
+
+    Deliberately NOT `trend_label`: that one reads a momentum PERCENT, where 8 means accelerating
+    and 25 means a fast riser. A direction consensus tops out at 1.0, so passing it through the
+    percent thresholds would report every real company as "stable" — a wrong word attached to a
+    real number, which is worse than the blank it replaces."""
+    if value is None or not n:
+        return "·", "no evidence yet"
+    if value >= 0.6:
+        return "↑", "evidence agrees · improving"
+    if value >= 0.2:
+        return "↑", "leans improving"
+    if value > -0.2:
+        return "→", "evidence is mixed"
+    if value > -0.6:
+        return "↓", "leans deteriorating"
+    return "↓", "evidence agrees · deteriorating"
+
+
+def pillar_momentum_from_records(records):
+    """Pillar cards derived from the ENGINE's per-component momentum, for universes whose
+    constituents carry no numeric `momentum` block (i.e. the real ASEAN basket).
+
+    Why this exists: the engine already computes a per-component direction consensus for every
+    company it scores, and the board was reading a constituent field that only the FICTIONAL demo
+    set carries. So four cards said "awaiting data" beside 44 companies' worth of environment
+    evidence that had already been scored. Nothing here is new analysis and nothing is
+    fabricated — it is the same rule-derived number the matrix and the quadrant labels use.
+
+    Returns `pillar_momentum`'s shape plus:
+      * `basis`  — "evidence" (this function) vs "numeric" (`pillar_momentum`), so the UI can
+                   label the scale rather than silently showing -1..+1 where a percent used to be;
+      * `n`      — how many companies in view actually carried evidence for that pillar. A mean
+                   over 3 names and a mean over 44 are not the same claim, and the card says which.
+
+    `value` is the mean direction consensus across the companies that HAVE evidence for the
+    pillar — companies with none are left out rather than counted as zero, because "no evidence"
+    and "evidence says flat" are different claims and averaging them together erases the first.
+    """
+    rows = list((records or {}).values()) if isinstance(records, dict) else list(records or [])
+    out, best_key, best_val = [], None, None
+    for pillar in PILLARS:
+        vals = []
+        for rec in rows:
+            comps = (rec or {}).get("components") or {}
+            for ckey, cval in comps.items():
+                if _COMPONENT_PILLAR.get(str(ckey).upper()) != pillar:
+                    continue
+                v = num(cval.get("momentum") if isinstance(cval, dict) else cval)
+                if v is not None:
+                    vals.append(v)
+        avg = round(sum(vals) / len(vals), 3) if vals else None
+        arrow, trend = consensus_trend(avg, len(vals))
+        out.append({"key": pillar, "label": PILLAR_LABEL[pillar], "value": avg,
+                    "arrow": arrow, "trend": trend, "fast": False,
+                    "basis": "evidence", "n": len(vals), "of": len(rows)})
+        if avg is not None and (best_val is None or avg > best_val):
+            best_key, best_val = pillar, avg
+    for row in out:
+        if row["key"] == best_key and best_val is not None and best_val > 0:
+            row["fast"] = True
+    return out
+
+
+def signals_from_record(record, limit=8):
+    """Right-rail rows for a company whose signals were scored by the ENGINE, in `live_signals`'
+    `[{label, value, tone}]` shape.
+
+    Why: `live_signals` reads a `live_signals` block that only the FICTIONAL demo constituents
+    carry, so a real company with three scored, dated, sourced signals rendered as "0 signals" —
+    an absence reported where evidence existed. The rail now falls back to the engine's own
+    signals, which are the ones the momentum and the quadrant label were computed from.
+
+    Newest first, because the decay model weights recent evidence most and a reader scanning the
+    rail should meet the signals that actually moved the number.
+    """
+    rows = []
+    for sig in sorted((record or {}).get("signals") or [],
+                      key=lambda s: str(s.get("published_at") or ""), reverse=True)[:limit]:
+        sub = str(sig.get("subcomponent") or sig.get("component") or "signal").replace("_", " ")
+        direction = num(sig.get("direction")) or 0
+        tone = "good" if direction > 0 else ("warn" if direction < 0 else "neutral")
+        date = str(sig.get("published_at") or "")[:10] or "undated"
+        # The source type is on the row because it is what caps the confidence: a company press
+        # release is graded 0.5 by rule, and a reader who cannot see that has no way to tell a
+        # regulator action from a self-published claim.
+        stype = str(sig.get("source_type") or "unknown").replace("_", " ")
+        rows.append({"label": f"{sub} · {stype}", "value": date, "tone": tone})
+    return rows
 
 
 def fmt_pct(value):
@@ -606,33 +709,6 @@ def _outlook_word(value):
     if value > -3:
         return "holding"
     return "softening"
-
-
-def forecast_outlook(company):
-    """[#12] An ILLUSTRATIVE directional outlook from current pillar momentum — a conditional read,
-    NOT a forecast/price target (HARD RULE 2/4). available=False ('AWAITING DATA') when no momentum,
-    so a real evidence name (no numbers) honestly shows the placeholder. headline is number-free;
-    the numeric `mean` rides separately for the In-Depth basis line."""
-    c = company or {}
-    pillars = []
-    for p in PILLARS:
-        v = _momentum(c, p)
-        if v is not None:
-            arrow, _ = trend_label(v)
-            pillars.append({"key": p, "label": PILLAR_LABEL[p], "value": v,
-                            "arrow": arrow, "word": _outlook_word(v)})
-    if not pillars:
-        return {"available": False, "label": "AWAITING DATA", "tone": "neutral",
-                "headline": "Awaiting live momentum — switch on Demo data to preview an "
-                            "illustrative outlook (never a projected number for a real name).",
-                "mean": None, "lead": None, "pillars": []}
-    mean = round(sum(p["value"] for p in pillars) / len(pillars), 1)
-    label, tone = _outlook_band(mean)
-    lead = next((p for p in pillars if p["key"] == "digital_ai"),
-                max(pillars, key=lambda p: p["value"]))
-    headline = f"If this momentum holds, the near-term trajectory looks {label.lower()}."
-    return {"available": True, "label": label, "tone": tone, "headline": headline,
-            "mean": mean, "lead": lead, "pillars": pillars}
 
 
 _PLAIN_NUMERIC = {

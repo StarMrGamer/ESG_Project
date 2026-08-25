@@ -12,6 +12,20 @@ export function fmtPct(v: number | null | undefined): string {
   return `${sign}${n}%`
 }
 
+/** A pillar reading formatted for the SCALE it is actually on.
+ *
+ *  'numeric' is a momentum percent and keeps the percent sign. 'evidence' is the engine's
+ *  direction consensus, bounded to ±1.00, and must NOT carry one — "+0.59%" reads as a
+ *  half-percent move when the number means "the evidence agrees, fairly strongly, that this is
+ *  improving". Same digits, completely different claim, and the percent version is the kind of
+ *  wrong that nobody spots because nothing looks broken. */
+export function fmtPillar(v: number | null | undefined, basis?: string): string {
+  if (v == null) return '—'
+  if (basis !== 'evidence') return fmtPct(v)
+  const sign = v > 0 ? '+' : ''
+  return `${sign}${v.toFixed(2)}`
+}
+
 export function shortSector(s: string | undefined | null): string {
   if (!s || s === 'All') return 'All industries'
   return s.split('—').pop()?.trim() || s

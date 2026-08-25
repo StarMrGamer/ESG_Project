@@ -2729,9 +2729,34 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
      intrinsic width to fit to. 1180 is MAX_W in EngineBoard.tsx. */
   .matrix-wrap { flex: 0 0 1180px; }
   .matrix-side { flex: 1 1 0; min-width: 0; justify-content: flex-start; padding-top: var(--sp-4); }
-  /* Stacked in the rail, the legend and picks read as a list rather than a ticker tape. */
+  /* In the rail these are a LIST, not a ticker tape. `flex-wrap: wrap` alone left them as
+     horizontal rows that happened to wrap, so the five quadrant counts read as a sentence and
+     the eye had to travel sideways to compare two numbers that belong in a column. Stacking
+     them puts one label per line with its count on a shared right edge, which is what makes
+     "Consensus 26 vs Hidden Winners 0" legible at a glance — and it fills the rail instead of
+     leaving the empty band this layout exists to remove. */
   .matrix-side .matrix-legend,
-  .matrix-side .hw-strip { flex-wrap: wrap; }
+  .matrix-side .hw-strip {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    gap: var(--sp-2);
+  }
+  /* Full-width rows with the count pinned right: a scannable column of pairs. The pill radius
+     stays, so they still read as the same control they are below 1500px. */
+  .matrix-side .legend-chip,
+  .matrix-side .hw-pick {
+    width: 100%;
+    padding: var(--pad-pill);
+  }
+  /* The count is pushed right by a margin on ITSELF, not by `space-between` on the row. The
+     legend chip has three flex children -- dot, label, count -- and space-between would strand
+     the label in the middle of the pill, away from the dot that colours it. This keeps dot and
+     label together on the left and moves only the number. */
+  .matrix-side .legend-chip b,
+  .matrix-side .hw-pick b { margin-left: auto; }
+  .matrix-side .hw-strip-label { padding-bottom: var(--sp-1); }
+  .matrix-side .matrix-legend .cc-muted { padding-top: var(--sp-1); }
 }
 .mono-path { font-family: var(--r-mono); font-size: 11px; color: var(--r-faint); }
 
@@ -2761,3 +2786,41 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   font-size: 10.5px; letter-spacing: 0.05em; white-space: nowrap;
 }
 .route-chip.origin-harvested { color: var(--r-blue); border-color: var(--r-blue); }
+
+/* --- the pro/con case (components/case/CasePanel.tsx) ---------------------------------------
+   Pros and cons render at the SAME weight in the SAME column: the con list is not smaller,
+   dimmer or collapsed, because a case that visually de-emphasises its own counter-evidence is
+   making an argument with its layout that its text does not make. Colour is carried by the mark
+   alone, so a long con does not become a wall of red. Sizes are on the sheet's existing scale
+   (10.5 / 11.5 / 12.5 / 13) and every colour is an --r-* token; nothing new is invented. */
+.case-panel { display: flex; flex-direction: column; gap: var(--sp-3); }
+.case-summary {
+  font-size: 13px; line-height: 1.55; color: var(--r-text);
+  padding: var(--pad-card); border-radius: var(--r-radius-sm);
+  background: var(--r-panel2); border: 1px solid var(--r-border);
+}
+.case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--sp-3); }
+.case-side { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.case-side-head {
+  font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--r-muted); font-weight: 600;
+}
+.case-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-2); }
+.case-item {
+  display: flex; gap: var(--sp-2); align-items: flex-start;
+  font-size: 12.5px; line-height: 1.5; color: var(--r-text);
+}
+.case-mark {
+  flex: 0 0 auto; width: 1.1em; text-align: center; font-weight: 700;
+  font-variant-numeric: tabular-nums; color: var(--r-muted);
+}
+.case-item.is-pro   .case-mark { color: var(--r-pos); }
+.case-item.is-con   .case-mark { color: var(--r-neg); }
+.case-item.is-watch .case-mark { color: var(--r-amber); }
+.case-note { font-size: 10.5px; line-height: 1.45; }
+.case-verdicts { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.case-watch {
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  padding-top: var(--sp-3); border-top: 1px solid var(--r-border);
+}
+.case-foot { font-size: 10.5px; line-height: 1.45; }

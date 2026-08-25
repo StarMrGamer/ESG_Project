@@ -1,7 +1,8 @@
 import { useStore } from '../../store'
 import RadarHub from './RadarHub'
 import { MomentumChart, PriceChart } from '../charts'
-import { fmtPct, SectionTitle, signClass, TONE_CLASS } from '../ui'
+import { fmtPct, fmtPillar, SectionTitle, signClass, TONE_CLASS } from '../ui'
+import CasePanel from '../case/CasePanel'
 import type { WinnerRow } from '../../types'
 
 function BarsPanel({ title, subtitle, rows, suffix, footer, tier, maxAbs, onFocus }: {
@@ -75,18 +76,38 @@ export default function CenterBoard() {
         </div>
       )}
       <div className="cc-class-line">{focused.classification.line}</div>
+      {/* "AWAITING DATA" on a company that HAS evidence is a false negative: the signals exist,
+          they have simply decayed past this horizon's half-life. Saying so turns an apparently
+          broken card into the finding it actually is, and points at the fix (the longer
+          horizon) instead of leaving the reader to conclude we have nothing. */}
+      {focused.decay_note && <div className="cc-muted">{focused.decay_note}</div>}
     </div>
   )
 
+  // A real listing gets its ACTUAL closes from Yahoo, rebased to 100; the fictional demo set
+  // keeps its synthetic curve and keeps saying so. `price.source` is the discriminator — set
+  // only when a live series was genuinely fetched, so neither label can end up on the other's
+  // data. Context only: a price is never an input to any score (see quotes.py).
+  const live = !!focused?.price.source
   const pricePanel = focused && (
     <div className="panel-block">
-      <SectionTitle sub="illustrative · rebased to 100">Share price · 90 days</SectionTitle>
+      <SectionTitle sub={live ? `${focused.price.source} · rebased to 100` : 'illustrative · rebased to 100'}>
+        Share price · 90 days
+      </SectionTitle>
       {focused.price.pct == null
-        ? <div className="empty-note">Awaiting data — no price feed wired for this name.</div>
+        ? (
+          <div className="empty-note">
+            No 90-day price for this listing — the source covers SGX, Bursa, IDX and SET; PSE and
+            HOSE lines are not available and an ADR is not shown in their place.
+          </div>
+        )
         : (
           <>
             <div className="cc-muted">
-              90-day change <b className={signClass(focused.price.pct)}>{fmtPct(focused.price.pct)}</b> · illustrative demo data
+              90-day change <b className={signClass(focused.price.pct)}>{fmtPct(focused.price.pct)}</b>
+              {live
+                ? <> · {focused.price.points} sessions · context only, never a signal</>
+                : <> · illustrative demo data</>}
             </div>
             <PriceChart series={focused.price.series} pct={focused.price.pct} dark={dark} />
           </>
@@ -94,36 +115,6 @@ export default function CenterBoard() {
     </div>
   )
 
-  const forecast = focused && (
-    <div className="panel-block">
-      <div className="cc-h">Forecast outlook <span className="cc-tag-illus">illustrative</span></div>
-      {!focused.forecast.available
-        ? <div className="cc-card cc-muted" style={{ marginBottom: 0 }}>{focused.forecast.headline}</div>
-        : (
-          <>
-            <div className={`cc-class ${TONE_CLASS[focused.forecast.tone] || 'cc-class-neutral'}`}>
-              <div className="cc-class-h">Outlook &nbsp; <b>{focused.forecast.label}</b></div>
-              <div className="cc-class-line">{focused.forecast.headline}</div>
-            </div>
-            {!simple && (
-              <>
-                <div className="cc-chips">
-                  {focused.forecast.pillars.map(p => (
-                    <span className="cc-chip" key={p.key}>{p.label} {p.arrow} {p.word}</span>
-                  ))}
-                </div>
-                <div className="cc-muted">
-                  Basis: avg live pillar momentum {fmtPct(focused.forecast.mean)} (illustrative demo signal).
-                </div>
-              </>
-            )}
-          </>
-        )}
-      <div className="cc-muted">
-        Illustrative directional outlook — not a forecast, prediction, or price target. Never investment advice.
-      </div>
-    </div>
-  )
 
   const checkPanel = focused && (
     <div className="panel-block">
@@ -236,9 +227,9 @@ export default function CenterBoard() {
                   onFocus={focusByTicker} />
               </div>
               {classification}
+              <CasePanel />
               {checkPanel}
               {lv >= 3 && pricePanel}
-              {lv >= 3 && forecast}
               {lv >= 2 && newsPanel}
               {cta}
             </>
@@ -264,7 +255,7 @@ export default function CenterBoard() {
               {strip.map(p => (
                 <div className={`cc-kpi ${p.fast ? 'cc-fast' : ''}`} key={p.key}>
                   <div className="cc-kpi-label">{p.label}</div>
-                  <div className={`cc-kpi-val ${p.fast ? '' : signClass(p.value)}`}>{fmtPct(p.value)}</div>
+                  <div className={`cc-kpi-val ${p.fast ? '' : signClass(p.value)}`}>{fmtPillar(p.value, p.basis)}</div>
                   <div className={`cc-kpi-trend ${p.fast ? '' : signClass(p.value)}`}>{p.arrow} {p.trend}</div>
                 </div>
               ))}
@@ -289,9 +280,9 @@ export default function CenterBoard() {
           </div>
         )}
       {lv >= 2 && classification}
+      {lv >= 2 && <CasePanel />}
       {!hasPillars && checkPanel}
       {lv >= 3 && pricePanel}
-      {lv >= 3 && forecast}
       {lv >= 2 && newsPanel}
       {!hasPillars && cta}
     </div>

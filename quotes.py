@@ -44,6 +44,12 @@ KNOWN_GAPS = {
 }
 
 CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=5d&interval=1d"
+#: The 90-day window the board's price strip is LABELLED with. Kept separate from CHART
+#: on purpose: CHART's 5-day range yields a one-DAY change, and feeding that into a card
+#: headed "90 days" would put a real number under a wrong label — the quietest kind of
+#: wrong, because nothing on screen looks broken.
+CHART_90D = ("https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+             "?range=3mo&interval=1d")
 
 TTL_SECONDS = 300
 _CACHE = {}
@@ -156,3 +162,55 @@ if __name__ == "__main__":  # pragma: no cover - developer convenience
                   f"{chg:>8}  {q['exchange']}")
         else:
             print(f"{t:<12} {'—':<12} {'unavailable':>10}  {q['reason']}")
+
+
+#: MEASURED coverage on the real basket (2026-08-24): 20 of 52 resolve, 25 are mapped but not
+#: found, 7 are on an exchange we do not map at all. The 25 are almost all Bursa: Yahoo keys
+#: Malaysian listings by their NUMERIC stock code ("1023.KL" for CIMB) and the basket carries only
+#: "CIMB MK" and the RIC "CIMB.KL", neither of which resolves.
+#:
+#: Do NOT close that gap with a name search. Resolving "CIMB Group Holdings Bhd" through a search
+#: endpoint and taking the first hit is precisely how Malaysia Airports rendered I-Bhd's data
+#: under Malaysia Airports' name — a failure that looked completely normal on screen, which is
+#: what made it dangerous. A price for the wrong company is worse than no price. Close it with a
+#: real numeric-code column in the basket, or leave the card saying "unavailable".
+def change_90d(ticker, *, demo=False, ttl=TTL_SECONDS):
+    """Percent change over ~90 days plus a rebased series for the strip, or None.
+
+    Returns `{"pct": float, "series": [float, ...], "points": int, "source": str}` where the
+    series is rebased to 100 at the start of the window, matching what the demo strip draws.
+    Returns None — never a partial or a zero — when the window cannot be sourced, so the card
+    says "unavailable" rather than drawing a flat line that reads as "the price did not move".
+
+    Same contract as `quote`: context only. Nothing in the engine reads this, a price never
+    enters a score, and the FICTIONAL demo universe gets no quote at all.
+    """
+    if demo:
+        return None
+    symbol = yahoo_symbol(ticker)
+    if not symbol:
+        return None
+    key = f"90d:{symbol}"
+    hit = _CACHE.get(key)
+    if hit and (time.time() - hit[0]) < ttl:
+        return hit[1]
+    try:
+        raw = core.http_get(CHART_90D.format(symbol=symbol), timeout=8)
+        result = json.loads(raw)["chart"]["result"][0]
+        closes = result["indicators"]["quote"][0]["close"]
+    except Exception:                       # noqa: BLE001 - best-effort by contract (rule 1)
+        return None
+    # Yahoo returns null for non-trading days inside the range; dropping them is right, but a
+    # window that is mostly holes is not a 90-day read and should not claim to be one.
+    closes = [c for c in (closes or []) if isinstance(c, (int, float))]
+    if len(closes) < 20 or not closes[0]:
+        return None
+    first, last = closes[0], closes[-1]
+    out = {
+        "pct": round((last - first) / first * 100, 2),
+        "series": [round(c / first * 100, 2) for c in closes],
+        "points": len(closes),
+        "source": "Yahoo Finance",
+    }
+    _CACHE[key] = (time.time(), out)
+    return out

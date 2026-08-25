@@ -1,5 +1,5 @@
 import { useStore } from '../../store'
-import { fmtPct, signClass, Tone, TONE_CLASS } from '../ui'
+import { fmtPct, fmtPillar, signClass, Tone, TONE_CLASS } from '../ui'
 import type { Pillar } from '../../types'
 
 /**
@@ -79,7 +79,7 @@ function RadarPlot({ pillars, scale }: { pillars: Record<string, Pillar>; scale:
 
   // Spoken aloud for a screen reader, and it is also the sentence the picture is trying to say.
   const spoken = ORDER
-    .map(k => `${pillars[k]?.label ?? k} ${fmtPct(pillars[k]?.value)}`)
+    .map(k => `${pillars[k]?.label ?? k} ${fmtPillar(pillars[k]?.value, pillars[k]?.basis)}`)
     .join(', ')
 
   return (
@@ -104,7 +104,7 @@ function RadarPlot({ pillars, scale }: { pillars: Record<string, Pillar>; scale:
 
       {points.map(pt => (
         <circle key={pt.key} cx={pt.x} cy={pt.y} r={4.5} className={`radar-node ${tone}`}>
-          <title>{`${pt.p?.label ?? pt.key}: ${fmtPct(pt.p?.value)}`}</title>
+          <title>{`${pt.p?.label ?? pt.key}: ${fmtPillar(pt.p?.value, pt.p?.basis)}`}</title>
         </circle>
       ))}
 
@@ -119,7 +119,7 @@ function RadarPlot({ pillars, scale }: { pillars: Record<string, Pillar>; scale:
             </text>
             <text x={at.x} y={at.y + 15} textAnchor={at.anchor}
               className={`radar-axis-val ${signClass(p?.value)}`}>
-              {fmtPct(p?.value)}
+              {fmtPillar(p?.value, p?.basis)}
             </text>
           </g>
         )
@@ -145,8 +145,11 @@ function Satellite({ pillar, area, scale }: {
   return (
     <div className={`hub-sat is-${area} ${pillar.fast ? 'is-fast' : ''}`}>
       <div className="hub-sat-label">{pillar.label}</div>
-      <div className={`hub-sat-val ${pillar.fast ? '' : sign}`}>{fmtPct(v)}</div>
-      <div className="hub-sat-bar" title={`${fmtPct(v)} against a ±${scale.toFixed(1)}% scale`}>
+      <div className={`hub-sat-val ${pillar.fast ? '' : sign}`}>{fmtPillar(v, pillar.basis)}</div>
+      <div className="hub-sat-bar"
+        title={pillar.basis === 'evidence'
+          ? `${fmtPillar(v, pillar.basis)} direction consensus from ${pillar.n ?? 0} of ${pillar.of ?? 0} companies with evidence for this pillar`
+          : `${fmtPct(v)} against a ±${scale.toFixed(1)}% scale`}>
         <span className="hub-sat-axis" />
         <span className={`hub-sat-fill ${sign}`}
           style={{ left: pct < 0 ? `${50 + pct}%` : '50%', width: `${Math.abs(pct)}%` }} />
@@ -168,9 +171,14 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
 
   const vals = board.pillars.map(p => p.value).filter((v): v is number => v != null)
   if (vals.length === 0) return null
-  // A shared scale across all four spokes, floored so a quiet set does not get exaggerated into
-  // a dramatic shape by its own small numbers.
-  const scale = Math.max(5, ...vals.map(Math.abs))
+  // Two scales, because the cards carry two different units (see Pillar.basis). A momentum
+  // PERCENT is unbounded and gets a floor of 5 so a quiet set is not exaggerated into a dramatic
+  // shape by its own small numbers. A direction CONSENSUS is already bounded to +/-1, so its
+  // scale is fixed at 1 — flooring that at 5 would divide every real reading by five and
+  // collapse the whole shape onto the zero ring, which is precisely the "nothing is happening"
+  // picture this fix exists to stop showing.
+  const evidenceBasis = board.pillars.some(p => p.basis === 'evidence')
+  const scale = evidenceBasis ? 1 : Math.max(5, ...vals.map(Math.abs))
 
   const cls = focused?.classification
   const summary = focused?.plain_summary
