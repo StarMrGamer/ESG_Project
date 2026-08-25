@@ -4,10 +4,10 @@
  "events": [
   {
    "event_id": "SGX:SGX-harvest-0",
-   "text": "SGX is committing to a 42% reduction in Scope 2 emissions by FY2031 from the base as at FY2021, pledging to set science-based emissions reduction targets consistent with keeping global warming to 1.5°C.",
-   "published_at": "2021-07-15",
-   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/unsa8akfuf7i8noc/674901_20210715_SGX_first_Asian_exchange_to_commit_to_1.5C_science-based_emission_targets.pdf",
-   "source_type": "exchange_filing",
+   "text": "Singapore Exchange Regulation (SGX RegCo) is set to apply the latest international sustainability standards to listed companies, after the plan received 'broad support' in a public consultation.",
+   "published_at": "2024-10-01",
+   "source_url": "https://greencentralbanking.com/2024/10/01/singapore-moves-forward-with-issb-standards-despite-scope-3-delay/",
+   "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
@@ -20,60 +20,187 @@
   },
   {
    "event_id": "SGX:SGX-harvest-2",
-   "text": "Singapore Exchange added a rule requiring an issuer to issue a sustainability report on 20 July 2016, amended on 1 January 2022 and 1 January 2026.",
-   "published_at": "2016-07-20",
-   "source_url": "https://rulebook.sgx.com/rulebook/sustainability-report",
-   "source_type": "exchange_filing",
+   "text": "On 6 July 2023, ACRA and SGX RegCo launched a public consultation seeking feedback on the Sustainability Reporting Advisory Committee's recommendations to advance climate reporting in Singapore.",
+   "published_at": "2023-07-06",
+   "source_url": "https://www.allenandgledhill.com/perspectives/articles/24919/sgkh-acra-sgx-regco-consult-on-sustainability-reporting-advisory-committee-recommendations-mandatory-climate-reporting-for-listed-and-large-non-listed-companies",
+   "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "SGX:SGX-harvest-3",
-   "text": "Since 2016, the Singapore Exchange has required every listed issuer to prepare an annual sustainability report.",
-   "published_at": "2016-01-01",
-   "source_url": "https://greenco-esg.sg/sgx-sustainability-reporting-guide/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SGX:SGX-harvest-4",
-   "text": "From FY 2025 onwards, the Singapore Exchange requires all listed issuers to publish climate-related disclosures aligned with the International Sustainability Standards Board framework.",
-   "published_at": "2025-01-01",
-   "source_url": "https://rafflescorporateservices.com/singapore-sustainability-reporting-2026-sgx-issb-sra-roadmap/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SGX:SGX-harvest-5",
-   "text": "The 2026 enhanced requirements introduce more rigorous climate disclosure obligations aligned with international best practices.",
-   "published_at": "2026-01-01",
-   "source_url": "https://xcelgreen.com/insights/sgx-sustainability-reporting-2026",
-   "source_type": "company_pr",
+   "text": "SGX added a rule requiring an issuer to issue a sustainability report to shareholders and the Exchange, added on 20 July 2016.",
+   "published_at": "2016-07-20",
+   "source_url": "https://rulebook.sgx.com/rulebook/sustainability-report",
+   "source_type": "exchange_filing",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 4,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 6
+ "prompt_chars": 0,
+ "kept": 4
 }

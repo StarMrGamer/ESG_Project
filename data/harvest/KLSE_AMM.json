@@ -4,7 +4,7 @@
  "events": [
   {
    "event_id": "KLSE:AMM-harvest-0",
-   "text": "AMMB Holdings agreed to pay RM2.83 billion to the Malaysian government as a global settlement over its involvement in the 1MDB matter, announced on Feb 26.",
+   "text": "AMMB Holdings Berhad agreed to a RM2.83 billion global settlement with the Malaysian government on all outstanding claims and actions related to 1MDB, announced on 26 February 2021.",
    "published_at": "2021-02-26",
    "source_url": "https://www.bernama.com/en/news.php?id=1935616",
    "source_type": "company_pr",
@@ -12,36 +12,236 @@
   },
   {
    "event_id": "KLSE:AMM-harvest-1",
-   "text": "As part of the 1MDB global settlement, the Securities Commission Malaysia will require AmInvestment Bank Bhd to take corrective measures, including putting in place systems and processes to strengthen their due diligence.",
+   "text": "As part of the terms for the 1MDB global settlement, the Securities Commission Malaysia will require AmInvestment Bank Bhd to take corrective measures, including putting in place systems and processes to strengthen their due diligence.",
    "published_at": "2021-02-26",
-   "source_url": "https://www.mof.gov.my/portal/en/news/press-citations/ammb-to-pay-rm2-83-bln-to-malaysian-govt-for-1mdb-related-settlement",
-   "source_type": "regulator",
+   "source_url": "https://www.klsescreener.com/v2/news/view/795773/AmBank_fined_RM2_38b_over_its_involvement_in_1MDB_corruption_scandal",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-2",
+   "text": "AMMB Holdings Bhd agreed to pay RM2.83 billion to the Malaysian government as a global settlement on all outstanding claims and actions in relation to the AmBank Group's involvement in the 1MDB matter.",
+   "published_at": "2021-02-26",
+   "source_url": "https://www.bernama.com/en/news.php?id=1935616",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-3",
+   "text": "For FY2023, AmBank Group achieved a 93% reduction in carbon emissions after offsets compared to 2019 levels.",
+   "published_at": "2023-03-31",
+   "source_url": "https://www.sustainabilityreports.com/ammb-holdings/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-4",
+   "text": "AmBank Group disbursed RM3,022 million in green loans and financing in fiscal year 2024.",
+   "published_at": "2024-03-31",
+   "source_url": "https://www.sustainabilityreports.com/ammb-holdings/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-5",
+   "text": "AmBank Group achieved a 36% reduction in GHG emissions against the 2019 baseline.",
+   "published_at": "2024-03-31",
+   "source_url": "https://www.sustainabilityreports.com/ammb-holdings/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-6",
+   "text": "AmBank granted RM450mil green financing facilities to Eastern & Oriental Bhd's wholly owned subsidiary Tanjung Pinang Development (TPD) for development.",
+   "published_at": "2023-10-19",
+   "source_url": "https://www.thestar.com.my/business/business-news/2023/10/19/ambank-grants-rm450mil-green-financing-to-eo-unit",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-7",
+   "text": "AmBank Group's FY2023 integrated report said it reduced greenhouse gas emissions by 30% against the 2019 baseline.",
+   "published_at": "2023-03-31",
+   "source_url": "https://www.sustainabilityreports.com/ammb-holdings/2023/integrated-annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:AMM-harvest-8",
+   "text": "AmBank Group's FY2023 sustainability report said it achieved a 93% reduction in carbon emissions after offsets compared to 2019 levels.",
+   "published_at": "2023-03-31",
+   "source_url": "https://www.sustainabilityreports.com/ammb-holdings/2023/sustainability-report",
+   "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
    "kept": 0,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 4997
   },
   "financing": {
    "snippets": 8,
    "kept": 0,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5435
   },
   "controversy": {
    "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6350
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5742
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5354
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5494
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5381
+  },
+  "governance:2024": {
+   "snippets": 8,
    "kept": 2,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5022
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5417
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5840
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6144
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5205
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5802
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6072
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 2
+ "prompt_chars": 78255,
+ "kept": 9,
+ "merged_from_prior": 2
 }

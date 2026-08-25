@@ -4,31 +4,31 @@
  "events": [
   {
    "event_id": "KLSE:PETD-harvest-0",
-   "text": "PETRONAS Dagangan Berhad formally adopted the PETRONAS Commitment to Net Zero Carbon Emissions by 2050, according to its 2025 Sustainability Report.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/petronas-dagangan/2025/sustainability-report",
+   "text": "PETRONAS Dagangan BHD reported Scope 1 emissions of 10k tCO₂e and Scope 2 emissions of 85.5k tCO₂e for 2024, adhering to the GHG Protocol and IPCC AR4 standards.",
+   "published_at": "2024-01-01",
+   "source_url": "https://sustify.world/profile/5681_2024_MY",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:PETD-harvest-1",
-   "text": "PETRONAS Dagangan Berhad solarised 121 additional stations in fiscal year 2025, bringing the cumulative solarised network to 303 sites.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/petronas-dagangan/2025/sustainability-report",
+   "text": "High Court ruled Petronas Dagangan Bhd wrongfully refused to proceed with a fuel terminal transaction and awarded the company RM7.6mil in a dispute.",
+   "published_at": "2025-11-26",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/11/26/company-awarded-rm7-6mil-in-fuel-terminal-dispute-with-petronas-unit",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:PETD-harvest-2",
-   "text": "PETRONAS Dagangan Berhad's Sustainability Action Committee (SAC) and Board Sustainability and Risk Committee (BSRC) oversee climate-related risks, opportunities and other sustainability-related matters.",
-   "published_at": "2024-12-31",
-   "source_url": "https://cdn1.i3investor.com/my/files/st88k/5681_PETDAG/annual/2024-12-31/5681_PETDAG_AnnualReport_2024-12-31_PDBIntegratedReport2024Part1_958811205.pdf",
+   "text": "Industrial Court awarded RM86,450 in compensation and back wages to a former aircraft refueller after ruling his dismissal by Petronas Dagangan Berhad was without just cause or excuse.",
+   "published_at": "2025-05-01",
+   "source_url": "https://www.nst.com.my/news/crime-courts/2025/05/1220221/court-awards-rm86k-ex-aircraft-refueller-over-unjust-dismissal",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:PETD-harvest-3",
-   "text": "PETRONAS Dagangan Bhd published its Integrated Report titled 'Thriving Forward' on March 17, 2025.",
+   "text": "PETRONAS Dagangan Bhd published its Integrated Report 'Thriving Forward' on March 17, 2025.",
    "published_at": "2025-03-17",
    "source_url": "https://www.marketscreener.com/quote/stock/PETRONAS-DAGANGAN-6491623/news/PETRONAS-Dagangan-Integrated-Report-Thriving-Forward-49410845/",
    "source_type": "company_pr",
@@ -36,52 +36,244 @@
   },
   {
    "event_id": "KLSE:PETD-harvest-4",
-   "text": "Syed Zainal, a former non-independent and non-executive director at PETRONAS Dagangan Bhd, said a safety review was urged a year after the gas pipeline explosion, explaining the 2,623km gas pipeline network in Peninsular Malaysia.",
-   "published_at": "2026-04-01",
-   "source_url": "https://www.thestar.com.my/news/nation/2026/04/01/safety-review-urged-a-year-after-gas-pipeline-explosion",
-   "source_type": "news",
+   "text": "The High Court ruled that Petronas Dagangan Bhd wrongfully refused to proceed with a fuel terminal transaction and awarded RM7.6mil to the company.",
+   "published_at": "2025-11-26",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/11/26/company-awarded-rm7-6mil-in-fuel-terminal-dispute-with-petronas-unit",
+   "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:PETD-harvest-5",
-   "text": "The Industrial Court awarded a former aircraft refueller RM86,450 in compensation and back wages after ruling his dismissal by Petronas Dagangan Berhad was without just cause or excuse.",
+   "text": "Petronas Dagangan Berhad dismissed Mohd Taufik bin Mohd Aris on December 22, 2022, over allegations of misconduct including falsifying attendance records and forging signatures on training documents.",
+   "published_at": "2022-12-22",
+   "source_url": "https://www.scribd.com/document/872572409/INDUSTRIAL-COURT-Terminate-without-just-n-cause-PETRONAS",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-6",
+   "text": "The Industrial Court awarded RM86,450 in compensation and back wages to a former aircraft refueller after ruling his dismissal by Petronas Dagangan Berhad was without just cause or excuse.",
    "published_at": "2025-05-01",
    "source_url": "https://www.nst.com.my/news/crime-courts/2025/05/1220221/court-awards-rm86k-ex-aircraft-refueller-over-unjust-dismissal",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:PETD-harvest-6",
-   "text": "Mohd Taufik bin Mohd Aris was dismissed by Petronas Dagangan Berhad on December 22, 2022, over alleged misconduct including falsifying attendance records and forging signatures on training documents.",
-   "published_at": "2022-12-22",
-   "source_url": "https://www.scribd.com/document/872572409/INDUSTRIAL-COURT-Terminate-without-just-n-cause-PETRONAS",
+   "event_id": "KLSE:PETD-harvest-7",
+   "text": "PETRONAS Dagangan solarised 68 stations in fiscal year 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/petronas-dagangan/2023/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-8",
+   "text": "PETRONAS Dagangan collected 133.7 tonnes of used cooking oil in fiscal year 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/petronas-dagangan/2023/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-9",
+   "text": "Petronas Dagangan Bhd published its Integrated Report 'Thriving Forward' on March 17, 2025.",
+   "published_at": "2025-03-17",
+   "source_url": "https://in.marketscreener.com/quote/stock/PETRONAS-DAGANGAN-6491623/news/PETRONAS-Dagangan-Integrated-Report-Thriving-Forward-49410845/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-10",
+   "text": "The High Court awarded RM7.6mil in a fuel terminal dispute, ruling that Petronas Dagangan Bhd wrongfully refused to proceed with the transaction.",
+   "published_at": "2025-11-26",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/11/26/company-awarded-rm7-6mil-in-fuel-terminal-dispute-with-petronas-unit",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-11",
+   "text": "A company was awarded RM7.6mil in a fuel terminal dispute after the High Court said Petronas Dagangan Bhd wrongfully refused to proceed with the transaction.",
+   "published_at": "2025-11-26",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/11/26/company-awarded-rm7-6mil-in-fuel-terminal-dispute-with-petronas-unit",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:PETD-harvest-12",
+   "text": "A former aircraft refueller was awarded RM86,450 in compensation and back wages by the Industrial Court after it ruled that his dismissal by Petronas Dagangan Berhad was without just cause or excuse.",
+   "published_at": "2025-05-01",
+   "source_url": "https://www.nst.com.my/news/crime-courts/2025/05/1220221/court-awards-rm86k-ex-aircraft-refueller-over-unjust-dismissal",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5244
   },
   "financing": {
    "snippets": 8,
    "kept": 1,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5495
   },
   "controversy": {
    "snippets": 8,
    "kept": 3,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5775
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5347
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5335
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5441
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5050
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4870
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5283
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4750
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5471
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5483
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6202
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6135
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 7
+ "prompt_chars": 75881,
+ "kept": 13,
+ "merged_from_prior": 3
 }

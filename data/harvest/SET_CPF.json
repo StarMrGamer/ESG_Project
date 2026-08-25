@@ -4,23 +4,23 @@
  "events": [
   {
    "event_id": "SET:CPF-harvest-0",
-   "text": "CPF's 2024 Sustainability Report reports a 27% reduction in direct and indirect GHG emissions per production unit in Thailand against a 2015 base year.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2024/sustainability-report",
+   "text": "CP Foods earned its first 'RE100 Farm' certification from LRQA (Thailand) for Thailand's first 100% renewable energy farm.",
+   "published_at": "2025-04-27",
+   "source_url": "https://www.minimeinsights.com/2025/04/27/cp-foods-develops-thailands-first-100-renewable-energy-farm-to-drive-net-zero-2050-commitment/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "SET:CPF-harvest-1",
-   "text": "CPF's 2024 Sustainability Report reports that 56% of revenue came from green products.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2024/sustainability-report",
+   "text": "In 2025, CPF became the first food producer with SBTi-validated near-term and long-term net-zero targets for 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "SET:CPF-harvest-2",
-   "text": "CPF's 2025 Sustainability Report states the company became the first food producer with SBTi-validated near-term and long-term net-zero targets for 2050.",
+   "text": "In 2025, CPF achieved 100% coal-free operations across nine countries.",
    "published_at": "2025-01-01",
    "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
    "source_type": "company_pr",
@@ -28,84 +28,236 @@
   },
   {
    "event_id": "SET:CPF-harvest-3",
-   "text": "CPF's 2025 Sustainability Report states the company achieved 100% coal-free operations across nine countries.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPF-harvest-4",
-   "text": "In 2025, the Company conducted a sustainability materiality assessment across its agro-industrial and food value chain, reviewing key internal and external factors including major economic, social, and environmental risks.",
+   "text": "In 2025, CPF conducted a sustainability materiality assessment across its agro-industrial and food value chain.",
    "published_at": "2025-01-01",
    "source_url": "https://sustainability.cpfworldwide.com/en/sustainability-at-cpf/sustainability-at-cpf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "SET:CPF-harvest-5",
-   "text": "Key achievements in 2025 include becoming the first food producer with SBTi-validated near-term and long-term net-zero targets for 2050.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPF-harvest-6",
-   "text": "Key achievements in 2025 include achieving 100% coal-free operations across nine countries.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPF-harvest-7",
-   "text": "A Thai court accepted a class action lawsuit against Charoen Pokphand Foods for causing environmental damage from the rapid spread of an invasive fish species.",
+   "event_id": "SET:CPF-harvest-4",
+   "text": "A Thai court accepted a class action lawsuit against Charoen Pokphand Foods for causing environmental damage from the rapid spread of an invasive fish species, a lawyer for the plaintiffs told Reuters.",
    "published_at": "2025-03-04",
    "source_url": "https://www.thejakartapost.com/business/2025/03/04/thai-lawsuit-targets-charoen-pokphand-foods-over-invasive-fish-impact",
    "source_type": "news",
    "_origin": "harvest"
   },
   {
+   "event_id": "SET:CPF-harvest-5",
+   "text": "Charoen Pokphand Foods filed a defamation lawsuit against BIOTHAI Foundation secretary-general Witoon Lianchamroon over invasive fish crisis claims; he appeared in court on October 22 to face the charges.",
+   "published_at": "2025-11-04",
+   "source_url": "https://www.envirolink.org/2025/11/04/thai-food-giant-sues-activist-over-invasive-fish-crisis-claims/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-6",
+   "text": "In 2025, the Company conducted a sustainability materiality assessment across its agro-industrial and food value chain.",
+   "published_at": "2025-01-01",
+   "source_url": "https://sustainability.cpfworldwide.com/en/sustainability-at-cpf/sustainability-at-cpf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-7",
+   "text": "On April 3, 2023, CPFRF, a subsidiary of Charoen Pokphand Foods, acquired the 'FIVE STAR' trademarks and service marks registered in 12 countries from Charoen Pokphand Group Co., Ltd., the Company's major shareholder.",
+   "published_at": "2023-04-03",
+   "source_url": "https://lssmedia.setlink.set.or.th/2023/6M/CPF-6M66-ListedCompanySnapshot-EN.html",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
    "event_id": "SET:CPF-harvest-8",
-   "text": "The first hearing was held in a defamation lawsuit brought in Thailand by Charoen Pokphand Foods (CPF) against an environmental group that allegedly suggested the seafood giant introduced blackchin tilapia.",
+   "text": "Charoen Pokphand Foods PCL announced its commitment to achieving Net Zero Emissions by 2050.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2023/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-9",
+   "text": "Charoen Pokphand Foods (CPF) faced the first hearing in a defamation lawsuit it brought in Thailand against an environmental group that allegedly suggested the company introduced blackchin tilapia.",
    "published_at": "2025-10-06",
    "source_url": "https://www.undercurrentnews.com/2025/10/06/cp-foods-lawsuit-fights-claims-it-brought-invasive-tilapia-to-thailand/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "SET:CPF-harvest-9",
-   "text": "Witoon Lianchamroon, secretary-general of the BIOTHAI Foundation, appeared in court on October 22 to face charges filed by Charoen Pokphand Foods (CPF).",
+   "event_id": "SET:CPF-harvest-10",
+   "text": "BIOTHAI Foundation secretary-general Witoon Lianchamroon appeared in court on October 22 to face defamation charges filed by Charoen Pokphand Foods (CPF).",
    "published_at": "2025-10-22",
    "source_url": "https://www.envirolink.org/2025/11/04/thai-food-giant-sues-activist-over-invasive-fish-crisis-claims/",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; governance:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "unparsed reply"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 4,
-   "status": "live"
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5331
   },
   "financing": {
    "snippets": 8,
-   "kept": 3,
-   "status": "live"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4973
   },
   "controversy": {
    "snippets": 8,
-   "kept": 3,
-   "status": "live"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5993
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5991
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5402
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 6052
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5656
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5052
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4721
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5038
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6213
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6125
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6091
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5982
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 10
+ "prompt_chars": 78620,
+ "kept": 11,
+ "merged_from_prior": 6
 }

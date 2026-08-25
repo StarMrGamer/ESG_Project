@@ -1,0 +1,375 @@
+{
+ "company_id": "PSE:BPI",
+ "company": "Bank of the Philippine Islands",
+ "events": [
+  {
+   "event_id": "PSE:BPI-harvest-0",
+   "text": "BPI shifted 100 branches to renewable energy.",
+   "published_at": "2026-05-05",
+   "source_url": "https://tribune.net.ph/2026/05/05/bpi-powers-100-branches-with-renewable-energy",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-1",
+   "text": "On May 29, 2023, Bank of the Philippine Islands submitted its Integrated Annual Corporate Governance Report for 2022 (SEC Form I-ACGR 2022).",
+   "published_at": "2023-05-29",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=f80748ada01a765a9e4dc6f6c9b65995",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-2",
+   "text": "On June 3, 2024, BPI submitted an updated Integrated Annual Corporate Governance Report for 2023, with all contents/disclosures remaining the same as the original submission.",
+   "published_at": "2024-06-03",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/V29BDDYRIF12QCP5/2d077bbc7f5b76c32ac9bf2248f087ebfc64e963c3c9b89f282f39b90fbae110",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-3",
+   "text": "On May 28, 2025, BPI submitted its Integrated Annual Corporate Governance Report for 2024 in compliance with SEC Memorandum Circular No. 15, series of 2017 and PSE CN-No. 2017-0079.",
+   "published_at": "2025-05-28",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/TLKTFKRQG99V2OTD/6e956f5302a592fb2918529ae80ea1421c7578d5f9ef05e052e966fd2c47bd72",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-4",
+   "text": "Infomina Philippines, Inc. filed a civil complaint against Bank of the Philippine Islands at the Regional Trial Court of Makati seeking over PHP1.65 billion (approximately RM133 million) over alleged invalid termination of a Software Purchase and Maintenance Agreement.",
+   "published_at": "2025-08-05",
+   "source_url": "https://www.businesstoday.com.my/2025/08/05/infomina-subsidiary-files-rm133-million-lawsuit-against-philippine-bank/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-5",
+   "text": "The Securities and Exchange Commission reduced the penalty imposed against Bank of the Philippine Islands to P30 million from the original P134.62 million.",
+   "published_at": "2023-02-11",
+   "source_url": "https://mb.com.ph/2023/02/11/sec-reduces-bpi-fine-to-p30-m/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-6",
+   "text": "Bank of the Philippine Islands faced a P135-million fine from the Securities and Exchange Commission for failing to secure regulatory confirmation.",
+   "published_at": "2023-02-07",
+   "source_url": "https://www.philstar.com/business/2023/02/07/2243028/bpi-faces-p135-million-fine-sec",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-7",
+   "text": "The Supreme Court of the Philippines denied Susana S. Mayor's petition for review against Bank of the Philippine Islands in G.R. No. 255217 for failure to show that the Court of Appeals committed an error.",
+   "published_at": "2021-06-16",
+   "source_url": "https://legaldex.com/jurisprudence/mayor-v-bank-of-the-philippines-islands",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-8",
+   "text": "Bank of the Philippine Islands denied liability and filed a compulsory counterclaim in response to Infomina Philippines' civil complaint before the Regional Trial Court of Makati.",
+   "published_at": "2025-10-29",
+   "source_url": "https://www.businesstoday.com.my/2025/10/29/infominas-unit-faces-counterclaim-in-ongoing-legal-dispute-with-bank-of-the-philippine-islands/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-9",
+   "text": "BPI held its Organizational Meeting of the Board of Directors on 21 April 2025, immediately after the Annual Stockholders' Meeting.",
+   "published_at": "2025-04-21",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=ab7fb8d9329915fbec6e1601ccee8f59",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-10",
+   "text": "The Securities and Exchange Commission agreed to reduce the penalty imposed against Bank of the Philippine Islands to P30 million from the original P134.62 million.",
+   "published_at": "2023-02-11",
+   "source_url": "https://mb.com.ph/2023/02/11/sec-reduces-bpi-fine-to-p30-m/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-11",
+   "text": "Bank of the Philippine Islands is facing a P135-million fine from the Securities and Exchange Commission for failing to secure regulatory confirmation for its ...",
+   "published_at": "2023-02-07",
+   "source_url": "https://www.philstar.com/business/2023/02/07/2243028/bpi-faces-p135-million-fine-sec",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-12",
+   "text": "In compliance with SEC Memorandum Circular No. 15, series of 2017 and PSE CN-No. 2017-0079, Bank of the Philippine Islands submitted its Integrated Annual Corporate Governance Report for 2024 on 28-May-2025.",
+   "published_at": "2025-05-28",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/TLKTFKRQG99V2OTD/6e956f5302a592fb2918529ae80ea1421c7578d5f9ef05e052e966fd2c47bd72",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-13",
+   "text": "In 2024, BPI completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas (GHG) emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/bpi/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-14",
+   "text": "On May 29, 2023, BPI filed its Integrated Annual Corporate Governance Report for 2022 with the Philippine Stock Exchange.",
+   "published_at": "2023-05-29",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=f80748ada01a765a9e4dc6f6c9b65995",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-15",
+   "text": "On 3 June 2024, BPI submitted its updated Integrated Annual Corporate Governance Report for 2023 including the SEC final acceptance receipt.",
+   "published_at": "2024-06-03",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/V29BDDYRIF12QCP5/2d077bbc7f5b76c32ac9bf2248f087ebfc64e963c3c9b89f282f39b90fbae110",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-16",
+   "text": "On 26 July 2024, BPI resubmitted its updated Integrated Annual Corporate Governance Report for 2023 including the SEC final acceptance receipt.",
+   "published_at": "2024-07-26",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/C1G8P22UBBQC9U1J/0ca8057e2cac25fd1c69101ca05546ca7b99337f1eb029119cb2792ab24f7ec0",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-17",
+   "text": "On 28-May-2025, Bank of the Philippine Islands submitted its Integrated Annual Corporate Governance Report for 2024, in compliance with SEC Memorandum Circular No. 15, series of 2017 and PSE CN-No. 2017-0079.",
+   "published_at": "2025-05-28",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/TLKTFKRQG99V2OTD/6e956f5302a592fb2918529ae80ea1421c7578d5f9ef05e052e966fd2c47bd72",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-18",
+   "text": "IFC agreed to invest $250 million in a green bond to be issued by Bank of the Philippine Islands (BPI), in an effort to grow climate finance in the Philippines.",
+   "published_at": "2023-08-09",
+   "source_url": "https://businesschannel.ph/2023/08/10/ifc-partners-with-bank-of-the-philippine-islands-to-increase-climate-finance-boosting-green-growth/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-19",
+   "text": "In 2024, BPI engaged Sustainalytics to review the projects financed with proceeds from its Green and Social Bonds and assess whether they meet the use of proceeds criteria and reporting commitments outlined in its Sustainable Funding Framework.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.bpi.com.ph/content/dam/bau/sustainability/sustainability-together/pdf/2024/Sustainalytics%20Annual%20Review%202024.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-20",
+   "text": "IFC partnered with BPI on a green bond issuance aligned with IFC's 30 by 30 Zero Program, which aims to help financial institutions grow climate-related lending to 30 percent of their total portfolios with near zero coal exposure by 2030.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.ifc.org/en/pressroom/2023/ifc-partners-with-bank-of-the-philippine-islands-to-increase-climate-finance-boosting-green-growth",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-21",
+   "text": "The Bangko Sentral ng Pilipinas slapped a P1 million fine on the Bank of the Philippine Islands for the disposal of treasury shares that came as a result of its merger with BPI Family Savings Bank.",
+   "published_at": "2023-06-15",
+   "source_url": "https://www.philstar.com/business/banking/2023/06/15/2274114/bsp-slaps-p1-m-fine-bpi-over-family-bank-merger",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-22",
+   "text": "The SEC, in a letter dated Feb. 3, 2023, assessed penalties against the bank for violating Section 8.1 of the Securities and Regulation Code in the amount of P134,622,017.59.",
+   "published_at": "2023-02-10",
+   "source_url": "https://digitaledition.manilatimes.net/article/281835762861229",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-23",
+   "text": "The Securities and Exchange Commission reduced the penalty it imposed against Bank of the Philippine Islands to P30 million from the original P134.62 million.",
+   "published_at": "2023-02-11",
+   "source_url": "https://mb.com.ph/2023/02/11/sec-reduces-bpi-fine-to-p30-m/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BPI-harvest-24",
+   "text": "Bank of the Philippine Islands denied liability while admitting certain key facts and filed compulsory counterclaim in response to Infomina Philippines' civil complaint before the Regional Trial Court of Makati.",
+   "published_at": "2025-10-29",
+   "source_url": "https://www.businesstoday.com.my/2025/10/29/infominas-unit-faces-counterclaim-in-ongoing-legal-dispute-with-bank-of-the-philippine-islands/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5702
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6994
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 6098
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6001
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4816
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5329
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5573
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5407
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6306
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6327
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5426
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5725
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6004
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6092
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 81800,
+ "kept": 25,
+ "merged_from_prior": 9
+}

@@ -4,84 +4,179 @@
  "events": [
   {
    "event_id": "SET:BDMS-harvest-0",
-   "text": "The Board of Directors maintains conformity with laws, regulations, and corporate governance with the support of 5 subcommittees.",
+   "text": "The Board of Directors maintains conformity with laws, regulations, and corporate governance with the support of 5 subcommittees: the Audit Committee, the Nomination and Remuneration Committee, the Executive Committee, the Corporate Governance Committee and the Risk Management Committee.",
    "published_at": "2025-03-10",
    "source_url": "https://bdms.listedcompany.com/misc/sd-report/20250310-bdms-sdreport2024-en.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:BDMS-harvest-1",
-   "text": "Key achievements in 2025 include the implementation of AI-based medical resource management (BURT) across 30 hospitals.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/bangkok-dusit-medical-services/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:BDMS-harvest-2",
-   "text": "Key achievements in 2025 include receiving the SET Best Innovative Company Award for the third consecutive year.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/bangkok-dusit-medical-services/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:BDMS-harvest-3",
-   "text": "Bangkok Dusit Medical Services pcl published its SD Report 2025 on March 09, 2026.",
-   "published_at": "2026-03-09",
-   "source_url": "https://www.marketscreener.com/news/bangkok-dusit-medical-services-sd-report-2025-ce7e5fd9dd89f025",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:BDMS-harvest-4",
-   "text": "Bangkok Dusit Medical Services' 2025 sustainability report highlights the implementation of AI-based medical resource management (BURT) across 30 hospitals.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/bangkok-dusit-medical-services/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:BDMS-harvest-5",
-   "text": "Bangkok Dusit Medical Services received the SET Best Innovative Company Award for the third consecutive year in 2025.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/bangkok-dusit-medical-services/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:BDMS-harvest-6",
-   "text": "Bangkok Dusit Medical Services Public Company Limited (BDMS), a leading private hospital network, invites women of all ages to take proactive steps in safeguarding their health and preventing the leading silent threat among Thai women - breast cancer - in recognition of the World Breast Cancer Day, observed annually on October 7.",
-   "published_at": "2025-09-15",
-   "source_url": "https://www.nationthailand.com/tags/Bangkok%20Dusit%20Medical%20Services",
-   "source_type": "company_pr",
-   "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "unparsed reply"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 4,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 7
+ "prompt_chars": 0,
+ "kept": 1
 }

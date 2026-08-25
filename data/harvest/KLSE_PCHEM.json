@@ -4,44 +4,179 @@
  "events": [
   {
    "event_id": "KLSE:PCHEM-harvest-0",
-   "text": "PCG's 2025 Sustainability Report records zero fatalities.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/petronas-chemicals/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PCHEM-harvest-1",
-   "text": "PCG's 2025 Sustainability Report records strengthened Board oversight of sustainability, climate and integrity matters.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/petronas-chemicals/2025/sustainability-report",
+   "text": "RHB Bank Berhad and PETRONAS entered into a Memorandum of Understanding to collaborate on the implementation of a Sustainable Vendor Financing Programme, aimed at strengthening the sustainability readiness of Malaysia's Oil & Gas Services and Equipment vendor ecosystem, particularly small and medium enterprises.",
+   "published_at": "2026-04-29",
+   "source_url": "https://www.businesstoday.com.my/2026/04/29/sustainable-financing-boost-for-petronas-vendors/",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "unparsed reply"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 2
+ "prompt_chars": 0,
+ "kept": 1
 }

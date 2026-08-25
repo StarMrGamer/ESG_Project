@@ -1,41 +1,8 @@
 {
- "company_id": "PSE:AC",
- "company": "Ayala Corporation",
- "events": [
-  {
-   "event_id": "PSE:AC-harvest-0",
-   "text": "Ayala Corporation committed to achieve net zero greenhouse gas emissions by 2050, as announced by President & CEO Fernando Zobel de Ayala during the group's Integrated Corporate Governance, Risk Management, and Sustainability Summit held Thursday, October 21, 2021.",
-   "published_at": "2021-10-21",
-   "source_url": "https://agrigateglobal.com/press-release/ayala-commits-to-achieve-net-zero-by-2050/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:AC-harvest-1",
-   "text": "ACEN Corp., the listed energy platform of the Ayala Group, has earmarked P72 billion for capital expenditures (capex) in 2024.",
-   "published_at": "2024-04-24",
-   "source_url": "https://bilyonaryo.com/2024/04/24/ayala-group-accelerates-renewable-energy-growth-with-p72-billion-capex/power/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:AC-harvest-2",
-   "text": "On Aug. 9, BPI successfully raised an impressive ₱33.7 billion from its initial ₱5 billion offering of Peso-denominated fixed-rate Sustainable, Environmental, and Equitable Development bonds.",
-   "published_at": "2024-08-09",
-   "source_url": "https://mb.com.ph/2024/08/18/bpi-ayala-land-leading-the-charge-in-sustainable-finance",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:AC-harvest-3",
-   "text": "In a Philippine Stock Exchange report dated Nov. 14, 2025, Ayala Corp's AC Energy (ACEN)'s Ace Enexor (ENEX) disclosed the discontinuation of the proposed Batangas Clean Energy (BCE) Project, stating the decision aligns with ACEN's 'strategic shift toward renewable energy generation'.",
-   "published_at": "2025-11-14",
-   "source_url": "https://www.business-humanrights.org/en/latest-news/philippines-batangas-communities-lauds-ayala-corps-decision-to-discontinue-batangas-clean-energy-bce-project/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  }
- ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "company_id": "SET:KTB",
+ "company": "Krung Thai Bank",
+ "events": [],
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
  "snippet_count": 0,
  "angles": {
   "emissions": {
@@ -202,5 +169,6 @@
   }
  },
  "prompt_chars": 0,
- "kept": 4
+ "kept": 0,
+ "merged_from_prior": 0
 }

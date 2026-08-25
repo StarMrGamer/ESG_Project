@@ -1,0 +1,255 @@
+{
+ "company_id": "SET:ADVANC",
+ "company": "Advanced Info Service",
+ "events": [
+  {
+   "event_id": "SET:ADVANC-harvest-0",
+   "text": "As of 2025, the Company has 14 non-executive / independent directors who hold the directorship of 5 or less.",
+   "published_at": "2025-01-01",
+   "source_url": "https://investor.ais.co.th/en/leadership/board-of-directors",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-1",
+   "text": "The governance structure information is as of 31 December 2025.",
+   "published_at": "2025-12-31",
+   "source_url": "https://investor.ais.co.th/en/corporate-governance/governance-structure",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-2",
+   "text": "AIS designed its Sustainable Finance Framework under which the AIS Group and its subsidiaries can issue Green, Social and Sustainability Bonds, Loans and other financial instruments to finance or refinance projects.",
+   "published_at": "2024-09-01",
+   "source_url": "https://investor.ais.co.th/storage/document/sustainable-finance/2024/advanc-sustainable-finance-framework-sep-2024-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-3",
+   "text": "Advanced Wireless Network Company Limited, part of the AIS group, funded a THB 2,000 million green loan to support sustainable development through solar energy projects aligned with the AIS Sustainable Finance Framework.",
+   "published_at": "2024-01-01",
+   "source_url": "https://investor.ais.co.th/storage/document/sustainable-finance/2024/advanc-sustainable-financing-report-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-4",
+   "text": "AIS received recognition through the Best Sustainability Bond and Best Green Loan - Telecom awards at The Asset Triple A Sustainable Finance Awards 2025.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.marketscreener.com/news/advanced-info-service-ais-sustainability-report-2025-ce7e5cd3de8bf32d",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-5",
+   "text": "In 2023, Advanced Info Service reduced its greenhouse gas emissions intensity by 92% compared to the 2015 baseline and increased renewable energy usage to 2.25% of total energy consumption.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/advanced-info-service/2023/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-6",
+   "text": "AIS issued Thailand's first telecommunications sustainability bond of THB 25 billion in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/advanced-info-service/2024/one-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-7",
+   "text": "AIS expanded its 5G network coverage to over 95% of the population in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/advanced-info-service/2024/one-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-8",
+   "text": "AIS reduced greenhouse gas emissions by 42,108 tCO2e in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/advanced-info-service/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:ADVANC-harvest-9",
+   "text": "Advanced Wireless Network Company Limited (AWN), part of the AIS group, funded a THB 2,000 million green loan to support sustainable development through solar energy projects aligned with the AIS Sustainable Finance Framework.",
+   "published_at": "2024-01-01",
+   "source_url": "https://investor.ais.co.th/storage/document/sustainable-finance/2024/advanc-sustainable-financing-report-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; governance: unparsed reply; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5837
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6008
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5601
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5970
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4951
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5490
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4987
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5036
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6000
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5867
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5846
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5338
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5845
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5893
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 78669,
+ "kept": 10,
+ "merged_from_prior": 5
+}

@@ -1,0 +1,311 @@
+{
+ "company_id": "SGX:OCBC",
+ "company": "OCBC",
+ "events": [
+  {
+   "event_id": "SGX:OCBC-harvest-0",
+   "text": "In 2024, Oversea-Chinese Banking completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/oversea-chinese-banking/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-1",
+   "text": "Violation Tracker Global records OCBC Singapore with a penalty of 600,000 Singapore dollars (US$446,793 at the time) in 2023.",
+   "published_at": "2023-01-01",
+   "source_url": "https://violationtrackerglobal.goodjobsfirst.org/violation-tracker-global/singapore-ocbc-singapore",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-2",
+   "text": "An environmental NGO filed a complaint with the Singapore Exchange against OCBC Bank over alleged disclosure gaps on coal plant financing.",
+   "published_at": "2026-02-24",
+   "source_url": "https://www.business-humanrights.org/en/latest-news/singapore-indonesia-ngo-complaint-sgx-disclosure-ocbc-gaps-coal-plant-financing/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-3",
+   "text": "OCBC published its Sustainability Report 2024.",
+   "published_at": "2025-03-25",
+   "source_url": "https://article.wn.com/view/2025/03/25/OCBC_Sustainability_Report_2024_English_OCBC_OverseaChinese_/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-4",
+   "text": "OCBC broadcast its Sustainability Report announcement on 24-Mar-2026 at 00:02:13.",
+   "published_at": "2026-03-24",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/8H8N9PG0QZEV7VWE/",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-5",
+   "text": "In 2024, OCBC's financed emissions in the steel sector came in at 1.7 tonnes of carbon dioxide equivalent for every tonne of steel, down from 1.91 tCO2e/tSteel in 2023.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.businesstimes.com.sg/esg/ocbc-cuts-financed-emissions-all-targeted-dirty-sectors-2024",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-6",
+   "text": "OCBC's 2023 Sustainability Report details progress in 2023 towards its net-zero commitment by 2050, including setting science-based targets for six high-emission sectors.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/oversea-chinese-banking-corp/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-7",
+   "text": "OCBC surpassed its $50 billion sustainable finance target two years early, reaching $56 billion in commitments.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/oversea-chinese-banking-corp/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-8",
+   "text": "OCBC's green bonds outstanding as of 31 December 2023 amounted to AUD 1.5 billion, with AUD 1.6 billion allocated to projects in Australia, Singapore and Taiwan in the Renewable Energy and Green Buildings categories.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-framework-impact-report-(2024)/ocbc-sustainability-bond-framework-impact-report-(2024)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-9",
+   "text": "OCBC's green bond outstanding as of 31 December 2022 was AUD 500 million, with AUD 633 million allocated to projects in Australia and Singapore in the Renewable Energy and Green Buildings categories.",
+   "published_at": "2022-12-31",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-impact-report-(2023)/ocbc-sustainability-bond-framework-impact-report-(2023)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-10",
+   "text": "OCBC's Sustainability Bond Framework, dated June 2023, was reviewed by Sustainalytics for alignment with the Sustainability Bond Guidelines 2021, Green Bond Principles 2021, Social Bond Principles 2021, ASEAN Green Bond Standards 2018 and ASEAN Social Bond Standards.",
+   "published_at": "2023-06-01",
+   "source_url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/second%20party%20opinion%20on%20ocbc%20sustainability%20bond%20framework%20from%20sustainalytics.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-11",
+   "text": "OCBC Group has developed a Responsible Financing Framework to identify and manage ESG risks associated with eligible projects, applicable to all allocation decisions under its Sustainability Bond Framework.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-framework-second-party-opinion-(2023)/ocbc-sustainability-bond-framework-second-party-opinion-(2023)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-12",
+   "text": "OCBC has allocated AUD 1.6 billion to projects in Australia, Singapore and Taiwan in the Renewable Energy and Green Buildings categories.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-framework-impact-report-(2024)/ocbc-sustainability-bond-framework-impact-report-(2024)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-13",
+   "text": "Sustainalytics has calculated 8,044 tonnes of carbon dioxide equivalents in avoided GHG emissions for a representative year during the bond's term to maturity.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/ocbc-bank/ocbc-sustainability-bond-framework-impact-report-(2024)/ocbc-sustainability-bond-framework-impact-report-(2024)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-14",
+   "text": "OCBC's green bonds outstanding as of 31 December 2023 amounted to AUD 1.5 billion.",
+   "published_at": "2024-08-07",
+   "source_url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/investors/green-bond/ocbc%20green%20bond%20report%202023%20(publication).pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-15",
+   "text": "Singapore's central bank imposed fines collectively worth S$3.8 million on Citibank, DBS, OCBC and Swiss Life for breaches, announced on Wednesday.",
+   "published_at": "2023-06-21",
+   "source_url": "https://www.reuters.com/business/finance/singapore-fines-dbs-citibank-ocbc-swiss-life-inadequate-money-laundering-2023-06-21/",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:OCBC-harvest-16",
+   "text": "An environmental NGO filed a complaint with the Singapore Exchange (SGX) against OCBC Bank over alleged sustainability reporting disclosure gaps on coal plant financing.",
+   "published_at": "2026-02-24",
+   "source_url": "https://www.business-humanrights.org/en/latest-news/singapore-indonesia-ngo-complaint-sgx-disclosure-ocbc-gaps-coal-plant-financing/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; financing: unparsed reply; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6004
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5743
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4957
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5223
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5062
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5653
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5233
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6028
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5936
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5924
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4785
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5076
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5606
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5913
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 77143,
+ "kept": 17,
+ "merged_from_prior": 3
+}

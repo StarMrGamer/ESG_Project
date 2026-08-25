@@ -1,0 +1,319 @@
+{
+ "company_id": "IDX:BMRI",
+ "company": "Bank Mandiri",
+ "events": [
+  {
+   "event_id": "IDX:BMRI-harvest-0",
+   "text": "Bank Mandiri menetapkan komitmen NZE operations pada 2030 dan NZE financed emissions (scope 3) pada 2060.",
+   "published_at": "2023-10-03",
+   "source_url": "https://finansial.bisnis.com/read/20231003/90/1700471/strategi-bank-mandiri-bmri-dorong-0-emisi-borong-3000-ton-karbon-hingga-ubah-mobil-operasional",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-1",
+   "text": "In 2024, Bank Mandiri achieved Rp293 trillion in sustainable financing.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-mandiri-persero/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-2",
+   "text": "In 2024, Bank Mandiri reduced operational carbon emissions by 33% compared to its 2019 baseline.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-mandiri-persero/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-3",
+   "text": "The South Jakarta District Court declared the Desak Mandiri lawsuit filed by TuK INDONESIA against Bank Mandiri inadmissible (Niet Ontvankelijke Verklaard) on formal grounds citing 'lack of parties', with the verdict delivered on 17 July 2025.",
+   "published_at": "2025-07-17",
+   "source_url": "https://forestsandfinance.org/news/court-issues-dismissal-no-on-desakmandiri-lawsuit-tuk-indonesia-questions-courts-failure-to-address-core-issues/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-4",
+   "text": "The mediation process for TuK INDONESIA's civil lawsuit against Bank Mandiri, with Astra Agro Lestari and PT Agro Nusa Abadi as co-defendants, failed on January 14, 2025, because Bank Mandiri refused to meet TuK INDONESIA's requests to cease financing AAL and PT ANA.",
+   "published_at": "2025-01-14",
+   "source_url": "https://www.banktrack.org/article/bank_mandiri_mediation_fails_tuk_indonesia_s_lawsuit_moves_to_substantive_examination",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-5",
+   "text": "The South Jakarta District Court declared TuK INDONESIA's Desak Mandiri lawsuit against Bank Mandiri inadmissible (Niet Ontvankelijke Verklaard /NO) on formal grounds, citing 'lack of parties,' in a verdict delivered on 17 July 2025.",
+   "published_at": "2025-07-17",
+   "source_url": "https://forestsandfinance.org/news/court-issues-dismissal-no-on-desakmandiri-lawsuit-tuk-indonesia-questions-courts-failure-to-address-core-issues/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-6",
+   "text": "In TuK INDONESIA vs. Bank Mandiri lawsuit proceedings, efforts to seek justice were delayed due to Bank Mandiri's unpreparedness in providing the required legal standing documents.",
+   "published_at": "2024-12-01",
+   "source_url": "https://www.tuk.or.id/en/2024/12/tuk-indonesia-vs-bank-mandiri-lawsuit-hearing-holes-in-legal-standing-draw-scrutiny/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-7",
+   "text": "An expert in the #DesakMandiri lawsuit affirmed that the public lawsuit against Bank Mandiri stands on strong legal and moral grounds to demand accountability for harms caused by irresponsible financing.",
+   "published_at": "2025-04-01",
+   "source_url": "https://www.tuk.or.id/en/2025/04/desakmandiri-lawsuit-expert-affirms-bank-mandiris-responsibility-for-financing-impacts/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-8",
+   "text": "Bank Mandiri was recognized in LinkedIn Top Companies 2023 as the Best Place to Work to Develop a Career in Indonesia.",
+   "published_at": "2023-01-01",
+   "source_url": "https://links.sgx.com/FileOpen/Project%20Midas%20-%20SGX%20Announcements.ashx?App=Announcement&FileID=860422",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-9",
+   "text": "Bank Mandiri's 2024 Sustainability Report states the bank targets Net Zero Emission (NZE) in operations by 2030.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.banktrack.org/download/sustainability_report_2024_3/250305_sustainability_report_2024_bank_mandiri.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-10",
+   "text": "Bank Mandiri presented the offering structure of its Green Bond Phase I 2023 at a virtual public expose in Jakarta on Tuesday, 23 May 2023.",
+   "published_at": "2023-05-23",
+   "source_url": "https://www.antaranews.com/berita/3551409/bank-mandiri-paparkan-struktur-penawaran-green-bond-tahun-2023",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-11",
+   "text": "Bank Mandiri issued a Green Bond Phase I 2023 public offering with an indicative target of Rp5 trillion, announced by CEO Darmawan Junaidi on 23 May 2023.",
+   "published_at": "2023-05-23",
+   "source_url": "https://www.stabilitas.id/komit-bangun-bisnis-berkelanjutan-bank-mandiri-green-bond-rp-5-triliun/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-12",
+   "text": "TuK INDONESIA's lawsuit hearing against Bank Mandiri was delayed because Bank Mandiri failed to provide the required legal standing documents, with TuK INDONESIA saying repeated delays highlight the defendant's weak commitment.",
+   "published_at": "2024-12-01",
+   "source_url": "https://www.tuk.or.id/en/2024/12/tuk-indonesia-vs-bank-mandiri-lawsuit-hearing-holes-in-legal-standing-draw-scrutiny/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-13",
+   "text": "A follow-up hearing of TuK INDONESIA's lawsuit against Bank Mandiri was held on 2 December 2024 at the South Jakarta District Court, with all parties present including PT Agro Nusa Abadi and Astra Agro Lestari as co-defendants.",
+   "published_at": "2024-12-02",
+   "source_url": "https://titastory.id/bank-mandiri-digugat-tuk-indonesia-diduga-turut-terlibat-pelanggaran-ham-dan-kerusakan-lingkungan/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-14",
+   "text": "Bank Mandiri failed again to procure administrative documents facing a greenwashing lawsuit, as the third hearing concluded at the South Jakarta District Court on December 10, 2024.",
+   "published_at": "2024-12-10",
+   "source_url": "https://www.tuk.or.id/en/2024/12/bank-mandiri-fails-again-to-procure-administrative-documents-facing-greenwashing-lawsuit/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-15",
+   "text": "Eight civil society organizations submitted amicus curiae documents to the South Jakarta District Court on 18 June 2025 in support of TuK INDONESIA's lawsuit against Bank Mandiri.",
+   "published_at": "2025-06-18",
+   "source_url": "https://forestsandfinance.org/news/press-release/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-16",
+   "text": "The initial court hearing, held on November 25, 2024, was attended by the plaintiff TuK INDONESIA and the co-defendants, but Bank Mandiri, the primary defendant, was notably absent.",
+   "published_at": "2024-11-25",
+   "source_url": "https://en.infosawit.com/news/14867/tuk-indonesia-files-lawsuit-against-bank-mandiri-over-alleged-sustainability-violations",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BMRI-harvest-17",
+   "text": "The follow-up hearing on TuK INDONESIA's lawsuit against Bank Mandiri took place on December 2, 2024, at the South Jakarta District Court, with the agenda of summoning the involved parties.",
+   "published_at": "2024-12-02",
+   "source_url": "https://forestsandfinance.org/news/tuk-indonesia-vs-bank-mandiri-lawsuit-hearing-holes-in-legal-standing-draw-scrutiny/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4988
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6341
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6670
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5833
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5712
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5007
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4995
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5020
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5975
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6179
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 6574
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6156
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6377
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5842
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 81669,
+ "kept": 18,
+ "merged_from_prior": 5
+}

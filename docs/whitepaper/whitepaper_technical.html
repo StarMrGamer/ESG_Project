@@ -1,0 +1,239 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ASEAN ESG Momentum Radar — Whitepaper</title>
+<style>
+  @page { size: A4; margin: 10mm 11mm 8mm 11mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "IBM Plex Sans", "DejaVu Sans", sans-serif;
+    font-size: 8.05pt; line-height: 1.27; color: #14161a; -webkit-print-color-adjust: exact;
+  }
+  .page { page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+
+  .idbar { display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1.4pt solid #14161a; padding-bottom: 3pt; margin-bottom: 7pt; }
+  .idbar .who { font-size: 9pt; font-weight: 600; letter-spacing: .02em; }
+  .idbar .who span { color: #6b7280; font-weight: 500; }
+  .idbar .meta { font-size: 7.5pt; color: #6b7280; font-family: "IBM Plex Mono", monospace; }
+
+  h1 { font-size: 14pt; line-height: 1.1; margin: 0 0 2pt; letter-spacing: -.015em; font-weight: 600; }
+  .thesis { font-size: 8.9pt; line-height: 1.28; margin: 0 0 6pt; color: #2a2f36; }
+  .thesis b { font-weight: 600; }
+
+  h2 { font-size: 8.2pt; text-transform: uppercase; letter-spacing: .085em; font-weight: 600;
+       margin: 7pt 0 3pt; color: #0f5132; border-bottom: .6pt solid #cfd6dd; padding-bottom: 2pt; }
+  .page + .page h2:first-of-type { margin-top: 0; }
+  h3 { font-size: 8.5pt; margin: 6pt 0 2pt; font-weight: 600; }
+  p { margin: 0 0 3.4pt; }
+  ul { margin: 0 0 4pt; padding-left: 11pt; }
+  li { margin-bottom: 2pt; }
+  b, strong { font-weight: 600; }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 7.6pt; }
+
+  table { width: 100%; border-collapse: collapse; margin: 2pt 0 5pt; }
+  th { text-align: left; font-size: 7.2pt; text-transform: uppercase; letter-spacing: .06em;
+       color: #6b7280; font-weight: 600; border-bottom: .8pt solid #14161a; padding: 2pt 5pt 2pt 0; }
+  td { vertical-align: top; padding: 2.1pt 5pt 2.1pt 0; border-bottom: .4pt solid #e3e8ed; }
+  td:last-child, th:last-child { padding-right: 0; }
+  .k { font-weight: 600; white-space: nowrap; }
+  .num { font-family: "IBM Plex Mono", monospace; font-weight: 600; white-space: nowrap; }
+
+  .cols { column-count: 2; column-gap: 9mm; }
+  .cols > *:first-child { margin-top: 0; }
+
+  .callout { border-left: 2pt solid #0f5132; background: #f2f7f4; padding: 3.5pt 5pt;
+             margin: 3pt 0 4pt; font-size: 7.9pt; }
+  .callout b { color: #0f5132; }
+  .rule { border-left: 2pt solid #8a1c1c; background: #fbf3f3; padding: 3.5pt 5pt;
+          margin: 3pt 0 0; font-size: 7.9pt; }
+  .rule b { color: #8a1c1c; }
+
+  .figs { display: flex; gap: 4pt; margin: 3pt 0 5pt; }
+  .fig { flex: 1; border: .5pt solid #cfd6dd; border-top: 2pt solid #0f5132; padding: 3.5pt 4pt; }
+  .fig .v { font-family: "IBM Plex Mono", monospace; font-size: 11pt; font-weight: 600; line-height: 1; }
+  .fig .l { font-size: 6.8pt; color: #6b7280; line-height: 1.25; margin-top: 2.5pt; }
+  .foot { margin-top: 6pt; padding-top: 3pt; border-top: .8pt solid #14161a;
+          font-size: 7.4pt; color: #4b5563; }
+</style>
+
+<!-- ══════════════════════════ PAGE 1 ══════════════════════════ -->
+<div class="page">
+
+  <div class="idbar">
+    <div class="who">TEAM: [TEAM NAME] &nbsp;<span>·</span>&nbsp; CATEGORY: [CATEGORY NAME]</div>
+    <div class="meta">Whitepaper · 2 pages · 27 Aug 2026</div>
+  </div>
+
+  <h1>ASEAN ESG Momentum Radar</h1>
+  <p class="thesis">An investment-research tool that <b>interrogates before it answers</b>, scores ESG
+  evidence deterministically, bridges that read to the company's own financials, and then <b>takes a
+  position against the published rating</b> — disagreeing with dated evidence rather than picking a stock.</p>
+
+  <h2>1 · The problem</h2>
+  <div class="cols">
+    <p><b>A rating is a level, published late and updated slowly.</b> The investor gets a snapshot with
+    no way to tell whether it is still true today, which piece of evidence holds it up, or what would
+    change it. A rating cannot show its working; it can only be believed.</p>
+
+    <p><b>Staleness is measurable, not theoretical.</b> Two constituents of the current ASEAN
+    ESG-improver basket we work from — Malaysia Airports (Feb 2025) and Intouch Holdings (Apr 2025) —
+    went private while still listed as members. The list did not move.</p>
+
+    <p><b>The ESG read and the money read are never bridged.</b> "Improving on ESG" and "making money"
+    are answered in different tools, so the question an investor actually holds — <em>is this worth my
+    attention, and what would change that</em> — is answered by nobody. A company can improve on ESG and
+    still be a bad business.</p>
+
+    <p><b>And screening tools hand you a dashboard.</b> A wall of tiles pushes the interrogation back
+    onto the user, who must already know which axis matters before the tool is any use.</p>
+    <p><b>Problem areas addressed:</b> ESG/sustainable-investing analytics; evidence provenance and
+    verification; investor decision support for ASEAN equities.</p>
+
+  </div>
+
+  <h2>2 · The solution — six steps, in order</h2>
+  <table>
+    <tr><td class="k">1 · Ask</td><td>Four short questions set the mandate, the risk tier, the evidence horizon and the
+      target — locally, with no model call.</td></tr>
+    <tr><td class="k">2 · Gather</td><td>Four disjoint search angles per company — emissions, governance, financing,
+      <em>controversy</em> — return dated, sourced events. Controversy is deliberate: a sweep must not quietly become a
+      press-release collector.</td></tr>
+    <tr><td class="k">3 · Score</td><td><b>The model reads; rules score.</b> The LLM never sets a direction, a weight or a
+      label. Scoring is a pure function: same inputs → same run id, same numbers, every time.</td></tr>
+    <tr><td class="k">4 · Bridge</td><td>The ESG verdict is joined to a financial read from the company's own verified
+      figures, and reported <em>beside</em> the score — never folded into it.</td></tr>
+    <tr><td class="k">5 · Challenge</td><td>Every verdict ships with the case against it: cons on both axes, plus which
+      single piece of evidence, if removed, would change the answer.</td></tr>
+    <tr><td class="k">6 · Record</td><td>One hash per run, written once to a public ledger, so a verdict given in 2026 can be
+      checked in 2028 without trusting us.</td></tr>
+  </table>
+
+  <h2>3 · Every question and every filter answers one specific thing</h2>
+  <p>The rule the product is built on: <b>a question whose answer only changes a summary line is decoration, and
+  worse than not asking.</b> Every input below is wired to a named engine parameter and visibly moves a number on screen.</p>
+  <table>
+    <tr><th style="width:23%">What we ask / what you filter</th><th style="width:29%">The exact parameter it sets</th><th>What visibly changes, and the point it answers</th></tr>
+    <tr><td class="k">Mandate<br><span class="mono">risk · return · compliance</span></td>
+        <td>Framing of the interrogation and of the closing action line</td>
+        <td>Sets which axis is interrogated first and how the answer closes. <em>Answers: what is this analysis for?</em></td></tr>
+    <tr><td class="k">Risk appetite<br><span class="mono">low · moderate · high</span></td>
+        <td>The eligibility tier — evidence-strength floor, profitability and label requirements</td>
+        <td>Changes <b>which companies are eligible at all</b> — low admits only labelled, reviewed, profitable issuers; high admits loss-makers with traction on thinner evidence. <em>Answers: how much unproven upside will you carry?</em></td></tr>
+    <tr><td class="k">Holding period<br><span class="mono">&lt;2y · 2–5y · 5–10y+</span></td>
+        <td>The evidence decay horizon — <span class="mono">45</span> or <span class="mono">180</span> days</td>
+        <td>Triggers a <b>re-score, not a filter</b> — older evidence loses weight, so momentum itself changes. Years held and days of evidence memory are different quantities, so we print the translation rather than imply it. <em>Answers: how long does a fact stay relevant to you?</em></td></tr>
+    <tr><td class="k">Green-finance focus</td>
+        <td>Reads the verified green-bond status field</td>
+        <td><b>Dims</b> non-matching names rather than hiding them — you can still see what you excluded. <em>Answers: does labelled issuance matter to your mandate?</em></td></tr>
+    <tr><td class="k">Screen or investigate</td>
+        <td>Selects the universe sweep or the single-company relay</td>
+        <td>Two genuinely different pipelines, not two views of one. <em>Answers: are you looking for names, or checking one?</em></td></tr>
+    <tr><td class="k">Country / industry filter</td>
+        <td>The scored cohort, and the peer average it is ranked against</td>
+        <td>Recomputes the filtered set's average ESG <b>and</b> the industry bar — a bank and a cement producer must not be judged on the same one. <em>Answers: compared to what?</em></td></tr>
+    <tr><td class="k">Detail level<br><span class="mono">1 brief · 2 analysis · 3 everything</span></td>
+        <td>Which widgets are earned at that level</td>
+        <td>Level 1 is the verdict and one action; 3 adds the disagreement matrix, provenance and the evidence trail — reachable from level 1 in one click. <em>Answers: how much do you want to check yourself?</em></td></tr>
+  </table>
+
+  <h2>4 · The differentiator — it takes a position</h2>
+  <p><b>Disagreement is signed and means one specific thing:</b> our evidence-based momentum percentile <em>minus</em>
+  the incumbent rating's percentile — which is exactly why the output can be argued with. It places every company in one of
+  four quadrants (hidden winner, consensus, overrated leader, value trap), so a deteriorating, highly rated name can never be
+  flattered by a high score the way a blended composite would allow.</p>
+  <div class="rule"><b>What it will never do.</b> No buy, sell or hold; no published score, no ranking, no pick. Those are
+  regulated claims, and they are weaker than what we can prove: a disagreement with a named rating, backed by dated sources,
+  that moves when the evidence moves.</div>
+
+</div>
+
+<!-- ══════════════════════════ PAGE 2 ══════════════════════════ -->
+<div class="page">
+
+  <div class="idbar">
+    <div class="who">TEAM: [TEAM NAME] &nbsp;<span>·</span>&nbsp; CATEGORY: [CATEGORY NAME]</div>
+    <div class="meta">ASEAN ESG Momentum Radar · page 2 of 2</div>
+  </div>
+
+  <h2>5 · Bridging ESG and the financial read — and why it is a gate, not a term</h2>
+  <div class="cols">
+    <p>Folding an earnings term into the disagreement score would end the argument: nobody, including
+    us, could then say what <span class="mono">+0.6</span> claims. It would stop being a disagreement
+    with a rating and become a composite pick. So the financial read is computed <b>after</b> the
+    scoring and reported beside it — a context <b>gate</b>. The separation is enforced by test: the
+    scoring engine cannot import the financial module.</p>
+    <p>The financial verdict is taken from two fiscal years of verified figures the basket already
+    carries, with no external fetch. Across the 52: <b>17 strong · 22 adequate · 11 weak · 2 unknown</b>.
+    <span class="mono">unknown</span> is kept strictly distinct from <span class="mono">weak</span> —
+    scoring a missing figure as a failure would penalise a company for <em>our</em> gap.</p>
+    <p><b>The bridge is a bucket of 11.</b> Companies below their own industry's ASEAN peer average,
+    with positive evidence momentum, that also pass the profitability and traction screen. Frozen
+    with a run id and a date, so the number is reproducible rather than quoted.</p>
+    <p><b>What to look out for, per company.</b> Each verdict carries ESG pros <em>and cons</em>,
+    financial pros <em>and cons</em>, and the specific warnings that apply to it — proximity to a
+    quadrant boundary, provisional metadata, evidence older than the chosen horizon, a high share of
+    self-published sources. The cons are never dimmed or collapsed. A case that lists only reasons to
+    agree is marketing.</p>
+    <p><b>And what would change it.</b> Re-score with each signal removed in turn: the tool names the
+    removals that flip the verdict and the distance to every boundary. Backwards, five validation cases
+    replay real runs at their own historical cutoffs — our verdict moving on real dates against a rating
+    that sat still. <b>The case we get wrong is kept in, flagged.</b> A backtest you can only pass is
+    not a backtest.</p>
+  </div>
+
+  <h2>6 · Verification and the ledger — three layers, named honestly</h2>
+  <table>
+    <tr><th style="width:16%">Layer</th><th>What it is here</th></tr>
+    <tr><td class="k">1 · Sensors</td><td>Four-angle live retrieval, the incumbent rating fetched live per company, an
+      industry GHG-intensity benchmark that re-downloads from a free public API in seconds, and a verified basket.
+      <b>Our sensors are documentary, not telemetry</b> — we read filings, regulator actions and exchange notices; we do not meter a smokestack.</td></tr>
+    <tr><td class="k">2 · Verification</td><td>Five guards on gathered evidence: a source URL not in the retrieved
+      snippets is dropped; an undated claim is dropped; a date later than the basket's own cutoff is dropped; source type is
+      decided by domain, never self-declared; and the verified basket is never overwritten. Company-published material is
+      capped at 0.50 confidence and forward-looking language has its weight halved. All of it off-chain, in rules a reviewer can read.</td></tr>
+    <tr><td class="k">3 · Ledger</td><td>One hash per run — id, root, timestamp, <b>72 bytes</b> — appended to a public
+      test chain. Not a database: nothing can be read back out, and a run id can be written <b>once, ever</b>. That single rule is the whole tamper-evidence story.</td></tr>
+  </table>
+  <div class="callout"><b>The correction we make deliberately:</b> a blockchain is a closed system and cannot reach
+  real-world information, so it can never <em>verify</em> an ESG claim — immutability applied to a false claim only makes it
+  permanent. The chain here is the <b>ledger</b> layer. Verification is done off-chain by readable rules, and the chain records
+  a commitment to what those rules saw. No token, no on-chain scoring, and no licensed data ever written.</div>
+
+  <h2>7 · What is built and measured today</h2>
+  <div class="figs">
+    <div class="fig"><div class="v">52</div><div class="l">ASEAN companies scored, from a verified research basket</div></div>
+    <div class="fig"><div class="v">180</div><div class="l">dated, sourced signals — all four quadrants populated</div></div>
+    <div class="fig"><div class="v">4/4</div><div class="l">disagreement quadrants populated on real data</div></div>
+    <div class="fig"><div class="v">S$0.079</div><div class="l">AI cost per company per year, measured from real token counts</div></div>
+    <div class="fig"><div class="v">S$4.12</div><div class="l">per year to cover the entire 52-company basket</div></div>
+  </div>
+  <p><b>Why it is that cheap, and what it costs to scale.</b> The scoring path costs <b>zero tokens</b> — rules route the
+  evidence and deterministic code scores it, with no model reachable from either. All AI cost sits in gathering, charged per
+  sweep of a company rather than per signal: <b>S$39.65/year at 500 companies, S$158.60 at 2,000</b>. The remaining cost is
+  people-time verifying company metadata, priced at day rates taken from live Singapore job postings. Cost per company on this
+  basis is <b>flat, not falling</b> — it only falls once a fixed data licence is spread across clients, and no quote exists yet,
+  so we do not draw that curve. Drawing it before the number arrives is drawing the conclusion first.</p>
+
+  <h2>8 · Limits we put on the record</h2>
+  <ul>
+    <li><b>Zero companies currently clear our "hidden winner" bar, and we did not lower it.</b> Twelve clear the
+    disagreement threshold; every one fails on confidence, because ~92% of what live search returns is company-published and our
+    own rule caps that at 0.50. The honest route is better sources — regulator actions, exchange filings, index decisions — not a
+    smaller number. Lowering our own bar until the screen returns the answer we want is the exact failure this tool exists to catch in others.</li>
+    <li><b>The foundation basket has an inconvenient second half, and we show it.</b> It returned 55.1% against the
+    index's 6.4% over the study window — and lagged that index by 4.6% year-to-date on a ~45% banking weight, with ESG
+    improvement alone a weak predictor of single-stock performance. Both numbers appear together, always.</li>
+    <li><b>Some metadata is provisional until reviewed</b>, and says so on screen, with a maker-checker chip and a named
+    reviewer. Verified <em>by us</em> is not an endorsement anyone else gave.</li>
+    <li><b>Three major raters are absent by law, not by oversight.</b> Their scores are licensed products that cannot be
+    fetched, displayed or redistributed without a contract. We use the one major rater with a free, keyless, per-company
+    endpoint, attributed and on demand.</li>
+  </ul>
+
+  <div class="foot"><b>In one line:</b> a rating tells you a level and asks to be believed; this tells you where it
+  disagrees, on which dated evidence, what the company's own numbers say alongside it, what would change the answer — and
+  leaves a hash behind so you can check, years later, that we are not telling you a different story than we told at the time.</div>
+
+</div>

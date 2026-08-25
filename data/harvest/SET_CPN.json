@@ -1,44 +1,12 @@
 {
- "company_id": "KLSE:PMAH",
- "company": "Press Metal Aluminium Holdings Bhd",
+ "company_id": "SET:CPN",
+ "company": "Central Pattana",
  "events": [
   {
-   "event_id": "KLSE:PMAH-harvest-0",
-   "text": "Press Metal presented its eighth annual Sustainability Report ('SR 2023'), dated 30 April 2024.",
-   "published_at": "2024-04-30",
-   "source_url": "https://www.insage.com.my/BursaNews/Attachment/202404/20240430/PMETAL-AN20240430A2-2.pdf",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-1",
-   "text": "Press Metal teamed up with Bintulu Development Authority to set up solar power, with group chief executive officer Tan Sri Paul Koon calling the collaboration a milestone in supporting Sarawak's vision of becoming a hub for renewable energy and sustainable industrial development.",
-   "published_at": "2025-02-28",
-   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-02-28-story-h498648922-Press_Metal_Teams_Up_With_Bintulu_Development_Authority_to_Set_Up_Solar_",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-2",
-   "text": "Press Metal's fire incident at its Samalaju smelter is expected to impact about 3% of the group's total smelting capacity for the financial year 2024.",
-   "published_at": "2024-09-12",
-   "source_url": "https://www.thestar.com.my/business/business-news/2024/09/12/fire-incident-to-affect-press-metals-capacity",
-   "source_type": "news",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-3",
-   "text": "A fire incident occurred at Press Metal's phase 3 smelter in the Samalaju Industrial Park on Monday (Sept 9) night.",
-   "published_at": "2024-09-10",
-   "source_url": "https://theedgemalaysia.com/node/726164",
-   "source_type": "news",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-4",
-   "text": "RAM Ratings does not expect the recent fire at Press Metal's smelter to have any impact on the AA2/Positive rating of its RM5.0 bil Islamic MTN Programme (2019/2049).",
-   "published_at": "2024-09-13",
-   "source_url": "https://www.ram.com.my/pressrelease/?prviewid=6731",
+   "event_id": "SET:CPN-harvest-0",
+   "text": "Mrs. Patareeya Benjapolchai became a director of Central Pattana on May 1, 2025, serving as Independent Director, Chairman of the Risk Policy Committee, and Member of the Audit and Corporate Governance Committee.",
+   "published_at": "2025-05-01",
+   "source_url": "https://www.centralpattana.co.th/en/about-us/management-structure/board-of-directors",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
@@ -210,5 +178,5 @@
   }
  },
  "prompt_chars": 0,
- "kept": 5
+ "kept": 1
 }

@@ -1,0 +1,255 @@
+{
+ "company_id": "KLSE:RHBBANK",
+ "company": "RHB Bank Bhd",
+ "events": [
+  {
+   "event_id": "KLSE:RHBBANK-harvest-0",
+   "text": "RHB expands sustainable financial services target to RM50b by 2026.",
+   "published_at": "2024-04-18",
+   "source_url": "https://www.malaymail.com/news/money/2024/04/18/rhb-expands-sustainable-financial-services-target-to-rm50b-by-2026/129546",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-1",
+   "text": "RHB achieved a 43 per cent reduction in operational greenhouse gas (GHG) emissions against a 2016 baseline, encompassing Scopes 1, 2, and 3 (Business Travel by Road and Air).",
+   "published_at": "2024-04-18",
+   "source_url": "https://www.malaymail.com/news/money/2024/04/18/rhb-expands-sustainable-financial-services-target-to-rm50b-by-2026/129546",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-2",
+   "text": "Nearly 9% of this financing directly supports renewable energy and energy efficiency, empowering individuals and businesses to transition to a low-carbon economy and advancing us closer to our Net Zero 2050 commitment.",
+   "published_at": "2024-12-31",
+   "source_url": "https://cdn1.i3investor.com/my/files/st88k/1066_RHBBANK/annual/2024-12-31/1066_RHBBANK_AnnualReport_2024-12-31_RHBSustainabilityReport2024_Part1_1604887278.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-3",
+   "text": "RHB Bank's SME Green Renewable Energy and Capex Financing covers purchase of energy-efficient equipment and machinery with financing rates from as low as around 4.5% and up to full financing margins.",
+   "published_at": "2026-04-08",
+   "source_url": "https://www.thestar.com.my/starpicks/2026/04/08/rhb-bank-aims-to-lead-in-financing-green-shift",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-4",
+   "text": "Sustainalytics is of the opinion that the RHB Sustainability Sukuk and Bond Framework is credible and impactful and aligns with the Sustainability Bond Guidelines 2021, Green Bond Principles 2021, Social Bond Principles 2021 and ASEAN Sustainability Bond Standards 2018.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/rhb-banking-group/rhb-sustainability-sukuk-and-bond-framework-second-party-opinion-(2023)/rhb-sustainability-sukuk-and-bond-framework-second-party-opinion-(2023)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-5",
+   "text": "RHB launched its Sustainable & Transition Finance Framework, which has been fully validated by an independent second-party opinion from Sustainalytics.",
+   "published_at": "2026-01-01",
+   "source_url": "https://www.nst.com.my/business/corporate/2026/01/1358135/rhb-launches-sustainable-transition-finance-framework-support",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-6",
+   "text": "Sustainalytics' 2023 second-party opinion considers RHB's Sustainability Sukuk and Bond Framework credible and impactful and aligned with the Sustainability Bond Guidelines 2021, Green Bond Principles 2021, Social Bond Principles 2021 and ASEAN Sustainability Bond Standards 2018.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/rhb-banking-group/rhb-sustainability-sukuk-and-bond-framework-second-party-opinion-(2023)/rhb-sustainability-sukuk-and-bond-framework-second-party-opinion-(2023)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-7",
+   "text": "Bank Negara Malaysia imposed Administrative Monetary Penalties on RHB Bank and other financial institutions, with penalties totaling up to RM2.5 million for non-compliance with reporting and regulatory requirements, issued on 11 July 2024.",
+   "published_at": "2024-07-11",
+   "source_url": "https://fintechnews.my/47909/banking/bnm-fines-maybank-rhb-ambank-rm2-5-million-for-non-compliance/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-8",
+   "text": "RHB Bank Berhad reported that nearly 9% of its financing directly supports renewable energy and energy efficiency.",
+   "published_at": "2024-12-01",
+   "source_url": "https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Supported-Doc/General-Meetings/RHB-Sustainability-Report-2024.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:RHBBANK-harvest-9",
+   "text": "RHB Banking Group plans to raise its allocation for sustainable financial services to RM50 billion by 2026, after financing RM23.8 billion sustainable projects for the financial year ended Dec 31, 2023 (FY23), surpassing its original goal of RM20 billion by 2026.",
+   "published_at": "2024-04-01",
+   "source_url": "https://www.nst.com.my/business/corporate/2024/04/1039473/rhb-allocate-rm50bil-sustainable-financing-2026",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5121
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6434
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5231
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4466
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5785
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5035
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5314
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5482
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6035
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5995
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5143
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5054
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5402
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5406
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 75903,
+ "kept": 10,
+ "merged_from_prior": 6
+}

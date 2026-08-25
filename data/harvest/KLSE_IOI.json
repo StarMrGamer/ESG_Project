@@ -4,92 +4,195 @@
  "events": [
   {
    "event_id": "KLSE:IOI-harvest-0",
-   "text": "IOI introduced its Climate Change Action initiative (CCAi) in 2020 as a long-term action plan to mitigate and reduce greenhouse gas emissions.",
-   "published_at": "2020-01-01",
-   "source_url": "https://www.sustainabilitytracker.com/brand/ioi-corporation-berhad/actions/",
+   "text": "IOI first embarked on reducing its greenhouse gas emissions in 2019 through the introduction of the Climate Change Action initiative ('CCAi').",
+   "published_at": "2019-01-01",
+   "source_url": "https://www.ioigroup.com/Files/sustainability/pdf/IOI'S%20PATHWAY%20TO%20NET%20ZERO.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:IOI-harvest-1",
-   "text": "IOI achieved a 42% reduction in Scope 1 and 2 greenhouse gas emissions in FY2024, surpassing its 2025 target a year ahead of schedule.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilitytracker.com/brand/ioi-corporation-berhad/actions/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:IOI-harvest-2",
-   "text": "In 2025, IOI completed a corporate carbon footprint assessment and publicly disclosed its GHG emissions according to the GHG Protocol, covering Scope 1, 2 and 3.",
-   "published_at": "2025-01-01",
-   "source_url": "https://tracenable.com/company/ioi/ghg-emissions?_r=1786530108815",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:IOI-harvest-3",
-   "text": "In 2021, IOI proceeded to adopt recommendations from the Task Force on Climate-Related Financial Disclosures (TCFD) around four thematic areas.",
+   "text": "In 2021, IOI proceeded to adopt recommendations from the Task Force on Climate-Related Financial Disclosures ('TCFD') around four thematic areas.",
    "published_at": "2021-01-01",
    "source_url": "https://www.ioigroup.com/Files/sustainability/pdf/IOI'S%20PATHWAY%20TO%20NET%20ZERO.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:IOI-harvest-4",
-   "text": "The Group Internal Audit has performed a review of selected aspects of the Sustainability Statement for the financial year ending 30 June 2024, in accordance with Bursa Malaysia Main Market Listing Requirements and with reference to GRI Standards.",
-   "published_at": "2024-06-30",
-   "source_url": "https://files.ioiproperties.com.my/dsites/s3fs-public/annual-report/file/IOIPG%20IAR2024_Group%20Sustainability%20Statement.pdf",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:IOI-harvest-5",
-   "text": "IOI's report was prepared in accordance with the Global Reporting Initiative Sustainability Reporting Standards 2021 and GRI 13: Agriculture Aquaculture and Fishing Sectors 2022.",
-   "published_at": "2022-01-01",
-   "source_url": "https://ccas.com.my/ioi-sr/pdf/IOI_SR2024.pdf",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:IOI-harvest-6",
-   "text": "IOI's 2025 Integrated Report highlights a comprehensive materiality assessment reviewed by the Board Sustainability Committee and approved by the Board, alongside reporting in accordance with GRI Standards 2021 and reference to IFRS Sustainability Disclosure Standards.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/ioi-corporation/2025/integrated-annual-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:IOI-harvest-7",
-   "text": "UOB Malaysia announced it has extended a green trade finance facility under the UOB Green and Sustainable Trade Finance Framework to IOI Corporation Berhad.",
+   "event_id": "KLSE:IOI-harvest-2",
+   "text": "UOB Malaysia announced on 25 July 2022 that it extended a green trade finance facility under the UOB Green and Sustainable Trade Finance Framework to IOI Corporation Berhad to promote sustainable palm oil and strengthen the global sustainable palm oil supply chain.",
    "published_at": "2022-07-25",
    "source_url": "https://www.uob.com.my/about/news/2022/news-release-jul25-22.page",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 4,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 3,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 8
+ "prompt_chars": 0,
+ "kept": 3
 }

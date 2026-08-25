@@ -1,0 +1,207 @@
+{
+ "company_id": "KLSE:HLBK",
+ "company": "Hong Leong Bank",
+ "events": [
+  {
+   "event_id": "KLSE:HLBK-harvest-0",
+   "text": "Hong Leong Bank unveiled its inaugural Sustainable Finance Framework, aiming to mobilise RM20 billion over the next five years to support green projects.",
+   "published_at": "2024-10-29",
+   "source_url": "https://www.thestar.com.my/business/business-news/2024/10/29/hlb-launches-sustainable-finance-framework-commits-rm20bil-to-support-green-projects",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:HLBK-harvest-1",
+   "text": "Hong Leong Bank Berhad published its Sustainability Report 2023 in the annual results package dated 29-Sep-2023.",
+   "published_at": "2023-09-29",
+   "source_url": "https://klse.i3investor.com/web/financial/annual/5819_30-Jun-2023_2116402390",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:HLBK-harvest-2",
+   "text": "Hong Leong Bank launched its inaugural Sustainable Finance Framework on October 29, 2024, aiming to mobilise US$4.5 billion (RM20 billion) over the next five years to support Green Projects.",
+   "published_at": "2024-10-29",
+   "source_url": "https://www.digitalnewsasia.com/sustainability-matters/hong-leong-bank-unveils-sustainable-finance-framework-us45-billion-commitment",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:HLBK-harvest-3",
+   "text": "In Suresh Ramasamy vs Hong Leong Bank Berhad, the appellant, Head of Group Information Technology Security, was dismissed for serious misconduct due to misrepresentation of survey data to the Bank.",
+   "published_at": "2025-01-01",
+   "source_url": "https://supremetoday.ai/doc/judgement/MYS00000072204",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; financing:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4740
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6178
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4847
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5566
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5843
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5559
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5181
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5059
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 6232
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6160
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5608
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4915
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5648
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5759
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 77295,
+ "kept": 4,
+ "merged_from_prior": 0
+}

@@ -1,0 +1,263 @@
+{
+ "company_id": "SGX:UOB",
+ "company": "United Overseas Bank",
+ "events": [
+  {
+   "event_id": "SGX:UOB-harvest-0",
+   "text": "As of March 2025, UOB had allocated S$2.4 billion to eligible projects, surpassing its S$1.5 billion sustainability bond launched in 2021.",
+   "published_at": "2025-03-01",
+   "source_url": "https://carbonwire.org/announcements/uobs-sustainability-bond-drives-asias-green-transition-with-300000-tonnes-in-co%E2%82%82-savings/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-1",
+   "text": "UOB is the only Singapore bank to incorporate the Monetary Authority of Singapore's Technical Screening Criteria of the Singapore-Asia Taxonomy into all of its six sector-focused Sustainable Financing Frameworks, independently validated by ERM.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.uobgroup.com/web-resources/uobgroup/pdf/newsroom/2025/sustainable-financing-frameworks.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-2",
+   "text": "United Overseas Bank Limited broadcast its Sustainability Report announcement on 21-Mar-2025.",
+   "published_at": "2025-03-21",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/P2SIMUT4GWFVZWJL/",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-3",
+   "text": "United Overseas Bank Limited broadcast its Sustainability Report announcement on 20-Mar-2024.",
+   "published_at": "2024-03-20",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/WKDG2X0LDU5A7K1M/36527926a105354c76e6887d6d435e251dbddad05993782f5ce8a61af5f015a5",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-4",
+   "text": "UOB submitted its Sustainability Report to the Singapore Exchange on 20 March 2024.",
+   "published_at": "2024-03-20",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/WKDG2X0LDU5A7K1M/36527926a105354c76e6887d6d435e251dbddad05993782f5ce8a61af5f015a5",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-5",
+   "text": "UOB's 2023 Sustainability Report highlights progress toward its 2050 net zero commitment, noting emissions intensities across priority sectors remained 7-14% below target pathways.",
+   "published_at": "2024-03-20",
+   "source_url": "https://www.sustainabilityreports.com/united-overseas-bank/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-6",
+   "text": "UOB extended $44.5 billion in cumulative sustainable financing.",
+   "published_at": "2024-03-20",
+   "source_url": "https://www.sustainabilityreports.com/united-overseas-bank/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-7",
+   "text": "UOB launched U-Build, Asia's first integrated green building financing platform.",
+   "published_at": "2024-03-20",
+   "source_url": "https://www.sustainabilityreports.com/united-overseas-bank/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-8",
+   "text": "UOB committed to being an early adopter of the Taskforce on Nature...",
+   "published_at": "2024-03-20",
+   "source_url": "https://www.sustainabilityreports.com/united-overseas-bank/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-9",
+   "text": "UOB's 2024 Sustainability Report highlights extending $58.0 billion in sustainable financing.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/united-overseas-bank/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:UOB-harvest-10",
+   "text": "UOB's 2024 Sustainability Report highlights launching the SAGE programme to help SMEs access sustainability-linked financing.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/united-overseas-bank/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; financing:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5239
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6191
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5257
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5753
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5603
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5050
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5769
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5438
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5953
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5561
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5419
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4960
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5551
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6150
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 77894,
+ "kept": 11,
+ "merged_from_prior": 0
+}

@@ -4,6 +4,22 @@
  "events": [
   {
    "event_id": "SET:SCC-harvest-0",
+   "text": "The Siam Cement Public Company Limited's Phase 1 (2020-2030) goal is to reduce Scope 1 and 2 greenhouse gas emissions as The Science Based Targets initiative (SBTi) goal by 25% by 2030 compared to the 2020 base year, and shift from fossil fuel energy sources to renewable and clean energy.",
+   "published_at": "2025-03-13",
+   "source_url": "https://file.scgsustainability.com/wp-content/uploads/2025/03/13155954/EN-SCG-SD-Report_2024..pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-1",
+   "text": "SCC issued an update on the Map Ta Phut Tank Terminal incident in Rayong Province, referencing prior notifications to the Stock Exchange of Thailand on May 9, 10 and 15, 2024 regarding a fire at the storage tank containing the by-product hydrocarbon compound C9+.",
+   "published_at": "2024-05-27",
+   "source_url": "https://scc.listedcompany.com/newsroom/270520242111260214E.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-2",
    "text": "The Board of Directors approved the INSEE Sustainability Ambition 2030 pillars and targets in 2023 and assigned the Group CEO to establish the Sustainability Steering Committee (SSC).",
    "published_at": "2023-01-01",
    "source_url": "https://www.siamcitycement.com/front/template/default/assets_country/download/thailand/esg_publication/ESG-2024.pdf",
@@ -11,53 +27,189 @@
    "_origin": "harvest"
   },
   {
-   "event_id": "SET:SCC-harvest-1",
-   "text": "SCG's 2025 Sustainability Report reports 29.06 million tCO2e of GHG emissions and a 15.14% reduction from the 2020 baseline.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/siam-cement/2025/sustainability-narrative",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:SCC-harvest-2",
-   "text": "The Pollution Control Department's investigation revealed that surface water around Siam Cement's facility has high levels of acidity and lead contamination, underground water quality at 12 locations was below standard, and a watercourse was contaminated, resulting in a significant fine on soil pollution.",
-   "published_at": "2023-02-01",
-   "source_url": "https://www.dfdl.com/insights/legal-and-tax-updates/thailand-significant-fine-on-soil-pollution/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
    "event_id": "SET:SCC-harvest-3",
-   "text": "Pattaya City officials inspected environmental issues caused by a cement plant near Sukhumvit Soi 91/1 in response to complaints about dust pollution.",
-   "published_at": "2024-07-12",
-   "source_url": "https://www.pattayamail.com/news/pattaya-authorities-inspect-dust-pollution-from-cement-plant-near-sukhumvit-soi-91-1-493049",
+   "text": "Siam Cement (SCG) increased the sales share of Low Carbon Cement in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/siam-cement/2024/one-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:SCC-harvest-4",
+   "text": "On May 9, 2024, at approximately 10:45 a.m., there was smoke at the tank where the hydrocarbon compound C9+ is stored at Map Ta Phut Tank Terminal Company Limited (MTT), a subsidiary of SCC, located at the Map Ta Phut Industrial Port in Rayong Province; MTT immediately controlled the situation.",
+   "published_at": "2024-05-09",
+   "source_url": "https://www.kaohooninternational.com/markets/539522",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; financing:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 4,
-   "status": "cache"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 2,
-   "status": "cache"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5104
   },
   "financing": {
    "snippets": 8,
    "kept": 0,
-   "status": "cache"
+   "status": "live",
+   "prompt_chars": 6340
   },
   "controversy": {
    "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4599
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6011
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5935
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5449
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5371
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5111
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5906
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6149
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4628
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4854
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6335
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5642
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 4
+ "prompt_chars": 77434,
+ "kept": 5,
+ "merged_from_prior": 2
 }

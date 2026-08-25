@@ -1,79 +1,174 @@
 {
  "company_id": "SET:CPALL",
  "company": "CP All",
- "events": [
-  {
-   "event_id": "SET:CPALL-harvest-0",
-   "text": "CP All set its GHG emissions reduction target aligned with Thailand's national target, which pledged a 20-25% GHG emissions reduction by 2030 after Thailand ratified the Paris Agreement on September 21, 2016.",
-   "published_at": "2016-09-21",
-   "source_url": "https://www.cpall.co.th/wp-content/uploads/2020/11/Greenhouse-Gases-Analysis-en.pdf",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPALL-harvest-1",
-   "text": "CP ALL PCL submitted a net-zero greenhouse gas emissions target to SBTi for validation.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilityreports.com/cp-all/2024/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPALL-harvest-2",
-   "text": "CP ALL PCL reports progress toward carbon neutrality by 2030 and net zero by 2050 in its 2024 Sustainability Report.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilityreports.com/cp-all/2024/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPALL-harvest-3",
-   "text": "CP ALL PCL's 2024 Sustainability Report follows GRI Standards and includes an independent LRQA assurance statement.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilityreports.com/cp-all/2024/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPALL-harvest-4",
-   "text": "CP ALL PCL's 2025 Sustainability Report, under its '3 Creates, 2 Reductions' strategy, aims to achieve carbon neutrality by 2030 and net-zero emissions by 2050.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/cp-all/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "SET:CPALL-harvest-5",
-   "text": "CP ALL PCL's carbon neutrality and net-zero targets were validated by the Science Based Targets initiative (SBTi).",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/cp-all/2025/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  }
- ],
- "status": "ok",
- "snippet_count": 32,
+ "events": [],
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "cache"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 5,
-   "status": "cache"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "cache"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "cache"
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 6
+ "prompt_chars": 0,
+ "kept": 0,
+ "merged_from_prior": 0
 }

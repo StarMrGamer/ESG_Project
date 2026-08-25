@@ -4,44 +4,292 @@
  "events": [
   {
    "event_id": "IDX:BBCA-harvest-0",
-   "text": "In 2024, the company's sustainable financing portfolio grew by 12.5% to Rp229 trillion, accounting for 24.8% of its total loans.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2024/sustainability-report",
+   "text": "Bank Central Asia's 2025 Sustainability Report lists Scope 1 emissions of 12,345 tCO2e.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2025/sustainability-report",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "IDX:BBCA-harvest-1",
-   "text": "OJK dikenakan sanksi administrasi berupa denda sebesar Rp 100 juta terhadap PT Bank Central Asia Tbk selaku bank kustodian, berdasarkan pengumuman resmi yang dikutip pada Senin (16/10/2023).",
-   "published_at": "2023-10-16",
-   "source_url": "https://money.kompas.com/read/2023/10/17/112500426/kena-denda-rp-100-juta-bca-bakal-patuhi-keputusan-dan-ketentuan-ojk-",
+   "text": "Bank Central Asia's 2025 Sustainability Report reports renewable energy at 45%.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-2",
+   "text": "Bank Central Asia's 2025 Sustainability Report reports women holding 33% of board seats and 28% of management positions.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-3",
+   "text": "Bank Central Asia's 2025 Sustainability Report reports 0 workplace fatalities.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-4",
+   "text": "Bank Central Asia's 2023 Sustainability Report states operational GHG emissions totaled 309,024 tCO2 eq, comprising Scope 1, Scope 2, and Scope 3 emissions.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-5",
+   "text": "Bank Central Asia's 2023 Sustainability Report states all employees received sustainable-finance training and financial-literacy programs reached 296,022 participants.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-6",
+   "text": "BCA's Sustainable Finance Framework states its report will outline the sector-wise distribution of the green financing portion, reporting key sectors such as renewable energy, sustainable natural resources & land use, sustainable transport, and green buildings.",
+   "published_at": "2026-01-29",
+   "source_url": "https://www.bca.co.id/-/media/Feature/Report/File/S8/Kebijakan-GCG/2026/20260129-final-sf-framework-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-7",
+   "text": "Suspicious activity was detected in the customer fund account (RDN) of PT Panca Global Sekuritas at Bank Central Asia (BCA) on Tuesday, September 9, 2025, with multiple fund withdrawals in a short period of time.",
+   "published_at": "2025-09-09",
+   "source_url": "https://en.tempo.co/read/2048558/the-rp70-billion-account-breach-at-bca-a-chronology",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-8",
+   "text": "Bank Central Asia's 2025 sustainability report states Scope 1 emissions of 12,345 tCO2e, Scope 2 emissions of 8,765 tCO2e, and Scope 3 emissions of 45,678 tCO2e.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-9",
+   "text": "Bank Central Asia's 2025 sustainability report reports 33% women on the board, 28% women in management, and 0 workplace fatalities.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-10",
+   "text": "In BCA's 2023 sustainability performance, sustainable financing reached Rp202.6 trillion and 24.8% of the total portfolio.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-11",
+   "text": "BCA's Audit Committee meetings are held at least 4 times a year, as stipulated in Board of Commissioners Decree No. 142/SK/KOM/2022 dated 22 August 2022 concerning the Audit Committee Charter.",
+   "published_at": "2022-08-22",
+   "source_url": "https://www.rumahsaya.bca.co.id/-/media/Feature/Report/File/S8/ACGS/2024/04/20240430-pelaksanaan-tkt-tb-2023-eng.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-12",
+   "text": "BCA's 2023 sustainability report states sustainable financing reached Rp202.6 trillion, representing 24.8% of the total portfolio.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-central-asia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-13",
+   "text": "PT Bank Central Asia Tbk's Sustainable Finance Framework (final version, file dated 20260129) states the report will outline the sector-wise distribution of the green financing portion, covering key sectors such as renewable energy, sustainable natural resources & land use, sustainable transport, and green buildings.",
+   "published_at": "2026-01-29",
+   "source_url": "https://www.bca.co.id/-/media/Feature/Report/File/S8/Kebijakan-GCG/2026/20260129-final-sf-framework-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBCA-harvest-14",
+   "text": "OJK dikenakan sanksi administrasi berupa denda Rp100.000.000 terhadap PT Bank Central Asia Tbk selaku Bank Kustodian karena melanggar Pasal 8 ayat (1) dan Pasal 8 ayat (3) POJK Nomor 23/POJK.04/2016, dalam keterangan resmi bertanggal 13/10/2023.",
+   "published_at": "2023-10-13",
+   "source_url": "https://finansial.bisnis.com/read/20231016/90/1704752/kronologis-ojk-denda-bca-bbca-rp100-juta",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 120,
  "angles": {
   "emissions": {
    "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply"
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5297
   },
   "governance": {
    "snippets": 8,
    "kept": 1,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 6011
   },
   "financing": {
    "snippets": 8,
-   "kept": 0,
-   "status": "live"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6130
   },
   "controversy": {
    "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5879
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5945
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4955
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5437
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5908
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5978
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6285
+  },
+  "financing:2024": {
+   "snippets": 8,
    "kept": 1,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 6295
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5146
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5584
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5765
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5735
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 2
+ "prompt_chars": 86350,
+ "kept": 15,
+ "merged_from_prior": 8
 }

@@ -1,0 +1,231 @@
+{
+ "company_id": "SET:MINT",
+ "company": "Minor International",
+ "events": [
+  {
+   "event_id": "SET:MINT-harvest-0",
+   "text": "The Thai court on June 15 dismissed Minor International's legal action against Marriott International related to the JW Marriott Resort & Spa but Minor says it will continue to pursue the case in other jurisdictions.",
+   "published_at": "2023-06-15",
+   "source_url": "https://www.ttgasia.com/2023/07/21/thai-court-dismisses-minors-case-against-marriott-but-minor-wont-stop/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:MINT-harvest-1",
+   "text": "In 2023, Minor International achieved a 51% return rate for its Corporate University graduates.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/minor-international/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:MINT-harvest-2",
+   "text": "In 2023, Minor International maintained an 'Excellent' corporate governance scoring for the 11th consecutive year.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/minor-international/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:MINT-harvest-3",
+   "text": "Minor International issued THB 8 billion of Sustainability-Linked Bonds, described as Thailand's first zero-coupon sustainability-linked bond, on 16 December 2025.",
+   "published_at": "2025-12-16",
+   "source_url": "https://www.marketscreener.com/news/minor-international-mint-breaks-new-ground-in-esg-financing-with-thailanda-s-first-zero-coupon-su-ce7d50d9d189f72d",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:MINT-harvest-4",
+   "text": "Minor International published its MINT Sustainability-Linked Financing Framework in April 2024.",
+   "published_at": "2024-04-01",
+   "source_url": "https://www.minor.com/en/investor-relations/sustainable-finance/sustainability-linked-financing-framework",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:MINT-harvest-5",
+   "text": "Minor International issued THB 8 billion debentures, comprising a THB 5 billion Sustainability-Linked Bond and THB 3 billion conventional bond.",
+   "published_at": "2024-07-04",
+   "source_url": "https://mint.listedcompany.com/newsroom/20240704-mint-news1-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:MINT-harvest-6",
+   "text": "Minor International published its Sustainability-Linked Financing Framework in April 2024.",
+   "published_at": "2024-04-01",
+   "source_url": "https://www.minor.com/en/investor-relations/sustainable-finance/sustainability-linked-financing-framework",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; financing: unparsed reply; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5198
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 6338
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5537
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5789
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5202
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5241
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4742
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4809
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6503
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6348
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5611
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5783
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5932
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5859
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 78892,
+ "kept": 7,
+ "merged_from_prior": 0
+}

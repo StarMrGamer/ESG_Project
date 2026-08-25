@@ -4,39 +4,39 @@
  "events": [
   {
    "event_id": "PSE:TEL-harvest-0",
-   "text": "PLDT's combined 2025 Annual and Sustainability Report for the year ended December 31, 2025 integrates consolidated financial, environmental, social, and governance (ESG) information for PLDT and its subsidiaries and associates.",
-   "published_at": "2025-12-31",
-   "source_url": "https://www.stocktitan.net/sec-filings/PHTCF/6-k-pldt-inc-current-report-foreign-issuer-ad2623899028.html",
+   "text": "In 2022, PLDT and Smart announced their decarbonization plan, which aims to cut down their Scope 1 and Scope 2 greenhouse gas emissions by 40% by 2030.",
+   "published_at": "2022-01-01",
+   "source_url": "https://powerphilippines.com/pldt-smart-diversify-by-transitioning-to-renewables/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "PSE:TEL-harvest-1",
-   "text": "PLDT secured its first P1-billion green loan from HSBC.",
+   "text": "In 2024, PLDT completed a corporate carbon footprint assessment and publicly disclosed its GHG emissions according to the GHG Protocol, covering Scope 1, 2 and 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/pldt/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:TEL-harvest-2",
+   "text": "PLDT secured its first P1-B green loan from HSBC.",
    "published_at": "2024-03-06",
    "source_url": "https://mb.com.ph/2024/3/6/pldt-secures-first-p1-b-green-loan-from-hsbc",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:TEL-harvest-2",
-   "text": "Metrobank approved PLDT's P4-billion green loan, PLDT's second green loan overall and its first from a local financial institution.",
+   "event_id": "PSE:TEL-harvest-3",
+   "text": "Metrobank approved PLDT's P4-B green loan, PLDT's second green loan and its first from a local financial institution.",
    "published_at": "2024-05-07",
    "source_url": "https://mb.com.ph/2024/5/7/pldt-s-p4-b-green-loan-approved-by-metrobank",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:TEL-harvest-3",
-   "text": "PLDT took out P4 billion in green financing from Metropolitan Bank and Trust Co. to fund its network expansion.",
-   "published_at": "2024-05-08",
-   "source_url": "https://www.philstar.com/business/2024/05/08/2353346/pldt-takes-out-p4-billion-green-loan-expansion",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
    "event_id": "PSE:TEL-harvest-4",
-   "text": "After the Metrobank loan, PLDT's total green debt reached P5 billion.",
+   "text": "PLDT's total green debt hit P5 billion after securing a P4-billion green loan from Metrobank.",
    "published_at": "2024-05-08",
    "source_url": "https://businessmirror.com.ph/2024/05/08/pldts-total-green-debt-hits-p5-billion-after-mbtc-loan/",
    "source_type": "company_pr",
@@ -44,44 +44,179 @@
   },
   {
    "event_id": "PSE:TEL-harvest-5",
-   "text": "On February 14, 2024, the Supreme Court First Division issued a decision in G.R. Nos. 244695, 244752 & 245294, Manggagawa sa Komunikasyon ng Pilipinas vs. PLDT, Inc.",
+   "text": "On February 14, 2024, the Supreme Court of the Philippines issued a decision in G.R. Nos. 244695, 244752 & 245294, Manggagawa sa Komunikasyon ng Pilipinas vs. PLDT, Inc., involving labor-related petitions.",
    "published_at": "2024-02-14",
    "source_url": "https://lawphil.net/judjuris/juri2024/feb2024/gr_244695_2024.html",
    "source_type": "company_pr",
    "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:TEL-harvest-6",
-   "text": "A March 8, 2024 report said the Regional Director was ordered to review and properly determine the effects of the regularization of PLDT workers performing installation, repair, and maintenance services, and to compute the monetary award on the labor standards violation.",
-   "published_at": "2024-03-08",
-   "source_url": "https://tribune.net.ph/2024/03/08/sc-orders-regularization-of-pldt-workers",
-   "source_type": "company_pr",
-   "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
-   "kept": 4,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 7
+ "prompt_chars": 0,
+ "kept": 6
 }

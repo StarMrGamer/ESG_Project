@@ -4,7 +4,7 @@
  "events": [
   {
    "event_id": "PSE:SMPH-harvest-0",
-   "text": "SM Prime Holdings, Inc. commits to achieve net zero greenhouse gas (GHG) emissions by 2040.",
+   "text": "SM Prime commits to achieve net zero greenhouse gas (GHG) emissions by 2040.",
    "published_at": "2023-08-05",
    "source_url": "https://philippinesgraphic.com.ph/2023/08/05/sm-prime-commits-to-net-zero-by-2040/",
    "source_type": "company_pr",
@@ -12,39 +12,39 @@
   },
   {
    "event_id": "PSE:SMPH-harvest-1",
-   "text": "SM Prime Holdings, Inc. commits to achieve net zero greenhouse gas (GHG) emissions by 2040.",
-   "published_at": "2023-08-06",
-   "source_url": "https://mb.com.ph/2023/8/6/sm-prime-commits-to-net-zero-by-2040/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:SMPH-harvest-2",
-   "text": "On November 10, 2025, the Board of Directors of SM Prime Holdings, Inc. reviewed and approved the revised Manual on Corporate Governance.",
+   "text": "The Board of Directors of SM Prime Holdings, Inc. reviewed and approved the revised Manual on Corporate Governance in their meeting on November 10, 2025.",
    "published_at": "2025-11-10",
    "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=cb238e289a2f17beec6e1601ccee8f59",
    "source_type": "exchange_filing",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:SMPH-harvest-3",
-   "text": "SM Prime is exploring sustainability-linked financing instruments given the company's strong environmental, social and governance rating.",
+   "event_id": "PSE:SMPH-harvest-2",
+   "text": "SM Prime is exploring sustainability-linked financing instruments given its strong environmental, social and governance rating.",
    "published_at": "2025-08-10",
-   "source_url": "https://qa.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+   "source_url": "https://www.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-3",
+   "text": "In 2022, SM Prime's partnership with Aboitiz Renewables, Inc. (ARI) activated its strategic plans.",
+   "published_at": "2022-01-01",
+   "source_url": "https://businessmirror.com.ph/2025/12/26/sm-prime-shaping-a-decarbonized-future-for-malls/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "PSE:SMPH-harvest-4",
-   "text": "SM Prime president Jeffrey Lim said the company is evaluating the viability of issuing green bonds or sustainability-linked financing instruments.",
-   "published_at": "2025-08-10",
-   "source_url": "https://www.pressreader.com/philippines/the-philippine-star/20250810/281998973534353",
+   "text": "In 2024, SM Prime broadened its renewable-energy footprint by partnering with TotalEnergies.",
+   "published_at": "2024-01-01",
+   "source_url": "https://businessmirror.com.ph/2025/12/26/sm-prime-shaping-a-decarbonized-future-for-malls/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "PSE:SMPH-harvest-5",
-   "text": "On February 4, 2002, the Pollution Control Division of the LLDA inspected wastewater discharged by SM City Manila, operated by SM Prime Holdings, and laboratory tests revealed effluent samples failed to conform to inland water standards.",
+   "text": "On February 4, 2002, the LLDA inspected wastewater discharged by SM City Manila, operated by SM Prime Holdings, and laboratory tests revealed that effluent samples failed to conform to inland water standards prescribed by law.",
    "published_at": "2002-02-04",
    "source_url": "https://angkaalaman.com/buod/public-hearing-committee-of-the-llda-vs-sm-prime-holdings-inc-2010-09-22/",
    "source_type": "company_pr",
@@ -52,7 +52,7 @@
   },
   {
    "event_id": "PSE:SMPH-harvest-6",
-   "text": "On March 12, 2002, the LLDA directed SM Prime Holdings to perform corrective measures to control pollution and to pay P1,000 per day for discharging pollutive wastewater as penalty.",
+   "text": "On March 12, 2002, the LLDA directed SM Prime Holdings to perform corrective measures to control the pollution and to pay P1,000 per day for discharging pollutive wastewater as a penalty for the violation.",
    "published_at": "2002-03-12",
    "source_url": "https://www.studocu.com/ph/document/de-la-salle-university/natural-resources-and-environmental-law/llda-v-sm-summary-natural-resources-and-environmental-law/80445232",
    "source_type": "company_pr",
@@ -60,36 +60,260 @@
   },
   {
    "event_id": "PSE:SMPH-harvest-7",
-   "text": "On September 22, 2010, the Supreme Court of the Philippines ruled in G.R. No. 170599 that the LLDA is not precluded from assuming jurisdiction of pollution cases within its area of responsibility and imposing fines as penalty.",
-   "published_at": "2010-09-22",
-   "source_url": "https://lawphil.net/judjuris/juri2010/sep2010/gr_170599_2010.html",
+   "text": "SM Prime president Jeffrey Lim said the company is currently evaluating the viability of issuing green bonds or sustainability-linked financing instruments as part of efforts to further diversify the company's funding sources.",
+   "published_at": "2025-08-10",
+   "source_url": "https://www.pressreader.com/philippines/the-philippine-star/20250810/281998973534353",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-8",
+   "text": "On February 4, 2002, the Pollution Control Division of the Laguna Lake Development Authority inspected the wastewater discharged by SM City Manila, operated by SM Prime Holdings, and laboratory tests revealed that the effluent samples failed to conform to the inland water standards prescribed by law.",
+   "published_at": "2002-02-04",
+   "source_url": "https://angkaalaman.com/buod/public-hearing-committee-of-the-llda-vs-sm-prime-holdings-inc-2010-09-22/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-9",
+   "text": "On March 12, 2002, LLDA directed SM Prime Holdings to perform corrective measures to control the pollution and to pay P1,000 per day of discharging pollutive wastewater as penalty for the violation.",
+   "published_at": "2002-03-12",
+   "source_url": "https://www.studocu.com/ph/document/de-la-salle-university/natural-resources-and-environmental-law/llda-v-sm-summary-natural-resources-and-environmental-law/80445232",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-10",
+   "text": "SM Prime partnered with TotalEnergies for the installation of a 2 megawatt-peak (MWp) solar system as part of its net-zero commitment by 2040.",
+   "published_at": "2024-08-01",
+   "source_url": "https://www.philstar.com/business/biz-memos/2024/08/01/2374651/sm-prime-widens-landscape-renewable-energy",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-11",
+   "text": "In 2024, SM Prime completed a corporate carbon footprint assessment and publicly disclosed its GHG emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/sm-prime-holdings/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-12",
+   "text": "SM Prime expanded its solar energy footprint in 2024, driving both operational efficiency and carbon emission reductions across its properties.",
+   "published_at": "2025-03-17",
+   "source_url": "https://www.smprime.com/company_releases/sm-prime-scales-up-solar-energy-capacity-in-2024/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-13",
+   "text": "SM Prime Holdings' 2024 Integrated Annual Corporate Governance Report was received, with receipt date May 20, 2025 12:15:20 PM.",
+   "published_at": "2025-05-20",
+   "source_url": "https://article.wn.com/view-steel/2025/05/23/2024_Integrated_Annual_Corporate_Governance_Report_SM_Prime_/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-14",
+   "text": "SM Prime Holdings Inc. is exploring sustainability-linked financing instruments given the company's strong environmental, social and governance rating.",
+   "published_at": "2025-08-10",
+   "source_url": "https://www.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-15",
+   "text": "SM Prime Holdings Inc. is planning to raise ₱18 billion from a planned bond issuance to refinance maturing obligations and fund capital expenditures.",
+   "published_at": "2026-04-28",
+   "source_url": "https://mb.com.ph/2026/04/28/sm-prime-plans-18-billion-bond-offering-to-fund-capex-refinance-debt",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-16",
+   "text": "SM Prime Holdings Inc. is allocating P10 billion — 10 percent of its capital expenditures — to sustainable and resilient designs and using renewable energy.",
+   "published_at": "2024-08-11",
+   "source_url": "https://mb.com.ph/2024/8/11/sm-prime-allots-p10-bilion-for-sustainable-designs",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-17",
+   "text": "On February 4, 2002, the Pollution Control Division of the LLDA inspected wastewater discharged by SM City Manila, operated by SM Prime Holdings, and laboratory tests revealed effluent samples failed to conform to inland water standards.",
+   "published_at": "2002-02-04",
+   "source_url": "https://angkaalaman.com/buod/public-hearing-committee-of-the-llda-vs-sm-prime-holdings-inc-2010-09-22/",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 109,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "snippets": 6,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4172
   },
   "financing": {
    "snippets": 8,
    "kept": 2,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5212
   },
   "controversy": {
    "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6040
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5514
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5335
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
    "kept": 3,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5223
+  },
+  "governance:2023": {
+   "snippets": 7,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4780
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5223
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5106
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5083
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5840
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6193
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5700
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5699
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 8
+ "prompt_chars": 75120,
+ "kept": 18,
+ "merged_from_prior": 7
 }

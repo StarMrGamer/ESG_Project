@@ -4,92 +4,195 @@
  "events": [
   {
    "event_id": "KLSE:AXIATA-harvest-0",
-   "text": "Axiata Group received SBTi approval in June 2024 for its near-term and net-zero targets based on a 2022 baseline, per its 2024 Sustainability Report.",
-   "published_at": "2024-06-01",
-   "source_url": "https://www.sustainabilityreports.com/axiata-group/2024/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:AXIATA-harvest-1",
-   "text": "Axiata reported Group-wide 2024 Scope 1 emissions of 26,615.6 tCO2e and Scope 2 emissions of 1,165,912.0 tCO2e.",
-   "published_at": "2024-12-31",
-   "source_url": "https://www.sustainabilityreports.com/axiata-group/2024/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:AXIATA-harvest-2",
-   "text": "Axiata's digital inclusion initiatives reached nearly 26.8 million people across Asia by the end of 2024.",
-   "published_at": "2024-12-31",
-   "source_url": "https://www.sustainabilityreports.com/axiata-group/2024/sustainability-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:AXIATA-harvest-3",
-   "text": "Axiata received SBTi approval for its Scope 1, 2 and 3 targets in June 2024, becoming the first telco company in Malaysia to attain validation.",
+   "text": "Axiata received SBTi approval for its Scope 1, 2 and 3 near-term and net-zero targets in June 2024, becoming the first telco company in Malaysia to attain validation.",
    "published_at": "2024-06-01",
    "source_url": "https://www.axiata.com/sustainability/advancing-green-economy",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:AXIATA-harvest-4",
-   "text": "Axiata reduced Scope 1 emissions by more than 6% in 2023 vs 2022.",
-   "published_at": "2023-12-31",
-   "source_url": "https://polluer.com/companies/MjYwNTMzNzgzMQ",
+   "event_id": "KLSE:AXIATA-harvest-1",
+   "text": "Axiata received SBTi approval in June 2024 for near-term and net-zero targets based on a 2022 baseline.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.sustainabilityreports.com/axiata-group/2024/sustainability-report",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:AXIATA-harvest-5",
-   "text": "Axiata published its first ISSB Statement as a Group 1 company in Malaysia, with a particular focus on compliance with IFRS S2 climate-related disclosure requirements, in line with the mandate of the Securities Commission Malaysia.",
-   "published_at": "2025-01-01",
-   "source_url": "https://axiata.listedcompany.com/misc/agm/AxiataGroupBerhadCorporate_Governance_Report_2025.pdf",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:AXIATA-harvest-6",
-   "text": "Axiata's 2024 Integrated Annual Report highlights a 7% reduction in Scope 1 emissions.",
-   "published_at": "2024-01-01",
-   "source_url": "https://www.scribd.com/document/883263615/Axiata-IAR-2024-1749653459",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:AXIATA-harvest-7",
-   "text": "Axiata's June 2024 SBTi approval for near-term and net-zero targets based on a 2022 baseline.",
+   "event_id": "KLSE:AXIATA-harvest-2",
+   "text": "Axiata received SBTi approval for its near-term and net-zero targets based on a 2022 baseline in June 2024.",
    "published_at": "2024-06-01",
    "source_url": "https://www.sustainabilityreports.com/axiata-group/2024/sustainability-report",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 5,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live"
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_regulator:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 8
+ "prompt_chars": 0,
+ "kept": 3
 }

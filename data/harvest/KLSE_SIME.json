@@ -1,44 +1,44 @@
 {
- "company_id": "KLSE:PMAH",
- "company": "Press Metal Aluminium Holdings Bhd",
+ "company_id": "KLSE:SIME",
+ "company": "Sime Darby Bhd",
  "events": [
   {
-   "event_id": "KLSE:PMAH-harvest-0",
-   "text": "Press Metal presented its eighth annual Sustainability Report ('SR 2023'), dated 30 April 2024.",
-   "published_at": "2024-04-30",
-   "source_url": "https://www.insage.com.my/BursaNews/Attachment/202404/20240430/PMETAL-AN20240430A2-2.pdf",
+   "event_id": "KLSE:SIME-harvest-0",
+   "text": "Sime Darby Property announced its goal to reduce Scope 1 and Scope 2 emissions by 40% by 2030 and achieve net zero emissions by 2050.",
+   "published_at": "2023-11-27",
+   "source_url": "https://www.klpropertytalk.com/2023/11/sime-darby-property-aims-to-achieve-net-zero-emissions-by-2050/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:PMAH-harvest-1",
-   "text": "Press Metal teamed up with Bintulu Development Authority to set up solar power, with group chief executive officer Tan Sri Paul Koon calling the collaboration a milestone in supporting Sarawak's vision of becoming a hub for renewable energy and sustainable industrial development.",
-   "published_at": "2025-02-28",
-   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-02-28-story-h498648922-Press_Metal_Teams_Up_With_Bintulu_Development_Authority_to_Set_Up_Solar_",
+   "event_id": "KLSE:SIME-harvest-1",
+   "text": "Sime Darby Berhad's Annual Report 2024 includes a Risk Management & Sustainability Committee Report at page 126.",
+   "published_at": "2024-10-18",
+   "source_url": "https://www.scribd.com/document/785200271/Simedarby-Berhad-Ar-2024-Interactive-18-Oct24",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:PMAH-harvest-2",
-   "text": "Press Metal's fire incident at its Samalaju smelter is expected to impact about 3% of the group's total smelting capacity for the financial year 2024.",
-   "published_at": "2024-09-12",
-   "source_url": "https://www.thestar.com.my/business/business-news/2024/09/12/fire-incident-to-affect-press-metals-capacity",
+   "event_id": "KLSE:SIME-harvest-2",
+   "text": "MARC Solutions assigned a \"Gold\" Impact Assessment to Sime Darby Property NEV (Holdings) Sdn Bhd's Green Finance Framework.",
+   "published_at": "2026-06-22",
+   "source_url": "https://www.businesstoday.com.my/2026/06/22/marc-assigns-gold-impact-assessment-to-sime-darby-property-nev/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:SIME-harvest-3",
+   "text": "Sime Darby Property NEV's Green Finance Framework received a Gold Impact Assessment from MARC Solutions, supporting its RM2.6bil sukuk programme.",
+   "published_at": "2026-08-04",
+   "source_url": "https://www.thestar.com.my/business/business-news/2026/08/04/simeprop-nevs-green-initiative-earns-top-marks",
    "source_type": "news",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:PMAH-harvest-3",
-   "text": "A fire incident occurred at Press Metal's phase 3 smelter in the Samalaju Industrial Park on Monday (Sept 9) night.",
-   "published_at": "2024-09-10",
-   "source_url": "https://theedgemalaysia.com/node/726164",
-   "source_type": "news",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-4",
-   "text": "RAM Ratings does not expect the recent fire at Press Metal's smelter to have any impact on the AA2/Positive rating of its RM5.0 bil Islamic MTN Programme (2019/2049).",
-   "published_at": "2024-09-13",
-   "source_url": "https://www.ram.com.my/pressrelease/?prviewid=6731",
+   "event_id": "KLSE:SIME-harvest-4",
+   "text": "Former Sime Darby CEO was ordered to pay RM350 million for wrongful payments in the Qatar project.",
+   "published_at": "2025-07-19",
+   "source_url": "https://www.thecorporatesecret.com/blog/2025/07/19/bekas-ceo-sime-darby-diperintah-bayar-rm350-juta-atas-bayaran-tidak-wajar-projek-qatar/",
    "source_type": "company_pr",
    "_origin": "harvest"
   }

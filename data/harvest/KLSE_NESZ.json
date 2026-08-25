@@ -4,23 +4,23 @@
  "events": [
   {
    "event_id": "KLSE:NESZ-harvest-0",
-   "text": "Nestlé Malaysia's Board of Directors presented its Corporate Governance Overview Statement for the year ended 31 December 2025, committing to the highest standards of integrity, accountability and transparency.",
-   "published_at": "2025-12-31",
-   "source_url": "https://www.nestle.com.my/sites/g/files/pydnoa251/files/2026-03/Corporate-Governance-Financial-Report-2025.pdf",
+   "text": "Nestle Malaysia has committed to planting another three million trees by 2030 to support biodiversity conservation and climate resilience.",
+   "published_at": "2026-08-01",
+   "source_url": "https://www.nst.com.my/business/corporate/2026/08/1503606/nestle-malaysia-outpaces-2025-emissions-target",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:NESZ-harvest-1",
-   "text": "In January 2022, Nestlé Malaysia successfully transitioned to utilising 100% renewable electricity for all Nestlé facilities in both East and West Malaysia, by subscribing to the Green Electricity Tariff (GET) Programme by Tenaga Nasional Berhad (TNB) and the Renewable Energy Certificate (REC) by Sarawak Energy.",
-   "published_at": "2022-01-01",
-   "source_url": "https://www.nestle.com.my/sustainability/climate-change",
+   "text": "Nestle Malaysia exceeded its 2025 emissions target and is now focused on achieving a 50 per cent reduction in greenhouse gas emissions by 2030 as part of its pathway towards net zero by 2050.",
+   "published_at": "2026-08-01",
+   "source_url": "https://www.nst.com.my/business/corporate/2026/08/1503249/nestle-malaysia-beats-2025-emissions-goal-ahead-schedule",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:NESZ-harvest-2",
-   "text": "On December 8, 2021, Nestlé Malaysia announced it will be fully transitioning to 100% renewable electricity across all its operations in Malaysia as of 1 January 2022, allowing the company to reduce emissions by 75,000 tonnes of CO2 equivalent every year.",
+   "text": "Nestlé Malaysia announced on December 8, 2021 that it will fully transition to 100% renewable electricity across all its operations in Malaysia as of 1 January 2022, reducing emissions by 75,000 tonnes of CO2 equivalent every year.",
    "published_at": "2021-12-08",
    "source_url": "https://www.nestle.com.my/media/pressreleases/renewable-energy",
    "source_type": "company_pr",
@@ -28,44 +28,276 @@
   },
   {
    "event_id": "KLSE:NESZ-harvest-3",
-   "text": "Nestlé Malaysia will be fully transitioning to 100% renewable electricity (RE) across all its operations in Malaysia as of Jan 1, 2022.",
+   "text": "In January 2022, Nestlé Malaysia successfully transitioned to utilising 100% renewable electricity for all Nestlé facilities in both East and West Malaysia, subscribing to the Green Electricity Tariff (GET) Programme by Tenaga Nasional Berhad and the Renewable Energy Certificate (REC) by Sarawak Energy.",
    "published_at": "2022-01-01",
-   "source_url": "https://theedgemalaysia.com/article/nestl%C3%A9-malaysia-fully-transitioning-100-re-36",
-   "source_type": "news",
+   "source_url": "https://www.nestle.com.my/sustainability/climate-change",
+   "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:NESZ-harvest-4",
-   "text": "Nestle Manufacturing (Malaysia) Sdn Bhd was fined RM90,000 by the Shah Alam Sessions Court on two counts of releasing industrial effluent in excess of the acceptable limit.",
+   "text": "Nestle Manufacturing (Malaysia) Sdn Bhd was fined RM90,000 by the Shah Alam Sessions Court on Dec 24, 2020 on two counts of releasing industrial effluent in excess of the acceptable limit.",
    "published_at": "2020-12-24",
    "source_url": "https://www.themalaysianinsight.com/s/291579",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-5",
+   "text": "Nestlé Malaysia's 2025 progress includes a 31% GHG reduction against the 2018 baseline.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/nestle-malaysia/2025/creating-shared-value-and-sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-6",
+   "text": "Nestlé Malaysia's 2025 progress includes 95.6% of packaging designed for recycling.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/nestle-malaysia/2025/creating-shared-value-and-sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-7",
+   "text": "Nestle (Malaysia) Bhd's 2023 Sustainability Report reports achieving a 25% reduction in GHG emissions from a 2018 baseline.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/nestle-malaysia/2023/society-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-8",
+   "text": "Nestle Manufacturing (Malaysia) Sdn Bhd was fined RM90,000 by the Sessions Court in Shah Alam on two counts of releasing industrial effluent in excess of the acceptable limit.",
+   "published_at": "2020-12-24",
+   "source_url": "https://www.malaysianow.com/news/2020/12/24/nestle-fined-rm90000-for-environmental-pollution",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-9",
+   "text": "Nestlé Malaysia has reduced its greenhouse gas (GHG) emissions by 31% from its 2018 baseline, surpassing its interim target of a 20% reduction by 2025.",
+   "published_at": "2026-08-03",
+   "source_url": "https://www.thestar.com.my/business/business-news/2026/08/03/nestl-malaysia-cuts-emissions-31-eyes-50-cut-by-2030",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-10",
+   "text": "Nestlé Malaysia achieved a 25% reduction in GHG emissions from a 2018 baseline in 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/nestle-malaysia/2023/society-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-11",
+   "text": "Nestlé Malaysia transitioned to 100% renewable electricity in 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/nestle-malaysia/2023/society-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-12",
+   "text": "Nestlé Malaysia planted 1.5 million trees through Project RELeaf since 2021.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/nestle-malaysia/2023/society-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-13",
+   "text": "The Board of Directors approved the 2023 Nestlé Creating Shared Value and Sustainability Report to be issued on February 22, 2024, subject to approval at the Annual General Meeting on April 18, 2024.",
+   "published_at": "2024-02-22",
+   "source_url": "https://www.nestle.com/sites/default/files/2024-02/creating-shared-value-sustainability-report-2023-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-14",
+   "text": "Nestle (Malaysia) Bhd has planned RM1 billion in capital expenditure (capex) for a new cycle of investment for the 2023-2025 period.",
+   "published_at": "2023-02-22",
+   "source_url": "https://www.pressreader.com/malaysia/the-sun-malaysia/20230222/281719798768597",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:NESZ-harvest-15",
+   "text": "Nestlé reported on the EU Code of Conduct on responsible food business and marketing practices in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://transition-pathways.europa.eu/agri-food/reports/nestle-report-code-conduct-2024",
+   "source_type": "regulator",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "unparsed reply"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5554
   },
   "financing": {
    "snippets": 8,
-   "kept": 3,
-   "status": "live"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4842
   },
   "controversy": {
    "snippets": 8,
    "kept": 1,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 6223
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5973
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5985
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5259
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5440
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5964
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4714
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4859
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6098
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5556
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5327
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5688
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 5
+ "prompt_chars": 77482,
+ "kept": 16,
+ "merged_from_prior": 5
 }

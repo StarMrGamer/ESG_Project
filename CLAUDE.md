@@ -51,6 +51,8 @@ esg-momentum-radar/
   sensitivity.py            # what would CHANGE a verdict — leave-one-out + boundary margins (pure)
   harvest.py                # AI READS, rules score — live evidence for the thin names (overlay)
   traction.py               # §B.4 four-test screen for loss-makers (unknown != not_met)
+  financials.py             # the financial GATE — earnings direction from the basket's own cells
+  rationale.py              # WHY this verdict — pros/cons on BOTH axes, plus what would change it
   cost_model.py             # unit economics from MEASURED tokens; never guesses a price
   engine_config.py          # loads data/engine_config.json (A1 labels · A2 sub-weights · A5 tiers · horizons)
   company_metadata.py       # A3 loader over the FROZEN green-bond CSV header + the A4 badge payloads
@@ -217,6 +219,10 @@ different M, and the frozen record carries `evidence_basis` naming which run pro
 | max signals on one company | 5 | 7 |
 | companies at the 10-signal bar | 0 | **0** |
 | N / M / K | 13 / 4 / 1 | **13 / 10 / 3** |
+
+(That row is the harvest measured on its own, 2026-08-22. `data/nmk_frozen.json` now reads
+**13 / 11 / 3** — PCHEM entered M once Cayden's filled traction cells landed. The frozen file is
+the number to quote; the table above is what the harvest alone changed.)
 | quadrants populated | 2 of 4 | **4 of 4** |
 
 149 dated, sourced events across 26 companies. The evidence gap essentially closed, the
@@ -477,6 +483,134 @@ green-bond verification rows (already there), **and the hash of each benchmark F
 file rather than the parsed rows is deliberate: a reference year or a fallback flag edited in
 place changes the meaning of a published gap and would survive a row-level digest. A run over the
 real 52 is 130 leaves — 76 signals, 52 rows, 2 benchmarks.
+
+**THE SECOND AXIS, AND WHY IT IS A GATE** (`financials.py` + `rationale.py`, added 2026-08-24,
+Jayden's ask). The objection was fair: a company can improve on ESG and still be a bad business,
+so "will it make money?" deserves an answer. There are two ways to build that and they end in
+very different places.
+
+**Folding an earnings term into the score would end the project.** `disagreement` currently means
+one specific, defensible thing — our evidence-based momentum percentile minus the incumbent
+rating's. Blend revenue into it and nobody, including us, can say what +0.6 is claiming; the
+output stops being a disagreement with a rating and becomes a composite pick, which is HARD
+RULE 4 and also a worse MSCI. So the financial read is a **CONTEXT GATE**, computed after the
+scoring and reported beside it. `selftest.py` pins that `engine` and `signals` import neither
+module, so the separation cannot rot.
+
+**It needs no fetch.** The free keyless financial endpoints are gone — Yahoo's `quoteSummary` now
+requires a crumb, and MSCI / S&P / Sustainalytics are licensed products that cannot be fetched,
+shown or redistributed. But `data/company_metadata.csv` already carries **two fiscal years of net
+income for all 52**, verified with sources on the row. That is the strongest financial variable
+available and it was already on disk. Verdicts on the real basket: **17 strong · 22 adequate ·
+11 weak · 2 unknown**.
+
+**Three parse traps, all of which shipped a confidently wrong number under a real company's
+name**, all now pinned by `selftest.py`: a parenthetical figure on a different scale
+(`"S$789m (S$1.1b cont. ops)"` read the `b` and reported **+83,836%**); a range (`"~RM3.3-3.4b"`
+took 3.3 with no unit against a RM3.1 **billion** prior year and reported **-99.9%** — RHB Bank
+actually grew 8.1%); and a part-year cell (`"9M2024"` has no word boundary before the year, so
+the leading **9** became the amount). A nine-month figure is not comparable to a full year at
+all, so that case now **suppresses** the growth rate rather than computing one across two period
+lengths. `unknown` stays distinct from `weak`, exactly as in `traction.py`.
+
+**Every verdict now carries its own case against it** (`rationale.py` -> `CasePanel.tsx`). A
+quadrant label is a conclusion; a reader is entitled to the reasoning, *including the parts that
+cut against it*. So each company gets ESG pros/cons, financial pros/cons and a **what to look out
+for** list — boundary proximity, provisional metadata, a mock baseline, evidence too old for the
+horizon — all rule-derived, no LLM, so it replays with the run it describes. The cons are never
+collapsed or dimmed: a case that only lists reasons to agree is marketing, and a tool arguing
+that inconvenient evidence must surface cannot make an exception for its own verdicts. A company
+with 92% self-published sources gets that said on its own card.
+
+**THE BOARD STOPPED SAYING "AWAITING DATA" AT ITS OWN DATA** (fixed 2026-08-24). Four separate
+causes, three of them false negatives:
+
+- **The pillar cards were discarding the engine's own numbers.** They read a `momentum` block only
+  the FICTIONAL demo set carries, so four tiles read "awaiting data" beside **E on 44 of 52** and
+  **G on 38 of 52** companies that the engine had already scored. `metrics.pillar_momentum_from_records`
+  falls back to `records[*].components`. Two different UNITS, so every row now carries `basis`:
+  `numeric` is a momentum percent, `evidence` is a −1..+1 direction consensus. The radar's scale
+  is floored at 5 for percents and fixed at 1 for consensus — flooring a consensus at 5 divides
+  every real reading by five and collapses the shape onto the zero ring, which is exactly the
+  "nothing is happening" picture this fix exists to stop showing. `fmtPillar` drops the percent
+  sign for a consensus: "+0.59%" reads as a half-percent move when the number means "the evidence
+  agrees, fairly strongly".
+- **"0 signals" was counting the wrong field.** The rail read `live_signals` (demo-only) while the
+  engine held three scored, dated, sourced signals for the same company.
+- **A short-horizon company that decays to zero just emptied.** PTT Global Chemical reads +0.054
+  on Long 180d and **0.000** on Short 45d — its newest evidence is 2023-10-15. Correct, and
+  opaque. The card now says so and points at the longer horizon.
+- **The price strip was never wired.** `quotes.change_90d` fetches a real 3-month series (the
+  existing `CHART` range yields a one-DAY change, which under a "90 days" heading would be a real
+  number with a wrong label). **20 of 52 resolve**; the Bursa misses need a numeric stock-code
+  column and must NOT be closed with a name search — see the note in `quotes.py`.
+
+**PRE-REGISTERED: the ONE calibration change we are allowed to make** (written 2026-08-25,
+BEFORE the deep+quality sweep landed, and deliberately so). The standing question is whether the
+Hidden Winner thresholds should be relaxed. The answer is normally NO — that is the Adaro failure
+verbatim — so the rule for when it is YES has to be fixed in advance, or it is just fitting the
+threshold to the answer we wanted.
+
+**The test: a parameter may change for a reason that can be argued WITHOUT reference to the
+answer it produces. It may not change because we dislike the answer.**
+
+By that test:
+
+- `confidence.saturation_count = 12` and `hidden_winners.min_signal_count = 10` are **suspect on
+  their own merits.** Both were calibrated when the only rich universe was the FICTIONAL demo set,
+  which carries 10-15 signals per name *by construction* because someone hand-authored it that
+  way. That is a property of a fixture, not a fact about how much evidence exists for a real
+  ASEAN mid-cap. Calibrating real-world saturation against a fixture's density is a mistake you
+  can state without mentioning quadrants at all.
+- `hidden_winners.min_confidence = 0.5` and `source_quality.company_pr = 0.5` are **not
+  negotiable.** Neither has any defence except the answer it produces. The PR cap in particular
+  IS the Adaro lesson; raising it would make "Hidden Winner" mean "we found a lot of press
+  releases".
+
+**The decision rule, fixed before the data existed.** After the sweep, read the DISTRIBUTION of
+`signal_count` across the real 52:
+
+| what the data shows | what we do |
+|---|---|
+| best-covered company reaches **>= `saturation_count`** (12) | Full coverage is reachable on real evidence. **Thresholds stand**, whatever the quadrant contains. |
+| best-covered company is **< `saturation_count`** | Full coverage is unreachable BY CONSTRUCTION, so the parameter is mis-set. Recalibrate to the real 90th percentile — and accept whatever falls out, **including zero.** |
+
+*(Rule tightened 2026-08-25, before the deep sweep ran and while the data it judges did not yet
+exist. The first draft said ">= 15 stand / < 12 recalibrate", leaving 12-14 undefined — and the
+basket then measured 13. The band was a comfort margin, never a principle: the only question the
+test ever asked is whether the saturation point is REACHABLE. Fixing an ambiguous rule before it
+is applied is legitimate; fixing it after seeing which branch you land in is not, which is why
+the timing is recorded here rather than quietly corrected.)*
+
+Either branch is published. A recalibration that happens to produce Hidden Winners is reported
+with the fact that the threshold moved and why, never as a discovery.
+
+**The proper instrument is already in the repo.** `tools/calibration.py` is a BLIND sheet: two
+humans rate companies without seeing model output, and `harness.py` scores the model against
+them. That is how a threshold is honestly justified — against human judgement, not against a
+quadrant we would like populated. It is also a far better answer to a judge than any number
+picked the night before.
+
+**AND THE RULE ANSWERED ITSELF — one Hidden Winner, honestly** (measured 2026-08-25, right after
+the pre-registration above and before the deep+quality sweep). The full 52-company sweep alone
+was enough:
+
+| | verified only | + first harvest | **+ full 52 sweep** |
+|---|---|---|---|
+| max signal_count | 5 | 7 | **13** |
+| companies at confidence >= 0.5 | 0 | 0 | **4** |
+| **Hidden Winners** | 0 | 0 | **1** |
+
+**RHB Bank: disagreement +0.80, confidence 0.644, 10 signals.** The same company that sat in
+`consensus` at 5 signals and 0.33 confidence — it crossed on MORE AND BETTER EVIDENCE, with not
+one threshold touched. That is the outcome the Adaro rule was protecting: the quadrant populated
+because the evidence arrived, not because the bar moved.
+
+Note what this does to the pre-registered test: max is 13, which is `>= saturation_count`, so
+full coverage is demonstrably reachable and **the thresholds stand unchanged.** The honest read
+of "zero Hidden Winners" was never that the bar was wrong — it was that we had not gathered
+enough evidence yet, and now we have. Four more names sit between 0.30 and 0.47 confidence, so
+the deep+quality sweep may add to this; if it does, they cleared the same unmoved bar.
 
 **SENSORS · VERIFICATION · LEDGER — where the chain actually sits** (framing settled 2026-08-24,
 Jayden relaying the Blockchain Council line). The objection is correct and worth stating in full:

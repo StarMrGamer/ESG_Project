@@ -1,0 +1,231 @@
+{
+ "company_id": "SET:BEM",
+ "company": "Bangkok Expressway and Metro PCL",
+ "events": [
+  {
+   "event_id": "SET:BEM-harvest-0",
+   "text": "BEM received the AAA SET ESG Rating for the eighth consecutive year in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bangkok-expressway-and-metro/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BEM-harvest-1",
+   "text": "BEM set climate goals of carbon neutrality by 2050 and net-zero emissions by 2065 in its 2024 sustainability report.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bangkok-expressway-and-metro/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BEM-harvest-2",
+   "text": "Bangkok Expressway and Metro PCL received the AAA SET ESG Rating for the eighth consecutive year in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bangkok-expressway-and-metro/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BEM-harvest-3",
+   "text": "BEM's Sustainable Financing Framework is the updated version of the framework published in March 2021.",
+   "published_at": "2021-03-01",
+   "source_url": "https://www.thaibma.or.th/Download/prospetus/BEM279A/(21)BEM_Sustainable_Financing_framework_FINAL.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BEM-harvest-4",
+   "text": "BEM's Sustainable Financing Framework is the updated version of the framework published in February 2022.",
+   "published_at": "2022-02-01",
+   "source_url": "https://www.thaibma.or.th/Download/prospetus/BEM312A/(8)BEM_Sustainable_Financing_framework_20122023.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BEM-harvest-5",
+   "text": "In 2024, BEM received the AAA SET ESG Rating for the eighth consecutive year.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bangkok-expressway-and-metro/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BEM-harvest-6",
+   "text": "BEM's Sustainable Financing Framework is the updated version of its Sustainable Financing Framework, published February 2022.",
+   "published_at": "2022-02-01",
+   "source_url": "https://www.thaibma.or.th/Download/prospetus/BEM312A/(8)BEM_Sustainable_Financing_framework_20122023.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; financing: unparsed reply; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; financing:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4859
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5824
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5145
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6161
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5001
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5423
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4990
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4911
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5554
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5724
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5024
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5164
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6223
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5704
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 75707,
+ "kept": 7,
+ "merged_from_prior": 5
+}

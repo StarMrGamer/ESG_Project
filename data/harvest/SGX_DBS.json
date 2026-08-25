@@ -1,0 +1,287 @@
+{
+ "company_id": "SGX:DBS",
+ "company": "DBS Group",
+ "events": [
+  {
+   "event_id": "SGX:DBS-harvest-0",
+   "text": "On 12 September 2022, DBS became the first bank in Southeast Asia to announce a landmark set of decarbonisation commitments, covering nine industry sectors with sectoral targets aligned with science-based decarbonisation glidepaths, as part of its commitment to be net zero in financed emissions by 2050.",
+   "published_at": "2022-09-12",
+   "source_url": "https://www.dbs.com/newsroom/Singapores_DBS_first_bank_in_Southeast_Asia_to_announce_landmark_set_of_decarbonisation_commitments",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-1",
+   "text": "DBS Bank's sustainable financing commitments reached about $70 billion as at end-2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.straitstimes.com/business/companies-markets/dbs-s-sustainable-financing-commitments-reach-70-billion",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-2",
+   "text": "DBS's sustainable financing commitments reached about $70 billion as at end-2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.straitstimes.com/business/companies-markets/dbs-s-sustainable-financing-commitments-reach-70-billion",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-3",
+   "text": "In 2020, DBS published a Sustainable and Transition Finance Framework and Taxonomy.",
+   "published_at": "2020-01-01",
+   "source_url": "https://www.dbs.com/iwov-resources/images/sustainability/responsible-banking/sustainable-finance-framework.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-4",
+   "text": "DBS Group Holdings Ltd broadcast a Sustainability Report announcement to SGX on 06-Mar-2025 at 07:38:13.",
+   "published_at": "2025-03-06",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/OV9G8KM2AL25E055/22d90def292df286e2c267ffe1e7cd87f727c334d696fcffa0607b9e0e3d2b5a",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-5",
+   "text": "On 12 Sept 2022, DBS announced sectoral decarbonisation targets covering nine industry sectors, aligned with science-based decarbonisation glidepaths, as part of its commitment to being net zero in its financed emissions by 2050.",
+   "published_at": "2022-09-12",
+   "source_url": "https://www.dbs.com/newsroom/Singapores_DBS_first_bank_in_Southeast_Asia_to_announce_landmark_set_of_decarbonisation_commitments",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-6",
+   "text": "DBS's 2024 Sustainability Report reaffirms a well-structured ESG governance system with clear Board oversight and a Board-level Sustainability Committee holding direct responsibility for climate and sustainability risks.",
+   "published_at": "2025-12-01",
+   "source_url": "https://sustainabilityareyousure.blogspot.com/2025/12/dbs-sustainability-report-2024-review.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-7",
+   "text": "The Board Risk Management Committee Technology Risk Committee (BTRC), established to strengthen technology risk governance and oversight, was dissolved in January 2025.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.marketscreener.com/quote/stock/DBS-GROUP-HOLDINGS-LTD-6491408/news/DBS-2024-Annual-Report-49250357/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-8",
+   "text": "DBS Group filed its Sustainability Report 2024 via SGX announcement on 6 March 2025.",
+   "published_at": "2025-03-06",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/OV9G8KM2AL25E055/22d90def292df286e2c267ffe1e7cd87f727c334d696fcffa0607b9e0e3d2b5a",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-9",
+   "text": "DBS Group grew its sustainable financing commitments, net of repayments, by 37.3% to S$70 billion ($52.10 billion) as of end-December 2023, from S$51 billion in 2022.",
+   "published_at": "2024-03-06",
+   "source_url": "https://www.reuters.com/sustainability/sustainable-finance-reporting/singaporean-bank-dbs-grows-sustainable-financing-by-37-521-bln-2023-2024-03-06/",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-10",
+   "text": "DBS expanded sustainable financing to around SGD 89 billion in 2024, according to its 2024 Sustainability Report.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/dbs-group-holdings/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-11",
+   "text": "DBS reported a record 91% employee engagement score in 2024.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/dbs-group-holdings/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-12",
+   "text": "Singapore's financial regulator imposed penalties amounting to a total of S$3.8 million on four financial institutions, including DBS, for breaches related to the Wirecard AG scandal.",
+   "published_at": "2023-06-21",
+   "source_url": "https://businessmirror.com.ph/2023/06/21/singapore-fines-dbs-cition-wirecard-ag-scandal/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:DBS-harvest-13",
+   "text": "The Hong Kong Monetary Authority (HKMA) fined DBS Bank's local arm HK$10 million (approx. S$1.7 million) for repeated anti-money laundering failures.",
+   "published_at": "2024-07-08",
+   "source_url": "https://theindependent.sg/hkma-fines-dbs-s1-7m-for-repeated-anti-money-laundering-failures/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; governance: unparsed reply; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5540
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5562
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5035
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5837
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5580
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5142
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5945
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5430
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5455
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5167
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5121
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4826
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6150
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6094
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 76884,
+ "kept": 14,
+ "merged_from_prior": 2
+}

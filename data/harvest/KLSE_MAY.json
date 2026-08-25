@@ -4,60 +4,236 @@
  "events": [
   {
    "event_id": "KLSE:MAY-harvest-0",
-   "text": "Maybank's sustainable finance disclosures for the period from 1 January 2024 to 31 December 2024 were subjected to independent limited assurance by PricewaterhouseCoopers PLT, Malaysia (PwC), with details on pages 151 and 152.",
-   "published_at": "2024-12-31",
-   "source_url": "https://illuminem.b-cdn.net/datahub/Sustainability_Reports/2024_malayan%20banking%20bhd..pdf",
+   "text": "In 2023, Malayan Banking Berhad's 53.0% reduction in Scope 1 and 2 emissions against a 2019 baseline was verified by third-party assurance.",
+   "published_at": "2023-01-01",
+   "source_url": "https://sustify.world/profile/1155_2024_MY",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:MAY-harvest-1",
-   "text": "Maybank Group's Sustainability Report 2024, externally assured by SIRIM QAS International, includes sustainability disclosures for the financial year 2024 covering the Group's global operations.",
-   "published_at": "2024-12-31",
-   "source_url": "https://www.scribd.com/document/860029030/Maybank-Sustainability-Report-2024-20250326",
+   "text": "Maybank Islamic Bhd, a unit of Malayan Banking Bhd, was fined RM1.2 million by Bank Negara Malaysia for non-compliance with financial services laws.",
+   "published_at": "2025-05-28",
+   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-05-29-story-h499513667-Bank_Negara_Fines_Four_Lenders_for_Non_compliance_With_Financial_Service",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:MAY-harvest-2",
-   "text": "Bank Negara Malaysia imposed an Administrative Monetary Penalty of RM4.32 million against Malayan Banking Bhd and Maybank for non-compliance with the Financial Services Act 2013 and Islamic Financial Services Act 2013 due to prolonged disruptions of several banking services, on 29 July 2024.",
+   "text": "Bank Negara Malaysia imposed an Administrative Monetary Penalty of RM4,320,000 on Malayan Banking Berhad and Maybank Islamic Berhad for non-compliance with paragraph 48(1)(a) of the Financial Services Act 2013 and paragraph 58(1)(a) of the Islamic Financial Services Act.",
    "published_at": "2024-07-29",
-   "source_url": "https://www.bharian.com.my/berita/nasional/2024/08/1284818/bnm-kenakan-penalti-rm432-juta-kepada-maybank",
-   "source_type": "company_pr",
+   "source_url": "https://www.bnm.gov.my/-/ea-mybnk24",
+   "source_type": "regulator",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:MAY-harvest-3",
-   "text": "Maybank Islamic Bhd, a unit of Malayan Banking Bhd, was fined RM1.2 million by Bank Negara Malaysia for failing to comply with financial services laws, as reported on May 28.",
+   "text": "Maybank became the first Malaysian bank to establish a sustainable product framework aimed to guide the development of green, social, sustainable, sustainability-linked and transition products effective Sept 1, 2022.",
+   "published_at": "2022-09-01",
+   "source_url": "https://www.abm.org.my/esg-product-service/maybank-mobilises-rm34-37b-in-sustainable-finance/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-4",
+   "text": "Bank Negara Malaysia fined Maybank Islamic Bhd RM1.2 million as part of nearly RM5 million in penalties on four lenders for non-compliance with financial services laws.",
    "published_at": "2025-05-28",
    "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-05-29-story-h499513667-Bank_Negara_Fines_Four_Lenders_for_Non_compliance_With_Financial_Service",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-5",
+   "text": "The Group's Scope 1, 2 and selected Scope 3 greenhouse gas (GHG) emissions for the period of 1 January 2024 to 31 December 2024 had been subjected to an independent limited assurance by PricewaterhouseCoopers PLT, Malaysia (PwC).",
+   "published_at": "2025-03-26",
+   "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Environmental_Report_2024_20250326.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-6",
+   "text": "Maybank Investment Bank Berhad acted as Sustainability Framework Adviser for Tenaga Nasional's framework, which obtained a Second-Party Opinion by Morningstar Sustainalytics.",
+   "published_at": "2024-09-24",
+   "source_url": "https://www.tnb.com.my/assets/press_releases/2024092420_ENG.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:MAY-harvest-7",
+   "text": "Maybank's sustainable finance disclosures, including retail and non-retail sustainable finance mobilised for the period from 1 January 2024 to 31 December 2024, have been subjected to an independent limited assurance by PricewaterhouseCoopers PLT, Malaysia (PwC).",
+   "published_at": "2025-03-26",
+   "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2024_20250326.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "unparsed reply"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 2,
-   "status": "live"
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5332
   },
   "financing": {
    "snippets": 8,
-   "kept": 0,
-   "status": "live"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5787
   },
   "controversy": {
    "snippets": 8,
    "kept": 2,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5411
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4607
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5683
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4942
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5331
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5747
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5125
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5233
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5230
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5673
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5098
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5459
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 4
+ "prompt_chars": 74658,
+ "kept": 8,
+ "merged_from_prior": 3
 }

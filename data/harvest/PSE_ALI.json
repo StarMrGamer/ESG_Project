@@ -1,0 +1,335 @@
+{
+ "company_id": "PSE:ALI",
+ "company": "Ayala Land Inc",
+ "events": [
+  {
+   "event_id": "PSE:ALI-harvest-0",
+   "text": "By 2021, 95 percent of Ayala Land's commercial properties will be powered by renewable energy, cutting scope 1 and 2 emissions.",
+   "published_at": "2024-11-20",
+   "source_url": "https://mb.com.ph/2024/11/20/ayala-land-pushes-sustainability-goals-with-net-zero-emission-target",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-1",
+   "text": "In 2024, the Science Based Targets initiative (SBTi) validated that Ayala Land's science-based greenhouse gas emissions reduction targets conform with the SBTi Corporate Net Zero Standard and classified the company's scope 1 and 2 target ambitions as in line with the 1.5°C pathway.",
+   "published_at": "2024-01-01",
+   "source_url": "https://ayalaland.com/sustainability-net-zero-roadmap",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-2",
+   "text": "Ayala Land is the first publicly listed developer in the Philippines with net-zero targets validated by the Science Based Targets Initiative (SBTi).",
+   "published_at": "2024-09-28",
+   "source_url": "https://mb.com.ph/2024/09/28/ayala-land-first-publicly-listed-developer-sbti-approved-net-zero-goals",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-3",
+   "text": "Ayala Land's 2024 Integrated Report reports a workforce of 46,250 employees and support staff.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-4",
+   "text": "Ayala Land's 2024 Integrated Report states that 96% of mall, office and hotel GLA used renewable energy sources.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-5",
+   "text": "Ayala Land's 2024 Integrated Report states it has validated near- and long-term SBTi targets.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-6",
+   "text": "Ayala Land's 2024 Integrated Report includes a double materiality assessment.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-7",
+   "text": "Ayala Land's 2024 Integrated Report states selected ESG indicators were independently subject to limited assurance.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-8",
+   "text": "The Supreme Court denied Ayala Land Inc.'s petition to hold insurance company Standard Insurance liable for the explosion in Glorietta 2 on Oct. 19, 2007.",
+   "published_at": "2018-11-14",
+   "source_url": "https://www.bworldonline.com/editors-picks/2018/11/14/199126/sc-denies-property-firms-petition-on-2007-glorietta-2-explosion/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-9",
+   "text": "Ayala Land Inc. secured ₱20.5 billion through its Sustainability-Linked Financing Program, comprising a ₱6 billion Sustainability-Linked Bond and a ₱14.5 billion Sustainability-Linked Loan from the International Finance Corporation.",
+   "published_at": "2024-07-22",
+   "source_url": "https://tribune.net.ph/2024/07/22/ayala-land-secures-205b-funds-for-sustainable-projects",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-10",
+   "text": "IFC partnered with Ayala Land on its first sustainability-linked financing package, which will support the company in decarbonizing its commercial real-estate portfolio.",
+   "published_at": "2024-07-19",
+   "source_url": "https://www.ifc.org/en/pressroom/2024/ifc-partners-with-ayala-land-on-its-first-sustainability-linked-financing-boosting-the-market-for-green-buildings-in-the-philippines",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-11",
+   "text": "Ayala Land raised P20.5 billion via its sustainability-linked financing program, with the P14.5-billion SL-loan being ALI's first loan from a multilateral agency.",
+   "published_at": "2024-07-22",
+   "source_url": "https://www.bworldonline.com/corporate/2024/07/22/609399/ayala-land-raises-p20-5b-via-sustainability-linked-financing-program/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-12",
+   "text": "The Supreme Court denied Ayala Land Inc.'s petition to hold Standard Insurance liable for the explosion in Glorietta 2 on Oct. 19, 2007.",
+   "published_at": "2018-11-14",
+   "source_url": "https://www.bworldonline.com/editors-picks/2018/11/14/199126/sc-denies-property-firms-petition-on-2007-glorietta-2-explosion/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-13",
+   "text": "In 2024, Ayala Land Inc completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1, 2 and 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/ayala-land-inc/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-14",
+   "text": "In September 2024, the SBTi verified Ayala Land's near-term and long-term net-zero emissions reduction targets, confirming their alignment with a 1.5°C pathway.",
+   "published_at": "2024-09-01",
+   "source_url": "https://ayalaland.com/sustainability-in-ayala-land",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-15",
+   "text": "Ayala Land's 2023 Integrated Report reported that 91% of mall and office GLA was powered by renewable energy.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2023/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-16",
+   "text": "Ayala Land's 2023 Integrated Report reported 38,919 tonnes of waste generated.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2023/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-17",
+   "text": "Ayala Land's 2023 Integrated Report stated a 2050 net-zero commitment covering Scopes 1, 2, and 3.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ayala-land/2023/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-18",
+   "text": "Ayala Land established the Ayala Land Sustainability-Linked Financing Framework, dated 9 May 2024.",
+   "published_at": "2024-05-09",
+   "source_url": "https://ir.ayalaland.com.ph/wp-content/uploads/2026/04/Ayala-Land-Sustainability-Linked-Financing-Program-Updates-April-2026-v2.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ALI-harvest-19",
+   "text": "Ayala Land raised ₱20.5 billion through its Sustainability-Linked Financing Program, including a ₱6 billion Sustainability-Linked Bond and a ₱14.5 billion Sustainability-Linked Loan from IFC.",
+   "published_at": "2024-07-20",
+   "source_url": "https://ayalaland.com/blog/ayala-land-completes-p20-5-billion-in-sustainability-linked-funding",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; financing:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 109,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5424
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6535
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5685
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5771
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5367
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5492
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5235
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5003
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 6403
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6620
+  },
+  "controversy:2023": {
+   "snippets": 7,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4460
+  },
+  "controversy:2024": {
+   "snippets": 6,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4373
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5994
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6121
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 78483,
+ "kept": 20,
+ "merged_from_prior": 9
+}

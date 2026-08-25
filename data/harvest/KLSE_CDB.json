@@ -4,15 +4,15 @@
  "events": [
   {
    "event_id": "KLSE:CDB-harvest-0",
-   "text": "CelcomDigi Berhad's Corporate Governance Report 2025 (STOCK CODE: 6947) is for the FINANCIAL YEAR December 31, 2025 and includes disclosures pursuant to Paragraph 15.25 of Bursa Malaysia Listing Requirements.",
-   "published_at": "2025-12-31",
-   "source_url": "https://www.marketscreener.com/news/digi-com-corporate-governance-report-2025-ce7e50dfd08ef322",
+   "text": "CelcomDigi Mobile received a Notice of Arbitration dated 1 October 2025 from IMMA Technology over alleged breach of a Services Agreement dated 21 March 2022.",
+   "published_at": "2025-10-06",
+   "source_url": "https://celcomdigi.listedcompany.com/newsroom/Bursa_Announcement_-_Material_Litigation_20251006.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:CDB-harvest-1",
-   "text": "CelcomDigi Bhd's wholly-owned subsidiary CelcomDigi Mobile Sdn Bhd plans to defend claims filed by IMMA Technology Sdn Bhd over an alleged breach of a services agreement.",
+   "text": "CelcomDigi plans to defend claims filed by IMMA Technology over an alleged breach of a services agreement.",
    "published_at": "2025-10-07",
    "source_url": "https://www.thestar.com.my/business/business-news/2025/10/07/celcomdigi-to-contest-claims-filed-by-imma",
    "source_type": "news",
@@ -20,52 +20,292 @@
   },
   {
    "event_id": "KLSE:CDB-harvest-2",
-   "text": "CelcomDigi Mobile Sdn Bhd will defend the RM72.6 million arbitration claim by IMMA Technology over an alleged breach of a services agreement signed in March 2022.",
-   "published_at": "2025-10-01",
-   "source_url": "https://www.bharian.com.my/bisnes/korporat/2025/10/1455015/celcomdigi-pertahan-tuntutan-timbang-tara-rm726-juta",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:CDB-harvest-3",
-   "text": "CelcomDigi Berhad's wholly-owned unit CelcomDigi Mobile Sdn Bhd received a notice of arbitration from IMMA Technology Sdn Bhd over alleged losses arising from a services agreement, and denies liability.",
+   "text": "CelcomDigi's wholly-owned unit received a notice of arbitration from IMMA Technology over alleged losses arising from a services agreement, with the claim reported as RM72.6m.",
    "published_at": "2025-10-06",
    "source_url": "https://themalaysianreserve.com/2025/10/06/celcomdigi-hit-with-rm72-6m-arbitration-claim-denies-liability/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
+   "event_id": "KLSE:CDB-harvest-3",
+   "text": "CelcomDigi paid RM139 million in employee termination costs involving 600 workers in the first quarter of 2024.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2024/06/1260910/celcomdigi-bayar-rm139-juta-kos-pemberhentian-pekerja",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
    "event_id": "KLSE:CDB-harvest-4",
-   "text": "CelcomDigi Bhd paid RM139 million in employee termination costs involving 600 employees in the first quarter of 2024.",
+   "text": "CelcomDigi's wholly-owned subsidiary CelcomDigi Mobile Sdn Bhd received a Notice of Arbitration dated 1 October 2025 from IMMA Technology Sdn Bhd over claims including an alleged breach of a Services Agreement dated 21 March 2022.",
+   "published_at": "2025-10-06",
+   "source_url": "https://celcomdigi.listedcompany.com/newsroom/Bursa_Announcement_-_Material_Litigation_20251006.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-5",
+   "text": "CelcomDigi Bhd paid RM139 million in employee severance costs involving 600 employees in the first quarter of 2024.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2024/06/1260910/celcomdigi-bayar-rm139-juta-kos-pemberhentian-pekerja",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-6",
+   "text": "Celcomdigi Berhad's total greenhouse gas emissions were 566,106 t CO2e (Scope 1, 2 and 3) in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.roundarc.com/data/celcomdigi-berhad-malaysia",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-7",
+   "text": "CelcomDigi committed to achieving net-zero emissions by 2050 and is aligning its targets with the Science Based Targets initiative (SBTi), according to its 2024 sustainability report.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/celcomdigi/2024/sustainability-statement",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-8",
+   "text": "In 2024, CelcomDigi completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/celcomdigi/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-9",
+   "text": "In its 2023 integrated annual report, CelcomDigi set a Scope 1 and 2 baseline of 521,510 tonnes CO2e and prioritised setting long-term emissions reduction targets in line with the scientific 1.5°C global warming target.",
+   "published_at": "2023-01-01",
+   "source_url": "https://celcomdigi.listedcompany.com/misc/FlippingBook_PDF_Publisher/Publications/HTML/CelcomDigi_2023/80/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-10",
+   "text": "CelcomDigi's 2024 integrated report reported FY2024 Scope 1 and 2 emissions of 561,755.57 tonnes CO2e and total energy consumption of 896.58 GWh, with selected indicators independently assured by SIRIM QAS International.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/celcomdigi/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-11",
+   "text": "Celcomdigi Bhd published its Corporate Governance Report 2024 on April 16, 2025.",
+   "published_at": "2025-04-16",
+   "source_url": "https://www.publicnow.com/view/371F5D0EEF50AAE49B8610A55408C88B6D1ADAF2",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-12",
+   "text": "CelcomDigi's wholly-owned subsidiary CelcomDigi Mobile Sdn Bhd plans to defend claims filed by IMMA Technology Sdn Bhd over an alleged breach of a services agreement.",
+   "published_at": "2025-10-07",
+   "source_url": "https://www.thestar.com.my/business/business-news/2025/10/07/celcomdigi-to-contest-claims-filed-by-imma",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-13",
+   "text": "CelcomDigi Bhd paid RM139 million in employee termination costs involving 600 workers in the first quarter of 2024.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2024/06/1260910/celcomdigi-bayar-rm139-juta-kos-pemberhentian-pekerja",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-14",
+   "text": "The High Court allowed Celcom and Celcom Resources' claims against Tan Sri Dato Tajudin Ramli and Dato' Bistamam Ramli, and CelcomDigi received a judgment sum of around RM1.5 billion.",
+   "published_at": "2023-07-31",
+   "source_url": "https://www.businesstoday.com.my/2023/07/31/tajudin-ramli-and-dato-bistaman-ordered-to-pay-around-rm1-5-billion-to-celcomdigi/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-15",
+   "text": "CelcomDigi Mobile Sdn Bhd received an arbitration notice from IMMA Technology Sdn Bhd claiming RM72.6 million over an alleged breach of a services agreement signed in March 2022, and CelcomDigi will defend the claim.",
+   "published_at": "2025-10-07",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2025/10/1455015/celcomdigi-pertahan-tuntutan-timbang-tara-rm726-juta",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:CDB-harvest-16",
+   "text": "CelcomDigi Bhd paid RM139 million in staff retrenchment costs involving 600 employees in the first quarter of 2024.",
    "published_at": "2024-06-01",
    "source_url": "https://www.bharian.com.my/bisnes/korporat/2024/06/1260910/celcomdigi-bayar-rm139-juta-kos-pemberhentian-pekerja",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 120,
  "angles": {
   "emissions": {
    "snippets": 8,
    "kept": 0,
-   "status": "live"
+   "status": "cache",
+   "prompt_chars": 4758
   },
   "governance": {
    "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "kept": 0,
+   "status": "cache",
+   "prompt_chars": 5018
   },
   "financing": {
    "snippets": 8,
    "kept": 0,
-   "status": "live"
+   "status": "cache",
+   "prompt_chars": 5158
   },
   "controversy": {
    "snippets": 8,
-   "kept": 4,
-   "status": "live"
+   "kept": 2,
+   "status": "cache",
+   "prompt_chars": 5336
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5569
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5297
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5158
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4967
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5381
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5037
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5146
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5416
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4906
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6200
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6044
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 5
+ "prompt_chars": 79391,
+ "kept": 17,
+ "merged_from_prior": 4
 }

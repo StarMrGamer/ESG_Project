@@ -1,44 +1,52 @@
 {
- "company_id": "KLSE:PMAH",
- "company": "Press Metal Aluminium Holdings Bhd",
+ "company_id": "PSE:BDO",
+ "company": "BDO Unibank Inc",
  "events": [
   {
-   "event_id": "KLSE:PMAH-harvest-0",
-   "text": "Press Metal presented its eighth annual Sustainability Report ('SR 2023'), dated 30 April 2024.",
-   "published_at": "2024-04-30",
-   "source_url": "https://www.insage.com.my/BursaNews/Attachment/202404/20240430/PMETAL-AN20240430A2-2.pdf",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-1",
-   "text": "Press Metal teamed up with Bintulu Development Authority to set up solar power, with group chief executive officer Tan Sri Paul Koon calling the collaboration a milestone in supporting Sarawak's vision of becoming a hub for renewable energy and sustainable industrial development.",
-   "published_at": "2025-02-28",
-   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-02-28-story-h498648922-Press_Metal_Teams_Up_With_Bintulu_Development_Authority_to_Set_Up_Solar_",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:PMAH-harvest-2",
-   "text": "Press Metal's fire incident at its Samalaju smelter is expected to impact about 3% of the group's total smelting capacity for the financial year 2024.",
-   "published_at": "2024-09-12",
-   "source_url": "https://www.thestar.com.my/business/business-news/2024/09/12/fire-incident-to-affect-press-metals-capacity",
+   "event_id": "PSE:BDO-harvest-0",
+   "text": "On February 18, 2025, the Board Audit Committee (BAC) endorsed for Board approval the 2024 Audited Financial Statements.",
+   "published_at": "2025-02-18",
+   "source_url": "https://esgimpactawards.inquirer.net/wp-content/uploads/2026/05/bdo-unibank-2025-annual-report-financial-supplements.pdf",
    "source_type": "news",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:PMAH-harvest-3",
-   "text": "A fire incident occurred at Press Metal's phase 3 smelter in the Samalaju Industrial Park on Monday (Sept 9) night.",
-   "published_at": "2024-09-10",
-   "source_url": "https://theedgemalaysia.com/node/726164",
-   "source_type": "news",
+   "event_id": "PSE:BDO-harvest-1",
+   "text": "BDO's Sustainable Finance Framework (Second Party, May 2022) allows it to issue green, blue, social and sustainability bonds and loans for eligible categories including Renewable Energy, Green Buildings, and Clean Transportation.",
+   "published_at": "2022-05-01",
+   "source_url": "https://www.bdo.com.ph/content/dam/bdounibank/en-ph/about-bdo/sustainability/pdf/sustainable-finance/BDO-Sustainable-Finance-Framework-Second-Party-May2022.pdf",
+   "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:PMAH-harvest-4",
-   "text": "RAM Ratings does not expect the recent fire at Press Metal's smelter to have any impact on the AA2/Positive rating of its RM5.0 bil Islamic MTN Programme (2019/2049).",
-   "published_at": "2024-09-13",
-   "source_url": "https://www.ram.com.my/pressrelease/?prviewid=6731",
+   "event_id": "PSE:BDO-harvest-2",
+   "text": "BDO has expanded its sustainable finance framework to support a wider range of projects with high economic, environmental and social benefits through its bond issuances.",
+   "published_at": "2024-09-04",
+   "source_url": "https://www.philstar.com/business/2024/09/04/2382636/bdo-expands-sustainable-finance-framework",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BDO-harvest-3",
+   "text": "As of July 2025, BDO has channeled over PHP 1 trillion into sustainable projects.",
+   "published_at": "2025-07-01",
+   "source_url": "https://powerphilippines.com/bdo-raises-php-115b-via-sustainability-bonds-eyes-more-green-energy-deals/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BDO-harvest-4",
+   "text": "BDO expanded its Sustainable Finance Framework and received an updated Second Party Opinion from Morningstar Sustainalytics affirming the credibility and impact of the framework.",
+   "published_at": "2024-09-01",
+   "source_url": "https://www.cagayantoday.info/2024/09/bdo-expands-sustainable-finance.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:BDO-harvest-5",
+   "text": "On October 2, 2024, the Supreme Court issued G.R. No. 255367, in which BDO's Petition for Review assailed the Court of Appeals resolutions (CA-G.R. CR No. 39969) that denied BDO's motion to intervene in Criminal Case No. 09-2643 (People of the Philippines v. Ruby O. Alda, Elizabeth O. Alda, and Michael S. Bungque).",
+   "published_at": "2024-10-02",
+   "source_url": "https://lawphil.net/judjuris/juri2024/oct2024/gr_255367_2024.html",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
@@ -210,5 +218,5 @@
   }
  },
  "prompt_chars": 0,
- "kept": 5
+ "kept": 6
 }

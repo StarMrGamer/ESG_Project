@@ -1,42 +1,42 @@
 {
- "company_id": "PSE:AC",
- "company": "Ayala Corporation",
+ "company_id": "IDX:BBRI",
+ "company": "Bank Rakyat Indonesia",
  "events": [
   {
-   "event_id": "PSE:AC-harvest-0",
-   "text": "Ayala Corporation committed to achieve net zero greenhouse gas emissions by 2050, as announced by President & CEO Fernando Zobel de Ayala during the group's Integrated Corporate Governance, Risk Management, and Sustainability Summit held Thursday, October 21, 2021.",
-   "published_at": "2021-10-21",
-   "source_url": "https://agrigateglobal.com/press-release/ayala-commits-to-achieve-net-zero-by-2050/",
+   "event_id": "IDX:BBRI-harvest-0",
+   "text": "BRI published a quantitative information disclosure of risk exposure report dated 30 June 2021.",
+   "published_at": "2021-06-30",
+   "source_url": "https://bri.co.id/web/guest/en/report",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:AC-harvest-1",
-   "text": "ACEN Corp., the listed energy platform of the Ayala Group, has earmarked P72 billion for capital expenditures (capex) in 2024.",
-   "published_at": "2024-04-24",
-   "source_url": "https://bilyonaryo.com/2024/04/24/ayala-group-accelerates-renewable-energy-growth-with-p72-billion-capex/power/",
+   "event_id": "IDX:BBRI-harvest-1",
+   "text": "In March 2019, Bank BRI issued a USD 500 million sustainability bond under the Bank BRI Sustainability Bond Framework.",
+   "published_at": "2019-03-01",
+   "source_url": "https://bri.co.id/web/guest/api/files?path=%2Fsites%2Fdefault%2Ffiles%2Fdocuments%2FAnnual%20Sustainability%20Bond%20Report%20Review%20BRI%202022.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:AC-harvest-2",
-   "text": "On Aug. 9, BPI successfully raised an impressive ₱33.7 billion from its initial ₱5 billion offering of Peso-denominated fixed-rate Sustainable, Environmental, and Equitable Development bonds.",
-   "published_at": "2024-08-09",
-   "source_url": "https://mb.com.ph/2024/08/18/bpi-ayala-land-leading-the-charge-in-sustainable-finance",
+   "event_id": "IDX:BBRI-harvest-2",
+   "text": "As of the end of the first quarter of 2025, BRI's sustainable financing portfolio reached IDR 89.9 trillion, up 8.18% year-on-year.",
+   "published_at": "2025-03-31",
+   "source_url": "https://voi.id/en/economy/488264",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:AC-harvest-3",
-   "text": "In a Philippine Stock Exchange report dated Nov. 14, 2025, Ayala Corp's AC Energy (ACEN)'s Ace Enexor (ENEX) disclosed the discontinuation of the proposed Batangas Clean Energy (BCE) Project, stating the decision aligns with ACEN's 'strategic shift toward renewable energy generation'.",
-   "published_at": "2025-11-14",
-   "source_url": "https://www.business-humanrights.org/en/latest-news/philippines-batangas-communities-lauds-ayala-corps-decision-to-discontinue-batangas-clean-energy-bce-project/",
+   "event_id": "IDX:BBRI-harvest-3",
+   "text": "On Oct. 4, 2023, BRI issued IDR 6 trillion Green Bonds for 2023, with three series, including a 1-year series with a 6.10% coupon.",
+   "published_at": "2023-10-04",
+   "source_url": "https://www.prnewswire.com/news-releases/bri-strengthens-commitment-to-sustainable-finance-with-new-green-bonds-301946738.html",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
- "snippet_count": 0,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 24,
  "angles": {
   "emissions": {
    "snippets": 0,
@@ -135,22 +135,22 @@
    "prompt_chars": 0
   },
   "controversy:2024": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5448
   },
   "q_regulator:2023": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 6175
   },
   "q_regulator:2024": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5501
   },
   "q_exchange:2023": {
    "snippets": 0,
@@ -201,6 +201,6 @@
    "prompt_chars": 0
   }
  },
- "prompt_chars": 0,
+ "prompt_chars": 17124,
  "kept": 4
 }

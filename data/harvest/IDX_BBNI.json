@@ -1,0 +1,271 @@
+{
+ "company_id": "IDX:BBNI",
+ "company": "Bank Negara Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:BBNI-harvest-0",
+   "text": "PT Bank Negara Indonesia (Persero) Tbk published its BNI GCG Annual Report 2024 on March 3, 2025.",
+   "published_at": "2025-03-03",
+   "source_url": "https://in.marketscreener.com/quote/stock/PT-BANK-NEGARA-INDONESIA--6493911/news/PT-Bank-Negara-Indonesia-Persero-Tbk-BNI-GCG-Annual-Report-2024-49212364/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-1",
+   "text": "PT Bank Negara Indonesia Persero Tbk published its BNI GCG Annual Report 2025 on February 19, 2026.",
+   "published_at": "2026-02-19",
+   "source_url": "https://www.marketscreener.com/news/pt-bank-negara-indonesia-persero-tbk-bni-gcg-annual-report-2025-ce7e5ddfd08cf427",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-2",
+   "text": "BNI published its Green Bond Report in June 2024.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.scribd.com/document/929261621/BNI-Green-Bond-Report-2024",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-3",
+   "text": "BNI announced it will issue green bonds of a maximum of Rp 5 trillion on 11 May 2022.",
+   "published_at": "2022-05-11",
+   "source_url": "https://www.bni.co.id/en-us/home/bni-news/news/articleid/21337",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-4",
+   "text": "PT Bank Negara Indonesia (Persero) Tbk published its BNI GCG Annual Report 2025 content on February 19, 2026.",
+   "published_at": "2026-02-19",
+   "source_url": "https://www.marketscreener.com/news/pt-bank-negara-indonesia-persero-tbk-bni-gcg-annual-report-2025-ce7e5ddfd08cf427",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-5",
+   "text": "PT Bank Negara Indonesia (Persero) Tbk published its Green Bond Report June 2025, in which it states it continuously strengthens its commitment to becoming a catalyst in the transformation towards a green economy.",
+   "published_at": "2025-06-19",
+   "source_url": "https://article.wn.com/view/2025/06/19/BNI_Green_Bond_Report_2025_BNI_PT_Bank_Negara_Indonesia_Pers/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-6",
+   "text": "BNI's Green Bond Report June 2024 describes PT Bank Negara Indonesia (Persero) Tbk as one of the banks that are the driving force of Sustainable Finance implementation in Indonesia.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.scribd.com/document/929261621/BNI-Green-Bond-Report-2024",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-7",
+   "text": "Plaintiff Lavi's July 2022 action on behalf of himself and his company asserted multiple unspecified claims against Bank Negara Indonesia (BNI) and sought damages.",
+   "published_at": "2022-07-01",
+   "source_url": "https://www.law.com/newyorklawjournal/almID/1691756527NY22CV6000/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-8",
+   "text": "BNI published its GCG Annual Report 2024 on March 03, 2025.",
+   "published_at": "2025-03-03",
+   "source_url": "https://in.marketscreener.com/quote/stock/PT-BANK-NEGARA-INDONESIA--6493911/news/PT-Bank-Negara-Indonesia-Persero-Tbk-BNI-GCG-Annual-Report-2024-49212364/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-9",
+   "text": "BNI announced it will issue green bonds of a maximum of Rp 5 trillion, becoming the first national bank to issue rupiah-denominated green bonds.",
+   "published_at": "2022-05-11",
+   "source_url": "https://www.bni.co.id/en-us/home/bni-news/news/articleid/21337",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-10",
+   "text": "BNI published a Green Bond Report dated June 2024, covering the BNI Green Bond Framework & Issue, Allocation of Proceeds, and Impact Reporting.",
+   "published_at": "2024-06-01",
+   "source_url": "https://www.scribd.com/document/929261621/BNI-Green-Bond-Report-2024",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBNI-harvest-11",
+   "text": "In July 2022, Plaintiff Lavi filed an action on behalf of himself and his company against Bank Negara Indonesia (BNI) asserting multiple unspecified claims and seeking damages.",
+   "published_at": "2022-07-01",
+   "source_url": "https://www.law.com/newyorklawjournal/almID/1691756527NY22CV6000/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4848
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6306
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5525
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5745
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5455
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5664
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5114
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5122
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5916
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5803
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5362
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5950
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6167
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5767
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 78744,
+ "kept": 12,
+ "merged_from_prior": 4
+}

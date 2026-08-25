@@ -1,0 +1,271 @@
+{
+ "company_id": "SET:PTTEP",
+ "company": "PTT Exploration & Production",
+ "events": [
+  {
+   "event_id": "SET:PTTEP-harvest-0",
+   "text": "In 2022, PTTEP achieved its previous target of reducing greenhouse gas emissions intensity by at least 25% from base year.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.pttep.com/en/our-company/ep-net-zero-2050",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-1",
+   "text": "PTTEP has a plan for greenhouse gas emission reduction activities to achieve net-zero greenhouse gas emissions by 2593 (Buddhist Era), covering Scope 1 direct and Scope 2 indirect emissions from its operational control.",
+   "published_at": "2025-01-01",
+   "source_url": "https://en.moneyandbanking.co.th/2025/212918/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-2",
+   "text": "PTTEP received a total score of 111% in the Corporate Governance Report of Thai Listed Companies 2025.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.pttep.com/en/our-company/corporate-governance/cg-reporting",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-3",
+   "text": "PTTEP achieved a total score of 111% in the Corporate Governance Report of Thai Listed Companies 2025 (CGR).",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.pttep.com/en/our-company/corporate-governance/cg-reporting",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-4",
+   "text": "PTTEP was fined A$510,000 ($394,000, £303,474) by a Darwin court after pleading guilty in 2011 to charges related to workplace health and safety and failure to maintain good oilfield practice.",
+   "published_at": "2011-01-01",
+   "source_url": "https://uk.news.yahoo.com/indonesia-sues-thailands-ptt-pttep-071351381.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-5",
+   "text": "The Montara rig in the Timor Sea off the northwest coast of Australia suffered a well blowout on 21 August 2009.",
+   "published_at": "2009-08-21",
+   "source_url": "https://www.thechemicalengineer.com/news/indonesian-government-sues-pttep-over-montara/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-6",
+   "text": "In 2016, an Indonesian seaweed farmer filed a class action lawsuit in Australia representing 15,000 farmers against PTTEP Australia.",
+   "published_at": "2016-01-01",
+   "source_url": "https://www.business-humanrights.org/en/latest-news/pttep-australasia-lawsuit-re-montara-oil-spill-in-indonesia/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-7",
+   "text": "On June 1, 2023, PTTEP ED signed the Production Sharing Contract (PSC) for Blocks G1/65 and G3/65 in the 24th Bid Round for Offshore Exploration Blocks in the Gulf of Thailand.",
+   "published_at": "2023-06-01",
+   "source_url": "https://links.sgx.com/FileOpen/pttep-2025-one-report-en_Optimized.ashx?App=Announcement&FileID=878906",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-8",
+   "text": "In 2022, PTTEP successfully achieved its previous target of reducing greenhouse gas emissions intensity by at least 25% from base year.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.pttep.com/en/our-company/ep-net-zero-2050",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-9",
+   "text": "PTTEP set a 5-year investment budget of USD 29,100 million for 2023-2027, focusing on strengthening petroleum exploration and production, expediting projects to reduce carbon dioxide emissions, and investing in beyond E&P businesses for the energy transition.",
+   "published_at": "2022-12-08",
+   "source_url": "https://www.pttep.com/en/newsroom/press-releases/315/pttep-sets-a-5-year-investment-budget-of-usd-29100-million-supporting-business-directions-through-its-3-strategic-pillars-for-sustainable-growth",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-10",
+   "text": "The National Anti-Corruption Commission (NACC) found four former executives of PTT Exploration and Production Public Company Limited (PTTEP) guilty of corruption and bribery.",
+   "published_at": "2024-05-01",
+   "source_url": "https://thearabianpost.com/thailands-nacc-finds-guilty-among-four-former-executives-of-energy-base-firm-of-corruption-and-bribery/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:PTTEP-harvest-11",
+   "text": "The National Anti-Corruption Commission (NACC) reached a resolution that four former executives of PTT Exploration and Production Public Company Limited (PTTEP) are found guilty of corruption, collusion, and bribery.",
+   "published_at": "2024-05-01",
+   "source_url": "https://www.taiwannews.com.tw/news/5677517",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4880
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6060
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5726
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5805
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5379
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5802
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4302
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5418
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6114
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5968
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5341
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5667
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6136
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5738
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 78336,
+ "kept": 12,
+ "merged_from_prior": 3
+}

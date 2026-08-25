@@ -4,60 +4,284 @@
  "events": [
   {
    "event_id": "KLSE:IHH-harvest-0",
-   "text": "IHH Healthcare's Sustainability Report captures the Group's sustainability performance for the financial year 1 January 2023 to 31 December 2023, with overall approval granted by the Board of Directors.",
-   "published_at": "2023-12-31",
-   "source_url": "https://www.scribd.com/document/799171619/Sustainability-Report-2023",
-   "source_type": "company_pr",
+   "text": "IHH Healthcare Bhd secured its first sustainability-linked loan worth S$300mil (RM996mil) from UOB.",
+   "published_at": "2025-04-30",
+   "source_url": "https://www.thestar.com.my/business/business-news/2025/04/30/ihh-secures-rm996mil-uob-loan",
+   "source_type": "news",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:IHH-harvest-1",
-   "text": "IHH Healthcare secured its first sustainability-linked loan, a landmark S$300 million facility with UOB, marking UOB's first sustainability-linked loan for the healthcare sector.",
-   "published_at": "2025-04-29",
-   "source_url": "https://www.uobgroup.com/web-resources/uobgroup/pdf/newsroom/2025/ihh-x-uob-sll.pdf",
+   "text": "IHH Healthcare Malaysia CEO Dr Kamal Amzan directed hospitals to treat insurer-driven delays to urgent treatment as patient safety incidents, warning that coverage decisions that stall care can worsen outcomes.",
+   "published_at": "2026-03-09",
+   "source_url": "https://codeblue.galencentre.org/2026/03/ihh-manages-insurance-driven-delays-as-patient-safety-events/",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:IHH-harvest-2",
-   "text": "In a lawsuit, Emqore Envesecure Private Capital Trust is seeking in excess of $6.5 billion in damages from IHH Healthcare and more than two dozen named defendants.",
-   "published_at": "2022-01-05",
-   "source_url": "https://www.reuters.com/legal/litigation/us-fund-seeks-65-bln-damages-lawsuit-against-malaysias-ihh-2022-01-05/",
-   "source_type": "news",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:IHH-harvest-3",
    "text": "IHH Healthcare Malaysia CEO Dr Kamal Amzan directed hospitals under the group to treat insurer-driven delays to urgent treatment as patient safety incidents, warning that coverage decisions that stall care can worsen outcomes.",
    "published_at": "2026-03-09",
    "source_url": "https://codeblue.galencentre.org/2026/03/ihh-manages-insurance-driven-delays-as-patient-safety-events/",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-3",
+   "text": "IHH Healthcare Berhad submitted its Sustainability Report to the SGX on 24-Apr-2026.",
+   "published_at": "2026-04-24",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/N9NJBCPX473TDDMI/",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-4",
+   "text": "IHH Healthcare contributed RM1 million to aid relief efforts led by the Malaysian Red Crescent Society (MRCS) and MERCY Malaysia across Malaysia in December 2024.",
+   "published_at": "2024-12-01",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/N9NJBCPX473TDDMI/885523_2_IHH%20Healthcare%20Berhad_Sustainability%20Report%202025_Part%202.pdf",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-5",
+   "text": "IHH Healthcare Berhad broadcast its Sustainability Report on the SGX on 29-Apr-2024.",
+   "published_at": "2024-04-29",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/O6EIA7XAN13U6VS8/c5a1f9bcd6b5f7ab6884378f4b293ece8606c5c1f27d596d02a9ec397484d5f5",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-6",
+   "text": "IHH Healthcare achieved a 3.9% reduction in emissions intensity per patient bed-day in 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-7",
+   "text": "IHH Healthcare reported a 5.6% increase in nursing talent in 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-8",
+   "text": "IHH Healthcare increased value-driven outcome indicators to 202 in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-9",
+   "text": "IHH Healthcare reached 49% women in leadership roles in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-10",
+   "text": "IHH Healthcare reduced greenhouse gas emissions intensity per patient-bed-day by 3.2% in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-11",
+   "text": "IHH Healthcare reduced desflurane by 55% in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-12",
+   "text": "IHH Healthcare's indirect wholly-owned subsidiary Northern TK Venture has filed a lawsuit against Daiichi Sankyo, as disclosed by IHH to the Singapore Exchange and Bursa Malaysia and reported by Daiichi Sankyo in its statement dated November 22, 2023.",
+   "published_at": "2023-11-22",
+   "source_url": "https://www.daiichisankyo.com/files/news/pressrelease/pdf/202311/20231122_E.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:IHH-harvest-13",
+   "text": "IHH Healthcare's Singapore unit Northern TK Venture increased its damage claim against Daiichi Sankyo to over ¥200 billion (about RM5.7 billion) for blocking its attempt to make an open offer for shares in India's Fortis Healthcare, announced on Tuesday May 20.",
+   "published_at": "2025-05-20",
+   "source_url": "https://theedgemalaysia.com/node/755907",
+   "source_type": "news",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: unparsed reply",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "unparsed reply"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 1,
-   "status": "live"
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5039
   },
   "financing": {
    "snippets": 8,
    "kept": 1,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5609
   },
   "controversy": {
    "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4363
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5758
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5951
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5321
+  },
+  "governance:2023": {
+   "snippets": 8,
    "kept": 2,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 4842
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4886
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4954
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5041
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5749
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5034
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6016
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5913
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 4
+ "prompt_chars": 74476,
+ "kept": 14,
+ "merged_from_prior": 2
 }

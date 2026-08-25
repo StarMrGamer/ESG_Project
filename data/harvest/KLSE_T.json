@@ -4,108 +4,236 @@
  "events": [
   {
    "event_id": "KLSE:T-harvest-0",
-   "text": "Telekom Malaysia Berhad total emissions reported as 295,901 t CO2e for 2023, covering Scope 1, 2 & 3 GHG data from sustainability reports.",
-   "published_at": "2023-01-01",
-   "source_url": "https://www.roundarc.com/data/telekom-malaysia-berhad-malaysia",
+   "text": "The board together with management takes responsibility for the governance of sustainability in the company including setting the company's sustainability strategies, priorities and targets.",
+   "published_at": "2026-04-01",
+   "source_url": "https://tm.com.my/sites/default/files/2026-04/CG%20Report%202025_TM.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:T-harvest-1",
-   "text": "Telekom Malaysia Berhad reported 384.4K tCO2e (2023) CO2 emissions in 2023, a -981.2% reduction since 2021.",
-   "published_at": "2023-01-01",
-   "source_url": "https://polluer.com/companies/MTM4MjQ1MzYy",
+   "text": "Telekom Malaysia said it will continue to extend its full cooperation with the US Department of Justice (DOJ) concerning former employees of TM USA Inc., after it had earlier initiated its own investigation pursuant to suspicion of misconduct by the individuals, which led to their dismissal.",
+   "published_at": "2026-05-20",
+   "source_url": "https://www.malaymail.com/news/malaysia/2026/05/20/telekom-malaysia-says-cooperating-with-us-doj-over-alleged-misconduct-by-former-tm-usa-employees/220667",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
    "event_id": "KLSE:T-harvest-2",
-   "text": "Telekom Malaysia Bhd's 2025 Integrated Report highlights a 34% reduction in Scope 1 and Scope 2 emissions compared to the 2019 baseline, driven by energy efficiency and renewable energy adoption, and expanded waste and water reporting boundaries.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/integrated-annual-report",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:T-harvest-3",
-   "text": "Telekom Malaysia achieved a 34% reduction in carbon emissions compared to its 2019 baseline for the 2025 fiscal year.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:T-harvest-4",
-   "text": "Telekom Malaysia reaffirmed its commitment to achieving net-zero emissions by 2050 in its 2025 sustainability statement.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:T-harvest-5",
-   "text": "Telekom Malaysia procured 96,587 MWh of renewable energy through the Green initiative in the 2025 fiscal year.",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:T-harvest-6",
-   "text": "Telekom Malaysia's 2025 sustainability report marked its first adoption of IFRS Sustainability Disclosure Standards (S1 and S2).",
-   "published_at": "2025-01-01",
-   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:T-harvest-7",
-   "text": "2025 marks the second year that sustainability metrics and targets have been embedded into the KPIs and remuneration of key leadership positions at Telekom Malaysia.",
+   "text": "In 2025, Telekom Malaysia embedded sustainability metrics and targets into the KPIs and remuneration of key leadership positions for the second year.",
    "published_at": "2025-01-01",
    "source_url": "https://tm.com.my/sites/default/files/2026-05/%5BPages%20100-251%5D%20Telekom%20Malaysia%20Berhad%20IAR25.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "KLSE:T-harvest-8",
-   "text": "The United States has charged three senior employees of Telekom Malaysia (TM) for allegedly misappropriating over $20 million from the Malaysian state telecommunications firm, the U.S. Department of Justice said.",
-   "published_at": "2026-05-20",
-   "source_url": "https://www.reuters.com/legal/government/us-charges-three-malaysian-state-telecoms-officials-for-multimillion-dollar-2026-05-20/",
-   "source_type": "news",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "KLSE:T-harvest-9",
-   "text": "Telekom Malaysia Bhd (TM) said it will continue to extend its full cooperation with the US Department of Justice (DOJ) concerning former employees of TM USA Inc., and that it had earlier initiated its own investigation pursuant to the suspicion of misconduct by the individuals, which led to their dismissal.",
+   "event_id": "KLSE:T-harvest-3",
+   "text": "Telekom Malaysia said it will continue to extend full cooperation with the US Department of Justice concerning former employees of TM USA Inc., after initiating its own investigation pursuant to suspicion of misconduct that led to their dismissal.",
    "published_at": "2026-05-20",
    "source_url": "https://www.malaymail.com/news/malaysia/2026/05/20/telekom-malaysia-says-cooperating-with-us-doj-over-alleged-misconduct-by-former-tm-usa-employees/220667",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-4",
+   "text": "In 2024, Telekom Malaysia reduced its carbon emissions by 30% compared to the 2019 baseline.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-5",
+   "text": "TM achieved a 34% carbon emission reduction against its 2019 baseline, marking steady progress towards achieving 62% by 2030 and net zero emissions by 2050.",
+   "published_at": "2026-05-01",
+   "source_url": "https://tm.com.my/sites/default/files/2026-05/%5BPages%20100-251%5D%20Telekom%20Malaysia%20Berhad%20IAR25.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-6",
+   "text": "In 2023, TM refreshed its Group level Sustainability Governance Structure to strengthen oversight and execution of sustainability and climate change initiatives and define reporting lines.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www1.tm.com.my/sites/default/files/2024-05/2023%20TCFD%20Report_29.4.2024_3.52PM.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-7",
+   "text": "Telekom Malaysia achieved a 22% reduction in carbon emissions in 2023, compared with its 2019 baseline, through energy-efficiency initiatives and by increasing its renewable energy mix.",
+   "published_at": "2023-01-01",
+   "source_url": "https://theedgemalaysia.com/node/731506",
+   "source_type": "news",
+   "_origin": "harvest"
   }
  ],
- "status": "ok",
- "snippet_count": 32,
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; controversy:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 3,
-   "status": "live"
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
    "snippets": 8,
-   "kept": 5,
-   "status": "live"
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5151
   },
   "financing": {
    "snippets": 8,
    "kept": 0,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5082
   },
   "controversy": {
    "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5083
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5239
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5938
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
    "kept": 2,
-   "status": "live"
+   "status": "live",
+   "prompt_chars": 5451
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4986
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5621
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5641
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5195
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5044
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5227
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5485
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5591
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 10
+ "prompt_chars": 74734,
+ "kept": 8,
+ "merged_from_prior": 2
 }

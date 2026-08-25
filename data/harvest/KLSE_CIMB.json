@@ -1,62 +1,38 @@
 {
- "company_id": "PSE:SM",
- "company": "SM Investments Corp",
+ "company_id": "KLSE:CIMB",
+ "company": "CIMB Group Holdings Bhd",
  "events": [
   {
-   "event_id": "PSE:SM-harvest-0",
-   "text": "SM Investments Corporation held its Organizational Board Meeting on April 30, 2025 at Harrison Room 1 and 2, Conrad Manila, Pasay City.",
-   "published_at": "2025-04-30",
-   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=aab279b27960868fec6e1601ccee8f59",
-   "source_type": "exchange_filing",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:SM-harvest-1",
-   "text": "SM Investments Corp. said it remains on track to reduce greenhouse gas emissions by 40% by 2040.",
-   "published_at": "2026-07-24",
-   "source_url": "https://www.sminvestments.com/press_release/sm-remains-on-track-to-cut-emissions-by-40-by-2040/",
+   "event_id": "KLSE:CIMB-harvest-0",
+   "text": "CIMB Group's 2023 Sustainability Report highlights a 26% reduction in Scope 1 and 2 emissions compared to the 2019 baseline and achieving carbon neutrality in its Singapore operations.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/cimb-group/2023/sustainability-report",
    "source_type": "company_pr",
    "_origin": "harvest"
   },
   {
-   "event_id": "PSE:SM-harvest-2",
-   "text": "The SM Group increased its renewable energy sourcing to 31% of total electricity consumption in 2025.",
-   "published_at": "2026-05-22",
-   "source_url": "https://logisticsnews.ph/2026/05/22/sm-group-raises-renewable-energy-sourcing-to-31-in-2025/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:SM-harvest-3",
-   "text": "SM's banks BDO Unibank Inc. and China Banking Corp. extended a total of PHP249 billion to renewable energy projects as of end 2025.",
-   "published_at": "2026-05-22",
-   "source_url": "https://logisticsnews.ph/2026/05/22/sm-group-raises-renewable-energy-sourcing-to-31-in-2025/",
-   "source_type": "company_pr",
-   "_origin": "harvest"
-  },
-  {
-   "event_id": "PSE:SM-harvest-4",
-   "text": "SM Investments Corp. is cutting costs through green investments including over 200,000 solar panels, a floating solar farm, geothermal projects, and P1.2 trillion in sustainable financing.",
-   "published_at": "2026-07-24",
-   "source_url": "https://tribune.net.ph/2026/07/24/sm-uses-green-investments-to-cut-costs-lift-resilience",
+   "event_id": "KLSE:CIMB-harvest-1",
+   "text": "CIMB Group has completed its Scope 3 financed emissions inventory for its total portfolio for four key operating markets (Malaysia, Indonesia, Singapore and Thailand) which collectively contribute to more than 95% of the Group's portfolios in terms of total assets and net income respectively.",
+   "published_at": "2024-07-03",
+   "source_url": "https://www.cimb.com/content/dam/cimb/group/documents/cimb-net-zero-whitepaper-20240703.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
- "snippet_count": 0,
+ "status": "financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 16,
  "angles": {
   "emissions": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "cache",
+   "prompt_chars": 5277
   },
   "governance": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "cache",
+   "prompt_chars": 5173
   },
   "financing": {
    "snippets": 0,
@@ -209,6 +185,6 @@
    "prompt_chars": 0
   }
  },
- "prompt_chars": 0,
- "kept": 5
+ "prompt_chars": 10450,
+ "kept": 2
 }

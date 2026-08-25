@@ -2,29 +2,35 @@
  "company_id": "SET:INTUCH",
  "company": "Intouch Holdings PCL",
  "events": [],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline",
- "snippet_count": 0,
+ "status": "financing: offline; controversy: offline",
+ "snippet_count": 16,
  "angles": {
   "emissions": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline"
+   "status": "live",
+   "prompt_chars": 5083
   },
   "governance": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline"
+   "status": "live",
+   "prompt_chars": 4591
   },
   "financing": {
    "snippets": 0,
    "kept": 0,
-   "status": "offline"
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
    "snippets": 0,
    "kept": 0,
-   "status": "offline"
+   "status": "offline",
+   "prompt_chars": 0
   }
  },
- "kept": 0
+ "prompt_chars": 9674,
+ "kept": 0,
+ "merged_from_prior": 0
 }

@@ -1,0 +1,223 @@
+{
+ "company_id": "SGX:SIA",
+ "company": "Singapore Airlines",
+ "events": [
+  {
+   "event_id": "SGX:SIA-harvest-0",
+   "text": "A California resident filed a federal lawsuit against Singapore Airlines after allegedly suffering anaphylaxis during a Premium Economy flight from Bali to Singapore in August 2025, following crew assurances that a meal was shellfish-free.",
+   "published_at": "2025-08-01",
+   "source_url": "https://www.nomadlawyer.org/singapore-airlines-shellfish-allergy-lawsuit-bali-california-montreal-convention-2026",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SIA-harvest-1",
+   "text": "Singapore Airlines Limited filed its Sustainability Report announcement with SGX on 25-Jun-2025.",
+   "published_at": "2025-06-25",
+   "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/SXCNNN89TVWGTPA1/",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SIA-harvest-2",
+   "text": "Singapore's High Court in Durairaj Santiran v Singapore Airlines Ltd [2024] SGHC 249 held that an employer is not liable for negligence if they have implemented a reasonable system of work and training to mitigate common workplace risks, and the claimant fails to prove the existence of a hazardous condition.",
+   "published_at": "2024-01-01",
+   "source_url": "https://legal-wires.com/singapore/durairaj-santiran-v-singapore-airlines-ltd-2024-sghc-249/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SIA-harvest-3",
+   "text": "On May 21, 2024, Singapore Airlines flight SQ321 encountered severe turbulence, killing one passenger and hospitalizing more than 100 others.",
+   "published_at": "2024-05-21",
+   "source_url": "https://www.aerotime.aero/articles/three-passengers-file-uk-lawsuit-against-singapore-airlines-over-sq321-turbulence",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SIA-harvest-4",
+   "text": "In August 2025, a California resident suffered anaphylaxis on a Singapore Airlines Premium Economy flight from Bali to Singapore after crew assurances that a meal was shellfish-free.",
+   "published_at": "2025-08-01",
+   "source_url": "https://www.nomadlawyer.org/singapore-airlines-shellfish-allergy-lawsuit-bali-california-montreal-convention-2026",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SGX:SIA-harvest-5",
+   "text": "In Durairaj Santiran v Singapore Airlines Ltd [2024] SGHC 249, the court held that an employer is not liable for negligence if they have implemented a reasonable system of work and training.",
+   "published_at": "2024-01-01",
+   "source_url": "https://legal-wires.com/singapore/durairaj-santiran-v-singapore-airlines-ltd-2024-sghc-249/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
+ "snippet_count": 112,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5080
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5661
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5610
+  },
+  "q_regulator": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5898
+  },
+  "q_exchange": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5365
+  },
+  "q_index": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "emissions:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5376
+  },
+  "governance:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5060
+  },
+  "governance:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5399
+  },
+  "financing:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6103
+  },
+  "financing:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5753
+  },
+  "controversy:2023": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5439
+  },
+  "controversy:2024": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5790
+  },
+  "q_regulator:2023": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5564
+  },
+  "q_regulator:2024": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5815
+  },
+  "q_exchange:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_exchange:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_index:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_watchdog:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2023": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "q_news:2024": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 77913,
+ "kept": 6,
+ "merged_from_prior": 0
+}
