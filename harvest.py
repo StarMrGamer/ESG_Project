@@ -49,6 +49,7 @@ harvested evidence", never to a crash and never to an invented fact.
 
 import json
 import os
+import time
 import re
 import sys
 from typing import Any, Dict, List, Optional
@@ -139,12 +140,67 @@ ANGLES = (
 )
 
 
-def _query_for(constituent: Dict[str, Any], angle: str = "") -> str:
-    """A keyword query, not a sentence — news search does badly with questions."""
+#: SITE-SCOPED angles — the answer to "92% of what search returns is company-published".
+#:
+#: The confidence model caps a company's own publications at 0.50 by rule (the Adaro lesson), so
+#: gathering MORE evidence raises signal counts and cannot raise confidence. Twelve companies
+#: clear the disagreement bar and every one of them fails on confidence. The fix was never a
+#: lower threshold — it is better SOURCES, and this is how they are reached.
+#:
+#: Measured on Public Bank, 2026-08-25: an unscoped query returned 2 of 3 results from
+#: `publicbankgroup.com` (graded 0.50). The same query scoped to Bursa returned exchange filings
+#: (0.95). Same engine, same cost, roughly double the source quality.
+#:
+#: Every domain here is one `signals.classify_source` ALREADY grades at 0.65 or better — a domain
+#: it does not recognise falls through to `company_pr`, which would defeat the entire purpose.
+#: Groups are kept to five or six domains because a long OR chain degrades result quality.
+#: `docs/cse-high-quality-domains.txt` holds the same list in Google-CSE form.
+QUALITY_ANGLES = (
+    ("q_regulator", "ESG sustainability disclosure enforcement directive",
+     "(site:mas.gov.sg OR site:sec.gov.ph OR site:bnm.gov.my OR site:europa.eu)"),
+    ("q_exchange", "sustainability report filing announcement listing rule",
+     "(site:sgx.com OR site:bursamalaysia.com OR site:idx.co.id OR site:set.or.th "
+     "OR site:pse.com.ph)"),
+    ("q_index", "ESG rating index inclusion score assessment",
+     "(site:msci.com OR site:spglobal.com OR site:cdp.net OR site:ftserussell.com "
+     "OR site:sustainalytics.com)"),
+    # The watchdog group is not optional. Without an adverse-source angle a harvest quietly
+    # becomes a press-release collector, which is precisely what Adaro looked like.
+    ("q_watchdog", "controversy pollution deforestation labour violation campaign",
+     "(site:banktrack.org OR site:marketforces.org.au OR site:mongabay.com "
+     "OR site:greenpeace.org)"),
+    ("q_news", "ESG green bond emissions governance",
+     "(site:reuters.com OR site:bloomberg.com OR site:businesstimes.com.sg "
+     "OR site:straitstimes.com OR site:channelnewsasia.com OR site:theedgemalaysia.com)"),
+)
+
+
+#: Years the DEEP sweep scopes each angle to, on top of the unscoped pass.
+#:
+#: Search ranks by recency, so an unscoped sweep returns a recency-shaped sample of a company's
+#: history. Measured over the first full sweep: 2025 yielded 63 events, 2024 yielded 43, and 2023
+#: only 20 — not because 2023 was a quiet year for ASEAN ESG, but because a 2023 filing is buried
+#: under two years of newer pages. Naming the thin years in the query surfaces material the
+#: ranking hides.
+#:
+#: Only the thin years are listed. Adding 2025 and 2026 would multiply cost to re-find pages the
+#: unscoped pass already returns first.
+DEEP_YEARS = ("2023", "2024")
+
+
+def _query_for(constituent: Dict[str, Any], angle: str = "", year: str = "",
+               sites: str = "") -> str:
+    """A keyword query, not a sentence — news search does badly with questions.
+
+    `year` scopes the angle to one year for the deep sweep. It is a keyword, not a date filter:
+    search engines treat it as a term, which is exactly what is wanted — a page ABOUT 2023 is as
+    useful as one published in 2023, and the date guards decide what survives either way."""
     return " ".join([
         constituent.get("company", ""),
         constituent.get("country", ""),
         angle or "ESG sustainability emissions target green financing governance controversy",
+        year,
+        sites,
     ]).strip()
 
 
@@ -241,7 +297,9 @@ def _extract_from(constituent, cid, query, use_cache, max_date=""):
             len(snippets), ctx.get("status", ""), len(_SYSTEM) + len(user))
 
 
-def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True) -> Dict[str, Any]:
+def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True,
+                    deep: bool = False, pace: float = 0.0,
+                    quality: bool = False) -> Dict[str, Any]:
     """Live-retrieve across every angle, extract, dedupe, and return one record.
 
     NEVER raises (rule 1): a dead network, a missing key or a refusing model all come back as a
@@ -253,10 +311,28 @@ def harvest_company(constituent: Dict[str, Any], *, use_cache: bool = True) -> D
     # and this keeps the bound clock-free, like everything else the engine reads.
     max_date = str(constituent.get("as_of") or "").strip()[:10]
 
+    # The unscoped pass, plus one year-scoped pass per thin year when running deep. Passes are
+    # merged and deduped below, so a fact both passes find is still one fact.
+    passes = [(name, angle, "", "") for name, angle in ANGLES]
+    if quality:
+        passes += [(name, angle, "", sites) for name, angle, sites in QUALITY_ANGLES]
+    if deep:
+        passes += [(f"{name}:{yr}", angle, yr, "") for name, angle in ANGLES for yr in DEEP_YEARS]
+        if quality:
+            passes += [(f"{name}:{yr}", angle, yr, sites)
+                       for name, angle, sites in QUALITY_ANGLES for yr in DEEP_YEARS]
+
     merged, statuses = {}, []
-    for name, angle in ANGLES:
+    for pass_index, (name, angle, year, sites) in enumerate(passes):
+        # Pacing exists because the search backend throttles a sustained sweep. The first full
+        # 52-company run was cut off partway: 14 companies returned every angle `offline`. A
+        # deep sweep fires three times as many queries, so it MUST be paced or it reproduces
+        # that failure at three times the cost. Sleeping between passes is cheap; re-running a
+        # 52-company sweep is not.
+        if pace and pass_index:
+            time.sleep(pace)
         events, n, status, chars = _extract_from(
-            constituent, cid, _query_for(constituent, angle), use_cache, max_date)
+            constituent, cid, _query_for(constituent, angle, year, sites), use_cache, max_date)
         record["snippet_count"] += n
         # Prompt size is recorded HERE, at the only moment it is known for free. Deriving it
         # later means replaying every retrieval, which needs a warm cache and stalls outright
@@ -288,9 +364,66 @@ def _path_for(cid: str) -> str:
     return os.path.join(HARVEST_DIR, cid.replace(":", "_") + ".json")
 
 
-def save(record: Dict[str, Any]) -> str:
+def save(record: Dict[str, Any], *, merge: bool = True, replace: bool = False) -> str:
+    """Write one company's harvest, UNIONed with whatever is already stored (the default).
+
+    Merge is the default because of a bug that cost real evidence. The first full 52-company
+    sweep was rate-limited by the search backend partway through: 14 companies came back with
+    every angle `offline` and 11 of them kept nothing. Because `save` overwrote, a FAILED FETCH
+    replaced good stored evidence with an empty list — the harvest went backwards (2025 events
+    fell 63 -> 48) and nothing on screen said so, because a company with no evidence looks exactly
+    like a company we never swept.
+
+    That is the same shape as every other trap here: an absence rendered as a finding. A network
+    failure must never be able to destroy data it did not replace, so:
+
+      * `merge=True` (default) unions new events with stored ones, deduped on (text prefix, url);
+      * a record that kept NOTHING never overwrites a stored record that has something, even
+        with `replace=True` — there is no legitimate reason for a failed sweep to empty a file;
+      * `replace=True` is the deliberate opt-out, for a genuine re-harvest after a rule change.
+    """
     os.makedirs(HARVEST_DIR, exist_ok=True)
     path = _path_for(record["company_id"])
+
+    prior_events = []
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                prior_events = json.load(fh).get("events") or []
+        except (OSError, ValueError):
+            prior_events = []
+
+    # The hard floor, independent of every flag: a sweep that kept nothing cannot empty a file.
+    if prior_events and not (record.get("events") or []):
+        record = dict(record)
+        record["events"] = prior_events
+        record["kept"] = len(prior_events)
+        record["status"] = (record.get("status") or "") + " | kept prior evidence: this sweep " \
+                           "returned nothing (search offline), so stored events were preserved"
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(record, fh, indent=1, ensure_ascii=False)
+            fh.write("\n")
+        return path
+
+    if merge and not replace and os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                prior = json.load(fh)
+        except (OSError, ValueError):
+            prior = {}
+        seen, out = set(), []
+        for e in list(prior.get("events") or []) + list(record.get("events") or []):
+            key = (str(e.get("text", ""))[:70].lower(), e.get("source_url"))
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(e)
+        for i, e in enumerate(out):
+            e["event_id"] = "%s-harvest-%d" % (record["company_id"], i)
+        record = dict(record)
+        record["events"] = out
+        record["kept"] = len(out)
+        record["merged_from_prior"] = len(prior.get("events") or [])
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(record, fh, indent=1, ensure_ascii=False)
         fh.write("\n")
@@ -557,6 +690,9 @@ def main(argv: List[str]) -> int:
         return 0
 
     limit = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 10**9
+    deep = "--deep" in argv
+    pace = float(argv[argv.index("--pace") + 1]) if "--pace" in argv else 0.0
+    quality = "--quality" in argv
     # Delisted names are excluded from investable output by rule, so gathering fresh evidence
     # for them spends calls on companies that no longer trade. Explicitly naming one still
     # harvests it — the facts are real and someone may want them — but a sweep skips them.
@@ -579,12 +715,17 @@ def main(argv: List[str]) -> int:
         print("Nothing to do. Pass a ticker, --empty, or --all (see --list).")
         return 1
 
-    print("harvesting %d company(ies) — %d search angles x %d snippets each\n"
-          % (len(targets), len(ANGLES), TOP_K))
+    passes = len(ANGLES) * (1 + len(DEEP_YEARS)) if deep else len(ANGLES)
+    print("harvesting %d company(ies) — %d search pass(es) x %d snippets each%s\n"
+          % (len(targets), passes, TOP_K,
+             ("  [DEEP: angles also scoped to " + ", ".join(DEEP_YEARS)
+              + "; merged into what is already stored]") if deep else ""))
     total_kept = 0
     for t in targets:
-        rec = harvest_company(cons[t])
-        save(rec)
+        if pace and t != targets[0]:
+            time.sleep(pace * 2)          # a longer gap between companies than between passes
+        rec = harvest_company(cons[t], deep=deep, pace=pace, quality=quality)
+        save(rec, replace="--replace" in argv)
         total_kept += rec.get("kept", 0)
         note = rec["status"] if rec["status"] != "ok" else ""
         print("  %-14s %-30s snippets %3d  kept %2d  %s"

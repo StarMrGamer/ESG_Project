@@ -271,6 +271,54 @@ def _fetch_ddg_instant(query):
 # --------------------------------------------------------------------------- #
 #  ON-DISK CACHE  (TTL'd — fast repeats, resilient to a flaky network)
 # --------------------------------------------------------------------------- #
+#: Google's Programmable Search JSON API. Keys come from the environment ONLY (rule 5) and the
+#: provider simply does not exist when they are absent — no warning, no degraded mode, no
+#: half-configured request that fails at demo time.
+#:
+#: Why the API and not google.com/search: the HTML endpoint returns a JavaScript shell. Measured
+#: 2026-08-24 on a real query, it came back 91,515 characters long containing ZERO extractable
+#: result links and no result containers — there is nothing to parse without running a browser.
+#: Scraping it would also breach Google's terms, which sits badly beside the care taken over
+#: LSEG's licence elsewhere in this codebase. Mojeek and Brave were tested the same day and both
+#: return a CAPTCHA wall. So the official API is not the conservative option here, it is the only
+#: one that works.
+#:
+#: The free tier is 100 queries/day. A single four-angle sweep of 52 companies is 208 queries, so
+#: Google SUPPLEMENTS DuckDuckGo rather than replacing it — results are merged and deduped by URL.
+GOOGLE_CSE = "https://www.googleapis.com/customsearch/v1"
+
+
+def google_configured():
+    """True when both env vars are present. Nothing else in the module needs to know how."""
+    return bool(os.environ.get("GOOGLE_API_KEY") and os.environ.get("GOOGLE_CSE_ID"))
+
+
+def _fetch_google_api(query, limit):
+    """Google Programmable Search results as `[{title,url,text}]`. Raises core.FetchError like
+    every other provider, so `fetch_documents` treats it identically to the DuckDuckGo ones."""
+    if not google_configured():
+        return []
+    raw = core.http_get(GOOGLE_CSE, params={
+        "key": os.environ["GOOGLE_API_KEY"],
+        "cx": os.environ["GOOGLE_CSE_ID"],
+        "q": query,
+        "num": str(min(int(limit or 10), 10)),   # the API caps a page at 10
+        "safe": "off",
+    }, timeout=10)
+    try:
+        items = json.loads(raw).get("items") or []
+    except ValueError as exc:
+        raise core.FetchError(f"Google returned unparseable JSON: {exc}") from exc
+    out = []
+    for item in items:
+        url = str(item.get("link") or "").strip()
+        title = _strip_html(str(item.get("title") or "")).strip()
+        text = _strip_html(str(item.get("snippet") or "")).strip()
+        if url and (title or text):
+            out.append({"title": title or url, "url": url, "text": text})
+    return out
+
+
 def _cache_path(key):
     return os.path.join(CACHE_DIR, hashlib.sha256(key.encode("utf-8")).hexdigest()[:16] + ".json")
 
@@ -307,7 +355,10 @@ def fetch_documents(query: str, *, max_docs: int = MAX_DOCS, use_cache: bool = T
     reason when nothing usable came back (else None). A blocked network / empty result yields
     ([], "offline", "<reason>") — the graceful rule-1 fallback. Each doc = {title,url,text}.
     """
-    cache_key = f"ddg::{query}::{max_docs}"
+    # The cache key names the PROVIDER SET, not just the query. Without that, a cache written
+    # before a Google key was configured would be served afterwards as though Google had been
+    # asked and returned nothing — a silent coverage loss that looks exactly like a thin topic.
+    cache_key = f"search:{'ddg+g' if google_configured() else 'ddg'}::{query}::{max_docs}"
     if use_cache:
         cached = _cache_read(cache_key)
         if cached is not None:
@@ -325,8 +376,26 @@ def fetch_documents(query: str, *, max_docs: int = MAX_DOCS, use_cache: bool = T
             error = None
             break
 
+    # Google is ADDITIVE and independent: a different index finds different pages, which is the
+    # whole reason to add it. It runs whether or not DuckDuckGo succeeded, and its own failure is
+    # never allowed to turn a working DuckDuckGo result into an outage (rule 1).
+    if google_configured():
+        try:
+            seen = {d["url"] for d in docs}
+            for doc in _fetch_google_api(query, max_docs):
+                if doc["url"] not in seen:
+                    seen.add(doc["url"])
+                    docs.append(doc)
+            if docs:
+                error = None
+        except core.FetchError as e:
+            error = error or str(e)
+        except Exception as e:                    # noqa: BLE001 - best-effort by contract
+            error = error or f"{type(e).__name__}: {e}"
+
     if not docs:
-        return [], "offline", (error or "no usable DuckDuckGo results returned")
+        provider = "DuckDuckGo + Google" if google_configured() else "DuckDuckGo"
+        return [], "offline", (error or f"no usable {provider} results returned")
     if use_cache:
         _cache_write(cache_key, docs)
     return docs, "live", None

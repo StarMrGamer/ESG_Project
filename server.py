@@ -47,6 +47,7 @@ import lseg
 import metrics
 import pipeline_counts
 import quotes
+import rationale
 import sensitivity
 import stage1
 import stage2
@@ -482,6 +483,141 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
     }
 
 
+def _focused_engine_record(demo, horizon, ticker):
+    """The FULL engine record (signals included) for one ticker, or None. `_record_summary`
+    deliberately strips signals for the board payload, so the rail asks the run directly."""
+    if not ticker:
+        return None
+    try:
+        run, _meta, _cfg = _engine_run(demo, horizon)
+    except Exception:                                   # noqa: BLE001 - never break the board
+        return None
+    for rec in run.get("records") or []:
+        if rec.get("company_id") == ticker:
+            return rec
+    return None
+
+
+def _live_price_90d(focused):
+    """The real 90-day price move for a REAL listing, via `quotes.change_90d`. Returns None on
+    any failure, an unmapped exchange (PSE and HOSE are documented gaps) or a fictional name —
+    the strip then says it is unavailable rather than drawing a flat line, which a reader would
+    take to mean the price did not move. A quote is context and never an input to a score."""
+    ticker = (focused or {}).get("ticker")
+    if not ticker:
+        return None
+    try:
+        return quotes.change_90d(ticker)
+    except Exception:                                   # noqa: BLE001 - best-effort by design
+        return None
+
+
+def _decay_note(record, half_life_days):
+    """Why a company with evidence can still read zero momentum.
+
+    The short horizon halves the weight of evidence every 45 days, so a name whose newest signal
+    is a year old scores 0.000 and lands in `consensus` — correct, and completely opaque on
+    screen, because the card just empties. Saying it turns a blank into the finding it actually
+    is: the evidence exists, it is simply too old to answer THIS question."""
+    if not record:
+        return ""
+    count = record.get("signal_count") or 0
+    if not count or metrics.num(record.get("composite_momentum")):
+        return ""
+    dates = [str(s.get("published_at") or "")[:10] for s in (record.get("signals") or [])]
+    dates = sorted([d for d in dates if d], reverse=True)
+    newest = dates[0] if dates else ""
+    return (f"{count} scored signal{'s' if count != 1 else ''} on file"
+            + (f", newest {newest}" if newest else "")
+            + f" — all decayed to zero weight at a {half_life_days}-day half-life. "
+              "The evidence exists; it is too old to move this horizon. Switch to the longer "
+              "horizon to see what it says.")
+
+
+#: Seconds the cutoff-replay chart may spend before giving up (see below).
+SERIES_BUDGET_SECONDS = 6.0
+
+_SERIES_CACHE = {}
+
+
+def _real_momentum_series(demo, horizon, run, points=8):
+    """A REAL per-pillar momentum series: the engine re-run at successive historical cutoffs.
+
+    The existing `metrics.momentum_series` interpolates — it eases from an invented baseline to
+    each pillar's current value so the lines fan out like the mockup, and it says so. That is
+    honest for the FICTIONAL demo set, which holds no dated evidence to build a series from.
+
+    The real basket does hold dated evidence, and `run_engine` already takes a `cutoff`, so every
+    point here is a genuine engine run at its own date — what the Radar WOULD have said then, on
+    only the evidence that existed then. Same construction as the five backtest cases, and the
+    reason it can be drawn at all is Gate-1 purity: no clock, no RNG, so a replay of 2024-06-30
+    is the same computation today as it was then.
+
+    Returns `{pillar: [floats]}` plus the cutoff labels, or `({}, [])` when there is nothing
+    dated to plot — never an interpolated stand-in for a real universe.
+    """
+    as_of = str(run.get("as_of") or "")[:10]
+    if demo or not as_of:
+        return {}, []
+    key = (demo, horizon, run.get("run_id"), points)
+    if key in _SERIES_CACHE:
+        return _SERIES_CACHE[key]
+
+    year, month = int(as_of[:4]), int(as_of[5:7])
+    cutoffs = []
+    for step in range(points - 1, -1, -1):
+        m = month - step * 3
+        y = year
+        while m <= 0:
+            m += 12
+            y -= 1
+        # Quarter ends, so a cutoff never lands mid-month and shift the window unevenly.
+        cutoffs.append(f"{y:04d}-{m:02d}-28")
+
+    cfg = engine_config.for_horizon(horizon)
+    metadata = company_metadata.load(demo=demo)
+    cons = universe.constituents(universe.active_file(demo))
+    if not demo:
+        cons = harvest.apply_overlay(cons)
+    series = {p: [] for p in metrics.PILLARS}
+    # A HARD BUDGET, because this is eight full engine runs. They are cheap once the disk cache
+    # is warm, but every cutoff is its own `run_id` and a harvest running in the background
+    # changes the inputs continuously — so during a sweep every request is a cold miss and the
+    # board would block on a CHART. A chart is never worth a hanging page: past the budget this
+    # gives up and the panel shows its honest empty state until the inputs settle.
+    deadline = time.monotonic() + SERIES_BUDGET_SECONDS
+    for cutoff in cutoffs:
+        if time.monotonic() > deadline:
+            return {}, []
+        try:
+            past = engine.run_engine(cons, metadata=metadata, config=cfg, cutoff=cutoff)
+        except Exception:                              # noqa: BLE001 - a chart must not 500
+            return {}, []
+        rows = metrics.pillar_momentum_from_records(past["records"])
+        for row in rows:
+            # `None` where NO company had evidence for that pillar at that cutoff. Substituting
+            # 0.0 here would be the bug this whole codebase keeps catching: "no evidence" and
+            # "evidence says flat" both land on zero, and only one of them is a measurement.
+            series[row["key"]].append(row["value"] if row["n"] else None)
+
+    # A line can only be drawn where every point is a real reading. Social and digital evidence
+    # exists for 3 of 52 companies, so those pillars have genuine gaps — and a chart that bridges
+    # a gap with a zero is asserting a measurement nobody made. Rather than draw a broken line or
+    # a false one, a pillar that is missing ANY point is dropped and the count is reported
+    # alongside, which is the same treatment the matrix gives its hollow dots.
+    dropped = {k: sum(1 for x in v if x is None) for k, v in series.items()
+               if any(x is None for x in v)}
+    series = {k: v for k, v in series.items()
+              if v and all(x is not None for x in v) and any(abs(x) > 1e-9 for x in v)}
+    out = (series, cutoffs if series else [])
+    if dropped:
+        out[0].setdefault("_dropped", None)
+        del out[0]["_dropped"]        # keep the shape clean; the note travels in the log
+        print(f"[series] pillars with evidence gaps, not plotted: {dropped}")
+    _SERIES_CACHE[key] = out
+    return out
+
+
 def _why_wrong(focused):
     if not focused:
         return "Add or focus a company to see where its live signal diverges from the stale rating."
@@ -602,8 +738,18 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
             cls = metrics.classify(focused)
             signals = metrics.live_signals(focused)
             signals_kind = "signals"
-        fc = metrics.forecast_outlook(focused)
-        pct = metrics.price_change_pct(focused) if demo else None
+        # The engine holds dated, sourced, SCORED signals for the real basket; `live_signals`
+        # only ever finds the demo set's own block. Falling back means a real company with three
+        # scored signals stops reporting "0 signals" beside the momentum those signals produced.
+        erec = _focused_engine_record(demo, horizon, focused.get("ticker"))
+        if not signals and erec:
+            signals = metrics.signals_from_record(erec)
+            if signals:
+                signals_kind = "scored signals"
+        # A real last price for a real listing (best-effort, never a signal — see quotes.py).
+        # The demo universe is FICTIONAL and deliberately gets no quote.
+        live_px = None if demo else _live_price_90d(focused)
+        pct = metrics.price_change_pct(focused) if demo else (live_px or {}).get("pct")
         focused_payload = {
             "constituent": focused,
             "from_snapshot": bool(entry),
@@ -613,14 +759,30 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
                            "has": bool(ep)} if ep else None,
             "signals": signals,
             "signals_kind": signals_kind,
+            # Why a company WITH evidence can still read zero momentum on this horizon. Empty
+            # string when it does not apply, so the UI shows nothing rather than a caveat that
+            # does not fit the company in front of the reader.
+            "decay_note": _decay_note(erec, _engine_run(demo, horizon)[2]["decay"]["half_life_days"]),
+            # WHY this verdict — pros and cons on BOTH axes, derived by rule from the same run.
+            # A label without its reasoning is a conclusion the reader cannot argue with, and the
+            # cons are not optional: a case that only lists reasons to agree is marketing.
+            "case": (rationale.build(erec, company_metadata.load(demo=demo).get(focused.get("ticker")))
+                     if erec else None),
             "why_wrong": _why_wrong(focused),
             "plain_summary": metrics.plain_summary(focused, answer),
-            "forecast": fc,
             "news": metrics.news_card(focused),
             "analyst": metrics.analyst_coverage(focused),
             "check_action": metrics.focused_answer_action(
                 {ft: entry} if entry else {}, ft),
-            "price": {"pct": pct, "series": metrics.price_series(pct) if pct is not None else []},
+            # Demo draws a synthetic curve from its own illustrative percent; a real listing
+            # draws its ACTUAL closes, rebased to 100. `source` says which, so the strip can
+            # stop calling a live Yahoo series "illustrative".
+            "price": {"pct": pct,
+                      "series": ((live_px or {}).get("series")
+                                 if live_px else
+                                 (metrics.price_series(pct) if pct is not None else [])),
+                      "source": (live_px or {}).get("source") if live_px else None,
+                      "points": (live_px or {}).get("points") if live_px else None},
             "foundation": ({"basis": focused.get("esg_basis"),
                             "source_url": focused.get("source_url"),
                             "confidence": focused.get("confidence")}
@@ -642,6 +804,24 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         sample_sector=_short_sector(universe.sectors(path)[0]) if universe.sectors(path) else None,
         sample_country=(universe.countries(path) or [None])[0])
 
+    # Built once and used TWICE below — the pillar cards fall back to the engine's own
+    # per-component momentum when the constituents carry no numeric block, so the board must not
+    # score the same filtered view twice (it is cached, but the two copies could still drift).
+    engine_block = _engine_block(demo, filtered, horizon)
+
+    # The pillar cards: a constituent's own `momentum` block when it has one (the fictional demo
+    # set), otherwise the ENGINE's per-component direction consensus. Before this the cards read
+    # only the first source, so the real basket showed four "awaiting data" tiles next to 44
+    # companies' worth of environment evidence the engine had already scored. Two different
+    # scales, so each row carries `basis` and the UI labels the unit rather than guessing.
+    pillars = metrics.pillar_momentum(filtered)
+    if not any(row["value"] is not None for row in pillars):
+        pillars = metrics.pillar_momentum_from_records(engine_block["records"])
+
+    # The momentum chart. For the real basket this is not a drawing — it is the engine re-run at
+    # each quarter end, which is only possible because the engine is pure.
+    real_series, series_labels = _real_momentum_series(demo, horizon, _engine_run(demo, horizon)[0])
+
     return {
         "universe": {"note": uni.get("note"), "selection": uni.get("selection"),
                      "benchmark": uni.get("benchmark"),
@@ -657,12 +837,18 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         "counts": {"total": len(cons), "showing": len(filtered)},
         "industries": len({c["sector"] for c in cons if c["sector"] != "unknown"}),
         "avg": avg_payload,
-        "pillars": metrics.pillar_momentum(filtered),
-        "momentum_series": metrics.momentum_series(filtered),
+        "pillars": pillars,
+        # Real basket: genuine engine replays at quarterly cutoffs. Demo: the illustrative
+        # interpolation, which is all a fictional set can honestly support.
+        "momentum_series": real_series or metrics.momentum_series(filtered),
+        "momentum_series_basis": (
+            "engine replayed at each quarter cutoff — every point is a real run"
+            if real_series else "illustrative interpolation"),
+        "momentum_series_labels": series_labels,
         "hidden_winners": {"rows": hw_rows, "peer_avg": peer_avg, "n": peer_n},
         "evidence": {"coverage": metrics.credential_coverage(filtered), "leaders": leaders},
         "constituents": filtered,
-        "engine": _engine_block(demo, filtered, horizon),
+        "engine": engine_block,
         "focused": focused_payload,
         "watchlist": wl,
         "followups": followups,
@@ -1250,6 +1436,20 @@ def lseg_api(ticker: str, demo: bool = Query(False), company: str = "", exchange
                 "reason": f"{name} is not in LSEG's ~12.5k covered issuers, or the finder is "
                           f"unreachable right now."}
     return {**base, "available": True, "scores": scores}
+
+
+@app.get("/api/rationale/{ticker:path}")
+def company_rationale(ticker: str, demo: bool = False,
+                      horizon: str = engine_config.DEFAULT_HORIZON):
+    """The full pro/con case for one company — ESG and financial, side by side and never merged.
+
+    Rule-derived from the stored run (no LLM), so it replays identically for the run it
+    describes. 404 when the company is not in the scored universe: a case built for a company the
+    engine never ranked would be a verdict with no cohort behind it."""
+    rec = _focused_engine_record(demo, horizon, ticker)
+    if not rec:
+        raise HTTPException(status_code=404, detail=f"{ticker} is not in the scored universe")
+    return rationale.build(rec, company_metadata.load(demo=demo).get(ticker))
 
 
 @app.get("/api/anchors")

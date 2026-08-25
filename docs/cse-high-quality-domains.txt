@@ -1,0 +1,57 @@
+# Programmable Search Engine — "sites to search" for the HIGH-QUALITY engine.
+#
+# Paste the patterns (not the comments) into the CSE's site list. 35 domains, under the
+# 50-domain cap. Every one of these is a host `signals.classify_source` ALREADY grades at
+# 0.65 or better — that is the whole point. A domain the classifier does not recognise falls
+# through to `company_pr` (0.50), which is the cap this engine exists to get past, so adding
+# "good-looking" domains it doesn't know actively defeats the purpose.
+#
+# NOTE: *.gov cannot be used — Google blocks public-suffix patterns. Named .gov hosts are fine.
+
+# ── regulator · quality 1.00 ────────────────────────────────────────────────
+*.mas.gov.sg
+*.sec.gov.ph
+*.bnm.gov.my
+*.sec.gov
+*.europa.eu
+
+# ── exchange filings · quality 0.95 ─────────────────────────────────────────
+*.sgx.com
+*.bursamalaysia.com
+*.idx.co.id
+*.set.or.th
+*.pse.com.ph
+*.hsx.vn
+
+# ── index providers · quality 0.90 ──────────────────────────────────────────
+*.msci.com
+*.spglobal.com
+*.cdp.net
+*.ftserussell.com
+*.gresb.com
+*.sustainalytics.com
+
+# ── external reviewers · quality 0.90 ───────────────────────────────────────
+*.issgovernance.com
+*.iss-corporate.com
+*.moodys.com
+*.vigeo-eiris.com
+
+# ── NGO / watchdog · quality 0.70  (this is where controversies live) ───────
+*.banktrack.org
+*.marketforces.org.au
+*.mongabay.com
+*.greenpeace.org
+*.ilo.org
+*.amnesty.org
+
+# ── news · quality 0.65 ─────────────────────────────────────────────────────
+*.reuters.com
+*.bloomberg.com
+*.businesstimes.com.sg
+*.straitstimes.com
+*.channelnewsasia.com
+*.theedgemalaysia.com
+*.nikkei.com
+*.malaymail.com
+*.theguardian.com

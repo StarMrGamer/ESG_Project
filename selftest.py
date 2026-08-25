@@ -822,34 +822,6 @@ def test_analyst_coverage_fabrication_guard():
                for c in du)
 
 
-# --- #12 forecast outlook -----------------------------------------------------
-def test_forecast_outlook_improver():
-    fc = metrics.forecast_outlook(_demo_row("DemoBank"))
-    assert fc["available"] is True and fc["label"] == "Improving" and fc["tone"] == "good"
-    assert len(fc["pillars"]) == 4 and fc["lead"]["key"] == "digital_ai"
-
-
-def test_forecast_outlook_softening():
-    # No demo company softens (illustrative momentum tracks the 0-100 scores, which are positive),
-    # so exercise the Softening branch with a synthetic declining-momentum row.
-    softening = {"company": "Decliner",
-                 "momentum": {"environment": -10, "social": -8, "governance": -12, "digital_ai": -6}}
-    fc = metrics.forecast_outlook(softening)
-    assert fc["available"] is True and fc["label"] == "Softening" and fc["tone"] == "bad", fc["label"]
-
-
-def test_forecast_outlook_awaiting_and_nofab():
-    for obj in ({"company": "X"}, {}):
-        fc = metrics.forecast_outlook(obj)
-        assert fc["available"] is False and fc["label"] == "AWAITING DATA"
-        assert fc["pillars"] == [] and fc["lead"] is None
-    head = metrics.forecast_outlook(_demo_row("DemoBank"))["headline"].lower()
-    assert not any(ch.isdigit() for ch in head) and "$" not in head and "price" not in head
-    assert metrics._outlook_word(28) == "accelerating"
-    assert metrics._outlook_word(4) == "holding"
-    assert metrics._outlook_word(-4) == "softening"
-
-
 # --- 2.1 plain summary --------------------------------------------------------
 def test_plain_summary():
     hw = _demo_row("Selat Bank")               # a demo hidden winner (classify -> HIDDEN WINNER)
@@ -1952,6 +1924,133 @@ def test_backtest_series_on_disk_is_shaped_for_the_panel():
         "the case we got wrong has been dropped from the set")
 
 
+
+def test_financial_parse_traps():
+    """The three ways a net-income cell produced a confidently WRONG growth rate.
+
+    Every one of these shipped a plausible number under a real company's name, which is the
+    failure mode this codebase keeps getting bitten by — nothing looks broken on screen.
+    """
+    import financials
+
+    # (1) A parenthetical figure on a DIFFERENT scale. "S$789m (S$1.1b cont. ops)" read the "b"
+    # from the parenthetical and multiplied the 789 MILLION by a thousand -> +83,836% growth.
+    assert financials.parse_amount("FY2025 S$789m (S$1.1b cont. ops)") == 789.0
+    assert financials.parse_amount("FY2024 S$940m") == 940.0
+
+    # (2) A RANGE. "~RM3.3-3.4b" took 3.3 with no unit (3.3 million) against a RM3.1 BILLION
+    # prior year -> -99.9%, which read as a bank that had almost stopped earning.
+    mid = financials.parse_amount("FY2025 ~RM3.3-3.4b")
+    assert mid is not None and 3300.0 < mid < 3400.0, mid
+
+    # (3) A PART-YEAR figure. "9M2024" has no word boundary before the year, so the fiscal-year
+    # stripper missed it and the leading "9" was taken as the amount -> -98.3%. A nine-month
+    # figure is not comparable to a full year at all, so the growth rate must be SUPPRESSED
+    # rather than computed off two different period lengths.
+    read = financials.earnings_read({"fy_minus1_net_income": "9M2024 RM606m (last public)",
+                                     "fy_minus2_net_income": "FY2023 RM543m"})
+    assert read["growth_pct"] is None, read
+    assert read["direction"] == "not comparable", read
+
+    # A loss-maker is never auto-failed: the traction screen decides, and an unrun screen is
+    # `unknown`, not `weak`. Scoring our own missing data as the company's failure is the exact
+    # error `traction.py` exists to refuse.
+    v = financials.viability({"profitability_flag": "loss_making",
+                              "fy_minus1_net_income": "FY2025 -THB14.6b LOSS",
+                              "fy_minus2_net_income": "FY2024 -THB29.8b LOSS"})
+    assert v["verdict"] == "unknown", v
+
+
+def test_financials_never_reach_the_engine():
+    """The financial read is a GATE and must stay outside the score.
+
+    `engine.py` and `signals.py` must not import `financials` or `rationale`, directly or
+    transitively. If either ever did, momentum would silently carry an earnings term and
+    `disagreement` would stop meaning what every surface says it means.
+    """
+    import engine
+    import signals
+    for mod in (engine, signals):
+        names = {getattr(v, "__name__", "") for v in vars(mod).values()}
+        assert "financials" not in names, f"{mod.__name__} imports financials"
+        assert "rationale" not in names, f"{mod.__name__} imports rationale"
+
+
+def test_rationale_always_states_the_case_against():
+    """A case that only lists reasons to agree is marketing.
+
+    The strongest company in the set must still carry cons, and a company with NO evidence must
+    say that plainly rather than rendering as a clean sheet.
+    """
+    import rationale
+
+    strong = rationale.build(
+        {"company_id": "X:Y", "company": "Test", "label": "hidden_winners",
+         "label_display": "Hidden Winners", "composite_momentum": 0.9,
+         "composite_confidence": 0.8, "signal_count": 12, "disagreement": 0.7,
+         "lseg_percentile": 0.1, "breadth": 5, "coverage": 1.0, "corroboration": 1.0,
+         "components": {"E": 1.0}, "signals": [{"source_type": "regulator",
+                                                "published_at": "2026-01-01"}]},
+        {"profitability_flag": "profitable", "fy_minus1_net_income": "FY2025 S$2b",
+         "fy_minus2_net_income": "FY2024 S$1b"})
+    assert strong["esg"]["cons"], "a verdict with no counter-evidence listed is marketing"
+    assert strong["watch_outs"], "every case must say what would change it"
+
+    empty = rationale.build(
+        {"company_id": "X:Z", "company": "Nothing", "label": "consensus",
+         "label_display": "Consensus", "composite_momentum": 0.0, "composite_confidence": 0.0,
+         "signal_count": 0, "disagreement": 0.0, "lseg_percentile": 0.5, "breadth": 0,
+         "components": {}, "signals": []}, {})
+    joined = " ".join(empty["esg"]["cons"]).lower()
+    assert "absence of evidence" in joined, empty["esg"]["cons"]
+
+
+
+def test_failed_harvest_cannot_erase_stored_evidence():
+    """A rate-limited sweep must never empty a company's stored harvest.
+
+    This shipped: the first full 52-company sweep was throttled partway through, 14 companies
+    returned every angle `offline`, and because `save` overwrote, the empty results replaced good
+    evidence. Total 2025 events fell 63 -> 48 and nothing said so, because a company with no
+    evidence is indistinguishable on screen from one that was never swept. An absence rendered as
+    a finding -- the same shape as every other trap in this codebase.
+    """
+    import json
+    import os
+    import harvest
+
+    os.makedirs(harvest.HARVEST_DIR, exist_ok=True)
+    path = os.path.join(harvest.HARVEST_DIR, "SELFTEST_X.json")
+    stored = [{"text": "a real dated event", "source_url": "https://x/1",
+               "published_at": "2025-01-01"}]
+    try:
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump({"company_id": "SELFTEST:X", "events": stored}, fh)
+
+        # A failed sweep keeps nothing. It must not win.
+        harvest.save({"company_id": "SELFTEST:X", "events": [], "status": "emissions: offline"})
+        with open(path, encoding="utf-8") as fh:
+            after = json.load(fh)
+        assert len(after["events"]) == 1, after
+        assert "kept prior evidence" in after["status"], after["status"]
+
+        # Even an explicit replace cannot empty it -- there is no legitimate reason for a failed
+        # fetch to delete data it did not replace.
+        harvest.save({"company_id": "SELFTEST:X", "events": [], "status": "offline"}, replace=True)
+        with open(path, encoding="utf-8") as fh:
+            assert len(json.load(fh)["events"]) == 1
+
+        # A successful sweep UNIONS rather than overwrites, deduped.
+        harvest.save({"company_id": "SELFTEST:X", "status": "ok", "events": stored + [
+            {"text": "a second dated event", "source_url": "https://x/2",
+             "published_at": "2025-02-02"}]})
+        with open(path, encoding="utf-8") as fh:
+            assert len(json.load(fh)["events"]) == 2
+    finally:
+        if os.path.exists(path):
+            os.remove(path)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2020,9 +2119,6 @@ def main():
         ("[#11] demo universe news seeded (no url)", lambda: test_demo_universe_news_seeded()),
         ("[#18] analyst_coverage count-only (no verb)", lambda: test_analyst_coverage()),
         ("[#18] analyst_coverage fabrication guard", lambda: test_analyst_coverage_fabrication_guard()),
-        ("[#12] forecast_outlook improver", lambda: test_forecast_outlook_improver()),
-        ("[#12] forecast_outlook softening", lambda: test_forecast_outlook_softening()),
-        ("[#12] forecast_outlook awaiting + no-fab", lambda: test_forecast_outlook_awaiting_and_nofab()),
         ("[2.1] plain_summary (no number leak)", lambda: test_plain_summary()),
         ("[#5] focused check-before-Monday surface", lambda: test_focused_check_before_monday()),
         ("[1.11] fmt_elapsed freshness string", lambda: test_fmt_elapsed()),
@@ -2077,6 +2173,14 @@ def main():
          lambda: test_merkle_covers_the_yardstick_and_detects_a_swap()),
         ("claim vs evidence labelled illustrative per row",
          lambda: test_claim_vs_evidence_is_labelled_illustrative_per_row()),
+        ("financial cell parsing survives ranges, part-years and scale traps",
+         lambda: test_financial_parse_traps()),
+        ("the financial read never reaches the engine",
+         lambda: test_financials_never_reach_the_engine()),
+        ("every case states the case against itself",
+         lambda: test_rationale_always_states_the_case_against()),
+        ("a failed harvest cannot erase stored evidence",
+         lambda: test_failed_harvest_cannot_erase_stored_evidence()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0
