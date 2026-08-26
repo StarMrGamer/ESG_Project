@@ -53,6 +53,15 @@ export default function UniverseGrid() {
                 )}
                 {badges && (
                   <div className="uni-badges">
+                    {/* Only the three buckets appear on the grid — 28 of 52 are in none, and a
+                        "not in the pipeline" chip on every other tile is noise. The evidence
+                        panel states it for the focused company, where the question is asked. */}
+                    {badges.pipeline?.bucket && (
+                      <span className={`badge tone-${badges.pipeline.tone}`}
+                        title={`${badges.pipeline.display} — ${badges.pipeline.note}`}>
+                        {badges.pipeline.bucket}
+                      </span>
+                    )}
                     <span className={`badge tone-${badges.green_bond.tone}`} title={badges.green_bond.note}>
                       {badges.green_bond.display}
                     </span>

@@ -42,6 +42,9 @@ export type View =
   | { name: 'compare'; tickers: string[] }
   | { name: 'evidence'; ticker: string }
 
+/** Which half of the app is on screen. See `Settings.tab`. */
+export type BoardTab = 'board' | 'context'
+
 export interface Settings {
   demo: boolean
   dark: boolean
@@ -52,6 +55,15 @@ export interface Settings {
   simplified: boolean
   /** Progressive disclosure: 1 Brief · 2 Analysis · 3 Everything. */
   level: Level
+  /**
+   * Board vs Context. `level` answers "how much detail", which is a different question from
+   * "does this move when I click a company". Several panels — the foundation backtest, the
+   * industry benchmark table, the five validation cases, the pillar momentum series — are the
+   * same picture whichever constituent is focused, so on the board they read as bloat between
+   * the reader and the thing that did change. They are not less important; they answer a
+   * question about the METHOD rather than about a company, so they get their own tab.
+   */
+  tab: BoardTab
   /** False until the assistant-led setup has run; gates the whole dashboard. */
   setupDone: boolean
   profile: Profile
@@ -100,7 +112,7 @@ interface ChatMsg { role: 'user' | 'assistant'; text: string }
 
 const SETTINGS_KEY = 'esg-radar-settings'
 const DEFAULTS: Settings = {
-  demo: true, dark: true, simplified: true, level: 1, setupDone: false,
+  demo: true, dark: true, simplified: true, level: 1, tab: 'board', setupDone: false,
   profile: { mandate: '', goal: '', holding: '', focus: '', label: '' },
   filters: { country: 'All', sector: 'All' },
   leftOpen: false, rightOpen: false,

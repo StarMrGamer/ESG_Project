@@ -46,6 +46,7 @@ import harvest
 import lseg
 import metrics
 import pipeline_counts
+import news
 import quotes
 import rationale
 import sensitivity
@@ -177,7 +178,9 @@ def _entry_json(ticker, demo=False):
         # rating runs; the benchmark needs it before it dares subtract anything from it.
         "benchmark": benchmarks.compare_company(
             company, demo=demo, higher_better=entry["snap"].get("score_higher_better")),
-        "quote": quotes.quote(ticker, demo=demo),
+        # The name travels with the ticker: the PSE source is trusted only because the
+        # company it names is read back and compared to ours before a price is shown.
+        "quote": quotes.quote(ticker, demo=demo, company=company.get("company", "")),
     }
 
 
@@ -371,7 +374,7 @@ def _record_summary(record):
     }
 
 
-def _badges(ticker, meta, cfg, record=None):
+def _badges(ticker, meta, cfg, record=None, nmk=None, buckets=None):
     """The per-company badges. `delisted` is CGSI's own note carried onto the record, and it is
     surfaced deliberately: two of their 52 (MAHB, INTUCH) went private in 2025 while sitting in
     a basket meant to be current. A static list going stale IS the product's argument, so the
@@ -379,6 +382,11 @@ def _badges(ticker, meta, cfg, record=None):
     row = meta.get(ticker, {})
     out = {"green_bond": company_metadata.green_bond_badge(row, cfg),
            "profitability": company_metadata.profitability_badge(row)}
+    # Which origination bucket this company is in. The counts strip has always shown the totals;
+    # this puts the label on the company, which is where a reader asking "is THIS one a lead?"
+    # actually looks. Display only — a join over the same run, no new scoring.
+    if buckets is not None:
+        out["pipeline"] = pipeline_counts.bucket_badge(buckets.get(ticker, ""), nmk)
     if record and record.get("delisted"):
         out["delisted"] = {
             "label": "delisted",
@@ -448,6 +456,10 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
     subset = {"records": [by_id[t] for t in tickers if t in by_id],
               "company_count": len(tickers)}
     labels = {k: engine_config.display(cfg, k) for k in engine_config.label_order(cfg)}
+    # Computed once and used twice: the counts strip beside the matrix, and the per-company
+    # bucket badge. Two calls could drift apart on the same screen.
+    nmk = pipeline_counts.counts(subset, meta, cfg)
+    buckets = pipeline_counts.bucket_of(nmk)
     return {
         "run_id": run["run_id"],
         "as_of": run["as_of"],
@@ -472,14 +484,14 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
         "horizons": engine_config.horizons(cfg),
         "default_horizon": engine_config.DEFAULT_HORIZON,
         "half_life_days": cfg["decay"]["half_life_days"],
-        "nmk": pipeline_counts.counts(subset, meta, cfg),
+        "nmk": nmk,
         "metadata": company_metadata.load_report(demo=demo),
         # Say how much of this run's evidence was harvested rather than supplied. A board that
         # silently mixes the two invites exactly the question we would have no answer to.
         "harvest": _harvest_summary(demo),
         "anchor": _anchor_summary(run),
         "records": {t: _record_summary(by_id[t]) for t in tickers if t in by_id},
-        "badges": {t: _badges(t, meta, cfg, by_id.get(t)) for t in tickers},
+        "badges": {t: _badges(t, meta, cfg, by_id.get(t), nmk, buckets) for t in tickers},
     }
 
 
@@ -720,6 +732,15 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     avg_payload = _board_average(filtered, mode, sector)
 
     hw_rows, peer_avg, peer_n = metrics.hidden_winners(filtered, top_n=5, new_tickers=nt)
+    # Same false negative again: `hidden_winners` ranks on a Digital/AI field only the demo set
+    # carries, so the real basket showed "nothing to rank" beside a matrix already holding four
+    # names in that quadrant. Fall back to the engine's own signed disagreement.
+    hw_basis = "digital_ai"
+    if not hw_rows:
+        hw_rows, peer_avg, peer_n = metrics.hidden_winners_from_records(
+            filtered, _engine_block(demo, filtered, horizon)["records"],
+            top_n=5, new_tickers=nt)
+        hw_basis = "disagreement" if hw_rows else hw_basis
     leaders = metrics.evidence_leaders(filtered, top_n=5, new_tickers=nt)
 
     # --- focused company panels ------------------------------------------------ #
@@ -746,14 +767,41 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
             signals = metrics.signals_from_record(erec)
             if signals:
                 signals_kind = "scored signals"
+        # The SAME false negative, one widget over. `metrics.classify` reads the demo-only
+        # `momentum` block, so once the real basket landed every real company read "AWAITING
+        # DATA" in the classification strip and in the RadarHub chip — printed directly above a
+        # rationale panel naming the engine's verdict for that same company. Two adjacent widgets
+        # disagreeing about whether we have data is worse than either answer on its own. The
+        # engine record is the authority whenever there is one; when there is not, the honest
+        # "awaiting data" stands.
+        if isinstance(cls, dict) and cls.get("label") == "AWAITING DATA" and erec:
+            cls = metrics.classify_from_record(erec) or cls
+        # The four pillar readings for THIS company. `board["pillars"]` is the average across
+        # everything in view, which is the right number when nothing is focused and the wrong one
+        # the moment a company's name is printed in the middle of it: the hub drew the 52-company
+        # average and labelled it with the focused company, so the readings never moved when you
+        # changed company. Same precedence as the board cards — the constituent's own numeric
+        # block first (the fictional demo set), the engine record otherwise. None when neither
+        # can answer, and the hub then falls back to the set average and says so.
+        own_pillars = metrics.pillar_momentum([focused])
+        if not any(row["value"] is not None for row in own_pillars):
+            own_pillars = metrics.pillar_momentum_for_record(erec) if erec else []
+        focus_pillars = own_pillars if any(
+            row["value"] is not None for row in (own_pillars or [])) else None
         # A real last price for a real listing (best-effort, never a signal — see quotes.py).
         # The demo universe is FICTIONAL and deliberately gets no quote.
         live_px = None if demo else _live_price_90d(focused)
+        # The last traded price, separately from the 90-day series. The Philippine board gives a
+        # real PSE price but no history, so without this a reader would see "no price" for a
+        # company we can in fact quote.
+        last_px = None if demo else quotes.quote(
+            focused.get("ticker") or "", company=focused.get("company", ""))
         pct = metrics.price_change_pct(focused) if demo else (live_px or {}).get("pct")
         focused_payload = {
             "constituent": focused,
             "from_snapshot": bool(entry),
             "classification": cls,
+            "pillars": focus_pillars,
             "credentials": ep.get("credentials", []),
             "leadership": {"score": ep.get("score"), "band": ep.get("band"),
                            "has": bool(ep)} if ep else None,
@@ -770,7 +818,10 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
                      if erec else None),
             "why_wrong": _why_wrong(focused),
             "plain_summary": metrics.plain_summary(focused, answer),
-            "news": metrics.news_card(focused),
+            # Real gathered headlines for a real company; the demo set keeps its own seeded,
+            # clearly-labelled ones. Display only — nothing here reaches the engine.
+            "news": metrics.news_card(
+                focused, None if demo else news.load(focused.get("ticker") or "")),
             "analyst": metrics.analyst_coverage(focused),
             "check_action": metrics.focused_answer_action(
                 {ft: entry} if entry else {}, ft),
@@ -782,7 +833,19 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
                                  if live_px else
                                  (metrics.price_series(pct) if pct is not None else [])),
                       "source": (live_px or {}).get("source") if live_px else None,
-                      "points": (live_px or {}).get("points") if live_px else None},
+                      "points": (live_px or {}).get("points") if live_px else None,
+                      # The date the series was CAPTURED. The basket runs off a dated snapshot so
+                      # the demo needs no network; a stored price printed without its date would
+                      # read as a live tick, which is a rule-3 breach for the sake of looking
+                      # fresher than it is.
+                      "captured": (live_px or {}).get("captured") if live_px else None,
+                      "last": ({"price": last_px.get("price"),
+                                "currency": last_px.get("currency"),
+                                "change_pct": last_px.get("change_pct"),
+                                "exchange": last_px.get("exchange"),
+                                "source": last_px.get("source"),
+                                "captured": last_px.get("captured")}
+                               if last_px and last_px.get("available") else None)},
             "foundation": ({"basis": focused.get("esg_basis"),
                             "source_url": focused.get("source_url"),
                             "confidence": focused.get("confidence")}
@@ -845,7 +908,8 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
             "engine replayed at each quarter cutoff — every point is a real run"
             if real_series else "illustrative interpolation"),
         "momentum_series_labels": series_labels,
-        "hidden_winners": {"rows": hw_rows, "peer_avg": peer_avg, "n": peer_n},
+        "hidden_winners": {"rows": hw_rows, "peer_avg": peer_avg, "n": peer_n,
+                           "basis": hw_basis},
         "evidence": {"coverage": metrics.credential_coverage(filtered), "leaders": leaders},
         "constituents": filtered,
         "engine": engine_block,
@@ -1275,6 +1339,11 @@ def engine_company(ticker: str, demo: bool = Query(True),
     exactly the kind of quiet inconsistency the evidence trail exists to rule out."""
     run, meta, cfg = _engine_run(demo, horizon)
     record = engine.record_for(run, ticker)
+    # The bucket is a property of the WHOLE run — you cannot tell whether a company is bond-ready
+    # without the cohort it is ranked against — so it is derived from the full run here, not from
+    # whatever subset a filter happens to be showing.
+    nmk_one = pipeline_counts.counts(run, meta, cfg)
+    buckets_one = pipeline_counts.bucket_of(nmk_one)
     if not record:
         raise HTTPException(404, f"{ticker} is not in the scored universe.")
     constituent = universe.get(ticker, universe.active_file(demo)) or {}
@@ -1305,7 +1374,7 @@ def engine_company(ticker: str, demo: bool = Query(True),
         "corroboration": record["corroboration"],
         "mean_source_quality": record["mean_source_quality"],
         "trail": trail,
-        "badges": _badges(ticker, meta, cfg, record),
+        "badges": _badges(ticker, meta, cfg, record, nmk_one, buckets_one),
         "metadata_row": {k: v for k, v in (meta.get(ticker) or {}).items()
                          if k not in ("notes",)} or {},
         "metadata_note": (meta.get(ticker) or {}).get("notes", ""),
@@ -1378,7 +1447,8 @@ def benchmarks_api(demo: bool = Query(True), sector: str = ""):
 @app.get("/api/quote/{ticker:path}")
 def quote_api(ticker: str, demo: bool = Query(False)):
     """One live quote. Best-effort: an unavailable quote is a 200 with a reason, not an error."""
-    return quotes.quote(ticker, demo=demo)
+    row = next((c for c in universe.constituents(universe.active_file(demo)) if c["ticker"] == ticker), None)
+    return quotes.quote(ticker, demo=demo, company=(row or {}).get("company", ""))
 
 
 @app.get("/api/lseg/{ticker:path}")

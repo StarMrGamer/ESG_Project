@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../../store'
+import SetupPreview from './SetupPreview'
 import type { Focus, Goal, Holding, Level, Mandate, SetupChoice } from '../../store'
 import type { HorizonKey, TierKey } from '../../types'
 import { shortSector } from '../ui'
@@ -231,6 +232,9 @@ export default function Setup() {
     : ['mandate', 'profile', 'goal', 'country', 'sector', 'ready']
   const idx = Math.max(0, order.indexOf(effStep))
 
+  // The preview needs the horizon in the unit the board actually decays in, not in years.
+  const horizonDays = horizon === 'short' ? 'Short · 45 days' : 'Long · 180 days'
+
   return (
     <div className="setup-wrap">
       <div className="setup-card">
@@ -247,6 +251,11 @@ export default function Setup() {
             <span key={k} className={`setup-dot ${i < idx ? 'done' : i === idx ? 'on' : ''}`} />
           ))}
         </div>
+
+        {/* Question on the left, consequences on the right. Answering four questions and only
+            then being shown what they did is asking someone to answer blind. */}
+        <div className="setup-split">
+        <div className="setup-main">
 
         <div className="setup-thread">
           {mandate && (
@@ -317,11 +326,28 @@ export default function Setup() {
             <div className="setup-profile">
               <div className="setup-q">
                 <div className="setup-q-h">How much risk do you take?</div>
-                <div className="setup-chips">
-                  {RISKS.map(r => (
-                    <button key={r.key} className={`setup-chip ${tier === r.key ? 'on' : ''}`}
-                      title={r.blurb} onClick={() => setTier(r.key)}>{r.label}</button>
-                  ))}
+                {/*
+                  A slider rather than three chips, because risk appetite is the one answer here
+                  that is genuinely a DIAL — the three tiers are ordered, and dragging between
+                  them while the panel beside you recounts the board is the fastest way to
+                  understand what the tier actually does. Chips made three ordered things look
+                  like three unrelated ones.
+
+                  It is a native range input: keyboard, screen reader and touch behaviour come
+                  free, and a custom-built slider would have had to earn all three back.
+                */}
+                <div className="setup-slider">
+                  <input type="range" min={0} max={RISKS.length - 1} step={1}
+                    value={RISKS.findIndex(r => r.key === tier)}
+                    aria-label="Risk appetite"
+                    onChange={e => setTier(RISKS[Number(e.target.value)].key)} />
+                  <div className="setup-slider-ticks">
+                    {RISKS.map(r => (
+                      <button key={r.key} type="button"
+                        className={`setup-tick ${tier === r.key ? 'on' : ''}`}
+                        onClick={() => setTier(r.key)}>{r.label}</button>
+                    ))}
+                  </div>
                 </div>
                 <div className="setup-q-f">{RISKS.find(r => r.key === tier)!.blurb}</div>
               </div>
@@ -489,6 +515,18 @@ export default function Setup() {
             <button className="btn" onClick={submitTyped}>Send</button>
           </div>
         )}
+
+        </div>{/* /setup-main */}
+
+        {/* Hidden on the last step: the summary card there already IS the preview, and showing
+            both would be the same numbers twice. */}
+        {effStep !== 'ready' && (
+          <SetupPreview tier={tier} holding={holding} focus={focus}
+            country={goal === 'investigate' ? 'All' : country}
+            sector={goal === 'investigate' ? 'All' : sector}
+            horizonDays={horizonDays} />
+        )}
+        </div>{/* /setup-split */}
 
         <div className="setup-foot">
           {settings.demo

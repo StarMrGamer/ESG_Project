@@ -473,6 +473,100 @@ label.field > span {
 }
 
 /* ---- benchmark strip ---- */
+.deep-row{
+  display: grid; gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  align-items: start;
+}
+.deep-row > *{ min-width: 0; }
+/* ---- the Customise popover ---- */
+.cc-menu{ position: relative; }
+.cc-menu > summary{
+  list-style: none; cursor: pointer; user-select: none; display: inline-flex; align-items: center;
+}
+.cc-menu > summary::-webkit-details-marker{ display: none; }
+.cc-menu[open] > summary{ background: var(--r-panel2); border-color: var(--r-borderStrong); }
+.cc-menu-body{
+  position: absolute; right: 0; top: calc(100% + var(--sp-3)); z-index: 60;
+  min-width: 260px; padding: var(--pad-panel);
+  display: flex; flex-direction: column; gap: var(--sp-5);
+  background: var(--r-panel); border: 1px solid var(--r-borderStrong);
+  border-radius: var(--r-radius); box-shadow: var(--r-shadow);
+}
+.cc-menu-group{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
+.cc-menu-label{
+  flex: 1 0 100%; font-family: var(--r-mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--r-faint);
+}
+@media (max-width: 700px){ .cc-menu-body{ right: auto; left: 0; min-width: 0; width: 74vw; } }
+/* ---- setup: question left, consequences right ---- */
+.setup-split{
+  display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--sp-7);
+  align-items: start;
+}
+.setup-main{ min-width: 0; }
+@media (max-width: 900px){
+  .setup-split{ grid-template-columns: 1fr; }
+  .sp{ order: -1; }
+}
+
+/* the risk dial. Ordered choices deserve an ordered control. */
+.setup-slider{ display: flex; flex-direction: column; gap: var(--sp-3); margin: var(--sp-3) 0; }
+.setup-slider input[type="range"]{
+  width: 100%; accent-color: var(--r-pos); height: 22px; cursor: pointer; background: none;
+}
+.setup-slider-ticks{ display: flex; justify-content: space-between; gap: var(--sp-2); }
+.setup-tick{
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--r-font); font-size: 12.5px; color: var(--r-faint);
+}
+.setup-tick.on{ color: var(--r-pos); font-weight: 600; }
+.setup-tick:focus-visible{ outline: 2px solid var(--r-pos); outline-offset: 3px; }
+
+/* "your board so far" */
+.sp{
+  position: sticky; top: var(--sp-6);
+  padding: var(--pad-panel); background: var(--r-panel2);
+  border: 1px solid var(--r-border); border-radius: var(--r-radius);
+  display: flex; flex-direction: column; gap: var(--sp-5);
+}
+.sp-h{
+  font-family: var(--r-mono); font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--r-faint);
+}
+.sp-big{ display: flex; align-items: baseline; gap: var(--sp-3); }
+.sp-big b{
+  font-family: var(--r-mono); font-size: 38px; font-weight: 500; line-height: 1;
+  color: var(--r-text); letter-spacing: -.02em;
+}
+.sp-big span{ font-size: 13px; color: var(--r-muted); }
+.sp-rows{ display: flex; flex-direction: column; gap: var(--sp-3); }
+.sp-row{ display: grid; grid-template-columns: 26px 1fr; gap: var(--sp-1) var(--sp-3); align-items: baseline; }
+.sp-row-n{
+  font-family: var(--r-mono); font-size: 17px; color: var(--r-pos); text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.sp-row-l{ font-size: 12.5px; color: var(--r-muted); }
+.sp-bar{
+  grid-column: 2; height: 4px; border-radius: 2px; background: var(--r-inset); display: block;
+  overflow: hidden;
+}
+.sp-bar i{ display: block; height: 100%; background: var(--r-pos); opacity: .55; transition: width .25s var(--r-ease); }
+.sp-meta{ margin: 0; display: flex; flex-direction: column; gap: var(--sp-2); border-top: 1px solid var(--r-border); padding-top: var(--sp-4); }
+.sp-meta > div{ display: flex; justify-content: space-between; gap: var(--sp-3); }
+.sp-meta dt{ font-size: 12px; color: var(--r-faint); }
+.sp-meta dd{ margin: 0; font-size: 12px; color: var(--r-text); text-transform: capitalize; }
+.sp-foot{ margin: 0; font-size: 11.5px; line-height: 1.5; color: var(--r-faint); }
+@media (prefers-reduced-motion: reduce){ .sp-bar i{ transition: none; } }
+.context-tab{ display: flex; flex-direction: column; gap: var(--sp-4); }
+.context-lede{
+  margin: 0; padding: var(--pad-panel); background: var(--r-panel);
+  border: 1px solid var(--r-border); border-left: 3px solid var(--r-pos);
+  border-radius: var(--r-radius);
+  font-size: 14px; line-height: 1.55; color: var(--r-muted);
+}
+.context-lede b{ color: var(--r-text); font-weight: 600; }
+.bench-strip.is-inline{ margin: 0; border: 0; padding: 0; background: none; }
 .bench-strip {
   display: flex;
   flex-wrap: wrap;
@@ -1383,6 +1477,10 @@ details.expander[open] summary { margin-bottom: 10px; }
   margin: 14px 0;
   border: 0;
 }
+.strip-note{
+  margin: 0 0 var(--sp-3); font-size: 12.5px; line-height: 1.5; color: var(--r-muted);
+}
+.strip-note b{ color: var(--r-text); font-weight: 600; }
 .empty-note {
   color: var(--r-muted);
   font-size: 12.5px;
@@ -2064,6 +2162,17 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .hub-sat.is-ne { grid-area: ne; border-left-width: 2px; border-left-color: var(--r-borderStrong); }
 .hub-sat.is-sw { grid-area: sw; border-right-width: 2px; border-right-color: var(--r-borderStrong); }
 .hub-sat.is-se { grid-area: se; border-left-width: 2px; border-left-color: var(--r-borderStrong); }
+/* An empty pillar keeps its card — absence of evidence is a finding — but recedes, so the
+   readings that carry a number are what the eye lands on first. */
+.hub-sat.is-empty{
+  background: none;
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--r-border) 70%, transparent);
+  opacity: .68;
+}
+.hub-sat.is-empty .hub-sat-val{ font-size: 22px; color: var(--r-faint); }
+.hub-sat.is-empty .hub-sat-bar{ opacity: .35; }
+.hub-sat.is-empty .hub-sat-trend{ font-style: italic; }
 .hub-sat.is-fast {
   border-color: color-mix(in srgb, var(--r-amber) 45%, var(--r-border));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--r-amber) 18%, transparent);
@@ -2263,6 +2372,11 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .radar-axis-val.cc-neg { fill: var(--r-neg); }
 .radar-axis-val.cc-flat { fill: var(--r-muted); }
 
+.hub-scope{
+  margin: calc(var(--sp-2) * -1) 0 var(--sp-3); font-size: 12.5px;
+  color: var(--r-muted); line-height: 1.5;
+}
+.hub-scope b{ color: var(--r-text); font-weight: 600; }
 .hub-read {
   margin: 0 0 10px; max-width: 52ch;
   font: 400 13px/1.55 var(--r-font); color: var(--r-muted);

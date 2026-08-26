@@ -213,6 +213,49 @@ def pillar_momentum_from_records(records):
     return out
 
 
+def pillar_momentum_for_record(record):
+    """The four pillar readings for ONE company, off its own engine record.
+
+    `pillar_momentum_from_records` averages across every company in view — which is the right
+    number for the four cards when nothing is focused, and the WRONG one the moment a company's
+    name is printed in the middle of them. The hub was drawing the 52-company average and
+    labelling it with the focused company, so the readings never changed when you changed
+    company. Same shape, same rule-derived numbers, one record.
+
+    `n` here is how many dated signals sit behind THAT pillar for this company, and `of` is
+    deliberately None: component counts do NOT partition the record total (RHB Bank is E 9, G 14
+    against a total of 14, because one signal can carry more than one component), so printing
+    "9 of 14" would state a share that does not exist. `scope` says which question the row
+    answers, because "the average of 46 companies" and "this company" are different claims and
+    the tooltip has to tell them apart. A pillar the company has no evidence for stays None —
+    never zero, which would read as "measured, and flat".
+    """
+    r = record if isinstance(record, dict) else {}
+    comps = r.get("components") or {}
+    out, best_key, best_val = [], None, None
+    for pillar in PILLARS:
+        val, n = None, 0
+        for ckey, cval in comps.items():
+            if _COMPONENT_PILLAR.get(str(ckey).upper()) != pillar:
+                continue
+            if isinstance(cval, dict):
+                val = num(cval.get("momentum"))
+                n = int(num(cval.get("signal_count")) or 0)
+            else:
+                val = num(cval)
+        arrow, trend = consensus_trend(val, n)
+        out.append({"key": pillar, "label": PILLAR_LABEL[pillar],
+                    "value": round(val, 3) if val is not None else None,
+                    "arrow": arrow, "trend": trend, "fast": False,
+                    "basis": "evidence", "scope": "company", "n": n, "of": None})
+        if val is not None and (best_val is None or val > best_val):
+            best_key, best_val = pillar, val
+    for row in out:
+        if row["key"] == best_key and best_val is not None and best_val > 0:
+            row["fast"] = True
+    return out
+
+
 def signals_from_record(record, limit=8):
     """Right-rail rows for a company whose signals were scored by the ENGINE, in `live_signals`'
     `[{label, value, tone}]` shape.
@@ -240,6 +283,56 @@ def signals_from_record(record, limit=8):
     return rows
 
 
+#: Engine quadrant -> the card's tone. `hidden_winners` is the only one drawn as good news; the
+#: two negative quadrants are drawn as warnings. `consensus` and `future_leaders` are neutral
+#: because "the rating and the evidence agree" is not a verdict about the company at all.
+_ENGINE_TONE = {
+    "hidden_winners": "good",
+    "future_leaders": "neutral",
+    "consensus": "neutral",
+    "overrated_leaders": "bad",
+    "value_traps": "bad",
+}
+
+
+def classify_from_record(record):
+    """The classification card read from a company's ENGINE record. {label, tone, line} or None.
+
+    `classify` reads the `momentum` block that only the FICTIONAL demo set carries, so once the
+    real basket landed EVERY real company fell through to "AWAITING DATA" — printed directly
+    above a rationale panel already naming the engine's verdict for the same company, on the same
+    screen. That is the pillar-card false negative again, one widget over.
+
+    Nothing new is claimed here: the label is the engine's own `label_display` and every number is
+    copied off the record. Returns None when the record cannot support a sentence, so the caller
+    keeps saying "awaiting data" rather than inventing a verdict to fill the box.
+    """
+    r = record if isinstance(record, dict) else {}
+    label = _clean(r.get("label_display"))
+    if not label:
+        return None
+    n = int(num(r.get("signal_count")) or 0)
+    mom, conf = num(r.get("composite_momentum")), num(r.get("composite_confidence"))
+    dis = num(r.get("disagreement"))
+    ours, theirs = num(r.get("momentum_percentile")), num(r.get("lseg_percentile"))
+    def _ord(v):
+        i = round(v * 100)
+        suffix = "th" if 10 <= i % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(i % 10, "th")
+        return f"{i}{suffix}"
+
+    parts = []
+    if mom is not None and n:
+        parts.append(f"Evidence momentum {mom:+.2f} on {n} dated signal{'' if n == 1 else 's'}"
+                     + (f", confidence {conf:.2f}" if conf is not None else "") + ".")
+    if dis is not None and ours is not None and theirs is not None:
+        parts.append(f"Its published score ranks it {_ord(theirs)} of the basket; the "
+                     f"evidence ranks it {_ord(ours)} \u2014 a signed gap of {dis:+.2f}.")
+    if not parts:
+        return None
+    return {"label": label, "tone": _ENGINE_TONE.get(_clean(r.get("label")).lower(), "neutral"),
+            "line": " ".join(parts)}
+
+
 def fmt_pct(value):
     """A signed percent string for a card, e.g. 12 -> '+12%', -2 -> '-2%', None -> '—'."""
     if value is None:
@@ -264,6 +357,41 @@ def hidden_winners(constituents, *, signal="digital_ai", top_n=5, new_tickers=()
             continue
         rows.append({"company": c.get("company", "—"), "ticker": c.get("ticker", ""),
                      "value": v, "is_new": c.get("ticker") in new})
+    rows.sort(key=lambda r: r["value"], reverse=True)
+    peer_avg, n = average_esg(constituents)
+    return rows[:top_n], peer_avg, n
+
+
+def hidden_winners_from_records(constituents, records, *, top_n=5, new_tickers=()):
+    """The same panel, ranked by the ENGINE's signed disagreement instead of a Digital/AI number.
+
+    `hidden_winners` ranks on `_momentum(c, "digital_ai")`, a field only the FICTIONAL demo set
+    carries, so on the real basket the panel read "Nothing to rank in this filter yet" beside a
+    matrix that had already placed four companies in the hidden-winner quadrant. Same false
+    negative as the pillar cards and the classification strip, one panel over.
+
+    The bar here is `disagreement` — our evidence percentile minus the rating's — which is the
+    quantity the panel was always about: how far a company sits from where its rating puts it.
+    Only companies the engine actually labelled `hidden_winners` are listed, so the panel's title
+    stays true; ranking every name by disagreement would turn it into the ranking this project
+    refuses to publish. Returns `hidden_winners`' shape.
+    """
+    new = set(new_tickers or ())
+    # The board's engine block is a TRIMMED record — it carries `company_id` and the scores, not
+    # the display name — so the name comes from the constituents we were handed. Falling back to
+    # the ticker put "KLSE:RHBBANK" where a reader expects "RHB Bank Bhd".
+    names = {c.get("ticker"): c.get("company") for c in (constituents or []) if c.get("ticker")}
+    recs = list((records or {}).values()) if isinstance(records, dict) else list(records or [])
+    rows = []
+    for rec in recs:
+        tk = (rec or {}).get("company_id")
+        if tk not in names or (rec or {}).get("label") != "hidden_winners":
+            continue
+        v = num(rec.get("disagreement"))
+        if v is None:
+            continue
+        rows.append({"company": rec.get("company") or names.get(tk) or tk, "ticker": tk,
+                     "value": round(v, 3), "is_new": tk in new})
     rows.sort(key=lambda r: r["value"], reverse=True)
     peer_avg, n = average_esg(constituents)
     return rows[:top_n], peer_avg, n
@@ -646,13 +774,30 @@ def news_search_url(name, terms="ESG"):
     return "https://duckduckgo.com/?iar=news&ia=news&q=" + quote_plus(q)
 
 
-def news_card(company):
-    """[#11] Headlines + a YouTube/news search link for the focused company. DEMO names carry
-    illustrative seeded headlines (company['news']); REAL names get NO fabricated headlines —
-    only deterministic search links + 'awaiting' (HARD RULE 2). Tolerant of None/junk input."""
+def news_card(company, stored=None):
+    """[#11] Headlines + a YouTube/news search link for the focused company.
+
+    Three states, and the card must never blur them. DEMO names carry illustrative seeded
+    headlines (`company['news']`) and say so. A REAL name uses `stored` — the gathered record from
+    `news.py`, whose titles and URLs are copied verbatim out of search results with no model in
+    the path. With neither, the card stays 'awaiting' and offers a search link rather than
+    inventing a headline (HARD RULE 2). Tolerant of None/junk input.
+    """
     c = company if isinstance(company, dict) else {}
     name = str(c.get("company") or "").strip()
     raw = c.get("news")
+    live_items = (stored or {}).get("items") if isinstance(stored, dict) else None
+    if live_items:
+        rows = [{"title": _clean(it.get("title")),
+                 "source": _clean(it.get("source")) or "unknown source",
+                 "date": _clean(it.get("published_at")),
+                 "url": _clean(it.get("url"))}
+                for it in live_items if _clean(it.get("title")) and _clean(it.get("url"))]
+        if rows:
+            return {"name": name or "this company", "illustrative": False, "status": "gathered",
+                    "headlines": rows, "gathered_at": _clean((stored or {}).get("gathered_at")),
+                    "dated": int((stored or {}).get("dated") or 0),
+                    "youtube_url": youtube_search_url(name), "news_url": news_search_url(name)}
     headlines = []
     if isinstance(raw, list):
         for it in raw:

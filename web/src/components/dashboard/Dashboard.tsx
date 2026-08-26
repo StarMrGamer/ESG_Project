@@ -6,8 +6,7 @@ import AssistantRail from './AssistantRail'
 import AssistantBar from './AssistantBar'
 import EngineBoard from './EngineBoard'
 import UniverseGrid from './UniverseGrid'
-import TrackRecord from '../future/TrackRecord'
-import IndustryTable from '../benchmark/IndustryTable'
+import ContextTab from './ContextTab'
 
 /**
  * The board, layered.
@@ -54,49 +53,28 @@ export default function Dashboard() {
   const ro = lv > 1 && settings.rightOpen
   const cls = lo && ro ? 'both' : lo ? 'left-only' : ro ? 'right-only' : 'neither'
 
-  const bs = board?.universe.benchmark_stats ?? {}
 
   return (
     <div>
-      {lv > 1 && !settings.demo && bs.basket_return && board && (
-        <div className="bench-strip">
-          <span>Foundation backtest{bs.window ? ` · ${bs.window}` : ''}</span>
-          <span>basket <b>{bs.basket_return || '—'}</b> vs {board.universe.benchmark} <b>{bs.benchmark_return || '—'}</b></span>
-          <span>Sharpe <b>{bs.basket_sharpe || '—'}</b> vs <b>{bs.benchmark_sharpe || '—'}</b></span>
-          {bs.basket_max_drawdown && (
-            <span>max drawdown <b>{bs.basket_max_drawdown}</b> vs <b>{bs.benchmark_max_drawdown}</b></span>
-          )}
-          {/* CGSI's own note reports the basket LAGGING the index in the most recent period.
-              The cumulative figure above is the number every deck reaches for, and showing it
-              alone presents a strategy as uniformly winning when its author says otherwise.
-              A tool whose whole argument is that inconvenient evidence should surface cannot
-              make an exception for its own foundation. */}
-          {bs.shortfall_ytd_2025 && (
-            <span className="bench-against" title={bs.shortfall_note}>
-              but <b>{bs.shortfall_ytd_2025}</b> vs the index YTD 2025 — ~45% bank weight
-            </span>
-          )}
-          {bs.source && <span className="src">{bs.source}</span>}
-        </div>
-      )}
       {boardError && <div className="error-note">Couldn't load the board: {boardError}</div>}
       {!board && boardLoading && <Spinner label="Loading the command center…" />}
       {board && (
         <>
-          {lv >= 3 && <EngineBoard />}
-          {lv === 1 && <AssistantBar />}
-          <div className={`dash-grid ${cls}`}>
-            {lo && <div><FiltersRail /></div>}
-            <div><CenterBoard /></div>
-            {ro && <div><AssistantRail /></div>}
-          </div>
-          {lv >= 2 && <IndustryTable />}
-          {/* "The AI can see now and last time, but not the future." This is the honest half of
-              the answer and it earns level 2: it is evidence about the method, not another
-              reading to interpret. */}
-          {lv >= 2 && <div className="panel-block"><TrackRecord /></div>}
-          {lv >= 2 && <UniverseGrid />}
-          <StepUp />
+          {settings.tab === 'context'
+            ? <ContextTab />
+            : (
+              <>
+                {lv >= 3 && <EngineBoard />}
+                {lv === 1 && <AssistantBar />}
+                <div className={`dash-grid ${cls}`}>
+                  {lo && <div><FiltersRail /></div>}
+                  <div><CenterBoard /></div>
+                  {ro && <div><AssistantRail /></div>}
+                </div>
+                {lv >= 2 && <UniverseGrid />}
+                <StepUp />
+              </>
+            )}
         </>
       )}
     </div>

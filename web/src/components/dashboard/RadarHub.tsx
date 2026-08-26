@@ -142,20 +142,30 @@ function Satellite({ pillar, area, scale }: {
   const raw = v == null ? 0 : Math.max(-1, Math.min(1, v / scale)) * 50
   const pct = raw === 0 ? 0 : Math.sign(raw) * Math.max(Math.abs(raw), 1.6)
   const sign = signClass(v)
+  // A pillar with no evidence is a FINDING and keeps its card — but it should not carry the same
+  // visual weight as a measured one. Two of the four are commonly empty for a single company, so
+  // at equal weight half the row is a large dash competing with the readings that mean something.
+  const empty = v == null
   return (
-    <div className={`hub-sat is-${area} ${pillar.fast ? 'is-fast' : ''}`}>
+    <div className={`hub-sat is-${area} ${pillar.fast ? 'is-fast' : ''}${empty ? ' is-empty' : ''}`}>
       <div className="hub-sat-label">{pillar.label}</div>
       <div className={`hub-sat-val ${pillar.fast ? '' : sign}`}>{fmtPillar(v, pillar.basis)}</div>
       <div className="hub-sat-bar"
         title={pillar.basis === 'evidence'
-          ? `${fmtPillar(v, pillar.basis)} direction consensus from ${pillar.n ?? 0} of ${pillar.of ?? 0} companies with evidence for this pillar`
+          ? (pillar.scope === 'company'
+            ? `${fmtPillar(v, pillar.basis)} direction consensus from ${pillar.n ?? 0} dated signal${pillar.n === 1 ? '' : 's'} for this pillar`
+            : `${fmtPillar(v, pillar.basis)} direction consensus from ${pillar.n ?? 0} of ${pillar.of ?? 0} companies with evidence for this pillar`)
           : `${fmtPct(v)} against a ±${scale.toFixed(1)}% scale`}>
         <span className="hub-sat-axis" />
         <span className={`hub-sat-fill ${sign}`}
           style={{ left: pct < 0 ? `${50 + pct}%` : '50%', width: `${Math.abs(pct)}%` }} />
       </div>
       <div className={`hub-sat-trend ${pillar.fast ? '' : sign}`}>
-        {pillar.arrow} {pillar.trend}
+        {empty
+          ? (pillar.scope === 'company'
+            ? 'no dated evidence on this pillar yet'
+            : 'no company in this filter has evidence here')
+          : <>{pillar.arrow} {pillar.trend}</>}
       </div>
     </div>
   )
@@ -167,9 +177,16 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
   const focused = board.focused
 
   const byKey: Record<string, Pillar> = {}
-  for (const p of board.pillars) byKey[p.key] = p
+  // Whose readings these are. `board.pillars` is the mean across everything in view — correct
+  // when nothing is focused, and wrong the moment a company's name sits in the middle of them.
+  // The hub used to draw the set average under whichever company you clicked, so the four
+  // numbers never changed. A focused company's own readings win; with none we fall back to the
+  // average AND say so, rather than passing one off as the other.
+  const rows = focused?.pillars?.some(p => p.value != null) ? focused.pillars : board.pillars
+  const perCompany = rows === focused?.pillars
+  for (const p of rows) byKey[p.key] = p
 
-  const vals = board.pillars.map(p => p.value).filter((v): v is number => v != null)
+  const vals = rows.map(p => p.value).filter((v): v is number => v != null)
   if (vals.length === 0) return null
   // Two scales, because the cards carry two different units (see Pillar.basis). A momentum
   // PERCENT is unbounded and gets a floor of 5 so a quiet set is not exaggerated into a dramatic
@@ -177,7 +194,7 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
   // scale is fixed at 1 — flooring that at 5 would divide every real reading by five and
   // collapse the whole shape onto the zero ring, which is precisely the "nothing is happening"
   // picture this fix exists to stop showing.
-  const evidenceBasis = board.pillars.some(p => p.basis === 'evidence')
+  const evidenceBasis = rows.some(p => p.basis === 'evidence')
   const scale = evidenceBasis ? 1 : Math.max(5, ...vals.map(Math.abs))
 
   const cls = focused?.classification
@@ -235,6 +252,13 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
               Each corner is one ESG pillar. The dashed ring is <b>no change</b> — where a rating
               that has not been refreshed still assumes this company sits. Outside the ring is
               improvement it has not priced in; inside is deterioration.
+            </p>
+            <p className="hub-scope">
+              {perCompany
+                ? <>These four readings are <b>{focused?.constituent.company}</b>&rsquo;s own dated evidence.</>
+                : focused
+                  ? <>No pillar evidence on file for <b>{focused.constituent.company}</b> — showing the <b>{board.counts.showing}-company average</b> for this filter instead.</>
+                  : <>The <b>{board.counts.showing}-company average</b> for the current filter.</>}
             </p>
 
             <div className="hub-legend">

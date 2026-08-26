@@ -2067,6 +2067,39 @@ def test_failed_harvest_cannot_erase_stored_evidence():
             os.remove(path)
 
 
+def test_board_never_says_awaiting_data_at_its_own_engine_record():
+    """The classification strip and the RadarHub chip read the ENGINE, not the demo momentum block.
+
+    `metrics.classify` reads a `momentum` block only the FICTIONAL demo set carries, so once the
+    real basket landed every real company classified as "AWAITING DATA" — printed directly above
+    a rationale panel naming the engine's verdict for that same company. Two adjacent widgets
+    disagreeing about whether we hold data is worse than either answer alone.
+    """
+    import server
+    run, _meta, _cfg = server._engine_run(False, "long")
+    recs = {r["company_id"]: r for r in run["records"]}
+    cons = universe.constituents()
+    hlbk = next(c for c in cons if c["ticker"] == "KLSE:HLBK")
+
+    # the false negative this exists to stop: the raw classifier still cannot see the evidence
+    assert metrics.classify(hlbk)["label"] == "AWAITING DATA", metrics.classify(hlbk)
+
+    card = metrics.classify_from_record(recs["KLSE:HLBK"])
+    assert card and card["label"] == recs["KLSE:HLBK"]["label_display"], card
+    assert card["label"] != "AWAITING DATA", card
+    assert "8 dated signals" in card["line"], card          # the count the engine actually holds
+    assert "71st" in card["line"] and "71th" not in card["line"], card   # ordinals, not "71th"
+
+    # tone is not decoration: the two negative quadrants must never render as good news
+    assert metrics.classify_from_record(recs["SET:PTT"])["tone"] == "bad", "PTT is overrated_leaders"
+    assert metrics.classify_from_record(recs["KLSE:RHBBANK"])["tone"] == "good", "RHB is a winner"
+
+    # no record -> no verdict invented; the honest "awaiting data" has to survive
+    assert metrics.classify_from_record(None) is None
+    assert metrics.classify_from_record({}) is None
+    assert metrics.classify_from_record({"label_display": "X"}) is None   # nothing to say -> None
+
+
 def test_market_symbols_are_a_column_not_a_name_search():
     """Prices resolve through an audited column, and only for confirmed EQUITIES.
 
@@ -2162,6 +2195,44 @@ def test_news_is_gathered_never_written():
     # and the green-bond angle is in the list, because issuance is what moves N to M
     assert any("green bond" in a for a in news.ANGLES), news.ANGLES
     assert len(news.ANGLES) == 3, news.ANGLES
+
+
+def test_pipeline_bucket_is_on_the_company_not_just_the_total():
+    """N/M/K is readable per company, the three are disjoint, and the badge carries its own rule.
+
+    The counts strip has shown N/M/K since B2, but a reader looking at ONE company could not tell
+    which bucket it was in — the most commercially interesting label in the product existed only
+    as a total. This is a display join over the same run: no new scoring, no new run id.
+    """
+    import pipeline_counts
+    import server
+
+    run, meta, cfg = server._engine_run(False, "long")
+    nmk = pipeline_counts.counts(run, meta, cfg)
+    buckets = pipeline_counts.bucket_of(nmk)
+
+    # the map must reproduce the counts exactly, or the badge and the strip disagree on screen
+    for key in ("N", "M", "K"):
+        assert sum(1 for v in buckets.values() if v == key) == nmk[key], key
+
+    # disjoint by construction: M excludes existing issuers, K is the explicit remainder
+    members = nmk["members"]
+    assert not (set(members["N"]) & set(members["M"])), "an issuer cannot also be a lead"
+    assert not (set(members["K"]) & (set(members["N"]) | set(members["M"])))
+
+    # every badge states the rule that put it there, so it can be defended on a slide
+    for tk, bucket in buckets.items():
+        badge = pipeline_counts.bucket_badge(bucket, nmk)
+        assert badge["bucket"] == bucket and badge["note"], (tk, badge)
+
+    # a company in none of the three says so, rather than rendering blank
+    none_badge = pipeline_counts.bucket_badge("", nmk)
+    assert none_badge["bucket"] == "" and "Not in the pipeline" in none_badge["display"]
+
+    # and the board actually ships it
+    block = server._engine_block(False, universe.constituents(), "long")
+    assert block["badges"]["KLSE:RHBBANK"]["pipeline"]["bucket"] == "M"
+    assert block["badges"]["SGX:UOB"]["pipeline"]["bucket"] == "N"
 
 
 def main():
@@ -2294,10 +2365,14 @@ def main():
          lambda: test_rationale_always_states_the_case_against()),
         ("a failed harvest cannot erase stored evidence",
          lambda: test_failed_harvest_cannot_erase_stored_evidence()),
+        ("board reads its own engine record, never \"awaiting data\"",
+         lambda: test_board_never_says_awaiting_data_at_its_own_engine_record()),
         ("market symbols are an audited column, equities only",
          lambda: test_market_symbols_are_a_column_not_a_name_search()),
         ("news is gathered and guarded, never written by a model",
          lambda: test_news_is_gathered_never_written()),
+        ("N/M/K is readable on the company, not only as a total",
+         lambda: test_pipeline_bucket_is_on_the_company_not_just_the_total()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0

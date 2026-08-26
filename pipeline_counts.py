@@ -121,6 +121,43 @@ def counts(run, metadata, cfg=None):
     }
 
 
+#: How a bucket reads on a company's own card. The counts strip beside the matrix has carried
+#: N/M/K since B2, but a reader looking at ONE company had no way to tell which bucket it was in
+#: — the single most commercially interesting label in the product was only ever a total.
+BUCKET_BADGE = {
+    "N": ("N · Issuer", "neutral"),
+    "M": ("M · Bond-ready", "good"),
+    "K": ("K · Review list", "warn"),
+}
+
+
+def bucket_of(counts_result):
+    """`{company_id: 'N' | 'M' | 'K'}` for one `counts()` result.
+
+    The three are disjoint by construction and not by convention: `M` excludes anything already
+    reviewed or certified (that is what makes it a PIPELINE rather than a ranking), and `K` is
+    explicitly the remainder that we disagree about but cannot place. So a company has at most
+    one bucket, and a company in none of them is a legitimate answer, not a gap.
+    """
+    out = {}
+    for key in ("N", "M", "K"):
+        for company_id in (counts_result or {}).get("members", {}).get(key, []):
+            out[company_id] = key
+    return out
+
+
+def bucket_badge(bucket, counts_result=None):
+    """The display payload for one company's bucket. Empty bucket -> a stated 'not in it'."""
+    rules = (counts_result or {}).get("rules") or {}
+    if bucket not in BUCKET_BADGE:
+        return {"bucket": "", "display": "Not in the pipeline", "tone": "neutral",
+                "note": "Not a current issuer, not bond-ready on this run, and not far enough "
+                        "from its rating to need a look. That is an answer, not a gap."}
+    display, tone = BUCKET_BADGE[bucket]
+    return {"bucket": bucket, "display": display, "tone": tone,
+            "note": rules.get(bucket, "")}
+
+
 def freeze(run, metadata, cfg=None, frozen_at="", demo=False, evidence_basis=""):
     """The record handed to Brina/Grace: the counts plus everything needed to re-derive them."""
     result = counts(run, metadata, cfg)

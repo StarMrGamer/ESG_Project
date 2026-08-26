@@ -1,6 +1,6 @@
 import { useStore } from '../../store'
 import RadarHub from './RadarHub'
-import { MomentumChart, PriceChart } from '../charts'
+import { PriceChart } from '../charts'
 import { fmtPct, fmtPillar, SectionTitle, signClass, TONE_CLASS } from '../ui'
 import CasePanel from '../case/CasePanel'
 import type { WinnerRow } from '../../types'
@@ -91,15 +91,49 @@ export default function CenterBoard() {
   const live = !!focused?.price.source
   const pricePanel = focused && (
     <div className="panel-block">
-      <SectionTitle sub={live ? `${focused.price.source} · rebased to 100` : 'illustrative · rebased to 100'}>
+      <SectionTitle sub={live
+        ? `${focused.price.source}${focused.price.captured ? ` · as of ${focused.price.captured}` : ''} · rebased to 100`
+        : 'illustrative · rebased to 100'}>
         Share price · 90 days
       </SectionTitle>
+      {/* "Rebased to 100" is jargon on a card aimed at a reader who may not have met it. It is
+          one sentence to explain and confusing to leave unexplained, so it is explained. */}
+      <p className="strip-note">
+        <b>Rebased to 100</b> means the price 90 days ago is drawn as 100, so the line shows the
+        percent move rather than the currency — <b>112</b> is up 12%. It lets a Singapore dollar
+        and a Thai baht listing sit on the same axis. Context only: a price never enters any
+        score.
+      </p>
       {focused.price.pct == null
         ? (
-          <div className="empty-note">
-            No 90-day price for this listing — the source covers SGX, Bursa, IDX and SET; PSE and
-            HOSE lines are not available and an ADR is not shown in their place.
-          </div>
+          focused.price.last
+            ? (
+              <>
+                <div className="cc-muted">
+                  Last traded{' '}
+                  <b>{focused.price.last.currency} {focused.price.last.price}</b>
+                  {focused.price.last.change_pct != null && <>
+                    {' '}<b className={signClass(focused.price.last.change_pct)}>
+                      {fmtPct(focused.price.last.change_pct)}
+                    </b> on the day
+                  </>}
+                  {' · '}{focused.price.last.exchange} · {focused.price.last.source}
+                  {focused.price.last.captured && <> · as of {focused.price.last.captured}</>}
+                </div>
+                <div className="empty-note">
+                  No 90-day line for this listing — the Philippine board gives a live price but
+                  carries no history, so there is nothing to draw. A single point is not a trend
+                  and is not drawn as one.
+                </div>
+              </>
+            )
+            : (
+              <div className="empty-note">
+                No price for this listing. Singapore, Bursa, Bangkok and Jakarta carry history,
+                the Philippine board carries a live price without one — but a <b>delisted</b>
+                constituent has no price anywhere, which is the finding rather than a gap.
+              </div>
+            )
         )
         : (
           <>
@@ -140,17 +174,31 @@ export default function CenterBoard() {
   const newsPanel = focused && (
     <div className="panel-block">
       <div className="cc-h">In the news</div>
-      {focused.news.headlines.length > 0 && (
+      {/* Three states that must never blur into each other: seeded demo headlines, real gathered
+          ones, and nothing. The label says which — a real headline and an illustrative one look
+          identical on screen otherwise. */}
+      {focused.news.status === 'demo' && (
         <div className="cc-muted">Illustrative demo headlines — not real news.</div>
+      )}
+      {focused.news.status === 'gathered' && (
+        <div className="cc-muted">
+          Gathered {focused.news.gathered_at || ''} · {focused.news.dated ?? 0} of{' '}
+          {focused.news.headlines.length} carry a date the article itself states · titles and
+          links copied from the source, never written by a model
+        </div>
       )}
       {focused.news.headlines.slice(0, simple ? 3 : 5).map((h, i) => (
         <div className="cc-panel-body" style={{ margin: '6px 0' }} key={i}>
-          {h.title}
-          <div className="cc-muted">{[h.source, h.date].filter(Boolean).join(' · ')}</div>
+          {h.url
+            ? <a href={h.url} target="_blank" rel="noreferrer">{h.title}</a>
+            : h.title}
+          <div className="cc-muted">
+            {[h.source, h.date || 'date not stated by the source'].filter(Boolean).join(' · ')}
+          </div>
         </div>
       ))}
       {focused.news.headlines.length === 0 && (
-        <div className="empty-note">General news not wired for this name yet — search it directly:</div>
+        <div className="empty-note">No gathered headlines for this name yet — search it directly:</div>
       )}
       <div className="cc-muted" style={{ marginTop: 8 }}>
         <a href={focused.news.youtube_url} target="_blank" rel="noreferrer">Search YouTube</a>
@@ -262,28 +310,37 @@ export default function CenterBoard() {
             </div>
           </>
         )}
-      {simple
-        ? null
-        : (
-          <div className="split-board">
-            <div className="panel-block">
-              <SectionTitle sub="90 days · % change">ESG momentum</SectionTitle>
-              {Object.keys(board.momentum_series).length === 0
-                ? <div className="empty-note">No momentum data for this filter yet.</div>
-                : <MomentumChart series={board.momentum_series} dark={dark} height={360} />}
-            </div>
-            <BarsPanel title="Hidden winners vs peer avg"
-              subtitle={`${board.counts.showing} companies · avg ESG ${hw.peer_avg ?? '—'}`}
-              rows={hw.rows} maxAbs={maxAbs} suffix="%"
-              footer="Bar = live Digital/AI signal — the divergence the rating can't see. Click a name to focus it."
-              onFocus={focusByTicker} />
-          </div>
-        )}
+      {/* ORDER IS THE ARGUMENT. This column used to run hub -> hidden winners -> verdict ->
+          case, which put a peer ranking between the company and the reason for its verdict, and
+          left the verdict itself fourth on the page even though the hub had already named it two
+          panels earlier. The order below is the four questions a reader actually asks, in the
+          order they ask them: who is this and what do we say · why · how does that sit against
+          its peers · what else is going on. */}
       {lv >= 2 && classification}
       {lv >= 2 && <CasePanel />}
+      {/* At level 3 the matrix panel already lists the hidden winners beside the plot, so this
+          repeated the same four names on the same screen. It stays at level 2, where the matrix
+          is not on the page and this is the only place they appear. */}
+      {lv === 2 && !simple && (
+        <div className="panel-block">
+          <BarsPanel title="Hidden winners vs peer avg"
+            subtitle={`${board.counts.showing} companies · avg ESG ${hw.peer_avg ?? '—'}`}
+            rows={hw.rows} maxAbs={maxAbs} suffix="%"
+            footer={board.hidden_winners.basis === 'disagreement'
+              ? 'Bar = how far our evidence puts the company above where its published score does. Click a name to focus it.'
+              : "Bar = live Digital/AI signal — the divergence the rating can't see. Click a name to focus it."}
+            onFocus={focusByTicker} />
+        </div>
+      )}
       {!hasPillars && checkPanel}
-      {lv >= 3 && pricePanel}
-      {lv >= 2 && newsPanel}
+      {/* Price and news are both short and both context. Stacked full-width they read as two
+          more findings; side by side they read as the footnote they are. */}
+      {lv >= 2 && (
+        <div className="deep-row">
+          {lv >= 3 && pricePanel}
+          {newsPanel}
+        </div>
+      )}
       {!hasPillars && cta}
     </div>
   )

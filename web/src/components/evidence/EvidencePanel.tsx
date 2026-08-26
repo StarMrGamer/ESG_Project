@@ -19,6 +19,9 @@ function BadgeRow({ badges }: { badges: Badges }) {
   const cells = [
     { key: 'gb', b: badges.green_bond, label: 'Green bond' },
     { key: 'pf', b: badges.profitability, label: 'Profitability' },
+    // The origination bucket. Shown even when the company is in none of the three, because
+    // "not a lead on this run" is an answer and a blank space is not.
+    ...(badges.pipeline ? [{ key: 'pl', b: badges.pipeline, label: 'Pipeline' }] : []),
   ]
   return (
     <div className="badge-row">
@@ -30,8 +33,9 @@ function BadgeRow({ badges }: { badges: Badges }) {
             {'traction' in b && b.traction && <i className="traction-pip" title="Traction evidence on a loss-maker">▲ traction</i>}
           </>
         )
-        return b.url
-          ? <a key={key} className={`badge tone-${b.tone}`} href={b.url} target="_blank"
+        const url = 'url' in b ? b.url : undefined
+        return url
+          ? <a key={key} className={`badge tone-${b.tone}`} href={url} target="_blank"
             rel="noreferrer" title={`${b.note}\n\nOpens the evidence source.`}>{inner}</a>
           : <span key={key} className={`badge tone-${b.tone}`} title={b.note || 'No evidence URL on file yet.'}>{inner}</span>
       })}

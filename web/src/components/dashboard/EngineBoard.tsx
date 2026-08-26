@@ -1,6 +1,7 @@
 import { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 import { useStore } from '../../store'
 import type { EngineRecord, HorizonKey, LabelKey, TierKey } from '../../types'
+import { matches } from '../../lib/tierMatch'
 
 /**
  * EngineBoard — the Build Spec v2 command strip: the CGSI quadrant matrix (A1), the risk-tier
@@ -90,18 +91,9 @@ const QUADRANTS: { keys: LabelKey[]; at: (r: Rect) => { x: number; y: number }; 
  *
  * `greenLabelled` is read from the metadata CSV's `green_bond_status`, the same field the
  * Conservative tier and the N bucket use, so the setup's focus answer and the origination
- * counts can never mean different things by "green".
+ * counts can never mean different things by "green". Both now live in lib/tierMatch so the
+ * setup's live preview is computed by the SAME rule this plot draws with.
  */
-const GREEN_LABELLED = ['cbi_certified', 'labelled_reviewed']
-
-function matches(record: EngineRecord, tier: TierKey | 'all', pipelineOnly: boolean,
-                 greenFocus: boolean, greenStatus: string): boolean {
-  if (greenFocus && !GREEN_LABELLED.includes(greenStatus)) return false
-  if (pipelineOnly && !record.tiers?.balanced) return false
-  if (tier === 'all') return true
-  return Boolean(record.tiers?.[tier])
-}
-
 export default function EngineBoard() {
   const { board, settings, setSettings, openEvidence, focusTicker, setFocus } = useStore()
   // The plot draws itself at 1:1 with its own box, so it has to know how wide that box is.
@@ -299,6 +291,9 @@ export default function EngineBoard() {
             className="matrix-axis-name">
             what the incumbent rating thinks — percentile →
           </text>
+          <text x={rect.x1} y={rect.y0 - 10} textAnchor="end" className="matrix-end">
+            click a dot to focus it · click it again for the evidence
+          </text>
           <text x={rect.x0} y={rect.y1 + 44} textAnchor="start" className="matrix-end">laggard</text>
           <text x={rect.x1} y={rect.y1 + 44} textAnchor="end" className="matrix-end">leader</text>
 
@@ -316,6 +311,10 @@ export default function EngineBoard() {
             const { cx, cy } = point(r)
             const on = matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
               engine.badges?.[r.company_id]?.green_bond?.status || '')
+            // Two-stage click. One click used to focus AND open the evidence trail, which meant
+            // every exploratory click on a 52-dot plot threw the reader into a full-screen panel
+            // they then had to back out of. First click brings the company onto the board above
+            // (the overview); a second click on the same dot opens the evidence.
             const isFocus = r.company_id === focusTicker
             // No evidence is not the same claim as evidence that says flat, and on this plot
             // both land on exactly y=0 — so they are drawn differently. A hollow dot reads as
@@ -325,10 +324,12 @@ export default function EngineBoard() {
               <circle key={r.company_id} cx={cx} cy={cy}
                 r={r.label === 'hidden_winners' ? 8 : 6}
                 className={`matrix-dot ${LABEL_TONE[r.label]} ${on ? '' : 'is-dim'} ${isFocus ? 'is-focus' : ''}${blank ? ' is-blank' : ''}`}
-                onClick={() => { setFocus(r.company_id); openEvidence(r.company_id) }}>
+                onClick={() => { if (isFocus) openEvidence(r.company_id); else setFocus(r.company_id) }}>
                 <title>{`${nameOf[r.company_id] || r.company_id} — ${r.label_display}
 rating percentile ${(r.lseg_percentile * 100).toFixed(0)}% · momentum ${r.composite_momentum >= 0 ? '+' : ''}${r.composite_momentum.toFixed(2)}
-disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · confidence ${r.composite_confidence.toFixed(2)} · ${r.signal_count} signals`}</title>
+disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · confidence ${r.composite_confidence.toFixed(2)} · ${r.signal_count} signals
+
+${isFocus ? 'Focused above — click again to open its evidence trail.' : 'Click to bring this company onto the board above.'}`}</title>
               </circle>
             )
           })}

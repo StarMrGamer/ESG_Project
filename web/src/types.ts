@@ -312,6 +312,10 @@ export interface Pillar {
   key: string
   label: string
   value: number | null
+  /** Whose reading this is. 'set' = the mean across every company in view (the board cards).
+   *  'company' = one focused company's own evidence. Printing a set average under a company's
+   *  name is how the hub came to show the same four numbers for every company you clicked. */
+  scope?: 'set' | 'company'
   arrow: string
   trend: string
   fast: boolean
@@ -344,6 +348,9 @@ export interface FocusedPayload {
   constituent: Constituent | CompanyB
   from_snapshot: boolean
   classification: { label: string; tone: Tone; line: string }
+  /** This company's OWN four pillar readings. null when neither its numeric block nor an engine
+   *  record can answer — the hub then falls back to the set average and labels it as such. */
+  pillars?: Pillar[] | null
   credentials: Credential[]
   leadership: { score: number; band: string; has: boolean } | null
   signals: { label: string; value: string; tone: Tone }[]
@@ -359,8 +366,12 @@ export interface FocusedPayload {
   news: {
     name: string
     illustrative: boolean
+    /** 'demo' seeded and labelled · 'gathered' real, from news.py · 'awaiting' nothing yet. */
     status: string
-    headlines: { title: string; source: string; date: string }[]
+    /** Date the sweep ran, and how many items carry a date the article itself states. */
+    gathered_at?: string
+    dated?: number
+    headlines: { title: string; source: string; date: string; url?: string }[]
     youtube_url: string
     news_url: string
   }
@@ -368,7 +379,15 @@ export interface FocusedPayload {
   check_action: { check: string; verdict: string; has: boolean }
   /** `source` is set ONLY for a real fetched series (Yahoo); the demo's synthetic curve leaves
    *  it null, which is how the strip knows whether it may drop the "illustrative" label. */
-  price: { pct: number | null; series: number[]; source?: string | null; points?: number | null }
+  price: { pct: number | null; series: number[]; source?: string | null
+           points?: number | null
+           /** Date the series was captured. The basket runs off a dated snapshot so the
+            *  demo needs no network; the card prints this rather than implying a live tick. */
+           captured?: string | null
+           /** The last traded price. Separate from the series because the PSE source gives a
+            *  real price and no history — 'no 90-day line' must not read as 'no price'. */
+           last?: { price: number; currency: string; change_pct: number | null
+                    exchange: string; source: string; captured?: string | null } | null }
   foundation: { basis: string; source_url?: string; confidence?: string } | null
 }
 
@@ -402,7 +421,11 @@ export interface Board {
   avg: { kind: string; value: number | null; n: number; title: string; sub: string }
   pillars: Pillar[]
   momentum_series: Record<string, number[]>
-  hidden_winners: { rows: WinnerRow[]; peer_avg: number | null; n: number }
+  /** `basis` says what the bar measures. 'digital_ai' = the demo set's own signal.
+   *  'disagreement' = the engine's signed evidence-minus-rating gap, used for the real basket,
+   *  where the Digital/AI field does not exist. The footer must name the right one. */
+  hidden_winners: { rows: WinnerRow[]; peer_avg: number | null; n: number
+                    basis?: 'digital_ai' | 'disagreement' }
   evidence: {
     coverage: { label: string; count: number; n: number; pct: number | null }[]
     leaders: WinnerRow[]
@@ -472,9 +495,21 @@ export interface SectorBenchmarkBadge extends Badge {
   attribution: string; caveat: string; note: string
 }
 export interface ProfitabilityBadge extends Badge { state: string; traction: boolean }
+export interface PipelineBadge {
+  /** 'N' issuer · 'M' bond-ready · 'K' review list · '' in none of the three. */
+  bucket: 'N' | 'M' | 'K' | ''
+  display: string
+  tone: string
+  /** The bucket's own rule, verbatim from engine_config — the badge can always be defended. */
+  note: string
+}
+
 export interface Badges {
   green_bond: GreenBondBadge
   profitability: ProfitabilityBadge
+  /** Which origination bucket this company is in. The counts strip shows the totals; this puts
+   *  the label on the company, which is where someone asking "is THIS one a lead?" looks. */
+  pipeline?: PipelineBadge
   /** Present only when CGSI's own notes record a delisting. */
   delisted?: DelistedBadge
   /** Present when the company's industry has a benchmark row. */
