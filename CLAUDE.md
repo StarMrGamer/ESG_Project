@@ -220,9 +220,21 @@ different M, and the frozen record carries `evidence_basis` naming which run pro
 | companies at the 10-signal bar | 0 | **0** |
 | N / M / K | 13 / 4 / 1 | **13 / 10 / 3** |
 
-(That row is the harvest measured on its own, 2026-08-22. `data/nmk_frozen.json` now reads
-**13 / 11 / 3** — PCHEM entered M once Cayden's filled traction cells landed. The frozen file is
-the number to quote; the table above is what the harvest alone changed.)
+(That row is the harvest measured on its own, 2026-08-22. The frozen file is the number to
+quote; the table above is what the harvest alone changed.)
+
+**THE FROZEN N/M/K IS `13 / 10 / 1`, NOT `13 / 11 / 3`** (corrected 2026-08-26). This paragraph
+said 13 / 11 / 3 for two days and a submission document was written off it. That figure was real
+— it was frozen on 2026-08-24 at run `8dbfa7438c2f893a`, after Cayden's traction cells landed —
+but the **deep+quality sweep re-froze it the next day** at `13 / 10 / 1` on run
+`1fc384a2fa92499d`, which is the run the whitepaper, the pitch slide and the Sepolia anchor all
+quote. More evidence moved companies between buckets; the pre-sweep number was simply stale.
+
+The lesson is not "someone mistyped". It is that **N/M/K was written out in prose here instead of
+being read from `data/nmk_frozen.json`**, so re-freezing the run could not update it. Anything
+quoting these counts should read the file — `pipeline_counts.counts(...)` or the frozen JSON —
+and any figure copied into a document should carry the `run_id` it came from, because that is the
+only thing that makes staleness visible.
 | quadrants populated | 2 of 4 | **4 of 4** |
 
 149 dated, sourced events across 26 companies. The evidence gap essentially closed, the
