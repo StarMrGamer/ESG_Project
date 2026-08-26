@@ -31,6 +31,10 @@ BASE = "http://localhost:8000"
 HERO = "KLSE:KLCT"          # KLCC Towers — Hidden Winner, rated bottom 9%, strongest momentum
 FOIL = "HOSE:RRRE"          # Red River Renewables — Overrated Leader, rated top 11%, falling
 OPENER = "PSE:PRLS"         # Pearl Savings — the level-1 focus
+# Present mode's demo subject (web/src/components/present/tour.ts). Chosen over the HERO because
+# its evidence CONTESTS itself — one emissions signal points down — and "we show you the one
+# that disagrees" is a claim the walkthrough stops on and points at.
+TOUR = "IDX:SATB"           # SatBank — Hidden Winner, 11 signals, dissenting emissions signal
 
 # What the browser should hold when recording starts.
 UI_STATE = {
@@ -83,8 +87,9 @@ def main(argv):
     hero = _resolve(HERO, "KLCC")
     foil = _resolve(FOIL, "Red River")
     opener = _resolve(OPENER, "Pearl Savings")
-    picks = [t for t in (opener, hero, foil) if t]
-    if len(picks) < 3:
+    tour = _resolve(TOUR, "SatBank")
+    picks = [t for t in (opener, hero, foil, tour) if t]
+    if len(picks) < 4:
         print("  WARNING: could not resolve every hero ticker — check the demo universe")
 
     print("\nclearing the watchlist…")
@@ -102,7 +107,7 @@ def main(argv):
                   "that has the key, or the Compete will run cold on camera.")
         else:
             print("\npre-computing Stage 2 so no take waits on it (this bills)…")
-            for tk in (hero, foil):
+            for tk in (hero, foil, tour):
                 if not tk:
                     continue
                 t0 = time.time()

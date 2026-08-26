@@ -3139,3 +3139,94 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 }
 .working-strip .expander { margin: 4px 0; }
 .baton-row { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); }
+
+/* ==========================================================================
+   PRESENT MODE — the pitch, walked through the running application.
+   Everything here is chrome ON TOP of the app; nothing in it restyles the app
+   itself, so what the room sees is the product, not a presentation skin.
+   ========================================================================== */
+
+/* Room for the bar to sit over, so the last panel on a page is still reachable. */
+body.is-presenting .app-main { padding-bottom: 168px; }
+
+/* The advance layer. Transparent, above the app, below the bar. */
+.present-catch {
+  position: fixed; inset: 0; z-index: 900; cursor: pointer; background: transparent;
+}
+
+/* The ring. Never eats a click — the catcher above it owns the clicks. */
+.present-ring {
+  position: fixed; z-index: 901; pointer-events: none;
+  border: 2px solid var(--r-pos);
+  border-radius: var(--r-radius);
+  box-shadow: var(--r-glow), 0 0 0 9999px rgba(4, 7, 12, 0.52);
+  transition: opacity 160ms var(--r-ease);
+}
+
+.present-bar {
+  position: fixed; z-index: 902; left: var(--sp-6); right: var(--sp-6); bottom: var(--sp-6);
+  background: color-mix(in srgb, var(--r-panel) 94%, transparent);
+  border: 1px solid var(--r-borderStrong);
+  border-radius: var(--r-radius);
+  box-shadow: var(--r-shadow);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.present-bar.is-interactive { border-color: color-mix(in srgb, var(--r-amber) 55%, transparent); }
+
+/* One tick per step, clickable — a presenter who is asked to "go back to the matrix"
+   should not have to press left eleven times. */
+.present-rail { display: flex; gap: 2px; padding: 0; }
+.present-tick {
+  flex: 1; height: 4px; border: 0; padding: 0; cursor: pointer;
+  background: var(--r-border);
+  transition: background 140ms var(--r-ease);
+}
+.present-tick.done { background: color-mix(in srgb, var(--r-pos) 45%, transparent); }
+.present-tick.on { background: var(--r-pos); }
+.present-tick:hover { background: var(--r-blue); }
+
+.present-body {
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  gap: var(--sp-5); padding: var(--pad-panel);
+}
+.present-meta {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: var(--sp-4);
+  font: 600 11.5px/1.2 var(--r-mono);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--r-faint);
+}
+.present-chapter { color: var(--r-pos); }
+.present-count { color: var(--r-muted); font-variant-numeric: tabular-nums; }
+.present-live {
+  color: var(--r-amber); background: var(--r-amberbg);
+  padding: var(--pad-chip); border-radius: 999px;
+}
+.present-free {
+  color: var(--r-blue); background: var(--r-bluebg);
+  padding: var(--pad-chip); border-radius: 999px;
+}
+
+/* The cue. Large enough to read from the lectern at a glance, and it doubles as a
+   caption for the room — which is why it is the line that was spoken, verbatim. */
+.present-say {
+  grid-column: 1; margin: var(--sp-1) 0 0;
+  font: 400 22px/1.42 var(--r-font);
+  color: var(--r-text); letter-spacing: -0.01em; text-wrap: balance;
+  max-width: 96ch;
+}
+.present-actions { grid-column: 2; display: flex; gap: var(--sp-3); align-items: center; }
+
+.present-chapters {
+  display: flex; gap: var(--sp-2); padding: 0 var(--sp-6) var(--sp-4);
+  font: 600 10.5px/1.2 var(--r-mono); letter-spacing: 0.14em; color: var(--r-faint);
+}
+.present-chapters span { padding: var(--pad-chip); border-radius: var(--r-radius-2xs); }
+.present-chapters span.done { color: color-mix(in srgb, var(--r-pos) 70%, var(--r-faint)); }
+.present-chapters span.on { color: var(--r-bg); background: var(--r-pos); }
+.present-keys { margin-left: auto; color: var(--r-faint); letter-spacing: 0.08em; }
+.present-keys b { color: var(--r-muted); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .present-ring, .present-tick { transition: none; }
+}

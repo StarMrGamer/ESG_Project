@@ -85,7 +85,7 @@ function Verification({ ticker, demo, horizon }:
   }, [ticker, demo, horizon])
 
   return (
-    <div className="panel-block verify-block">
+    <div className="panel-block verify-block" data-tour="verify-block">
       <div className="cc-h">On-chain verification</div>
       <div className="cc-muted">
         Recomputes every evidence hash, walks the Merkle path to the run's root, and compares it
@@ -105,10 +105,10 @@ function Verification({ ticker, demo, horizon }:
         the analyst still does the verifying.
       </div>
       <div className="verify-actions">
-        <button className="btn btn-primary" disabled={busy} onClick={() => run(false)}>
+        <button className="btn btn-primary" data-tour="verify" disabled={busy} onClick={() => run(false)}>
           {busy ? 'Verifying…' : 'Verify this evidence'}
         </button>
-        <button className="btn" disabled={busy} onClick={() => run(true)}
+        <button className="btn" data-tour="tamper" disabled={busy} onClick={() => run(true)}
           title="Rehearsal demo: edit one character of one excerpt and watch verification fail.">
           Tamper demo
         </button>
@@ -203,7 +203,7 @@ export default function EvidencePanel({ ticker }: { ticker: string }) {
       <BadgeRow badges={data.badges} />
       {data.metadata_note && <div className="cc-muted">{data.metadata_note}</div>}
 
-      <div className="panel-block">
+      <div className="panel-block" data-tour="score-source">
         <div className="cc-h">Where the score comes from</div>
         <div className="subcomp-grid">
           {Object.entries(data.subcomponents).map(([component, subs]) => (
@@ -263,7 +263,7 @@ and from LSEG's published 0–5.">(unattributed · display only)</span>.</>
         <ClaimVsEvidence ticker={ticker} />
       </div>
 
-      <div className="panel-block">
+      <div className="panel-block" data-tour="trail">
         <div className="cc-h">Evidence trail · {data.trail.length} signals</div>
         <div className="cc-muted">
           Every row is one dated, sourced signal, with the one-line rationale for why it was

@@ -23,7 +23,7 @@ const RADAR_SVG = (
   </svg>
 )
 
-export default function Header() {
+export default function Header({ onPresent }: { onPresent?: () => void }) {
   const { settings, setSettings, board, health, loadSample, uploadFile, toast, goDashboard,
     restartSetup } = useStore()
   const fileRef = useRef<HTMLInputElement>(null)
@@ -163,6 +163,17 @@ export default function Header() {
               <span className="cc-menu-label">Setup</span>
               <button className="btn" onClick={restartSetup}
                 title="Run the assistant setup again and re-shape the board.">Reconfigure</button>
+            </div>
+
+            {/* A demo control, so it lives with the other configuration rather than in the
+                header proper — but it is the one a presenter needs to find in a hurry, so it
+                is also reachable as ?present=1 straight from a bookmark. */}
+            <div className="cc-menu-group">
+              <span className="cc-menu-label">Demo</span>
+              <button className="btn" onClick={() => { menuRef.current!.open = false; onPresent?.() }}
+                title="Walk the pitch through the running app, one click per step. Esc to leave.">
+                Present mode
+              </button>
             </div>
           </div>
         </details>

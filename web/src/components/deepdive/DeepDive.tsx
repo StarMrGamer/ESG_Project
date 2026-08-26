@@ -27,7 +27,7 @@ const STAGES: { n: number; name: string; what: string; baton: string }[] = [
 
 function StageRail({ idx }: { idx: number }) {
   return (
-    <div className="stage-rail" role="list" aria-label="Three-stage relay">
+    <div className="stage-rail" role="list" aria-label="Three-stage relay" data-tour="relay">
       {STAGES.map((st, i) => (
         <div key={st.n} role="listitem"
           className={`stage-card ${i < idx ? 'done' : i === idx ? 'on' : ''}`}>
@@ -249,7 +249,7 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
                 <h3 style={{ margin: '16px 0 10px', font: '600 16px/1.2 var(--r-font)' }}>3 · The competing answer</h3>
                 <AnswerPanel answer={answer} company={company} narrowed={narrowedQ} />
                 <div style={{ marginTop: 12 }}>
-                  <button className="btn" onClick={reset}>Ask a different question about this company</button>
+                  <button className="btn" data-tour="reask" onClick={reset}>Ask a different question about this company</button>
                 </div>
               </>
             )}

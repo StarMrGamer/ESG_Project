@@ -33,7 +33,7 @@ const AXIS_ASKS: Record<AxisKey, string> = {
 
 function AxisMap({ covered, active }: { covered: Set<string>; active: string | null }) {
   return (
-    <div className="axis-map">
+    <div className="axis-map" data-tour="axes">
       <div className="axis-map-h">
         ESG-native axes
         <span className="cc-muted">
@@ -172,7 +172,7 @@ export default function Interrogation({ entry, onDone }: {
     : []
 
   return (
-    <div>
+    <div data-tour="interrogate">
       <AxisMap covered={covered} active={activeAxis} />
       <div className="chat-thread">
         {turns.map((t, i) => (

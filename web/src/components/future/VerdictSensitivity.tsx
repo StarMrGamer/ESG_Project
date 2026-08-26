@@ -91,7 +91,7 @@ export default function VerdictSensitivity({ ticker }: { ticker: string }) {
   const shown = all ? [...flips, ...rest] : [...flips, ...rest].slice(0, 5)
 
   return (
-    <div className="sens">
+    <div className="sens" data-tour="sensitivity">
       <div className="sens-head">
         <div>
           <div className="cc-h">What would change this verdict</div>

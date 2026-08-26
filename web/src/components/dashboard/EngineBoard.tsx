@@ -160,7 +160,7 @@ export default function EngineBoard() {
   const [open, toggleOpen] = useCollapsed('matrix', true)
 
   return (
-    <div className={`engine-board section ${open ? 'is-open' : 'is-closed'}`}>
+    <div className={`engine-board section ${open ? 'is-open' : 'is-closed'}`} data-tour="matrix">
       <div className="engine-head">
         <div>
           {/* The matrix measures its own box with a ResizeObserver, so it keeps its own chrome
@@ -196,7 +196,7 @@ export default function EngineBoard() {
       {open && (<>
 
       <div className="engine-controls">
-        <div className="seg" role="group" aria-label="Risk appetite">
+        <div className="seg" role="group" aria-label="Risk appetite" data-tour="tiers">
           <button className={`btn ${settings.tier === 'all' ? 'on' : ''}`}
             title="Show every company, no tier applied."
             onClick={() => setSettings({ tier: 'all' })}>All</button>
@@ -225,11 +225,11 @@ export default function EngineBoard() {
           ))}
         </div>
         <button className={`btn ${settings.pipelineOnly ? 'btn-primary' : ''}`}
-          title={nmk.rules.M}
+          data-tour="pipeline" title={nmk.rules.M}
           onClick={() => setSettings({ pipelineOnly: !settings.pipelineOnly })}>
           Origination pipeline {settings.pipelineOnly ? 'on' : 'off'}
         </button>
-        <div className="nmk">
+        <div className="nmk" data-tour="nmk">
           {(['N', 'M', 'K'] as const).map(key => (
             <span key={key} title={nmk.rules[key]}>
               <b>{key} {nmk[key]}</b> {nmk.labels[key]}

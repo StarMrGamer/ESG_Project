@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { StoreProvider, useStore } from './store'
 import Header from './components/Header'
 import Dashboard from './components/dashboard/Dashboard'
@@ -6,6 +6,7 @@ import DeepDive from './components/deepdive/DeepDive'
 import CompareView from './components/compare/CompareView'
 import Setup from './components/setup/Setup'
 import EvidencePanel from './components/evidence/EvidencePanel'
+import Present from './components/present/Present'
 import './styles.css'
 
 function Toasts() {
@@ -27,6 +28,11 @@ function Router() {
 
 function Shell() {
   const { settings } = useStore()
+  // `?present=1` so the deck can be opened straight from a bookmark on the presenting machine,
+  // without hunting for the button in front of a room.
+  const [present, setPresent] = useState(() =>
+    new URLSearchParams(window.location.search).get('present') === '1')
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', settings.dark ? 'dark' : 'light')
   }, [settings.dark])
@@ -44,7 +50,7 @@ function Shell() {
 
   return (
     <div className="app-shell">
-      <Header />
+      <Header onPresent={() => setPresent(true)} />
       <main className="app-main">
         <Router />
         <div className="footer-note">
@@ -53,6 +59,7 @@ function Shell() {
         </div>
       </main>
       <Toasts />
+      {present && <Present onExit={() => setPresent(false)} />}
     </div>
   )
 }

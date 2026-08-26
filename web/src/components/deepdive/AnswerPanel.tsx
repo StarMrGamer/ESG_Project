@@ -146,7 +146,7 @@ export default function AnswerPanel({ answer, company, narrowed }: {
           the collapsed strip, not wedged between the raw output and the chain of thought. */}
       {!failed && (
         <>
-          <h3 style={{ margin: '14px 0 4px' }}>⚔️ The verdict — where we disagree with the rating</h3>
+          <h3 style={{ margin: '14px 0 4px' }} data-tour="verdict">⚔️ The verdict — where we disagree with the rating</h3>
           <div className="verdict-panel">
             <div className="h">⚔️ Where we compete</div>
             <div className="b">{answer.competes_summary || 'unknown'}</div>
@@ -174,7 +174,7 @@ export default function AnswerPanel({ answer, company, narrowed }: {
           glow, and it carries its own age. Ours advances. That asymmetry IS the thesis rendered
           in CSS — a static snapshot against a live read — and making them look equal would be
           drawing the argument wrong. */}
-      <div className="headline-block">
+      <div className="headline-block" data-tour="market">
         <div className="headline-eyebrow">The answer · market view vs. reality</div>
         <div className="vs-grid">
           <div className="vs-panel rating">
@@ -198,7 +198,7 @@ export default function AnswerPanel({ answer, company, narrowed }: {
 
       {!failed && (
         <>
-          <h4 style={{ margin: '16px 0 4px' }}>Layer B — the evidence the rating can't see</h4>
+          <h4 style={{ margin: '16px 0 4px' }} data-tour="layerb">Layer B — the evidence the rating can't see</h4>
           <div className="ev-grid">
             <div className="ev-card">
               <div className="h">Momentum (E·S·G)</div>
