@@ -36,3 +36,7 @@ D/
 # Harvested evidence is COMMITTED (it is dated, sourced, and part of what a run scored) —
 # but the in-progress scratch of a partial sweep is not. Nothing to ignore here yet; this
 # note exists so nobody adds data/harvest/ to this file by reflex.
+
+# The per-sweep run log is scratch — `data/news/` IS the record, and the log's counts are
+# whatever the module printed at the time (a pre-refilter sweep left impossible ones behind).
+data/news_sweep.log

@@ -1,11 +1,13 @@
 {
+ "anchor_note": "",
  "as_of": "2026-06-25",
- "block_number": null,
- "block_timestamp": null,
+ "block_number": 11564728,
+ "block_timestamp": 1787669268,
  "chain": "sepolia",
  "config_hash": "1883eb466795c332",
- "contract": "",
+ "contract": "0x73649B84B79892EbdFbBF2eeA69C3d82Db5d165a",
  "engine_version": "engine-v2.0",
+ "gas_used": 69120,
  "leaf_count": 468,
  "leaf_version": "leaf-v2",
  "leaves": [
@@ -3288,7 +3290,7 @@
  ],
  "root": "683efaaed34eb7452e6d7463af1e7ab0ee70df0faafffcab7a741cea08390bb6",
  "run_id": "79c90b46e62b905c",
- "signer": "",
- "status": "anchor_pending",
- "tx_hash": ""
+ "signer": "0x36fD36f61dc17a81B9e09432Bcd42c9F019A4002",
+ "status": "anchored",
+ "tx_hash": "878cdd6854c4eeb8381e92da1cbd76172faaaefc43c778b80333b973f65c0199"
 }

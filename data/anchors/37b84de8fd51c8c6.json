@@ -1,12 +1,13 @@
 {
- "anchor_note": "no ESG_ANCHOR_RPC configured",
+ "anchor_note": "",
  "as_of": "2026-06-25",
- "block_number": null,
- "block_timestamp": null,
+ "block_number": 11564729,
+ "block_timestamp": 1787669280,
  "chain": "sepolia",
  "config_hash": "9db679175d308da6",
- "contract": "",
+ "contract": "0x73649B84B79892EbdFbBF2eeA69C3d82Db5d165a",
  "engine_version": "engine-v2.0",
+ "gas_used": 69120,
  "leaf_count": 468,
  "leaf_version": "leaf-v2",
  "leaves": [
@@ -3289,7 +3290,7 @@
  ],
  "root": "683efaaed34eb7452e6d7463af1e7ab0ee70df0faafffcab7a741cea08390bb6",
  "run_id": "37b84de8fd51c8c6",
- "signer": "",
- "status": "anchor_pending",
- "tx_hash": ""
+ "signer": "0x36fD36f61dc17a81B9e09432Bcd42c9F019A4002",
+ "status": "anchored",
+ "tx_hash": "27eb7ba8a7a761a6d0faf53079ca1e84ec758122d9b119a12a4e7ea82ba702d7"
 }

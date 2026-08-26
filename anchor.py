@@ -288,6 +288,10 @@ _ABI = json.loads("""[
                                 {"internalType":"uint64","name":"timestamp","type":"uint64"}],
   "stateMutability":"view","type":"function"},
  {"inputs":[],"name":"signer","outputs":[{"internalType":"address","name":"","type":"address"}],
+  "stateMutability":"view","type":"function"},
+ {"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],
+  "name":"anchors","outputs":[{"internalType":"bytes32","name":"root","type":"bytes32"},
+                              {"internalType":"uint64","name":"timestamp","type":"uint64"}],
   "stateMutability":"view","type":"function"}]""")
 
 
@@ -334,7 +338,7 @@ def push_to_chain(record):
 
 
 def fetch_from_chain(run_id):
-    """Read `getAnchor(run_id)` — public RPC, read-only, no wallet. Returns
+    """Read the anchor for `run_id` — public RPC, read-only, no wallet. Returns
     `{ok, root, timestamp, signer, contract, explorer_url, note}`; `ok=False` simply means the
     chain could not be reached or the run is not anchored yet."""
     w3, cfg, why = _web3()
@@ -345,7 +349,17 @@ def fetch_from_chain(run_id):
         return base
     try:
         contract = w3.eth.contract(address=w3.to_checksum_address(cfg["contract"]), abi=_ABI)
-        root, timestamp = contract.functions.getAnchor(_run_id_bytes32(run_id)).call()
+        run_key = _run_id_bytes32(run_id)
+        # Two ways to read the same slot, and the deployed contract may only offer one. The
+        # Sepolia deployment (2026-08-25) has no `getAnchor` — it exposes only the getter Solidity
+        # generates for `mapping(bytes32 => Anchor) public anchors`. Calling the missing wrapper
+        # reverts with "no data", which `--verify` reported as NO MATCH on a run whose root was
+        # on chain and correct: a false tamper alarm, which is the one failure this module must
+        # never produce. `anchors` exists on every version of this contract, so it is tried first.
+        try:
+            root, timestamp = contract.functions.anchors(run_key).call()
+        except Exception:                                      # noqa: BLE001 - try the wrapper
+            root, timestamp = contract.functions.getAnchor(run_key).call()
         if int(timestamp) == 0:
             base["note"] = "run not anchored on chain yet"
             return base
