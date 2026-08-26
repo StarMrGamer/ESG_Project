@@ -295,6 +295,23 @@ _ABI = json.loads("""[
   "stateMutability":"view","type":"function"}]""")
 
 
+def _0x(value):
+    """A hex identifier as a block explorer expects it: `0x`-prefixed, lower case.
+
+    Stored records are not consistent about this and were never required to be — `contract` and
+    `signer` come back from web3 already prefixed, while `tx_hash` is stored bare. Concatenating
+    the bare hash into an explorer URL produced
+    `https://sepolia.etherscan.io/tx/41065825…`, which Etherscan does not resolve, so the one
+    button that lets a reader check the chain for themselves led nowhere. Normalised at the point
+    of USE rather than by rewriting the records, because the records are the anchored artefact and
+    a display bug is no reason to touch them.
+    """
+    v = str(value or "").strip()
+    if not v:
+        return ""
+    return v if v.lower().startswith("0x") else "0x" + v
+
+
 def _run_id_bytes32(run_id):
     """The 16-hex-char run id, right-padded into bytes32 — stable and collision-free."""
     return bytes.fromhex(run_id.encode("utf-8").hex().ljust(64, "0")[:64])
@@ -452,9 +469,9 @@ def verify_company(run_id, company_id, *, evidence=None, check_chain=True):
     }
     cfg = chain_config()
     if record.get("tx_hash"):
-        payload["explorer_url"] = f"{cfg['explorer']}/tx/{record['tx_hash']}"
+        payload["explorer_url"] = f"{cfg['explorer']}/tx/{_0x(record['tx_hash'])}"
     elif record.get("contract"):
-        payload["explorer_url"] = f"{cfg['explorer']}/address/{record['contract']}"
+        payload["explorer_url"] = f"{cfg['explorer']}/address/{_0x(record['contract'])}"
 
     if check_chain and cfg["readable"]:  # noqa: PLR0915 - one branch, kept with its payload
         chain = fetch_from_chain(run_id)

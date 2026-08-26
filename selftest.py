@@ -2669,6 +2669,35 @@ def test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent():
     contracts.validate_company_data(built)
 
 
+
+def test_anchor_explorer_link_is_one_a_browser_can_open():
+    """The one button that lets a reader check the chain themselves.
+
+    The whitepaper's claim is that the anchored root is "checkable in about 15 seconds". That
+    rests entirely on the explorer link, and the link was built by concatenating a tx hash stored
+    WITHOUT its `0x` prefix — `…etherscan.io/tx/41065825…`, which Etherscan does not resolve. The
+    contract address is stored prefixed and the tx hash is not; nothing enforced either way,
+    because nothing had ever needed them to agree.
+    """
+    import anchor as _anchor
+
+    assert _anchor._0x("41065825ab") == "0x41065825ab"
+    assert _anchor._0x("0x41065825ab") == "0x41065825ab"       # already prefixed, left alone
+    assert _anchor._0x("") == "" and _anchor._0x(None) == ""    # absent stays absent, not "0x"
+
+    payload = _anchor.verify_company("1fc384a2fa92499d", "KLSE:RHBBANK", check_chain=False)
+    assert payload["anchor_status"] == "anchored", payload["anchor_status"]
+    url = payload["explorer_url"]
+    assert "/tx/0x" in url, url
+    # a transaction hash is 32 bytes: "0x" plus 64 hex characters, and nothing else
+    tail = url.split("/tx/")[1]
+    assert len(tail) == 66 and all(c in "0123456789abcdefABCDEF" for c in tail[2:]), tail
+
+    # and the local verification behind the button still holds
+    assert payload["status"] == "MATCH"
+    assert payload["stored_root"] == payload["recomputed_root"]
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2817,6 +2846,8 @@ def main():
          lambda: test_industry_bar_resolves_for_every_company_not_just_the_table()),
         ("layer B falls back to stored evidence, inventing no percentage",
          lambda: test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent()),
+        ("the anchor explorer link is one a browser can open",
+         lambda: test_anchor_explorer_link_is_one_a_browser_can_open()),
         ("board opens on a company it can talk about",
          lambda: test_board_opens_on_a_company_it_can_talk_about()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
