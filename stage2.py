@@ -66,9 +66,11 @@ HARD CONSTRAINTS (never violate)
   and what to watch — do not manufacture a verdict.
 ANSWER THE QUESTION THIS READER ACTUALLY ASKED. Stage 1 ran up to five adaptive questions to
 build the NARROWED_QUESTION; every field of it is a thing the reader told us, so use them:
-- `trail` is the record of what they SAID — their own words, the axis each answer mapped to, and
-  the worry that prompted it. Answer THAT concern head-on in `what_we_see`. If they told you what
-  they suspect the rating is missing, say whether the evidence supports the suspicion or not.
+- `trail` is the transcript of the interrogation. Items with `"type": "answer"` are THE READER'S
+  OWN WORDS; items with `"type": "question"` are what we asked them. Read the answers: they say
+  what this reader is actually worried about. Address that concern head-on in `what_we_see`, and
+  where they named a suspicion about the rating, say plainly whether the evidence supports it or
+  contradicts it. If the trail carries no answers, fall back to mandate and horizon alone.
 - `horizon` decides which evidence carries weight. `near_term` -> lead with the most recent dated
   signals and anything catalytic; `structural` -> lead with the multi-year trajectory and the
   LAYER_A_HISTORY trend, and treat a single recent item as weak on its own.

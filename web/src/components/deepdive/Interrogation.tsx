@@ -125,9 +125,28 @@ export default function Interrogation({ entry, onDone }: {
       const nextTurns = [...turns, { user: force ? '' : text, env, raw: res.raw }]
       setTurns(nextTurns)
       if (env.done) {
-        const trail = nextTurns.map(t => ({
-          axis: t.env.axis, type: t.env.type, text: t.env.text, rationale: t.env.rationale,
-        }))
+        // THE USER'S ANSWERS WERE BEING THROWN AWAY. Each turn holds both the assistant's
+        // envelope (`t.env` — the question it asked) and `t.user` (what the reader actually
+        // typed), and this mapped only the envelope. So the "trail" handed to Stage 2 was a
+        // record of our own questions with every answer stripped out, and an instruction to
+        // "address the concern they raised" had nothing to raise.
+        //
+        // Emitted as ordinary trail items with `type: "answer"` — the contract's `type` is a
+        // free string and each item is already {axis, type, text, rationale}, so an answer is
+        // just an item whose text is theirs. No change to the FROZEN Contract A.
+        //
+        // Answer before question, because that is the order they happened: the reader says
+        // something, the interrogator responds with the next probe.
+        const trail = nextTurns.flatMap(t => {
+          const said = (t.user || '').trim()
+          const items = said
+            ? [{ axis: t.env.axis, type: 'answer', text: said, rationale: '' }]
+            : []
+          items.push({
+            axis: t.env.axis, type: t.env.type, text: t.env.text, rationale: t.env.rationale,
+          })
+          return items
+        })
         const nqRes = await api.stage1Narrow({ trail, final_env: env })
         onDone(nqRes.narrowed_q)
       }
