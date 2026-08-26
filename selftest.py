@@ -2577,6 +2577,77 @@ def test_industry_bar_resolves_for_every_company_not_just_the_table():
         assert bar.get(key) not in (None, ""), key
 
 
+
+def test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent():
+    """Layer B for the REAL basket was empty while the evidence was sitting on disk.
+
+    `metrics.has_numbers` is True for the real 52 (CGSI's rows carry `esg_score`), so they route
+    through `company_from_numeric` — which reads `momentum` and `live_signals`, both FICTIONAL
+    demo-only blocks. Every Layer B field came back "unknown" for all 52 companies while the repo
+    held hundreds of dated, sourced, already-scored signals for them. Not a missing fact; a fact
+    nobody looked up.
+    """
+    import datasource
+    import harvest as _harv
+    import universe as _uni
+
+    real = _harv.apply_overlay([_uni.get("KLSE:RHBBANK")])[0]
+    lb, meta = datasource.layer_b_from_evidence(real)
+    assert lb and meta["available"] and meta["signal_count"] > 0
+
+    # 1 - THE UNITS GUARD, and it is the whole reason this is not a one-liner. The engine's number
+    #     is a DIRECTION CONSENSUS on -1..+1; Contract B's `magnitude` is percent-shaped by
+    #     convention, and `metrics.num` reads 0.78 straight out of any string containing it. A
+    #     consensus parked there would be plotted on an axis labelled "%" and a strong agreement
+    #     would render as a rounding error. Direction survives the unit change; magnitude does not.
+    for cell in lb["momentum"].values():
+        assert cell["magnitude"] == "unknown", cell
+    assert lb["momentum"]["E"]["direction"] in ("improving", "declining", "flat")
+    assert metrics.num(lb["momentum"]["E"]["magnitude"]) is None
+
+    # 2 - a pillar with no evidence stays unknown rather than being smoothed to "flat"
+    assert lb["momentum"]["S"]["direction"] == "unknown"
+
+    # 3 - a contested pillar is REPORTED as contested, with its counts. Averaging two opposing
+    #     signals to ~0 and printing "flat" would hide the most interesting thing on the panel.
+    note = lb["conflicting_signals"]["conflict_note"]
+    assert "disagree" in note and "up" in note and "down" in note, note
+
+    # 4 - we hold no forward calendar, and say so
+    assert lb["near_term_catalyst"] == "unknown"
+
+    # 5 - A COMPANY WITH NO EVIDENCE FILLS NOTHING. This is the rule-2 line: the fallback reads
+    #     what is on disk, it does not manufacture a reading for a company we have nothing on.
+    bare = _harv.apply_overlay([_uni.get("SET:CPALL")])[0]
+    empty, bmeta = datasource.layer_b_from_evidence(bare)
+    assert empty is None and not bmeta["available"]
+    built = datasource.company_from_numeric(bare, origin="dataset")
+    assert built["_layer_b_origin"] == "constituent"
+    assert not built["_layer_b_filled"]
+    assert all(c["direction"] == "unknown" for c in built["layer_b"]["momentum"].values())
+
+    # 6 - GAP-FILLING, NEVER OVERWRITING. A constituent that carries its own numbers keeps them.
+    demo = _uni.constituents(_uni.active_file(True))[0]
+    before = {k: dict(v) for k, v in
+              datasource.company_from_numeric(demo, origin="sample")["layer_b"]["momentum"].items()}
+    assert any(v["magnitude"] != "unknown" for v in before.values()), \
+        "the demo fixture should carry real percentages, or this assertion proves nothing"
+    after = datasource.company_from_numeric(demo, origin="sample")["layer_b"]["momentum"]
+    assert after == before
+
+    # 7 - and the origin is stamped either way, because "derived from stored evidence" is a
+    #     different claim from "fetched just now" (HARD RULE 3).
+    filled = datasource.company_from_numeric(real, origin="dataset")
+    assert filled["_layer_b_origin"] == "stored-evidence"
+    assert filled["_layer_b_filled"]
+    assert "no live retrieval" in filled["_layer_b_note"]
+
+    # 8 - still a valid Contract B. `validate_company_data` RAISES on a bad shape rather than
+    #     returning a flag, so simply calling it is the assertion.
+    contracts.validate_company_data(filled)
+    contracts.validate_company_data(built)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2723,6 +2794,8 @@ def main():
          lambda: test_demo_only_fields_are_declared_and_each_has_a_real_answer()),
         ("industry bar resolves for every company, not just the table",
          lambda: test_industry_bar_resolves_for_every_company_not_just_the_table()),
+        ("layer B falls back to stored evidence, inventing no percentage",
+         lambda: test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent()),
         ("board opens on a company it can talk about",
          lambda: test_board_opens_on_a_company_it_can_talk_about()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),

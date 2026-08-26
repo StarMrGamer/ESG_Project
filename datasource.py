@@ -25,6 +25,7 @@ from typing import Any, Dict, Optional, Tuple
 import contracts
 import core
 import rag
+import signals as _signals
 
 # Filler words stripped when no capitalised entity is found in the user's request.
 _FILLER_RE = re.compile(
@@ -393,6 +394,201 @@ def _pct_str(v):
     return f"{sign}{int(v) if float(v).is_integer() else v}%"
 
 
+
+# --------------------------------------------------------------------------------------------- #
+# Layer B from the evidence we already hold.
+#
+# The live builder asks the model to set anything it cannot support to "unknown", which is right —
+# but it means a company whose live search comes back thin gets an EMPTY Layer B while the repo is
+# sitting on dated, sourced, already-scored evidence for that exact company. That is not a missing
+# fact, it is a fact we did not look up.
+#
+# So: no network, no LLM, and nothing invented. `signals.from_company` routes the stored evidence
+# by rule and every field below is a count or a direction read off those signals.
+# --------------------------------------------------------------------------------------------- #
+
+#: Above this the evidence is calling a direction; below it, the signals disagree enough that
+#: "flat" is the honest word. Deliberately not zero: two signals pointing opposite ways average to
+#: ~0 and that is a CONFLICT, not a company standing still.
+_CONSENSUS_BAND = 0.15
+
+_COMPONENT_PILLAR = {"E": "E", "S": "S", "G": "G"}
+
+
+def _consensus_word(value):
+    if value is None:
+        return "unknown"
+    if value > _CONSENSUS_BAND:
+        return "improving"
+    if value < -_CONSENSUS_BAND:
+        return "declining"
+    return "flat"
+
+
+def _strength_word(value):
+    a = abs(value or 0.0)
+    return "strongly" if a >= 0.75 else "clearly" if a >= 0.4 else "weakly"
+
+
+def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
+    """A Contract-B Layer B built from stored signals. `(layer_b, meta)`, or `(None, meta)`.
+
+    THE MAGNITUDE STAYS "unknown" ON PURPOSE. The engine's number is a DIRECTION CONSENSUS on a
+    -1..+1 scale, and Contract B's `magnitude` is percent-shaped by convention ("+8%") — worse,
+    `metrics.num` happily reads 0.78 out of any string containing it, so a consensus parked in
+    that field would be plotted on an axis labelled "%" and a strong agreement would render as a
+    rounding error. Direction is the part that survives the unit change intact, so direction is
+    what gets filled; the consensus itself is stated in the notes, where nothing parses it.
+    """
+    try:
+        sigs = _signals.from_company(constituent or {}, config=config)
+    except Exception:                                       # noqa: BLE001 - never break a build
+        return None, {"available": False, "reason": "signal extraction failed"}
+    if not sigs:
+        return None, {"available": False, "reason": "no stored evidence for this company"}
+
+    buckets: Dict[str, list] = {}
+    for sg in sigs:
+        buckets.setdefault(sg.get("component") or "?", []).append(sg)
+
+    def read(component):
+        rows = buckets.get(component) or []
+        if not rows:
+            return None
+        dirs = [float(sg.get("direction") or 0) for sg in rows]
+        consensus = sum(dirs) / len(dirs)
+        return {
+            "n": len(rows),
+            "up": sum(1 for d in dirs if d > 0),
+            "down": sum(1 for d in dirs if d < 0),
+            "consensus": round(consensus, 3),
+            "newest": max((sg.get("published_at") or "") for sg in rows),
+            "sources": sorted({sg.get("source_type") or "unknown" for sg in rows}),
+        }
+
+    pillars = {k: read(k) for k in _COMPONENT_PILLAR}
+    digital = read("D")
+
+    def momentum_cell(key):
+        r = pillars.get(key)
+        if not r:
+            return {"direction": "unknown", "magnitude": "unknown"}
+        return {"direction": _consensus_word(r["consensus"]), "magnitude": "unknown"}
+
+    # A pillar whose signals point BOTH ways is the most interesting thing on this panel, and it
+    # is a real reading rather than a hedge — so it is reported with its counts.
+    split = [(k, r) for k, r in pillars.items() if r and r["up"] and r["down"]]
+    if split:
+        key, r = max(split, key=lambda kv: kv[1]["n"])
+        conflict_note = ("%d %s signals disagree: %d point up, %d down (consensus %+.2f). "
+                         "The direction is contested, not absent."
+                         % (r["n"], {"E": "environmental", "S": "social",
+                                     "G": "governance"}[key], r["up"], r["down"], r["consensus"]))
+    else:
+        conflict_note = ""
+
+    # Sentiment we do NOT hold. What we hold is which KIND of source said what, which is a
+    # different and more defensible claim, so that is what is reported.
+    news_sigs = [sg for sg in sigs if (sg.get("source_type") or "") == "news"]
+    news_dir = (sum(float(sg.get("direction") or 0) for sg in news_sigs) / len(news_sigs)
+                if news_sigs else None)
+    overall = sum(float(sg.get("direction") or 0) for sg in sigs) / len(sigs)
+
+    if digital:
+        gap_note = ("%d dated Digital/AI signal%s on file, %s %s (consensus %+.2f). Newest %s."
+                    % (digital["n"], "" if digital["n"] == 1 else "s",
+                       _strength_word(digital["consensus"]),
+                       _consensus_word(digital["consensus"]), digital["consensus"],
+                       digital["newest"] or "undated"))
+    else:
+        gap_note = ("No Digital/AI evidence on file for this company. That is an absence of "
+                    "evidence, not evidence that nothing is happening.")
+
+    layer_b = {
+        "momentum": {k: momentum_cell(k) for k in ("E", "S", "G")},
+        "digital_ai_signal": {
+            "ai_governance_hiring_velocity": "unknown",
+            "ai_disclosure_level": "disclosed" if digital else "unknown",
+            "gap_note": gap_note,
+        },
+        "conflicting_signals": {
+            "news_sentiment": _consensus_word(news_dir) if news_sigs else "unknown",
+            "behaviour_trend": _consensus_word(overall),
+            "conflict_note": conflict_note,
+        },
+        # We hold no forward calendar — no regulation dates, no results dates. Saying so is the
+        # whole point of the field.
+        "near_term_catalyst": "unknown",
+    }
+    meta = {
+        "available": True,
+        "signal_count": len(sigs),
+        "pillars": {k: v for k, v in pillars.items() if v},
+        "digital": digital,
+        "newest": max((sg.get("published_at") or "") for sg in sigs),
+        "note": ("Layer B read from %d dated, sourced signals already on file — no live retrieval "
+                 "and no model. Directions are the evidence consensus; magnitudes are left "
+                 "unknown because that consensus is not a percentage."
+                 % len(sigs)),
+    }
+    return layer_b, meta
+
+
+
+def _is_unknown(value):
+    return not value or str(value).strip().lower() in ("", "unknown", "none")
+
+
+def _fill_layer_b_from_evidence(company: Dict[str, Any], constituent: Dict[str, Any]) -> bool:
+    """Fill only the Layer B fields still reading "unknown", from stored evidence.
+
+    Returns True if anything was filled. Stamps `_layer_b_origin` either way, because a reader is
+    entitled to know which half of the panel came from a live build and which from the file on
+    disk (HARD RULE 3) — and because "derived from stored evidence" is a materially different
+    claim from "fetched just now".
+    """
+    lb = company.get("layer_b")
+    if not isinstance(lb, dict):
+        return False
+
+    evidence, meta = layer_b_from_evidence(constituent)
+    if not evidence:
+        # Stamp the same keys on every path. A caller that has to check whether a field EXISTS
+        # before reading it will eventually forget, and the forgetting looks like "nothing was
+        # filled" rather than like an error.
+        company["_layer_b_origin"] = "constituent"
+        company["_layer_b_filled"] = []
+        company["_layer_b_evidence"] = meta or {}
+        company["_layer_b_note"] = (meta or {}).get("reason", "")
+        return False
+
+    filled = []
+    mom = lb.get("momentum") if isinstance(lb.get("momentum"), dict) else {}
+    for key, cell in (evidence.get("momentum") or {}).items():
+        target = mom.get(key)
+        if isinstance(target, dict) and _is_unknown(target.get("direction")) \
+                and not _is_unknown(cell.get("direction")):
+            target["direction"] = cell["direction"]
+            # magnitude is deliberately NOT filled — see layer_b_from_evidence.
+            filled.append("momentum.%s" % key)
+
+    for block in ("digital_ai_signal", "conflicting_signals"):
+        src = evidence.get(block) or {}
+        dst = lb.get(block)
+        if not isinstance(dst, dict):
+            continue
+        for field, value in src.items():
+            if _is_unknown(dst.get(field)) and not _is_unknown(value):
+                dst[field] = value
+                filled.append("%s.%s" % (block, field))
+
+    company["_layer_b_origin"] = "stored-evidence" if filled else "constituent"
+    company["_layer_b_filled"] = filled
+    company["_layer_b_evidence"] = meta
+    company["_layer_b_note"] = meta.get("note", "") if filled else ""
+    return bool(filled)
+
+
 def company_from_numeric(constituent: Dict[str, Any], *, origin: str = "live") -> Dict[str, Any]:
     """Build a Contract B from a constituent's NUMERIC dashboard fields (esg_score / momentum /
     live_signals) with NO network or LLM — so the chatbot can run the 3-stage relay on demo or
@@ -437,6 +633,16 @@ def company_from_numeric(constituent: Dict[str, Any], *, origin: str = "live") -
             "near_term_catalyst": "unknown",
         },
     }, origin=origin)
+    # THE REAL BASKET REACHES HERE. `metrics.has_numbers` is True for it — CGSI's rows carry an
+    # `esg_score` — but `momentum` and `live_signals` are FICTIONAL demo-only blocks, so every
+    # Layer B field above resolves to "unknown" for all 52 real companies while the repo holds
+    # hundreds of dated, sourced, already-scored signals for them. That is not a missing fact, it
+    # is a fact nobody looked up.
+    #
+    # So anything still unknown is filled from the stored evidence. Gap-filling, never overwriting:
+    # a constituent that really does carry numbers keeps them, and only the holes are filled.
+    _fill_layer_b_from_evidence(company, c)
+
     company["_country"] = c.get("country") or "unknown"
     company["_exchange"] = c.get("exchange") or "unknown"
     company["_constituent_ticker"] = c.get("ticker") or c.get("id") or "unknown"
