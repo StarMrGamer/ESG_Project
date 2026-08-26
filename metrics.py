@@ -1011,9 +1011,12 @@ def suggested_followups(*, focused_name=None, focused_sector=None, has_focus=Fal
     chips = []
     if has_focus and name:
         chips.append({"label": ("Run a deep dive" if has_answer else "Get a quick read") if simplified
-                      else ("Open the deep dive" if has_answer else f"Compete · {name}"),
+                      # Same vocabulary as the buttons these chips sit beside. "Compete" is the
+                      # STAGE name and stays in the rail and the docs; a control the reader
+                      # clicks says what pressing it does.
+                      else ("Open the deep dive" if has_answer else f"Answer now · {name}"),
                       "prompt": f"Analyze {name}"})
-        chips.append({"label": "Ask sharper questions" if simplified else f"Interrogate · {name}",
+        chips.append({"label": "Ask sharper questions" if simplified else f"Shape the question · {name}",
                       "prompt": f"Interrogate {name}"})
         if not sec_missing:
             chips.append({"label": "See similar companies" if simplified else f"Peers · {sec}",

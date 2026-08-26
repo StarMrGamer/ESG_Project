@@ -234,6 +234,43 @@ def _band_emoji(snap):
 # --------------------------------------------------------------------------- #
 #  BUILD PATHS  (ported _ensure_snapshot / _add_live_company)
 # --------------------------------------------------------------------------- #
+def _attach_engine_verdict(company, ticker, demo):
+    """Ride the ENGINE's own verdict onto the Contract B as a non-contract field.
+
+    THE BUG THIS FIXES. Stage 2 is told to "take a position that DISAGREES with the Layer A
+    rating" — and was never told which way the evidence actually disagrees. A risk-framed
+    narrowed question ("is it as solid as its rating implies?") therefore pulled the model
+    DOWNWARD: RHB Bank produced "the 61.0 score OVERSTATES ESG solidity" while the board, on the
+    same run, labelled it a Hidden Winner at +0.804 — our evidence at the 98th percentile against
+    a rating at the 18th. Two opposite claims about one company, on one screen, and the deep dive
+    is where a judge would look.
+
+    The sign is arithmetic, not an opinion: `disagreement` is our momentum percentile minus the
+    rating's. Handing it over as a stated fact lets the model argue about WHAT the evidence means
+    without inverting WHICH WAY it points; the prompt forbids the inversion explicitly. Attached,
+    never merged — nothing here is recomputed or blended into a score.
+    """
+    try:
+        run, _meta, _cfg = _engine_run(demo, engine_config.DEFAULT_HORIZON)
+        rec = next((r for r in run.get("records") or [] if r.get("company_id") == ticker), None)
+        if not rec:
+            return
+        company["_engine"] = {
+            "label": rec.get("label_display"),
+            "disagreement": rec.get("disagreement"),
+            "our_momentum_percentile": rec.get("momentum_percentile"),
+            "rating_percentile": rec.get("lseg_percentile"),
+            "signal_count": rec.get("signal_count"),
+            "confidence": rec.get("composite_confidence"),
+            "direction_note": (
+                "POSITIVE disagreement means OUR EVIDENCE RANKS THIS COMPANY ABOVE where the "
+                "rating ranks it — the rating is BEHIND. NEGATIVE means the rating is more "
+                "generous than our evidence supports."),
+        }
+    except Exception:                                       # noqa: BLE001 - context is optional
+        return
+
+
 def _ensure_snapshot(constituent, demo):
     """Return the ticker of a constituent's snapshot, building it first if needed. Numeric
     constituents build locally (no network); evidence-only names go through the live builder."""
@@ -243,6 +280,7 @@ def _ensure_snapshot(constituent, demo):
     if metrics.has_numbers([constituent]):
         company = datasource.company_from_numeric(constituent,
                                                   origin="sample" if demo else "dataset")
+        _attach_engine_verdict(company, tk, demo)
         return _pin(company), None
     try:
         company, _meta = datasource.build_company_from_constituent(constituent, use_rag=True)
