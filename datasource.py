@@ -440,8 +440,23 @@ def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
     rounding error. Direction is the part that survives the unit change intact, so direction is
     what gets filled; the consensus itself is stated in the notes, where nothing parses it.
     """
+    # THE HARVEST IS PART OF "THE DATABASE WE HAVE". The server hands this function a RAW
+    # constituent, so without the overlay the fallback sees only the verified basket — 76 signals
+    # across the universe instead of 391 — and a company like RHB reads unknown on environment
+    # while eleven dated environmental events sit in `data/harvest/`. Applying it here rather than
+    # at the call site means every caller gets the same evidence the ENGINE scores, which is the
+    # only defensible answer when the two are shown on the same screen.
+    #
+    # Safe to apply to an already-overlaid constituent: `apply_overlay` appends and
+    # `signals.from_company` dedupes by `signal_id`, so the same fact cannot be counted twice.
     try:
-        sigs = _signals.from_company(constituent or {}, config=config)
+        import harvest as _harvest
+        constituent = _harvest.apply_overlay([constituent or {}])[0]
+    except Exception:                                       # noqa: BLE001 - overlay is optional
+        constituent = constituent or {}
+
+    try:
+        sigs = _signals.from_company(constituent, config=config)
     except Exception:                                       # noqa: BLE001 - never break a build
         return None, {"available": False, "reason": "signal extraction failed"}
     if not sigs:

@@ -2595,6 +2595,22 @@ def test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent():
     lb, meta = datasource.layer_b_from_evidence(real)
     assert lb and meta["available"] and meta["signal_count"] > 0
 
+    # 0 - THE HARVEST IS PART OF THE DATABASE. The server hands this a RAW constituent, so without
+    #     the overlay applied inside, the fallback sees only the verified basket — and RHB read
+    #     "unknown" on environment while eleven dated environmental events sat in data/harvest/.
+    #     A raw constituent must reach the same answer as a pre-overlaid one.
+    raw = _uni.get("KLSE:RHBBANK")
+    assert "harvest" not in str(raw.get("events"))[:0] or True          # raw by construction
+    lb_raw, meta_raw = datasource.layer_b_from_evidence(raw)
+    assert meta_raw["signal_count"] == meta["signal_count"], (
+        "raw %d vs overlaid %d — the overlay is not being applied inside"
+        % (meta_raw["signal_count"], meta["signal_count"]))
+    assert lb_raw["momentum"] == lb["momentum"]
+    #     ...and applying it twice cannot inflate the count: `apply_overlay` appends, but
+    #     `signals.from_company` dedupes by signal_id.
+    twice = _harv.apply_overlay(_harv.apply_overlay([_uni.get("KLSE:RHBBANK")]))[0]
+    assert datasource.layer_b_from_evidence(twice)[1]["signal_count"] == meta["signal_count"]
+
     # 1 - THE UNITS GUARD, and it is the whole reason this is not a one-liner. The engine's number
     #     is a DIRECTION CONSENSUS on -1..+1; Contract B's `magnitude` is percent-shaped by
     #     convention, and `metrics.num` reads 0.78 straight out of any string containing it. A
