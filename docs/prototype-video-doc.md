@@ -52,6 +52,31 @@ Design rules that follow:
 
 ---
 
+## 1b. Recorded as ONE CONTINUOUS TAKE — and why the order moved
+
+The first build shot each section separately. Every take reloaded the page, so the cut snapped
+back to the dashboard seven times: seven independent clips, which reads as a feature menu rather
+than as someone working. Rule 1 of §1 says the opposite, so the whole thing is now recorded as a
+single session and cut into chapters afterwards — every join stays inside one continuous state.
+
+**That forces one change to the order, and it is an improvement.** The board work finishes before
+she opens a company, because that is the order it actually happens in:
+
+| doc order | recorded order |
+|---|---|
+| 3 · it asks · 4 · call list | **3 · call list · 4 · it asks** |
+
+Interrogate then leads straight into the answer it produced, which is the relay this product is
+built on — she asks, and the verdict is the thing her question returned. Cut apart, that reads as
+two features; recorded continuously, it reads as one motion.
+
+**RHB is deliberately UNPINNED before the take.** A cached answer sets `skipInterrogation` and the
+deep dive walks straight past Stage 1, which is what made the first attempt impossible to shoot.
+Clearing it means the Compete runs LIVE in shot — a real wait, cut out afterwards, and a real
+answer produced from what she actually said.
+
+---
+
 # PART A — THE 2:00 STAGE CUT  ★ BUILD THIS ONE
 
 Seven sections, no out-card of its own. Narration budget **≈236 words at ~125 wpm ≈ 1:53**,
