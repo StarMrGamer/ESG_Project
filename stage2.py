@@ -64,9 +64,28 @@ HARD CONSTRAINTS (never violate)
   LAYER_A_HISTORY trend; if they're "unknown", lean on RETRIEVED_CONTEXT instead.
 - If BOTH Layer B and RETRIEVED_CONTEXT are empty, say plainly there isn't enough evidence yet
   and what to watch — do not manufacture a verdict.
-- Frame check_before_monday by the NARROWED_QUESTION's mandate:
+ANSWER THE QUESTION THIS READER ACTUALLY ASKED. Stage 1 ran up to five adaptive questions to
+build the NARROWED_QUESTION; every field of it is a thing the reader told us, so use them:
+- `trail` is the record of what they SAID — their own words, the axis each answer mapped to, and
+  the worry that prompted it. Answer THAT concern head-on in `what_we_see`. If they told you what
+  they suspect the rating is missing, say whether the evidence supports the suspicion or not.
+- `horizon` decides which evidence carries weight. `near_term` -> lead with the most recent dated
+  signals and anything catalytic; `structural` -> lead with the multi-year trajectory and the
+  LAYER_A_HISTORY trend, and treat a single recent item as weak on its own.
+- `mandate` shapes what `what_we_see` FOREGROUNDS, not only the closing action:
+    risk -> exposure, controversies, the downside the rating has not priced;
+    return -> mispricing, improvement the rating has not caught up with;
+    compliance -> disclosure quality, regulatory readiness, verification status.
+- Frame check_before_monday by the same mandate:
     risk -> a downside/exposure check;  return -> an upside/mispricing check;
     compliance -> a regulatory-readiness check.
+
+PERSONALISE THE EMPHASIS, NEVER THE VERDICT. The mandate, horizon and trail decide which true
+things you lead with and how you frame them. They NEVER decide what is true, never change which
+evidence exists, and never soften a finding. If the evidence contradicts what the reader hoped
+or suspected, SAY SO FIRST and plainly — that is the single most useful thing this tool can do,
+and a reader who is only told what they wanted to hear has been given nothing. An answer shaped
+to please is a worse failure here than an answer that is merely generic.
 - competes_summary MUST be ONE sentence that challenges the Layer A rating — or, when the
   rating is "unknown", challenges the market's complacent view — using your strongest evidence.
 

@@ -92,6 +92,14 @@ export default function AnswerPanel({ answer, company, narrowed }: {
         </div>
       )}
 
+      {/* HOW WE GOT HERE — all of it, collapsed, in one strip. The raw output, the chain of
+          thought and the interrogation trail are the same KIND of thing: the tool's working,
+          which has to stay open to inspection but is not what the reader came for. They used to
+          be scattered down the page with export buttons wedged between them, so the answer
+          started somewhere in the middle. Grouped here, the answer begins below them and reads
+          as one uninterrupted block. */}
+      <div className="working-strip">
+        <div className="working-strip-h">How we got here — open any of these to check our working</div>
       {(settings.simplified === false || answer._parse_failed) && answer._raw != null && (
         <details className="expander">
           <summary>🐞 raw Stage 2 output</summary>
@@ -101,34 +109,19 @@ export default function AnswerPanel({ answer, company, narrowed }: {
 
       {!failed && (
         <>
-          <h3 style={{ margin: '14px 0 4px' }}>⚔️ The verdict — where we disagree with the rating</h3>
-          <div className="verdict-panel">
-            <div className="h">⚔️ Where we compete</div>
-            <div className="b">{answer.competes_summary || 'unknown'}</div>
-          </div>
-          {flip && (
-            <div className="flip-panel">
-              <div className="h">🔄 What would change our mind</div>
-              {flip}
-            </div>
-          )}
-
+          {/* CLOSED by default. The chain of thought is the tool's working, and it has to stay
+              available — a verdict nobody can audit is the thing this product criticises. But
+              opening on six steps of reasoning puts the working ahead of the answer, and the
+              reader came for the answer. One click away, not zero. */}
           {answer.reasoning.length > 0 && (
-            <details className="expander" open>
-              <summary>🧠 Chain of thought ({answer.reasoning.length} steps)</summary>
+            <details className="expander">
+              <summary>🧠 Chain of thought ({answer.reasoning.length} steps) — how we got here</summary>
               <ol className="cot-list">
                 {answer.reasoning.map((r, i) => <li key={i}>{r}</li>)}
               </ol>
             </details>
           )}
 
-          <div style={{ display: 'flex', gap: 8, margin: '8px 0' }}>
-            <button className="btn btn-sm" onClick={copyJson}>📋 Copy baton JSON</button>
-            <button className="btn btn-sm" onClick={exportJson}>⬇ Download baton</button>
-            {showRaw
-              ? <button className="btn btn-sm btn-ghost" onClick={() => setShowRaw(false)}>hide raw</button>
-              : null}
-          </div>
         </>
       )}
 
@@ -146,6 +139,25 @@ export default function AnswerPanel({ answer, company, narrowed }: {
             })}
           </ol>
         </details>
+      )}
+      </div>
+
+      {/* THE ANSWER STARTS HERE. The verdict is the conclusion, not working — it belongs below
+          the collapsed strip, not wedged between the raw output and the chain of thought. */}
+      {!failed && (
+        <>
+          <h3 style={{ margin: '14px 0 4px' }}>⚔️ The verdict — where we disagree with the rating</h3>
+          <div className="verdict-panel">
+            <div className="h">⚔️ Where we compete</div>
+            <div className="b">{answer.competes_summary || 'unknown'}</div>
+          </div>
+          {flip && (
+            <div className="flip-panel">
+              <div className="h">🔄 What would change our mind</div>
+              {flip}
+            </div>
+          )}
+        </>
       )}
 
       <h3 style={{ margin: '14px 0 4px' }}>🎯 The question</h3>
@@ -318,6 +330,11 @@ export default function AnswerPanel({ answer, company, narrowed }: {
       <div className="cc-muted" style={{ marginTop: 14 }}>
         We disagree with the stale rating using a signal it can't see — we never say buy / sell / hold.
       </div>
-    </div>
+      <div className="baton-row">
+        <button className="btn btn-sm" onClick={copyJson}>📋 Copy baton JSON</button>
+        <button className="btn btn-sm" onClick={exportJson}>⬇ Download baton</button>
+        {showRaw ? <button className="btn btn-sm btn-ghost" onClick={() => setShowRaw(false)}>hide raw</button> : null}
+      </div>
+</div>
   )
 }

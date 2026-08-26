@@ -3120,3 +3120,22 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
     padding: var(--sp-2) 3px; border-radius: 999px;
   }
 }
+
+/* The tool's WORKING, gathered into one collapsed strip above the answer: raw output, chain of
+   thought, interrogation trail. Same kind of thing — available for inspection, not what the
+   reader came for. Scattered down the page with export buttons between them, the answer had no
+   clear beginning. */
+.working-strip {
+  margin: var(--sp-3) 0 var(--sp-4);
+  padding: var(--pad-card);
+  border: 1px dashed var(--r-border);
+  border-radius: var(--r-radius-sm);
+  background: var(--r-panel);
+}
+.working-strip-h {
+  font: 600 10.5px/1.4 var(--r-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--r-faint); margin-bottom: var(--sp-2);
+}
+.working-strip .expander { margin: 4px 0; }
+.baton-row { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); }

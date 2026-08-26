@@ -221,10 +221,10 @@ export default function CenterBoard() {
   const cta = focused && (
     <div className="focus-cta">
       <button className="btn btn-primary" onClick={() => openDeepDive(focused.constituent.ticker, 'compete')}>
-        Compete · {focused.constituent.company}
+        Answer now · {focused.constituent.company}
       </button>
       <button className="btn" onClick={() => openDeepDive(focused.constituent.ticker, 'interrogate')}>
-        Interrogate first
+        Shape the question first
       </button>
     </div>
   )

@@ -90,7 +90,14 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
         if (cancel) return
         setEntry(e)
         saveEntry(e)
-        if (mode === 'compete' && !e.answer && !e.narrowed_q) setNarrowedQ(e.default_nq)
+        // "Answer now" promises an answer, so it must ALWAYS end up holding a question.
+        // This used to back-fill only when the entry had NO narrowed_q — so a company that had
+        // been interrogated before but never answered opened with `s1Done` true and `narrowedQ`
+        // null, which renders neither the choice panel nor the answer. A blank page, from the
+        // button whose whole promise is that you skip the questions.
+        if (mode === 'compete' && !e.answer) {
+          setNarrowedQ(prev => prev ?? e.narrowed_q ?? e.default_nq ?? null)
+        }
       })
       .catch(() => { if (!cancel) goDashboard() })
       .finally(() => { if (!cancel) setLoading(false) })
@@ -199,14 +206,18 @@ export default function DeepDive({ ticker, mode }: { ticker: string; mode: 'comp
 
       <StageRail idx={stepIdx} />
 
-      {!s1Done && (
+      {/* The second clause is a floor, not a normal path: if we ever reach "interrogation done"
+          holding neither a question nor an answer, show the choice again rather than an empty
+          page. A dead end is worse than repeating a question. */}
+      {(!s1Done || (!narrowedQ && !answer && !loading)) && (
         <div className="panel-block" style={{ marginBottom: 14 }}>
-          <b>See the competing read now, or interrogate a sharper question first</b>
+          <b>Answer a standard question about this company, or shape the question to your
+            mandate first — the answer changes with it.</b>
           <div className="dd-actions">
             <button className="btn btn-primary" onClick={() => {
               setNarrowedQ(entry.default_nq)
               setS1Done(true)
-            }}>Compete now (default question)</button>
+            }}>Answer the standard question</button>
           </div>
           <hr className="divider" />
           <h3 style={{ margin: '0 0 8px', font: '600 16px/1.2 var(--r-font)' }}>1 · Interrogate</h3>

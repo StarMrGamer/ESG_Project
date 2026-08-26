@@ -62,11 +62,11 @@ export default function AssistantRail() {
         </div>
         <div className="action-pair">
           <button className="btn btn-primary" disabled={!hintTicker}
-            title="Skip to the competing read — Stage 2 + 3."
-            onClick={() => openDeepDive(hintTicker, 'compete')}>Compete</button>
+            title="Answer a standard question about this company now (Stage 2 + 3 — the Compete stage)."
+            onClick={() => openDeepDive(hintTicker, 'compete')}>Answer now</button>
           <button className="btn" disabled={!hintTicker}
-            title="Ask adaptive ESG questions first (Stage 1), then compete."
-            onClick={() => openDeepDive(hintTicker, 'interrogate')}>Interrogate</button>
+            title="A few adaptive questions first (Stage 1 — Interrogate), so the answer is shaped to your mandate, horizon and the concern you raise."
+            onClick={() => openDeepDive(hintTicker, 'interrogate')}>Shape the question</button>
         </div>
       </div>
 
