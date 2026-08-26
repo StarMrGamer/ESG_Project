@@ -151,25 +151,37 @@ export default function AnswerPanel({ answer, company, narrowed }: {
       <h3 style={{ margin: '14px 0 4px' }}>🎯 The question</h3>
       <div className="cc-panel-body">{answer.question_to_ask || 'unknown'}</div>
 
-      <h3 style={{ margin: '16px 0 4px' }}>Market view vs. reality</h3>
-      <div className="vs-grid">
-        <div className="vs-panel rating">
-          <div className="h">📊 What the rating sees</div>
-          <div className="b">{answer.what_rating_sees || 'unknown'}</div>
-          {stale != null && stale > 3 && (
-            <div className="cc-muted" style={{ marginTop: 8 }}>⏳ This static view is ~{stale} months old.</div>
-          )}
-        </div>
-        <div className="vs-panel we">
-          <div className="h">🛰️ What we see</div>
-          <div className="b">{answer.what_we_see || 'unknown'}</div>
-        </div>
-      </div>
+      {/* THE HEADLINE. Everything else in a deep dive is working — the reasoning chain, the
+          evidence trail, the pillar cards. This is the ANSWER: what the market thinks, what the
+          evidence says, and the one thing to do about it. It used to sit as three loose elements
+          in the middle of the page, so the single most important comparison in the product read
+          as more body copy. Framed as one block, because the contrast BETWEEN the two panels is
+          the argument — neither half means much alone.
 
-      <h4 style={{ margin: '14px 0 4px' }}>✅ Check before Monday</h4>
-      <div className="flip-panel" style={{ borderLeftColor: 'var(--r-pos)' }}>
-        <div className="h" style={{ color: 'var(--r-pos)' }}>✅ Do this first</div>
-        {answer.check_before_monday || 'unknown'}
+          The two sides are deliberately not symmetrical. The rating recedes: muted, flat, no
+          glow, and it carries its own age. Ours advances. That asymmetry IS the thesis rendered
+          in CSS — a static snapshot against a live read — and making them look equal would be
+          drawing the argument wrong. */}
+      <div className="headline-block">
+        <div className="headline-eyebrow">The answer · market view vs. reality</div>
+        <div className="vs-grid">
+          <div className="vs-panel rating">
+            <div className="h">📊 What the rating sees</div>
+            <div className="b">{answer.what_rating_sees || 'unknown'}</div>
+            {stale != null && stale > 3 && (
+              <div className="vs-age">⏳ This static view is ~{stale} months old.</div>
+            )}
+          </div>
+          <div className="vs-panel we">
+            <div className="h">🛰️ What we see</div>
+            <div className="b">{answer.what_we_see || 'unknown'}</div>
+          </div>
+        </div>
+
+        <div className="flip-panel headline-action" style={{ borderLeftColor: 'var(--r-pos)' }}>
+          <div className="h" style={{ color: 'var(--r-pos)' }}>✅ Check before Monday — do this first</div>
+          {answer.check_before_monday || 'unknown'}
+        </div>
       </div>
 
       {!failed && (
