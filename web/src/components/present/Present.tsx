@@ -3,7 +3,7 @@ import { api } from '../../api'
 import { useStore } from '../../store'
 import type { Settings } from '../../store'
 import type { Board } from '../../types'
-import { TOUR, subjectFor, type Cue, type Driver, type Step } from './tour'
+import { TOUR, subjectFor, type Cue, type Driver, type Step, type ViewSpec } from './tour'
 
 /**
  * The clicker. One overlay, one keypress forward, the real application underneath.
@@ -75,6 +75,28 @@ async function buildCue(demo: boolean, subject: string, board: Board | null): Pr
     }
   } catch { /* a cue is a prompt, not a gate — the tour runs without one */ }
   return base
+}
+
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
+
+/**
+ * Put the app on the screen a step is about.
+ *
+ * Only called when the view actually changes, so consecutive steps in one chapter do not
+ * remount the panel the presenter is reading. The `reask` press lives here rather than in a
+ * single step's `act`, because a warmed company opens on its finished answer — so ANY route
+ * into the interrogation, including a jump from the progress ticks, has to ask again.
+ */
+async function establish(view: ViewSpec, d: Driver) {
+  switch (view) {
+    case 'board': d.dashboard(); return
+    case 'evidence': d.evidence(d.subject); return
+    case 'compete': await d.reopen(d.subject, 'compete'); return
+    case 'interrogate':
+      await d.reopen(d.subject, 'interrogate')
+      await sleep(260)
+      d.click('reask')
+  }
 }
 
 /** The sticky header, and the present bar's own footprint. */
@@ -168,6 +190,7 @@ export default function Present({ onExit }: { onExit: () => void }) {
   const [showScript, setShowScript] = useState(true)
   const restore = useRef<Settings | null>(null)
   const stopTracking = useRef<(() => void) | null>(null)
+  const shownView = useRef<ViewSpec | null>(null)
   const step = TOUR[i]
   const subject = subjectFor(store.settings.demo)
   const [cue, setCue] = useState<Cue | null>(null)
@@ -180,6 +203,10 @@ export default function Present({ onExit }: { onExit: () => void }) {
       .then(c => { if (!dead) setCue(c) })
     return () => { dead = true }
   }, [store.settings.demo, subject, store.board])
+
+  // Switching universe mid-tour changes the subject, so whatever deep dive or evidence panel is
+  // on screen belongs to the other basket. Force the next step to re-establish.
+  useEffect(() => { shownView.current = null }, [subject])
 
   // Snapshot on the way in, put it back on the way out. A demo should not silently rewrite the
   // settings someone spent the setup flow choosing.
@@ -221,7 +248,13 @@ export default function Present({ onExit }: { onExit: () => void }) {
   useEffect(() => {
     let dead = false
     const go = async () => {
-      try { await step.act?.(driver) } catch { /* a step must never strand the presenter */ }
+      try {
+        if (shownView.current !== step.view) {
+          shownView.current = step.view
+          await establish(step.view, driver)
+        }
+        await step.act?.(driver)
+      } catch { /* a step must never strand the presenter */ }
       await new Promise(r => setTimeout(r, step.settle ?? 220))
       if (dead || !step.anchor) return
       stopTracking.current?.()

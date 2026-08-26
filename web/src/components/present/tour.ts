@@ -91,8 +91,19 @@ export interface Driver {
   click: (anchor: string) => boolean
 }
 
+/**
+ * Which screen a step needs. Declared per step, not just on the step that navigates, because
+ * the progress ticks let a presenter JUMP — and a jump straight to chapter 07 would otherwise
+ * land on whatever was on screen, since the step that opened the evidence view never ran.
+ * Establishing is skipped when the view is already the right one, so walking 17 -> 18 -> 19
+ * does not remount the panel under the presenter.
+ */
+export type ViewSpec = 'board' | 'interrogate' | 'compete' | 'evidence'
+
 export interface Step {
   chapter: string
+  /** The screen this step is talking about. Established on entry, from any other step. */
+  view: ViewSpec
   /** The line. A cue for the presenter, and a caption the room can read. */
   say: string | ((c: Cue) => string)
   /** `data-tour` value to scroll to and ring. Omitted = leave the viewport alone. */
@@ -112,6 +123,7 @@ export const TOUR: Step[] = [
   // ── 01 · the board ─────────────────────────────────────────────────────────
   {
     chapter: '01 · The board',
+    view: 'board',
     say: 'Monday morning. An ESG analyst opens the Radar.',
     anchor: 'matrix',
     settle: 450,
@@ -129,88 +141,95 @@ export const TOUR: Step[] = [
   },
   {
     chapter: '01 · The board',
+    view: 'board',
     say: c => `${c.universe} ASEAN companies, read twice overnight — once from dated evidence, `
       + `once from the rating the market already uses.`,
     anchor: 'matrix',
+    act: d => d.set({ tier: 'all', pipelineOnly: false }),
   },
   {
     chapter: '01 · The board',
+    view: 'board',
     say: 'The gap between the two is the product. Across, what the incumbent rating thinks. '
       + 'Up, what our evidence is doing. Four quadrants, and the argument is the diagonal.',
     anchor: 'matrix',
+    act: d => d.set({ tier: 'all', pipelineOnly: false }),
   },
 
   // ── 02 · the mandate ───────────────────────────────────────────────────────
   {
     chapter: '02 · The mandate',
+    view: 'board',
     say: 'Her mandate re-segments the board. Conservative — and the board answers to it.',
     anchor: 'tiers',
-    act: d => d.set({ tier: 'conservative' }),
+    act: d => d.set({ tier: 'conservative', pipelineOnly: false }),
   },
   {
     chapter: '02 · The mandate',
+    view: 'board',
     say: 'Balanced. The same evidence, a different fund, a different shortlist.',
     anchor: 'tiers',
-    act: d => d.set({ tier: 'balanced' }),
+    act: d => d.set({ tier: 'balanced', pipelineOnly: false }),
   },
   {
     chapter: '02 · The mandate',
+    view: 'board',
     say: 'Aggressive.',
     anchor: 'tiers',
-    act: d => d.set({ tier: 'aggressive' }),
+    act: d => d.set({ tier: 'aggressive', pipelineOnly: false }),
   },
   {
     chapter: '02 · The mandate',
+    view: 'board',
     say: 'And nothing is hidden. What falls outside the mandate is dimmed, never dropped — '
       + 'you still have to be able to see the name you are choosing not to hold.',
     anchor: 'matrix',
-    act: d => d.set({ tier: 'all' }),
+    act: d => d.set({ tier: 'all', pipelineOnly: false }),
   },
 
   // ── 03 · the call list ─────────────────────────────────────────────────────
   {
     chapter: '03 · The call list',
+    view: 'board',
     say: 'One filter turns the board into a call list.',
     anchor: 'pipeline',
     act: d => d.set({ tier: 'all', pipelineOnly: true }),
   },
   {
     chapter: '03 · The call list',
+    view: 'board',
     say: c => `${c.pipeline} names — improving on evidence, financially sound, and not yet `
       + `green-bond issuers. Tomorrow’s issuers, not today’s league table.`,
     anchor: 'nmk',
+    act: d => d.set({ tier: 'all', pipelineOnly: true }),
   },
 
   // ── 04 · it asks before it answers ─────────────────────────────────────────
   {
     chapter: '04 · It asks before it answers',
+    view: 'interrogate',
     say: 'Then the part that isn’t a dashboard. It asks.',
     anchor: 'relay',
     settle: 900,
-    act: async d => {
-      d.set({ pipelineOnly: false })
-      await d.reopen(d.subject, 'interrogate')
-      // A warmed company opens on its finished answer, which is the right default for an
-      // analyst and the wrong one for this step. "Ask a different question" is the product's
-      // own control for it, so the tour presses it rather than routing around the behaviour.
-      await new Promise(r => setTimeout(r, 260))
-      d.click('reask')
-    },
+    act: d => d.set({ pipelineOnly: false }),
   },
   {
     chapter: '04 · It asks before it answers',
+    view: 'interrogate',
     say: 'Four ESG-native axes — materiality, time horizon, mandate, blind spot. One question '
       + 'each, and it never answers the ESG question itself.',
     anchor: 'axes',
   },
   {
     chapter: '04 · It asks before it answers',
+    view: 'interrogate',
     say: 'Ask it something loose and it pushes back — and tells you why it is asking.',
     anchor: 'interrogate',
     live: true,
   },
   {
     chapter: '04 · It asks before it answers',
+    view: 'interrogate',
     say: 'What comes out is a sharper question: the baton the next stage answers.',
     anchor: 'interrogate',
     live: true,
@@ -219,20 +238,22 @@ export const TOUR: Step[] = [
   // ── 05 · the case ──────────────────────────────────────────────────────────
   {
     chapter: '05 · The case',
+    view: 'compete',
     say: c => `${c.company}. The competing answer — the verdict, and where we disagree `
       + `with the rating.`,
     anchor: 'verdict',
     settle: 900,
-    act: async d => { await d.reopen(d.subject, 'compete') },
   },
   {
     chapter: '05 · The case',
+    view: 'compete',
     say: c => `What the rating sees, beside what we see. ${signed(c.disagreement)} — our `
       + `evidence rank, minus the rating’s. Not a score. A disagreement, with a sign.`,
     anchor: 'market',
   },
   {
     chapter: '05 · The case',
+    view: 'compete',
     say: c => c.split
       ? `And underneath, the evidence the rating cannot see: ${c.split.total} `
         + `${pillarName(c.split.pillar)} signals — ${c.split.up} up, ${c.split.down} down. `
@@ -245,6 +266,7 @@ export const TOUR: Step[] = [
   // ── 06 · the evidence trail ────────────────────────────────────────────────
   {
     chapter: '06 · The evidence trail',
+    view: 'evidence',
     say: c => c.dissent
       ? `Every number opens. Where the score comes from — each sub-signal, and the one that `
         + `disagrees: ${c.dissent.label}, at ${signed(c.dissent.value)}.`
@@ -252,10 +274,10 @@ export const TOUR: Step[] = [
         + 'and what each one is worth.',
     anchor: 'score-source',
     settle: 700,
-    act: d => d.evidence(d.subject),
   },
   {
     chapter: '06 · The evidence trail',
+    view: 'evidence',
     say: c => c.flips === 0 && c.flipSet
       ? `Take one signal away — none of the ${c.signals} moves the label on its own. `
         + `The ${c.flipSet} heaviest would all have to go. Corroborated, not carried.`
@@ -265,6 +287,7 @@ export const TOUR: Step[] = [
   },
   {
     chapter: '06 · The evidence trail',
+    view: 'evidence',
     say: c => `And the trail itself: ${c.signals} signals, each one dated and sourced. `
       + `The excerpt is the source’s own words — nothing here is generated.`,
     anchor: 'trail',
@@ -273,11 +296,13 @@ export const TOUR: Step[] = [
   // ── 07 · verify ────────────────────────────────────────────────────────────
   {
     chapter: '07 · Verify',
+    view: 'evidence',
     say: 'Then she verifies.',
     anchor: 'verify-block',
   },
   {
     chapter: '07 · Verify',
+    view: 'evidence',
     say: 'Every hash recomputes, walks the Merkle path, and matches the root anchored on a '
       + 'public chain. Proof on-chain — never the data.',
     anchor: 'verify-block',
@@ -286,6 +311,7 @@ export const TOUR: Step[] = [
   },
   {
     chapter: '07 · Verify',
+    view: 'evidence',
     say: 'Change one character on purpose, and it breaks.',
     anchor: 'verify-block',
     settle: 400,
@@ -293,6 +319,7 @@ export const TOUR: Step[] = [
   },
   {
     chapter: '07 · Verify',
+    view: 'evidence',
     say: 'One analyst. One Monday. Every number checkable.',
     anchor: 'verify-block',
   },
