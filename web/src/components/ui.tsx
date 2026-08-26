@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import type { ReactNode } from 'react'
 
 export function signClass(v: number | null | undefined): string {
@@ -78,4 +79,81 @@ export function download(filename: string, text: string) {
   a.download = filename
   a.click()
   URL.revokeObjectURL(url)
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Collapsible sections.
+ *
+ * The board is layered already (`settings.level` decides WHAT is on the page), but layering
+ * answers "how much detail do I want" and not "I want that one thing out of the way right now".
+ * Those are different questions, so folding is per-panel, remembered per browser, and completely
+ * independent of the level.
+ *
+ * `UniverseGrid` had its own Show/Hide toggle before this existed; these share its idiom rather
+ * than introducing a second one.
+ * ------------------------------------------------------------------------------------------- */
+
+const SECTIONS_KEY = 'esg.sections'
+
+function readSections(): Record<string, boolean> {
+  // Every access is guarded: a private window, cleared site data, or a browser set to block
+  // storage can make even the getter throw, and a board that will not render because a
+  // preference could not be read is a far worse failure than a panel opening when it was folded.
+  try {
+    return JSON.parse(localStorage.getItem(SECTIONS_KEY) || '{}') || {}
+  } catch { return {} }
+}
+
+/** Fold state for one panel: `[open, toggle]`, persisted per browser. */
+export function useCollapsed(id: string, defaultOpen = true): [boolean, () => void] {
+  const [open, setOpen] = useState<boolean>(() => {
+    const stored = readSections()[id]
+    return typeof stored === 'boolean' ? stored : defaultOpen
+  })
+  const toggle = useCallback(() => {
+    setOpen(prev => {
+      const next = !prev
+      try {
+        localStorage.setItem(SECTIONS_KEY, JSON.stringify({ ...readSections(), [id]: next }))
+      } catch { /* preference is a convenience, never a requirement */ }
+      return next
+    })
+  }, [id])
+  return [open, toggle]
+}
+
+/**
+ * One foldable panel. `id` is the persistence key, so keep it stable — renaming it silently
+ * resets everyone's folds back to the default.
+ */
+export function Section({ id, title, sub, right, children, defaultOpen = true, className = '' }: {
+  id: string
+  title: ReactNode
+  sub?: ReactNode
+  right?: ReactNode
+  children: ReactNode
+  defaultOpen?: boolean
+  className?: string
+}) {
+  const [open, toggle] = useCollapsed(id, defaultOpen)
+  return (
+    <div className={`panel-block section ${open ? 'is-open' : 'is-closed'} ${className}`}>
+      <div className="section-head">
+        <button className="section-toggle" onClick={toggle} aria-expanded={open}
+          title={open ? 'Fold this section' : 'Unfold this section'}>
+          <span className="section-chev" aria-hidden="true">▾</span>
+          <span className="cc-h section-title">{title}</span>
+        </button>
+        {right}
+      </div>
+      {/* Unmounted rather than hidden: several of these panels fetch or measure on mount, and a
+          folded panel should not be paying for either. */}
+      {open && (
+        <div className="section-body">
+          {sub && <div className="cc-muted">{sub}</div>}
+          {children}
+        </div>
+      )}
+    </div>
+  )
 }

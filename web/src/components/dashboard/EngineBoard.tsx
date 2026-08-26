@@ -2,6 +2,7 @@ import { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 import { useStore } from '../../store'
 import type { EngineRecord, HorizonKey, LabelKey, TierKey } from '../../types'
 import { matches } from '../../lib/tierMatch'
+import { useCollapsed } from '../ui'
 
 /**
  * EngineBoard — the Build Spec v2 command strip: the CGSI quadrant matrix (A1), the risk-tier
@@ -155,11 +156,19 @@ export default function EngineBoard() {
 
   const point = (r: EngineRecord) => ({ cx: xOf(r.lseg_percentile), cy: yOf(r.composite_momentum) })
 
+  const [open, toggleOpen] = useCollapsed('matrix', true)
+
   return (
-    <div className="engine-board">
+    <div className={`engine-board section ${open ? 'is-open' : 'is-closed'}`}>
       <div className="engine-head">
         <div>
-          <div className="cc-h">Disagreement matrix</div>
+          {/* The matrix measures its own box with a ResizeObserver, so it keeps its own chrome
+              and takes a fold toggle in place rather than being wrapped in a <Section>. */}
+          <button className="section-toggle" onClick={toggleOpen} aria-expanded={open}
+            title={open ? 'Fold the matrix' : 'Unfold the matrix'}>
+            <span className="section-chev" aria-hidden="true">▾</span>
+            <span className="cc-h section-title">Disagreement matrix</span>
+          </button>
           <div className="cc-muted">
             x = incumbent rating percentile (<b title="A mocked stand-in for the licensed LSEG
               percentile: the company's stored static rating ranked inside this run's cohort.
@@ -182,6 +191,8 @@ export default function EngineBoard() {
           </span>
         </div>
       </div>
+
+      {open && (<>
 
       <div className="engine-controls">
         <div className="seg" role="group" aria-label="Risk appetite">
@@ -403,6 +414,7 @@ ${isFocus ? 'Focused above — click again to open its evidence trail.' : 'Click
           <span className="mono-path">{engine.metadata.path}</span>
         </div>
       )}
+      </>)}
     </div>
   )
 }

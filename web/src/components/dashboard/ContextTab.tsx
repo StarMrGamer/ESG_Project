@@ -1,6 +1,6 @@
 import { useStore } from '../../store'
 import { MomentumChart } from '../charts'
-import { SectionTitle } from '../ui'
+import { Section } from '../ui'
 import IndustryTable from '../benchmark/IndustryTable'
 import TrackRecord from '../future/TrackRecord'
 
@@ -31,10 +31,8 @@ export default function ContextTab() {
       </p>
 
       {!settings.demo && bs.basket_return && (
-        <div className="panel-block">
-          <SectionTitle sub={bs.source || undefined}>
-            Foundation backtest{bs.window ? ` · ${bs.window}` : ''}
-          </SectionTitle>
+        <Section id="ctx-backtest" sub={bs.source || undefined}
+          title={`Foundation backtest${bs.window ? ` · ${bs.window}` : ''}`}>
           <div className="bench-strip is-inline">
             <span>basket <b>{bs.basket_return || '—'}</b> vs {board.universe.benchmark} <b>{bs.benchmark_return || '—'}</b></span>
             <span>Sharpe <b>{bs.basket_sharpe || '—'}</b> vs <b>{bs.benchmark_sharpe || '—'}</b></span>
@@ -50,24 +48,24 @@ export default function ContextTab() {
               </span>
             )}
           </div>
-        </div>
+        </Section>
       )}
 
-      <div className="panel-block">
-        <SectionTitle sub="90 days · % change · the filtered set, not one company">
-          ESG momentum
-        </SectionTitle>
+      <Section id="ctx-momentum" title="ESG momentum"
+        sub="90 days · % change · the filtered set, not one company">
         {hasSeries
           ? <MomentumChart series={board.momentum_series} dark={settings.dark} height={360} />
           : <div className="empty-note">No momentum data for this filter yet.</div>}
-      </div>
+      </Section>
 
       <IndustryTable />
 
       {/* "The AI can see now and last time, but not the future." This is the honest half of the
           answer: five cases, each point a real engine run scored only on what was published
           before that date. */}
-      <div className="panel-block"><TrackRecord /></div>
+      <Section id="ctx-track" title="Has the verdict moved before?">
+        <TrackRecord />
+      </Section>
     </div>
   )
 }

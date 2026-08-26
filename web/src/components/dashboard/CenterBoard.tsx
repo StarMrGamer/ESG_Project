@@ -1,7 +1,7 @@
 import { useStore } from '../../store'
 import RadarHub from './RadarHub'
 import { PriceChart } from '../charts'
-import { fmtPct, fmtPillar, SectionTitle, signClass, TONE_CLASS } from '../ui'
+import { Section, SectionTitle, TONE_CLASS, fmtPct, fmtPillar, signClass } from '../ui'
 import CasePanel from '../case/CasePanel'
 import type { WinnerRow } from '../../types'
 
@@ -90,12 +90,9 @@ export default function CenterBoard() {
   // data. Context only: a price is never an input to any score (see quotes.py).
   const live = !!focused?.price.source
   const pricePanel = focused && (
-    <div className="panel-block">
-      <SectionTitle sub={live
-        ? `${focused.price.source}${focused.price.captured ? ` · as of ${focused.price.captured}` : ''} · rebased to 100`
-        : 'illustrative · rebased to 100'}>
-        Share price · 90 days
-      </SectionTitle>
+    <Section id="price" title="Share price · 90 days" sub={live
+      ? `${focused.price.source}${focused.price.captured ? ` · as of ${focused.price.captured}` : ''} · rebased to 100`
+      : 'illustrative · rebased to 100'}>
       {/* "Rebased to 100" is jargon on a card aimed at a reader who may not have met it. It is
           one sentence to explain and confusing to leave unexplained, so it is explained. */}
       <p className="strip-note">
@@ -146,13 +143,12 @@ export default function CenterBoard() {
             <PriceChart series={focused.price.series} pct={focused.price.pct} dark={dark} />
           </>
         )}
-    </div>
+    </Section>
   )
 
 
   const checkPanel = focused && (
-    <div className="panel-block">
-      <div className="cc-h">Check before Monday</div>
+    <Section id="check" title="Check before Monday">
       {!focused.check_action.has
         ? (
           <div className="cc-panel-body">
@@ -168,12 +164,11 @@ export default function CenterBoard() {
             <div className="cc-panel-body">{focused.check_action.check}</div>
           </>
         )}
-    </div>
+    </Section>
   )
 
   const newsPanel = focused && (
-    <div className="panel-block">
-      <div className="cc-h">In the news</div>
+    <Section id="news" title="In the news">
       {/* Three states that must never blur into each other: seeded demo headlines, real gathered
           ones, and nothing. The label says which — a real headline and an illustrative one look
           identical on screen otherwise. */}
@@ -204,7 +199,7 @@ export default function CenterBoard() {
         <a href={focused.news.youtube_url} target="_blank" rel="noreferrer">Search YouTube</a>
         {!simple && <> &nbsp;·&nbsp; <a href={focused.news.news_url} target="_blank" rel="noreferrer">News search</a></>}
       </div>
-    </div>
+    </Section>
   )
 
   const plainSummary = focused && (

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useStore } from '../store'
+import { SHOW_CLIENTS } from '../features'
 import type { Level } from '../store'
 
 /**
@@ -58,6 +59,8 @@ export default function Header() {
   const n = board?.counts.total ?? 0
   const industries = board?.industries ?? 0
 
+  const activeTab = (!SHOW_CLIENTS && s.tab === 'clients') ? 'board' : s.tab
+
   return (
     <header className="cc-header">
       <div className="cc-hdr-wrap" onClick={goDashboard} title="Back to dashboard">
@@ -81,19 +84,24 @@ export default function Header() {
             the panels that read the same whichever company is focused — the foundation backtest,
             the pillar momentum series, the industry bar, the five validation cases — so the
             board is only things that answer to a click. */}
+        {/* A browser can still be holding `tab: 'clients'` from before the flag went off. The
+            board is what actually renders in that case, so the control has to agree with it —
+            otherwise no tab reads as selected and the header looks broken. */}
         <div className="seg" role="group" aria-label="Section">
-          <button className={`btn ${s.tab === 'board' ? 'on' : ''}`}
+          <button className={`btn ${activeTab === 'board' ? 'on' : ''}`}
             title="The live read: filters, the radar, the verdict and its evidence."
             onClick={() => setSettings({ tab: 'board' })}>Board</button>
-          <button className={`btn ${s.tab === 'context' ? 'on' : ''}`}
+          <button className={`btn ${activeTab === 'context' ? 'on' : ''}`}
             title="Method and benchmarks — the same for every company, so they live here."
             onClick={() => setSettings({ tab: 'context' })}>Context</button>
           {/* The book. Its own tab rather than a mode of the board: a client meeting is a
               different job from screening the universe, and the brief is a document, not a
               dashboard. */}
-          <button className={`btn ${s.tab === 'clients' ? 'on' : ''}`}
-            title="Your client book and the pre-meeting brief"
-            onClick={() => setSettings({ tab: 'clients' })}>Clients</button>
+          {SHOW_CLIENTS && (
+            <button className={`btn ${activeTab === 'clients' ? 'on' : ''}`}
+              title="Your client book and the pre-meeting brief"
+              onClick={() => setSettings({ tab: 'clients' })}>Clients</button>
+          )}
         </div>
         <div className="seg" role="group" aria-label="Detail level">
           {LEVELS.map(l => (

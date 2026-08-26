@@ -8,6 +8,7 @@ import EngineBoard from './EngineBoard'
 import UniverseGrid from './UniverseGrid'
 import ContextTab from './ContextTab'
 import ClientsTab from '../clients/ClientsTab'
+import { SHOW_CLIENTS } from '../../features'
 
 /**
  * The board, layered.
@@ -61,7 +62,9 @@ export default function Dashboard() {
       {!board && boardLoading && <Spinner label="Loading the command center…" />}
       {board && (
         <>
-          {settings.tab === 'clients'
+          {/* A browser that stored `tab: 'clients'` before the flag went off must not
+              open on a tab it can no longer navigate away from by name. */}
+          {SHOW_CLIENTS && settings.tab === 'clients'
             ? <ClientsTab />
             : settings.tab === 'context'
             ? <ContextTab />

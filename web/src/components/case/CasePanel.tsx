@@ -1,5 +1,5 @@
 import { useStore } from '../../store'
-import { SectionTitle } from '../ui'
+import { Section } from '../ui'
 
 /**
  * WHY this verdict — pros and cons, on both axes, for the focused company.
@@ -57,10 +57,9 @@ export default function CasePanel() {
 
   const fin = kase.financial
   return (
-    <div className="panel-block case-panel">
-      <SectionTitle sub="rule-derived from this run · no model wrote these lines">
-        Why {kase.label_display} — the case, and the case against
-      </SectionTitle>
+    <Section id="case" className="case-panel"
+      title={`Why ${kase.label_display} — the case, and the case against`}
+      sub="rule-derived from this run · no model wrote these lines">
 
       <div className="case-summary">{kase.summary}</div>
 
@@ -98,6 +97,6 @@ export default function CasePanel() {
         advice, not a recommendation, and not a score. The ESG and financial reads are shown
         separately and are never combined into one number.
       </div>
-    </div>
+    </Section>
   )
 }
