@@ -58,10 +58,32 @@ If a third page appears, you added text — cut, do not shrink the type below 8p
 - The −4.6% YTD appears in the same sentence as the 55.1%.
 - No licensed rater (MSCI / Sustainalytics / S&P) is quoted or scored.
 - The chain is described as the **ledger** layer, never as verification.
-- Zero Hidden Winners is stated as a limit, with the reason we did not lower the bar.
+- The four Hidden Winners are stated **with the fact that the threshold never moved** — the
+  rule for changing it was published before the evidence existed. Never present them as a
+  discovery that required a smaller number.
 
 **Consistency requirement from the organisers:** the whitepaper is shared with the sponsor and
 must match the Category Finals presentation. If a number changes in the deck, change it here too.
 
 Every figure in this document traces to a file in the repo — the frozen N/M/K counts, the
 financial-gate verdicts, the measured token costs, the CGSI note figures. Nothing is estimated.
+
+---
+
+## Changed 2026-08-25 — after the deep + quality sweep
+
+Four figures moved. All four are re-derivable; none was rounded.
+
+| Was | Now | Where it comes from |
+|---|---|---|
+| "Four separate searches per company" | **up to 27**, four angles x site-scoped x past years | `harvest.py` |
+| 180 pieces of evidence | **391**, across 48 of 52 companies | `data/harvest/` |
+| shortlist of 11 | **10** | `data/nmk_frozen.json`, M |
+| nothing clears the hidden-winner bar | **four do, on unmoved thresholds** | run `1fc384a2fa92499d` |
+
+The shortlist gloss also changed from "better than their rating suggests" to "scoring below their
+own industry's ASEAN peer average" — the first was a loose paraphrase, and M is measured against the
+sector-peer average, not against the rating.
+
+**Matching deck:** `docs/pitch/pitch_slide.html` carries the same four numbers and the same run id.
+Change one, change both.

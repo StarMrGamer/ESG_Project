@@ -1,0 +1,722 @@
+<title>ASEAN ESG Momentum Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;450;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#ebeeea; --panel:#fbfcfa; --sunk:#e3e7e2;
+  --ink:#121815; --ink-2:#4c5a53; --ink-3:#7d8880;
+  --green:#0f5132; --evidence:#1a7f4f; --rating:#1d4ed8; --caution:#8a1c1c;
+  --line:#d3d9d2; --line-2:#e3e7e2;
+  --g2:#1a7f4f; --g1:#8dc3a7; --n0:#c6cdc6; --b1:#9bb2ec; --b2:#2b52c4;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  --cond:"IBM Plex Sans Condensed","IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --col:1080px;
+  --wash-a:rgba(15,81,50,.075); --wash-b:rgba(29,78,216,.055); --wash-c:rgba(26,127,79,.05);
+  --grid-line:rgba(18,24,21,.032); --grain:.055; --field-a:.58; --halo:rgba(255,255,255,.55);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0e1310; --panel:#161d18; --sunk:#121815;
+    --ink:#e5eae5; --ink-2:#9fada4; --ink-3:#77857c;
+    --green:#5fbf8d; --evidence:#42c184; --rating:#8ba8ff; --caution:#e08079;
+    --line:#28322c; --line-2:#1e2721;
+    --g2:#42c184; --g1:#2b6b4d; --n0:#39433c; --b1:#2f4585; --b2:#8ba8ff;
+    --wash-a:rgba(66,193,132,.085); --wash-b:rgba(139,168,255,.07); --wash-c:rgba(66,193,132,.05);
+    --grid-line:rgba(229,234,229,.035); --grain:.08; --field-a:.62; --halo:rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0e1310; --panel:#161d18; --sunk:#121815;
+  --ink:#e5eae5; --ink-2:#9fada4; --ink-3:#77857c;
+  --green:#5fbf8d; --evidence:#42c184; --rating:#8ba8ff; --caution:#e08079;
+  --line:#28322c; --line-2:#1e2721;
+  --g2:#42c184; --g1:#2b6b4d; --n0:#39433c; --b1:#2f4585; --b2:#8ba8ff;
+  --wash-a:rgba(66,193,132,.085); --wash-b:rgba(139,168,255,.07); --wash-c:rgba(66,193,132,.05);
+  --grid-line:rgba(229,234,229,.035); --grain:.08; --field-a:.62; --halo:rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; color:var(--ink); position:relative;
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/100% 34px,
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/34px 100%,
+    radial-gradient(1180px 660px at 6% -12%, var(--wash-a), transparent 68%),
+    radial-gradient(980px 620px at 96% 2%, var(--wash-b), transparent 66%),
+    radial-gradient(1300px 900px at 50% 118%, var(--wash-c), transparent 70%),
+    var(--paper);
+  background-attachment:fixed, fixed, fixed, fixed, fixed, fixed;
+  font-family:var(--sans); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:9; pointer-events:none; opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:var(--col); margin:0 auto; padding:0 28px}
+
+/* ---------- the field: all 52 gaps, drawn as the same rail the hero uses ---------- */
+.stage{position:relative; isolation:isolate; overflow:hidden}
+#field{
+  position:absolute; left:52%; right:-5%; top:-18px; height:566px; z-index:0; pointer-events:none;
+  opacity:var(--field-a);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent,#000 20%),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent 100%);
+  -webkit-mask-composite:source-in; mask-composite:intersect;
+}
+@media (max-width:960px){ #field,.fieldcap{display:none} }
+.fieldcap{position:absolute; top:551px; left:0; right:0; z-index:1; pointer-events:none}
+.fieldcap span{
+  display:block; max-width:var(--col); margin:0 auto; padding:0 28px; text-align:right;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-3);
+}
+.stage>.wrap{position:relative; z-index:1}
+section{border-top:1px solid var(--line)}
+.pad{padding:76px 0}
+h1,h2,h3{margin:0; font-family:var(--cond); font-weight:600; text-wrap:balance; letter-spacing:-.012em}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:inherit}
+
+/* ---------- shared micro-type ---------- */
+.eyebrow{
+  font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--ink-3);
+}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+.lede{font-size:19px; line-height:1.58; color:var(--ink-2); max-width:62ch}
+.lede b{color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{padding:64px 0 68px}
+.hero h1{
+  font-size:clamp(38px,6.1vw,70px); line-height:1.02; letter-spacing:-.028em;
+  margin:26px 0 0; max-width:15ch;
+}
+.hero h1 .em{color:var(--green)}
+.hero .lede{margin-top:26px; max-width:52ch}
+.stamp{display:flex; max-width:52ch; flex-wrap:wrap; gap:6px 18px; align-items:baseline}
+.stamp span{white-space:nowrap}
+
+/* ---------- rails ---------- */
+.rails{margin-top:54px; border-top:1px solid var(--line)}
+.rails-cap{
+  display:flex; flex-wrap:wrap; gap:6px 22px; align-items:baseline;
+  padding:14px 0 24px;
+}
+.rails-cap .k{display:inline-flex; align-items:center; gap:7px}
+.dot{width:9px; height:9px; border-radius:50%; flex:0 0 auto}
+.dot.r{background:var(--rating)} .dot.e{background:var(--evidence)}
+
+.rail{padding:15px 0 19px; border-bottom:1px solid var(--line-2)}
+.rail:last-child{border-bottom:0}
+.rail-h{display:flex; align-items:baseline; gap:12px; margin-bottom:13px}
+.rail-h .nm{font-family:var(--cond); font-size:21px; font-weight:600; letter-spacing:-.005em}
+.rail-h .sub{font-size:13px; color:var(--ink-3); flex:1}
+.rail-h .gap{
+  font-family:var(--mono); font-size:19px; font-weight:500; color:var(--evidence);
+  font-variant-numeric:tabular-nums; font-style:normal;
+}
+@media (max-width:620px){
+  .rail-h{flex-wrap:wrap; gap:4px 10px}
+  .rail-h .nm{flex:1 0 100%}
+  .rail-h .sub{flex:1 1 auto}
+  .rail-h .gap{flex:0 0 auto}
+}
+.track{position:relative; height:14px; margin:0 0 9px}
+.track::before{
+  content:""; position:absolute; left:0; right:0; top:6px; height:2px; background:var(--line);
+}
+.fill{
+  position:absolute; top:5px; height:4px; border-radius:2px; background:var(--evidence);
+  opacity:.28; left:var(--x0); width:calc(var(--x1) - var(--x0));
+  animation:grow .9s cubic-bezier(.22,.9,.28,1) both;
+  animation-delay:calc(var(--i) * .11s + .3s);
+}
+.m{
+  position:absolute; top:0; width:14px; height:14px; border-radius:50%;
+  margin-left:-7px; border:2.5px solid var(--panel);
+}
+.m-r{background:var(--rating); left:var(--x0)}
+.m-e{
+  background:var(--evidence); left:var(--x1);
+  animation:travel .9s cubic-bezier(.22,.9,.28,1) both;
+  animation-delay:calc(var(--i) * .11s + .3s);
+}
+@keyframes travel{from{left:var(--x0)} to{left:var(--x1)}}
+@keyframes grow{from{width:0} to{width:calc(var(--x1) - var(--x0))}}
+@media (prefers-reduced-motion:reduce){ .m-e,.fill{animation:none} }
+
+.rail-f{position:relative; height:17px; font-family:var(--mono); font-size:11.5px; letter-spacing:.02em}
+.rail-f span{position:absolute; top:0; white-space:nowrap}
+.rail-f .lr{color:var(--rating); left:var(--x0); transform:translateX(-50%)}
+.rail-f .le{color:var(--evidence); left:var(--x1); transform:translateX(-50%)}
+.rail-f .lr.pin{transform:none; left:0}
+.rail-f .le.pin{transform:none; right:0; left:auto}
+.scale{
+  display:flex; justify-content:space-between; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); padding-top:16px;
+  border-top:1px solid var(--line); margin-top:10px;
+}
+
+/* ---------- disclaimer strip ---------- */
+.creed{
+  margin-top:34px; padding:16px 20px; background:var(--panel);
+  border:1px solid var(--line); border-left:3px solid var(--green);
+  font-size:15px; color:var(--ink-2);
+}
+.creed b{color:var(--ink)}
+
+/* ---------- steps ---------- */
+.head{display:flex; flex-direction:column; gap:16px; max-width:70ch}
+.head h2{font-size:clamp(27px,3.4vw,38px); line-height:1.08}
+.steps{
+  margin-top:44px; display:grid; gap:1px; background:var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); border:1px solid var(--line);
+}
+.step{background:var(--panel); padding:22px 21px 24px}
+.steps,.axes,.evid,.refuse,.kpi{box-shadow:0 1px 2px rgba(0,0,0,.04), 0 12px 32px -18px rgba(0,0,0,.22)}
+.step .n{
+  font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.14em;
+  color:var(--green); display:block; margin-bottom:11px;
+}
+.step h3{font-size:18px; margin-bottom:8px}
+.step p{font-size:14.5px; line-height:1.56; color:var(--ink-2)}
+
+/* ---------- universe grid ---------- */
+.uni{display:grid; grid-template-columns:minmax(0,1fr) 268px; gap:44px; margin-top:42px; align-items:start}
+@media (max-width:820px){ .uni{grid-template-columns:1fr; gap:30px} }
+.grid{position:relative; padding-top:30px}
+.gridcells{display:grid; grid-template-columns:repeat(13,1fr); gap:6px}
+@media (max-width:560px){ .gridcells{grid-template-columns:repeat(8,1fr)} }
+.cell{
+  position:static; display:block; aspect-ratio:1; border-radius:2px; font-style:normal;
+  cursor:default; outline:none; border:1px solid transparent;
+}
+.cell.g2{background:var(--g2)} .cell.g1{background:var(--g1)} .cell.n0{background:var(--n0)}
+.cell.b1{background:var(--b1)} .cell.b2{background:var(--b2)}
+.cell.hw{box-shadow:0 0 0 2px var(--paper), 0 0 0 3px var(--ink)}
+.cell.del{background:transparent; border:1px dashed var(--ink-3)}
+.cell span{
+  position:absolute; top:0; left:0; right:0; opacity:0; pointer-events:none;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.01em; color:var(--ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:opacity .12s;
+}
+.cell:hover span,.cell:focus span{opacity:1}
+.cell:focus{box-shadow:0 0 0 2px var(--paper), 0 0 0 4px var(--ink)}
+.readout{
+  position:absolute; top:0; left:0; font-family:var(--mono); font-size:11.5px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);
+}
+.grid:hover .readout,.grid:focus-within .readout{opacity:0}
+.ramp{display:flex; align-items:center; gap:9px; margin-top:22px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--ink-3)}
+.ramp .bar{display:flex; flex:0 0 auto}
+.ramp .bar i{width:26px; height:9px; display:block}
+.ramp .ringkey{display:inline-flex; align-items:center; gap:8px; margin-left:6px}
+.ramp .ringkey i{width:9px; height:9px; border-radius:2px; background:var(--g2); box-shadow:0 0 0 1.5px var(--paper), 0 0 0 3px var(--ink)}
+.tally{border-top:1px solid var(--line)}
+.tally .row{display:flex; align-items:baseline; gap:11px; padding:10px 0; border-bottom:1px solid var(--line-2); font-size:14px}
+.tally .row:last-child{border-bottom:0}
+.tally .c{font-family:var(--mono); font-size:17px; font-weight:500; min-width:26px; text-align:right; font-variant-numeric:tabular-nums}
+.tally .row.on .c{color:var(--evidence)}
+.tally .row.on .t{color:var(--ink); font-weight:500}
+.tally .t{color:var(--ink-2); line-height:1.35}
+.aside{font-size:13.5px; line-height:1.55; color:var(--ink-3); margin-top:20px; border-top:1px solid var(--line); padding-top:16px}
+
+/* ---------- two axes ---------- */
+.axes{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:40px}
+@media (max-width:760px){ .axes{grid-template-columns:1fr} }
+.axis{background:var(--panel); padding:26px 24px 28px}
+.axis .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3)}
+.axis .big{font-family:var(--mono); font-size:40px; font-weight:500; line-height:1.1; margin:12px 0 4px; letter-spacing:-.02em}
+.axis.esg .big{color:var(--evidence)}
+.axis.fin .big{color:var(--caution)}
+.axis .cap{font-size:14.5px; color:var(--ink-2); margin-top:12px; line-height:1.55}
+.verdicts{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
+.chip{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; padding:5px 10px;
+  border:1px solid var(--line); background:var(--sunk); color:var(--ink-2); border-radius:2px;
+}
+
+/* ---------- evidence rows ---------- */
+.evid{margin-top:38px; border:1px solid var(--line); background:var(--panel)}
+.evid .er{display:grid; grid-template-columns:104px 152px 128px minmax(0,1fr); gap:18px; padding:15px 20px; border-bottom:1px solid var(--line-2); align-items:baseline}
+.evid .er:last-child{border-bottom:0}
+.evid .er.hd{background:var(--sunk); font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3)}
+@media (max-width:760px){
+  .evid .er{grid-template-columns:1fr; gap:5px}
+  .evid .er.hd{display:none}
+}
+.evid .d,.evid .h,.evid .g{font-family:var(--mono); font-size:12.5px; color:var(--ink-2); font-variant-numeric:tabular-nums}
+.evid .g{letter-spacing:.02em}
+.evid .g.cap-half{color:var(--caution)}
+.evid .g.good{color:var(--evidence)}
+.evid .x{font-size:14.5px; line-height:1.5}
+
+/* ---------- refusals ---------- */
+.refuse{margin-top:40px; display:grid; gap:1px; background:var(--line); border:1px solid var(--line)}
+.rf{background:var(--panel); padding:22px 24px; display:grid; grid-template-columns:210px minmax(0,1fr); gap:24px}
+@media (max-width:760px){ .rf{grid-template-columns:1fr; gap:8px} }
+.rf .k{font-family:var(--cond); font-size:18px; font-weight:600; color:var(--green); line-height:1.28}
+.rf .v{font-size:15px; line-height:1.6; color:var(--ink-2)}
+.rf .v b{color:var(--ink)}
+
+/* ---------- kpi ---------- */
+.kpi{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:42px}
+.kp{background:var(--panel); padding:22px 20px}
+.kp .v{font-family:var(--mono); font-size:32px; font-weight:500; letter-spacing:-.02em; line-height:1.1}
+.kp .l{font-size:13px; color:var(--ink-2); margin-top:7px; line-height:1.45}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line); background:var(--sunk)}
+footer .wrap{padding:40px 28px 52px}
+.prov{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:26px; font-size:13px; line-height:1.6; color:var(--ink-3)}
+.prov h4{margin:0 0 7px; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2); font-weight:500}
+.legal{margin-top:32px; padding-top:20px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-3); max-width:80ch}
+</style>
+
+<main>
+<div class="stage">
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="fieldcap" aria-hidden="true"><span>all 52 &middot; one line per company &middot; ordered by the size of the gap</span></div>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow stamp">
+      <span>ASEAN ESG Momentum Radar</span><span>Run 1fc384a2</span>
+      <span>52 companies</span><span>391 dated sources</span><span>25 Aug 2026</span>
+    </div>
+
+    <h1>A second opinion on <span class="em">every ESG rating in ASEAN.</span></h1>
+
+    <p class="lede">A rating is a <b>level</b> — where a company stood, in a file closed months
+    ago. It does not tell you which way that company is moving, or what would change the answer.
+    So we rank all 52 companies in the ASEAN ESG-momentum basket <b>twice</b>: once on their
+    published score, once on dated public evidence. Then we report the gap.</p>
+
+    <div class="rails">
+      <div class="eyebrow rails-cap">
+        <span>Where the two ranks disagree most</span>
+        <span class="k"><i class="dot r"></i> its published score</span>
+        <span class="k"><i class="dot e"></i> what the evidence says</span>
+      </div>
+
+      <div class="rail" style="--x0:17.6%;--x1:98.0%;--i:0">
+        <div class="rail-h">
+          <span class="nm">RHB Bank</span>
+          <span class="sub">Malaysia &middot; 14 dated sources</span>
+          <span class="gap">+0.80</span>
+        </div>
+        <div class="track"><span class="fill"></span><span class="m m-r"></span><span class="m m-e"></span></div>
+        <div class="rail-f"><span class="lr">18th</span><span class="le pin">98th percentile</span></div>
+      </div>
+
+      <div class="rail" style="--x0:3.9%;--x1:66.7%;--i:1">
+        <div class="rail-h">
+          <span class="nm">SM Prime Holdings</span>
+          <span class="sub">Philippines &middot; 13 dated sources</span>
+          <span class="gap">+0.63</span>
+        </div>
+        <div class="track"><span class="fill"></span><span class="m m-r"></span><span class="m m-e"></span></div>
+        <div class="rail-f"><span class="lr pin">4th</span><span class="le">67th</span></div>
+      </div>
+
+      <div class="rail" style="--x0:34.3%;--x1:92.2%;--i:2">
+        <div class="rail-h">
+          <span class="nm">OCBC</span>
+          <span class="sub">Singapore &middot; 17 dated sources</span>
+          <span class="gap">+0.58</span>
+        </div>
+        <div class="track"><span class="fill"></span><span class="m m-r"></span><span class="m m-e"></span></div>
+        <div class="rail-f"><span class="lr">34th</span><span class="le">92nd</span></div>
+      </div>
+
+      <div class="rail" style="--x0:10.8%;--x1:56.9%;--i:3">
+        <div class="rail-h">
+          <span class="nm">United Overseas Bank</span>
+          <span class="sub">Singapore &middot; 10 dated sources &middot; fails the money read</span>
+          <span class="gap">+0.46</span>
+        </div>
+        <div class="track"><span class="fill"></span><span class="m m-r"></span><span class="m m-e"></span></div>
+        <div class="rail-f"><span class="lr">11th</span><span class="le">57th</span></div>
+      </div>
+
+      <div class="scale"><span>0 &mdash; bottom of the basket</span><span>rank within the same 52</span><span>100 &mdash; top</span></div>
+    </div>
+
+    <p class="creed">It never says buy, sell or hold, and it never issues a score of its own.
+    <b>It says where it disagrees with a rating, shows you every dated source underneath, and
+    tells you which one, if it vanished, would change its mind.</b></p>
+  </header>
+</div>
+</div>
+
+<section><div class="wrap pad">
+  <div class="head">
+    <span class="eyebrow">How the second rank is built</span>
+    <h2>The model reads. The rules score. Nothing in between.</h2>
+    <p class="lede">A language model is good at finding a fact in a page and terrible at deciding
+    what it is worth. So it is only ever allowed to do the first job. It never sets a direction, a
+    confidence or a label — those come from arithmetic that any reviewer can read.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <span class="n">01 / GATHER</span>
+      <h3>Up to 27 searches per company</h3>
+      <p>Four angles — emissions, governance, financing and <b>controversies</b> — aimed in turn at
+      regulators, exchanges, rating houses and watchdogs, then repeated back across past years.
+      The fourth angle is deliberate: without it, a sweep quietly becomes a press-release
+      collection.</p>
+    </div>
+    <div class="step">
+      <span class="n">02 / GRADE</span>
+      <h3>A fact with no date is dropped</h3>
+      <p>So is a source URL the search never actually returned — the model cannot cite what it was
+      not shown. Source type is decided by the domain, by us, so a publisher can never grade
+      itself. Anything we cannot place is treated as the company's own voice, the cheapest grade
+      there is.</p>
+    </div>
+    <div class="step">
+      <span class="n">03 / SCORE</span>
+      <h3>Rules route it, arithmetic scores it</h3>
+      <p>Direction, materiality and confidence are all rule-derived, with company-published
+      sources capped at half weight and forward-looking promises halved again. No clock, no
+      randomness, no model. Same files in, same run id out.</p>
+    </div>
+    <div class="step">
+      <span class="n">04 / COMPARE</span>
+      <h3>Rank twice, then subtract</h3>
+      <p>Percentile on the evidence, percentile on the published score, and the signed difference
+      between them. That difference is the entire output. It is not a rating, and it cannot be
+      read as one.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap pad">
+  <div class="head">
+    <span class="eyebrow">The whole basket, one run</span>
+    <h2>52 companies. 391 dated sources. Four quadrants populated.</h2>
+  </div>
+
+  <div class="uni">
+    <div>
+      <div class="grid">
+        <span class="readout">Hover a cell &mdash; every square is one company</span>
+        <div class="gridcells">
+<i class="cell g2 hw" tabindex="0" data-t="RHB Bank Bhd — Malaysia · gap +0.80 · 14 sources · rated behind the evidence"><span>RHB Bank Bhd — Malaysia · gap +0.80 · 14 sources · rated behind the evidence</span></i>
+<i class="cell g2" tabindex="0" data-t="SM Investments Corp — Philippines · gap +0.76 · 3 sources · rating and evidence agree"><span>SM Investments Corp — Philippines · gap +0.76 · 3 sources · rating and evidence agree</span></i>
+<i class="cell g2" tabindex="0" data-t="Central Pattana — Thailand · gap +0.68 · 3 sources · rating and evidence agree"><span>Central Pattana — Thailand · gap +0.68 · 3 sources · rating and evidence agree</span></i>
+<i class="cell g2 hw" tabindex="0" data-t="SM Prime Holdings Inc — Philippines · gap +0.63 · 13 sources · rated behind the evidence"><span>SM Prime Holdings Inc — Philippines · gap +0.63 · 13 sources · rated behind the evidence</span></i>
+<i class="cell g2" tabindex="0" data-t="BDO Unibank Inc — Philippines · gap +0.60 · 8 sources · rating and evidence agree"><span>BDO Unibank Inc — Philippines · gap +0.60 · 8 sources · rating and evidence agree</span></i>
+<i class="cell g2 hw" tabindex="0" data-t="OCBC — Singapore · gap +0.58 · 17 sources · rated behind the evidence"><span>OCBC — Singapore · gap +0.58 · 17 sources · rated behind the evidence</span></i>
+<i class="cell g2" tabindex="0" data-t="Bank Negara Indonesia — Indonesia · gap +0.52 · 9 sources · rating and evidence agree"><span>Bank Negara Indonesia — Indonesia · gap +0.52 · 9 sources · rating and evidence agree</span></i>
+<i class="cell g2" tabindex="0" data-t="Keppel Ltd — Singapore · gap +0.46 · 6 sources · rating and evidence agree"><span>Keppel Ltd — Singapore · gap +0.46 · 6 sources · rating and evidence agree</span></i>
+<i class="cell g2 hw" tabindex="0" data-t="United Overseas Bank — Singapore · gap +0.46 · 10 sources · rated behind the evidence"><span>United Overseas Bank — Singapore · gap +0.46 · 10 sources · rated behind the evidence</span></i>
+<i class="cell g1" tabindex="0" data-t="Bangkok Expressway and Metro PCL — Thailand · gap +0.37 · 8 sources · rating and evidence agree"><span>Bangkok Expressway and Metro PCL — Thailand · gap +0.37 · 8 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="Krung Thai Bank — Thailand · gap +0.32 · 2 sources · rating and evidence agree"><span>Krung Thai Bank — Thailand · gap +0.32 · 2 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="Bank Rakyat Indonesia — Indonesia · gap +0.31 · 5 sources · improving, already rated for it"><span>Bank Rakyat Indonesia — Indonesia · gap +0.31 · 5 sources · improving, already rated for it</span></i>
+<i class="cell g1" tabindex="0" data-t="PTT Exploration &amp; Production — Thailand · gap +0.29 · 9 sources · improving, already rated for it"><span>PTT Exploration &amp; Production — Thailand · gap +0.29 · 9 sources · improving, already rated for it</span></i>
+<i class="cell g1" tabindex="0" data-t="Petronas Dagangan Bhd — Malaysia · gap +0.26 · 8 sources · rating and evidence agree"><span>Petronas Dagangan Bhd — Malaysia · gap +0.26 · 8 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="Minor International — Thailand · gap +0.25 · 6 sources · improving, already rated for it"><span>Minor International — Thailand · gap +0.25 · 6 sources · improving, already rated for it</span></i>
+<i class="cell g1" tabindex="0" data-t="Singapore Airlines — Singapore · gap +0.24 · 4 sources · rating and evidence agree"><span>Singapore Airlines — Singapore · gap +0.24 · 4 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="IHH Healthcare Bhd — Malaysia · gap +0.19 · 8 sources · rating and evidence agree"><span>IHH Healthcare Bhd — Malaysia · gap +0.19 · 8 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="Home Product Center — Thailand · gap +0.18 · 8 sources · rating and evidence agree"><span>Home Product Center — Thailand · gap +0.18 · 8 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="Press Metal Aluminium Holdings Bhd — Malaysia · gap +0.16 · 2 sources · rating and evidence agree"><span>Press Metal Aluminium Holdings Bhd — Malaysia · gap +0.16 · 2 sources · rating and evidence agree</span></i>
+<i class="cell g1" tabindex="0" data-t="SingTel — Singapore · gap +0.16 · 5 sources · improving, already rated for it"><span>SingTel — Singapore · gap +0.16 · 5 sources · improving, already rated for it</span></i>
+<i class="cell g1" tabindex="0" data-t="Bank of the Philippine Islands — Philippines · gap +0.15 · 25 sources · improving, already rated for it"><span>Bank of the Philippine Islands — Philippines · gap +0.15 · 25 sources · improving, already rated for it</span></i>
+<i class="cell g1" tabindex="0" data-t="Ayala Land Inc — Philippines · gap +0.12 · 19 sources · improving, already rated for it"><span>Ayala Land Inc — Philippines · gap +0.12 · 19 sources · improving, already rated for it</span></i>
+<i class="cell n0" tabindex="0" data-t="Petronas Chemicals Group — Malaysia · gap +0.09 · 1 sources · rating and evidence agree"><span>Petronas Chemicals Group — Malaysia · gap +0.09 · 1 sources · rating and evidence agree</span></i>
+<i class="cell n0" tabindex="0" data-t="Nestle (Malaysia) — Malaysia · gap +0.08 · 9 sources · improving, already rated for it"><span>Nestle (Malaysia) — Malaysia · gap +0.08 · 9 sources · improving, already rated for it</span></i>
+<i class="cell n0" tabindex="0" data-t="Ayala Corporation — Philippines · gap +0.07 · 3 sources · rating and evidence agree"><span>Ayala Corporation — Philippines · gap +0.07 · 3 sources · rating and evidence agree</span></i>
+<i class="cell n0" tabindex="0" data-t="MISC Bhd — Malaysia · gap +0.06 · 4 sources · rating and evidence agree"><span>MISC Bhd — Malaysia · gap +0.06 · 4 sources · rating and evidence agree</span></i>
+<i class="cell n0" tabindex="0" data-t="Bangkok Dusit Med Service — Thailand · gap +0.03 · 1 sources · rating and evidence agree"><span>Bangkok Dusit Med Service — Thailand · gap +0.03 · 1 sources · rating and evidence agree</span></i>
+<i class="cell n0" tabindex="0" data-t="Charoen Pokphand Indonesia — Indonesia · gap +0.02 · 2 sources · poorly rated, still slipping"><span>Charoen Pokphand Indonesia — Indonesia · gap +0.02 · 2 sources · poorly rated, still slipping</span></i>
+<i class="cell n0 del" tabindex="0" data-t="Malaysia Airports Holdings Bhd — Malaysia · gap +0.02 · 3 sources · rating and evidence agree · delisted"><span>Malaysia Airports Holdings Bhd — Malaysia · gap +0.02 · 3 sources · rating and evidence agree · delisted</span></i>
+<i class="cell n0" tabindex="0" data-t="DBS Group — Singapore · gap +0.00 · 16 sources · improving, already rated for it"><span>DBS Group — Singapore · gap +0.00 · 16 sources · improving, already rated for it</span></i>
+<i class="cell n0" tabindex="0" data-t="Advanced Info Service — Thailand · gap -0.01 · 9 sources · improving, already rated for it"><span>Advanced Info Service — Thailand · gap -0.01 · 9 sources · improving, already rated for it</span></i>
+<i class="cell n0" tabindex="0" data-t="Singapore Exchange — Singapore · gap -0.02 · 2 sources · rating and evidence agree"><span>Singapore Exchange — Singapore · gap -0.02 · 2 sources · rating and evidence agree</span></i>
+<i class="cell n0" tabindex="0" data-t="Bank Central Asia — Indonesia · gap -0.06 · 13 sources · improving, already rated for it"><span>Bank Central Asia — Indonesia · gap -0.06 · 13 sources · improving, already rated for it</span></i>
+<i class="cell n0" tabindex="0" data-t="CIMB Group Holdings Bhd — Malaysia · gap -0.06 · 3 sources · improving, already rated for it"><span>CIMB Group Holdings Bhd — Malaysia · gap -0.06 · 3 sources · improving, already rated for it</span></i>
+<i class="cell b1" tabindex="0" data-t="IOI Corporation — Malaysia · gap -0.12 · 1 sources · rating and evidence agree"><span>IOI Corporation — Malaysia · gap -0.12 · 1 sources · rating and evidence agree</span></i>
+<i class="cell b1 del" tabindex="0" data-t="Intouch Holdings PCL — Thailand · gap -0.18 · 0 sources · rating and evidence agree · delisted"><span>Intouch Holdings PCL — Thailand · gap -0.18 · 0 sources · rating and evidence agree · delisted</span></i>
+<i class="cell b1" tabindex="0" data-t="Hong Leong Bank — Malaysia · gap -0.24 · 8 sources · improving, already rated for it"><span>Hong Leong Bank — Malaysia · gap -0.24 · 8 sources · improving, already rated for it</span></i>
+<i class="cell b1" tabindex="0" data-t="Sime Darby Bhd — Malaysia · gap -0.27 · 6 sources · improving, already rated for it"><span>Sime Darby Bhd — Malaysia · gap -0.27 · 6 sources · improving, already rated for it</span></i>
+<i class="cell b1" tabindex="0" data-t="Axiata Group — Malaysia · gap -0.35 · 3 sources · improving, already rated for it"><span>Axiata Group — Malaysia · gap -0.35 · 3 sources · improving, already rated for it</span></i>
+<i class="cell b1" tabindex="0" data-t="Wilmar International — Singapore · gap -0.36 · 2 sources · improving, already rated for it"><span>Wilmar International — Singapore · gap -0.36 · 2 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="PLDT Inc — Philippines · gap -0.40 · 5 sources · improving, already rated for it"><span>PLDT Inc — Philippines · gap -0.40 · 5 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="CP All — Thailand · gap -0.43 · 0 sources · rating and evidence agree"><span>CP All — Thailand · gap -0.43 · 0 sources · rating and evidence agree</span></i>
+<i class="cell b2" tabindex="0" data-t="PTT Global Chemical — Thailand · gap -0.43 · 3 sources · improving, already rated for it"><span>PTT Global Chemical — Thailand · gap -0.43 · 3 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="Bank Mandiri — Indonesia · gap -0.47 · 19 sources · improving, already rated for it"><span>Bank Mandiri — Indonesia · gap -0.47 · 19 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="Malayan Banking Bhd — Malaysia · gap -0.50 · 7 sources · improving, already rated for it"><span>Malayan Banking Bhd — Malaysia · gap -0.50 · 7 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="Charoen Pokphand Foods PCL — Thailand · gap -0.55 · 6 sources · rating and evidence agree"><span>Charoen Pokphand Foods PCL — Thailand · gap -0.55 · 6 sources · rating and evidence agree</span></i>
+<i class="cell b2" tabindex="0" data-t="CelcomDigi Bhd — Malaysia · gap -0.61 · 11 sources · flattered by an old score"><span>CelcomDigi Bhd — Malaysia · gap -0.61 · 11 sources · flattered by an old score</span></i>
+<i class="cell b2" tabindex="0" data-t="Siam Cement — Thailand · gap -0.62 · 1 sources · improving, already rated for it"><span>Siam Cement — Thailand · gap -0.62 · 1 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="AMMB Holdings — Malaysia · gap -0.68 · 2 sources · improving, already rated for it"><span>AMMB Holdings — Malaysia · gap -0.68 · 2 sources · improving, already rated for it</span></i>
+<i class="cell b2" tabindex="0" data-t="Telekom Malaysia — Malaysia · gap -0.72 · 4 sources · rating and evidence agree"><span>Telekom Malaysia — Malaysia · gap -0.72 · 4 sources · rating and evidence agree</span></i>
+<i class="cell b2" tabindex="0" data-t="Thai Oil — Thailand · gap -0.79 · 4 sources · rating and evidence agree"><span>Thai Oil — Thailand · gap -0.79 · 4 sources · rating and evidence agree</span></i>
+<i class="cell b2" tabindex="0" data-t="PTT — Thailand · gap -0.99 · 4 sources · flattered by an old score"><span>PTT — Thailand · gap -0.99 · 4 sources · flattered by an old score</span></i>
+        </div>
+      </div>
+      <div class="ramp">
+        <span>rating ahead</span>
+        <span class="bar"><i style="background:var(--b2)"></i><i style="background:var(--b1)"></i><i style="background:var(--n0)"></i><i style="background:var(--g1)"></i><i style="background:var(--g2)"></i></span>
+        <span>evidence ahead</span>
+        <span class="ringkey"><i></i> the four rated behind the evidence</span>
+      </div>
+      <p class="aside">Ordered by the size of the gap, most underrated first. <b>Two cells are
+      hollow</b> — Malaysia Airports and Intouch Holdings both went private in 2025 while sitting
+      in a basket meant to be current. They keep their row and wear the badge, because a static
+      list going stale is precisely the argument. Two more companies still have no evidence at
+      all; before this year's sweep, 28 of them did.</p>
+    </div>
+
+    <div>
+      <div class="eyebrow" style="margin-bottom:12px">What the run concluded</div>
+      <div class="tally">
+        <div class="row on"><span class="c">4</span><span class="t">Rated behind the evidence</span></div>
+        <div class="row"><span class="c">21</span><span class="t">Improving, and already rated for it</span></div>
+        <div class="row"><span class="c">24</span><span class="t">Rating and evidence agree</span></div>
+        <div class="row"><span class="c">2</span><span class="t">Flattered by an older score</span></div>
+        <div class="row"><span class="c">1</span><span class="t">Poorly rated, still slipping</span></div>
+      </div>
+      <p class="aside">The last two rows are the ones that make this an argument rather than a
+      ranking. A tool that only ever finds good news about the companies it looks at has not
+      found anything.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap pad">
+  <div class="head">
+    <span class="eyebrow">Two axes, never blended</span>
+    <h2>A company can be improving on ESG and still be a bad business.</h2>
+    <p class="lede">United Overseas Bank is one of the four names whose evidence ranks well above
+    its published score. It also <b>fails</b> our financial read. Both sit on its card, side by
+    side, and neither is folded into the other.</p>
+  </div>
+
+  <div class="axes">
+    <div class="axis esg">
+      <span class="lbl">ESG evidence gap &mdash; UOB</span>
+      <div class="big">+0.46</div>
+      <span class="lbl">57th percentile on evidence &middot; 11th on its score</span>
+      <p class="cap">Ten dated sources, weighted by how far each one can be trusted and how
+      recently it landed.</p>
+    </div>
+    <div class="axis fin">
+      <span class="lbl">Financial read &mdash; UOB</span>
+      <div class="big">weak</div>
+      <span class="lbl">earnings direction, from two audited fiscal years</span>
+      <p class="cap">Computed after the scoring and reported beside it — never inside it.</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:30px">Folding an earnings term into the gap would end the
+  project. The number currently means one specific, defensible thing; blend revenue into it and
+  nobody — including us — could say what <span class="num">+0.46</span> is claiming. It would stop
+  being a disagreement with a rating and become a pick.</p>
+
+  <div class="verdicts">
+    <span class="chip">17 strong</span><span class="chip">22 adequate</span>
+    <span class="chip">11 weak</span><span class="chip">2 unknown</span>
+    <span class="chip" style="border-color:var(--green); color:var(--green)">unknown &ne; weak</span>
+  </div>
+  <p class="aside" style="max-width:70ch">A test we could not run is never scored as a test the
+  company failed. Two companies come back <span class="num">unknown</span> because the data to
+  answer is missing on our side — which is a different statement from a bad result, and the card
+  says which.</p>
+</div></section>
+
+<section><div class="wrap pad">
+  <div class="head">
+    <span class="eyebrow">What sits under a verdict</span>
+    <h2>Every claim on the board opens to a date, a source and an excerpt.</h2>
+    <p class="lede">Three of the fourteen sources behind RHB Bank, exactly as the run stores
+    them. The grade in the third column sets how much each one is allowed to count.</p>
+  </div>
+
+  <div class="evid">
+    <div class="er hd"><span>Date</span><span>Source</span><span>Grade</span><span>What it says</span></div>
+    <div class="er">
+      <span class="d">2023-01-01</span><span class="h">sustainalytics.com</span>
+      <span class="g good">index_provider</span>
+      <span class="x">Second-party opinion: the RHB Sustainability Sukuk and Bond Framework is
+      credible and impactful, and aligns with the 2021 Sustainability Bond Guidelines.</span>
+    </div>
+    <div class="er">
+      <span class="d">2026-04-08</span><span class="h">thestar.com.my</span>
+      <span class="g">news</span>
+      <span class="x">SME green renewable-energy and capex financing, covering energy-efficient
+      equipment, at rates from around 4.5%.</span>
+    </div>
+    <div class="er">
+      <span class="d">2024-12-31</span><span class="h">cdn1.i3investor.com</span>
+      <span class="g cap-half">company_pr &mdash; capped at half</span>
+      <span class="x">Nearly 9% of this financing directly supports renewable energy and energy
+      efficiency.</span>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:30px">The third row is the company describing itself. It is
+  kept, because it is real — and capped, because it is not evidence in the same sense the first
+  row is. That cap is why the strongest verdicts here are built on the rows above it.</p>
+
+  <div class="kpi">
+    <div class="kp"><div class="v">391</div><div class="l">dated, sourced events, across 48 of the 52</div></div>
+    <div class="kp"><div class="v">0</div><div class="l">thresholds moved to reach a conclusion</div></div>
+    <div class="kp"><div class="v">S$0.079</div><div class="l">measured cost per company per year</div></div>
+    <div class="kp"><div class="v">1fc384a2</div><div class="l">run id — the same files always rebuild it</div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap pad">
+  <div class="head">
+    <span class="eyebrow">What it will not do</span>
+    <h2>The limits are on the page, because that is the whole product.</h2>
+    <p class="lede">A tool whose argument is that inconvenient evidence must surface cannot make
+    an exception for its own.</p>
+  </div>
+
+  <div class="refuse">
+    <div class="rf">
+      <div class="k">It will not lower its own bar</div>
+      <div class="v">We published, <b>in advance</b>, the single reason that would justify moving
+      the hidden-winner threshold — before the evidence that would be judged against it existed.
+      Then we gathered better sources, and four names crossed on their own. The bar never moved.
+      A quadrant filled by relaxing the test would only ever mean <i>we found a lot of press
+      releases</i>.</div>
+    </div>
+    <div class="rf">
+      <div class="k">It will not trust a company about itself</div>
+      <div class="v">Roughly <b>86%</b> of what a public search returns is written by the
+      companies themselves, so confidence is capped at half for that grade and cannot climb past
+      it however much of it we gather. Four hidden winners is what survives the cap. The honest
+      route to a longer list is better sources — regulator actions, exchange filings, index
+      decisions — not a smaller number.</div>
+    </div>
+    <div class="rf">
+      <div class="k">It will not quote only its good backtest</div>
+      <div class="v">The foundation basket beat its index <b>55.1% to 6.4%</b> across 2019&ndash;2023.
+      The same research note has it <b>lagging by 4.6%</b> year-to-date, and finds that ESG
+      improvement alone does not predict single-stock performance. Both numbers travel together
+      here, or neither does.</div>
+    </div>
+    <div class="rf">
+      <div class="k">It will not oversell the chain</div>
+      <div class="v">Each run hashes its evidence into one Merkle root and anchors it,
+      append-only. That is a <b>receipt, not a check</b>. A chain cannot verify an off-chain fact,
+      and immutability applied to a false claim only makes the false claim permanent. Verification
+      happens off-chain, in rules you can read. No token, no on-chain scoring, no licensed data
+      ever written.</div>
+    </div>
+    <div class="rf">
+      <div class="k">It will not claim a sensor it does not have</div>
+      <div class="v">We read filings, regulator actions, exchange notices and press. We do not
+      meter a smokestack. That is a real limit on what this can currently see, and the route past
+      it is alternative data, not a stronger adjective.</div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="prov">
+    <div>
+      <h4>The basket</h4>
+      52 ASEAN companies with consistent ESG-score improvement 2019&ndash;2023, from CGS
+      International's published strategy note, 29 Aug 2025. Two constituents have since delisted
+      and are marked.
+    </div>
+    <div>
+      <h4>The incumbent view</h4>
+      Each company's published ESG score as carried in that note, percentile-ranked against the
+      same 52. The note's own column is unattributed, so it travels here unattributed and is
+      never presented as any named agency's rating.
+    </div>
+    <div>
+      <h4>The industry bar</h4>
+      Greenhouse-gas intensity per euro of gross value added, Eurostat <span class="num">env_ac_aeint_r2</span>,
+      EU-27, 2023 — reproducible from a free, keyless API. It sizes an industry's structural
+      footprint and is never differenced against a company score.
+    </div>
+    <div>
+      <h4>Reproducing this page</h4>
+      Every figure comes from run <span class="num">1fc384a2fa92499d</span>. The engine takes no
+      clock, no randomness and no network, so the same input files rebuild the same run id and the
+      same records on any machine.
+    </div>
+  </div>
+  <p class="legal">This is a research prototype built for the PolyFinTech100 Category Finals. It
+  reports disagreements between dated public evidence and published ESG scores. <b>It is not
+  investment advice, it does not recommend buying, selling or holding any security, and it does
+  not issue an ESG score of its own.</b> Company names and third-party data are referenced for
+  research and attribution only.</p>
+</div></footer>
+</main>
+
+<script>
+(function(){
+  // [rating percentile, evidence percentile, hidden winner, delisted] for all 52, gap-ordered.
+  var D = [[0.176,0.98,1,0],[0.176,0.941,0,0],[0.069,0.745,0,0],[0.039,0.667,1,0],[0.402,1.0,0,0],[0.343,0.922,1,0],[0.108,0.627,0,0],[0.402,0.863,0,0],[0.108,0.569,1,0],[0.02,0.392,0,0],[0.402,0.725,0,0],[0.529,0.843,0,0],[0.529,0.824,0,0],[0.069,0.333,0,0],[0.529,0.784,0,0],[0.275,0.51,0,0],[0.402,0.588,0,0],[0.176,0.353,0,0],[0.275,0.431,0,0],[0.647,0.804,0,0],[0.814,0.961,0,0],[0.647,0.765,0,0],[0.461,0.549,0,0],[0.529,0.608,0,0],[0.461,0.529,0,0],[0.176,0.235,0,0],[0.343,0.373,0,0],[0.0,0.02,0,0],[0.176,0.196,0,1],[0.647,0.647,0,0],[0.892,0.882,0,0],[0.275,0.255,0,0],[0.745,0.686,0,0],[0.961,0.902,0,0],[0.275,0.157,0,0],[0.275,0.098,0,1],[0.941,0.706,0,0],[0.745,0.471,0,0],[0.647,0.294,0,0],[0.814,0.451,0,0],[0.814,0.412,0,0],[0.529,0.098,0,0],[0.745,0.314,0,0],[0.647,0.176,0,0],[0.99,0.49,0,0],[0.647,0.098,0,0],[0.647,0.039,0,0],[0.892,0.275,0,0],[0.892,0.216,0,0],[0.814,0.098,0,0],[0.892,0.098,0,0],[0.99,0.0,0,0]];
+  var cv = document.getElementById("field"); if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext("2d"), css = getComputedStyle(document.documentElement);
+  var W = 0, H = 0, C = {};
+
+  function tok(n){ return css.getPropertyValue(n).trim(); }
+  function theme(){ C = { e: tok("--evidence"), r: tok("--rating"), l: tok("--ink-3") }; }
+
+  function size(){
+    var d = Math.min(devicePixelRatio || 1, 2), b = cv.getBoundingClientRect();
+    W = b.width; H = b.height;
+    cv.width = Math.round(W * d); cv.height = Math.round(H * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    var padX = W * 0.07, span = W - padX * 2;
+    var top = H * 0.07, rowH = (H * 0.86) / D.length;
+    var X = function(v){ return padX + v * span; };
+
+    ctx.strokeStyle = C.l; ctx.lineWidth = 1; ctx.globalAlpha = 0.10;
+    for (var g = 0; g <= 4; g++){
+      var gx = Math.round(X(g / 4)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(gx, top); ctx.lineTo(gx, top + rowH * D.length); ctx.stroke();
+    }
+
+    ctx.lineCap = "round";
+    for (var i = 0; i < D.length; i++){
+      var d = D[i], y = top + rowH * i + rowH / 2;
+      var x0 = X(d[0]), x1 = X(d[1]), ahead = d[1] >= d[0];
+
+      var col = ahead ? C.e : C.r;
+      ctx.strokeStyle = col; ctx.shadowColor = col;
+      ctx.shadowBlur = d[2] ? 9 : 5;
+      ctx.globalAlpha = d[3] ? 0.30 : (d[2] ? 1 : (ahead ? 0.66 : 0.78));
+      ctx.lineWidth = d[2] ? 3 : 1.9;
+      if (d[3]) { ctx.setLineDash([2.5, 3.5]); } else { ctx.setLineDash([]); }
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+      ctx.setLineDash([]); ctx.shadowBlur = 0;
+
+      ctx.globalAlpha = 0.85; ctx.fillStyle = C.r;
+      ctx.beginPath(); ctx.arc(x0, y, d[2] ? 2.4 : 1.7, 0, 6.29); ctx.fill();
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.arc(x1, y, d[2] ? 2.4 : 1.7, 0, 6.29); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function boot(){ theme(); size(); draw(); }
+
+  var rt; addEventListener("resize", function(){
+    clearTimeout(rt); rt = setTimeout(boot, 140);
+  });
+  addEventListener("load", boot);
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", boot); } catch(e){}
+  boot();
+})();
+</script>

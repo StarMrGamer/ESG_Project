@@ -375,7 +375,10 @@ error a sharp judge will catch.
 
 1. **The chain is the ledger layer, not verification.** Your own quote proves it.
 2. **The two axes never merge.** Financial data is a gate, not part of the ESG score.
-3. **Hidden Winners is zero and stays zero.** Nobody lowers the threshold.
+3. **Nobody lowers the threshold.** *(Updated 2026-08-25 — this brief said "Hidden Winners is
+   zero and stays zero". It is now **four**, and the thresholds were never touched: the deep +
+   quality sweep took the evidence from 180 signals to 391 dated events and four names crossed
+   the unmoved bar. The rule stands exactly as written — the bar does not move.)*
 4. **Never run an off-basket company through the engine board.** It produces a convincing, meaningless +0.673.
 5. **The −4.6% goes on the slide** next to the 55.1%.
 6. **29.4% never appears without CGSI's three filters.**
