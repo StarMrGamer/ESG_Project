@@ -2945,3 +2945,85 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
   padding-top: var(--sp-3); border-top: 1px solid var(--r-border);
 }
 .case-foot { font-size: 10.5px; line-height: 1.45; }
+
+/* ---------------------------------------------------------------------------------------------
+ * The analyst's book — roster + pre-meeting brief.
+ *
+ * Two columns on a wide screen, stacked below 1100px. The brief reads top-to-bottom as a document
+ * (what changed -> positions -> objections -> gaps), because that is the order an analyst needs
+ * it in the ten minutes before a call, not the order a dashboard would show it.
+ * ------------------------------------------------------------------------------------------- */
+.clients-wrap {
+  display: grid; grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+  gap: var(--sp-4); align-items: start;
+}
+@media (max-width: 1100px) { .clients-wrap { grid-template-columns: 1fr; } }
+
+.client-roster { position: sticky; top: var(--sp-3); }
+.client-list { list-style: none; margin: var(--sp-3) 0 0; padding: 0; display: grid; gap: var(--sp-2); }
+.client-row {
+  appearance: none; width: 100%; text-align: left; cursor: pointer;
+  display: grid; gap: 2px; padding: var(--pad-card);
+  background: var(--r-inset); border: 1px solid var(--r-border); border-radius: var(--r-radius-sm);
+  color: var(--r-text);
+}
+.client-row:hover { border-color: var(--r-borderStrong); }
+.client-row.on { border-color: var(--r-pos); background: var(--r-bluebg); }
+.client-name { font: 600 13px/1.3 var(--r-font); }
+.client-meta { font: 500 11.5px/1.4 var(--r-mono); color: var(--r-faint); }
+.client-owed {
+  margin-left: 6px; padding: 1px 7px; border-radius: 999px;
+  border: 1px solid var(--r-border); color: var(--r-amber);
+}
+
+.client-brief { display: grid; gap: var(--sp-3); min-width: 0; }
+.brief-title { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-3); }
+.brief-note {
+  margin-top: var(--sp-2); padding-left: 9px;
+  border-left: 2px solid var(--r-borderStrong); color: var(--r-muted);
+  font: 400 12.5px/1.5 var(--r-font);
+}
+.brief-run { margin-top: var(--sp-2); }
+.brief-run code { font-family: var(--r-mono); font-size: 11.5px; }
+.brief-table td, .brief-table th { white-space: nowrap; }
+
+/* The delta. A crossed quadrant boundary is the only change that alters what we are CLAIMING,
+   so it is the only one given a strong rail; a confidence move gets a softer one. */
+.delta-list { list-style: none; margin: var(--sp-3) 0 var(--sp-2); padding: 0; display: grid; gap: var(--sp-2); }
+.delta-row {
+  display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 2fr) auto;
+  gap: var(--sp-3); align-items: baseline;
+  padding: var(--pad-row); border-left: 2px solid var(--r-border);
+  background: var(--r-inset); border-radius: var(--r-radius-2xs);
+}
+.delta-row.is-major { border-left-color: var(--r-pos); }
+.delta-row.is-mid { border-left-color: var(--r-borderStrong); }
+.delta-name {
+  appearance: none; background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--r-text); font: 600 12.5px/1.3 var(--r-font); text-align: left;
+}
+.delta-name:hover { color: var(--r-pos); text-decoration: underline; }
+.delta-note { font: 500 12.5px/1.4 var(--r-font); color: var(--r-muted); }
+.delta-ev { font: 500 11.5px/1.4 var(--r-mono); color: var(--r-faint); white-space: nowrap; }
+
+.owed-list { margin: var(--sp-3) 0 0; padding-left: 18px; display: grid; gap: 6px;
+  font: 400 12.5px/1.5 var(--r-font); color: var(--r-muted); }
+
+/* Objections. Never dimmed and never collapsed — the case against is the half of the brief that
+   stops the analyst being ambushed, so it is typeset as prominently as the verdict. */
+.obj-list { list-style: none; margin: var(--sp-3) 0 0; padding: 0; display: grid; gap: var(--sp-3); }
+.obj-row { padding: var(--pad-card); background: var(--r-inset); border-radius: var(--r-radius-sm);
+  border: 1px solid var(--r-border); display: grid; gap: 5px; }
+.obj-head { display: flex; align-items: baseline; gap: var(--sp-2); }
+.obj-kind {
+  padding: 1px 7px; border-radius: 999px; border: 1px solid var(--r-border);
+  font: 600 10.5px/1.4 var(--r-mono); color: var(--r-faint); text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.obj-challenge { font: 500 13px/1.5 var(--r-font); color: var(--r-text); }
+.obj-answer { font: 400 12.5px/1.55 var(--r-font); color: var(--r-muted); }
+.obj-margin { font: 500 11.5px/1.5 var(--r-mono); color: var(--r-faint); }
+
+.nmk-strip { display: flex; gap: var(--sp-4); margin: var(--sp-3) 0 var(--sp-2);
+  font: 500 13px/1.4 var(--r-font); }
+.brief-disclaimer { font: 400 11.5px/1.6 var(--r-font); color: var(--r-faint); }

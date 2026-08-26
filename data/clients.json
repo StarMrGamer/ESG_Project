@@ -1,0 +1,585 @@
+{
+ "_note": "FICTIONAL institutional accounts for demonstration. No real client, holding or contact detail appears in this file.",
+ "_origin": "fictional",
+ "clients": [
+  {
+   "_origin": "fictional",
+   "account_type": "long_only",
+   "brief_note": "Core ASEAN financials book. Asks the same question every quarter: where are we away from consensus, and what is the evidence.",
+   "client_id": "meridian_straits",
+   "coverage": [
+    "KLSE:RHBBANK",
+    "SGX:OCBC",
+    "SGX:UOB",
+    "SGX:DBS",
+    "KLSE:MAY",
+    "KLSE:CIMB",
+    "IDX:BBCA",
+    "SET:KTB"
+   ],
+   "desk": "ASEAN Equities",
+   "mandate": "return",
+   "meetings": [
+    {
+     "_basis": "Real engine state: the run over the verified basket with no harvested evidence merged. Reproduce with engine.run_engine(universe.constituents()).",
+     "as_of": "2026-08-20",
+     "date": "2026-08-12",
+     "discussed": [
+      "KLSE:RHBBANK",
+      "SGX:OCBC",
+      "SGX:UOB",
+      "SGX:DBS",
+      "KLSE:MAY",
+      "KLSE:CIMB",
+      "IDX:BBCA",
+      "SET:KTB"
+     ],
+     "follow_ups": [
+      {
+       "done": false,
+       "text": "Send the source list behind the RHB governance signals."
+      },
+      {
+       "done": false,
+       "text": "Confirm whether the incumbent notch on the basket is MSCI-sourced \u2014 CGSI's column header is unattributed."
+      }
+     ],
+     "note": "Quarterly review. Pushed back hard on the bank overweight.",
+     "run_id": "21333e38bd6db5f7",
+     "snapshot": {
+      "IDX:BBCA": {
+       "company": "Bank Central Asia",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.480392,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.745098,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:CIMB": {
+       "company": "CIMB Group Holdings Bhd",
+       "composite_confidence": 0.076167,
+       "composite_momentum": 0.61165,
+       "disagreement": 0.0,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.960784,
+       "momentum_percentile": 0.960784,
+       "signal_count": 1
+      },
+      "KLSE:MAY": {
+       "company": "Malayan Banking Bhd",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.72549,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.990196,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:RHBBANK": {
+       "company": "RHB Bank Bhd",
+       "composite_confidence": 0.330667,
+       "composite_momentum": 0.615945,
+       "disagreement": 0.803921,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.176471,
+       "momentum_percentile": 0.980392,
+       "signal_count": 5
+      },
+      "SET:KTB": {
+       "company": "Krung Thai Bank",
+       "composite_confidence": 0.077083,
+       "composite_momentum": 0.471804,
+       "disagreement": 0.392157,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.401961,
+       "momentum_percentile": 0.794118,
+       "signal_count": 2
+      },
+      "SGX:DBS": {
+       "company": "DBS Group",
+       "composite_confidence": 0.218667,
+       "composite_momentum": 0.003092,
+       "disagreement": -0.078432,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.647059,
+       "momentum_percentile": 0.568627,
+       "signal_count": 4
+      },
+      "SGX:OCBC": {
+       "company": "OCBC",
+       "composite_confidence": 0.273333,
+       "composite_momentum": 0.520719,
+       "disagreement": 0.539216,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.343137,
+       "momentum_percentile": 0.882353,
+       "signal_count": 5
+      },
+      "SGX:UOB": {
+       "company": "United Overseas Bank",
+       "composite_confidence": 0.076167,
+       "composite_momentum": 0.000808,
+       "disagreement": 0.441177,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.107843,
+       "momentum_percentile": 0.54902,
+       "signal_count": 1
+      }
+     }
+    }
+   ],
+   "name": "Meridian Straits Asset Management",
+   "profile": {
+    "green_focus": false,
+    "horizon": "long",
+    "risk": "balanced"
+   }
+  },
+  {
+   "_origin": "fictional",
+   "account_type": "hedge_fund",
+   "brief_note": "Short-horizon book. Only interested in names where the rating and the evidence point in opposite directions, and in what would flip them back.",
+   "client_id": "kestrel_delta",
+   "coverage": [
+    "SET:PTTGC",
+    "SET:PTT",
+    "SET:TOP",
+    "SET:PTTEP",
+    "KLSE:PCHEM",
+    "KLSE:PMAH",
+    "SET:SCC"
+   ],
+   "desk": "Event / Special Situations",
+   "mandate": "return",
+   "meetings": [
+    {
+     "_basis": "Real engine state: the run over the verified basket with no harvested evidence merged. Reproduce with engine.run_engine(universe.constituents()).",
+     "as_of": "2026-08-20",
+     "date": "2026-08-18",
+     "discussed": [
+      "SET:PTTGC",
+      "SET:PTT",
+      "SET:TOP",
+      "SET:PTTEP",
+      "KLSE:PCHEM",
+      "KLSE:PMAH",
+      "SET:SCC"
+     ],
+     "follow_ups": [
+      {
+       "done": false,
+       "text": "PTT Global Chemical reads 0.000 on the 45-day horizon \u2014 show them the long-horizon read beside it and explain the decay, not just the number."
+      },
+      {
+       "done": false,
+       "text": "Traction screen is still unrun for both loss-makers. Do not present them as disqualified."
+      }
+     ],
+     "note": "Wanted the negative quadrants, not the positive ones.",
+     "run_id": "21333e38bd6db5f7",
+     "snapshot": {
+      "KLSE:PCHEM": {
+       "company": "Petronas Chemicals Group",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.196078,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.460784,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:PMAH": {
+       "company": "Press Metal Aluminium Holdings Bhd",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.009804,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.27451,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "SET:PTT": {
+       "company": "PTT",
+       "composite_confidence": 0.158937,
+       "composite_momentum": 0.018273,
+       "disagreement": -0.401961,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.990196,
+       "momentum_percentile": 0.588235,
+       "signal_count": 3
+      },
+      "SET:PTTEP": {
+       "company": "PTT Exploration & Production",
+       "composite_confidence": 0.077083,
+       "composite_momentum": 0.471804,
+       "disagreement": 0.264706,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.529412,
+       "momentum_percentile": 0.794118,
+       "signal_count": 2
+      },
+      "SET:PTTGC": {
+       "company": "PTT Global Chemical",
+       "composite_confidence": 0.199625,
+       "composite_momentum": 0.053975,
+       "disagreement": -0.098039,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.745098,
+       "momentum_percentile": 0.647059,
+       "signal_count": 3
+      },
+      "SET:SCC": {
+       "company": "Siam Cement",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.627451,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.892157,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "SET:TOP": {
+       "company": "Thai Oil",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.627451,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.892157,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      }
+     }
+    }
+   ],
+   "name": "Kestrel Delta Capital",
+   "profile": {
+    "green_focus": false,
+    "horizon": "short",
+    "risk": "aggressive"
+   }
+  },
+  {
+   "_origin": "fictional",
+   "account_type": "pension",
+   "brief_note": "Green-labelled issuance mandate. The origination pipeline (N/M/K) is the part of the brief they actually read.",
+   "client_id": "northwind_pension",
+   "coverage": [
+    "SET:PTT",
+    "KLSE:MAY",
+    "SGX:DBS",
+    "SGX:OCBC",
+    "KLSE:PCHEM",
+    "SET:CPALL",
+    "KLSE:MISC",
+    "SET:BEM"
+   ],
+   "desk": "Sustainable Fixed Income",
+   "mandate": "compliance",
+   "meetings": [
+    {
+     "_basis": "Real engine state: the run over the verified basket with no harvested evidence merged. Reproduce with engine.run_engine(universe.constituents()).",
+     "as_of": "2026-08-20",
+     "date": "2026-07-30",
+     "discussed": [
+      "SET:PTT",
+      "KLSE:MAY",
+      "SGX:DBS",
+      "SGX:OCBC",
+      "KLSE:PCHEM",
+      "SET:CPALL",
+      "KLSE:MISC",
+      "SET:BEM"
+     ],
+     "follow_ups": [
+      {
+       "done": false,
+       "text": "Green-bond rows are team-verified per the ICMA-based process, NOT CGSI-confirmed \u2014 say so explicitly, they will ask who signed off."
+      },
+      {
+       "done": false,
+       "text": "PCHEM entered the bond-ready bucket once the traction cells landed. Show the before/after."
+      }
+     ],
+     "note": "Mandate review. Asked for the verification process behind the labels.",
+     "run_id": "21333e38bd6db5f7",
+     "snapshot": {
+      "KLSE:MAY": {
+       "company": "Malayan Banking Bhd",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.72549,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.990196,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:MISC": {
+       "company": "MISC Bhd",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": 0.088235,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.176471,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:PCHEM": {
+       "company": "Petronas Chemicals Group",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.196078,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.460784,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "SET:BEM": {
+       "company": "Bangkok Expressway and Metro PCL",
+       "composite_confidence": 0.075583,
+       "composite_momentum": 0.033182,
+       "disagreement": 0.588235,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.019608,
+       "momentum_percentile": 0.607843,
+       "signal_count": 1
+      },
+      "SET:CPALL": {
+       "company": "CP All",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.264706,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.529412,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "SET:PTT": {
+       "company": "PTT",
+       "composite_confidence": 0.158937,
+       "composite_momentum": 0.018273,
+       "disagreement": -0.401961,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.990196,
+       "momentum_percentile": 0.588235,
+       "signal_count": 3
+      },
+      "SGX:DBS": {
+       "company": "DBS Group",
+       "composite_confidence": 0.218667,
+       "composite_momentum": 0.003092,
+       "disagreement": -0.078432,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.647059,
+       "momentum_percentile": 0.568627,
+       "signal_count": 4
+      },
+      "SGX:OCBC": {
+       "company": "OCBC",
+       "composite_confidence": 0.273333,
+       "composite_momentum": 0.520719,
+       "disagreement": 0.539216,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.343137,
+       "momentum_percentile": 0.882353,
+       "signal_count": 5
+      }
+     }
+    }
+   ],
+   "name": "Northwind Pension Trust",
+   "profile": {
+    "green_focus": true,
+    "horizon": "long",
+    "risk": "conservative"
+   }
+  },
+  {
+   "_origin": "fictional",
+   "account_type": "sovereign",
+   "brief_note": "Long-dated strategic book. Cares more about stale data and stranded positions than about alpha.",
+   "client_id": "selat_sovereign",
+   "coverage": [
+    "KLSE:MAHB",
+    "SET:INTUCH",
+    "PSE:AC",
+    "PSE:SM",
+    "SGX:KEP",
+    "KLSE:SIME",
+    "SET:BEM",
+    "KLSE:AXIATA"
+   ],
+   "desk": "Strategic Holdings",
+   "mandate": "risk",
+   "meetings": [
+    {
+     "_basis": "Real engine state: the run over the verified basket with no harvested evidence merged. Reproduce with engine.run_engine(universe.constituents()).",
+     "as_of": "2026-08-20",
+     "date": "2026-08-05",
+     "discussed": [
+      "KLSE:MAHB",
+      "SET:INTUCH",
+      "PSE:AC",
+      "PSE:SM",
+      "SGX:KEP",
+      "KLSE:SIME",
+      "SET:BEM",
+      "KLSE:AXIATA"
+     ],
+     "follow_ups": [
+      {
+       "done": false,
+       "text": "Malaysia Airports and Intouch both went private in 2025 and are still sitting in the basket. Lead with that \u2014 a static list going stale is the argument."
+      }
+     ],
+     "note": "Governance review of the strategic holdings.",
+     "run_id": "21333e38bd6db5f7",
+     "snapshot": {
+      "KLSE:AXIATA": {
+       "company": "Axiata Group",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.382353,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.647059,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:MAHB": {
+       "company": "Malaysia Airports Holdings Bhd",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": 0.088235,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.176471,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "KLSE:SIME": {
+       "company": "Sime Darby Bhd",
+       "composite_confidence": 0.083333,
+       "composite_momentum": 0.532395,
+       "disagreement": 0.156863,
+       "label": "future_leaders",
+       "label_display": "Future Leaders",
+       "lseg_percentile": 0.745098,
+       "momentum_percentile": 0.901961,
+       "signal_count": 2
+      },
+      "PSE:AC": {
+       "company": "Ayala Corporation",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.196078,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.460784,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "PSE:SM": {
+       "company": "SM Investments Corp",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": 0.088235,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.176471,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "SET:BEM": {
+       "company": "Bangkok Expressway and Metro PCL",
+       "composite_confidence": 0.075583,
+       "composite_momentum": 0.033182,
+       "disagreement": 0.588235,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.019608,
+       "momentum_percentile": 0.607843,
+       "signal_count": 1
+      },
+      "SET:INTUCH": {
+       "company": "Intouch Holdings PCL",
+       "composite_confidence": 0.0,
+       "composite_momentum": 0.0,
+       "disagreement": -0.009804,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.27451,
+       "momentum_percentile": 0.264706,
+       "signal_count": 0
+      },
+      "SGX:KEP": {
+       "company": "Keppel Ltd",
+       "composite_confidence": 0.083333,
+       "composite_momentum": 0.042389,
+       "disagreement": 0.22549,
+       "label": "consensus",
+       "label_display": "Consensus",
+       "lseg_percentile": 0.401961,
+       "momentum_percentile": 0.627451,
+       "signal_count": 2
+      }
+     }
+    }
+   ],
+   "name": "Selat Sovereign Investment Office",
+   "profile": {
+    "green_focus": false,
+    "horizon": "long",
+    "risk": "conservative"
+   }
+  },
+  {
+   "_origin": "fictional",
+   "account_type": "insurer",
+   "brief_note": "New account. First meeting \u2014 opening view, no change report.",
+   "client_id": "ironbark_insurance",
+   "coverage": [
+    "PSE:BDO",
+    "PSE:BPI",
+    "PSE:SMPH",
+    "PSE:ALI",
+    "PSE:TEL",
+    "SGX:SGX",
+    "SET:CPN"
+   ],
+   "desk": "General Account",
+   "mandate": "risk",
+   "meetings": [],
+   "name": "Ironbark Insurance Asset Management",
+   "profile": {
+    "green_focus": true,
+    "horizon": "long",
+    "risk": "conservative"
+   }
+  }
+ ]
+}

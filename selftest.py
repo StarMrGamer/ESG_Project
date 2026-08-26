@@ -2236,6 +2236,100 @@ def test_pipeline_bucket_is_on_the_company_not_just_the_total():
 
 
 
+def test_client_brief_prepares_evidence_and_never_recommends():
+    """The analyst's book. The brief is the one surface where HARD RULE 4 would be most tempting
+    to break — "prepare me for this client meeting" reads like an invitation to say what to
+    pitch — so the guard is pinned here rather than trusted to review."""
+    import brief
+    import clients
+
+    book = clients.load_all()
+    assert book, "the fictional client book should ship with the repo"
+    # 1 - the roster is FICTIONAL and says so on every record, the hero_company.json discipline.
+    for c in book:
+        assert c.get("_origin") == "fictional", c.get("client_id")
+
+    run = {
+        "run_id": "run_now", "as_of": "2026-08-20",
+        "records": [
+            {"company_id": "X:A", "company": "Alpha", "label": "hidden_winners",
+             "label_display": "Hidden Winners", "composite_momentum": 0.7,
+             "composite_confidence": 0.8, "signal_count": 12, "disagreement": 0.6,
+             "momentum_percentile": 0.9, "lseg_percentile": 0.3, "country": "SG",
+             "industry": "Banks", "signals": []},
+            {"company_id": "X:B", "company": "Beta", "label": "consensus",
+             "label_display": "Consensus", "composite_momentum": 0.1,
+             "composite_confidence": 0.2, "signal_count": 0, "disagreement": 0.05,
+             "momentum_percentile": 0.4, "lseg_percentile": 0.35, "country": "TH",
+             "industry": "Cement", "signals": []},
+        ],
+    }
+    client = {
+        "client_id": "t", "name": "Test Account", "account_type": "long_only",
+        "desk": "d", "mandate": "return", "coverage": ["X:A", "X:B"], "_origin": "fictional",
+        "meetings": [{
+            "date": "2026-08-01", "run_id": "run_then", "as_of": "2026-08-01",
+            "follow_ups": [{"text": "send the sources", "done": False}],
+            "snapshot": {
+                "X:A": {"label": "consensus", "label_display": "Consensus",
+                        "composite_momentum": 0.2, "composite_confidence": 0.3,
+                        "signal_count": 4, "disagreement": 0.6, "company": "Alpha"},
+                "X:B": {"label": "consensus", "label_display": "Consensus",
+                        "composite_momentum": 0.1, "composite_confidence": 0.2,
+                        "signal_count": 0, "disagreement": 0.05, "company": "Beta"},
+            },
+        }],
+    }
+
+    # 2 - THE DELTA. A crossed quadrant boundary outranks everything else, because it is the only
+    #     move that changes what we are CLAIMING about the company.
+    d = clients.delta(client, run)
+    assert d["has_baseline"] and d["since"] == "2026-08-01"
+    assert d["changes"][0]["company_id"] == "X:A"
+    assert d["changes"][0]["kind"] == "label_move"
+    assert d["changes"][0]["signals_delta"] == 8
+    # a name that did not move is counted, not listed
+    assert d["unchanged"] == 1 and len(d["changes"]) == 1
+
+    # 3 - a FIRST meeting has no baseline and must say so. Diffing against an implied zero would
+    #     report every position as a dramatic move on the day you met them.
+    fresh = dict(client, meetings=[])
+    d0 = clients.delta(fresh, run)
+    assert d0["has_baseline"] is False and d0["changes"] == [] and d0.get("note")
+
+    # 4 - the snapshot stores only what the client was SHOWN, never the whole record.
+    snap = clients.snapshot_for(run, ["X:A"])
+    assert set(snap["X:A"]) <= set(clients.SNAP_FIELDS) | {"company"}
+    assert "signals" not in snap["X:A"] and "components" not in snap["X:A"]
+
+    b = brief.build(client, run, {}, None, with_flip=False)
+
+    # 5 - THE ONE THAT MATTERS: no recommendation, anywhere in the rendered document. The brief
+    #     prepares evidence; the analyst forms the view.
+    md = brief.to_markdown(b).lower()
+    for banned in ("buy", "sell", "overweight", "underweight", "we recommend", "price target",
+                   "outperform", "accumulate"):
+        assert banned not in md, "brief must never carry a recommendation: %r" % banned
+    assert "not investment advice" in md
+
+    # 6 - the case AGAINST is present and is never dropped, and a zero-evidence name is reported
+    #     as having nothing to disagree with rather than as a quiet blank.
+    assert b["objections"], "a brief with no challenges gets the analyst ambushed"
+    gaps = " ".join(u["gap"] for u in b["unknowns"])
+    assert "no dated evidence" in gaps.lower()
+
+    # 7 - composed by rule, so the same run always yields the same document.
+    assert b["no_llm"] is True
+    assert brief.to_markdown(brief.build(client, run, {}, None, with_flip=False)) == \
+        brief.to_markdown(b)
+
+    # 8 - section numbering follows what is EMITTED. The first-meeting brief has no follow-ups
+    #     section, and the numbering must not skip over the hole.
+    md2 = brief.to_markdown(brief.build(fresh, run, {}, None, with_flip=False))
+    heads = [ln for ln in md2.splitlines() if ln.startswith("## ")]
+    assert [h.split(" ")[1] for h in heads] == [str(i + 1) for i in range(len(heads))], heads
+
+
 def test_industry_bar_joins_directly_and_carries_its_unit():
     """The industry table read the ISIC CROSSWALK, which resolves 4 of 22 industries — so 18 read
     "unmatched", including Banks, the largest bucket at 15 companies, while the per-company panel
@@ -2405,6 +2499,8 @@ def main():
          lambda: test_news_is_gathered_never_written()),
         ("N/M/K is readable on the company, not only as a total",
          lambda: test_pipeline_bucket_is_on_the_company_not_just_the_total()),
+        ("client brief prepares evidence and never recommends",
+         lambda: test_client_brief_prepares_evidence_and_never_recommends()),
         ("industry bar joins directly and carries its unit",
          lambda: test_industry_bar_joins_directly_and_carries_its_unit()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),

@@ -7,6 +7,7 @@ import AssistantBar from './AssistantBar'
 import EngineBoard from './EngineBoard'
 import UniverseGrid from './UniverseGrid'
 import ContextTab from './ContextTab'
+import ClientsTab from '../clients/ClientsTab'
 
 /**
  * The board, layered.
@@ -60,7 +61,9 @@ export default function Dashboard() {
       {!board && boardLoading && <Spinner label="Loading the command center…" />}
       {board && (
         <>
-          {settings.tab === 'context'
+          {settings.tab === 'clients'
+            ? <ClientsTab />
+            : settings.tab === 'context'
             ? <ContextTab />
             : (
               <>

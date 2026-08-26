@@ -21,6 +21,7 @@ Run:
     (dev UI: cd web && npm run dev  ->  http://localhost:5173, proxies /api to :8000)
 """
 
+import datetime as _dt
 import json
 import os
 import queue
@@ -28,14 +29,16 @@ import re
 import threading
 import time
 
-from fastapi import FastAPI, File, HTTPException, Query, UploadFile
+from fastapi import Body, FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import anchor
 import benchmarks
+import brief as brief_mod
+import clients as clients_mod
 import company_metadata
 import contracts
 import core
@@ -1050,6 +1053,95 @@ class MonitorIn(BaseModel):
     ticker: str = ""
     text: str = ""
     demo: bool = True
+
+
+# --------------------------------------------------------------------------------------------- #
+# The analyst's book — clients, and the brief they walk into a meeting with.
+#
+# A pure overlay on the engine: these endpoints read a scored run and compose. Nothing here
+# creates a signal, sets a weight or decides a label, so `run_id` is untouched and the frozen
+# N/M/K, the whitepaper figures and the anchored Merkle root all stay valid.
+#
+# The brief carries NO recommendation by construction (see brief.DISCLAIMER) — it prepares the
+# evidence and the objections, and the analyst forms the view. That is HARD RULE 4 holding at the
+# one place in the product where it would be most tempting to break it.
+# --------------------------------------------------------------------------------------------- #
+
+def _client_run(horizon=engine_config.DEFAULT_HORIZON):
+    """Clients are always scored against the REAL universe — a book of institutional accounts
+    over a fictional demo basket would be a category error, and the demo toggle does not reach
+    here."""
+    return _engine_run(False, horizon)
+
+
+@app.get("/api/clients")
+def clients_list():
+    return {"clients": [clients_mod.summary(c) for c in clients_mod.load_all()],
+            "origin": "fictional",
+            "note": ("Fictional institutional accounts. No real client, holding or contact "
+                     "detail appears in this build.")}
+
+
+@app.get("/api/clients/{client_id}")
+def client_get(client_id: str):
+    c = clients_mod.get(client_id)
+    if not c:
+        raise HTTPException(status_code=404, detail="no such client")
+    run, _meta, _cfg = _client_run()
+    return {"client": c, "summary": clients_mod.summary(c),
+            "delta": clients_mod.delta(c, run),
+            "open_follow_ups": clients_mod.open_follow_ups(c)}
+
+
+@app.get("/api/clients/{client_id}/brief")
+def client_brief(client_id: str, horizon: str = engine_config.DEFAULT_HORIZON,
+                 flip: bool = Query(True)):
+    c = clients_mod.get(client_id)
+    if not c:
+        raise HTTPException(status_code=404, detail="no such client")
+    run, meta, cfg = _client_run(horizon)
+    return brief_mod.build(c, run, meta, cfg, with_flip=flip)
+
+
+@app.get("/api/clients/{client_id}/brief.md")
+def client_brief_md(client_id: str, horizon: str = engine_config.DEFAULT_HORIZON):
+    c = clients_mod.get(client_id)
+    if not c:
+        raise HTTPException(status_code=404, detail="no such client")
+    run, meta, cfg = _client_run(horizon)
+    md = brief_mod.to_markdown(brief_mod.build(c, run, meta, cfg))
+    return PlainTextResponse(md, media_type="text/markdown; charset=utf-8")
+
+
+@app.post("/api/clients/{client_id}/meetings")
+def client_close_meeting(client_id: str, payload: dict = Body(default={})):
+    """Close a meeting: store the snapshot the client was actually shown, so the NEXT brief can
+    say what changed. The date is supplied by the caller rather than read from a clock, so a
+    back-dated or replayed meeting records when it really happened."""
+    c = clients_mod.get(client_id)
+    if not c:
+        raise HTTPException(status_code=404, detail="no such client")
+    run, _meta, _cfg = _client_run()
+    date = (payload.get("date") or "").strip() or _dt.date.today().isoformat()
+    meeting = clients_mod.close_meeting(
+        client_id, run, date,
+        note=payload.get("note") or "",
+        discussed=payload.get("discussed") or c.get("coverage") or [],
+        follow_ups=payload.get("follow_ups") or [])
+    return {"ok": bool(meeting), "meeting": meeting,
+            "summary": clients_mod.summary(clients_mod.get(client_id) or {})}
+
+
+@app.post("/api/clients")
+def client_upsert(payload: dict = Body(default={})):
+    if not (payload.get("name") or "").strip():
+        raise HTTPException(status_code=400, detail="a client needs a name")
+    return {"client": clients_mod.upsert(payload)}
+
+
+@app.delete("/api/clients/{client_id}")
+def client_delete(client_id: str):
+    return {"ok": clients_mod.remove(client_id)}
 
 
 @app.post("/api/monitor")

@@ -854,3 +854,131 @@ export interface CompanyCase {
   watch_outs: string[]
   counts: { esg_pros: number; esg_cons: number; fin_pros: number; fin_cons: number }
 }
+
+/* ---------------------------------------------------------------------------------------------
+ * The analyst's book.
+ *
+ * The audience is a SELL-SIDE ESG research analyst: they cover a universe and walk into client
+ * calls needing to defend a view a portfolio manager will push back on. A client profile reuses
+ * the setup answers (mandate / risk / horizon / green focus), so a client IS a saved setup plus a
+ * coverage list and a meeting log.
+ *
+ * The brief carries NO recommendation by construction — it prepares evidence and objections, and
+ * the analyst forms the view. Nothing in this payload is scored; it is composed from a finished
+ * run, so `run_id` is untouched.
+ * ------------------------------------------------------------------------------------------- */
+
+export interface ClientProfile {
+  risk?: string
+  horizon?: string
+  green_focus?: boolean
+}
+
+export interface ClientSummary {
+  client_id: string
+  name: string
+  account_type: string
+  desk: string
+  mandate: string
+  profile: ClientProfile
+  coverage: string[]
+  coverage_n: number
+  last_met: string
+  meetings_n: number
+  open_follow_ups: number
+  _origin?: string
+}
+
+/** One line of "what changed since you last spoke". `kind` orders the brief. */
+export interface ClientChange {
+  company_id: string
+  company: string
+  kind: 'label_move' | 'confidence_move' | 'evidence_added' | 'momentum_move'
+  note: string
+  label_from?: string | null
+  label_to?: string | null
+  label_from_display?: string | null
+  label_to_display?: string | null
+  confidence_from?: number | null
+  confidence_to?: number | null
+  confidence_delta?: number | null
+  momentum_from?: number | null
+  momentum_to?: number | null
+  momentum_delta?: number | null
+  signals_from?: number | null
+  signals_to?: number | null
+  signals_delta?: number | null
+}
+
+export interface ClientDelta {
+  has_baseline: boolean
+  since: string
+  since_run: string
+  current_run: string
+  as_of: string
+  changes: ClientChange[]
+  unchanged: number
+  new_names: string[]
+  dropped: string[]
+  covered: number
+  note?: string
+}
+
+export interface BriefPosition {
+  company_id: string
+  company: string
+  country: string
+  industry: string
+  label: string
+  label_display: string
+  disagreement: number | null
+  momentum: number | null
+  confidence: number | null
+  signal_count: number | null
+  momentum_percentile: number | null
+  rating_percentile: number | null
+  incumbent_notch?: string | null
+  delisted: boolean
+  summary: string
+  case_for: string[]
+  case_against: string[]
+  financial: { verdict?: string; pros?: string[]; cons?: string[]; note?: string }
+  watch_outs: string[]
+  pipeline: { bucket?: string; display?: string; tone?: string; note?: string }
+  headlines: { title: string; url: string; source: string; published_at: string }[]
+  margins: {
+    key: string; label: string; value: number; boundary: number
+    boundary_name: string; distance: number; side: string; note?: string
+  }[]
+  load_bearing: number | null
+  flip_note: string
+  flip_error?: string
+}
+
+/** What the client will push on, in their words, with the dated answer beside it. */
+export interface BriefObjection {
+  company_id: string
+  company: string
+  challenge: string
+  kind: string
+  our_answer: string
+  what_would_move_it: string
+  evidence_n: number | null
+  other_weaknesses?: number
+}
+
+export interface ClientBrief {
+  client: ClientSummary
+  brief_note: string
+  run_id: string
+  as_of: string
+  delta: ClientDelta
+  open_follow_ups: { text: string; since: string }[]
+  positions: BriefPosition[]
+  objections: BriefObjection[]
+  unknowns: { company: string; company_id: string; gap: string }[]
+  origination: { N: number; M: number; K: number } | null
+  not_covered: string[]
+  disclaimer: string
+  no_llm: boolean
+}

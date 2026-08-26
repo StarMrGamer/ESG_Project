@@ -1,9 +1,8 @@
 import type {
   AnchorSummary, BacktestPayload, BenchmarksPayload, Board, ChatResult, ClaimEvidencePayload,
-  ComparePayload, Entry,
+  ClientBrief, ClientSummary, ComparePayload, Entry,
   Envelope, EvidencePayload, Health, HorizonKey, LsegPayload, NarrowedQuestion, Quote,
-  SensitivityPayload, Stage2Answer, VerifyPayload,
-} from './types'
+  SensitivityPayload, Stage2Answer, VerifyPayload } from './types'
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, {
@@ -50,6 +49,16 @@ export const api = {
   // the board — a screen of 52 cards must not fan out into a rating provider.
   lseg: (ticker: string, demo = false) =>
     http<LsegPayload>(`/api/lseg/${encodeURIComponent(ticker)}?demo=${demo}`),
+  // The analyst's book. Always scored against the REAL universe — a roster of institutional
+  // accounts over the fictional demo basket would be a category error, so there is no demo flag.
+  clients: () => http<{ clients: ClientSummary[]; origin: string; note: string }>('/api/clients'),
+  clientBrief: (id: string) =>
+    http<ClientBrief>(`/api/clients/${encodeURIComponent(id)}/brief`),
+  clientBriefMarkdownUrl: (id: string) => `/api/clients/${encodeURIComponent(id)}/brief.md`,
+  closeMeeting: (id: string, body: { date?: string; note?: string; follow_ups?: string[] }) =>
+    http<{ ok: boolean }>(`/api/clients/${encodeURIComponent(id)}/meetings`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+    }),
   sample: () => http<{ ok: boolean; ticker: string; entry: Entry }>('/api/sample', { method: 'POST' }),
   upload: async (file: File) => {
     const fd = new FormData()

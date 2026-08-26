@@ -88,6 +88,12 @@ export default function Header() {
           <button className={`btn ${s.tab === 'context' ? 'on' : ''}`}
             title="Method and benchmarks — the same for every company, so they live here."
             onClick={() => setSettings({ tab: 'context' })}>Context</button>
+          {/* The book. Its own tab rather than a mode of the board: a client meeting is a
+              different job from screening the universe, and the brief is a document, not a
+              dashboard. */}
+          <button className={`btn ${s.tab === 'clients' ? 'on' : ''}`}
+            title="Your client book and the pre-meeting brief"
+            onClick={() => setSettings({ tab: 'clients' })}>Clients</button>
         </div>
         <div className="seg" role="group" aria-label="Detail level">
           {LEVELS.map(l => (

@@ -43,7 +43,7 @@ export type View =
   | { name: 'evidence'; ticker: string }
 
 /** Which half of the app is on screen. See `Settings.tab`. */
-export type BoardTab = 'board' | 'context'
+export type BoardTab = 'board' | 'context' | 'clients'
 
 export interface Settings {
   demo: boolean
