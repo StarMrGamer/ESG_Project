@@ -51,10 +51,16 @@ export default function ContextTab() {
         </Section>
       )}
 
+      {/* The subtitle used to read "90 days · % change" for both universes. Neither half was true
+          of the real basket: its points are quarterly engine replays spanning nine months, and
+          the values are a direction consensus, not a percentage. */}
       <Section id="ctx-momentum" title="ESG momentum"
-        sub="90 days · % change · the filtered set, not one company">
+        sub={board.momentum_series_kind === 'evidence'
+          ? `${board.momentum_series_basis || 'engine replay'} · direction consensus −1 to +1, not a percentage`
+          : '90 days · % change · the filtered set, not one company'}>
         {hasSeries
-          ? <MomentumChart series={board.momentum_series} dark={settings.dark} height={360} />
+          ? <MomentumChart series={board.momentum_series} dark={settings.dark} height={360}
+              basis={board.momentum_series_kind} labels={board.momentum_series_labels} />
           : <div className="empty-note">No momentum data for this filter yet.</div>}
       </Section>
 

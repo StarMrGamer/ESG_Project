@@ -956,6 +956,11 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         "momentum_series_basis": (
             "engine replayed at each quarter cutoff — every point is a real run"
             if real_series else "illustrative interpolation"),
+        # The SCALE, machine-readable, using the same vocabulary as the pillar cards. The real
+        # basket's points are a direction consensus on -1..+1; the demo set's are momentum
+        # percentages. The chart hardcoded a "%" suffix on both, so a consensus of 0.998 — the
+        # evidence overwhelmingly agreeing — was drawn as "1%" and read as a rounding error.
+        "momentum_series_kind": "evidence" if real_series else "numeric",
         "momentum_series_labels": series_labels,
         "hidden_winners": {"rows": hw_rows, "peer_avg": peer_avg, "n": peer_n,
                            "basis": hw_basis},

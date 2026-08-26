@@ -454,6 +454,17 @@ export interface Board {
   avg: { kind: string; value: number | null; n: number; title: string; sub: string }
   pillars: Pillar[]
   momentum_series: Record<string, number[]>
+  /**
+   * The SCALE of `momentum_series`. 'evidence' is a direction consensus on −1..+1 (the real
+   * basket); 'numeric' is a momentum percentage (the demo set). They must never be rendered with
+   * the same axis suffix — a consensus of 0.998 drawn as "1%" reads as a rounding error when it
+   * means the evidence overwhelmingly agrees.
+   */
+  momentum_series_kind?: 'evidence' | 'numeric'
+  /** Prose provenance for the series — a real quarterly replay, or an illustrative interpolation. */
+  momentum_series_basis?: string
+  /** Cutoff date per point, for the real replay. Empty for the interpolated demo series. */
+  momentum_series_labels?: string[]
   /** `basis` says what the bar measures. 'digital_ai' = the demo set's own signal.
    *  'disagreement' = the engine's signed evidence-minus-rating gap, used for the real basket,
    *  where the Digital/AI field does not exist. The footer must name the right one. */

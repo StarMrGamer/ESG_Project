@@ -29,16 +29,29 @@ const tooltipStyle = (t: Theme) => ({
   color: t.text, fontSize: 12, fontFamily: "'IBM Plex Sans', sans-serif",
 })
 
-export function MomentumChart({ series, dark, height = 340 }: {
+/**
+ * Pillar momentum over time.
+ *
+ * TWO SCALES REACH THIS CHART and they are not interchangeable. The demo set's points are
+ * momentum PERCENTAGES; the real basket's are a direction CONSENSUS on -1..+1. The axis used to
+ * suffix "%" on both, so a consensus of 0.998 — the evidence overwhelmingly agreeing — was drawn
+ * as "1%", which reads as a rounding error rather than as the strongest signal on the board.
+ * `basis` picks the formatting, the same way `fmtPillar` does for the pillar cards.
+ */
+export function MomentumChart({ series, dark, height = 340, basis = 'numeric', labels = [] }: {
   series: Record<string, number[]>
   dark: boolean
   height?: number
+  basis?: 'numeric' | 'evidence'
+  labels?: string[]
 }) {
+  const isPct = basis !== 'evidence'
+  const fmt = (v: number) => (isPct ? `${v}%` : v.toFixed(2))
   const t = chartTheme(dark)
   const keys = Object.keys(series)
   const n = Math.max(...keys.map(k => series[k].length), 0)
   const data = Array.from({ length: n }, (_, i) => {
-    const row: Record<string, number | string> = { i }
+    const row: Record<string, number | string> = { i, label: labels[i] || '' }
     for (const k of keys) row[k] = series[k][i]
     return row
   })
@@ -46,13 +59,20 @@ export function MomentumChart({ series, dark, height = 340 }: {
     <ResponsiveContainer width="100%" height={height}>
       <LineChart data={data} margin={{ top: 8, right: 10, bottom: 4, left: -14 }}>
         <CartesianGrid stroke={t.grid} vertical={false} />
-        <XAxis dataKey="i" hide />
+        {/* The real series is a quarterly replay, so its cutoff dates are the whole point of the
+            x axis. Hiding them left a chart whose subtitle claimed "90 days" over nine months. */}
+        {labels.length
+          ? <XAxis dataKey="label" tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
+              axisLine={false} tickLine={false} minTickGap={18} />
+          : <XAxis dataKey="i" hide />}
         <YAxis tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
-          tickFormatter={v => `${v}%`} axisLine={false} tickLine={false} />
+          tickFormatter={v => fmt(Number(v))} axisLine={false} tickLine={false} />
         <ReferenceLine y={0} stroke={t.tick} strokeOpacity={0.4} />
         <Tooltip contentStyle={tooltipStyle(t)}
-          formatter={(v: unknown, name: unknown) => [`${Number(v).toFixed(1)}%`, PILLAR_LABEL[String(name)] || String(name)]}
-          labelFormatter={() => ''} />
+          formatter={(v: unknown, name: unknown) => [
+            isPct ? `${Number(v).toFixed(1)}%` : Number(v).toFixed(2),
+            PILLAR_LABEL[String(name)] || String(name)]}
+          labelFormatter={(l: unknown) => (labels.length ? String(l) : '')} />
         <Legend formatter={(k: string) => PILLAR_LABEL[k] || k}
           wrapperStyle={{ fontSize: 11, color: t.tick }} />
         {keys.map(k => (
