@@ -23,20 +23,6 @@
   },
   {
    "published_at": null,
-   "source": "channelnewsasia.com",
-   "source_type": "news",
-   "title": "Singapore Airlines latest news & coverage - CNA",
-   "url": "https://www.channelnewsasia.com/topic/singapore-airlines"
-  },
-  {
-   "published_at": null,
-   "source": "businesstimes.com.sg",
-   "source_type": "news",
-   "title": "Singapore Airlines Latest News & Headlines - The Business Times",
-   "url": "https://www.businesstimes.com.sg/keywords/singapore-airlines"
-  },
-  {
-   "published_at": null,
    "source": "singaporeair.com",
    "source_type": "company_pr",
    "title": "Annual Report and Sustainability Report - Singapore Airlines",
@@ -59,5 +45,5 @@
  ],
  "no_llm": true,
  "ticker": "SGX:SIA",
- "undated": 5
+ "undated": 3
 }

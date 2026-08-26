@@ -28,13 +28,6 @@
   },
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about Ayala Corporation - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/AYALA-CORPORATION-6492273/news/"
-  },
-  {
-   "published_at": null,
    "source": "prnewswire.com",
    "source_type": "company_pr",
    "title": "Ayala Corporation News and Press Releases | PR Newswire",
@@ -46,16 +39,9 @@
    "source_type": "company_pr",
    "title": "Ayala signs global partnerships, secures $300 million in funding deals",
    "url": "https://manilastandard.net/?p=314682138"
-  },
-  {
-   "published_at": null,
-   "source": "seekingalpha.com",
-   "source_type": "company_pr",
-   "title": "Ayala Corporation (AYALY) Latest Press Releases - Seeking Alpha",
-   "url": "https://seekingalpha.com/symbol/AYALY/press-releases"
   }
  ],
  "no_llm": true,
  "ticker": "PSE:AC",
- "undated": 4
+ "undated": 2
 }

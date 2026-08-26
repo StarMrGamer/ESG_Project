@@ -142,7 +142,7 @@ def _position(record: Dict[str, Any], row: Optional[Dict[str, Any]], run: Dict[s
     if _news is not None:
         stored = _news.load(cid) or {}
         for item in (stored.get("items") or [])[:3]:
-            headlines.append({"title": item.get("title", ""), "url": item.get("source_url", ""),
+            headlines.append({"title": item.get("title", ""), "url": item.get("url", ""),
                               "source": item.get("source", ""),
                               "published_at": item.get("published_at", "")})
 

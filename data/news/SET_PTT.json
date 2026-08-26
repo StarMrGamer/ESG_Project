@@ -9,13 +9,6 @@
  "items": [
   {
    "published_at": null,
-   "source": "nationthailand.com",
-   "source_type": "company_pr",
-   "title": "PTT all news related to - nationthailand",
-   "url": "https://www.nationthailand.com/tags/PTT"
-  },
-  {
-   "published_at": null,
    "source": "investor.pttor.com",
    "source_type": "company_pr",
    "title": "PTT Oil and Retail Business",
@@ -24,5 +17,5 @@
  ],
  "no_llm": true,
  "ticker": "SET:PTT",
- "undated": 2
+ "undated": 1
 }

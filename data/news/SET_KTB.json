@@ -1,7 +1,7 @@
 {
  "blocked": false,
  "company": "Krung Thai Bank",
- "dated": 3,
+ "dated": 1,
  "errors": [],
  "gathered_at": "2026-08-26",
  "items": [
@@ -11,20 +11,6 @@
    "source_type": "company_pr",
    "title": "Krung Thai Bank Reports Slight Drop in 2Q25 Earnings from Prudent ...",
    "url": "https://www.kaohooninternational.com/markets/561755"
-  },
-  {
-   "published_at": "2023-12-22",
-   "source": "hk.marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Krung Thai Bank : Mitr Phol and Krungthai sign sustainability-linked ...",
-   "url": "https://hk.marketscreener.com/quote/stock/KRUNG-THAI-BANK-6494300/news/Krung-Thai-Bank-Mitr-Phol-and-Krungthai-sign-sustainability-linked-loan-deal-worth-two-billion-bah-45635477/"
-  },
-  {
-   "published_at": "2022-08-29",
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Krung Thai Bank : TBA launches ESG Declaration | MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/KRUNG-THAI-BANK-6494300/news/Krung-Thai-Bank-TBA-launches-ESG-Declaration-41642204/"
   },
   {
    "published_at": null,

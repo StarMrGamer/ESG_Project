@@ -21,13 +21,6 @@
   },
   {
    "published_at": null,
-   "source": "channelnewsasia.com",
-   "source_type": "news",
-   "title": "Singapore Exchange latest news & coverage - CNA",
-   "url": "https://www.channelnewsasia.com/topic/singapore-exchange"
-  },
-  {
-   "published_at": null,
    "source": "bloomberg.com",
    "source_type": "news",
    "title": "Singapore Exchange Eyes Single-Stock ETFs, Tie-Ups to Grow",
@@ -43,5 +36,5 @@
  ],
  "no_llm": true,
  "ticker": "SGX:SGX",
- "undated": 3
+ "undated": 2
 }

@@ -1,7 +1,7 @@
 {
  "blocked": false,
  "company": "Axiata Group",
- "dated": 4,
+ "dated": 3,
  "errors": [],
  "gathered_at": "2026-08-25",
  "items": [
@@ -27,20 +27,6 @@
    "url": "https://www.thestar.com.my/business/business-news/2025/01/15/axiata-aims-to-pare-debt-monetise-assets-this-year"
   },
   {
-   "published_at": "2021-11-29",
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Axiata Berhad : Formally Commits to Net Zero, Signs Science-Based ...",
-   "url": "https://www.marketscreener.com/quote/stock/AXIATA-GROUP-6499937/news/Axiata-Berhad-Formally-Commits-to-Net-Zero-Signs-Science-Based-Target-Initiative-Business-Pledge-37153389/"
-  },
-  {
-   "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about Axiata Group - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/AXIATA-GROUP-6499937/news/"
-  },
-  {
    "published_at": null,
    "source": "fierce-network.com",
    "source_type": "company_pr",
@@ -50,5 +36,5 @@
  ],
  "no_llm": true,
  "ticker": "KLSE:AXIATA",
- "undated": 2
+ "undated": 1
 }

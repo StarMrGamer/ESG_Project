@@ -1,0 +1,37 @@
+{
+ "blocked": false,
+ "company": "Bank Central Asia",
+ "dated": 1,
+ "errors": [],
+ "found": {
+  "dated": 1,
+  "undated": 5
+ },
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-08-15",
+   "source": "asianews.it",
+   "source_type": "company_pr",
+   "title": "Rumours of public takeover of Bank Central Asia shake businesses and ...",
+   "url": "https://www.asianews.it/en/south-east-asia/indonesia/rumours-of-public-takeover-of-bank-central-asia-shake-businesses-and-markets"
+  },
+  {
+   "published_at": null,
+   "source": "investing.com",
+   "source_type": "company_pr",
+   "title": "Bank Central Asia News Today (BBCA) - Investing.com",
+   "url": "https://www.investing.com/equities/bnk-central-as-news"
+  },
+  {
+   "published_at": null,
+   "source": "bca.co.id",
+   "source_type": "company_pr",
+   "title": "PDF Sustainable Finance Framework PT Bank Central Asia Tbk",
+   "url": "https://www.bca.co.id/-/media/Feature/Report/File/S8/Kebijakan-GCG/2026/20260129-final-sf-framework-en.pdf"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "IDX:BBCA",
+ "undated": 2
+}

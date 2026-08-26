@@ -1,7 +1,7 @@
 {
  "blocked": false,
  "company": "Bank Mandiri",
- "dated": 8,
+ "dated": 7,
  "errors": [
   "\"Bank Mandiri\" news: GET https://html.duckduckgo.com/html/ failed after 2 attempt(s): HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=%22Bank+Mandiri%22+news&kl=us-en"
  ],
@@ -27,13 +27,6 @@
    "source_type": "company_pr",
    "title": "Kinerja Bank Mandiri Mei 2026 Tumbuh Berkat Strategi Berkelanjutan",
    "url": "https://finansial.bisnis.com/read/20260626/90/1983579/kinerja-bank-mandiri-mei-2026-tumbuh-berkat-strategi-berkelanjutan"
-  },
-  {
-   "published_at": "2025-03-13",
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Glass Lewis ESG Controversy Alert: Bank Mandiri | MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/PT-BANK-MANDIRI-PERSERO-T-6496346/news/Glass-Lewis-ESG-Controversy-Alert-Bank-Mandiri-49325108/"
   },
   {
    "published_at": "2025-03-10",

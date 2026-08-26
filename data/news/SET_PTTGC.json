@@ -35,13 +35,6 @@
   },
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about PTT Global Chemical - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/PTT-GLOBAL-CHEMICAL-10587053/news/"
-  },
-  {
-   "published_at": null,
    "source": "investing.com",
    "source_type": "company_pr",
    "title": "PTT Global Chemical News Today (PTTGC) - Investing.com",
@@ -64,5 +57,5 @@
  ],
  "no_llm": true,
  "ticker": "SET:PTTGC",
- "undated": 6
+ "undated": 5
 }

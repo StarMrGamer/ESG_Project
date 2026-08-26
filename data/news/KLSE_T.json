@@ -37,25 +37,11 @@
    "published_at": null,
    "source": "tm.com.my",
    "source_type": "company_pr",
-   "title": "Keep Up To Date With TM's Latest News | Telekom Malaysia",
-   "url": "https://tm.com.my/newsroom"
-  },
-  {
-   "published_at": null,
-   "source": "tm.com.my",
-   "source_type": "company_pr",
-   "title": "Stay Up To Date With The Latest News & Events From TM | Telekom Malaysia",
-   "url": "https://tm.com.my/investor-relations/news-events/press-release"
-  },
-  {
-   "published_at": null,
-   "source": "tm.com.my",
-   "source_type": "company_pr",
    "title": "PDF Telekom Malaysia Berhad Sustainability Statement: Empowering the Future ...",
    "url": "https://tm.com.my/sites/default/files/2026-05/%5BPages%20100-251%5D%20Telekom%20Malaysia%20Berhad%20IAR25.pdf"
   }
  ],
  "no_llm": true,
  "ticker": "KLSE:T",
- "undated": 3
+ "undated": 1
 }

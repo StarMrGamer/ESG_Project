@@ -225,15 +225,62 @@ def _match_key(name):
     return " ".join(sorted(words))
 
 
+_COMMON_CACHE = {}
+
+
+def _common_words(book, min_docs=3):
+    """Words that appear in several companies' names, and so identify none of them.
+
+    Computed from the book rather than hand-listed, because the words that turn out to be weak are
+    not the ones you would guess: `bank` and `indonesia` are each carried by four or more names in
+    this universe, while `nestle` is carried by one. A frequency count says that without anyone
+    having to maintain a stop-list per market."""
+    cached = _COMMON_CACHE.get(id(book))
+    if cached is not None:
+        return cached
+    seen = {}
+    for key in book:
+        for w in set(key.split()):
+            seen[w] = seen.get(w, 0) + 1
+    common = frozenset(w for w, n in seen.items() if n >= min_docs)
+    _COMMON_CACHE[id(book)] = common
+    return common
+
+
 def aliases_for(name, book):
-    """Alternative names for one CGSI company: the old DB's name for it (when the two names
-    share at least two significant words), plus any parenthetical inside either."""
+    """Alternative names for one CGSI company: the old DB's name for it, plus any parenthetical
+    inside either.
+
+    THE MATCH HAS TO BE ON DISTINCTIVE WORDS. The original test was "share at least two
+    significant words", which linked **Bank Negara Indonesia** to **Bank Rakyat Indonesia** — they
+    share `bank` and `indonesia` — so each Indonesian bank inherited the other's aliases and both
+    ended up claiming `BNI` and `BRI`. Anything matching a company by name would then have served
+    Bank Rakyat's story under Bank Negara's heading, which is the resolve_ric failure again: a
+    wrong company is worse than no company, and it looks entirely normal on screen.
+
+    So the two shared words must both be words that do NOT appear across the universe. A sector
+    word and a country word are not evidence of identity."""
     out = []
     key = _match_key(name)
     mine = set(key.split())
+    common = _common_words(book)
     for other_key, other_name in book.items():
         theirs = set(other_key.split())
-        if other_key == key or len(mine & theirs) >= 2:
+        # Two ways to be the same company, and the first one matters most. A name that is the
+        # other name PLUS a parenthetical is the same name — "Bank Central Asia" against "Bank
+        # Central Asia (BCA)" — so a subset relation is a match however generic the shared words
+        # are. Requiring two DISTINCTIVE words instead would drop it, because `bank` and `asia`
+        # are both carried by several names here, and "add BCA" would quietly stop working.
+        #
+        # Otherwise the overlap has to be distinctive: two names that merely share a sector word
+        # and a country word are two different companies in the same market.
+        # ...but a one-word name is a subset of every longer name that contains it, and that is
+        # how "Ayala Corporation" (which reduces to {ayala}, since `corporation` is generic)
+        # claimed "Ayala Land" — a different listed company, its own subsidiary. So the subset
+        # rule needs at least two words on the shorter side to mean anything.
+        subset = (mine <= theirs or theirs <= mine) and min(len(mine), len(theirs)) >= 2
+        distinctive = (mine & theirs) - common
+        if other_key == key or subset or len(distinctive) >= 2:
             if other_name.lower() != (name or "").lower():
                 out.append(other_name)
             out.extend(re.findall(r"\(([^)]+)\)", other_name))

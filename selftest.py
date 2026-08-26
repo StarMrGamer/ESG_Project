@@ -2178,6 +2178,31 @@ def test_news_is_gathered_never_written():
     assert not news.is_article("RHB Bank Bhd: Official Announcements - Stock Market News", "RHB Bank Bhd")
     assert news.is_article("Higher total income buoys RHB Bank showing - The Star", "RHB Bank Bhd")
 
+    # 2b - AND A NEWS INDEX IS NOT A STORY. This is the commoner failure by far: a search for a
+    #      mid-cap returns the publisher's topic page for that company ahead of any article about
+    #      it. It reads perfectly as a headline on a card while linking to a list, so nothing
+    #      looks wrong until you click — 54 of 271 stored headlines were these.
+    for junk in ("Bank Negara Indonesia Latest News & Headlines - The Business Times",
+                 "Latest news about AMMB Holdings - MarketScreener",
+                 "Bank Negara Indonesia updates: news & description - The Official Board",
+                 "Berita bank negara indonesia Terkini dan Terbaru Hari Ini - Bisnis"):
+        assert not news.is_article(junk, "Bank Negara Indonesia"), junk
+    #      identifiable from the PATH even when the title is written to look like an article
+    assert not news.is_article("OCBC", "OCBC", "https://www.businesstimes.com.sg/keywords/ocbc")
+    assert not news.is_article("Axiata", "Axiata Group",
+                               "https://www.marketscreener.com/quote/stock/AXIATA-6499937/news/")
+    #      but a real story filed under a dated path is untouched
+    assert news.is_article("RHB gets BNM nod to begin talks on insurance disposal", "RHB Bank Bhd",
+                           "https://themalaysianreserve.com/2026/05/11/rhb-gets-bnm-nod/")
+
+    # 2c - `--refilter` re-applies THE GUARDS, plural. It used to run only the name and
+    #      future-date checks, so tightening `is_article` could not reach evidence already on
+    #      disk without a full re-fetch — the exact cost the flag exists to avoid.
+    import inspect as _inspect
+    _refilter_src = _inspect.getsource(news._main)
+    _body = _refilter_src[_refilter_src.index("if a.refilter"):_refilter_src.index("picks =")]
+    assert "is_article" in _body, "--refilter must apply is_article, not only the name check"
+
     # 3 - a date is the article's own or it is absent; a future date is never a publication date
     today = "2026-08-25"
     assert news._dated("18 April 2024 the bank said", today) == "2024-04-18"
@@ -2186,6 +2211,36 @@ def test_news_is_gathered_never_written():
     # A bare year resolves to a mid-year placeholder (`stated_year`), which is an ordering aid and
     # NOT a publication date. The card would print it as one, so it is refused.
     assert news._dated("in 2024 the bank raised", today) is None
+
+    # 3b - ALIASES, AND WHY THEY WERE DANGEROUS. The press calls Bank Negara Indonesia "BNI" and
+    #      never its legal name, so without aliases a search for it returned only topic pages. But
+    #      the stored aliases were contaminated: `aliases_for` linked two companies that shared
+    #      two "significant" words, and Bank Negara Indonesia / Bank Rakyat Indonesia share `bank`
+    #      and `indonesia` — so each inherited the other's, and both claimed BNI *and* BRI. Using
+    #      them would have filed Bank Rakyat's story under Bank Negara's name: the resolve_ric
+    #      failure again, and it looks completely normal on screen.
+    import universe as _uni
+    _owner = {}
+    for _c in _uni.constituents():
+        for _a in (_c.get("aliases") or []):
+            _owner.setdefault(_a.strip().lower(), set()).add(_c["ticker"])
+    _shared = {a: t for a, t in _owner.items() if len(t) > 1}
+    assert not _shared, "an alias may identify exactly one company: %r" % _shared
+    assert "BNI" in (_uni.get("IDX:BBNI").get("aliases") or [])
+    assert "BRI" not in (_uni.get("IDX:BBNI").get("aliases") or [])
+    # ...and the fix must not have thrown out the working ones: a name that is another name plus
+    # a parenthetical is the SAME name, however generic the words it shares.
+    assert "BCA" in (_uni.get("IDX:BBCA").get("aliases") or [])
+    assert "Maybank" in (_uni.get("KLSE:MAY").get("aliases") or [])
+
+    # 3c - a short alias is matched case-SENSITIVELY, because the useful ones collide with
+    #      ordinary English. `MAY` is Malayan Banking and also a month.
+    _may = ["MAY", "Maybank"]
+    assert news.names_the_company("MAY leads Malaysian bank rally", "Malayan Banking Bhd", _may)
+    assert not news.names_the_company("Results due in May 2026 for banks", "Malayan Banking Bhd", _may)
+    _bbni = ["BBNI", "BNI"]
+    assert news.names_the_company("BNI books 12% profit growth", "Bank Negara Indonesia", _bbni)
+    assert not news.names_the_company("BRI posts record quarter", "Bank Negara Indonesia", _bbni)
 
     # 4 - THE ONE THAT MATTERS: a throttled sweep must not replace real headlines with nothing.
     blocked = {"ticker": "TEST:X", "items": [], "blocked": True}
@@ -2322,6 +2377,24 @@ def test_client_brief_prepares_evidence_and_never_recommends():
     assert b["no_llm"] is True
     assert brief.to_markdown(brief.build(client, run, {}, None, with_flip=False)) == \
         brief.to_markdown(b)
+
+    # 9 - THE HEADLINE KEY. `news.py` writes `url`; reading `source_url` returns None and the
+    #     brief renders a headline with a dead link — a normal-looking row, not an error, which
+    #     is why it is asserted rather than eyeballed. Uses a real stored record so the two
+    #     modules are checked against each other rather than against a fixture of my own making.
+    import news as _news
+    real = next(((t, _news.load(t)) for t in ("KLSE:RHBBANK", "SGX:OCBC", "SGX:DBS")
+                 if (_news.load(t) or {}).get("items")), None)
+    if real:
+        ticker, stored = real
+        assert stored["items"][0].get("url"), "news records carry `url`, not `source_url`"
+        live_run = {"run_id": "r", "as_of": "2026-08-20", "records": [
+            dict(run["records"][0], company_id=ticker, company="Real Co")]}
+        lb = brief.build(dict(client, coverage=[ticker], meetings=[]), live_run, {}, None,
+                         with_flip=False)
+        heads = lb["positions"][0]["headlines"]
+        assert heads and all(h["url"] for h in heads), \
+            "every headline the brief carries must keep its link"
 
     # 8 - section numbering follows what is EMITTED. The first-meeting brief has no follow-ups
     #     section, and the numbering must not skip over the hole.

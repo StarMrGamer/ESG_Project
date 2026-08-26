@@ -42,13 +42,6 @@
   },
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about Hong Leong Bank - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/HONG-LEONG-BANK-6491232/news/"
-  },
-  {
-   "published_at": null,
    "source": "hlb.com.my",
    "source_type": "company_pr",
    "title": "Hong Leong Bank Launches Inaugural Sustainable Finance Framework",
@@ -64,5 +57,5 @@
  ],
  "no_llm": true,
  "ticker": "KLSE:HLBK",
- "undated": 3
+ "undated": 2
 }

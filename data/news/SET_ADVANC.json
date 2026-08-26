@@ -9,20 +9,6 @@
  "items": [
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about Advanced Info Service - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/ADVANCED-INFO-SERVICE-167853407/news/"
-  },
-  {
-   "published_at": null,
-   "source": "businesstimes.com.sg",
-   "source_type": "news",
-   "title": "Advanced Info Service (AIS) Latest News & Headlines - \u5546\u4e1a\u65f6\u62a5",
-   "url": "https://www.businesstimes.com.sg/keywords/advanced-info-service-ais"
-  },
-  {
-   "published_at": null,
    "source": "spglobal.com",
    "source_type": "index_provider",
    "title": "Advanced Info Service's Proposed U.S. Dollar-Deno | S&P Global Ratings",
@@ -31,5 +17,5 @@
  ],
  "no_llm": true,
  "ticker": "SET:ADVANC",
- "undated": 3
+ "undated": 1
 }

@@ -49,13 +49,6 @@
   },
   {
    "published_at": null,
-   "source": "businesstimes.com.sg",
-   "source_type": "news",
-   "title": "Minor International Latest News & Headlines - The Business Times",
-   "url": "https://www.businesstimes.com.sg/keywords/minor-international"
-  },
-  {
-   "published_at": null,
    "source": "bloomberg.com",
    "source_type": "news",
    "title": "Thai Hotel Giant Minor International Delays $1 Billion REIT Plan",
@@ -64,5 +57,5 @@
  ],
  "no_llm": true,
  "ticker": "SET:MINT",
- "undated": 3
+ "undated": 2
 }

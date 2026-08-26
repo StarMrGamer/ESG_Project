@@ -28,24 +28,10 @@
   },
   {
    "published_at": null,
-   "source": "capitalmarkets.sg",
-   "source_type": "company_pr",
-   "title": "United Overseas Bank (UOB) News & Press Releases",
-   "url": "https://capitalmarkets.sg/banks/united-overseas-bank-limited/news/"
-  },
-  {
-   "published_at": null,
    "source": "banking.einnews.com",
    "source_type": "company_pr",
    "title": "United Overseas Bank News Monitoring Service & Press Release ...",
    "url": "https://banking.einnews.com/news/united-overseas-bank"
-  },
-  {
-   "published_at": null,
-   "source": "sg.finance.yahoo.com",
-   "source_type": "company_pr",
-   "title": "United Overseas Bank Ltd (UOB.SG) latest stock news and headlines ...",
-   "url": "https://sg.finance.yahoo.com/quote/UOB.SG/news/"
   },
   {
    "published_at": null,
@@ -57,5 +43,5 @@
  ],
  "no_llm": true,
  "ticker": "SGX:UOB",
- "undated": 4
+ "undated": 2
 }

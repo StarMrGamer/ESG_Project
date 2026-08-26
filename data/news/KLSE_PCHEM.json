@@ -28,13 +28,6 @@
   },
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about PETRONAS Chemicals Group - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/PETRONAS-CHEMICALS-GROUP-8071877/news/"
-  },
-  {
-   "published_at": null,
    "source": "reuters.com",
    "source_type": "news",
    "title": "Petronas Chemicals reports higher revenue and profit but flags ...",
@@ -43,5 +36,5 @@
  ],
  "no_llm": true,
  "ticker": "KLSE:PCHEM",
- "undated": 2
+ "undated": 1
 }

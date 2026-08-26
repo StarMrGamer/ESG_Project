@@ -14,13 +14,6 @@
   },
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about IOI Corporation - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/IOI-CORPORATION-6491316/news/"
-  },
-  {
-   "published_at": null,
    "source": "business-humanrights.org",
    "source_type": "company_pr",
    "title": "Malaysia: Report alleges palm oil giant IOI workers are subjected to ...",
@@ -36,5 +29,5 @@
  ],
  "no_llm": true,
  "ticker": "KLSE:IOI",
- "undated": 3
+ "undated": 2
 }

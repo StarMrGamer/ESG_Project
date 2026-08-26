@@ -1,0 +1,17 @@
+{
+ "blocked": false,
+ "company": "Bank Negara Indonesia",
+ "dated": 0,
+ "errors": [
+  "\"Bank Negara Indonesia\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "found": {
+  "dated": 0,
+  "undated": 0
+ },
+ "gathered_at": "2026-08-26",
+ "items": [],
+ "no_llm": true,
+ "ticker": "IDX:BBNI",
+ "undated": 0
+}

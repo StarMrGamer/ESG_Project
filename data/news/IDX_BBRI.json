@@ -1,0 +1,23 @@
+{
+ "blocked": false,
+ "company": "Bank Rakyat Indonesia",
+ "dated": 0,
+ "errors": [],
+ "found": {
+  "dated": 1,
+  "undated": 3
+ },
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": null,
+   "source": "prnewswire.com",
+   "source_type": "company_pr",
+   "title": "News from PT Bank Rakyat Indonesia Tbk (BRI) - PR Newswire",
+   "url": "https://www.prnewswire.com/news/pt-bank-rakyat-indonesia-tbk-(bri)/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "IDX:BBRI",
+ "undated": 1
+}

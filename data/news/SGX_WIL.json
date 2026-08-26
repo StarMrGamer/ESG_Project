@@ -1,7 +1,7 @@
 {
  "blocked": false,
  "company": "Wilmar International",
- "dated": 8,
+ "dated": 6,
  "errors": [],
  "gathered_at": "2026-08-26",
  "items": [
@@ -35,24 +35,10 @@
   },
   {
    "published_at": "2024-05-09",
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Wilmar International Limited Secures A Three-Year, $100 Million ...",
-   "url": "https://www.marketscreener.com/quote/stock/WILMAR-INTERNATIONAL-LIMI-6497470/news/Wilmar-International-Limited-Secures-A-Three-Year-100-Million-Sustainability-Linked-Loan-from-Mayb-46678062/"
-  },
-  {
-   "published_at": "2024-05-09",
    "source": "sg.finance.yahoo.com",
    "source_type": "company_pr",
    "title": "Wilmar secures US$100 mil sustainability-linked loan from Maybank",
    "url": "https://sg.finance.yahoo.com/news/wilmar-secures-us-100-mil-014026508.html"
-  },
-  {
-   "published_at": "2024-03-20",
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Wilmar International Secures $100 Million Sustainability-Linked Loan ...",
-   "url": "https://www.marketscreener.com/quote/stock/WILMAR-INTERNATIONAL-LIMI-6497470/news/Wilmar-International-Secures-100-Million-Sustainability-Linked-Loan-from-Bank-of-East-Asia-46237065/"
   },
   {
    "published_at": "2024-03-20",

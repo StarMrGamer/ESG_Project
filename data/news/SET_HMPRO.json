@@ -16,20 +16,6 @@
   },
   {
    "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about Home Product Center - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/HOME-PRODUCT-CENTER-105525483/news/?mode=pertinence"
-  },
-  {
-   "published_at": null,
-   "source": "theofficialboard.com",
-   "source_type": "company_pr",
-   "title": "Home Product Center updates: news & description - The Official Board",
-   "url": "https://www.theofficialboard.com/news/home-product-center"
-  },
-  {
-   "published_at": null,
    "source": "scgnewschannel.com",
    "source_type": "company_pr",
    "title": "HomePro Marks 1-Year Anniversary of Eco-Friendly Home Campaign with ...",
@@ -38,5 +24,5 @@
  ],
  "no_llm": true,
  "ticker": "SET:HMPRO",
- "undated": 3
+ "undated": 1
 }

@@ -28,27 +28,6 @@
   },
   {
    "published_at": null,
-   "source": "businesstimes.com.sg",
-   "source_type": "news",
-   "title": "Singtel Latest News & Headlines - The Business Times",
-   "url": "https://www.businesstimes.com.sg/keywords/singtel"
-  },
-  {
-   "published_at": null,
-   "source": "sginvestors.io",
-   "source_type": "company_pr",
-   "title": "Singtel Latest News (SGX:Z74) | SGinvestors.io",
-   "url": "https://sginvestors.io/sgx/stock/z74-singtel/news-article"
-  },
-  {
-   "published_at": null,
-   "source": "channelnewsasia.com",
-   "source_type": "news",
-   "title": "Singtel latest news & coverage - CNA",
-   "url": "https://www.channelnewsasia.com/topic/singtel"
-  },
-  {
-   "published_at": null,
    "source": "sginvestors.io",
    "source_type": "company_pr",
    "title": "Singtel Latest Announcements (SGX:Z74) | SGinvestors.io",
@@ -57,5 +36,5 @@
  ],
  "no_llm": true,
  "ticker": "SGX:ST",
- "undated": 4
+ "undated": 1
 }

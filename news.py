@@ -94,7 +94,27 @@ _DATE_META = (
 #: news" heading is filler that makes the card look answered when it is not.
 _NOT_AN_ARTICLE = re.compile(
     r"stock price|share price|official announcements|company information|company profile"
-    r"|\bquote\b|stock quote|financial statements|annual report \d{4}|investor relations",
+    r"|\bquote\b|stock quote|financial statements|annual report \d{4}|investor relations"
+    # A news INDEX is not a story either, and it is the commoner failure by far: a search for a
+    # mid-cap returns the publisher's topic page for that company ahead of any article about it.
+    # These read perfectly as headlines on a card — "Bank Negara Indonesia Latest News &
+    # Headlines" — while linking to a list, so nothing about them looks wrong until you click.
+    r"|latest news|news & headlines|news and headlines|news & videos|news, photos"
+    r"|updates: news|news & description|news & analysis"
+    # Indonesian and Malay publishers index the same way: "terkini dan terbaru" is "latest and
+    # newest", "berita dan informasi" is "news and information". Matched as PHRASES, because
+    # `terkini` alone is ordinary enough to appear in a real headline.
+    r"|terkini dan terbaru|berita dan informasi|berita terkini",
+    re.I)
+
+#: The same judgement made on the URL, because a publisher's topic page is identifiable from its
+#: path even when the title is written to look like an article. Anchored so a real story filed
+#: under a dated path is untouched: `/press-releases/2026/01/foo` is an article, a bare
+#: `/press-releases` is the index of them.
+_INDEX_URL = re.compile(
+    r"/keywords?/|/topics?/|/tags?/|/quote/stock/|/search\b"
+    r"|/newsroom/?$|/news-events/?$|/press-(?:releases?|centre|center)/?$"
+    r"|/(?:news|media)/?$",
     re.I)
 
 #: Words that identify nobody. A title matching only these is not about this company.
@@ -107,15 +127,38 @@ def _tokens(name: str):
     return [t for t in re.split(r"[^a-z0-9]+", (name or "").lower()) if t and t not in _NOISE]
 
 
-def names_the_company(title: str, company: str) -> bool:
-    """Guard 1. Does this headline actually name this company?"""
+def _alias_hit(title: str, alias: str) -> bool:
+    """Does this headline carry this alternative name?
+
+    Short aliases are matched CASE-SENSITIVELY and only as whole words, because the useful ones
+    are tickers and initialisms that collide with ordinary English: `MAY` is Malayan Banking and
+    also a month, `BRI` is Bank Rakyat and also a syllable. A press headline writes the
+    initialism in caps ("BNI posts 12% profit rise") and the month in title case, so the case
+    carries real information here and throwing it away costs more than it saves.
+    """
+    a = (alias or "").strip()
+    if len(a) < 3:
+        return False
+    if len(a) <= 4 and a.isupper():
+        return re.search(rf"\b{re.escape(a)}\b", title or "") is not None
+    return re.search(rf"\b{re.escape(a.lower())}\b", (title or "").lower()) is not None
+
+
+def names_the_company(title: str, company: str, aliases=()) -> bool:
+    """Guard 1. Does this headline actually name this company?
+
+    `aliases` are the alternative names the universe already stores, and passing them matters:
+    the press calls Bank Negara Indonesia "BNI", never its legal name, so without them a search
+    for that company returned nothing but the publishers' topic pages. They are optional so
+    existing callers keep working.
+    """
     low = (title or "").lower()
     toks = _tokens(company)
-    if not toks:
-        return False
     # A single distinctive word is enough ("Sembcorp"), but it has to be a WORD — a bare
     # substring match is how "I-Bhd" once matched inside "malaysia airports".
-    return any(re.search(rf"\b{re.escape(t)}", low) for t in toks if len(t) >= 3)
+    if any(re.search(rf"\b{re.escape(t)}", low) for t in toks if len(t) >= 3):
+        return True
+    return any(_alias_hit(title, a) for a in (aliases or ()))
 
 
 def _source_name(url: str) -> str:
@@ -139,9 +182,16 @@ def page_date(url: str, today: str):
     return None
 
 
-def is_article(title: str, company: str) -> bool:
-    """Is this a story, or a stock-quote page wearing the company's name?"""
+def is_article(title: str, company: str, url: str = "") -> bool:
+    """Is this a story, or a listing page wearing the company's name?
+
+    `url` is optional so existing callers keep working, but pass it wherever it is available: a
+    topic index is often identifiable only from its path, and a headline that links to a list is
+    worse than no headline — it looks like evidence and cites nothing.
+    """
     if _NOT_AN_ARTICLE.search(title or ""):
+        return False
+    if url and _INDEX_URL.search(url):
         return False
     # Strip the company's own words and the trailing " - Publisher" / " | Publisher" tail; what
     # is left has to be a sentence, not a label.
@@ -164,7 +214,7 @@ def _dated(text: str, today: str):
 
 
 def gather(ticker: str, company: str, *, use_cache: bool = True, limit: int = MAX_PER_COMPANY,
-           fetch_dates: bool = True, pace: float = 0.0):
+           fetch_dates: bool = True, pace: float = 0.0, aliases=()):
     """Real headlines for one company. Returns the record; never raises (rule 1)."""
     today = datetime.date.today().isoformat()
     seen_urls, seen_titles, items, errors = set(), set(), [], []
@@ -193,7 +243,8 @@ def gather(ticker: str, company: str, *, use_cache: bool = True, limit: int = MA
             key = re.sub(r"[^a-z0-9]+", "", title.lower())[:80]
             if url in seen_urls or key in seen_titles:
                 continue
-            if not names_the_company(title, company) or not is_article(title, company):
+            if not names_the_company(title, company, aliases) \
+                    or not is_article(title, company, url):
                 continue
             seen_urls.add(url)
             seen_titles.add(key)
@@ -276,6 +327,9 @@ def _main():
     ap = argparse.ArgumentParser(description="Real headlines per company — no LLM, display only.")
     ap.add_argument("--company", help="one ticker, e.g. KLSE:RHBBANK")
     ap.add_argument("--all", action="store_true", help="sweep the whole real universe")
+    ap.add_argument("--missing", action="store_true",
+                    help="sweep ONLY the companies with no stored record yet — the retry after a "
+                         "throttled sweep, without re-fetching the 48 that already worked")
     ap.add_argument("--refilter", action="store_true",
                     help="re-apply the guards to stored records without re-fetching")
     ap.add_argument("--no-cache", action="store_true", help="ignore the retrieval cache")
@@ -293,8 +347,14 @@ def _main():
             if not rec:
                 continue
             before = len(rec.get("items") or [])
+            # `--refilter` re-applies THE GUARDS, plural. It used to run only the name check and
+            # the future-date check, so a rule tightened in `is_article` could not reach evidence
+            # already on disk without a full re-fetch — which is precisely the cost this flag
+            # exists to avoid.
             kept = [i for i in rec["items"]
-                    if names_the_company(i.get("title", ""), c["company"])
+                    if names_the_company(i.get("title", ""), c["company"],
+                                         c.get("aliases") or ())
+                    and is_article(i.get("title", ""), c["company"], i.get("url", ""))
                     and not (i.get("published_at") and i["published_at"] > today)]
             rec["items"] = kept
             rec["dated"] = sum(1 for i in kept if i.get("published_at"))
@@ -305,24 +365,42 @@ def _main():
         print("refiltered stored records; nothing was fetched")
         return
 
-    picks = ([c for c in cons if c["ticker"] == a.company] if a.company
-             else cons if a.all else cons[:1])
+    # `--missing` exists because the obvious retry is wrong in both directions: `--all` re-fetches
+    # all 52 (hours at a pace slow enough not to be throttled again) and `--company` does not
+    # persist at all, so neither of them actually repairs a partial sweep. A throttled run leaves
+    # exactly the companies that failed with no file, so that IS the work list.
+    if a.missing:
+        # "No stored record" and "a stored record holding nothing" are the same thing to a reader
+        # of the board, so both count as missing. They arise differently — the first from a fetch
+        # that was blocked, the second from a sweep whose every result was filtered out — but
+        # either way the company has no headlines and is worth another attempt.
+        picks = [c for c in cons if not (load(c["ticker"]) or {}).get("items")]
+        if not picks:
+            print("nothing missing — every company in the universe has a stored record")
+            return
+        print(f"retrying {len(picks)} companies with no stored record")
+    else:
+        picks = ([c for c in cons if c["ticker"] == a.company] if a.company
+                 else cons if a.all else cons[:1])
     if not picks:
         print(f"no such ticker: {a.company}")
         return
 
-    pace = a.pace if a.pace is not None else (DEFAULT_PACE if a.all else 0.0)
+    # A sweep STORES; a single named company prints for inspection and does not. Keeping that
+    # split means `--company` stays a safe way to look at what a query returns.
+    sweeping = a.all or a.missing
+    pace = a.pace if a.pace is not None else (DEFAULT_PACE if sweeping else 0.0)
     total_items = total_dated = empty = 0
     for idx, c in enumerate(picks):
         if pace and idx:
             time.sleep(pace * 2)          # a longer gap between companies than between angles
         rec = gather(c["ticker"], c["company"], use_cache=not a.no_cache,
-                     fetch_dates=not a.no_dates, pace=pace)
+                     fetch_dates=not a.no_dates, pace=pace, aliases=c.get("aliases") or ())
         if not rec["items"]:
             empty += 1
         total_items += len(rec["items"])
         total_dated += rec["dated"]
-        if a.all:
+        if sweeping:
             _, why = save_unless_worse(rec)
             note = f"  [{why}]" if why else ""
             print(f"  {c['ticker']:<14} {len(rec['items'])} items ({rec['dated']} dated){note}",

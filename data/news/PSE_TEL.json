@@ -28,20 +28,6 @@
   },
   {
    "published_at": null,
-   "source": "finance.yahoo.com",
-   "source_type": "company_pr",
-   "title": "PLDT Inc. (PHI) Latest Press Releases & Corporate News - Yahoo Finance",
-   "url": "https://finance.yahoo.com/quote/PHI/press-releases/"
-  },
-  {
-   "published_at": null,
-   "source": "marketscreener.com",
-   "source_type": "company_pr",
-   "title": "Latest news about PLDT Inc. - MarketScreener",
-   "url": "https://www.marketscreener.com/quote/stock/PLDT-INC-30546191/news/"
-  },
-  {
-   "published_at": null,
    "source": "pna.gov.ph",
    "source_type": "regulator",
    "title": "PLDT Inc. eyes IPO for VITRO Inc. | Philippine News Agency",
@@ -64,5 +50,5 @@
  ],
  "no_llm": true,
  "ticker": "PSE:TEL",
- "undated": 5
+ "undated": 3
 }

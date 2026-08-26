@@ -23,13 +23,6 @@
   },
   {
    "published_at": null,
-   "source": "nationthailand.com",
-   "source_type": "company_pr",
-   "title": "Charoen Pokphand Foods all news related to - nationthailand.com",
-   "url": "https://www.nationthailand.com/tags/Charoen%20Pokphand%20Foods"
-  },
-  {
-   "published_at": null,
    "source": "markets.ft.com",
    "source_type": "company_pr",
    "title": "Charoen Pokphand Foods PCL, CPF:SET profile - FT.com",
@@ -38,5 +31,5 @@
  ],
  "no_llm": true,
  "ticker": "SET:CPF",
- "undated": 2
+ "undated": 1
 }
