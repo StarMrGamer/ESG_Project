@@ -438,7 +438,44 @@ def _strength_adj(value):
     return "strong" if a >= 0.75 else "clear" if a >= 0.4 else "weak"
 
 
-def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
+
+#: A framework with no issuance under it is the one genuinely FORWARD-looking fact this repo
+#: holds. Everything else here is dated evidence about what has already happened; an unused
+#: framework is a stated intention with a document behind it, which is exactly what a "near-term
+#: catalyst" is meant to name — and it is invisible to an ESG score, because nothing has happened
+#: yet for a score to move on.
+#:
+#: The SLB distinction is load-bearing. A sustainability-LINKED framework is a different
+#: instrument from a green use-of-proceeds bond under ICMA and the ASEAN GBS, with a different
+#: credibility profile, so it is reported as what it is rather than counted as a green pipeline.
+def _catalyst_from_metadata(row):
+    row = row or {}
+    framework = (row.get("framework_url") or "").strip()
+    if not framework:
+        return ""
+    issued = (row.get("green_bond_status") or "none").strip().lower()
+    if issued not in ("none", ""):
+        return ""                       # already issuing — priced in, not a catalyst
+    reviewer = (row.get("external_reviewer") or "").strip()
+    spo = (row.get("review_type") or "").strip().lower() in ("second_party_opinion", "spo")
+    linked = "sl" in reviewer.lower().replace("sustainability-linked", "slb")
+
+    if spo and not linked:
+        return ("Holds a green-bond framework with a second-party opinion%s and has not issued "
+                "under it. An issuance is a near-term event no ESG score can price, because "
+                "nothing has happened yet for one to move on."
+                % (" from %s" % reviewer.split("(")[0].strip() if reviewer else ""))
+    if spo and linked:
+        return ("Holds a reviewed SUSTAINABILITY-LINKED framework and has not issued under it. "
+                "Under ICMA and the ASEAN GBS that is a different instrument from a green "
+                "use-of-proceeds bond, so it is a pipeline for a different thing — worth "
+                "watching, not counted as green issuance.")
+    return ("Has published a financing framework with no second-party opinion on file and has "
+            "not issued under it. Weaker than a reviewed framework, and still a stated intention "
+            "the rating cannot see.")
+
+
+def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None, meta_row=None):
     """A Contract-B Layer B built from stored signals. `(layer_b, meta)`, or `(None, meta)`.
 
     THE MAGNITUDE STAYS "unknown" ON PURPOSE. The engine's number is a DIRECTION CONSENSUS on a
@@ -490,7 +527,7 @@ def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
         }
 
     pillars = {k: read(k) for k in _COMPONENT_PILLAR}
-    digital = read("D")
+    digital = read("DIGITAL")
 
     def momentum_cell(key):
         r = pillars.get(key)
@@ -545,9 +582,10 @@ def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
             "behaviour_trend": _consensus_word(overall),
             "conflict_note": conflict_note,
         },
-        # We hold no forward calendar — no regulation dates, no results dates. Saying so is the
-        # whole point of the field.
-        "near_term_catalyst": "unknown",
+        # We hold no forward CALENDAR — no regulation dates, no results dates — so the only
+        # honest catalyst is one with a document behind it: a published framework nobody has
+        # issued under yet. Absent that, this stays unknown rather than being filled with a hedge.
+        "near_term_catalyst": _catalyst_from_metadata(meta_row) or "unknown",
     }
     meta = {
         "available": True,
@@ -580,7 +618,16 @@ def _fill_layer_b_from_evidence(company: Dict[str, Any], constituent: Dict[str, 
     if not isinstance(lb, dict):
         return False
 
-    evidence, meta = layer_b_from_evidence(constituent)
+    # The metadata row carries the green-bond framework state, which is where the only
+    # forward-looking fact we hold lives. Loaded lazily so a demo constituent costs nothing.
+    meta_row = None
+    try:
+        import company_metadata as _cm
+        ticker = constituent.get("ticker") or constituent.get("id") or ""
+        meta_row = (_cm.load(demo=False) or {}).get(ticker)
+    except Exception:                                       # noqa: BLE001 - optional enrichment
+        meta_row = None
+    evidence, meta = layer_b_from_evidence(constituent, meta_row=meta_row)
     if not evidence:
         # Stamp the same keys on every path. A caller that has to check whether a field EXISTS
         # before reading it will eventually forget, and the forgetting looks like "nothing was
@@ -601,6 +648,13 @@ def _fill_layer_b_from_evidence(company: Dict[str, Any], constituent: Dict[str, 
             if _is_unknown(target.get("magnitude")) and not _is_unknown(cell.get("magnitude")):
                 target["magnitude"] = cell["magnitude"]
             filled.append("momentum.%s" % key)
+
+    # `near_term_catalyst` is a bare string at the top of layer_b, not inside either block, so
+    # the loop below never reached it and a computed catalyst went nowhere.
+    if _is_unknown(lb.get("near_term_catalyst")) \
+            and not _is_unknown(evidence.get("near_term_catalyst")):
+        lb["near_term_catalyst"] = evidence["near_term_catalyst"]
+        filled.append("near_term_catalyst")
 
     for block in ("digital_ai_signal", "conflicting_signals"):
         src = evidence.get(block) or {}
@@ -653,7 +707,12 @@ def company_from_numeric(constituent: Dict[str, Any], *, origin: str = "live") -
             "digital_ai_signal": {
                 "ai_governance_hiring_velocity": str(ls.get("ai_hiring_surge") or "unknown"),
                 "ai_disclosure_level": ("disclosed" if ls.get("board_ai_policy") else "unknown"),
-                "gap_note": f"Live Digital/AI momentum {_pct_str(d_ai)}{illus}.",
+                # An empty note when there is no number, NOT the sentence "Live Digital/AI
+                # momentum unknown." — `_is_unknown` tests for the bare token, so a sentence
+                # containing the word counts as KNOWN and blocks the evidence fallback from
+                # filling it. CelcomDigi has five digital signals and still read "unknown".
+                "gap_note": (f"Live Digital/AI momentum {_pct_str(d_ai)}{illus}."
+                             if d_ai is not None else ""),
             },
             "conflicting_signals": {
                 "news_sentiment": "unknown", "behaviour_trend": "unknown",

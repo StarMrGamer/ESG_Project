@@ -2,7 +2,7 @@ import { useStore } from '../../store'
 import { shortSector } from '../ui'
 
 export default function FiltersRail() {
-  const { board, settings, filters, setFilters, openDeepDive, monitorOnly, unpin, compareSel, toggleCompare, openCompare } = useStore()
+  const { board, settings, filters, setFilters, openDeepDive, monitorOnly, unpin, compareSel, toggleCompare, openCompare, focusTicker, setFocus } = useStore()
   if (!board) return null
   const { universe, mode } = board
 
@@ -56,10 +56,22 @@ export default function FiltersRail() {
             Compare {cmpValid.length} →
           </button>
         )}
-        {board.watchlist.map(w => (
-          <div className="mon-row" key={w.ticker}>
-            <button className="btn" title={w.built ? 'Open deep dive' : 'Build snapshot'}
-              onClick={() => w.built ? openDeepDive(w.ticker, 'compete') : monitorOnly(w.ticker)}>
+        {/* Two-stage click, the same as the matrix: the first press FOCUSES the company on the
+            board so you can see what you are about to open, the second opens the deep dive.
+            Going straight to a deep dive skipped the step where you find out what you picked —
+            and from a list of names, that step is the whole reason to look. */}
+        {board.watchlist.map(w => {
+          const isFocus = focusTicker === w.ticker
+          return (
+          <div className={`mon-row ${isFocus ? 'is-focus' : ''}`} key={w.ticker}>
+            <button className="btn"
+              title={!w.built ? 'Build snapshot'
+                : isFocus ? 'Open the deep dive' : 'Focus this company on the board — click again to open it'}
+              onClick={() => {
+                if (!w.built) { void monitorOnly(w.ticker); return }
+                if (isFocus) void openDeepDive(w.ticker, 'compete')
+                else setFocus(w.ticker)
+              }}>
               {w.built ? '★' : '☆'} {w.name}{w.built && w.band_emoji !== '⚪' ? ` ${w.band_emoji}` : ''}
             </button>
             {w.built && (
@@ -71,7 +83,8 @@ export default function FiltersRail() {
             )}
             <button className="btn cmp" title="Unpin" onClick={() => unpin(w.ticker)}>✕</button>
           </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

@@ -2634,8 +2634,35 @@ def test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent():
     note = lb["conflicting_signals"]["conflict_note"]
     assert "disagree" in note and "up" in note and "down" in note, note
 
-    # 4 - we hold no forward calendar, and say so
-    assert lb["near_term_catalyst"] == "unknown"
+    # 4 - THE FORWARD-LOOKING FACT WE DO HOLD. Everything else here is dated evidence about what
+    #     already happened. A published financing framework that nobody has issued under is a
+    #     stated intention with a document behind it, and it is invisible to an ESG score
+    #     precisely because nothing has happened yet for a score to move on.
+    assert lb["near_term_catalyst"] == "unknown", "no catalyst without a metadata row"
+    import company_metadata as _cm
+    rows = _cm.load(demo=False)
+
+    def _cat(tk):
+        return datasource.layer_b_from_evidence(
+            _harv.apply_overlay([_uni.get(tk)])[0], meta_row=rows.get(tk))[0]["near_term_catalyst"]
+
+    # a green framework with an SPO and no issuance — the strongest case
+    assert "green-bond framework" in _cat("KLSE:RHBBANK"), _cat("KLSE:RHBBANK")
+    assert "second-party opinion" in _cat("KLSE:RHBBANK")
+    # THE DISTINCTION THAT MATTERS: a sustainability-LINKED framework is a different instrument
+    # under ICMA and the ASEAN GBS, and counting it as green pipeline is the error the whitepaper
+    # calls out in other people's screens.
+    assert "SUSTAINABILITY-LINKED" in _cat("SGX:ST"), _cat("SGX:ST")
+    assert "green-bond framework" not in _cat("SGX:ST")
+    # already issuing is priced in, not a catalyst
+    assert _cat("SGX:DBS") == "unknown", _cat("SGX:DBS")
+
+    # 4b - THE COMPONENT KEY. The engine calls the pillar "DIGITAL"; this module asked for "D",
+    #      so every company with digital evidence reported "unknown" — CelcomDigi has five
+    #      signals and the panel said nothing was there.
+    cdb = datasource.layer_b_from_evidence(_harv.apply_overlay([_uni.get("KLSE:CDB")])[0])[0]
+    assert cdb["digital_ai_signal"]["ai_disclosure_level"] == "disclosed", cdb["digital_ai_signal"]
+    assert "Digital/AI signal" in cdb["digital_ai_signal"]["gap_note"]
 
     # 5 - A COMPANY WITH NO EVIDENCE FILLS NOTHING. This is the rule-2 line: the fallback reads
     #     what is on disk, it does not manufacture a reading for a company we have nothing on.

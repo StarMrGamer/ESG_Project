@@ -3063,3 +3063,8 @@ a.badge:hover { border-color: color-mix(in srgb, var(--r-pos) 45%, var(--r-borde
 .q-chip:focus-visible { outline: 2px solid var(--r-pos); outline-offset: 2px; }
 .q-chip-axis { font: 600 10px/1.3 var(--r-mono); letter-spacing: 0.05em;
   text-transform: uppercase; color: var(--r-faint); }
+
+/* The focused row in Monitored. Same affordance as the matrix: one click focuses, the next
+   opens — so the row has to show which state it is in. */
+.mon-row.is-focus { background: var(--r-bluebg); border-radius: var(--r-radius-2xs); }
+.mon-row.is-focus > .btn:first-child { color: var(--r-pos); font-weight: 600; }
