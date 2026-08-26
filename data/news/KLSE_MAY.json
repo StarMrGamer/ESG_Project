@@ -1,0 +1,19 @@
+{
+ "blocked": false,
+ "company": "Malayan Banking Bhd",
+ "dated": 0,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": null,
+   "source": "tradingview.com",
+   "source_type": "company_pr",
+   "title": "Malayan Banking Bhd. Bonds \u2014 Corporate Bond Rates \u2014 TradingView",
+   "url": "https://www.tradingview.com/symbols/MYX-MAYBANK/bonds/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:MAY",
+ "undated": 1
+}

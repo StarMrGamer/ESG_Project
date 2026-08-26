@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "Krung Thai Bank",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-06-30",
+   "source": "kaohooninternational.com",
+   "source_type": "company_pr",
+   "title": "Krung Thai Bank Reports Slight Drop in 2Q25 Earnings from Prudent ...",
+   "url": "https://www.kaohooninternational.com/markets/561755"
+  },
+  {
+   "published_at": "2023-12-22",
+   "source": "hk.marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Krung Thai Bank : Mitr Phol and Krungthai sign sustainability-linked ...",
+   "url": "https://hk.marketscreener.com/quote/stock/KRUNG-THAI-BANK-6494300/news/Krung-Thai-Bank-Mitr-Phol-and-Krungthai-sign-sustainability-linked-loan-deal-worth-two-billion-bah-45635477/"
+  },
+  {
+   "published_at": "2022-08-29",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Krung Thai Bank : TBA launches ESG Declaration | MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/KRUNG-THAI-BANK-6494300/news/Krung-Thai-Bank-TBA-launches-ESG-Declaration-41642204/"
+  },
+  {
+   "published_at": null,
+   "source": "investing.com",
+   "source_type": "company_pr",
+   "title": "Krung Thai Bank News Today (KTB) - Investing.com",
+   "url": "https://www.investing.com/equities/krung-thai-ban-news"
+  },
+  {
+   "published_at": null,
+   "source": "bakermckenzie.com",
+   "source_type": "company_pr",
+   "title": "Baker McKenzie Advises Joint Lead Managers on Thailand's Landmark ...",
+   "url": "https://www.bakermckenzie.com/en/newsroom/2024/11/thailand-landmark-sustainability-linked-bonds"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:KTB",
+ "undated": 2
+}

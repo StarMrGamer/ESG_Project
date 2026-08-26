@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "SM Prime Holdings Inc",
+ "dated": 4,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-06-04",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "SM Prime defers P18 billion bond sale - Philstar.com",
+   "url": "https://www.philstar.com/business/2026/06/04/2532606/sm-prime-defers-p18-billion-bond-sale"
+  },
+  {
+   "published_at": "2025-09-16",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "SM Prime raising P17 billion via bond issue - Philstar.com",
+   "url": "https://www.philstar.com/business/2025/09/16/2473042/sm-prime-raising-p17-billion-bond-issue"
+  },
+  {
+   "published_at": "2025-09-04",
+   "source": "businessmirror.com.ph",
+   "source_type": "company_pr",
+   "title": "SM Prime Holdings expects to have 115 malls by 2035",
+   "url": "https://businessmirror.com.ph/2025/09/04/sm-prime-holdings-expects-to-have-115-malls-by-2035/"
+  },
+  {
+   "published_at": "2025-08-04",
+   "source": "gmanetwork.com",
+   "source_type": "company_pr",
+   "title": "SM Prime hits all-time high net income of P24.5 billion in H1",
+   "url": "https://www.gmanetwork.com/news/money/companies/954735/sm-prime-hits-all-time-high-net-income-of-p24-5-billion-in-h1/story/"
+  },
+  {
+   "published_at": null,
+   "source": "mb.com.ph",
+   "source_type": "company_pr",
+   "title": "SM Prime plans \u20b118-billion bond offering to fund ... - Manila Bulletin",
+   "url": "https://mb.com.ph/2026/04/28/sm-prime-plans-18-billion-bond-offering-to-fund-capex-refinance-debt"
+  },
+  {
+   "published_at": null,
+   "source": "business.inquirer.net",
+   "source_type": "company_pr",
+   "title": "SM Prime delivers record profit of P48.8B - Inquirer.net",
+   "url": "https://business.inquirer.net/574645/sm-prime-delivers-record-profit-of-p48-8b"
+  },
+  {
+   "published_at": null,
+   "source": "insiderph.com",
+   "source_type": "company_pr",
+   "title": "SM Prime to raise P17-B in local bonds after $350-M dollar offering",
+   "url": "https://insiderph.com/sm-prime-to-raise-p17-b-in-local-bonds-after-350-m-dollar-offering"
+  },
+  {
+   "published_at": null,
+   "source": "mb.com.ph",
+   "source_type": "company_pr",
+   "title": "SM Prime plans \u20b117-billion bond offering to refinance debt",
+   "url": "https://mb.com.ph/2025/09/15/sm-prime-plans-17-billion-bond-offering-to-refinance-debt"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:SMPH",
+ "undated": 4
+}

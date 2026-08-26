@@ -1,0 +1,40 @@
+{
+ "blocked": false,
+ "company": "CIMB Group Holdings Bhd",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-01-05",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "CIMB Investment Bank, 11 others hit with RM1.38b suit from MEX II sukuk ...",
+   "url": "https://theedgemalaysia.com/node/788121"
+  },
+  {
+   "published_at": "2025-09-25",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "CIMB to step up infrastructure, ESG financing in Asean Plus Three",
+   "url": "https://www.nst.com.my/business/corporate/2025/09/1281101/cimb-step-infrastructure-esg-financing-asean-plus-three"
+  },
+  {
+   "published_at": "2025-08-29",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "CIMB Group's 2Q net profit slips 3.8%, declares dividend of 19.75 sen",
+   "url": "https://theedgemalaysia.com/node/768715"
+  },
+  {
+   "published_at": null,
+   "source": "bernama.com",
+   "source_type": "company_pr",
+   "title": "CIMB establishes 'Scope 3' financed emissions baseline ... - BERNAMA",
+   "url": "https://www.bernama.com/en/news.php?id=2124248"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:CIMB",
+ "undated": 1
+}

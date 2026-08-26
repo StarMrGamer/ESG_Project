@@ -1,0 +1,63 @@
+{
+ "blocked": false,
+ "company": "Singapore Airlines",
+ "dated": 2,
+ "errors": [
+  "\"Singapore Airlines\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-07-15",
+   "source": "simpleflying.com",
+   "source_type": "company_pr",
+   "title": "Singapore Airlines Cuts 16 Long-Haul Destinations: See The Full List",
+   "url": "https://simpleflying.com/singapore-airlines-cuts-16-long-haul-destinations-see-the-full-list/"
+  },
+  {
+   "published_at": "2026-02-23",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Singapore Airlines Group expands sustainable aviation fuel investments",
+   "url": "https://www.marketscreener.com/news/singapore-airlines-group-expands-sustainable-aviation-fuel-investments-ce7e5dd2dd8af427"
+  },
+  {
+   "published_at": null,
+   "source": "channelnewsasia.com",
+   "source_type": "news",
+   "title": "Singapore Airlines latest news & coverage - CNA",
+   "url": "https://www.channelnewsasia.com/topic/singapore-airlines"
+  },
+  {
+   "published_at": null,
+   "source": "businesstimes.com.sg",
+   "source_type": "news",
+   "title": "Singapore Airlines Latest News & Headlines - The Business Times",
+   "url": "https://www.businesstimes.com.sg/keywords/singapore-airlines"
+  },
+  {
+   "published_at": null,
+   "source": "singaporeair.com",
+   "source_type": "company_pr",
+   "title": "Annual Report and Sustainability Report - Singapore Airlines",
+   "url": "https://www.singaporeair.com/en_UK/sg/about-us/information-for-investors/annual-report/"
+  },
+  {
+   "published_at": null,
+   "source": "travelandtourworld.com",
+   "source_type": "company_pr",
+   "title": "Singapore Airlines Joins VietJet and KLM Exposed in Explosive ...",
+   "url": "https://www.travelandtourworld.com/news/article/singapore-airlines-joins-vietjet-and-klm-exposed-in-explosive-greenwashing-scandal-and-called-out-for-selling-the-eco-friendly-lie-as-they-have-been-busted-for-climate-deception-in-the-skies-and-misle/"
+  },
+  {
+   "published_at": null,
+   "source": "owler.com",
+   "source_type": "company_pr",
+   "title": "Singapore Airlines: Singapore Airlines Reports Strong Financial ... - Owler",
+   "url": "https://www.owler.com/reports/singapore-airlines-limited/singapore-airlines---sustainability-report-fy2024-/1751035685123"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:SIA",
+ "undated": 5
+}

@@ -1,0 +1,35 @@
+{
+ "blocked": false,
+ "company": "RHB Bank Bhd",
+ "dated": 2,
+ "errors": [
+  "\"RHB Bank Bhd\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-05-11",
+   "source": "themalaysianreserve.com",
+   "source_type": "company_pr",
+   "title": "RHB gets BNM nod to begin talks on insurance disposal, Tokio Marine ...",
+   "url": "https://themalaysianreserve.com/2026/05/11/rhb-gets-bnm-nod-to-begin-talks-on-insurance-disposal-tokio-marine-integration/"
+  },
+  {
+   "published_at": "2025-11-28",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Higher total income buoys RHB Bank showing - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/11/28/higher-total-income-buoys-rhb-bank-showing"
+  },
+  {
+   "published_at": null,
+   "source": "markets.ft.com",
+   "source_type": "company_pr",
+   "title": "RHB Bank Bhd, RHBBANK:KLS profile - FT.com",
+   "url": "https://markets.ft.com/data/equities/tearsheet/profile?s=RHBBANK:KLS"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:RHBBANK",
+ "undated": 1
+}

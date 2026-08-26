@@ -1,0 +1,70 @@
+{
+ "blocked": false,
+ "company": "Bank Mandiri",
+ "dated": 8,
+ "errors": [
+  "\"Bank Mandiri\" news: GET https://html.duckduckgo.com/html/ failed after 2 attempt(s): HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=%22Bank+Mandiri%22+news&kl=us-en"
+ ],
+ "gathered_at": "2026-08-25",
+ "items": [
+  {
+   "published_at": "2026-08-05",
+   "source": "idxchannel.com",
+   "source_type": "company_pr",
+   "title": "Bank Mandiri Raih Apresiasi Anugerah ESG 2026 dari IDX Channel",
+   "url": "https://www.idxchannel.com/banking/bank-mandiri-raih-apresiasi-anugerah-esg-2026-dari-idx-channel"
+  },
+  {
+   "published_at": "2026-07-09",
+   "source": "news.detik.com",
+   "source_type": "company_pr",
+   "title": "Bank Mandiri Raih Penghargaan FinanceAsia 2026 - detikNews",
+   "url": "https://news.detik.com/berita/d-8566795/bank-mandiri-raih-penghargaan-financeasia-2026"
+  },
+  {
+   "published_at": "2026-06-26",
+   "source": "finansial.bisnis.com",
+   "source_type": "company_pr",
+   "title": "Kinerja Bank Mandiri Mei 2026 Tumbuh Berkat Strategi Berkelanjutan",
+   "url": "https://finansial.bisnis.com/read/20260626/90/1983579/kinerja-bank-mandiri-mei-2026-tumbuh-berkat-strategi-berkelanjutan"
+  },
+  {
+   "published_at": "2025-03-13",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Glass Lewis ESG Controversy Alert: Bank Mandiri | MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/PT-BANK-MANDIRI-PERSERO-T-6496346/news/Glass-Lewis-ESG-Controversy-Alert-Bank-Mandiri-49325108/"
+  },
+  {
+   "published_at": "2025-03-10",
+   "source": "finansial.bisnis.com",
+   "source_type": "company_pr",
+   "title": "Bank Mandiri Perkuat Kebijakan Pembiayaan & Produk Berkelanjutan",
+   "url": "https://finansial.bisnis.com/read/20250310/90/1859911/bank-mandiri-perkuat-kebijakan-pembiayaan-produk-berkelanjutan"
+  },
+  {
+   "published_at": "2025-02-14",
+   "source": "infobanknews.com",
+   "source_type": "index_provider",
+   "title": "Bank Mandiri Raih Skor ESG Terbaik di KBMI IV versi Sustainalytics",
+   "url": "https://infobanknews.com/bank-mandiri-raih-skor-esg-terbaik-di-kbmi-iv-versi-sustainalytics"
+  },
+  {
+   "published_at": "2024-12-03",
+   "source": "native.kontan.co.id",
+   "source_type": "company_pr",
+   "title": "Bank Mandiri Terapkan Standar untuk Penyaluran Kredit",
+   "url": "https://native.kontan.co.id/news/bank-mandiri-perkuat-kebijakan-kredit-dengan-aspek-esg"
+  },
+  {
+   "published_at": "2024-08-07",
+   "source": "katadata.co.id",
+   "source_type": "company_pr",
+   "title": "Tegaskan Komitmen Berkelanjutan, Bank Mandiri Terus Dorong Implementasi ...",
+   "url": "https://katadata.co.id/finansial/korporasi/66b3a2a6a40d1/tegaskan-komitmen-berkelanjutan-bank-mandiri-terus-dorong-implementasi-esg"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "IDX:BMRI",
+ "undated": 0
+}

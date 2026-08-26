@@ -1,0 +1,28 @@
+{
+ "blocked": false,
+ "company": "Bangkok Expressway and Metro PCL",
+ "dated": 2,
+ "errors": [
+  "\"Bangkok Expressway and Metro PCL\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-11-26",
+   "source": "publicnow.com",
+   "source_type": "company_pr",
+   "title": "Bangkok Expressway and Metro pcl (via Public) / Opportunity Day 3Q2025",
+   "url": "https://www.publicnow.com/view/F5272CABA2D6B7A712F1FD3FB7085BD542096E9E"
+  },
+  {
+   "published_at": "2025-11-14",
+   "source": "publicnow.com",
+   "source_type": "company_pr",
+   "title": "Bangkok Expressway and Metro pcl (via Public) / Management Discussion ...",
+   "url": "https://www.publicnow.com/view/37562B6E08DAE0CE5BF460184CF2E946F73CF7B9"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:BEM",
+ "undated": 0
+}

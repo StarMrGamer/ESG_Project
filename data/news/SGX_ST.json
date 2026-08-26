@@ -1,0 +1,61 @@
+{
+ "blocked": false,
+ "company": "SingTel",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-07-30",
+   "source": "channelnewsasia.com",
+   "source_type": "news",
+   "title": "Singtel confirms Optus stake-sale talks as regulatory pressure mounts",
+   "url": "https://www.channelnewsasia.com/singapore/singtel-optus-stake-sale-talks-regulatory-pressure-6287256"
+  },
+  {
+   "published_at": "2026-06-23",
+   "source": "cnbc.com",
+   "source_type": "company_pr",
+   "title": "Singtel raises $773 million from Gulf Development stake sale to ... - CNBC",
+   "url": "https://www.cnbc.com/2026/06/23/singtel-sells-gulf-development-stake-asset-recycling-ai-investment.html"
+  },
+  {
+   "published_at": "2026-05-22",
+   "source": "singtel.com",
+   "source_type": "company_pr",
+   "title": "Singtel Group advances enterprise AI adoption with strong workforce uptake",
+   "url": "https://www.singtel.com/about-us/media-centre/news-releases/Singtel-group-advances-enterprise-ai-adoption"
+  },
+  {
+   "published_at": null,
+   "source": "businesstimes.com.sg",
+   "source_type": "news",
+   "title": "Singtel Latest News & Headlines - The Business Times",
+   "url": "https://www.businesstimes.com.sg/keywords/singtel"
+  },
+  {
+   "published_at": null,
+   "source": "sginvestors.io",
+   "source_type": "company_pr",
+   "title": "Singtel Latest News (SGX:Z74) | SGinvestors.io",
+   "url": "https://sginvestors.io/sgx/stock/z74-singtel/news-article"
+  },
+  {
+   "published_at": null,
+   "source": "channelnewsasia.com",
+   "source_type": "news",
+   "title": "Singtel latest news & coverage - CNA",
+   "url": "https://www.channelnewsasia.com/topic/singtel"
+  },
+  {
+   "published_at": null,
+   "source": "sginvestors.io",
+   "source_type": "company_pr",
+   "title": "Singtel Latest Announcements (SGX:Z74) | SGinvestors.io",
+   "url": "https://sginvestors.io/sgx/stock/z74-singtel/company-announcement"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:ST",
+ "undated": 4
+}

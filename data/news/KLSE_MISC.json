@@ -1,0 +1,56 @@
+{
+ "blocked": false,
+ "company": "MISC Bhd",
+ "dated": 5,
+ "errors": [
+  "\"MISC Bhd\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-10-16",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "MISC buoyed by its petroleum division - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/10/16/misc-buoyed-by-its-petroleum-division"
+  },
+  {
+   "published_at": "2025-08-25",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "MISC's 2Q profit down 14% on weaker gas and marine ops, declares eight ...",
+   "url": "https://theedgemalaysia.com/node/767923"
+  },
+  {
+   "published_at": "2024-12-31",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "MISC falls into red with 4Q net loss of RM446.2mil - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/02/21/misc-falls-into-red-with-4q-net-loss-of-rm4462mil"
+  },
+  {
+   "published_at": "2023-04-20",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "MISC inks US$527m sustainable-linked term loan",
+   "url": "https://theedgemalaysia.com/node/664166"
+  },
+  {
+   "published_at": "2023-04-20",
+   "source": "klsescreener.com",
+   "source_type": "company_pr",
+   "title": "MISC inks US$527m sustainable-linked term loan - KLSE Screener",
+   "url": "https://www.klsescreener.com/v2/news/view/1142951/misc-inks-us-527m-sustainable-linked-term-loan"
+  },
+  {
+   "published_at": null,
+   "source": "businesstoday.com.my",
+   "source_type": "company_pr",
+   "title": "'Buy' Call On MISC After 10 Year Charter Contract Win",
+   "url": "https://www.businesstoday.com.my/2026/08/03/buy-call-on-misc-after-10-year-charter-contract-win/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:MISC",
+ "undated": 1
+}

@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "SM Investments Corp",
+ "dated": 5,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-13",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "Higher consumer demand lifts SM Investments profit - Philstar.com",
+   "url": "https://www.philstar.com/business/2026/08/13/2548841/higher-consumer-demand-lifts-sm-investments-profit"
+  },
+  {
+   "published_at": "2026-08-12",
+   "source": "gmanetwork.com",
+   "source_type": "company_pr",
+   "title": "SM Investments profit grows 8% in first half of 2026 | GMA News Online",
+   "url": "https://www.gmanetwork.com/news/money/companies/998317/sm-investments-profit-grows-8-in-first-half-of-2026/story/"
+  },
+  {
+   "published_at": "2026-07-10",
+   "source": "tribune.net.ph",
+   "source_type": "company_pr",
+   "title": "SM Investments cited for governance, sustainability leadership",
+   "url": "https://tribune.net.ph/2026/07/10/sm-investments-cited-for-governance-sustainability-leadership"
+  },
+  {
+   "published_at": "2026-01-04",
+   "source": "bworldonline.com",
+   "source_type": "company_pr",
+   "title": "SM Investments shares climb amid buyback - BusinessWorld Online",
+   "url": "https://www.bworldonline.com/corporate/2026/01/05/722132/sm-investments-shares-climb-amid-buyback/"
+  },
+  {
+   "published_at": "2025-09-24",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "SM Investments upbeat on this year's growth - Philstar.com",
+   "url": "https://www.philstar.com/business/2025/09/24/2474901/sm-investments-upbeat-years-growth"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:SM",
+ "undated": 0
+}

@@ -1,0 +1,61 @@
+{
+ "blocked": false,
+ "company": "Telekom Malaysia",
+ "dated": 4,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-06-30",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Telekom Malaysia posts lower net profit of RM365.5mil in 2Q",
+   "url": "https://www.thestar.com.my/business/business-news/2026/08/20/telekom-malaysia-posts-lower-net-profit-of-rm3655mil-in-2q"
+  },
+  {
+   "published_at": "2026-06-30",
+   "source": "malaymail.com",
+   "source_type": "news",
+   "title": "Telekom Malaysia 2Q net profit slips to RM365.48m despite higher ...",
+   "url": "https://www.malaymail.com/news/money/2026/08/20/telekom-malaysia-2q-net-profit-slips-to-rm36548m-despite-higher-revenue/232090"
+  },
+  {
+   "published_at": "2026-05-20",
+   "source": "malaymail.com",
+   "source_type": "news",
+   "title": "US charges three ex-Telekom Malaysia subsidiary executives over alleged ...",
+   "url": "https://www.malaymail.com/news/malaysia/2026/05/20/us-charges-three-ex-telekom-malaysia-subsidiary-executives-in-alleged-us20m-fraud-scheme/220640"
+  },
+  {
+   "published_at": "2026-03-31",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Telekom Malaysia posts RM321.5mil 1Q26 profit, declares 6.5 sen ...",
+   "url": "https://www.thestar.com.my/business/business-news/2026/05/21/telekom-malaysia-posts-rm3215mil-1q26-profit-declares-65-sen-dividend"
+  },
+  {
+   "published_at": null,
+   "source": "tm.com.my",
+   "source_type": "company_pr",
+   "title": "Keep Up To Date With TM's Latest News | Telekom Malaysia",
+   "url": "https://tm.com.my/newsroom"
+  },
+  {
+   "published_at": null,
+   "source": "tm.com.my",
+   "source_type": "company_pr",
+   "title": "Stay Up To Date With The Latest News & Events From TM | Telekom Malaysia",
+   "url": "https://tm.com.my/investor-relations/news-events/press-release"
+  },
+  {
+   "published_at": null,
+   "source": "tm.com.my",
+   "source_type": "company_pr",
+   "title": "PDF Telekom Malaysia Berhad Sustainability Statement: Empowering the Future ...",
+   "url": "https://tm.com.my/sites/default/files/2026-05/%5BPages%20100-251%5D%20Telekom%20Malaysia%20Berhad%20IAR25.pdf"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:T",
+ "undated": 3
+}

@@ -1,0 +1,42 @@
+{
+ "blocked": false,
+ "company": "Home Product Center",
+ "dated": 1,
+ "errors": [
+  "\"Home Product Center\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-10-28",
+   "source": "in.marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Home Product Center Public Company Limited Reports Earnings Results for ...",
+   "url": "https://in.marketscreener.com/news/home-product-center-public-company-limited-reports-earnings-results-for-the-third-quarter-and-nine-m-ce7d5ddcd88ff222"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about Home Product Center - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/HOME-PRODUCT-CENTER-105525483/news/?mode=pertinence"
+  },
+  {
+   "published_at": null,
+   "source": "theofficialboard.com",
+   "source_type": "company_pr",
+   "title": "Home Product Center updates: news & description - The Official Board",
+   "url": "https://www.theofficialboard.com/news/home-product-center"
+  },
+  {
+   "published_at": null,
+   "source": "scgnewschannel.com",
+   "source_type": "company_pr",
+   "title": "HomePro Marks 1-Year Anniversary of Eco-Friendly Home Campaign with ...",
+   "url": "https://www.scgnewschannel.com/en/scg-news/homepro-marks-1-year-anniversary-of-eco-friendly-home-campaign-with-closed-loop-circular-electrical-appliances-in-partnership-with-scgc-underscoring-concrete-environmental-achievement/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:HMPRO",
+ "undated": 3
+}

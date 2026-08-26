@@ -1,0 +1,22 @@
+{
+ "blocked": false,
+ "company": "Nestle (Malaysia)",
+ "dated": 1,
+ "errors": [
+  "\"Nestle (Malaysia)\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)",
+  "\"Nestle (Malaysia)\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-12-31",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Nestle Malaysia records earnings jump in 4Q - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2026/02/26/nestle-malaysia-records-earnings-jump-in-4q"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:NESZ",
+ "undated": 0
+}

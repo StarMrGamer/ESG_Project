@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "PLDT Inc",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-13",
+   "source": "gmanetwork.com",
+   "source_type": "company_pr",
+   "title": "PLDT posts 2% decline in H1 2026 telco core income | GMA News Online",
+   "url": "https://www.gmanetwork.com/news/money/companies/998440/pldt-posts-2-decline-in-h1-2026-telco-core-income/story/"
+  },
+  {
+   "published_at": "2026-01-28",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "PLDT infuses P1.2 billion in new unit to fund development",
+   "url": "https://www.philstar.com/business/2026/01/28/2503897/pldt-infuses-p12-billion-new-unit-fund-development"
+  },
+  {
+   "published_at": "2025-12-15",
+   "source": "businesswire.com",
+   "source_type": "company_pr",
+   "title": "PLDT Files 20 25 Annual Report on Form 20-F With the U.S. Securities ...",
+   "url": "https://www.businesswire.com/news/home/20260501024160/en/PLDT-Files-2025-Annual-Report-on-Form-20-F-With-the-U.S.-Securities-and-Exchange-Commission"
+  },
+  {
+   "published_at": null,
+   "source": "finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "PLDT Inc. (PHI) Latest Press Releases & Corporate News - Yahoo Finance",
+   "url": "https://finance.yahoo.com/quote/PHI/press-releases/"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about PLDT Inc. - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/PLDT-INC-30546191/news/"
+  },
+  {
+   "published_at": null,
+   "source": "pna.gov.ph",
+   "source_type": "regulator",
+   "title": "PLDT Inc. eyes IPO for VITRO Inc. | Philippine News Agency",
+   "url": "https://www.pna.gov.ph/articles/1269890"
+  },
+  {
+   "published_at": null,
+   "source": "prnewswire.com",
+   "source_type": "company_pr",
+   "title": "PLDT Inc. News and Press Releases | PR Newswire",
+   "url": "https://www.prnewswire.com/news/pldt-inc./"
+  },
+  {
+   "published_at": null,
+   "source": "manilastandard.net",
+   "source_type": "company_pr",
+   "title": "PLDT retains spot in FTSE4Good Index Series - Manila Standard",
+   "url": "https://manilastandard.net/business/314777265/pldt-retains-spot-in-ftse4good-index-series.html"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:TEL",
+ "undated": 5
+}

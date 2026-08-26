@@ -1,0 +1,26 @@
+{
+ "blocked": false,
+ "company": "Bank of the Philippine Islands",
+ "dated": 1,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-03-08",
+   "source": "globalbankingandfinance.com",
+   "source_type": "company_pr",
+   "title": "Bank of the Philippine Islands Wins 3 Honors at the 2026 Global Banking ...",
+   "url": "https://www.globalbankingandfinance.com/bank-of-the-philippine-islands-wins-3-honors-at-the-2026-global-banking-finance-review-awards-/"
+  },
+  {
+   "published_at": null,
+   "source": "marketbeat.com",
+   "source_type": "company_pr",
+   "title": "Bank of the Philippine Islands (BPHLF) News Today",
+   "url": "https://www.marketbeat.com/stocks/OTCMKTS/BPHLF/news/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:BPI",
+ "undated": 1
+}

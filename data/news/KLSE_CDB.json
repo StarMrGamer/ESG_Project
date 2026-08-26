@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "CelcomDigi Bhd",
+ "dated": 5,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-04-16",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "CelcomDigi poised to remain as market leader - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2026/04/16/celcomdigi-poised-to-remain-as-market-leader"
+  },
+  {
+   "published_at": "2026-01-27",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "Analyst: Telenor could sell CelcomDigi stake by 2027",
+   "url": "https://www.nst.com.my/business/corporate/2026/01/1365312/analyst-telenor-could-sell-celcomdigi-stake-2027"
+  },
+  {
+   "published_at": "2025-11-18",
+   "source": "focusmalaysia.my",
+   "source_type": "company_pr",
+   "title": "CelcomDigi nears 90% network integration despite earnings dip",
+   "url": "https://focusmalaysia.my/celcomdigi-nears-90-network-integration-despite-earnings-dip/"
+  },
+  {
+   "published_at": "2024-09-19",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "Technology: CelcomDigi's ESG resolution",
+   "url": "https://theedgemalaysia.com/node/726693"
+  },
+  {
+   "published_at": "2022-03-15",
+   "source": "malaymail.com",
+   "source_type": "news",
+   "title": "CelcomDigi shares slip on IMMA's RM72.6m arbitration notice",
+   "url": "https://www.malaymail.com/news/money/2025/10/07/celcomdigi-shares-slip-on-immas-rm726m-arbitration-notice/193720"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:CDB",
+ "undated": 0
+}

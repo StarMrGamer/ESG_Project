@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "Ayala Land Inc",
+ "dated": 5,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-03",
+   "source": "tribune.net.ph",
+   "source_type": "company_pr",
+   "title": "Ayala Land named to 2026 S&P Global Sustainability Yearbook",
+   "url": "https://tribune.net.ph/2026/08/03/ayala-land-named-to-2026-sp-global-sustainability-yearbook-2"
+  },
+  {
+   "published_at": "2026-04-30",
+   "source": "gmanetwork.com",
+   "source_type": "company_pr",
+   "title": "Ayala Land posts P5.4B net income in Q1 2026, down by 22% | GMA News Online",
+   "url": "https://www.gmanetwork.com/news/money/companies/985953/ayala-land-net-income-q1-2026/story/"
+  },
+  {
+   "published_at": "2025-10-29",
+   "source": "ayalaland.com",
+   "source_type": "company_pr",
+   "title": "Ayala Land Raises \u20b115B via Sustainability-Linked Bonds to Fund Green ...",
+   "url": "https://ayalaland.com/blog/ayala-land-raises-ars15b-via-sustainability-linked-bonds-to-fund-green-developments"
+  },
+  {
+   "published_at": "2024-11-13",
+   "source": "businessmirror.com.ph",
+   "source_type": "company_pr",
+   "title": "Ayala Land lists P8 billion sustainability-linked bonds",
+   "url": "https://businessmirror.com.ph/2024/11/13/ayala-land-lists-p8-billion-sustainability-linked-bonds/"
+  },
+  {
+   "published_at": "2024-07-20",
+   "source": "ayalaland.com",
+   "source_type": "company_pr",
+   "title": "Ayala Land Completes P20.5 Billion in Sustainability-Linked Funding",
+   "url": "https://ayalaland.com/blog/ayala-land-completes-p20-5-billion-in-sustainability-linked-funding"
+  },
+  {
+   "published_at": null,
+   "source": "mb.com.ph",
+   "source_type": "company_pr",
+   "title": "Ayala Land shoots down rumors of financial trouble",
+   "url": "https://mb.com.ph/2026/04/27/ayala-land-shoots-down-rumors-of-financial-trouble"
+  },
+  {
+   "published_at": null,
+   "source": "business.inquirer.net",
+   "source_type": "company_pr",
+   "title": "Ayala Land starts P15-B bond offer - Inquirer.net",
+   "url": "https://business.inquirer.net/551931/ayala-land-starts-p15-b-bond-offer"
+  },
+  {
+   "published_at": null,
+   "source": "business.inquirer.net",
+   "source_type": "company_pr",
+   "title": "Ayala Land seals P15-B sustainability bond float - Inquirer.net",
+   "url": "https://business.inquirer.net/555304/ayala-land-seals-p15-b-sustainability-bond-float"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:ALI",
+ "undated": 3
+}

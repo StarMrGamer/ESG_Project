@@ -1,0 +1,26 @@
+{
+ "blocked": false,
+ "company": "AMMB Holdings",
+ "dated": 0,
+ "errors": [],
+ "gathered_at": "2026-08-25",
+ "items": [
+  {
+   "published_at": null,
+   "source": "businesstoday.com.my",
+   "source_type": "company_pr",
+   "title": "EPF Expands Stake In AMMB With 9.45 Million Share Acquisition",
+   "url": "https://www.businesstoday.com.my/2026/08/08/epf-expands-stake-in-ammb-with-9-45-million-share-acquisition/"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about AMMB Holdings - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/AMMB-HOLDINGS-6491147/news/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:AMM",
+ "undated": 2
+}

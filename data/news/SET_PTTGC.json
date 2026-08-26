@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "PTT Global Chemical",
+ "dated": 2,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-03-06",
+   "source": "fitchratings.com",
+   "source_type": "company_pr",
+   "title": "Fitch Revises Outlook on PTT Global Chemical to ... - Fitch Ratings",
+   "url": "https://www.fitchratings.com/research/corporate-finance/fitch-revises-outlook-on-ptt-global-chemical-to-negative-affirms-at-bbb-aa-tha-06-03-2026"
+  },
+  {
+   "published_at": "2025-11-10",
+   "source": "kaohooninternational.com",
+   "source_type": "company_pr",
+   "title": "PTTGC 3Q25 Earnings Reveal Net Loss Improvement Cost Focus",
+   "url": "https://www.kaohooninternational.com/markets/569764"
+  },
+  {
+   "published_at": null,
+   "source": "icis.com",
+   "source_type": "company_pr",
+   "title": "PTT Global Chemical is no longer just waiting for the next upcycle",
+   "url": "https://www.icis.com/asian-chemical-connections/2026/08/ptt-global-chemical-is-no-longer-just-waiting-for-the-next-upcycle/"
+  },
+  {
+   "published_at": null,
+   "source": "thaitimes.com",
+   "source_type": "company_pr",
+   "title": "PTT Group Denies Merger Rumours Amid Operational Improvements - Thai Times",
+   "url": "https://thaitimes.com/ptt-group-denies-merger-rumours-amid-operational-improvements"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about PTT Global Chemical - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/PTT-GLOBAL-CHEMICAL-10587053/news/"
+  },
+  {
+   "published_at": null,
+   "source": "investing.com",
+   "source_type": "company_pr",
+   "title": "PTT Global Chemical News Today (PTTGC) - Investing.com",
+   "url": "https://www.investing.com/equities/ptt-global-che-news/5"
+  },
+  {
+   "published_at": null,
+   "source": "sustainability.pttgcgroup.com",
+   "source_type": "company_pr",
+   "title": "Integrated Sustainability Report 2024 | PTT Global Chemical",
+   "url": "https://sustainability.pttgcgroup.com/en/flipbook/972/integrated-sustainability-report-2024"
+  },
+  {
+   "published_at": null,
+   "source": "spglobal.com",
+   "source_type": "index_provider",
+   "title": "Research Update: PTT Global Chemical Outlook Revi | S&P Global Ratings",
+   "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3616107"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:PTTGC",
+ "undated": 6
+}

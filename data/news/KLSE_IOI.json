@@ -1,0 +1,40 @@
+{
+ "blocked": false,
+ "company": "IOI Corporation",
+ "dated": 1,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-23",
+   "source": "markets.businessinsider.com",
+   "source_type": "company_pr",
+   "title": "IOI Wins Triple Honours For Driving Digital Transformation",
+   "url": "https://markets.businessinsider.com/news/stocks/ioi-wins-triple-honours-for-driving-digital-transformation-1036484461?op=1"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about IOI Corporation - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/IOI-CORPORATION-6491316/news/"
+  },
+  {
+   "published_at": null,
+   "source": "business-humanrights.org",
+   "source_type": "company_pr",
+   "title": "Malaysia: Report alleges palm oil giant IOI workers are subjected to ...",
+   "url": "https://www.business-humanrights.org/en/latest-news/malaysia-report-alleges-palm-oil-giant-ioi-workers-are-subjected-to-mistreatment-are-made-to-pay-high-recruitment-fees/"
+  },
+  {
+   "published_at": null,
+   "source": "ioigroup.com",
+   "source_type": "company_pr",
+   "title": "IOI Corp flags tough downstream outlook despite earnings jump",
+   "url": "https://www.ioigroup.com/news/ioi-corp-flags-tough-downstream-outlook-despite-earnings-jump/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:IOI",
+ "undated": 3
+}

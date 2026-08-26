@@ -1,0 +1,54 @@
+{
+ "blocked": false,
+ "company": "Petronas Dagangan Bhd",
+ "dated": 6,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-24",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "PETRONAS Dagangan's 2Q net profit rises to RM387.21mil on better ...",
+   "url": "https://www.thestar.com.my/business/business-news/2026/08/24/petronas-dagangan039s-2q-net-profit-rises-to-rm38721mil-on-better-margins-declares-25c-divshare"
+  },
+  {
+   "published_at": "2026-06-30",
+   "source": "utusan.com.my",
+   "source_type": "company_pr",
+   "title": "Petronas Dagangan catat untung bersih RM387.2 juta",
+   "url": "https://www.utusan.com.my/ekonomi/2026/08/petronas-dagangan-catat-untung-bersih-rm387-2-juta/"
+  },
+  {
+   "published_at": "2026-06-30",
+   "source": "bharian.com.my",
+   "source_type": "company_pr",
+   "title": "Untung bersih Petronas Dagangan meningkat kepada RM387.2 juta",
+   "url": "https://www.bharian.com.my/bisnes/korporat/2026/08/1606179/untung-bersih-petronas-dagangan-meningkat-kepada-rm3872-juta"
+  },
+  {
+   "published_at": "2025-06-30",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "Petronas Dagangan Q2 profit down 4pct, declares 22 sen dividend",
+   "url": "https://www.nst.com.my/business/corporate/2025/08/1265230/petronas-dagangan-q2-profit-down-4pct-declares-22-sen-dividend"
+  },
+  {
+   "published_at": "2023-03-29",
+   "source": "themalaysianreserve.com",
+   "source_type": "company_pr",
+   "title": "Petronas Dagangan lodges RM10b sukuk wakalah programmes with SC",
+   "url": "https://themalaysianreserve.com/2023/03/29/petronas-dagangan-lodges-rm10b-sukuk-wakalah-programmes-with-with-sc-1/"
+  },
+  {
+   "published_at": "2023-03-29",
+   "source": "utusan.com.my",
+   "source_type": "company_pr",
+   "title": "Petronas Dagangan lancar program sukuk sehingga RM10 bilion",
+   "url": "https://www.utusan.com.my/ekonomi/2023/03/petronas-dagangan-lancar-program-sukuk-sehingga-rm10-bilion/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:PETD",
+ "undated": 0
+}

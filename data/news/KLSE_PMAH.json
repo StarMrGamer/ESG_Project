@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "Press Metal Aluminium Holdings Bhd",
+ "dated": 7,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-21",
+   "source": "theborneopost.com",
+   "source_type": "company_pr",
+   "title": "Press Metal's FY26 margins supported by favourable alumina spread",
+   "url": "https://www.theborneopost.com/2026/08/21/press-metals-fy26-margins-supported-by-favourable-alumina-spread/"
+  },
+  {
+   "published_at": "2026-08-06",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Press Metal to push ahead with PMB buy despite silicon slump",
+   "url": "https://www.thestar.com.my/business/business-news/2026/08/06/press-metal-to-push-ahead-with-pmb-buy-despite-silicon-slump"
+  },
+  {
+   "published_at": "2026-08-04",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "Press Metal acquisition boosts downstream expansion",
+   "url": "https://www.nst.com.my/business/corporate/2026/08/1503780/press-metal-acquisition-boosts-downstream-expansion"
+  },
+  {
+   "published_at": "2025-08-25",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Press Metal presses advantage on supply constraints - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/08/25/press-metal-presses-advantageon-supply-constraints"
+  },
+  {
+   "published_at": "2025-06-30",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "Press Metal posts record quarterly revenue in 2Q despite profit decline",
+   "url": "https://theedgemalaysia.com/node/767575"
+  },
+  {
+   "published_at": "2025-03-21",
+   "source": "sarawaktribune.com",
+   "source_type": "company_pr",
+   "title": "Press Metal completes RM1.5 bln sukuk issuance - Sarawak Tribune",
+   "url": "https://www.sarawaktribune.com/press-metal-completes-rm1-5-bln-sukuk-issuance/"
+  },
+  {
+   "published_at": "2023-09-20",
+   "source": "sarawaktribune.com",
+   "source_type": "company_pr",
+   "title": "Press Metal issues its fourth Sukuk Wakalah - Sarawak Tribune",
+   "url": "https://www.sarawaktribune.com/press-metal-issues-its-fourth-sukuk-wakalah/"
+  },
+  {
+   "published_at": null,
+   "source": "businesstoday.com.my",
+   "source_type": "company_pr",
+   "title": "Declining Aluminum Price Expected To Slightly Impact Press Metal",
+   "url": "https://www.businesstoday.com.my/2026/08/20/declining-aluminum-price-expected-to-slightly-impact-press-metal/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:PMAH",
+ "undated": 1
+}

@@ -1,0 +1,53 @@
+ticker,company,symbol,resolved_name,currency,exchange,basis
+IDX:BBCA,Bank Central Asia,BBCA.JK,PT Bank Central Asia Tbk,IDR,Jakarta,our own ticker code; every distinctive word matches
+IDX:BBNI,Bank Negara Indonesia,BBNI.JK,PT Bank Negara Indonesia (Persero) Tbk,IDR,Jakarta,our own ticker code; every distinctive word matches
+IDX:BBRI,Bank Rakyat Indonesia,BBRI.JK,PT Bank Rakyat Indonesia (Persero) Tbk,IDR,Jakarta,our own ticker code; every distinctive word matches
+IDX:BMRI,Bank Mandiri,BMRI.JK,PT Bank Mandiri (Persero) Tbk,IDR,Jakarta,our own ticker code; every distinctive word matches
+IDX:CPIN,Charoen Pokphand Indonesia,CPIN.JK,PT Charoen Pokphand Indonesia Tbk,IDR,Jakarta,our own ticker code; every distinctive word matches
+KLSE:AMM,AMMB Holdings,1015.KL,AMMB Holdings Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:AXIATA,Axiata Group,6888.KL,Axiata Group Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:CDB,CelcomDigi Bhd,6947.KL,Celcomdigi Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:CIMB,CIMB Group Holdings Bhd,1023.KL,CIMB Group Holdings Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:HLBK,Hong Leong Bank,5819.KL,Hong Leong Bank Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:IHH,IHH Healthcare Bhd,5225.KL,IHH Healthcare Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:IOI,IOI Corporation,1961.KL,IOI Corporation Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:MAHB,Malaysia Airports Holdings Bhd,,,,,no symbol on this exchange priced under a matching name
+KLSE:MAY,Malayan Banking Bhd,1155.KL,Malayan Banking Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:MISC,MISC Bhd,3816.KL,MISC Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:NESZ,Nestle (Malaysia),4707.KL,Nestlé (Malaysia) Berhad,MYR,Kuala Lumpur,manual; Bursa code for Nestle (Malaysia) Berhad
+KLSE:PCHEM,Petronas Chemicals Group,5183.KL,PETRONAS Chemicals Group Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:PETD,Petronas Dagangan Bhd,5681.KL,PETRONAS Dagangan Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:PMAH,Press Metal Aluminium Holdings Bhd,8869.KL,Press Metal Aluminium Holdings Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:RHBBANK,RHB Bank Bhd,1066.KL,RHB Bank Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:SIME,Sime Darby Bhd,5288.KL,Sime Darby Property Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+KLSE:T,Telekom Malaysia,4863.KL,Telekom Malaysia Berhad,MYR,Kuala Lumpur,exchange search; every distinctive word matches
+PSE:AC,Ayala Corporation,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+PSE:ALI,Ayala Land Inc,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+PSE:BDO,BDO Unibank Inc,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+PSE:BPI,Bank of the Philippine Islands,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+PSE:SM,SM Investments Corp,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+PSE:SMPH,SM Prime Holdings Inc,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+PSE:TEL,PLDT Inc,,,,,"no Philippine Stock Exchange price from this source — the only instruments available are US OTC ADRs, which are a different security and are not shown in their place"
+SET:ADVANC,Advanced Info Service,ADVANC.BK,Advanced Info Service Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:BDMS,Bangkok Dusit Med Service,BDMS.BK,Bangkok Dusit Medical Services Public Company Limited,THB,Thailand,our own ticker code; 100% of the distinctive words match
+SET:BEM,Bangkok Expressway and Metro PCL,BEM.BK,Bangkok Expressway and Metro Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:CPALL,CP All,CPALL.BK,CP ALL Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:CPF,Charoen Pokphand Foods PCL,CPF.BK,Charoen Pokphand Foods Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:CPN,Central Pattana,CPN.BK,Central Pattana Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:HMPRO,Home Product Center,HMPRO.BK,Home Product Center Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:INTUCH,Intouch Holdings PCL,,,,,no symbol on this exchange priced under a matching name
+SET:KTB,Krung Thai Bank,KTB.BK,Krung Thai Bank Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:MINT,Minor International,MINT.BK,Minor International Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:PTT,PTT,PTT.BK,PTT Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:PTTEP,PTT Exploration & Production,PTTEP.BK,PTT Exploration and Production Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:PTTGC,PTT Global Chemical,PTTGC.BK,PTT Global Chemical Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:SCC,Siam Cement,SCC.BK,The Siam Cement Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SET:TOP,Thai Oil,TOP.BK,Thai Oil Public Company Limited,THB,Thailand,our own ticker code; every distinctive word matches
+SGX:DBS,DBS Group,D05.SI,DBS Group Holdings Ltd,SGD,SES,exchange search; every distinctive word matches
+SGX:KEP,Keppel Ltd,BN4.SI,Keppel Ltd.,SGD,SES,exchange search; every distinctive word matches
+SGX:OCBC,OCBC,O39.SI,Oversea-Chinese Banking Corporation Limited,SGD,SES,exchange search; acronym of Oversea-Chinese Banking Corporation Limited
+SGX:SGX,Singapore Exchange,S68.SI,Singapore Exchange Limited,SGD,SES,exchange search; every distinctive word matches
+SGX:SIA,Singapore Airlines,C6L.SI,Singapore Airlines Limited,SGD,SES,exchange search; every distinctive word matches
+SGX:ST,SingTel,Z74.SI,Singapore Telecommunications Limited,SGD,SES,manual; SingTel is Singapore Telecommunications Limited
+SGX:UOB,United Overseas Bank,U11.SI,United Overseas Bank Limited,SGD,SES,exchange search; every distinctive word matches
+SGX:WIL,Wilmar International,F34.SI,Wilmar International Limited,SGD,SES,exchange search; every distinctive word matches

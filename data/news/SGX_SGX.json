@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "Singapore Exchange",
+ "dated": 2,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-06",
+   "source": "fortune.com",
+   "source_type": "company_pr",
+   "title": "Singapore's IPO reboot sees 3.5x the listings and over $3 ... - Fortune",
+   "url": "https://fortune.com/2026/08/06/singapores-ipo-reboot-sees-3-5x-the-listings-and-over-3-billion-raised-as-reforms-bring-bourse-revenue-up-14-via-dual-listing-bridge-with-nasdaq/"
+  },
+  {
+   "published_at": "2025-09-15",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Singapore Exchange : 2025 SGX Sustainability Report",
+   "url": "https://www.marketscreener.com/news/singapore-exchange-2025-sgx-sustainability-report-ce7d59d3d189f12c"
+  },
+  {
+   "published_at": null,
+   "source": "channelnewsasia.com",
+   "source_type": "news",
+   "title": "Singapore Exchange latest news & coverage - CNA",
+   "url": "https://www.channelnewsasia.com/topic/singapore-exchange"
+  },
+  {
+   "published_at": null,
+   "source": "bloomberg.com",
+   "source_type": "news",
+   "title": "Singapore Exchange Eyes Single-Stock ETFs, Tie-Ups to Grow",
+   "url": "https://www.bloomberg.com/news/articles/2026-08-11/singapore-exchange-eyes-single-stock-etfs-tie-ups-for-growth"
+  },
+  {
+   "published_at": null,
+   "source": "investing.einnews.com",
+   "source_type": "company_pr",
+   "title": "Singapore Exchange Announcements News Monitoring",
+   "url": "https://investing.einnews.com/news/sgx-announcement"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:SGX",
+ "undated": 3
+}

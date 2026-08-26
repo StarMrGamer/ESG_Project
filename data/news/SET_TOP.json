@@ -1,0 +1,49 @@
+{
+ "blocked": false,
+ "company": "Thai Oil",
+ "dated": 4,
+ "errors": [
+  "\"Thai Oil\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-05-11",
+   "source": "pattayamail.com",
+   "source_type": "company_pr",
+   "title": "Thai Oil raises red flags over future losses after massive inventory ...",
+   "url": "https://www.pattayamail.com/news/thai-oil-raises-red-flags-over-future-losses-after-massive-inventory-driven-profit-surge-548534"
+  },
+  {
+   "published_at": "2026-03-24",
+   "source": "thailandnews.co",
+   "source_type": "company_pr",
+   "title": "Thai Oil Crisis Eases After Government Intervention - Thailand News",
+   "url": "https://www.thailandnews.co/2026/03/thai-oil-crisis-eases-after-government-intervention/"
+  },
+  {
+   "published_at": "2026-01-22",
+   "source": "en.thairath.co.th",
+   "source_type": "company_pr",
+   "title": "Thai Oil Declares Crisis Over! Accelerates CFP Project Ahead of ...",
+   "url": "https://en.thairath.co.th/money/investment/capital_market/2909429"
+  },
+  {
+   "published_at": "2025-11-19",
+   "source": "kaohooninternational.com",
+   "source_type": "company_pr",
+   "title": "Thai Oil 2025 Outlook: Analysts Positive, Buy Ratings, Rising Margins",
+   "url": "https://www.kaohooninternational.com/markets/570529"
+  },
+  {
+   "published_at": null,
+   "source": "thaitimes.com",
+   "source_type": "company_pr",
+   "title": "Workers Protest Over Payment Defaults in Thai Oil Project",
+   "url": "https://thaitimes.com/workers-protest-over-payment-defaults-in-thai-oil-project"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:TOP",
+ "undated": 1
+}

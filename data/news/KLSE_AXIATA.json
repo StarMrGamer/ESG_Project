@@ -1,0 +1,54 @@
+{
+ "blocked": false,
+ "company": "Axiata Group",
+ "dated": 4,
+ "errors": [],
+ "gathered_at": "2026-08-25",
+ "items": [
+  {
+   "published_at": "2025-09-30",
+   "source": "techinasia.com",
+   "source_type": "company_pr",
+   "title": "Axiata posts $97.6m profit year-to-date - Tech in Asia",
+   "url": "https://www.techinasia.com/news/axiata-posts-97-6m-profit-year-to-date"
+  },
+  {
+   "published_at": "2025-09-09",
+   "source": "klsescreener.com",
+   "source_type": "company_pr",
+   "title": "Axiata focusing on market consolidation, monetisation, says group CEO",
+   "url": "https://www.klsescreener.com/v2/news/view/1586965/axiata-group-focusing-on-market-consolidation-monetisation-says-group-ceo"
+  },
+  {
+   "published_at": "2025-01-15",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Axiata aims to pare debt, monetise assets this year - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/01/15/axiata-aims-to-pare-debt-monetise-assets-this-year"
+  },
+  {
+   "published_at": "2021-11-29",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Axiata Berhad : Formally Commits to Net Zero, Signs Science-Based ...",
+   "url": "https://www.marketscreener.com/quote/stock/AXIATA-GROUP-6499937/news/Axiata-Berhad-Formally-Commits-to-Net-Zero-Signs-Science-Based-Target-Initiative-Business-Pledge-37153389/"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about Axiata Group - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/AXIATA-GROUP-6499937/news/"
+  },
+  {
+   "published_at": null,
+   "source": "fierce-network.com",
+   "source_type": "company_pr",
+   "title": "Axiata's AI ambition faces triple threat: Vendors, data, people",
+   "url": "https://www.fierce-network.com/broadband/axiatas-ai-ambition-faces-triple-threat-vendors-data-people"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:AXIATA",
+ "undated": 2
+}

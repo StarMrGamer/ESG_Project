@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "Wilmar International",
+ "dated": 8,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-09-25",
+   "source": "straitstimes.com",
+   "source_type": "news",
+   "title": "Shares of Singapore's Wilmar tumble after Indonesian court overturns ...",
+   "url": "https://www.straitstimes.com/business/companies-markets/wilmar-found-guilty-of-corruption-as-indonesias-supreme-court-overturns-previous-acquittal"
+  },
+  {
+   "published_at": "2025-05-29",
+   "source": "wilmar-international.com",
+   "source_type": "company_pr",
+   "title": "PDF News Release - wilmar-international.com",
+   "url": "https://www.wilmar-international.com/docs/default-source/default-document-library/highlights/media-releases/2025/together-we-thrive-charting-the-course-for-climate-action-and-social-impact-wilmar-publishes-sustainability-report-2024.pdf?sfvrsn=45145728_1"
+  },
+  {
+   "published_at": "2024-05-09",
+   "source": "wilmar-international.com",
+   "source_type": "company_pr",
+   "title": "PDF MAYBANK SUPPORTS WILMAR'S ESG COMMITMENTS WITH ... - Wilmar International",
+   "url": "https://www.wilmar-international.com/docs/default-source/default-document-library/highlights/media-releases/2024/maybank_wilmar_sll.pdf?sfvrsn=1b15fb5a_1"
+  },
+  {
+   "published_at": "2024-05-09",
+   "source": "businesstimes.com.sg",
+   "source_type": "news",
+   "title": "Wilmar obtains US$100 million sustainability-linked loan ... - \u5546\u4e1a\u65f6\u62a5",
+   "url": "https://www.businesstimes.com.sg/esg/sustainable-finance/wilmar-obtains-us-100-million-sustainability-linked-loan-maybank"
+  },
+  {
+   "published_at": "2024-05-09",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Wilmar International Limited Secures A Three-Year, $100 Million ...",
+   "url": "https://www.marketscreener.com/quote/stock/WILMAR-INTERNATIONAL-LIMI-6497470/news/Wilmar-International-Limited-Secures-A-Three-Year-100-Million-Sustainability-Linked-Loan-from-Mayb-46678062/"
+  },
+  {
+   "published_at": "2024-05-09",
+   "source": "sg.finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "Wilmar secures US$100 mil sustainability-linked loan from Maybank",
+   "url": "https://sg.finance.yahoo.com/news/wilmar-secures-us-100-mil-014026508.html"
+  },
+  {
+   "published_at": "2024-03-20",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Wilmar International Secures $100 Million Sustainability-Linked Loan ...",
+   "url": "https://www.marketscreener.com/quote/stock/WILMAR-INTERNATIONAL-LIMI-6497470/news/Wilmar-International-Secures-100-Million-Sustainability-Linked-Loan-from-Bank-of-East-Asia-46237065/"
+  },
+  {
+   "published_at": "2024-03-20",
+   "source": "knowesg.com",
+   "source_type": "company_pr",
+   "title": "BEA Grants Wilmar $100M Sustainability Loan - KnowESG",
+   "url": "https://www.knowesg.com/sustainable-finance/bea-grants-wilmar-usd100m-sustainability-loan-20032024"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:WIL",
+ "undated": 0
+}

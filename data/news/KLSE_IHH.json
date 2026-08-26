@@ -1,0 +1,70 @@
+{
+ "blocked": false,
+ "company": "IHH Healthcare Bhd",
+ "dated": 6,
+ "errors": [
+  "\"IHH Healthcare Bhd\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-06-09",
+   "source": "finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "IHH Healthcare Bhd (IHHHF) Q1 2026 Earnings Call Highlights: Strong ...",
+   "url": "https://finance.yahoo.com/sectors/healthcare/articles/ihh-healthcare-bhd-ihhhf-q1-010033816.html"
+  },
+  {
+   "published_at": "2025-10-07",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "IHH's earnings forecast to accelerate - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/10/07/ihhs-earnings-forecast-to-accelerate"
+  },
+  {
+   "published_at": "2025-09-02",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "IHH shares dip to near one-month low after weak 2Q, still, analysts bet ...",
+   "url": "https://theedgemalaysia.com/node/768971"
+  },
+  {
+   "published_at": "2025-08-29",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "IHH Healthcare eyes growth with transformation plan - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/08/29/ihh-healthcare-eyes-growth-with-transformation-plan"
+  },
+  {
+   "published_at": "2025-04-30",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "IHH secures RM996mil UOB loan - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/04/30/ihh-secures-rm996mil-uob-loan"
+  },
+  {
+   "published_at": "2025-04-29",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "IHH Healthcare secures S$300 mil sustainability loan from UOB",
+   "url": "https://theedgemalaysia.com/node/753377"
+  },
+  {
+   "published_at": null,
+   "source": "businesstoday.com.my",
+   "source_type": "company_pr",
+   "title": "EPF Disposes RM63 Million Worth Of IHH Shares",
+   "url": "https://www.businesstoday.com.my/2026/08/02/epf-disposes-rm63-million-worth-of-ihh-shares/"
+  },
+  {
+   "published_at": null,
+   "source": "tipranks.com",
+   "source_type": "company_pr",
+   "title": "IHH Healthcare Sees Major Share Acquisition by EPF",
+   "url": "https://www.tipranks.com/news/company-announcements/ihh-healthcare-sees-major-share-acquisition-by-epf-2"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:IHH",
+ "undated": 2
+}

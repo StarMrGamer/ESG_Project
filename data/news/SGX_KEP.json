@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "Keppel Ltd",
+ "dated": 0,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": null,
+   "source": "bloomberg.com",
+   "source_type": "news",
+   "title": "Keppel's Profit Plunges 59% on Losses of Rigs in Apollo Deal",
+   "url": "https://www.bloomberg.com/news/articles/2026-07-30/keppel-sees-59-profit-plunge-on-losses-of-rigs-in-apollo-deal"
+  },
+  {
+   "published_at": null,
+   "source": "tipranks.com",
+   "source_type": "company_pr",
+   "title": "Keppel beats S$100 billion FUM goal early as investors back ... - TipRanks",
+   "url": "https://www.tipranks.com/news/company-announcements/keppel-beats-s100-billion-fum-goal-early-as-investors-back-digital-and-infrastructure-push"
+  },
+  {
+   "published_at": null,
+   "source": "keppel.com",
+   "source_type": "company_pr",
+   "title": "Keppel's business update for 1Q 2026",
+   "url": "https://www.keppel.com/media/keppels-business-update-for-1q-2026/"
+  },
+  {
+   "published_at": null,
+   "source": "keppel.com",
+   "source_type": "company_pr",
+   "title": "PDF Keppel Ltd. Sustainability Report 2025",
+   "url": "https://www.keppel.com/file/sustainability/sustainability-reports/keppel-sustainability-report-2025.pdf"
+  },
+  {
+   "published_at": null,
+   "source": "jtc.gov.sg",
+   "source_type": "regulator",
+   "title": "Keppel bolsters recurring income with about $600 million in new ...",
+   "url": "https://www.jtc.gov.sg/about-jtc/news-and-stories/industry-news/keppel-bolsters-recurring-income-with-decarbonisation-and-sustainability-solutions"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:KEP",
+ "undated": 5
+}

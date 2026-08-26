@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "Minor International",
+ "dated": 5,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-06-12",
+   "source": "straitstimes.com",
+   "source_type": "news",
+   "title": "Thai hospitality group Minor International said to mull S'pore IPO ...",
+   "url": "https://www.straitstimes.com/business/companies-markets/thai-hospitality-group-minor-international-said-to-mull-spore-ipo-instead-of-hk"
+  },
+  {
+   "published_at": "2026-02-20",
+   "source": "nationthailand.com",
+   "source_type": "company_pr",
+   "title": "Minor International Eyes Singapore REIT Listing and Hong Kong IPO as It ...",
+   "url": "https://www.nationthailand.com/business/corporate/40062774"
+  },
+  {
+   "published_at": "2025-06-13",
+   "source": "linkedin.com",
+   "source_type": "company_pr",
+   "title": "SMBC supports Minor International with EUR 500m ... - LinkedIn",
+   "url": "https://www.linkedin.com/posts/sumitomo-mitsui-banking-corporation_teamsmbc-sustainablefinance-sustainabilitylinkedloan-activity-7339124362110750720-wDGy"
+  },
+  {
+   "published_at": "2025-04-15",
+   "source": "kaohooninternational.com",
+   "source_type": "company_pr",
+   "title": "Minor International Issues THB8 Billion Debentures as Tris Raises ...",
+   "url": "https://www.kaohooninternational.com/markets/557968"
+  },
+  {
+   "published_at": "2024-04-15",
+   "source": "minor.com",
+   "source_type": "company_pr",
+   "title": "Sustainability-Linked Financing Framework | Minor International (MINT)",
+   "url": "https://www.minor.com/en/investor-relations/sustainable-finance/sustainability-linked-financing-framework"
+  },
+  {
+   "published_at": null,
+   "source": "thaitimes.com",
+   "source_type": "company_pr",
+   "title": "Minor International Targets $1.5 Billion Fund-Raise via Singapore REIT ...",
+   "url": "https://thaitimes.com/minor-international-targets-1-5-billion-fund-raise-via-singapore-reit-launch-in-2026"
+  },
+  {
+   "published_at": null,
+   "source": "businesstimes.com.sg",
+   "source_type": "news",
+   "title": "Minor International Latest News & Headlines - The Business Times",
+   "url": "https://www.businesstimes.com.sg/keywords/minor-international"
+  },
+  {
+   "published_at": null,
+   "source": "bloomberg.com",
+   "source_type": "news",
+   "title": "Thai Hotel Giant Minor International Delays $1 Billion REIT Plan",
+   "url": "https://www.bloomberg.com/news/articles/2026-08-13/thai-hotel-giant-minor-international-delays-1-billion-reit-plan"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:MINT",
+ "undated": 3
+}

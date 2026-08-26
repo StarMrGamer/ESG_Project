@@ -1,0 +1,61 @@
+{
+ "blocked": false,
+ "company": "Siam Cement",
+ "dated": 4,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-06-05",
+   "source": "energynews.oedigital.com",
+   "source_type": "company_pr",
+   "title": "Siam Cement, Thailand's Siam Cement division, sells Chandra Asri shares ...",
+   "url": "https://energynews.oedigital.com/mineral-resources/2026/06/05/siam-cement-thailands-siam-cement-division-sells-chandra-asri-shares-for-763-million"
+  },
+  {
+   "published_at": "2025-11-18",
+   "source": "bangkokpost.com",
+   "source_type": "company_pr",
+   "title": "Siam Cement commits another $500m to Vietnam - Bangkok Post",
+   "url": "https://www.bangkokpost.com/business/general/3139905/siam-cement-commits-anther-500m-to-vietnam"
+  },
+  {
+   "published_at": "2025-08-01",
+   "source": "bangkokpost.com",
+   "source_type": "company_pr",
+   "title": "Siam Cement Group intends to stay lean to compete in 2025",
+   "url": "https://www.bangkokpost.com/business/general/3079333/siam-cement-group-intends-to-stay-lean-to-compete-in-2025"
+  },
+  {
+   "published_at": "2024-11-04",
+   "source": "thaitimes.com",
+   "source_type": "company_pr",
+   "title": "Siam Cement Group Suspends Operations at Vietnam Petrochemical Complex",
+   "url": "https://thaitimes.com/siam-cement-group-suspends-operations-at-vietnam-petrochemical-complex"
+  },
+  {
+   "published_at": null,
+   "source": "nationthailand.com",
+   "source_type": "company_pr",
+   "title": "Siam Cement all news related to - nationthailand.com",
+   "url": "https://www.nationthailand.com/tags/Siam%20Cement"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about The Siam Cement - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/THE-SIAM-CEMENT-6491597/news/"
+  },
+  {
+   "published_at": null,
+   "source": "market.sec.or.th",
+   "source_type": "company_pr",
+   "title": "Financial Statement (Full version) - THE SIAM CEMENT PUBLIC COMPANY LIMITED",
+   "url": "https://market.sec.or.th/public/idisc/en/viewmore/fs-full?searchSymbol=SCC"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:SCC",
+ "undated": 3
+}

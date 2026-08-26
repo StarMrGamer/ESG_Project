@@ -1,0 +1,29 @@
+{
+ "blocked": false,
+ "company": "PTT Exploration & Production",
+ "dated": 1,
+ "errors": [
+  "\"PTT Exploration & Production\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)",
+  "\"PTT Exploration & Production\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-04-30",
+   "source": "publicnow.com",
+   "source_type": "company_pr",
+   "title": "PTT Exploration & Production pcl (via Public) / PTTEP reports operating ...",
+   "url": "https://www.publicnow.com/view/3B2DCBCFF4D4CF363FD79D415FB1B0DAE60DFC2F"
+  },
+  {
+   "published_at": null,
+   "source": "finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "PTT Exploration & Production PCL (PTT.SG) Latest Stock News & Headlines ...",
+   "url": "https://finance.yahoo.com/quote/PTT.SG/news/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:PTTEP",
+ "undated": 1
+}

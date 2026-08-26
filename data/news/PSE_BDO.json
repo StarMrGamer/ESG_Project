@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "BDO Unibank Inc",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-07-29",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "BDO raises P132 billion from sustainability bonds - Philstar.com",
+   "url": "https://www.philstar.com/business/2026/07/29/2545397/bdo-raises-p132-billion-sustainability-bonds"
+  },
+  {
+   "published_at": "2026-07-28",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "BDO earns P40.7 billion in 6 months - Philstar.com",
+   "url": "https://www.philstar.com/business/2026/07/28/2545135/bdo-earns-p407-billion-6-months"
+  },
+  {
+   "published_at": "2026-01-27",
+   "source": "philstar.com",
+   "source_type": "company_pr",
+   "title": "BDO raises P100 billion from sustainability bond offer",
+   "url": "https://www.philstar.com/business/2026/01/27/2503674/bdo-raises-p100-billion-sustainability-bond-offer"
+  },
+  {
+   "published_at": null,
+   "source": "mb.com.ph",
+   "source_type": "company_pr",
+   "title": "BDO raises \u20b1132 billion from ASEAN sustainability ... - Manila Bulletin",
+   "url": "https://mb.com.ph/2026/07/28/bdo-raises-132-billion-from-asean-sustainability-bonds-in-just-one-day-amid-massive-demand"
+  },
+  {
+   "published_at": null,
+   "source": "business.inquirer.net",
+   "source_type": "company_pr",
+   "title": "Record high: BDO raises P100B from sustainability bonds",
+   "url": "https://business.inquirer.net/570819/record-high-bdo-raises-p100b-from-sustainability-bonds"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:BDO",
+ "undated": 2
+}

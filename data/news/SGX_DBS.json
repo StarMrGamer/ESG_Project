@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "DBS Group",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-05",
+   "source": "forbes.com",
+   "source_type": "company_pr",
+   "title": "DBS Group CEO Tan Su Shan Leads Southeast Asia's Largest ... - Forbes",
+   "url": "https://www.forbes.com/sites/jessicatan/2026/08/05/dbs-group-ceo-tan-su-shan-leads-southeast-asias-largest-bank-into-the-ai-era/"
+  },
+  {
+   "published_at": "2026-04-13",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "DBS Group Holdings Ltd Announces Executive Changes, Effective 13 April ...",
+   "url": "https://www.marketscreener.com/news/dbs-group-holdings-ltd-announces-executive-changes-effective-13-april-2026-ce7e50ded089fe27"
+  },
+  {
+   "published_at": "2025-02-28",
+   "source": "ditchcarbon.com",
+   "source_type": "company_pr",
+   "title": "DBS Group Holdings Ltd Emissions Breakdown & Climate Score | DitchCarbon",
+   "url": "https://ditchcarbon.com/organizations/dbs-group-holdings-ltd"
+  },
+  {
+   "published_at": null,
+   "source": "reuters.com",
+   "source_type": "news",
+   "title": "DBS shares scale record high as bank lifts forecast after profit beat",
+   "url": "https://www.reuters.com/world/asia-pacific/singapore-bank-dbss-second-quarter-profit-rises-9-lifts-full-year-guidance-2026-08-05/"
+  },
+  {
+   "published_at": null,
+   "source": "finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "DBS Group Holdings Ltd (D05.SI) Latest Stock News & Headlines - Yahoo ...",
+   "url": "https://finance.yahoo.com/quote/D05.SI/news/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:DBS",
+ "undated": 2
+}

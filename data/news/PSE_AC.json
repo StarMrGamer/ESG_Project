@@ -1,0 +1,61 @@
+{
+ "blocked": false,
+ "company": "Ayala Corporation",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-05-11",
+   "source": "ayala.com",
+   "source_type": "company_pr",
+   "title": "Ayala Corporation secures US$100 million sustainability-linked facility ...",
+   "url": "https://ayala.com/ayala-corporation-secures-us100-million-sustainability-linked-facility-from-dbs/"
+  },
+  {
+   "published_at": "2026-04-24",
+   "source": "abs-cbn.com",
+   "source_type": "company_pr",
+   "title": "Ayala Corp still optimistic on growth despite global headwinds",
+   "url": "https://www.abs-cbn.com/news/business/2026/4/24/ayala-corp-still-optimistic-on-growth-despite-global-headwinds-1647"
+  },
+  {
+   "published_at": "2023-12-12",
+   "source": "ayala.com",
+   "source_type": "company_pr",
+   "title": "Ayala signs landmark sustainability-linked credit ... - Ayala Corporation",
+   "url": "https://ayala.com/ayala-signs-landmark-sustainability-linked-credit-facilities-with-mufg-sun-life/"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about Ayala Corporation - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/AYALA-CORPORATION-6492273/news/"
+  },
+  {
+   "published_at": null,
+   "source": "prnewswire.com",
+   "source_type": "company_pr",
+   "title": "Ayala Corporation News and Press Releases | PR Newswire",
+   "url": "https://www.prnewswire.com/news/ayala-corporation/"
+  },
+  {
+   "published_at": null,
+   "source": "manilastandard.net",
+   "source_type": "company_pr",
+   "title": "Ayala signs global partnerships, secures $300 million in funding deals",
+   "url": "https://manilastandard.net/?p=314682138"
+  },
+  {
+   "published_at": null,
+   "source": "seekingalpha.com",
+   "source_type": "company_pr",
+   "title": "Ayala Corporation (AYALY) Latest Press Releases - Seeking Alpha",
+   "url": "https://seekingalpha.com/symbol/AYALY/press-releases"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "PSE:AC",
+ "undated": 4
+}

@@ -1,0 +1,61 @@
+{
+ "blocked": false,
+ "company": "United Overseas Bank",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-07-01",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank Limited Announces Board and Committee Changes ...",
+   "url": "https://www.marketscreener.com/news/united-overseas-bank-limited-announces-board-and-committee-changes-effective-july-1-2026-ce7f5fdbdf81f027"
+  },
+  {
+   "published_at": "2026-03-19",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank : UOB Sustainability Report 2025",
+   "url": "https://www.marketscreener.com/news/united-overseas-bank-uob-sustainability-report-2025-ce7e5eded881f325"
+  },
+  {
+   "published_at": "2023-12-20",
+   "source": "ditchcarbon.com",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank Emissions Breakdown & Climate Score | DitchCarbon",
+   "url": "https://ditchcarbon.com/organizations/united-overseas-bank"
+  },
+  {
+   "published_at": null,
+   "source": "capitalmarkets.sg",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank (UOB) News & Press Releases",
+   "url": "https://capitalmarkets.sg/banks/united-overseas-bank-limited/news/"
+  },
+  {
+   "published_at": null,
+   "source": "banking.einnews.com",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank News Monitoring Service & Press Release ...",
+   "url": "https://banking.einnews.com/news/united-overseas-bank"
+  },
+  {
+   "published_at": null,
+   "source": "sg.finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank Ltd (UOB.SG) latest stock news and headlines ...",
+   "url": "https://sg.finance.yahoo.com/quote/UOB.SG/news/"
+  },
+  {
+   "published_at": null,
+   "source": "sustainabilityreports.com",
+   "source_type": "company_pr",
+   "title": "United Overseas Bank Ltd 2025 Bond Impact Report - Free PDF",
+   "url": "https://www.sustainabilityreports.com/united-overseas-bank/2025/sustainability-bond-allocation-and-impact-report"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:UOB",
+ "undated": 4
+}

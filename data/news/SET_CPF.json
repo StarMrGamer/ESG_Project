@@ -1,0 +1,42 @@
+{
+ "blocked": false,
+ "company": "Charoen Pokphand Foods PCL",
+ "dated": 2,
+ "errors": [
+  "\"Charoen Pokphand Foods PCL\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-20",
+   "source": "markets.ft.com",
+   "source_type": "company_pr",
+   "title": "Charoen Pokphand Foods PCL, CPF:SET summary - FT.com",
+   "url": "https://markets.ft.com/data/equities/tearsheet/summary?s=CPF:SET"
+  },
+  {
+   "published_at": "2026-05-10",
+   "source": "thefoundersmagazine.com",
+   "source_type": "company_pr",
+   "title": "Thai Billionaire's CP Foods Acquires Itochu's Stake in CP Pokphand for ...",
+   "url": "https://www.thefoundersmagazine.com/markets/thai-billionaires-cp-foods-acquires-itochus-stake-in-cp-pokphand-for-1-1-billion-a-strategic-play-to-strengthen-global-agri-food-leadership/"
+  },
+  {
+   "published_at": null,
+   "source": "nationthailand.com",
+   "source_type": "company_pr",
+   "title": "Charoen Pokphand Foods all news related to - nationthailand.com",
+   "url": "https://www.nationthailand.com/tags/Charoen%20Pokphand%20Foods"
+  },
+  {
+   "published_at": null,
+   "source": "markets.ft.com",
+   "source_type": "company_pr",
+   "title": "Charoen Pokphand Foods PCL, CPF:SET profile - FT.com",
+   "url": "https://markets.ft.com/data/equities/tearsheet/profile?s=CPF:SET"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:CPF",
+ "undated": 2
+}

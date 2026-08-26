@@ -1,0 +1,63 @@
+{
+ "blocked": false,
+ "company": "OCBC",
+ "dated": 1,
+ "errors": [
+  "\"OCBC\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-02-05",
+   "source": "sg.news.yahoo.com",
+   "source_type": "company_pr",
+   "title": "Billionaire doctor in boardroom key to OCBC's ... - Yahoo News Singapore",
+   "url": "https://sg.news.yahoo.com/billionaire-owners-seen-posing-challenge-for-new-ocbc-chief-tan-teck-long-032741145.html"
+  },
+  {
+   "published_at": null,
+   "source": "businesstimes.com.sg",
+   "source_type": "news",
+   "title": "OCBC Latest News & Headlines - The Business Times",
+   "url": "https://www.businesstimes.com.sg/keywords/ocbc"
+  },
+  {
+   "published_at": null,
+   "source": "channelnewsasia.com",
+   "source_type": "news",
+   "title": "OCBC latest news & coverage - CNA",
+   "url": "https://www.channelnewsasia.com/topic/ocbc"
+  },
+  {
+   "published_at": null,
+   "source": "sginvestors.io",
+   "source_type": "company_pr",
+   "title": "OCBC Latest Announcements (SGX:O39) | SGinvestors.io",
+   "url": "https://sginvestors.io/sgx/stock/o39-ocbc-bank/company-announcement"
+  },
+  {
+   "published_at": null,
+   "source": "sginvestors.io",
+   "source_type": "company_pr",
+   "title": "OCBC Latest News (SGX:O39) | SGinvestors.io",
+   "url": "https://sginvestors.io/sgx/stock/o39-ocbc-bank/news-article"
+  },
+  {
+   "published_at": null,
+   "source": "asiaone.com",
+   "source_type": "company_pr",
+   "title": "AsiaOne OCBC News, Get the Latest OCBC Breaking News at AsiaOne",
+   "url": "https://www.asiaone.com/tags/ocbc"
+  },
+  {
+   "published_at": null,
+   "source": "ocbc.com",
+   "source_type": "company_pr",
+   "title": "PDF ocbc-sustainability-report-2025",
+   "url": "https://www.ocbc.com/iwov-resources/sg/ocbc/gbc/pdf/ocbc-sustainability-report-2025.pdf"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SGX:OCBC",
+ "undated": 6
+}

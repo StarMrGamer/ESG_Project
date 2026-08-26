@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "Petronas Chemicals Group",
+ "dated": 3,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-07-01",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "Petronas buyout of PPC stake seen lifting PetChem's earnings",
+   "url": "https://www.nst.com.my/business/corporate/2026/07/1477425/petronas-buyout-ppc-stake-seen-lifting-petchems-earnings"
+  },
+  {
+   "published_at": "2026-06-30",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "PETRONAS Chemicals' 2Q net profit jumps to RM414mil amid strong demand ...",
+   "url": "https://www.thestar.com.my/business/business-news/2026/08/19/petronas-chemicals039-2q-net-profit-jumps-to-rm414mil-amid-strong-demand-higher-product-spreads"
+  },
+  {
+   "published_at": "2025-06-30",
+   "source": "themalaysianreserve.com",
+   "source_type": "company_pr",
+   "title": "Petronas Chemicals posts RM1.08b net loss in 2Q; to review business ...",
+   "url": "https://themalaysianreserve.com/2025/08/13/petronas-chemicals-posts-rm1-08b-net-loss-in-2q-to-review-business-portfolio/"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about PETRONAS Chemicals Group - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/PETRONAS-CHEMICALS-GROUP-8071877/news/"
+  },
+  {
+   "published_at": null,
+   "source": "reuters.com",
+   "source_type": "news",
+   "title": "Petronas Chemicals reports higher revenue and profit but flags ...",
+   "url": "https://www.reuters.com/world/asia-pacific/petronas-chemicals-reports-higher-revenue-profit-flags-challenging-outlook-year-2026-08-19/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:PCHEM",
+ "undated": 2
+}

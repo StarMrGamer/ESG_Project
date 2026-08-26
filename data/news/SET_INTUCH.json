@@ -1,0 +1,43 @@
+{
+ "blocked": false,
+ "company": "Intouch Holdings PCL",
+ "dated": 2,
+ "errors": [
+  "\"Intouch Holdings PCL\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)",
+  "\"Intouch Holdings PCL\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2025-12-31",
+   "source": "ad-hoc-news.de",
+   "source_type": "company_pr",
+   "title": "The Truth About Intouch Holdings PCL: Is This Low-Key ... - ad-hoc-news",
+   "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/the-truth-about-intouch-holdings-pcl-is-this-low-key-thai-telecom-giant-a/68442577"
+  },
+  {
+   "published_at": "2024-10-03",
+   "source": "akm.ru",
+   "source_type": "company_pr",
+   "title": "Thai Gulf Energy shareholders approve $30 billion merger with Intouch",
+   "url": "https://www.akm.ru/eng/news/thai-gulf-energy-shareholders-approve-30-billion-merger-with-intouch/"
+  },
+  {
+   "published_at": null,
+   "source": "ad-hoc-news.de",
+   "source_type": "company_pr",
+   "title": "Intouch Holdings balances portfolio exposure as investors assess ...",
+   "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/intouch-holdings-balances-portfolio-exposure-as-investors-assess-regional/69689806"
+  },
+  {
+   "published_at": null,
+   "source": "sg.finance.yahoo.com",
+   "source_type": "company_pr",
+   "title": "Intouch Holdings PCL (SWTF.BE) latest stock news and headlines - Yahoo ...",
+   "url": "https://sg.finance.yahoo.com/quote/SWTF.BE/news/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:INTUCH",
+ "undated": 2
+}

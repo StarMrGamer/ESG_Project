@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "Hong Leong Bank",
+ "dated": 5,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-03",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Moody's affirms Hong Leong Bank's A3 ratings, maintains stable outlook ...",
+   "url": "https://www.thestar.com.my/business/business-news/2026/08/03/moody039s-affirms-hong-leong-bank039s-a3-ratings-maintains-stable-outlook"
+  },
+  {
+   "published_at": "2026-07-31",
+   "source": "therakyatpost.com",
+   "source_type": "company_pr",
+   "title": "Hong Leong Bank's Wealth Arm Bags Six Awards As It Doubles Down On ...",
+   "url": "https://www.therakyatpost.com/news/2026/07/31/hong-leong-banks-wealth-arm-bags-six-awards-as-it-doubles-down-on-private-markets/"
+  },
+  {
+   "published_at": "2026-05-29",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "Hong Leong Bank seen gaining momentum in Q4 FY26 on wealth recovery ...",
+   "url": "https://www.nst.com.my/business/corporate/2026/05/1450810/hong-leong-bank-seen-gaining-momentum-q4-fy26-wealth-recovery"
+  },
+  {
+   "published_at": "2025-08-28",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Hong Leong Bank ends FY25 on solid footing - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/08/28/hong-leong-bank-ends-fy25-on-solid-footing"
+  },
+  {
+   "published_at": "2024-10-29",
+   "source": "digitalnewsasia.com",
+   "source_type": "company_pr",
+   "title": "Hong Leong Bank unveils sustainable finance framework with US$4.5 ...",
+   "url": "https://www.digitalnewsasia.com/sustainability-matters/hong-leong-bank-unveils-sustainable-finance-framework-us45-billion-commitment"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about Hong Leong Bank - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/HONG-LEONG-BANK-6491232/news/"
+  },
+  {
+   "published_at": null,
+   "source": "hlb.com.my",
+   "source_type": "company_pr",
+   "title": "Hong Leong Bank Launches Inaugural Sustainable Finance Framework",
+   "url": "https://www.hlb.com.my/en/personal-banking/news-updates/hlb-launches-inaugural-sustainable-finance-framework.html"
+  },
+  {
+   "published_at": null,
+   "source": "hlb.com.my",
+   "source_type": "company_pr",
+   "title": "PDF HLB Sustainable Finance Framework 2025 - Hong Leong Bank Malaysia",
+   "url": "https://www.hlb.com.my/content/dam/hlb/my/docs/pdf/About-Us/Investor-Relations/Capital-and-Debt-Securities/hlb-sustainable-finance-framework-2025.pdf"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:HLBK",
+ "undated": 3
+}

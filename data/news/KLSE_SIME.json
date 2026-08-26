@@ -1,0 +1,64 @@
+{
+ "blocked": false,
+ "company": "Sime Darby Bhd",
+ "dated": 6,
+ "errors": [
+  "\"Sime Darby Bhd\" sustainability OR ESG OR emissions news: DuckDuckGo HTML returned no parseable results (challenge page?)",
+  "\"Sime Darby Bhd\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-05-07",
+   "source": "freemalaysiatoday.com",
+   "source_type": "company_pr",
+   "title": "Sime Darby to take hit from new imported EV regulations",
+   "url": "https://www.freemalaysiatoday.com/category/highlight/2026/05/07/sime-darby-to-take-hit-from-new-imported-ev-regulations"
+  },
+  {
+   "published_at": "2025-09-16",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Sime Darby industrial gains to drive growth - The Star",
+   "url": "https://www.thestar.com.my/business/business-news/2025/09/16/sime-darby-industrial-gains-to-drive-growth"
+  },
+  {
+   "published_at": "2025-08-27",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Sime Darby wraps challenging FY25 with net profit of RM2.06bil",
+   "url": "https://www.thestar.com.my/business/business-news/2025/08/27/sime-darby-wraps-challenging-fy25-with-net-profit-of-rm206bil"
+  },
+  {
+   "published_at": "2025-08-27",
+   "source": "nst.com.my",
+   "source_type": "company_pr",
+   "title": "Sime Darby results spark buying frenzy, rockets to three-month high",
+   "url": "https://www.nst.com.my/business/corporate/2025/08/1266478/sime-darby-results-spark-buying-frenzy-rockets-three-month-high"
+  },
+  {
+   "published_at": "2025-06-30",
+   "source": "theedgemalaysia.com",
+   "source_type": "news",
+   "title": "Sime Darby posts 4Q earnings of RM763m on one-off land gain, strong UMW ...",
+   "url": "https://theedgemalaysia.com/node/768327"
+  },
+  {
+   "published_at": "2025-06-30",
+   "source": "malaymail.com",
+   "source_type": "news",
+   "title": "Sime Darby posts RM2.06b net profit for FY2025 - Malay Mail",
+   "url": "https://www.malaymail.com/news/money/2025/08/27/sime-darby-posts-rm206b-net-profit-for-fy2025/189089"
+  },
+  {
+   "published_at": null,
+   "source": "businesstoday.com.my",
+   "source_type": "company_pr",
+   "title": "Sime Darby's Industrial Pivot, Risky Or Rewarding?",
+   "url": "https://www.businesstoday.com.my/2026/02/12/sime-darbys-industrial-pivot-risky-or-rewarding/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:SIME",
+ "undated": 1
+}

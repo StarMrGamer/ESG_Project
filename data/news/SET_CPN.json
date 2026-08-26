@@ -1,0 +1,68 @@
+{
+ "blocked": false,
+ "company": "Central Pattana",
+ "dated": 7,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-08-14",
+   "source": "thethaiger.com",
+   "source_type": "company_pr",
+   "title": "Central Pattana reports strong Q2 2026 results as core ... - Thaiger",
+   "url": "https://thethaiger.com/news/business/central-pattana-reports-strong-q2-2026-results-as-core-business-reaches-new-high"
+  },
+  {
+   "published_at": "2026-07-07",
+   "source": "worldconstructionnetwork.com",
+   "source_type": "company_pr",
+   "title": "Central Pattana, Mitsubishi Estate share $330m project in Thailand",
+   "url": "https://www.worldconstructionnetwork.com/news/central-pattana-mitsubishi-thailand/"
+  },
+  {
+   "published_at": "2026-04-08",
+   "source": "prnewswire.com",
+   "source_type": "company_pr",
+   "title": "Central Pattana Announces $3 Billion Investment to Expand Mixed-Use ...",
+   "url": "https://www.prnewswire.com/news-releases/central-pattana-announces-3-billion-investment-to-expand-mixed-use-developments-across-thailand-302736826.html"
+  },
+  {
+   "published_at": "2026-03-26",
+   "source": "thethaiger.com",
+   "source_type": "company_pr",
+   "title": "Central Pattana sets out for 33 mixed-use projects under 110 ... - Thaiger",
+   "url": "https://thethaiger.com/guides/best-of/lifestyle/central-pattana-sets-out-33-mixed-use-projects-under-110-billion-baht-plan-for-2026-to-2030"
+  },
+  {
+   "published_at": "2024-09-25",
+   "source": "devdiscourse.com",
+   "source_type": "company_pr",
+   "title": "IFC Invests in Central Pattana's First Sustainability-Linked Bond to ...",
+   "url": "https://www.devdiscourse.com/article/business/3098917-ifc-invests-in-central-pattanas-first-sustainability-linked-bond-to-accelerate-green-transition"
+  },
+  {
+   "published_at": "2024-09-25",
+   "source": "technode.global",
+   "source_type": "company_pr",
+   "title": "IFC invests $100M in sustainability-linked bond issued by Central ...",
+   "url": "https://technode.global/2024/09/25/ifc-invests-100m-in-sustainability-linked-bond-issued-by-central-pattana-in-thailand/"
+  },
+  {
+   "published_at": "2024-09-24",
+   "source": "ifc.org",
+   "source_type": "company_pr",
+   "title": "IFC Invests in Sustainability-Linked Bond Issued by Central Pattana in ...",
+   "url": "https://www.ifc.org/en/pressroom/2024/ifc-invests-in-sustainability-linked-bond-issued-by-central-pattana-in-thailand"
+  },
+  {
+   "published_at": null,
+   "source": "centralpattana.co.th",
+   "source_type": "company_pr",
+   "title": "Central Pattana unveils THB 21 Billion mega project \"The Central ...",
+   "url": "https://www.centralpattana.co.th/en/shopping/shopping-update/lifestyle-activities/1501/central-pattana-unveils-thb-21-billion-mega-project-the-central-phaholyothin-the-flagship-of-the-future-set-to-become-the-landmark-of-northern-bangkok"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "SET:CPN",
+ "undated": 1
+}

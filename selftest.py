@@ -1694,16 +1694,32 @@ def test_quotes_mapping_gaps_and_offline():
 
     assert quotes.yahoo_symbol("SGX:D05") == "D05.SI"
     assert quotes.yahoo_symbol("IDX:BBRI") == "BBRI.JK"
-    assert quotes.yahoo_symbol("PSE:AC") is None, "PSE is a documented gap, not a guess"
+    # PSE is not on the Yahoo path at all — it has its own provider, so no symbol is guessed.
+    assert quotes.yahoo_symbol("PSE:AC") is None, "PSE is not keyed by a Yahoo symbol"
     assert quotes.yahoo_symbol("nonsense") is None
 
     # The fictional demo universe must never be handed a price.
     demo = quotes.quote("SGX:DBKO", demo=True)
     assert demo["available"] is False and "fictional" in demo["reason"]
 
-    # A documented gap explains itself rather than saying "unavailable".
-    gap = quotes.quote("PSE:AC")
-    assert gap["available"] is False and "Philippine" in gap["reason"]
+    # PSE used to be a documented gap: the only instruments on the main source are US OTC ADRs,
+    # a different security, and showing one under the local ticker would be a quiet substitution.
+    # It is now served from the PSE's OWN board instead — a real local line in PHP, and the
+    # company name is read back and compared to ours before any price is shown.
+    ph = quotes.quote("PSE:AC", company="Ayala Corporation")
+    assert ph["available"] and ph["currency"] == "PHP", ph
+    assert ph["exchange"] == "Philippine Stock Exchange", ph
+    # The stored snapshot answers first and is trusted — it was written only AFTER the name check
+    # passed at capture time — so the guard itself is exercised on the live path, not through it.
+    saved_prices, quotes._PRICES = quotes._PRICES, {}
+    try:
+        wrong = quotes.quote("PSE:AC", company="Some Other Company Bhd")
+        assert wrong["available"] is False, "a name that is not ours must never return a price"
+    finally:
+        quotes._PRICES = saved_prices
+
+    # A gap that remains a gap still explains itself rather than saying "unavailable".
+    assert "Vietnamese" in (quotes.gap_reason("HOSE:REE") or "")
 
     # A dead network degrades, never raises (HARD RULE 1).
     saved = quotes.core.http_get
@@ -2051,6 +2067,103 @@ def test_failed_harvest_cannot_erase_stored_evidence():
             os.remove(path)
 
 
+def test_market_symbols_are_a_column_not_a_name_search():
+    """Prices resolve through an audited column, and only for confirmed EQUITIES.
+
+    Our tickers carry mnemonics; Singapore and Malaysia key their listings by the exchange's own
+    code, so "DBS.SI" and "RHBBANK.KL" do not exist and 32 of 52 had no price. The gap is closed
+    by `data/market_symbols.csv`, resolved once offline — never by a runtime name search, which
+    is how Malaysia Airports once rendered I-Bhd's data under Malaysia Airports' name.
+    """
+    import csv as _csv
+    import quotes
+    from scripts.resolve_market_symbols import matches
+
+    with open(os.path.join(ROOT, "data/market_symbols.csv"), newline="", encoding="utf-8") as fh:
+        rows = list(_csv.DictReader(fh))
+    assert len(rows) == 52, len(rows)
+    resolved = [r for r in rows if r["symbol"]]
+    assert len(resolved) >= 43, len(resolved)
+
+    # the column, not the naive construction, is what the runtime reads
+    assert quotes.yahoo_symbol("SGX:DBS") == "D05.SI", quotes.yahoo_symbol("SGX:DBS")
+    assert quotes.yahoo_symbol("KLSE:RHBBANK") == "1066.KL"
+    assert quotes.yahoo_symbol("SET:PTT") == "PTT.BK"        # already right, left alone
+
+    # the two DELISTED names must never carry a symbol, and PSE is not on this source at all
+    for tk in ("KLSE:MAHB", "SET:INTUCH"):
+        assert not [r for r in resolved if r["ticker"] == tk], tk
+    assert not [r for r in resolved if r["ticker"].startswith("PSE:")]
+
+    # ...but the Philippine names DO have prices, from the PSE's own board rather than from a
+    # US OTC ADR standing in for the local line. Verified by NAME before a price is shown.
+    prices = json.load(open(os.path.join(ROOT, "data/market_prices.json"), encoding="utf-8"))
+    stored_quotes = prices.get("quotes") or {}
+    for tk in ("PSE:AC", "PSE:BDO", "PSE:SMPH"):
+        row = stored_quotes.get(tk)
+        assert row and row.get("currency") == "PHP", (tk, row)
+        assert row.get("exchange") == "Philippine Stock Exchange", row
+        assert "phisix" in (row.get("source") or ""), row
+    # the guard: a code whose name is not our company yields nothing
+    assert quotes._pse_quote("PSE:AC", "Totally Different Company") is None
+    assert quotes._same_company("SM Investments Corp", "SM Investments Corporation")
+    assert not quotes._same_company("Ayala Corporation", "Ayala Land, Inc.")
+
+    # a delisted constituent has no price ANYWHERE, and that is the finding, not a gap
+    for tk in ("KLSE:MAHB", "SET:INTUCH"):
+        assert tk not in stored_quotes, tk
+    assert len(stored_quotes) == 50, len(stored_quotes)
+
+    # every resolved row names the company the EXCHANGE files it under, and it has to be ours
+    for r in resolved:
+        ok, why = matches(r["company"], r["resolved_name"])
+        assert ok or r["basis"].startswith("manual"), (r["ticker"], r["resolved_name"], why)
+        assert r["currency"], r["ticker"]
+
+    # the trap this exists to stop: a fund that merely MENTIONS the company is not the company
+    assert not matches("OCBC", "Lion-OCBC Securities APAC Financials Dividend Plus ETF")[0]
+    assert matches("OCBC", "Oversea-Chinese Banking Corporation Limited")[0]
+    assert matches("Bangkok Dusit Med Service",
+                   "Bangkok Dusit Medical Services Public Company Limited")[0]
+
+
+def test_news_is_gathered_never_written():
+    """Headlines are copied from search results, guarded, and a blocked sweep cannot erase them.
+
+    There is no LLM anywhere in `news.py`: a search result already IS a title and a URL, so asking
+    a model to produce one would only create a chance to invent one. The guards are the module.
+    """
+    import news
+
+    # 1 - the headline has to name THIS company. A search for a mid-cap returns its neighbours,
+    #     and a story about the wrong one under this one's name is the resolve_ric failure again.
+    assert news.names_the_company("RHB gets BNM nod on insurance disposal", "RHB Bank Bhd")
+    assert not news.names_the_company("Maybank posts record quarter", "RHB Bank Bhd")
+
+    # 2 - a stock-quote page is not a story, however well it matches the name
+    assert not news.is_article("DBS Group Holdings Ltd | Reuters", "DBS Group")
+    assert not news.is_article("RHB Bank Bhd: Official Announcements - Stock Market News", "RHB Bank Bhd")
+    assert news.is_article("Higher total income buoys RHB Bank showing - The Star", "RHB Bank Bhd")
+
+    # 3 - a date is the article's own or it is absent; a future date is never a publication date
+    today = "2026-08-25"
+    assert news._dated("18 April 2024 the bank said", today) == "2024-04-18"
+    assert news._dated("aims for net zero by 2050", today) is None      # the harvest's own bug
+    assert news._dated("no date here at all", today) is None
+    # A bare year resolves to a mid-year placeholder (`stated_year`), which is an ordering aid and
+    # NOT a publication date. The card would print it as one, so it is refused.
+    assert news._dated("in 2024 the bank raised", today) is None
+
+    # 4 - THE ONE THAT MATTERS: a throttled sweep must not replace real headlines with nothing.
+    blocked = {"ticker": "TEST:X", "items": [], "blocked": True}
+    saved, why = news.save_unless_worse(blocked)
+    assert saved is None and "blocked" in (why or ""), (saved, why)
+
+    # and the green-bond angle is in the list, because issuance is what moves N to M
+    assert any("green bond" in a for a in news.ANGLES), news.ANGLES
+    assert len(news.ANGLES) == 3, news.ANGLES
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2181,6 +2294,10 @@ def main():
          lambda: test_rationale_always_states_the_case_against()),
         ("a failed harvest cannot erase stored evidence",
          lambda: test_failed_harvest_cannot_erase_stored_evidence()),
+        ("market symbols are an audited column, equities only",
+         lambda: test_market_symbols_are_a_column_not_a_name_search()),
+        ("news is gathered and guarded, never written by a model",
+         lambda: test_news_is_gathered_never_written()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0

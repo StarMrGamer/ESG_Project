@@ -1,0 +1,56 @@
+{
+ "blocked": false,
+ "company": "Charoen Pokphand Indonesia",
+ "dated": 5,
+ "errors": [
+  "\"Charoen Pokphand Indonesia\" green bond OR sustainability-linked OR sukuk OR transition finance: DuckDuckGo HTML returned no parseable results (challenge page?)"
+ ],
+ "gathered_at": "2026-08-25",
+ "items": [
+  {
+   "published_at": "2026-08-24",
+   "source": "investing.com",
+   "source_type": "company_pr",
+   "title": "Charoen Pokphand Indonesia News Today (CPIN) - Investing.com",
+   "url": "https://www.investing.com/equities/charoen-pokpha-news"
+  },
+  {
+   "published_at": "2026-04-09",
+   "source": "industri.kontan.co.id",
+   "source_type": "company_pr",
+   "title": "Prospek Charoen Pokphand (CPIN) Terjaga di 2026, Ada Katalis Pengerek Laba",
+   "url": "https://industri.kontan.co.id/news/prospek-charoen-pokphand-cpin-terjaga-di-2026-ada-katalis-pengerek-laba"
+  },
+  {
+   "published_at": "2026-04-08",
+   "source": "investasi.kontan.co.id",
+   "source_type": "company_pr",
+   "title": "Simak Prospek Charoen Pokphand (CPIN) Usai Laba Bersih Melonjak 52% ...",
+   "url": "https://investasi.kontan.co.id/news/simak-prospek-charoen-pokphand-cpin-usai-laba-bersih-melonjak-52-pada-2025"
+  },
+  {
+   "published_at": "2025-09-30",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "PT Charoen Pokphand Indonesia Tbk Reports Earnings Results for the Nine ...",
+   "url": "https://www.marketscreener.com/news/pt-charoen-pokphand-indonesia-tbk-reports-earnings-results-for-the-nine-months-ended-september-30-2-ce7d5cd8d08cf62c"
+  },
+  {
+   "published_at": "2025-09-30",
+   "source": "investasi.kontan.co.id",
+   "source_type": "company_pr",
+   "title": "Melonjak 41%, Charoen Pokhpand (CPIN) Raup Laba Rp 3,36 Triliun per ...",
+   "url": "https://investasi.kontan.co.id/news/melonjak-41-charoen-pokhpand-cpin-raup-laba-rp-336-triliun-per-september-2025"
+  },
+  {
+   "published_at": null,
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Latest news about PT Charoen Pokphand Indonesia Tbk - MarketScreener",
+   "url": "https://www.marketscreener.com/quote/stock/PT-CHAROEN-POKPHAND-INDON-111965965/news/"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "IDX:CPIN",
+ "undated": 1
+}

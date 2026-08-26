@@ -1,0 +1,47 @@
+{
+ "blocked": false,
+ "company": "Malaysia Airports Holdings Bhd",
+ "dated": 5,
+ "errors": [],
+ "gathered_at": "2026-08-26",
+ "items": [
+  {
+   "published_at": "2026-07-01",
+   "source": "malaymail.com",
+   "source_type": "news",
+   "title": "Khazanah backs PAC recommendations to strengthen Malaysia's airport ...",
+   "url": "https://www.malaymail.com/news/malaysia/2026/07/01/khazanah-backs-pac-recommendations-to-strengthen-airport-ecosystem/225994"
+  },
+  {
+   "published_at": "2026-06-29",
+   "source": "astroawani.com",
+   "source_type": "company_pr",
+   "title": "Malaysia Airports percepat transformasi selepas penstrukturan semula",
+   "url": "https://www.astroawani.com/berita-bisnes/malaysia-airports-percepat-transformasi-selepas-penstrukturan-semula"
+  },
+  {
+   "published_at": "2026-06-18",
+   "source": "marketscreener.com",
+   "source_type": "company_pr",
+   "title": "Malaysia Airports Holdings Bhd Announces Board Changes",
+   "url": "https://www.marketscreener.com/news/malaysia-airports-holdings-bhd-announces-board-changes-ce7f5cd2df89f62c"
+  },
+  {
+   "published_at": "2026-06-04",
+   "source": "thestar.com.my",
+   "source_type": "company_pr",
+   "title": "Malaysia Airports allocates RM11bil capex for infrastructure expansion ...",
+   "url": "https://www.thestar.com.my/business/business-news/2026/06/04/makaysia-airports-allocates-rm11bil-capex-for-infrastructure-expansion-over-five-years"
+  },
+  {
+   "published_at": "2024-06-17",
+   "source": "channelnewsasia.com",
+   "source_type": "news",
+   "title": "Malaysia's privatisation of airport operator with BlackRock entity ...",
+   "url": "https://www.channelnewsasia.com/asia/malaysia-airports-holdings-privatisation-blackrock-gip-israel-khazanah-epf-4410561"
+  }
+ ],
+ "no_llm": true,
+ "ticker": "KLSE:MAHB",
+ "undated": 0
+}
