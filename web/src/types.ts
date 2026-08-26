@@ -717,6 +717,9 @@ export interface ComparePayload {
     rows: { company: string; ticker: string; esg_score: number | null; momentum: { E: number | null; S: number | null; G: number | null } }[]
     pillars: string[]
     has_momentum: boolean
+    /** Scale of the momentum values: 'numeric' is a percentage, 'evidence' a −1..+1
+     *  consensus. 'mixed' means the set spans both and must not be drawn on one axis. */
+    momentum_basis?: 'numeric' | 'evidence' | 'mixed' | ""
     has_score: boolean
   }
   cards: { ticker: string; snap: Snapshot; band_emoji: string; verdict: string }[]

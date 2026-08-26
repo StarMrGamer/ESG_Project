@@ -2616,10 +2616,15 @@ def test_layer_b_falls_back_to_stored_evidence_without_inventing_a_percent():
     #     convention, and `metrics.num` reads 0.78 straight out of any string containing it. A
     #     consensus parked there would be plotted on an axis labelled "%" and a strong agreement
     #     would render as a rounding error. Direction survives the unit change; magnitude does not.
+    #     The magnitude is a WORD, never a number. That is the guard — not the literal string
+    #     "unknown", which was the first implementation and made the panel read "unknown ·
+    #     improving", saying less than the direction alone. What must never happen is a digit
+    #     appearing here: `metrics.num` reads 9.0 straight out of "strong · 9 signals".
     for cell in lb["momentum"].values():
-        assert cell["magnitude"] == "unknown", cell
+        assert metrics.num(cell["magnitude"]) is None, cell
+        assert cell["magnitude"] in ("strong", "clear", "weak", "unknown"), cell
     assert lb["momentum"]["E"]["direction"] in ("improving", "declining", "flat")
-    assert metrics.num(lb["momentum"]["E"]["magnitude"]) is None
+    assert lb["momentum"]["E"]["magnitude"] in ("strong", "clear", "weak")
 
     # 2 - a pillar with no evidence stays unknown rather than being smoothed to "flat"
     assert lb["momentum"]["S"]["direction"] == "unknown"

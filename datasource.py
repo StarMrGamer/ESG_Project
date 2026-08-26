@@ -426,8 +426,16 @@ def _consensus_word(value):
 
 
 def _strength_word(value):
+    """Adverb, for prose: "strongly improving"."""
     a = abs(value or 0.0)
     return "strongly" if a >= 0.75 else "clearly" if a >= 0.4 else "weakly"
+
+
+def _strength_adj(value):
+    """Adjective, for the `magnitude` FIELD, which is rendered beside the direction as
+    "strong · improving". No digits, ever — see momentum_cell."""
+    a = abs(value or 0.0)
+    return "strong" if a >= 0.75 else "clear" if a >= 0.4 else "weak"
 
 
 def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
@@ -488,7 +496,13 @@ def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
         r = pillars.get(key)
         if not r:
             return {"direction": "unknown", "magnitude": "unknown"}
-        return {"direction": _consensus_word(r["consensus"]), "magnitude": "unknown"}
+        # A WORD, and specifically a word with NO DIGITS IN IT. The strength is real information
+        # and leaving it "unknown" made the panel read "↑ unknown · improving" — but the moment a
+        # number appears in this string, `metrics.num` will read it back out ("strong · 9 signals"
+        # yields 9.0) and something will plot it on an axis labelled "%". A bare adjective carries
+        # the magnitude a reader wants and cannot be mistaken for a measurement.
+        return {"direction": _consensus_word(r["consensus"]),
+                "magnitude": _strength_adj(r["consensus"])}
 
     # A pillar whose signals point BOTH ways is the most interesting thing on this panel, and it
     # is a real reading rather than a hedge — so it is reported with its counts.
@@ -542,8 +556,8 @@ def layer_b_from_evidence(constituent: Dict[str, Any], *, config=None):
         "digital": digital,
         "newest": max((sg.get("published_at") or "") for sg in sigs),
         "note": ("Layer B read from %d dated, sourced signals already on file — no live retrieval "
-                 "and no model. Directions are the evidence consensus; magnitudes are left "
-                 "unknown because that consensus is not a percentage."
+                 "and no model. Directions are the evidence consensus; magnitudes are a "
+                 "WORD rather than a number, because that consensus is not a percentage."
                  % len(sigs)),
     }
     return layer_b, meta
@@ -584,7 +598,8 @@ def _fill_layer_b_from_evidence(company: Dict[str, Any], constituent: Dict[str, 
         if isinstance(target, dict) and _is_unknown(target.get("direction")) \
                 and not _is_unknown(cell.get("direction")):
             target["direction"] = cell["direction"]
-            # magnitude is deliberately NOT filled — see layer_b_from_evidence.
+            if _is_unknown(target.get("magnitude")) and not _is_unknown(cell.get("magnitude")):
+                target["magnitude"] = cell["magnitude"]
             filled.append("momentum.%s" % key)
 
     for block in ("digital_ai_signal", "conflicting_signals"):

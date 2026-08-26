@@ -66,6 +66,27 @@ function AxisBadge({ env }: { env: Envelope }) {
   return <span className="axis-badge challenge">{env.type === 'challenge' ? '⚡ Challenge' : '🔍 Question'}</span>
 }
 
+
+/**
+ * One opener per ESG-native axis, so the first question a reader asks is already a question the
+ * interrogation can do something with. The axes are Stage 1's own — materiality, time horizon,
+ * mandate, blind-spot — and the panel directly above counts how many are covered, so these
+ * double as an explanation of what that counter means.
+ *
+ * They are QUESTIONS, never verdicts: "what is the case against" is a request for evidence, and
+ * nothing here asks the tool to recommend anything.
+ */
+const OPENERS: { axis: string; label: string; text: (name: string) => string }[] = [
+  { axis: 'Blind-spot', label: 'The downside',
+    text: n => `What is the strongest case against ${n} on ESG, and what evidence is behind it?` },
+  { axis: 'Materiality', label: 'The upside',
+    text: n => `Where is the evidence on ${n} most positive, and how solid are those sources?` },
+  { axis: 'Mandate', label: 'Fit my mandate',
+    text: n => `I am screening for a green-financing mandate — which parts of ${n}'s ESG record actually bear on that?` },
+  { axis: 'Time horizon', label: 'Does it hold up',
+    text: n => `Does the ESG story on ${n} matter in the next twelve months, or is it a structural shift over years?` },
+]
+
 export default function Interrogation({ entry, onDone }: {
   entry: Entry
   onDone: (nq: NarrowedQuestion) => void
@@ -181,6 +202,23 @@ export default function Interrogation({ entry, onDone }: {
           )}
           {turns.length > 0 && (
             <div className="cc-muted">Question {questionCount} of up to {MAX_QUESTIONS}.</div>
+          )}
+
+          {/* Openers, one per ESG-native axis. A blank box next to "0 of 4 covered — each
+              question maps to exactly one" tells a first-time reader nothing about what a good
+              question looks like, and the four axes are exactly the four things worth asking.
+              Only on the first turn: after that the box is asking for an ANSWER, not a question,
+              and suggesting questions there would be answering on the user's behalf. */}
+          {turns.length === 0 && (
+            <div className="q-suggest">
+              <span className="q-suggest-h">Try:</span>
+              {OPENERS.map(o => (
+                <button key={o.axis} className="q-chip" title={`${o.axis} — ${o.text(company.company)}`}
+                  onClick={() => { void submit(o.text(company.company)); setInput('') }}>
+                  <span className="q-chip-axis">{o.axis}</span>{o.label}
+                </button>
+              ))}
+            </div>
           )}
 
           <div className="chat-form">

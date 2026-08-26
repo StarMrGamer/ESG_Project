@@ -29,6 +29,13 @@ const tooltipStyle = (t: Theme) => ({
   color: t.text, fontSize: 12, fontFamily: "'IBM Plex Sans', sans-serif",
 })
 
+// Recharts styles the LABEL and the ITEM rows separately from the container, and its default
+// item colour is a mid grey that all but vanishes on a dark panel — "esg_score: 61" was legible
+// only if you knew it was there. The value is the entire reason the tooltip exists, so it is
+// given the panel's own text colour and the series name is the one that dims.
+const tooltipItemStyle = (t: Theme) => ({ color: t.text, fontWeight: 600 })
+const tooltipLabelStyle = (t: Theme) => ({ color: t.tick, marginBottom: 2 })
+
 /**
  * Pillar momentum over time.
  *
@@ -68,7 +75,7 @@ export function MomentumChart({ series, dark, height = 340, basis = 'numeric', l
         <YAxis tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
           tickFormatter={v => fmt(Number(v))} axisLine={false} tickLine={false} />
         <ReferenceLine y={0} stroke={t.tick} strokeOpacity={0.4} />
-        <Tooltip contentStyle={tooltipStyle(t)}
+        <Tooltip contentStyle={tooltipStyle(t)} itemStyle={tooltipItemStyle(t)} labelStyle={tooltipLabelStyle(t)}
           formatter={(v: unknown, name: unknown) => [
             isPct ? `${Number(v).toFixed(1)}%` : Number(v).toFixed(2),
             PILLAR_LABEL[String(name)] || String(name)]}
@@ -101,7 +108,7 @@ export function PriceChart({ series, pct, dark, height = 200 }: {
         <XAxis dataKey="i" hide />
         <YAxis tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
           axisLine={false} tickLine={false} domain={['auto', 'auto']} />
-        <Tooltip contentStyle={tooltipStyle(t)}
+        <Tooltip contentStyle={tooltipStyle(t)} itemStyle={tooltipItemStyle(t)} labelStyle={tooltipLabelStyle(t)}
           formatter={(v: unknown) => [Number(v).toFixed(1), 'rebased']}
           labelFormatter={() => ''} />
         <Line type="monotone" dataKey="v" stroke={color} strokeWidth={2.6} dot={false} />
@@ -124,7 +131,7 @@ export function HistoryChart({ points, dark, height = 180 }: {
           axisLine={false} tickLine={false} />
         <YAxis tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
           axisLine={false} tickLine={false} domain={['auto', 'auto']} />
-        <Tooltip contentStyle={tooltipStyle(t)} />
+        <Tooltip contentStyle={tooltipStyle(t)} itemStyle={tooltipItemStyle(t)} labelStyle={tooltipLabelStyle(t)} />
         <Line type="monotone" dataKey="value" stroke="#5e9cf6" strokeWidth={2.4}
           dot={{ r: 3, fill: '#5e9cf6' }} />
       </LineChart>
@@ -151,7 +158,7 @@ export function CompareMomentumBars({ rows, dark, height = 300 }: {
         <YAxis tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
           tickFormatter={v => `${v}%`} axisLine={false} tickLine={false} />
         <ReferenceLine y={0} stroke={t.tick} strokeOpacity={0.4} />
-        <Tooltip contentStyle={tooltipStyle(t)}
+        <Tooltip contentStyle={tooltipStyle(t)} itemStyle={tooltipItemStyle(t)} labelStyle={tooltipLabelStyle(t)}
           formatter={(v: unknown) => [`${Number(v).toFixed(1)}%`]} cursor={{ fill: t.grid }} />
         <Legend wrapperStyle={{ fontSize: 11, color: t.tick }} />
         {rows.map((r, i) => (
@@ -177,7 +184,7 @@ export function CompareScoreBars({ rows, dark, height = 300 }: {
         <XAxis dataKey="company" tick={{ fontSize: 11, fill: t.tick }} axisLine={false} tickLine={false} />
         <YAxis tick={{ fontSize: 10, fill: t.tick, fontFamily: 'IBM Plex Mono' }}
           axisLine={false} tickLine={false} />
-        <Tooltip contentStyle={tooltipStyle(t)} cursor={{ fill: t.grid }} />
+        <Tooltip contentStyle={tooltipStyle(t)} itemStyle={tooltipItemStyle(t)} labelStyle={tooltipLabelStyle(t)} cursor={{ fill: t.grid }} />
         <Bar dataKey="esg_score" radius={[4, 4, 0, 0]} label={{ position: 'top', fill: t.tick, fontSize: 11 }}>
           {scored.map((r, i) => (
             <Cell key={r.ticker} fill={CMP_PALETTE[i % CMP_PALETTE.length]} />

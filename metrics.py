@@ -429,20 +429,46 @@ def compare_companies(companies):
         lb = c.get("layer_b") if isinstance(c.get("layer_b"), dict) else {}
         mom = lb.get("momentum") if isinstance(lb.get("momentum"), dict) else {}
 
-        def _mag(k, mom=mom):
-            cell = mom.get(k)
-            return num(cell.get("magnitude")) if isinstance(cell, dict) else None
+        # Two scales can answer here and they must not be averaged onto one axis. A DEMO
+        # constituent carries a momentum PERCENTAGE in `magnitude`. A real one carries no
+        # percentage at all — `layer_b_from_evidence` leaves `magnitude` unknown on purpose,
+        # because the engine's number is a direction CONSENSUS on -1..+1 — and stores that
+        # consensus on `_layer_b_evidence`. Reading only `magnitude` is why this chart said "no
+        # momentum data" for real names whose arrows were rendering correctly two rows below it.
+        pillars = ((c.get("_layer_b_evidence") or {}).get("pillars") or {}) \
+            if isinstance(c.get("_layer_b_evidence"), dict) else {}
+        scales = set()
 
+        def _mag(k, mom=mom, pillars=pillars, scales=scales):
+            cell = mom.get(k)
+            pct = num(cell.get("magnitude")) if isinstance(cell, dict) else None
+            if pct is not None:
+                scales.add("numeric")
+                return pct
+            ev = pillars.get(k)
+            if isinstance(ev, dict) and ev.get("consensus") is not None:
+                scales.add("evidence")
+                return round(float(ev["consensus"]), 3)
+            return None
+
+        momentum = {k: _mag(k) for k in ("E", "S", "G")}
         rows.append({
             "company": c.get("company", "unknown"),
             "ticker": c.get("ticker", "unknown"),
             "esg_score": num(la.get("esg_score_static")),
-            "momentum": {k: _mag(k) for k in ("E", "S", "G")},
+            "momentum": momentum,
+            "momentum_basis": ("mixed" if len(scales) > 1 else
+                               next(iter(scales)) if scales else ""),
         })
     has_momentum = any(v is not None for r in rows for v in r["momentum"].values())
     has_score = any(r["esg_score"] is not None for r in rows)
+    seen = {r["momentum_basis"] for r in rows if r["momentum_basis"]}
+    # A comparison that mixed a percentage with a consensus would draw bars whose heights mean
+    # different things — the exact error the industry benchmark refuses to make. Say so instead.
+    basis = "mixed" if len(seen) > 1 or "mixed" in seen else (next(iter(seen)) if seen else "")
     return {"rows": rows, "pillars": ["E", "S", "G"],
-            "has_momentum": has_momentum, "has_score": has_score}
+            "has_momentum": has_momentum, "has_score": has_score,
+            "momentum_basis": basis}
 
 
 def classify(company):

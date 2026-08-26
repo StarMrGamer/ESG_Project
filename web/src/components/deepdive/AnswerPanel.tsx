@@ -185,7 +185,14 @@ export default function AnswerPanel({ answer, company, narrowed }: {
                 return (
                   <div className="ev-row" key={k}>
                     <span>{k === 'E' ? 'Environment' : k === 'S' ? 'Social' : 'Governance'}</span>
-                    <b className={d.cls}>{d.arrow} {cell.magnitude}{known(cell.direction) ? ` · ${cell.direction}` : ''}</b>
+                    {/* Print the magnitude only when it IS one. It used to render
+                        unconditionally, so an unknown magnitude beside a known direction read
+                        "↑ unknown · improving" — which says less than the direction alone. */}
+                    <b className={d.cls}>
+                      {d.arrow}{known(cell.magnitude) ? ` ${cell.magnitude}` : ''}
+                      {known(cell.direction) ? `${known(cell.magnitude) ? ' · ' : ' '}${cell.direction}` : ''}
+                      {!known(cell.magnitude) && !known(cell.direction) ? ' unknown' : ''}
+                    </b>
                   </div>
                 )
               })}
