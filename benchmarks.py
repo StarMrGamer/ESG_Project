@@ -400,6 +400,62 @@ def _own_score(company, path, higher_better=None):
     return None, "no score on the peer scale for this company"
 
 
+def _industry_bar(sector):
+    """The industry's structural footprint, from whichever source resolves.
+
+    Returned in the SHAPE `oecd_for_sector` returns, because a panel already reads that shape and
+    a partial swap is how you get "ISIC undefined · matched on undefined" on screen. `bar_basis`
+    is the new field naming which source answered — deliberately NOT `basis`, which the panel
+    already uses for the provenance sentence and which overloading would have silently replaced
+    with the word "direct".
+
+    The two sources are in DIFFERENT UNITS (g CO2e per EUR of gross value added against tonnes
+    per US$m), so the unit and the scale bounds travel with the number rather than being assumed
+    by the reader.
+    """
+    direct = sector_benchmark(sector)
+    if direct.get("available"):
+        book = load_sector_benchmark()
+        ranked = sorted(book.values(), key=lambda r: r["intensity"]) if book else []
+        return {
+            "available": True,
+            "bar_basis": "direct",
+            "isic_label": direct.get("sector_label"),
+            "isic_sections": direct.get("nace_code"),
+            "intensity": direct.get("intensity"),
+            "unit": "g CO2e per EUR of gross value added",
+            "rank": direct.get("rank_cleanest"),
+            "of": direct.get("of"),
+            "median": direct.get("median"),
+            "via": "a direct join on the basket's own industry label",
+            "geo": direct.get("geo"),
+            "year": direct.get("year"),
+            "retrieved": direct.get("year"),
+            "is_fallback": direct.get("is_fallback"),
+            "cleanest": ranked[0]["industry"] if ranked else "",
+            "dirtiest": ranked[-1]["industry"] if ranked else "",
+            "scale_min": ranked[0]["intensity"] if ranked else None,
+            "scale_max": ranked[-1]["intensity"] if ranked else None,
+            "heading": "Industry footprint — OECD-Europe (EU-27)",
+            # `basis` is the provenance PROSE the panel prints. Despite the filename CGSI gave the
+            # file this is Eurostat, not the OECD, and every surface has to say so.
+            "basis": ("Eurostat env_ac_aeint_r2 — greenhouse gases per euro of gross value added, "
+                      "%s %s. Joined directly on the basket's own industry label, no crosswalk."
+                      % (direct.get("geo") or "EU-27", direct.get("year") or "")),
+            "sources": ["https://ec.europa.eu/eurostat/databrowser/view/env_ac_aeint_r2"],
+            "attribution": direct.get("attribution"),
+            "caveat": direct.get("caveat"),
+        }
+    crosswalk = oecd_for_sector(sector)
+    if crosswalk.get("available"):
+        out = dict(crosswalk)
+        out.setdefault("unit", "tonnes CO2e per US$m of gross value added")
+        out.update({"bar_basis": "crosswalk",
+                    "heading": "Industry footprint — OECD (ISIC crosswalk)"})
+        return out
+    return dict(crosswalk, bar_basis="", heading="Industry footprint")
+
+
 def compare_company(company, path=None, demo=False, higher_better=None):
     """One company against both benchmarks.
 
@@ -410,7 +466,12 @@ def compare_company(company, path=None, demo=False, higher_better=None):
     sector = (company or {}).get("sector") or ""
     path = path or universe.active_file(demo)
     asean = asean_for_sector(sector, path=path)
-    oecd = oecd_for_sector(sector)
+    # SAME TRAP AS `industry_table` HAD, one panel over. `oecd_for_sector` is the ISIC CROSSWALK
+    # and resolves 4 of 22 industries, so the per-company panel reported "no industry benchmark"
+    # for 18 of them — including Banks — while the direct Eurostat join has had a row for every
+    # one of them all along. Direct join first, crosswalk as the fallback, and `basis` names
+    # which answered because the two are in DIFFERENT UNITS (g CO2e/EUR against t CO2e/US$m).
+    oecd = _industry_bar(sector)
 
     own, own_source = _own_score(company, path, higher_better)
 

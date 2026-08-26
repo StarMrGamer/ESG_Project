@@ -103,14 +103,19 @@ export default function BenchmarkPanel({ benchmark, quote }: {
 
       {/* ---- industry footprint ---- */}
       <div className="bm-block">
-        <div className="bm-block-h">OECD industry footprint</div>
+        {/* The heading comes from the payload: the direct join is Eurostat EU-27, the fallback
+            is the OECD ISIC crosswalk, and they are different sources on different units. */}
+        <div className="bm-block-h">{oecd.heading || 'Industry footprint'}</div>
         {!oecd.available
           ? <div className="empty-note">{oecd.reason}</div>
           : (
             <>
               <div className="bm-oecd-head">
                 <b>{oecd.isic_label}</b>
-                <span className="cc-muted">ISIC {oecd.isic_sections} · matched on {oecd.via}</span>
+                <span className="cc-muted">
+                  {oecd.isic_sections ? `${oecd.bar_basis === 'direct' ? 'NACE' : 'ISIC'} ${oecd.isic_sections} · ` : ''}
+                  matched on {oecd.via}
+                </span>
               </div>
               <div className="bm-nums">
                 <div className="bm-num">
@@ -132,7 +137,7 @@ export default function BenchmarkPanel({ benchmark, quote }: {
               <div className="bm-scale" title="Log scale — industry intensity spans three orders of magnitude.">
                 <div className="bm-scale-track">
                   <div className="bm-scale-pin"
-                    style={{ left: `${logPos(oecd.intensity ?? 1, 3.6, 1600)}%` }} />
+                    style={{ left: `${logPos(oecd.intensity ?? 1, oecd.scale_min ?? 3.6, oecd.scale_max ?? 1600)}%` }} />
                 </div>
                 <div className="bm-scale-ends">
                   <span>cleanest · {oecd.cleanest}</span>
@@ -143,7 +148,8 @@ export default function BenchmarkPanel({ benchmark, quote }: {
               <details className="expander">
                 <summary>Where these numbers come from</summary>
                 <div className="cc-muted">{oecd.basis}</div>
-                <div className="cc-muted">Retrieved {oecd.retrieved} from the OECD public SDMX API.</div>
+                {oecd.attribution && <div className="cc-muted">{oecd.attribution}</div>}
+                {oecd.caveat && <div className="cc-muted">{oecd.caveat}</div>}
                 {(oecd.sources ?? []).map((u, i) => (
                   <div key={i} className="bm-src"><a href={u} target="_blank" rel="noreferrer">{u}</a></div>
                 ))}

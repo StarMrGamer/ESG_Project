@@ -2490,6 +2490,93 @@ def test_board_opens_on_a_company_it_can_talk_about():
     assert not rec.get("delisted")
 
 
+
+def test_demo_only_fields_are_declared_and_each_has_a_real_answer():
+    """THE INVARIANT BEHIND FIVE SEPARATE BUGS THIS WEEK.
+
+    The demo universe is FICTIONAL and fully numeric; the real basket is evidence-only. Every
+    field the demo carries and the real one does not is a place a widget can read something that
+    is simply never there — and the failure mode is always the same: the real basket renders
+    "awaiting data" beside evidence the engine already scored, and nothing raises, because an
+    absence looks exactly like a finding.
+
+    Five surfaces went that way before this test existed: the classification strip, the RadarHub
+    chip, the hidden-winners panel, the per-company industry bar, and the company the board OPENS
+    on. So the asymmetry itself is now the thing under test. A new demo-only field is not
+    forbidden — it just has to be declared here with how the real basket is served instead, which
+    forces the question to be answered once rather than discovered on screen later.
+    """
+    import json as _json
+    import universe as _uni
+
+    #: field -> how the REAL basket answers the same question. Adding a row is a decision.
+    DEMO_ONLY = {
+        "momentum": "engine components via metrics.pillar_momentum_from_records",
+        "live_signals": "engine signals via metrics.signals_from_record",
+        "news": "gathered headlines from news.py, passed to metrics.news_card(company, stored)",
+        "market": "real quote from quotes.py; the illustrative panel is gated on `financial.have`",
+        "price_change_90d": "quotes.change_90d / the dated snapshot in data/market_prices.json",
+        "esg_breakdown": "LSEG's real published pillar scores (lseg.py), shown in its own panel",
+        "analyst_coverage": "NO real equivalent — we hold no analyst counts, and inventing one "
+                            "would be HARD RULE 2. The panel is gated on `analyst.covered`.",
+        "data_provenance": "carried through datasource only; no UI reads it",
+        "trajectory": "demo-generation scripts only; never read at runtime",
+    }
+
+    def populated(path):
+        with open(path, encoding="utf-8") as fh:
+            data = _json.load(fh)
+        rows = data.get("constituents", data) if isinstance(data, dict) else data
+        keys = set()
+        for r in rows:
+            keys |= {k for k, v in r.items() if v not in (None, "", [], {})}
+        return keys
+
+    demo_keys = populated(_uni.active_file(True))
+    real_keys = populated(_uni.active_file(False))
+    demo_only = demo_keys - real_keys
+
+    undeclared = sorted(demo_only - set(DEMO_ONLY))
+    assert not undeclared, (
+        "new demo-only field(s) %r — declare how the REAL basket answers the same question, or a "
+        "widget will read them and render 'awaiting data' on real evidence" % undeclared)
+
+    # A declaration that no longer describes anything is just as misleading as a missing one.
+    stale = sorted(set(DEMO_ONLY) - demo_only)
+    assert not stale, "declared demo-only but present on the real basket too: %r" % stale
+
+
+def test_industry_bar_resolves_for_every_company_not_just_the_table():
+    """The per-company panel had the SAME crosswalk bug as the table, one surface over.
+
+    `compare_company` called `oecd_for_sector` — the ISIC crosswalk, 4 of 22 industries — so a
+    company's own benchmark block came back `available: False` for 18 of them, including Banks.
+    Fixed in the table first; this asserts the company panel agrees with it, because the two
+    disagreeing on the same board is how the bug was visible in the first place.
+    """
+    import benchmarks
+    import universe as _uni
+
+    cons = _uni.constituents()
+    missing = [c["ticker"] for c in cons
+               if not benchmarks.compare_company(c)["oecd"].get("available")]
+    assert not missing, "no industry bar for %d companies: %r" % (len(missing), missing[:6])
+
+    bar = benchmarks.compare_company(
+        next(c for c in cons if c["ticker"] == "KLSE:RHBBANK"))["oecd"]
+    assert bar["bar_basis"] == "direct"
+    assert abs(bar["intensity"] - 7.89) < 0.01
+
+    # `basis` is the provenance PROSE the panel prints. Naming the source-selector `basis` too
+    # would have replaced that sentence with the word "direct" and nothing would have failed.
+    assert "eurostat" in (bar.get("basis") or "").lower()
+    assert bar.get("bar_basis") != bar.get("basis")
+    # the panel needs all of these; a partial swap renders "ISIC undefined · matched on undefined"
+    for key in ("isic_label", "isic_sections", "median", "cleanest", "dirtiest",
+                "scale_min", "scale_max", "unit", "heading"):
+        assert bar.get(key) not in (None, ""), key
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2632,6 +2719,10 @@ def main():
          lambda: test_client_brief_prepares_evidence_and_never_recommends()),
         ("industry bar joins directly and carries its unit",
          lambda: test_industry_bar_joins_directly_and_carries_its_unit()),
+        ("demo-only fields are declared, and each has a real answer",
+         lambda: test_demo_only_fields_are_declared_and_each_has_a_real_answer()),
+        ("industry bar resolves for every company, not just the table",
+         lambda: test_industry_bar_resolves_for_every_company_not_just_the_table()),
         ("board opens on a company it can talk about",
          lambda: test_board_opens_on_a_company_it_can_talk_about()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),

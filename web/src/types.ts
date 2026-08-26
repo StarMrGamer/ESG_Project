@@ -146,6 +146,21 @@ export interface OecdBenchmark {
   isic_code?: string
   isic_label?: string
   isic_sections?: string
+  /**
+   * Which source answered. 'direct' is the Eurostat join on the basket's own industry label
+   * (22 of 22 industries, g CO2e/EUR); 'crosswalk' is the older ISIC mapping (4 of 22,
+   * t CO2e/US$m). DELIBERATELY not named `basis` — that field already carries the provenance
+   * sentence this panel prints, and overloading it would have replaced it with the word
+   * "direct" without anything failing.
+   */
+  bar_basis?: 'direct' | 'crosswalk' | ''
+  /** Heading for the block: the two sources are different bodies on different units. */
+  heading?: string
+  /** Log-scale bounds for the position pin, from whichever book the number came out of. */
+  scale_min?: number | null
+  scale_max?: number | null
+  attribution?: string
+  caveat?: string
   /** How the crosswalk matched — 'sub-industry' is a specific rule, 'GICS sector' is the fallback. */
   via?: string
   matched_on?: string
