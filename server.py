@@ -664,7 +664,47 @@ def _why_wrong(focused):
             "rating — watch for divergence.")
 
 
-def _cc_focused(focus_ticker, filtered, path):
+#: A company has to carry at least this much scored evidence to be the one the board OPENS on.
+#: Not a display filter — every company is still reachable, ranked and plotted. It only stops the
+#: unconfigured first screen landing on a name we have almost nothing to say about.
+_DEFAULT_FOCUS_MIN_SIGNALS = 5
+
+
+def _default_focus_from_records(filtered, records):
+    """The company the board opens on when the user has not chosen one.
+
+    THE OLD CHAIN OPENED ON THE WRONG COMPANY, and for the same reason three widgets did before
+    it: `metrics.hidden_winners` ranks on a Digital/AI field only the FICTIONAL demo set carries,
+    so on the real basket it returns nothing and the pick fell through to `evidence_leaders` —
+    which counts the rating agencies named in a company's `esg_basis` PROSE, not evidence this
+    engine ever scored. That opened the board on Bank Negara Indonesia: eight agency mentions in
+    its blurb, no social evidence, no digital/AI evidence, no headlines, and a Consensus label.
+    The first thing anyone saw was the one company we had nothing to say about.
+
+    So the pick reads the engine, like everything else now does. Ranked by
+    `|disagreement| x confidence`: a big disagreement we are confident in is precisely what this
+    product exists to show, and multiplying is what stops a wild claim on one thin signal
+    outranking a solid one. Deterministic, ties broken by ticker, so the board opens on the same
+    company every time.
+    """
+    by_id = {r.get("company_id"): r for r in (records or [])}
+    best, best_key = None, None
+    for c in filtered:
+        r = by_id.get(c.get("ticker"))
+        if not r or r.get("delisted"):
+            continue
+        signals = r.get("signal_count") or 0
+        if signals < _DEFAULT_FOCUS_MIN_SIGNALS:
+            continue
+        conf = r.get("composite_confidence") or 0.0
+        strength = abs(r.get("disagreement") or 0.0) * conf
+        key = (strength, signals, c.get("ticker") or "")
+        if best_key is None or key > best_key:
+            best, best_key = c, key
+    return best
+
+
+def _cc_focused(focus_ticker, filtered, path, records=None):
     if focus_ticker:
         c = universe.get(focus_ticker, path)
         if c:
@@ -672,6 +712,9 @@ def _cc_focused(focus_ticker, filtered, path):
         e = _ENTRIES.get(focus_ticker)
         if e:
             return e["company"]
+    picked = _default_focus_from_records(filtered, records)
+    if picked:
+        return picked
     hw, _, _ = metrics.hidden_winners(filtered, top_n=1)
     if hw:
         return universe.get(hw[0]["ticker"], path) or (filtered[0] if filtered else None)
@@ -729,7 +772,10 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         country = "All"
     filtered = universe.filter_constituents(country=country, sector=sector, path=path)
     mode = _uni_mode(cons)
-    focused = _cc_focused(focus or None, filtered, path)
+    # The engine run is memoised, so consulting it here costs nothing — the board
+    # builds it a few lines below anyway.
+    focused = _cc_focused(focus or None, filtered, path,
+                          _engine_run(demo, horizon)[0].get("records"))
     nt = {focus} if focus else set()
 
     avg_payload = _board_average(filtered, mode, sector)

@@ -2434,6 +2434,62 @@ def test_industry_bar_joins_directly_and_carries_its_unit():
     assert sum(1 for r in table if r["oecd_intensity"] is not None) < len(table)
 
 
+
+def test_board_opens_on_a_company_it_can_talk_about():
+    """The unconfigured first screen.
+
+    The old chain was `hidden_winners` (a Digital/AI field only the demo set carries) ->
+    `evidence_leaders` (rating agencies named in the company's PROSE) -> first in file order. On
+    the real basket the first step returns nothing, so the board opened on whichever company's
+    blurb mentioned the most agencies — Bank Negara Indonesia, which has no social evidence, no
+    digital/AI evidence, no headlines and a Consensus label. The one company we had nothing to
+    say about was the first thing every visitor saw.
+    """
+    import server
+
+    recs = [
+        # loud claim, almost no evidence behind it — must NOT win
+        {"company_id": "X:THIN", "signal_count": 1, "composite_confidence": 0.10,
+         "disagreement": 0.99},
+        # the real thing: a big disagreement we are confident in
+        {"company_id": "X:GOOD", "signal_count": 14, "composite_confidence": 0.78,
+         "disagreement": 0.80},
+        # well evidenced but we agree with the rating — nothing to show
+        {"company_id": "X:DULL", "signal_count": 20, "composite_confidence": 0.90,
+         "disagreement": 0.01},
+        # strong on both, but the listing is stale
+        {"company_id": "X:GONE", "signal_count": 18, "composite_confidence": 0.85,
+         "disagreement": 0.90, "delisted": True},
+    ]
+    filtered = [{"ticker": r["company_id"], "company": r["company_id"]} for r in recs]
+    pick = server._default_focus_from_records(filtered, recs)
+    assert pick and pick["ticker"] == "X:GOOD", pick
+
+    # multiplying is what stops the loud thin claim winning: 0.99 x 0.10 < 0.80 x 0.78
+    assert server._default_focus_from_records(
+        [f for f in filtered if f["ticker"] in ("X:THIN", "X:GOOD")], recs)["ticker"] == "X:GOOD"
+    # a delisted company never opens the board, however strong its numbers
+    assert server._default_focus_from_records(
+        [f for f in filtered if f["ticker"] == "X:GONE"], recs) is None
+    # nothing clears the bar -> None, so the caller falls back rather than opening on noise
+    assert server._default_focus_from_records(
+        [f for f in filtered if f["ticker"] == "X:THIN"], recs) is None
+    # deterministic: the same inputs always open on the same company
+    assert server._default_focus_from_records(filtered, recs)["ticker"] == \
+        server._default_focus_from_records(list(reversed(filtered)), recs)["ticker"]
+
+    # AND ON THE REAL BASKET: whatever it picks must be a company the engine actually scored.
+    import universe
+    real = universe.constituents()
+    run = server._engine_run(False, "long")[0]
+    live = server._cc_focused(None, real, universe.active_file(False), run.get("records"))
+    rec = next((r for r in run["records"] if r["company_id"] == live["ticker"]), None)
+    assert rec, "the board must open on a company that is in the run"
+    assert (rec.get("signal_count") or 0) >= server._DEFAULT_FOCUS_MIN_SIGNALS, \
+        "%s opens the board on %d signals" % (live["ticker"], rec.get("signal_count") or 0)
+    assert not rec.get("delisted")
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2576,6 +2632,8 @@ def main():
          lambda: test_client_brief_prepares_evidence_and_never_recommends()),
         ("industry bar joins directly and carries its unit",
          lambda: test_industry_bar_joins_directly_and_carries_its_unit()),
+        ("board opens on a company it can talk about",
+         lambda: test_board_opens_on_a_company_it_can_talk_about()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0
