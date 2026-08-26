@@ -1,19 +1,19 @@
 # The Prototype Video — Contents, Flow, and How It Links
 
-**Quill & Candle · TWO CUTS FROM ONE RECORDING**
+**Quill & Candle · ONE RECORDING, THREE LENGTHS**
 
 | cut | length | used for |
 |---|---|---|
-| **A · the stage cut** | **2:30** | plays at beat 4 of the 7-minute pitch |
-| **B · the full cut** | **3:30** | standalone submission / anything without a hard clock |
+| **A · the stage cut** | **2:00** | plays at beat 4 of the 7-minute pitch — **the one to build first** |
+| **B · extended** | 2:30 | anything with a little more room |
+| **C · full** | 3:30 | standalone submission, no clock |
 
-Record once at full length. Cut B down to A. Never record twice — the narration has to
-match the picture frame for frame, and a second take will not.
+Record once at full length, then cut down. Never record twice — narration has to match picture
+frame for frame and a second take will not.
 
-> **TIMING WARNING.** The pitch budget is `7:00 = 4:50 speaking + 2:00 video + 0:10 handover`.
-> A 2:30 stage cut puts you at **7:30**. Either take 30 seconds out of the speaking beats
-> (`2-presentation-script-final.md` names its own first cuts: beat 2's greenium detail, beat 6's
-> capability list) or run the 2:00 cut on stage. **Decide this before you record, not after.**
+**2:00 is the only length that fits the pitch as written**: `7:00 = 4:50 speaking + 2:00 video +
+0:10 handover`. B and C both require taking time out of the speaking beats, so treat them as
+what you reach for when a venue gives you room, not as the plan.
 
 ---
 
@@ -52,139 +52,141 @@ Design rules that follow:
 
 ---
 
-# PART A — THE 2:30 STAGE CUT
+# PART A — THE 2:00 STAGE CUT  ★ BUILD THIS ONE
 
-Eight sections. Narration budget **≈310 words at ~125 wpm.** Word counts are given so you can
-time each section alone before assembling.
+Seven sections, no out-card of its own. Narration budget **≈236 words at ~125 wpm ≈ 1:53**,
+leaving ~7 seconds of picture headroom. Word counts given so you can time each alone.
 
-### §1 · The board — 0:00–0:15 · ~33 words
+### §1 · The board — 0:00–0:13 · ~27 words
 **Shows: the two-reads architecture, as a picture.**
 
-*Screen:* app opens on the momentum matrix. 52 dots, four quadrants, CGSI's labels readable —
-Hidden Winners · Future Leaders · Value Traps · Overrated Leaders. Hollow dots visible.
+*Screen:* app opens on the momentum matrix. 52 dots, four quadrants, CGSI's labels readable.
+Hollow dots (no evidence) visible — do not hide them.
 
-> "Monday, eight a.m. Our analyst opens the Radar. Fifty-two ASEAN companies, read twice
-> overnight — once from dated public evidence, once from the rating the market already uses.
-> The product is the gap."
+> "Monday, eight a.m. Fifty-two ASEAN companies, read twice overnight — once from dated public
+> evidence, once from the rating the market already uses. The product is the gap."
 
-*Links back to:* slide 3's matrix — static there, alive here.
+### §2 · The mandate — 0:13–0:25 · ~26 words
+**Shows: risk tiers · every-answer-moves-a-number · that the whole thing is configurable.**
 
-### §2 · The mandate — 0:15–0:35 · ~38 words
-**Shows: risk tiers · every-answer-moves-a-number · and that the whole thing is configurable.**
+*Screen:* **one** tier flip, not three. Conservative → Balanced. Settle on Balanced. The board
+visibly re-segments.
 
-*Screen:* click the risk-tier control. Conservative → re-segments. Balanced → re-segments.
-Aggressive → re-segments. Settle on **Balanced**. ~3 seconds per state.
+> "First, her mandate — set by her fund, not her mood. Risk appetite, holding period, green
+> financing. Watch the board re-segment. Every answer moves a number."
 
-> "First, her mandate — set by her fund, not her mood. Risk appetite, holding period, whether
-> green financing counts. Watch the board re-segment: conservative… balanced… aggressive. Same
-> evidence, three different funds. Every answer moves a number."
+*The configuration is spoken, not demoed.* Naming it here covers §§1–3 without spending a second
+of picture on a settings panel.
 
-*Note:* the configuration is **spoken, not demoed**. Naming it here covers §§1–3 without
-spending a second of picture on a settings panel.
+### §3 · It asks before it answers — 0:25–0:49 · ~50 words  ★ THE BEAT THE OLD CUT MISSED
+**Shows: Stage 1 — Thinks and Challenges.**
 
-### §3 · It asks before it answers — 0:35–1:05 · ~62 words  ★ NEW
-**Shows: Stage 1 — Thinks and Challenges. The two beats the old cut was missing.**
+*Screen:* the four ESG-native axes with the "0 of 4 covered" counter. One opener clicked. Then
+cut to two finished answers for the SAME company side by side — one asked as risk, one as
+compliance — with the differing *check before Monday* lines highlighted.
 
-*Screen:* open the interrogation. The four ESG-native axes visible (materiality · time horizon ·
-mandate · blind-spot) with the "0 of 4 covered" counter. Click one opener. Show one answer being
-typed. Then cut to two finished answers for the SAME company side by side — one asked as risk,
-one as compliance — with the differing *check before Monday* lines highlighted.
+> "Then the part that isn't a dashboard: it asks. Four ESG-native axes, and it pushes back when
+> the framing is wrong. Same company, same evidence — asked as a risk question it returns a
+> downside check; asked as compliance, it returns BNM's next disclosure cycle. The question
+> shapes the answer."
 
-> "Now the part that isn't a dashboard. It asks her four questions — materiality, horizon,
-> mandate, blind spot — and pushes back when the framing is wrong. Watch what that buys. Same
-> company, same evidence. Asked as a risk question it returns a downside check. Asked as
-> compliance, it returns BNM's next disclosure cycle. The question shapes the answer."
+*Verified, not aspirational.* Measured 2026-08-26 on RHB, one shared retrieved context, three
+mandates: risk → *"gauge downside risk"*; return → *"an upside/mispricing check"*; compliance →
+*"BNM's next climate-risk disclosure cycle."*
 
-*This is verified, not aspirational.* Measured 2026-08-26 on RHB with one shared retrieved
-context, three mandates: risk → *"gauge downside risk"*; return → *"an upside/mispricing check"*;
-compliance → *"BNM's next climate-risk disclosure cycle."*
-
-### §4 · The call list — 1:05–1:17 · ~27 words
+### §4 · The call list — 0:49–0:58 · ~19 words
 **Shows: the M list — the actionable output.**
 
-*Screen:* open the M list. **Ten rows.** Scroll once, slowly. Cursor pauses on momentum ↑, the
-money read, and issuer status (none).
+*Screen:* **Ten rows.** One slow scroll. Cursor pauses on momentum ↑ and issuer status (none).
 
-> "That produces the call list. Ten names — under-rated on evidence, improving, financially
-> sound, and not yet green-bond issuers. Tomorrow's issuers, before the label exists."
+> "That produces the call list. Ten names — improving, financially sound, and not yet green-bond
+> issuers. Tomorrow's issuers."
 
-*Links forward to:* beat 6's finding, which lands on a list judges have already seen.
+*Keep this even when cutting.* Beat 6's "eleven of your seventeen" lands far harder on a list the
+judges have already watched scroll past.
 
-### §5 · The case — 1:17–1:42 · ~48 words
+### §5 · The case — 0:58–1:18 · ~41 words
 **Shows: the disagreement number · the REAL incumbent rating · pros and cons at equal weight ·
 the money read gated, not merged.**
 
 *Screen:* click **RHB Bank Bhd**. Header fills: **+0.804**. Brief pan across LSEG's published
-score — their own wheel, fetched live, attributed. Then the case: ESG pros and cons in one
-column at one size, and the money read in a visibly separate panel beside the ESG verdict.
+score — their own wheel, fetched live, attributed. Then pros and cons in one column at one size,
+and the money read in a visibly separate panel.
 
-> "She opens RHB Bank. Plus zero point eight — where our evidence ranks it, minus where the
-> rating ranks it. Beside it, LSEG's real published score, fetched live. Then the case: pros and
-> cons at equal weight, and the money read beside the ESG verdict — never inside it."
+> "She opens RHB Bank. Plus zero point eight — our evidence rank, minus the rating's. Beside it,
+> LSEG's real published score, fetched live. Pros and cons at equal weight, and the money read
+> beside the ESG verdict — never inside it."
 
-### §6 · The evidence trail — 1:42–2:02 · ~37 words
+### §6 · The evidence trail — 1:18–1:36 · ~37 words
 **Shows: three clicks to source · and that we surface the signal that disagrees.**
 
-*Screen:* click a pro → the signal record (date, direction, confidence, hash) → the source URL →
-the actual filing opens. Make the three clicks countable. Then pause on the governance line.
+*Screen:* pro → signal record (date, direction, confidence, hash) → source URL → the filing
+opens. Make the three clicks countable. Then pause on the governance line.
 
-> "Every claim is three clicks from source. The signal — dated, scored, with its hash. The
-> record. The original filing. And note the governance line: eight signals up, one down. We show
-> you the one that disagrees."
+> "Every claim is three clicks from source. The signal, dated and scored. The record, with its
+> hash. The original filing. And note the governance line — eight up, one down. We show you the
+> one that disagrees."
 
-*Why the last sentence earns its seconds:* it is the cheapest possible proof that the tool is not
-a marketing engine, and it costs four seconds.
+*That last sentence is the cheapest proof in the video that this is not a marketing engine.*
 
-### §7 · Verify — 2:02–2:24 · ~44 words
-**Shows: the on-chain ledger + the tamper demonstration. The climax.**
+### §7 · Verify — 1:36–1:53 · ~36 words
+**Shows: the on-chain ledger + the tamper demonstration. The climax, and the ending.**
 
-*Screen:* press **Verify**. The root recomputes on screen and matches the anchored one; timestamp
-visible. Flip the **Tamper demo** toggle — the root visibly breaks. Flip back — match restored.
+*Screen:* press **Verify** — the root recomputes and matches; timestamp visible. Flip the
+**Tamper demo** toggle — it visibly breaks. Flip back — restored. Cut to the matrix. End card:
+demo URL + team name, held silent for three seconds.
 
-> "Then she verifies. The run's fingerprint recomputes in front of her and matches a public
-> ledger — seventy-two bytes, written once, ever. Change one character… and it breaks. Put it
-> back… and it matches. That is what she takes to her investment committee."
+> "Then she verifies. The fingerprint recomputes and matches a public ledger — seventy-two bytes,
+> written once, ever. Change one character… it breaks. Put it back… it matches. One analyst. One
+> Monday. Every number checkable."
 
-*The single most memorable frame in the pitch. Rehearse until there is no cursor hunting.*
-
-### §8 · Out — 2:24–2:30 · ~8 words
-
-*Screen:* cut to the matrix. End card: demo URL + team name. Hold three seconds, silent.
-
-> "One analyst. One Monday. Every number checkable."
+*The single most memorable frame in the pitch. Rehearse until there is no cursor hunting. The
+closing line rides on the end card — the 2:00 cut has no separate out section.*
 
 ---
 
-# PART B — THE 3:30 FULL CUT
+# PART B — +30s → 2:30
 
-Three insertions, **+60 seconds**. Everything in Part A stays exactly where it is.
+Insert into Part A; nothing moves. Costs 30 seconds of speaking somewhere in the pitch.
+
+- **§2 → three tier flips instead of one** (+8s). Conservative, balanced, aggressive, ~3s each.
+  Buys: "same evidence, three different funds" becomes something you watched rather than heard.
+- **§4 → pause on the money-read column** (+7s). Buys: the financial gate is visible before §5
+  claims it.
+- **§7+ → the track record** (+15s, see Part C for the full version at 25s).
+
+---
+
+# PART C — +60s → 3:30
+
+Everything above stays. Three insertions.
 
 ### §3+ · The challenge — extends §3 by ~15s
-*Screen:* show the interrogator **disagreeing** with a framing — the reader asks something loose,
-it comes back narrower and says why.
+*Screen:* the interrogator **disagreeing** with a framing — a loose question comes back narrower,
+with the reason.
 
-> "And when the question is wrong, it says so. That is the difference between a search box and
-> an analyst."
+> "And when the question is wrong, it says so. That is the difference between a search box and an
+> analyst."
 
 ### §5+ · The fourth pillar and the boundary — extends §5 by ~20s
 *Screen:* the radar hub — E, S, G **and Digital / AI** as a fourth scored pillar. Then the
 sensitivity line: how close this verdict sits to its nearest boundary.
 
 > "Four pillars, not three — Digital and AI scored as its own, because execution capacity is
-> where ESG promises are kept or missed. And the tool tells her how close this verdict is to
-> flipping. It never pretends to be more certain than it is."
+> where ESG promises are kept or missed. And it tells her how close this verdict is to flipping.
+> It never pretends to be more certain than it is."
 
 ### §7+ · The track record — new section after §7, ~25s  ★ HIGH VALUE
 *Screen:* the five backtest cases, lookback frozen before each outcome. Land on **Top Glove**,
-then on **Adaro**.
+then **Adaro**.
 
 > "Five ASEAN cases, backtested with the lookback frozen before every outcome. Top Glove's
-> forced-labour warnings were public nineteen months before the US import ban — while it sat on
-> a sustainability index the whole time. And Adaro, where we were wrong. We left it in. A
-> backtest you can only pass isn't a backtest."
+> forced-labour warnings were public nineteen months before the US import ban — while it sat on a
+> sustainability index the whole time. And Adaro, where we were wrong. We left it in. A backtest
+> you can only pass isn't a backtest."
 
-*Why this is worth 25 seconds:* it is the most disarming thing you own. A judge who hears you
-volunteer a failure stops looking for one.
+*Worth 25 seconds because it is the most disarming thing you own. A judge who hears you volunteer
+a failure stops hunting for one.*
 
 ---
 
@@ -244,29 +246,33 @@ the three, delete it from the smaller one.
 Counted from the blockquotes above at 125 wpm — the pace `2-presentation-script-final.md` is
 built on.
 
-| cut | narration | speaks for | picture target | headroom |
+| cut | narration | speaks for | picture | headroom |
 |---|---|---|---|---|
-| Part A | 289 words | **2:19** | 2:30 | **11s** |
-| Part A + B | 408 words | **3:16** | 3:30 | **14s** |
+| **A · 2:00** | **234 words** | **1:52** | 2:00 | **8s** |
+| A + B · 2:30 | 234 words | 1:52 | 2:30 | 38s |
+| A + B + C · 3:30 | 352 words | 2:49 | 3:30 | 41s |
 
-**The headroom is deliberate — do not fill it.** Narration must be shorter than picture or the
-shots that carry the argument have nowhere to land: three seconds per tier flip in §2, three
-visibly countable clicks in §6, the pause before and after the tamper toggle in §7, and three
-silent seconds on the end card. A video whose voice track exactly fills its runtime feels rushed
-in exactly the places you most need it not to.
+Part B adds **picture only** — extra tier flips and a pause — which is why its narration does not
+move. That is deliberate: the cheapest 30 seconds you can add to a video are seconds that let
+existing shots breathe.
+
+**The headroom is deliberate — do not fill it.** Narration must run shorter than picture or the
+shots carrying the argument have nowhere to land: the tier flip in §2, three visibly countable
+clicks in §6, the pause either side of the tamper toggle in §7, and three silent seconds on the
+end card. A voice track that exactly fills its runtime feels rushed in precisely the places you
+need it not to.
 
 ---
 
-## 6. The cut-down ladder
+## 6. If you have to cut below 2:00
 
-Cut in this order and no other. Each rung is a complete video.
+Only if a venue caps you. Cut in this order and no other — each rung is still a complete video.
 
 | target | drop |
 |---|---|
-| **3:30** | nothing — the full cut |
-| **2:30** | §3+, §5+, §7+ (the Part B insertions) |
-| **2:00** | …and §4 the call list, §8 the out card; trim §2 to one tier flip |
-| **1:30** | …and §2 entirely; open on the board, go straight to §3 |
+| **1:45** | §4 the call list |
+| **1:30** | …and §2 entirely — open on the board, go straight to §3 |
+| **1:10** | …and §1; open cold on the interrogation |
 
 **§§5–6–7 are untouchable at every rung.** Case → evidence → verify *is* the product. If you are
 cutting into those, cut the video instead and let slide 4's step strip carry it.
