@@ -127,7 +127,8 @@ export default function EngineBoard() {
   const rows = useMemo(() => Object.values(engine?.records ?? {}), [engine])
   const shown = useMemo(
     () => rows.filter(r => matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
-      engine?.badges?.[r.company_id]?.green_bond?.status || '')),
+      engine?.badges?.[r.company_id]?.green_bond?.status || '',
+      engine?.badges?.[r.company_id]?.pipeline?.bucket || '')),
     [rows, engine, settings.tier, settings.pipelineOnly, settings.greenFocus])
   // The 90-second walk has to reach a Hidden Winner without hunting for a dot, so the strongest
   // disagreements get a named, one-click route straight into the evidence trail.
@@ -321,7 +322,8 @@ export default function EngineBoard() {
           {rows.map(r => {
             const { cx, cy } = point(r)
             const on = matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
-              engine.badges?.[r.company_id]?.green_bond?.status || '')
+              engine.badges?.[r.company_id]?.green_bond?.status || '',
+              engine.badges?.[r.company_id]?.pipeline?.bucket || '')
             // Two-stage click. One click used to focus AND open the evidence trail, which meant
             // every exploratory click on a 52-dot plot threw the reader into a full-screen panel
             // they then had to back out of. First click brings the company onto the board above
