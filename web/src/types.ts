@@ -207,6 +207,24 @@ export interface IndustryRow {
   oecd_percentile: number | null
   oecd_via: string | null
   matched: boolean
+  /**
+   * The industry bar, from whichever source actually resolved. `bench_basis` says which:
+   * 'direct' is the Eurostat join on CGSI's own industry label (22 of 22 resolve, g CO2e/EUR),
+   * 'crosswalk' is the older ISIC mapping (4 of 22, t CO2e/US$m). The two are in DIFFERENT UNITS,
+   * so `bench_unit` travels with the number and is rendered per row rather than in the header.
+   */
+  bench_basis: 'direct' | 'crosswalk' | ''
+  bench_intensity: number | null
+  bench_unit: string
+  bench_label: string | null
+  bench_code?: string | null
+  bench_geo?: string
+  bench_year?: string
+  bench_rank: number | null
+  bench_of: number | null
+  bench_fallback?: boolean
+  bench_note?: string
+  bench_source?: string
 }
 
 /**

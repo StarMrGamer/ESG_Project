@@ -274,30 +274,89 @@ def asean_for_sector(sector, path=None, demo=False):
 
 
 def industry_table(path=None, demo=False):
-    """Every industry in the active universe, with both benchmarks side by side.
+    """Every industry in the active universe, with its ASEAN average and its industry bar.
 
     This is the "average for each industry, so you can see which is good and bad" view: the ASEAN
-    column ranks our own names, the OECD column says what the industry's structural footprint is.
+    column ranks our own names, the benchmark column says what that industry's structural
+    footprint is.
+
+    TWO BENCHMARK SOURCES, AND THE ORDER MATTERS. `sector_benchmark` is a DIRECT join on CGSI's
+    own `industry` label (Eurostat, g CO2e per EUR of gross value added) and resolves 22 of 22.
+    `oecd_for_sector` is the older ISIC CROSSWALK (tonnes per US$m) and resolves 4 of 22 — so the
+    table was reporting 18 industries as "unmatched", including Banks, the largest bucket in the
+    basket at 15 companies, while the per-company panel on the same board showed that industry's
+    bar correctly at 7.89. One board, two answers, and the wrong one on the busier screen.
+
+    The direct join is therefore tried first and the crosswalk is the fallback. They are in
+    DIFFERENT UNITS and different denominators, so the unit travels with every row rather than
+    living in the column header: swapping a g/EUR number in under a "t/US$m" heading would be a
+    silent unit substitution, which is the same class of error as differencing an ESG score
+    against an emissions intensity. `bench_basis` names which source answered.
     """
     path = path or universe.active_file(demo)
     out = []
     for sector in universe.sectors(path):
         peers = universe.filter_constituents(sector=sector, path=path)
         asean = asean_for_sector(sector, path=path)
+        direct = sector_benchmark(sector)
         oecd = oecd_for_sector(sector)
-        out.append({
+
+        if direct.get("available"):
+            bench = {
+                "bench_basis": "direct",
+                "bench_intensity": direct.get("intensity"),
+                "bench_unit": "g CO2e / EUR GVA",
+                "bench_label": direct.get("sector_label"),
+                "bench_code": direct.get("nace_code"),
+                "bench_geo": direct.get("geo"),
+                "bench_year": direct.get("year"),
+                "bench_rank": direct.get("rank_cleanest"),
+                "bench_of": direct.get("of"),
+                "bench_fallback": direct.get("is_fallback"),
+                "bench_note": direct.get("caveat"),
+                "bench_source": direct.get("source"),
+            }
+        elif oecd.get("available"):
+            bench = {
+                "bench_basis": "crosswalk",
+                "bench_intensity": oecd.get("intensity"),
+                "bench_unit": "t CO2e / US$m GVA",
+                "bench_label": oecd.get("isic_label"),
+                "bench_code": None,
+                "bench_geo": "OECD",
+                "bench_year": None,
+                "bench_rank": oecd.get("rank"),
+                "bench_of": oecd.get("of"),
+                "bench_fallback": oecd.get("via") == "GICS sector",
+                "bench_note": "Matched through the stated ISIC crosswalk, not a direct join.",
+                "bench_source": "OECD SDMX — tonnes CO2e per US$m gross value added",
+            }
+        else:
+            bench = {
+                "bench_basis": "", "bench_intensity": None, "bench_unit": "",
+                "bench_label": None, "bench_code": None, "bench_geo": "", "bench_year": "",
+                "bench_rank": None, "bench_of": None, "bench_fallback": False,
+                "bench_note": direct.get("reason") or oecd.get("reason") or "",
+                "bench_source": "",
+            }
+
+        row = {
             "sector": sector,
             "n": len(peers),
             "asean_avg": asean.get("average"),
             "asean_metric": asean.get("metric"),
+            # Kept so nothing reading the older shape breaks; these are the CROSSWALK figures and
+            # are `None` for most industries, which is exactly why they are no longer the primary.
             "oecd_isic": oecd.get("isic_label"),
             "oecd_intensity": oecd.get("intensity"),
             "oecd_rank": oecd.get("rank"),
             "oecd_of": oecd.get("of"),
             "oecd_percentile": oecd.get("percentile"),
             "oecd_via": oecd.get("via"),
-            "matched": bool(oecd.get("available")),
-        })
+            "matched": bool(direct.get("available") or oecd.get("available")),
+        }
+        row.update(bench)
+        out.append(row)
     out.sort(key=lambda r: (r["asean_avg"] is None, -(r["asean_avg"] or 0)))
     return out
 

@@ -37,13 +37,22 @@ export default function IndustryTable() {
   const best = withAvg.length ? Math.max(...withAvg.map(r => r.asean_avg as number)) : 0
   const worst = withAvg.length ? Math.min(...withAvg.map(r => r.asean_avg as number)) : 0
 
+  // Every row currently resolves on the DIRECT join, so the table is single-unit in practice —
+  // but the crosswalk fallback is in another unit entirely, so the unit is only promoted to the
+  // header when every row that has a number agrees on it. Mixed units get labelled per row.
+  const units = Array.from(new Set(rows.filter(r => r.bench_intensity != null).map(r => r.bench_unit)))
+  const oneUnit = units.length === 1 ? units[0] : ''
+  const anyCrosswalk = rows.some(r => r.bench_basis === 'crosswalk')
+  const unmatched = rows.filter(r => r.bench_intensity == null).length
+
   return (
     <div className="panel-block ind-table-wrap">
-      <div className="cc-h">Industry averages — ASEAN vs OECD</div>
+      <div className="cc-h">Industry averages — ASEAN vs the industry bar</div>
       <div className="cc-muted">
         Left column: how our ASEAN names in that industry score, on average. Right column: how
-        emissions-intense that industry is across the OECD. An industry can lead on one and lag on
-        the other — a bank is structurally clean and only middling against its peers.
+        emissions-intense that industry is structurally. An industry can lead on one and lag on
+        the other — a bank is structurally clean and only middling against its peers. The two are
+        never subtracted from each other: they are different measures.
       </div>
 
       <div className="ind-scroll">
@@ -53,9 +62,9 @@ export default function IndustryTable() {
               <th>Industry</th>
               <th className="num">Names</th>
               <th className="num">ASEAN avg</th>
-              <th className="num">OECD intensity</th>
+              <th className="num">Industry intensity{oneUnit ? <><br /><span className="ind-unit">{oneUnit}</span></> : null}</th>
               <th className="num">Cleanest rank</th>
-              <th>OECD industry matched</th>
+              <th>Benchmark sector</th>
             </tr>
           </thead>
           <tbody>
@@ -73,18 +82,22 @@ export default function IndustryTable() {
                   </td>
                   <td className="num">{r.n}</td>
                   <td className={`num ${tone}`}>{avg == null ? '—' : avg.toFixed(1)}</td>
-                  <td className="num">
-                    {r.oecd_intensity == null ? '—'
-                      : r.oecd_intensity.toLocaleString(undefined, { maximumFractionDigits: 1 })}
+                  <td className="num" title={r.bench_source || ''}>
+                    {r.bench_intensity == null ? '—'
+                      : r.bench_intensity.toLocaleString(undefined, { maximumFractionDigits: 1 })}
+                    {!oneUnit && r.bench_intensity != null && (
+                      <span className="ind-unit"> {r.bench_unit}</span>
+                    )}
                   </td>
                   <td className="num">
-                    {r.oecd_rank == null ? '—' : `${r.oecd_rank} / ${r.oecd_of}`}
+                    {r.bench_rank == null ? '—' : `${r.bench_rank} / ${r.bench_of}`}
                   </td>
                   <td className="ind-isic">
-                    {r.oecd_isic ?? <span className="cc-muted">no crosswalk rule</span>}
-                    {r.oecd_via === 'GICS sector' && r.oecd_isic && (
-                      <span className="ind-via" title="Matched on the GICS sector, not a specific
- sub-industry rule — a coarser match.">sector-level</span>
+                    {r.bench_label ?? <span className="cc-muted">no benchmark row</span>}
+                    {r.bench_fallback && r.bench_label && (
+                      <span className="ind-via" title={r.bench_note || 'A coarser match than a direct join.'}>
+                        {r.bench_basis === 'crosswalk' ? 'crosswalk' : 'fallback geo'}
+                      </span>
                     )}
                   </td>
                 </tr>
@@ -95,13 +108,19 @@ export default function IndustryTable() {
       </div>
 
       <div className="cc-muted">
-        OECD intensity: tonnes CO2e per US$m of gross value added, {data.meta.year || ''}
-        {data.industries[0]?.year ? ` ${data.industries[0].year}` : ''}. {data.meta.basis}
+        {oneUnit
+          ? `Industry intensity: ${oneUnit}, joined directly on the basket's own industry label.`
+          : 'Industry intensity: unit shown per row — the rows come from two sources on different denominators.'}
+        {' '}Despite the filename this is <b>Eurostat (EU-27)</b>, not the OECD: dataset
+        env_ac_aeint_r2, GHG per euro of gross value added. Financials carry an operational-only
+        caveat — financed emissions are the material metric for a bank, and are not in this figure.
       </div>
-      <div className="cc-muted">
-        The industry crosswalk is a stated mapping from our GICS-style sectors onto ISIC groups,
-        not a measurement — rows marked <b>sector-level</b> matched on the broad sector only.
-      </div>
+      {(anyCrosswalk || unmatched > 0) && (
+        <div className="cc-muted">
+          {anyCrosswalk && <>Rows marked <b>crosswalk</b> came through the stated ISIC mapping rather than a direct join. </>}
+          {unmatched > 0 && <>{unmatched} {unmatched === 1 ? 'industry has' : 'industries have'} no benchmark row at all, and say so rather than borrowing a neighbouring number.</>}
+        </div>
+      )}
     </div>
   )
 }

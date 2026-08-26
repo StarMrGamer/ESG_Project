@@ -2235,6 +2235,38 @@ def test_pipeline_bucket_is_on_the_company_not_just_the_total():
     assert block["badges"]["SGX:UOB"]["pipeline"]["bucket"] == "N"
 
 
+
+def test_industry_bar_joins_directly_and_carries_its_unit():
+    """The industry table read the ISIC CROSSWALK, which resolves 4 of 22 industries — so 18 read
+    "unmatched", including Banks, the largest bucket at 15 companies, while the per-company panel
+    on the same board showed that industry's bar correctly. One board, two answers."""
+    import benchmarks
+
+    table = benchmarks.industry_table()
+    priced = [r for r in table if r["bench_intensity"] is not None]
+    assert len(priced) == len(table), (
+        "every industry in the basket has a direct benchmark row: %d of %d"
+        % (len(priced), len(table)))
+
+    # the direct join is on CGSI's OWN industry label, so Banks resolves to the Eurostat figure
+    banks = next(r for r in table if r["sector"] == "Banks")
+    assert banks["bench_basis"] == "direct"
+    assert abs(banks["bench_intensity"] - 7.89) < 0.01
+
+    # THE UNIT TRAVELS WITH THE NUMBER. The fallback source is on a different denominator
+    # entirely (t CO2e/US$m against g CO2e/EUR); a unit in the column header would silently
+    # relabel it, which is the same class of error as differencing an ESG score against an
+    # emissions intensity.
+    for r in priced:
+        assert r["bench_unit"], r["sector"]
+        assert r["bench_basis"] in ("direct", "crosswalk")
+    assert all(r["bench_unit"] == "g CO2e / EUR GVA" for r in priced if r["bench_basis"] == "direct")
+
+    # and the two sources are still kept apart: the crosswalk fields remain readable and are
+    # still mostly empty, which is exactly why they are no longer the primary.
+    assert sum(1 for r in table if r["oecd_intensity"] is not None) < len(table)
+
+
 def main():
     raw_fixture = open(os.path.join(ROOT, "fixtures/stage2_answer.json"), encoding="utf-8").read()
     # Mocked grounded-extractor output (what the LLM would return for build_live_company).
@@ -2373,6 +2405,8 @@ def main():
          lambda: test_news_is_gathered_never_written()),
         ("N/M/K is readable on the company, not only as a total",
          lambda: test_pipeline_bucket_is_on_the_company_not_just_the_total()),
+        ("industry bar joins directly and carries its unit",
+         lambda: test_industry_bar_joins_directly_and_carries_its_unit()),
         ("FastAPI primary boundary smoke tests", lambda: test_api_smoke()),
     ]
     failures = skipped = 0
