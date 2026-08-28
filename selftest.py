@@ -881,8 +881,13 @@ def test_chat_copy_indepth_regression():
         "Focused X — scored against Banks peers, Digital/AI +340% vs avg ESG 22.4. Added to the grid."
     assert metrics.chat_focus_msg("X", "Banks", False, avg=None) == "Focused X. Added to the grid."
     assert metrics.chat_fallback_msg(False) == \
-        ("I can filter (“show banks”, “Singapore”, “all ASEAN”) or focus "
-         "a company (“DemoBank”, “add GreenChip Bank”).")
+        ("I can filter (“show banks”, “Singapore”, “all ASEAN”), focus a company by name, or "
+         "add one to the monitored list (“monitor <company>”).")
+    assert metrics.chat_monitor_msg("X", False) == \
+        "Monitoring X. Snapshot built and pinned to the watchlist."
+    assert metrics.chat_monitor_msg("X", False, already=True) == \
+        "X is already monitored — no change."
+
     assert metrics.chat_relay_help(False) == \
         ("Name a company to analyse — e.g. “analyze DBS”, “interrogate "
          "Maybank”, or a live ASEAN name like “analyze Grab”.")
@@ -1563,6 +1568,16 @@ def test_api_smoke():
             board = client.get("/api/board").json()
             assert board["counts"]["total"] > 0
             assert client.post("/api/chat", json={"text": "show banks"}).status_code == 200
+
+            # "add <company>" KEEPS the company; "focus <company>" only looks at it. The two
+            # used to return the same action, which silently dropped half of the first request.
+            # The verb is stripped before resolving, or a name ending in "Bank" is answered
+            # with a filter to Banks — the bug this assertion is really guarding.
+            name = board["constituents"][0]["company"]
+            kept = client.post("/api/chat", json={"text": f"add {name}"}).json()
+            assert kept["action"]["kind"] == "monitor", kept
+            looked = client.post("/api/chat", json={"text": f"focus {name}"}).json()
+            assert looked["action"]["kind"] == "focus", looked
 
             sampled = client.post("/api/sample")
             assert sampled.status_code == 200, sampled.text

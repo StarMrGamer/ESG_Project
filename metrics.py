@@ -972,6 +972,20 @@ def chat_focus_msg(company_name, sector_label, simplified, *, avg=None, digital_
     return f"Now showing {company_name} in the panels on the right."
 
 
+def chat_monitor_msg(company_name, simplified, *, already=False):
+    """Pinning is a different act from focusing, so it gets its own sentence.
+
+    "Focused X" and "Monitoring X" look interchangeable and are not: focus is a view that the
+    next click replaces, monitoring is a list that persists to `data/watchlist.json` and survives
+    a reload. A reply that blurs them leaves the user unsure whether anything was kept."""
+    if already:
+        return (f"{company_name} is already on your monitored list." if simplified
+                else f"{company_name} is already monitored — no change.")
+    if simplified:
+        return f"Added {company_name} to your monitored list — it's in the left rail now."
+    return f"Monitoring {company_name}. Snapshot built and pinned to the watchlist."
+
+
 def chat_filter_msg(bits, simplified):
     joined = " · ".join(bits)
     return (f"OK — showing {joined}." if simplified else f"Filtered to {joined}.")
@@ -987,10 +1001,10 @@ def chat_relay_help(simplified):
 
 def chat_fallback_msg(simplified):
     if simplified:
-        return ("I can show a group (“banks”, “Singapore”, “all ASEAN”) or pull up one company "
-                "(“DemoBank”, “add GreenChip Bank”).")
-    return ("I can filter (“show banks”, “Singapore”, “all ASEAN”) or focus "
-            "a company (“DemoBank”, “add GreenChip Bank”).")
+        return ("I can show a group (“banks”, “Singapore”, “all ASEAN”), pull up one company by "
+                "name, or keep one — say “monitor” and the company.")
+    return ("I can filter (“show banks”, “Singapore”, “all ASEAN”), focus a company by name, or "
+            "add one to the monitored list (“monitor <company>”).")
 
 
 def chat_cant_analyse_msg(name, simplified):

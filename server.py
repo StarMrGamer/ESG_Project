@@ -1028,6 +1028,11 @@ _RELAY_STRIP = ("run an esg analysis on", "run esg analysis on", "esg analysis o
                 "please", "run ")
 
 
+#: Verbs that mean KEEP this company, not just look at it. `pin`/`follow` are here because
+#: they are what people actually type; `focus`/`show me` deliberately are not — those are a view.
+_KEEP_VERBS_RE = re.compile(r"^(add|monitor|track|watch|pin|follow|keep)\s+", re.I)
+
+
 def _match_sector(low, path):
     qtoks = set(re.findall(r"[a-z]+", low))
     syn = {"banks": ("bank",), "telecom": ("telco", "telcos", "mobile"),
@@ -1116,8 +1121,23 @@ def chat(body: ChatIn):
             sector_out = sec
             bits.append(_short_sector(sec))
 
-    comp = universe.resolve(t, path)
-    explicit = low.startswith(("add ", "monitor ", "track ", "watch ", "focus ", "show me "))
+    # "add DBS" and "focus DBS" used to do the same thing — focus it — which quietly dropped
+    # half the request: monitoring is a list that persists to data/watchlist.json, focus is a
+    # view the next click replaces. The verb decides which one the user asked for.
+    #
+    # The verb is STRIPPED before resolving, or "add GreenChip Bank" never reaches a company at
+    # all: the resolver misses on the whole phrase, the sector matcher sees the word "Bank", and
+    # the reply is a filter to Banks — an answer to a question nobody asked.
+    keep = _KEEP_VERBS_RE.match(low) is not None
+    comp = (universe.resolve(_KEEP_VERBS_RE.sub("", t).strip(), path) if keep else None) \
+        or universe.resolve(t, path)
+    explicit = keep or low.startswith(("focus ", "show me "))
+    if comp and keep:
+        return {"reply": metrics.chat_monitor_msg(comp["company"], simple,
+                                                  already=comp["ticker"] in _WATCHLIST),
+                "action": {"kind": "monitor", "ticker": comp["ticker"],
+                           "company": comp["company"],
+                           "already": comp["ticker"] in _WATCHLIST}}
     if comp and (explicit or not bits):
         peers = [c for c in universe.constituents(path) if c["sector"] == comp["sector"]]
         avg, _ = metrics.average_esg(peers)
