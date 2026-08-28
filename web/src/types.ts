@@ -708,6 +708,7 @@ export interface ChatResult {
     | { kind: 'none' }
     | { kind: 'filter'; country: string | null; sector: string | null }
     | { kind: 'focus'; ticker: string; needs_build: boolean; company: string }
+    | { kind: 'monitor'; ticker: string; company: string; already: boolean }
     | { kind: 'relay'; ticker: string; mode: 'compete' | 'interrogate'; needs_build: boolean; company: string; demo_numeric?: boolean }
     | { kind: 'relay_live'; text: string; mode: 'compete' | 'interrogate' }
 }

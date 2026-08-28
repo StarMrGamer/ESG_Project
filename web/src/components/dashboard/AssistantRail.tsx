@@ -24,13 +24,13 @@ export default function AssistantRail() {
   const hintTicker = focused?.constituent.ticker ?? ''
 
   return (
-    <div className="rail">
+    <div className="rail" data-tour="assistant">
       <div className="rail-section">
         <div className="cc-h">AI assistant</div>
         <div className="cc-muted">
           {settings.simplified
-            ? 'Try “show banks”, “Singapore”, or a name like “DBS”.'
-            : 'Filter (“show banks”), focus a company, or run the relay: “analyze DBS” · “interrogate Maybank”.'}
+            ? 'Try “show banks”, “Singapore”, a name like “DBS”, or “monitor DBS” to keep it.'
+            : 'Filter (“show banks”), focus a company, keep one (“monitor DBS”), or run the relay: “analyze DBS” · “interrogate Maybank”.'}
         </div>
 
         <div className="chat-log" ref={logRef}>

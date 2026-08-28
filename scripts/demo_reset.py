@@ -37,13 +37,30 @@ OPENER = "PSE:PRLS"         # Pearl Savings — the level-1 focus
 TOUR = "IDX:SATB"           # SatBank — Hidden Winner, 11 signals, dissenting emissions signal
 
 # What the browser should hold when recording starts.
+# The RECORDING state. Every UI flag is spelled out, including the ones that default the other
+# way, because anything omitted here falls back to the app's DEFAULTS — and the defaults are
+# written for a first-time visitor, not for take three. `tourDone` is the one that bit: leaving it
+# out armed the first-run tutorial, so a coach-mark overlay could appear mid-take on the exact
+# screen this script exists to make identical.
 UI_STATE = {
     "demo": True, "dark": True, "simplified": True, "level": 1, "setupDone": True,
+    "tourDone": True, "tourDeck": "",
+    # The board as it was before the investor view existed: every number on screen, nothing
+    # translated. The plain rendering is a different recording, and picking it silently here
+    # would change what the camera sees without anyone deciding to.
+    "audience": "analyst", "showNumbers": False, "extras": [], "focus": "",
     "profile": {"mandate": "risk", "goal": "screen",
                 "label": "protect the downside across ASEAN"},
     "filters": {"country": "All", "sector": "All"},
     "leftOpen": False, "rightOpen": False, "ragEnabled": True, "ragTopK": 5,
     "tier": "balanced", "horizon": "long", "pipelineOnly": False,
+}
+
+# The FIRST-RUN state: what a judge handed the laptop should meet. Setup has not run and the
+# tutorial has not been seen, so the app opens on its one question and walks the board afterwards.
+FIRST_RUN_STATE = {
+    "demo": True, "dark": True, "setupDone": False, "tourDone": False, "tourDeck": "",
+    "audience": "investor", "showNumbers": False, "extras": [], "focus": "",
 }
 
 
@@ -73,6 +90,10 @@ def _resolve(ticker, fallback_name):
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--first-run", action="store_true",
+                    help="print the FIRST-RUN blob instead: setup unrun and the tutorial armed, "
+                         "which is what a judge meeting the app should see. The recording blob "
+                         "deliberately suppresses both.")
     ap.add_argument("--no-warm", action="store_true",
                     help="skip pre-computing Stage 2 (saves billable calls, but the take waits)")
     a = ap.parse_args(argv)
@@ -118,9 +139,16 @@ def main(argv):
                     print(f"  {tk:<12} FAILED after {time.time() - t0:.0f}s — {type(e).__name__}. "
                           f"Raise ESG_LLM_TIMEOUT and retry.")
 
+    state = FIRST_RUN_STATE if a.first_run else UI_STATE
     print("\nPaste this into the browser console, then reload:\n")
-    print(f"  localStorage.setItem('esg-radar-settings', '{json.dumps(UI_STATE)}')\n")
-    print("Opens on: level 1, dark, demo data, all ASEAN, both rails closed.")
+    print(f"  localStorage.setItem('esg-radar-settings', '{json.dumps(state)}')\n")
+    if a.first_run:
+        print("Opens on: the one-question setup, then the first-run tutorial — what a judge sees.")
+        print("Or skip the console entirely: open  http://localhost:8000/?fresh=1")
+    else:
+        print("Opens on: level 1, dark, demo data, all ASEAN, both rails closed, analyst view.")
+        print("No tutorial: `tourDone` is set, so no overlay can appear mid-take.")
+        print("For the first-time experience instead, re-run with --first-run.")
     return 0
 
 

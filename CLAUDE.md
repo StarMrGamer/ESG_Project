@@ -75,6 +75,7 @@ esg-momentum-radar/
     refresh_eurostat_benchmark.py  # verifies/refreshes the industry bar from the free Eurostat API
     sg_day_rates.py          # blended day rates from LIVE MyCareersFuture postings
     build_cost_workbook.py   # writes the cost model as a real, calculating .xlsx
+    build_pitch_pptx.py      # the 9-slide judge deck as an editable .pptx (+ speaker notes)
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
     build_oecd_benchmark.py  # pulls OECD SDMX (emissions x value added) -> the industry benchmark CSV
     demo_reset.py            # puts the running app into a deterministic RECORDING state
@@ -97,6 +98,7 @@ esg-momentum-radar/
   fixtures/                 # handoff batons: seeded in Phase 0, then REPLACED by each
     narrowed_question.json  #   stage's real verified output as the relay proceeds.
     stage2_answer.json      #   Each file = next stage's input + a regression check.
+  docs/pitch/slides.md      # the 9-section pitch SCRIPT — what you say, and every figure's source
   docs/stage1.md docs/stage2.md docs/stage3.md   # detailed per-stage briefs
 ```
 
@@ -108,8 +110,8 @@ carries evidence (`esg_basis`/`source_url`/`confidence`).
 
 **The assistant comes first (added 2026-08-18).** A first-time visitor lands on an
 assistant-led **setup** (`web/src/components/setup/Setup.tsx`), not the board: four short
-questions — mandate, then the fork between *screen the universe* and *investigate one company*,
-then country/industry or a company name. The answers set the filters, and DERIVE the risk tier
+questions — mandate, then the fork between *screen ASEAN companies* and *screen a singular
+company*, then country/industry or a company name. The answers set the filters, and DERIVE the risk tier
 and decay horizon (both shown with their reason and left editable). Everything runs locally —
 chips plus a local matcher, no LLM call — because a demo cannot be one flaky network hop away
 from its opening screen. `settings.setupDone` persists, so a returning browser goes straight to
@@ -147,14 +149,31 @@ the core, because that is the one view where the right rail cannot show them. Th
 and no rotation: the brief was a calmer screen. A filter with no pillar readings falls back to the
 old three-card strip rather than leaving a hole.
 
-**The board is layered.** `settings.level` is 1 Brief · 2 Analysis · 3 Everything, and every
-widget declares the level it earns: level 1 is the verdict, the pillar cards, one action and a
-one-line assistant bar; level 2 adds the momentum chart, the rankings, the industry-benchmark
-table and the universe grid; level 3 adds the disagreement matrix, provenance and the evidence
-trail. `simplified` is DERIVED from `level` in `setSettings`, so the server-facing flag and the
-UI control can never disagree. A step-up bar at the foot of levels 1 and 2 says what the next
-level would add. The matrix used to be the first thing on the page — a wall of dots before you
-knew what a dot meant — which was most of why the board read as overwhelming.
+**The board is layered — TWO levels, not three** (collapsed 2026-08-28). `settings.level` is
+**1 Preferences · 3 Everything**: Preferences is the verdict, the pillar cards, one action and a
+one-line assistant bar — the board the setup answers asked for; Everything is every panel, the
+disagreement matrix, provenance and the evidence trail included. `simplified` is DERIVED from
+`level` in `setSettings`, so the server-facing flag and the UI control can never disagree.
+
+**`2 · Analysis` was deleted** because the module picker made it redundant: it was
+"Preferences plus five specific panels", which is exactly what pinning five chips does, only
+fixed and unnegotiable. The `Level` type is now `1 | 3` so the compiler finds every leftover, and
+`loadSettings` migrates a stored `2` **up** to 3 — a returning browser should find everything it
+had still on screen, never less. The matrix used to be the first thing on the page — a wall of
+dots before you knew what a dot meant — which was most of why the board read as overwhelming.
+
+**The header's two rail buttons work at every level.** The rails are a level-3 module, so at
+Preferences `‹ Filters` and `Assistant ›` used to set `leftOpen`/`rightOpen` and produce nothing:
+the flag flipped, the gate above it stayed shut, and two controls in the menu were simply dead
+with nothing on screen to say why. Opening a rail from the header now PINS the rails module — the
+same thing the chip at the foot does — and closing the last open rail unpins it, so the header,
+the chip and what is actually drawn can never disagree.
+
+**The picker never reorders itself.** The chips render in registry order with an on/off state,
+not pinned-first-then-off: the first build moved the chip you just clicked to the front of the
+row, so the row reshuffled under your cursor and the next chip you reached for had moved. The +/×
+sign sits in a fixed-width box for the same reason — a control that moves when you use it is one
+you have to re-find every time.
 
 **The incumbent rating is now REAL** (`lseg.py`, added 2026-08-19, Jayden's ask). LSEG publish a
 free, keyless **Company ESG scores finder** on lseg.com — the overall 0–5 score (higher is better),
@@ -431,6 +450,185 @@ is decided silently. **Every answer has to do something**: a question whose answ
 summary line is decoration, and worse than not asking. Years of holding and days of evidence
 memory are different quantities, so the translation between them is printed rather than implied.
 `greenFocus` DIMS non-matching names rather than hiding them — the same A5 discipline.
+
+**Then it teaches the board it just built** (`web/src/components/tour/Tutorial.tsx`, added
+2026-08-28). Setup answers *what do you want*; the board then appears carrying a radar, a matrix
+and four pillar tiles, none of which explain themselves. Six cards, once, straight after setup —
+the dashed zero-momentum ring, the dated-sources row, the assistant, the levels, the module
+picker, and what the product refuses to say. It persists as `settings.tourDone` and **Tutorial**
+in the ⚙ menu replays it.
+
+Two rules make it safe to run over a board whose shape it cannot predict: a card whose
+`data-tour` anchor is not on screen is **skipped** rather than pointed at nothing (setup can land
+you on any of the three levels), and it **never blocks the board** — the ring dims, it does not
+trap, because a first-time visitor who would rather click than read is right. It is NOT present
+mode: that is the pitch — it drives state, calls the model, and carries no words at all. They
+share
+`web/src/lib/anchor.tsx` — scroll-into-the-free-band, keep-aligning-while-the-page-settles, and
+the ring — and nothing else. That file was extracted from `Present.tsx` rather than copied, so a
+change to either bar's height cannot leave one of them measuring the wrong thing.
+
+**A level is a default, not a cage** (`web/src/lib/modules.ts`, added 2026-08-28). Wanting the
+verdict *and* the disagreement matrix used to cost you the whole of Analysis and Everything —
+which is the same wall-of-panels problem the levels were introduced to fix, arrived at from the
+other direction. So a module is on when `at(level) || extras.includes(key)`, `settings.extras`
+persists the pins, and the bar at the foot of the board offers both routes: step up a level, or
+add just this one thing. Both halves of the predicate live in one registry because the picker and
+the panels have to agree about what is currently on screen. `at` is a predicate rather than a
+minimum level because `rankings` is not monotonic — it appears at level 2 and is deliberately
+gone at level 3, where the matrix panel already lists the same four names.
+
+**The assistant can KEEP a company, not just look at one** (added 2026-08-28). `add DBS`,
+`monitor DBS`, `track`, `watch`, `pin`, `follow` and `keep` now return a `monitor` action that
+builds the snapshot and pins it to the watchlist; `focus` and `show me` still just focus. The two
+had been the same code path, which quietly dropped half of the first request — focus is a view
+the next click replaces, monitoring is a list that persists to `data/watchlist.json` and survives
+a reload. The verb is **stripped before the name is resolved**, or `add GreenChip Bank` never
+reaches a company at all: the resolver misses on the whole phrase, the sector matcher sees the
+word *Bank*, and the user gets a filter to Banks — an answer to a question nobody asked. Pinned
+by `selftest.py`.
+
+**Present mode is a HIGHLIGHT, not a caption** (`web/src/components/present/`, changed
+2026-08-28). It used to print each step's line under the board in 22px — which handed the room
+something to read instead of the thing being demonstrated, and made a live-driven demo into a
+slide deck wearing the app as a background. The cue is gone, and with it the machinery that read
+its figures off the loaded run (there is nothing left to put them in). What remains is the ring,
+the state change, and a slim control strip: chapter, position, keys, and the ticks. Each step
+keeps a `note`, shown only as the tick's tooltip for the presenter, and it carries **no figures**
+— a number typed into that file cannot follow the run it came from, and the panel being
+highlighted is showing the real one anyway. The walk itself went from 24 steps to **12**: three
+steps on one matrix and four on the tiers were the same picture said three different ways.
+
+**And the same clicker now has a second track: RECAP** (`web/src/components/present/recap.ts`,
+added 2026-08-28). Present mode argues the product to a stranger; the recap reviews **the run you
+are on** — the quadrants, the pipeline counts, the focused company's verdict, what would change
+it, the receipt — and ends on a card that CONSOLIDATES every figure it walked past, copyable as
+Markdown or downloadable as a `.md` named for the run. A second walk cost a list of steps, not a
+second clicker: `Track` is the only new concept, and `PITCH` and `RECAP` share the driver, the
+anchors, the ring, the keys and interact mode.
+
+Three things it keeps. **Every figure is read off the loaded run at the moment you ask** — the
+card and the copied text both carry the `run_id`, because a consolidated block with no provenance
+is precisely the stale-number trap this repo has been bitten by twice. **One ticker decides the
+whole company section**: the first cut read the record by ticker and the NAME off `board.focused`,
+which are different companies whenever the walk falls back to its default subject — it printed
+*KLCC Towers* over *SatBank*'s disagreement, confidence and signal count, and looked completely
+normal doing it. The walk now focuses its own subject, the card uses the focused payload only when
+it IS that ticker, and the case is dropped rather than borrowed. And **the clipboard is not
+trusted**: `navigator.clipboard.writeText` does not reject when the document has lost focus, it
+hangs — so the write is raced against a 1.2s deadline and a miss reveals the Markdown in a
+selectable block rather than doing nothing at the moment someone is waiting for it.
+
+**AN INVESTOR VIEW, BECAUSE THE PRODUCT'S UNIT IS UNREADABLE OUTSIDE A DESK** (added
+2026-08-28). `disagreement +0.80`, `composite_confidence 0.69`, `momentum percentile 97th` are
+exactly right for the analyst this was built for and mean nothing to someone holding forty shares
+of the bank in question. `settings.audience` is `investor` (the default) or `analyst`, and it is
+NOT another level: `level` answers *how much of the board*, `audience` answers *in whose
+vocabulary*.
+
+What changes for an investor: the centre column becomes `InvestorCard` — the verdict as a
+sentence, the two ranks in words ("its rating puts it in the bottom fifth; the evidence puts it
+near the top"), evidence strength with the reason it is capped, the financial gate in a clause,
+what would change the answer, when to look again, and three dated receipts with links. The desk
+furniture (run id, half-life, anchor chip, risk tiers, the horizon switch, N/M/K) folds away, with
+a line on screen saying where it went. The module chips speak plainly ("Where every company
+sits"). A first-time visitor gets ONE question — which company — instead of six, and the tutorial
+swaps to a four-card deck about the card in front of them. `web/src/lib/plain.ts` holds every
+mapping, and it is a pure rendering of numbers the engine already computed.
+
+**Three rules keep this from becoming a different product.** *Nothing is softened* — a weak
+financial read still says the business is going backwards, `unknown` still says we cannot tell,
+and "86% of this is company-published" still gets said, in plainer words. *No recommendation, in
+any wording* — plain language is exactly how that line gets crossed by accident, so there is no
+buy, sell, hold, cheap or undervalued anywhere in `plain.ts` or the card. *The numbers are one
+click away, never gone* — "Show the numbers" restores the analyst rendering in place, and the
+Analyst switch sits in the header. `settings.focus` also persists now: the reader who typed one
+company should not reload onto somebody else's while the header still says "looking at" theirs.
+
+**"How it works" is a tab, and it reads itself out of the run**
+(`web/src/components/manual/Manual.tsx`, added 2026-08-28). The tutorial teaches the four things
+you click; this is the document you read when you want to know what the thing does before you
+trust a word of it — the pipeline in order, one numbered section at a time. Every label rule,
+tier rule, N/M/K definition, θ, half-life, metadata header and anchor status is **printed from
+`board.engine`**, the same block the panels draw from, because a hand-written manual is a promise
+about behaviour that stops being true the first time a threshold moves. One document, not two:
+an investor reads the plain body, an analyst additionally sees the `detail` — the formula, the
+exact rule string, the file that owns it. Two manuals would drift and the plain one would quietly
+become the marketing version.
+
+**For an investor it carries no numbers at all** — no run id, no cohort size, no day counts, no
+per-label counts. A page whose job is to explain the product cannot open with a line of
+identifiers; that is the first sentence that says *this is not for you*. Same reason the
+disagreement matrix's axis caption (`x = incumbent rating percentile (MOCK baseline) · y = …`) is
+analyst-only: it is hidden by audience rather than deleted, because it carries the MOCK
+disclosure the analyst view has to keep.
+
+**Reconfigure means preferences, always.** The one-question start is for a first-time investor who
+has no preferences yet; someone who went looking for *Reconfigure* is asking to choose them, and
+handing them the same single question back is a dead end wearing a button's clothes. `setupFull`
+(store state, deliberately not persisted — it describes what the user is doing right now) forces
+the six-step flow for either audience.
+
+**And the answer is no longer one company** (`MatchList.tsx`). The reader types one name, but the
+preferences they set describe a SHAPE, and they picked a name out of it without ever seeing the
+rest. The foot of the investor board lists the others that match — same tier flags the engine
+already stamped on every record, same green-bond field, same filters — ordered by the size of the
+disagreement and **stating none of it in numbers**: a name, what we call it, how solid the
+evidence is, in words. A ranked list of decimals is a league table, and a league table is a pick.
+
+**The matrix explains itself now** (`MATRIX_CARDS` in `Tutorial.tsx`, added 2026-08-28). The
+disagreement plot is the densest thing in the product and carries its whole argument, and for
+most of this app's life its only explanation was an axis caption written in percentiles. Twelve
+cards, each ringing the thing it describes: the plot, the two axes, the two dashed boundaries
+(the only lines that change what a company is called), **then the card the corners exist for** —
+*Now read the two together*, which spells out all four combinations before naming any of them,
+because "value trap" is jargon until you can read it straight off the two directions you were
+just shown. Then the four corners one at a time, each titled by its position rather than its
+label (*Left and high — rated low, but improving*), what a DIMMED dot means — it fails your risk filter and stays visible on purpose, because a filter that
+deletes companies is making the decision for you — what a HOLLOW one means, and why the diagonal
+is the argument. Launched from **What am I looking at?** on the plot itself or *Explain the
+matrix* in the ⚙ menu, which also brings the plot up first: a walkthrough of something not on
+screen has nothing to point at.
+
+`settings.tourDeck` is how a walkthrough is asked for BY NAME, and it outranks `tourDone` —
+someone clicking "What am I looking at?" is asking now, and having seen a different tour once is
+no reason to refuse. The quadrant cards deliberately name no companies: that would turn an
+explanation of the axes into a tip sheet, and the plot is right there.
+
+**THE FIRST-RUN EXPERIENCE LIVES IN THE BROWSER, AND NO SERVER RESET CAN REACH IT.** `setupDone`
+and `tourDone` are `localStorage`; `demo_reset` drives the API. So a browser that has already seen
+the tour will never show it again however many times the server is reset — correct for a returning
+user, useless five minutes before handing a laptop to a judge. Two answers, and the point of both
+is that the choice is now MADE rather than inherited:
+
+- **`?fresh=1`** clears the stored settings and strips itself from the URL, so the app opens as a
+  stranger meets it. It runs before the provider mounts, because the store reads localStorage in a
+  `useState` initialiser and clearing it afterwards would leave the old settings live.
+- **`demo_reset --first-run`** prints that state as a blob; the default blob prints the RECORDING
+  state, which now spells out every flag including `tourDone: true` and `audience: analyst`.
+  Leaving `tourDone` out was a real trap: omitted keys fall back to the app's DEFAULTS, which are
+  written for a first-time visitor, so a coach-mark overlay could appear mid-take on the exact
+  screen the script exists to make identical.
+
+**A card can now put its own subject on screen** (`Card.ensure`, added 2026-08-28). Card 3 of the
+first-run tour points at the assistant — which at Everything with the rails shut is not rendered
+at all, so the card showed its text, no ring appeared, and the tour looked broken at exactly the
+moment it was explaining something. A card whose anchor is missing now runs `ensure` (open the
+rail, pin the matrix) and the skip watcher gives React a paint before deciding there is nothing
+to point at. It runs ONLY when the anchor is missing, so a reader who already has the panel open
+is never re-arranged around it.
+
+**And the quadrants are taught in the FIRST-RUN tour, not only the matrix deck.** Three cards —
+the plot as one picture, the four corners as combinations of the two directions, and the button
+that walks it properly — because someone meeting this product for the first time is exactly the
+person who does not know what "value trap" means, and the matrix deck is opt-in. The
+**? What am I looking at?** button moved onto the matrix's title line in the accent colour for
+the same reason: a control nobody finds is a control that does not exist.
+
+*(One debugging note worth keeping: the ring is measured in a `requestAnimationFrame` loop, which
+browsers PAUSE in a hidden tab. Driving the app from a backgrounded tab shows every card with no
+ring at all, and nothing is wrong — `document.hidden` is the thing to check before hunting for a
+bug in `lib/anchor`.)*
 
 **The evidence is reachable from level 1.** The trail, provenance and matrix are level-3
 furniture and setup lands a first-time visitor on level 1, so the backing was real but invisible
@@ -886,7 +1084,9 @@ python harvest.py --cost                 # measured tokens/company (writes data/
 python cost_model.py --price-hit 0.007 --price-miss 0.22 --price-out 0.66 --window off-peak
 python -m scripts.sg_day_rates --write   # day rates from live SG postings
 python -m scripts.build_cost_workbook --price-hit 0.007 --price-miss 0.22 --price-out 0.66
+python -m scripts.build_pitch_pptx --pdf # the 9-slide deck -> docs/pitch/*.pptx (+ PDF via soffice)
 python -m scripts.demo_diversify         # re-derive demo momentum/signals/news (esg_score untouched)
+python -m scripts.demo_reset --first-run # the blob a JUDGE should meet: setup unrun, tutorial armed
 python -m scripts.demo_reset             # deterministic recording state: pins the 3 heroes,
                                           #   pre-computes both Compete answers, prints the
                                           #   localStorage blob for the UI half (--no-warm skips

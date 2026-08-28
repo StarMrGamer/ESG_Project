@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useStore } from '../store'
+import type { ModuleKey } from '../store'
 import { SHOW_CLIENTS } from '../features'
 import type { Level } from '../store'
 
@@ -9,9 +10,8 @@ import type { Level } from '../store'
  * engine internals — had nowhere to live, and the default landed on everything at once.
  */
 const LEVELS: { n: Level; label: string; hint: string }[] = [
-  { n: 1, label: 'Brief', hint: 'The verdict and one thing to check. Rails closed.' },
-  { n: 2, label: 'Analysis', hint: 'Adds pillar momentum, the chart and the rankings.' },
-  { n: 3, label: 'Everything', hint: 'Adds the disagreement matrix, provenance and the evidence trail.' },
+  { n: 1, label: 'Preferences', hint: 'The board your setup answers asked for. Add any module from the bar at the foot.' },
+  { n: 3, label: 'Everything', hint: 'Every panel: the disagreement matrix, provenance and the evidence trail.' },
 ]
 
 const RADAR_SVG = (
@@ -23,9 +23,32 @@ const RADAR_SVG = (
   </svg>
 )
 
-export default function Header({ onPresent }: { onPresent?: () => void }) {
+export default function Header({ onPresent, onRecap }:
+                               { onPresent?: () => void; onRecap?: () => void }) {
   const { settings, setSettings, board, health, loadSample, uploadFile, toast, goDashboard,
     restartSetup } = useStore()
+
+  /**
+   * Open a rail from the header — at ANY level.
+   *
+   * The rails are a level-3 module, so at Preferences these two buttons used to set `leftOpen` /
+   * `rightOpen` and produce nothing: the flag flipped, the gate above it stayed shut, and the
+   * control was dead with no way for the reader to know why. A control that silently does nothing
+   * is worse than one that is missing.
+   *
+   * So opening a rail PINS the rails module — the same thing the chip at the foot of the board
+   * does — and closing the last open rail unpins it, which keeps the header, the chip and what is
+   * actually on screen from ever disagreeing.
+   */
+  const toggleRail = (side: 'left' | 'right') => {
+    const leftOpen = side === 'left' ? !settings.leftOpen : settings.leftOpen
+    const rightOpen = side === 'right' ? !settings.rightOpen : settings.rightOpen
+    const anyOpen = leftOpen || rightOpen
+    const extras: ModuleKey[] = anyOpen
+      ? (settings.extras.includes('rails') ? settings.extras : [...settings.extras, 'rails'])
+      : settings.extras.filter(k => k !== 'rails')
+    setSettings({ leftOpen, rightOpen, extras })
+  }
   const fileRef = useRef<HTMLInputElement>(null)
   const menuRef = useRef<HTMLDetailsElement>(null)
   const s = settings
@@ -94,6 +117,11 @@ export default function Header({ onPresent }: { onPresent?: () => void }) {
           <button className={`btn ${activeTab === 'context' ? 'on' : ''}`}
             title="Method and benchmarks — the same for every company, so they live here."
             onClick={() => setSettings({ tab: 'context' })}>Context</button>
+          {/* The long explanation. A tab rather than a help icon: someone deciding whether to
+              trust any of this is doing a first-class job, not looking something up. */}
+          <button className={`btn ${activeTab === 'manual' ? 'on' : ''}`} data-tour="manual"
+            title="What this app does, line by line — read out of the run that is loaded."
+            onClick={() => setSettings({ tab: 'manual' })}>How it works</button>
           {/* The book. Its own tab rather than a mode of the board: a client meeting is a
               different job from screening the universe, and the brief is a document, not a
               dashboard. */}
@@ -103,11 +131,26 @@ export default function Header({ onPresent }: { onPresent?: () => void }) {
               onClick={() => setSettings({ tab: 'clients' })}>Clients</button>
           )}
         </div>
-        <div className="seg" role="group" aria-label="Detail level">
+        {/* WHO is reading. First, and on its own, because it changes what every other control
+            below it means. */}
+        <div className="seg" role="group" aria-label="Audience">
+          <button className={`btn ${s.audience === 'investor' ? 'on' : ''}`}
+            title="Findings in plain sentences, the desk furniture folded away. The numbers stay one click behind “Show the numbers”."
+            onClick={() => setSettings({ audience: 'investor', showNumbers: false, level: 1 })}>
+            Investor
+          </button>
+          <button className={`btn ${s.audience === 'analyst' ? 'on' : ''}`}
+            title="The board as built: percentiles, tiers, N/M/K, the run id and the evidence trail."
+            onClick={() => setSettings({ audience: 'analyst' })}>
+            Analyst
+          </button>
+        </div>
+
+        <div className="seg" role="group" aria-label="Detail level" data-tour="level">
           {LEVELS.map(l => (
             <button key={l.n} className={`btn ${s.level === l.n ? 'on' : ''}`} title={l.hint}
               onClick={() => setSettings({ level: l.n, leftOpen: l.n > 1, rightOpen: l.n > 1 })}>
-              {l.n} · {l.label}
+              {l.label}
             </button>
           ))}
         </div>
@@ -138,11 +181,11 @@ export default function Header({ onPresent }: { onPresent?: () => void }) {
             <div className="cc-menu-group">
               <span className="cc-menu-label">Panels</span>
               <button className={`btn ${s.leftOpen ? 'btn-primary' : ''}`}
-                onClick={() => setSettings({ leftOpen: !s.leftOpen })}>
+                onClick={() => toggleRail('left')}>
                 {s.leftOpen ? '‹ Filters' : '› Filters'}
               </button>
               <button className={`btn ${s.rightOpen ? 'btn-primary' : ''}`}
-                onClick={() => setSettings({ rightOpen: !s.rightOpen })}>
+                onClick={() => toggleRail('right')}>
                 {s.rightOpen ? 'Assistant ›' : '‹ Assistant'}
               </button>
             </div>
@@ -163,6 +206,18 @@ export default function Header({ onPresent }: { onPresent?: () => void }) {
               <span className="cc-menu-label">Setup</span>
               <button className="btn" onClick={restartSetup}
                 title="Run the assistant setup again and re-shape the board.">Reconfigure</button>
+              <button className="btn"
+                onClick={() => { menuRef.current!.open = false; goDashboard(); setSettings({ tourDone: false }) }}
+                title="Replay the walkthrough of the board.">Tutorial</button>
+              <button className="btn"
+                onClick={() => {
+                  menuRef.current!.open = false
+                  goDashboard()
+                  // The plot has to be ON SCREEN for a walkthrough of it to have anything to
+                  // point at, so asking for the explanation brings it up.
+                  setSettings({ tab: 'board', level: 3, tourDeck: 'matrix' })
+                }}
+                title="The disagreement matrix, corner by corner.">Explain the matrix</button>
             </div>
 
             {/* A demo control, so it lives with the other configuration rather than in the
@@ -173,6 +228,13 @@ export default function Header({ onPresent }: { onPresent?: () => void }) {
               <button className="btn" onClick={() => { menuRef.current!.open = false; onPresent?.() }}
                 title="Walk the pitch through the running app, one click per step. Esc to leave.">
                 Present mode
+              </button>
+              {/* The same clicker, pointed at the run you are on rather than at a stranger:
+                  five stops and a card that consolidates what it passed. */}
+              <button className="btn"
+                onClick={() => { menuRef.current!.open = false; onRecap?.() }}
+                title="Walk this run — the quadrants, the pipeline, the focused company, what would change it — and end on one copyable summary.">
+                Recap this run
               </button>
             </div>
           </div>

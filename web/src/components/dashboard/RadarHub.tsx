@@ -217,7 +217,7 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
       <Satellite pillar={byKey.environment} area="nw" scale={scale} />
       <Satellite pillar={byKey.governance} area="ne" scale={scale} />
 
-      <div className="hub-core">
+      <div className="hub-core" data-tour="hub">
         <div className="hub-core-head">
           {focused
             ? (
@@ -323,7 +323,8 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
                 first-time visitor lands on level 1, so the backing was real but invisible. One
                 line, always present, one click from the receipts. */}
             {backing && (
-              <button className="hub-backing" onClick={() => openEvidence(backing.ticker)}
+              <button className="hub-backing" data-tour="backing"
+                onClick={() => openEvidence(backing.ticker)}
                 title="Every signal with its excerpt, source, date and the reason it counted">
                 <span className="hub-backing-n">{backing.n}</span>
                 <span className="hub-backing-t">

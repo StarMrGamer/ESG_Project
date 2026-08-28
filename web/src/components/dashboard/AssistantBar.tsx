@@ -23,13 +23,13 @@ export default function AssistantBar() {
   const chips = (board?.followups ?? []).slice(0, 3)
 
   return (
-    <div className="abar">
+    <div className="abar" data-tour="assistant">
       <div className="abar-row">
         <span className="abar-dot" aria-hidden />
         <input className="input" value={text}
           placeholder={settings.profile.goal === 'investigate'
             ? 'Ask about this company, or name another…'
-            : 'Ask me to filter, focus a name, or compete with a rating…'}
+            : 'Ask me to filter, focus or monitor a name, or compete with a rating…'}
           onChange={e => setText(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') submit() }} />
         <button className="btn btn-primary" onClick={submit}>Ask</button>
@@ -45,8 +45,15 @@ export default function AssistantBar() {
       {last && (
         <div className="abar-reply">
           {last.text}
+          {/* This used to jump to the old level 2 to reach the rail. With the rail a pinnable
+              module, the honest move is to pin it: the reader asked for the assistant log, not
+              for every other panel that level happened to carry. */}
           <button className="btn btn-sm abar-more"
-            onClick={() => setSettings({ level: 2, rightOpen: true })}>Open assistant</button>
+            onClick={() => setSettings({
+              extras: settings.extras.includes('rails')
+                ? settings.extras : [...settings.extras, 'rails'],
+              rightOpen: true,
+            })}>Open assistant</button>
         </div>
       )}
     </div>

@@ -72,8 +72,8 @@ const FOCUSES: { key: Focus; label: string; blurb: string }[] = [
 ]
 
 const GOALS: { key: Goal; label: string; blurb: string }[] = [
-  { key: 'screen', label: 'Screen the universe', blurb: 'Sweep ASEAN for names where we disagree with the rating.' },
-  { key: 'investigate', label: 'Investigate one company', blurb: 'Interrogate a single name, then compete with its rating.' },
+  { key: 'screen', label: 'Screen ASEAN companies', blurb: 'Sweep the whole basket for names where we disagree with the rating.' },
+  { key: 'investigate', label: 'Screen a singular company', blurb: 'Interrogate one name, then compete with its rating.' },
 ]
 
 /**
@@ -91,9 +91,8 @@ const DERIVED: Record<Mandate, { tier: TierKey; holding: Holding; focus: Focus; 
 }
 
 const LEVELS: { key: Level; label: string; blurb: string }[] = [
-  { key: 1, label: 'Brief', blurb: 'The verdict and one action.' },
-  { key: 2, label: 'Analysis', blurb: 'Adds the momentum chart and the rankings.' },
-  { key: 3, label: 'Everything', blurb: 'Adds the disagreement matrix, evidence and provenance.' },
+  { key: 1, label: 'Preferences', blurb: 'The verdict and one action — the board your answers asked for.' },
+  { key: 3, label: 'Everything', blurb: 'Every panel: the matrix, the rankings, evidence and provenance.' },
 ]
 
 function Bubble({ children }: { children: React.ReactNode }) {
@@ -492,11 +491,12 @@ export default function Setup() {
               {LEVELS.map(l => (
                 <button key={l.key} className={`setup-level ${level === l.key ? 'on' : ''}`}
                   onClick={() => setLevel(l.key)}>
-                  <b>{l.key} · {l.label}</b><span>{l.blurb}</span>
+                  <b>{l.label}</b><span>{l.blurb}</span>
                 </button>
               ))}
               <div className="cc-muted">
-                You can move up a level at any time from the header — nothing is hidden for good.
+                Switch at any time from the header, or add single panels — the matrix, the
+                rankings — from the bar at the foot of the board. Nothing is hidden for good.
               </div>
             </div>
 

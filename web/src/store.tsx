@@ -25,7 +25,16 @@ export type Focus = 'broad' | 'green'
  * default for a first-time user — the dashboard used to open with all three at once, which is
  * the "overstimulating" complaint this exists to answer.
  */
-export type Level = 1 | 2 | 3
+/**
+ * Two levels, not three. `2 · Analysis` was the middle of a ladder, and once modules became
+ * pinnable (`extras`, see lib/modules.ts) it had no job left: it was "Preferences plus five
+ * specific panels", which is exactly what pinning five chips does, only fixed. What remains is
+ * the honest pair — the board your setup answers shaped, or all of it.
+ *
+ * A stored `2` migrates to 3 in `loadSettings`, upward on purpose: a returning browser should
+ * find everything it had on screen still on screen, never less.
+ */
+export type Level = 1 | 3
 
 export interface Profile {
   mandate: Mandate | ''
@@ -42,8 +51,30 @@ export type View =
   | { name: 'compare'; tickers: string[] }
   | { name: 'evidence'; ticker: string }
 
+/**
+ * WHO is reading. Not a permission and not a data switch — the same run, the same arithmetic,
+ * rendered for two different readers.
+ *
+ *   investor — the default, and the one a first-time visitor gets. Findings as sentences, the
+ *              desk furniture (percentiles, N/M/K, tiers, run ids, the Merkle root) folded away.
+ *   analyst  — the app as built: every number, every control, nothing translated.
+ *
+ * It is deliberately NOT another level. `level` answers "how much of the board", `audience`
+ * answers "in whose vocabulary" — and an analyst on Preferences and an investor on Everything
+ * are both coherent things to be.
+ */
+export type Audience = 'investor' | 'analyst'
+
 /** Which half of the app is on screen. See `Settings.tab`. */
-export type BoardTab = 'board' | 'context' | 'clients'
+export type BoardTab = 'board' | 'context' | 'clients' | 'manual'
+
+/**
+ * A board module that can be pinned on regardless of `level`. The registry — what each one is
+ * and which level shows it on its own — lives in `lib/modules.ts`; only the key is here, so
+ * `Settings` stays the single description of what is persisted.
+ */
+export type ModuleKey = 'matrix' | 'case' | 'classification' | 'rankings' | 'universe'
+  | 'news' | 'price' | 'rails'
 
 export interface Settings {
   demo: boolean
@@ -53,7 +84,7 @@ export interface Settings {
    * directly — it is derived from `level` in setSettings, so the two can never disagree.
    */
   simplified: boolean
-  /** Progressive disclosure: 1 Brief · 2 Analysis · 3 Everything. */
+  /** Progressive disclosure: 1 Preferences · 3 Everything. */
   level: Level
   /**
    * Board vs Context. `level` answers "how much detail", which is a different question from
@@ -66,6 +97,35 @@ export interface Settings {
   tab: BoardTab
   /** False until the assistant-led setup has run; gates the whole dashboard. */
   setupDone: boolean
+  /**
+   * False until the first-run tutorial has been seen or skipped. Separate from `setupDone`
+   * because they answer different questions — setup shapes the board, the tutorial teaches the
+   * board — and because Reconfigure must be able to re-run one without replaying the other.
+   */
+  tourDone: boolean
+  audience: Audience
+  /**
+   * The company on screen, remembered across reloads.
+   *
+   * It used to live only in component state, which is right for an analyst sweeping a universe
+   * and wrong for the reader who came to look at one name: they type it once, reload, and are
+   * back on somebody else's company while the header still says "looking at" theirs.
+   */
+  focus: string
+  /** Investor view only: reveal the analyst rendering in place. Never a wall, always a click. */
+  showNumbers: boolean
+  /**
+   * A walkthrough asked for BY NAME, rather than the first-run one. '' is none; 'matrix' explains
+   * the disagreement plot corner by corner. It outranks `tourDone` — someone who clicks "What am
+   * I looking at?" is asking now, and having seen a different tour once is no reason to refuse.
+   */
+  tourDeck: '' | 'matrix'
+  /**
+   * Modules pinned ON TOP of the level — "Preferences, plus the disagreement matrix". The level is a
+   * good default and a bad cage: wanting the verdict and the matrix should not cost you the
+   * whole of Analysis and Everything. Empty for everyone who never opens the picker.
+   */
+  extras: ModuleKey[]
   profile: Profile
   /**
    * The universe filters live here, not in component state, because the setup chooses them and
@@ -113,6 +173,7 @@ interface ChatMsg { role: 'user' | 'assistant'; text: string }
 const SETTINGS_KEY = 'esg-radar-settings'
 const DEFAULTS: Settings = {
   demo: true, dark: true, simplified: true, level: 1, tab: 'board', setupDone: false,
+  tourDone: false, extras: [], audience: 'investor', showNumbers: false, focus: '', tourDeck: '',
   profile: { mandate: '', goal: '', holding: '', focus: '', label: '' },
   filters: { country: 'All', sector: 'All' },
   leftOpen: false, rightOpen: false,
@@ -123,7 +184,13 @@ const DEFAULTS: Settings = {
 function loadSettings(): Settings {
   try {
     const raw = localStorage.getItem(SETTINGS_KEY)
-    if (raw) return { ...DEFAULTS, ...JSON.parse(raw) }
+    if (raw) {
+      const stored = { ...DEFAULTS, ...JSON.parse(raw) }
+      // Level 2 is gone. Migrate up, never down — losing panels you had is a worse surprise
+      // than gaining the matrix, and every one of them is a chip away either direction.
+      if ((stored.level as number) === 2) stored.level = 3
+      return stored
+    }
   } catch { /* fresh defaults */ }
   return DEFAULTS
 }
@@ -155,6 +222,13 @@ interface Store {
   toggleCompare: (ticker: string) => void
   openCompare: () => void
   applySetup: (c: SetupChoice) => void
+  /**
+   * True while RECONFIGURE is running. The one-question start is for a first-time visitor who
+   * has no preferences yet; somebody who deliberately went looking for "Reconfigure" is asking
+   * to choose them, and handing them the same single question back is a dead end wearing a
+   * button's clothes. Not persisted — it describes what the user is doing right now.
+   */
+  setupFull: boolean
   restartSetup: () => void
   chatLog: ChatMsg[]
   sendChat: (text: string) => Promise<void>
@@ -176,7 +250,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [settings, setSettingsState] = useState<Settings>(loadSettings)
   const [health, setHealth] = useState<Health | null>(null)
   const [view, setView] = useState<View>({ name: 'dashboard' })
-  const [focusTicker, setFocusTicker] = useState('')
+  const [focusTicker, setFocusTicker] = useState(() => loadSettings().focus)
+  const [setupFull, setSetupFull] = useState(false)
   const [board, setBoard] = useState<Board | null>(null)
   const [boardLoading, setBoardLoading] = useState(false)
   const [boardError, setBoardError] = useState('')
@@ -240,7 +315,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
-  const setFocus = useCallback((ticker: string) => setFocusTicker(ticker), [])
+  const setFocus = useCallback((ticker: string) => {
+    setFocusTicker(ticker)
+    setSettings({ focus: ticker })
+  }, [setSettings])
 
   const goDashboard = useCallback(() => setView({ name: 'dashboard' }), [])
 
@@ -342,6 +420,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [compareSel])
 
   const applySetup = useCallback((c: SetupChoice) => {
+    setSetupFull(false)
     setSettings({
       filters: { country: c.country, sector: c.sector },
       level: c.level, tier: c.tier, horizon: c.horizon, setupDone: true,
@@ -355,6 +434,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [setSettings])
 
   const restartSetup = useCallback(() => {
+    setSetupFull(true)
     setSettings({ setupDone: false })
     setView({ name: 'dashboard' })
   }, [setSettings])
@@ -382,6 +462,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             .then(r => { saveEntry(r.entry); refreshBoard() })
             .catch(() => { /* board still shows the name */ })
         }
+      } else if (a.kind === 'monitor') {
+        // "add DBS" keeps it: build the snapshot and pin it to the watchlist, which is what the
+        // left rail lists and what survives a reload. Focus alone would have looked identical
+        // for one click and then quietly lost the name.
+        if (a.already) setFocusTicker(a.ticker)
+        else await monitorOnly(a.ticker)
       } else if (a.kind === 'relay') {
         await openDeepDive(a.ticker, a.mode)
       } else if (a.kind === 'relay_live') {
@@ -396,17 +482,18 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       busyRef.current = false
     }
   }, [settings.demo, settings.simplified, focusTicker, openDeepDive, buildLiveAndDive, saveEntry,
+      monitorOnly,
     refreshBoard, setFilters])
 
   const value = useMemo<Store>(() => ({
     settings, setSettings, health, view, goDashboard, filters, setFilters,
     focusTicker, setFocus, board, boardLoading, boardError, refreshBoard,
     entries, saveEntry, monitorOnly, openDeepDive, openEvidence, buildLiveAndDive, loadSample,
-    uploadFile, unpin, compareSel, toggleCompare, openCompare, applySetup, restartSetup,
+    uploadFile, unpin, compareSel, toggleCompare, openCompare, applySetup, restartSetup, setupFull,
     chatLog, sendChat, toasts, toast,
   }), [settings, setSettings, health, view, goDashboard, filters, setFilters, focusTicker,
     setFocus, board, boardLoading, boardError, refreshBoard, entries, saveEntry, monitorOnly,
-    openDeepDive, openEvidence, buildLiveAndDive, loadSample, uploadFile, unpin, compareSel,
+    openDeepDive, openEvidence, buildLiveAndDive, loadSample, uploadFile, unpin, setupFull, compareSel,
     toggleCompare, openCompare, applySetup, restartSetup, chatLog, sendChat, toasts, toast])
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

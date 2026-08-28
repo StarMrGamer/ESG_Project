@@ -78,11 +78,12 @@ interface Rect { x0: number; x1: number; y0: number; y1: number; midX: number; m
 // corner "Consensus" alone put the product's whole differentiator under the name of something
 // else, and a reader matching green dots to the nearest caption drew the wrong conclusion. So
 // the corner names both, and each half is drawn in the colour of its own dots.
-const QUADRANTS: { keys: LabelKey[]; at: (r: Rect) => { x: number; y: number }; anchor: 'start' | 'end' }[] = [
-  { keys: ['hidden_winners', 'consensus'], anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y0 + 16 }) },
-  { keys: ['future_leaders'], anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y0 + 16 }) },
-  { keys: ['value_traps'], anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y1 - 8 }) },
-  { keys: ['overrated_leaders'], anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y1 - 8 }) },
+/** `tour` is the walkthrough's handle on each corner — see the matrix deck in Tutorial.tsx. */
+const QUADRANTS: { keys: LabelKey[]; tour: string; at: (r: Rect) => { x: number; y: number }; anchor: 'start' | 'end' }[] = [
+  { keys: ['hidden_winners', 'consensus'], tour: 'quad-hidden', anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y0 + 16 }) },
+  { keys: ['future_leaders'], tour: 'quad-future', anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y0 + 16 }) },
+  { keys: ['value_traps'], tour: 'quad-traps', anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y1 - 8 }) },
+  { keys: ['overrated_leaders'], tour: 'quad-overrated', anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y1 - 8 }) },
 ]
 
 /**
@@ -170,7 +171,14 @@ export default function EngineBoard() {
             <span className="section-chev" aria-hidden="true">▾</span>
             <span className="cc-h section-title">Disagreement matrix</span>
           </button>
-          <div className="cc-muted">
+          {/* The densest thing in the product, one click from its own explanation — and the
+              click has to be findable, so it sits on the title line rather than under it. */}
+          <button className="btn matrix-explain" data-tour="explain-matrix"
+            onClick={() => setSettings({ tourDeck: 'matrix' })}
+            title="Walk the plot corner by corner: both directions, the two dividing lines, each quadrant, and what a dimmed or hollow dot means.">
+            <span className="matrix-explain-q" aria-hidden>?</span> What am I looking at?
+          </button>
+          {settings.audience === 'analyst' && <div className="cc-muted">
             x = incumbent rating percentile (<b title="A mocked stand-in for the licensed LSEG
               percentile: the company's stored static rating ranked inside this run's cohort.
               Never presented as an LSEG figure.">MOCK baseline</b>)
@@ -179,9 +187,13 @@ export default function EngineBoard() {
               like twelve corroborating ones. Names cluster where the evidence agrees; an
               extreme score has to be earned.">−1 to +1</b>
             {' · '}{shown.length} of {rows.length} in view
-          </div>
+          </div>}
         </div>
-        <div className="engine-run" title={`config ${engine.config_version} · ${engine.config_hash}`}>
+        {/* Run id, as-of, half-life and the chain chip are the provenance an analyst checks
+            first and the four things an investor has no way to read. Folded, not deleted — the
+            claim "every figure re-derives from this id" has to stay reachable from every view. */}
+        <div className={`engine-run ${settings.audience === 'investor' ? 'is-folded' : ''}`}
+          title={`config ${engine.config_version} · ${engine.config_hash}`}>
           <span>run <b>{engine.run_id}</b></span>
           <span>as of {engine.as_of}</span>
           <span title="The decay half-life this run was scored with. Flip it in the controls
@@ -195,7 +207,7 @@ export default function EngineBoard() {
 
       {open && (<>
 
-      <div className="engine-controls">
+      <div className={`engine-controls ${settings.audience === 'investor' ? 'is-folded' : ''}`}>
         <div className="seg" role="group" aria-label="Risk appetite" data-tour="tiers">
           <button className={`btn ${settings.tier === 'all' ? 'on' : ''}`}
             title="Show every company, no tier applied."
@@ -265,7 +277,8 @@ export default function EngineBoard() {
           {/* the two quadrant boundaries — the only gridlines that mean something */}
           <line x1={rect.midX} y1={rect.y0} x2={rect.midX} y2={rect.y1} className="matrix-divide" />
           <line x1={rect.x0} y1={rect.midY} x2={rect.x1} y2={rect.midY} className="matrix-divide" />
-          <text x={rect.midX + 6} y={rect.y0 + 13} className="matrix-divide-label">median rating</text>
+          <text x={rect.midX + 6} y={rect.y0 + 13} className="matrix-divide-label"
+            data-tour="boundaries">median rating</text>
           <text x={rect.x1 - 6} y={rect.midY - 6} textAnchor="end" className="matrix-divide-label">
             no momentum
           </text>
@@ -295,12 +308,12 @@ export default function EngineBoard() {
           ))}
 
           {/* axis names */}
-          <text x={rect.x0 - 62} y={rect.midY} className="matrix-axis-name"
+          <text x={rect.x0 - 62} y={rect.midY} className="matrix-axis-name" data-tour="axis-y"
             transform={`rotate(-90 ${rect.x0 - 62} ${rect.midY})`} textAnchor="middle">
             our live momentum →
           </text>
           <text x={(rect.x0 + rect.x1) / 2} y={rect.y1 + 44} textAnchor="middle"
-            className="matrix-axis-name">
+            className="matrix-axis-name" data-tour="axis-x">
             what the incumbent rating thinks — percentile →
           </text>
           <text x={rect.x1} y={rect.y0 - 10} textAnchor="end" className="matrix-end">
@@ -310,7 +323,8 @@ export default function EngineBoard() {
           <text x={rect.x1} y={rect.y1 + 44} textAnchor="end" className="matrix-end">leader</text>
 
           {QUADRANTS.map(q => (
-            <text key={q.keys.join('+')} {...q.at(rect)} textAnchor={q.anchor} className="matrix-quad">
+            <text key={q.keys.join('+')} {...q.at(rect)} textAnchor={q.anchor} className="matrix-quad"
+              data-tour={q.tour}>
               {q.keys.map((key, i) => (
                 <Fragment key={key}>
                   {i > 0 && <tspan className="matrix-quad-sep"> · </tspan>}

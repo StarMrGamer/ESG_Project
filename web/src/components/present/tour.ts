@@ -15,6 +15,16 @@
  *  2. **A step that needs the model is `live: true` and drives nothing.** The interrogation is a
  *     real DeepSeek call over the network. Auto-firing it on a stage, behind conference wifi,
  *     with a countdown running, is how a demo dies. Those steps set the scene and hand over.
+ *
+ * NO CUE LINE ON SCREEN (changed 2026-08-28). Each step used to carry a `say` string — often a
+ * function of the loaded run — which present mode printed under the board. It is gone: the room
+ * should be watching the app and listening to a person, not reading a caption of what they are
+ * about to hear. What remains is the highlight and the state change.
+ *
+ * `note` replaces it as a PRESENTER-ONLY tooltip on the progress ticks, and it deliberately
+ * carries **no figures**. A number typed into this file cannot follow the run it came from —
+ * that is the staleness trap this repo has already been bitten by twice — and the panel being
+ * highlighted is showing the real one anyway.
  */
 import type { Settings } from '../../store'
 
@@ -46,37 +56,6 @@ export const SUBJECTS = { live: 'KLSE:RHBBANK', demo: 'IDX:SATB' } as const
 
 export const subjectFor = (demo: boolean) => demo ? SUBJECTS.demo : SUBJECTS.live
 
-/**
- * What a cue line is allowed to know. Every figure below is READ OFF THE RUN THAT IS LOADED,
- * never typed into this file.
- *
- * The earlier draft hard-coded "+0.80", "nine governance signals" and "fourteen signals" from
- * the live basket. That is the staleness trap this repo already learned once with N/M/K: a
- * number written into prose cannot follow the run it came from, and a cue that contradicts the
- * panel behind it is worse on stage than no cue at all. It also made the tour simply wrong in
- * the demo universe, where every one of those figures differs.
- */
-export interface Cue {
-  demo: boolean
-  universe: number
-  pipeline: number
-  company: string
-  disagreement: number
-  signals: number
-  /** Signals whose removal alone would move the label — 0 means the verdict is corroborated. */
-  flips: number
-  /** How many of the heaviest would ALL have to go before it moved. null = not even all of them. */
-  flipSet: number | null
-  /** The most negative sub-signal — the one that disagrees. */
-  dissent: { label: string; value: number } | null
-  /** A pillar whose own signals disagree with each other. */
-  split: { pillar: string; total: number; up: number; down: number } | null
-}
-
-const PILLAR = { E: 'environment', S: 'social', G: 'governance', DIGITAL: 'digital' } as const
-const pillarName = (k: string) => (PILLAR as Record<string, string>)[k] ?? k.toLowerCase()
-const signed = (n: number) => `${n >= 0 ? '+' : '\u2212'}${Math.abs(n).toFixed(2)}`
-
 export interface Driver {
   /** The subject for the universe currently loaded — demo or live. */
   subject: string
@@ -104,8 +83,8 @@ export interface Step {
   chapter: string
   /** The screen this step is talking about. Established on entry, from any other step. */
   view: ViewSpec
-  /** The line. A cue for the presenter, and a caption the room can read. */
-  say: string | ((c: Cue) => string)
+  /** Presenter-facing only — the tick's tooltip. Never rendered to the room, never a figure. */
+  note?: string
   /** `data-tour` value to scroll to and ring. Omitted = leave the viewport alone. */
   anchor?: string
   /** Drive the app into the state this step describes. Absolute, never relative. */
@@ -117,6 +96,24 @@ export interface Step {
   live?: boolean
   /** Extra ms to let the app settle before scrolling — a view change needs a paint. */
   settle?: number
+  /** The closing card of a track that consolidates what it walked. See `recap.ts`. */
+  summary?: boolean
+}
+
+/**
+ * A TRACK is a named walk. Present mode is the driver; what it drives is data.
+ *
+ * Two exist: `PITCH` argues the product to a room, `RECAP` reviews the run that is loaded and
+ * hands you the consolidated figures at the end. They share every mechanism — the absolute-state
+ * rule, the anchors, the ring, the keys, interact mode — because the difference between "show a
+ * stranger why this matters" and "tell me what this run says" is a list of steps, not an engine.
+ */
+export interface Track {
+  key: 'pitch' | 'recap'
+  label: string
+  /** The subject a track walks. 'fixed' is the rehearsed one; 'focused' is whatever is on screen. */
+  subject: 'fixed' | 'focused'
+  steps: Step[]
 }
 
 export const TOUR: Step[] = [
@@ -124,14 +121,15 @@ export const TOUR: Step[] = [
   {
     chapter: '01 · The board',
     view: 'board',
-    say: 'Monday morning. An ESG analyst opens the Radar.',
+    note: 'Every name read twice — dated evidence up, the incumbent rating across. The gap is '
+      + 'the product, and the argument is the diagonal.',
     anchor: 'matrix',
     settle: 450,
     act: d => {
       // The full opening state in one call, so this step is a safe place to restart from.
       // `demo` is deliberately absent. Which universe to present is the presenter's call,
-      // made before they start; the tour adapts its subject and every figure to whichever is
-      // loaded rather than yanking the board out from under them.
+      // made before they start; the tour adapts its subject to whichever is loaded rather than
+      // yanking the board out from under them.
       d.set({
         level: 3, tab: 'board', tier: 'all', horizon: 'long',
         pipelineOnly: false, greenFocus: false, filters: { country: 'All', sector: 'All' },
@@ -139,98 +137,49 @@ export const TOUR: Step[] = [
       d.dashboard()
     },
   },
-  {
-    chapter: '01 · The board',
-    view: 'board',
-    say: c => `${c.universe} ASEAN companies, read twice overnight — once from dated evidence, `
-      + `once from the rating the market already uses.`,
-    anchor: 'matrix',
-    act: d => d.set({ tier: 'all', pipelineOnly: false }),
-  },
-  {
-    chapter: '01 · The board',
-    view: 'board',
-    say: 'The gap between the two is the product. Across, what the incumbent rating thinks. '
-      + 'Up, what our evidence is doing. Four quadrants, and the argument is the diagonal.',
-    anchor: 'matrix',
-    act: d => d.set({ tier: 'all', pipelineOnly: false }),
-  },
 
   // ── 02 · the mandate ───────────────────────────────────────────────────────
   {
     chapter: '02 · The mandate',
     view: 'board',
-    say: 'Her mandate re-segments the board. Conservative — and the board answers to it.',
+    note: 'Conservative. The mandate re-segments the same evidence — and what falls outside it '
+      + 'dims rather than disappears.',
     anchor: 'tiers',
     act: d => d.set({ tier: 'conservative', pipelineOnly: false }),
   },
   {
     chapter: '02 · The mandate',
     view: 'board',
-    say: 'Balanced. The same evidence, a different fund, a different shortlist.',
-    anchor: 'tiers',
-    act: d => d.set({ tier: 'balanced', pipelineOnly: false }),
-  },
-  {
-    chapter: '02 · The mandate',
-    view: 'board',
-    say: 'Aggressive.',
+    note: 'Aggressive. Same run, different fund, different shortlist.',
     anchor: 'tiers',
     act: d => d.set({ tier: 'aggressive', pipelineOnly: false }),
-  },
-  {
-    chapter: '02 · The mandate',
-    view: 'board',
-    say: 'And nothing is hidden. What falls outside the mandate is dimmed, never dropped — '
-      + 'you still have to be able to see the name you are choosing not to hold.',
-    anchor: 'matrix',
-    act: d => d.set({ tier: 'all', pipelineOnly: false }),
   },
 
   // ── 03 · the call list ─────────────────────────────────────────────────────
   {
     chapter: '03 · The call list',
     view: 'board',
-    say: 'One filter turns the board into a call list.',
-    anchor: 'pipeline',
-    act: d => d.set({ tier: 'all', pipelineOnly: true }),
-  },
-  {
-    chapter: '03 · The call list',
-    view: 'board',
-    say: c => `${c.pipeline} names — improving on evidence, financially sound, and not yet `
-      + `green-bond issuers. Tomorrow’s issuers, not today’s league table.`,
+    note: 'One filter turns the board into a call list: improving on evidence, financially '
+      + 'sound, not yet an issuer. Tomorrow’s issuers, not today’s league table.',
     anchor: 'nmk',
     act: d => d.set({ tier: 'all', pipelineOnly: true }),
   },
 
   // ── 04 · it asks before it answers ─────────────────────────────────────────
   {
-    chapter: '04 · It asks before it answers',
+    chapter: '04 · It asks first',
     view: 'interrogate',
-    say: 'Then the part that isn’t a dashboard. It asks.',
+    note: 'The part that is not a dashboard. Four ESG-native axes, one question each — and it '
+      + 'never answers the ESG question itself.',
     anchor: 'relay',
     settle: 900,
     act: d => d.set({ pipelineOnly: false }),
   },
   {
-    chapter: '04 · It asks before it answers',
+    chapter: '04 · It asks first',
     view: 'interrogate',
-    say: 'Four ESG-native axes — materiality, time horizon, mandate, blind spot. One question '
-      + 'each, and it never answers the ESG question itself.',
-    anchor: 'axes',
-  },
-  {
-    chapter: '04 · It asks before it answers',
-    view: 'interrogate',
-    say: 'Ask it something loose and it pushes back — and tells you why it is asking.',
-    anchor: 'interrogate',
-    live: true,
-  },
-  {
-    chapter: '04 · It asks before it answers',
-    view: 'interrogate',
-    say: 'What comes out is a sharper question: the baton the next stage answers.',
+    note: 'Ask it something loose. It pushes back, says why, and hands the next stage a sharper '
+      + 'question. LIVE — you drive this one.',
     anchor: 'interrogate',
     live: true,
   },
@@ -239,57 +188,32 @@ export const TOUR: Step[] = [
   {
     chapter: '05 · The case',
     view: 'compete',
-    say: c => `${c.company}. The competing answer — the verdict, and where we disagree `
-      + `with the rating.`,
+    note: 'The competing answer: the verdict, and where it disagrees with the rating.',
     anchor: 'verdict',
     settle: 900,
   },
   {
     chapter: '05 · The case',
     view: 'compete',
-    say: c => `What the rating sees, beside what we see. ${signed(c.disagreement)} — our `
-      + `evidence rank, minus the rating’s. Not a score. A disagreement, with a sign.`,
+    note: 'What the rating sees, beside what we see. Our evidence rank minus the rating’s — not '
+      + 'a score, a disagreement with a sign.',
     anchor: 'market',
-  },
-  {
-    chapter: '05 · The case',
-    view: 'compete',
-    say: c => c.split
-      ? `And underneath, the evidence the rating cannot see: ${c.split.total} `
-        + `${pillarName(c.split.pillar)} signals — ${c.split.up} up, ${c.split.down} down. `
-        + `Contested, not absent.`
-      : 'And underneath, the evidence the rating cannot see — momentum by pillar, the digital '
-        + 'signal, and the near-term catalyst no score can price yet.',
-    anchor: 'layerb',
   },
 
   // ── 06 · the evidence trail ────────────────────────────────────────────────
   {
-    chapter: '06 · The evidence trail',
+    chapter: '06 · The trail',
     view: 'evidence',
-    say: c => c.dissent
-      ? `Every number opens. Where the score comes from — each sub-signal, and the one that `
-        + `disagrees: ${c.dissent.label}, at ${signed(c.dissent.value)}.`
-      : 'Every number opens. Where the score comes from — every sub-signal behind the number, '
-        + 'and what each one is worth.',
-    anchor: 'score-source',
+    note: 'Take one signal away and re-score: which removals move the label, and which do not. '
+      + 'Corroborated, or carried.',
+    anchor: 'sensitivity',
     settle: 700,
   },
   {
-    chapter: '06 · The evidence trail',
+    chapter: '06 · The trail',
     view: 'evidence',
-    say: c => c.flips === 0 && c.flipSet
-      ? `Take one signal away — none of the ${c.signals} moves the label on its own. `
-        + `The ${c.flipSet} heaviest would all have to go. Corroborated, not carried.`
-      : `Take one signal away — ${c.flips} of ${c.signals} would move the label alone. `
-        + `That is what this verdict is standing on.`,
-    anchor: 'sensitivity',
-  },
-  {
-    chapter: '06 · The evidence trail',
-    view: 'evidence',
-    say: c => `And the trail itself: ${c.signals} signals, each one dated and sourced. `
-      + `The excerpt is the source’s own words — nothing here is generated.`,
+    note: 'The trail itself — every signal dated and sourced, the excerpt in the source’s own '
+      + 'words. Nothing here is generated.',
     anchor: 'trail',
   },
 
@@ -297,13 +221,7 @@ export const TOUR: Step[] = [
   {
     chapter: '07 · Verify',
     view: 'evidence',
-    say: 'Then she verifies.',
-    anchor: 'verify-block',
-  },
-  {
-    chapter: '07 · Verify',
-    view: 'evidence',
-    say: 'Every hash recomputes, walks the Merkle path, and matches the root anchored on a '
+    note: 'Recompute every hash, walk the Merkle path, compare with the root anchored on a '
       + 'public chain. Proof on-chain — never the data.',
     anchor: 'verify-block',
     settle: 400,
@@ -312,15 +230,19 @@ export const TOUR: Step[] = [
   {
     chapter: '07 · Verify',
     view: 'evidence',
-    say: 'Change one character on purpose, and it breaks.',
+    note: 'Change one character on purpose, and it breaks. That failure is the feature.',
     anchor: 'verify-block',
     settle: 400,
     act: d => { d.click('tamper') },
   },
-  {
-    chapter: '07 · Verify',
-    view: 'evidence',
-    say: 'One analyst. One Monday. Every number checkable.',
-    anchor: 'verify-block',
-  },
 ]
+
+export const PITCH: Track = {
+  key: 'pitch',
+  label: 'Present mode',
+  // The rehearsed subject, not whatever happens to be focused: this walk is a claim about a
+  // specific company with a thick trail and a dissenting signal, and it has to land the same way
+  // every time it is given.
+  subject: 'fixed',
+  steps: TOUR,
+}
