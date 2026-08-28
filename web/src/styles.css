@@ -3386,18 +3386,31 @@ body.is-presenting .app-main { padding-bottom: 104px; }
   border-radius: var(--r-radius); padding: var(--pad-panel);
 }
 .inv-top { display: flex; align-items: flex-start; gap: var(--sp-5); }
+/* The company this card is ABOUT. It was 11.5px at --r-faint, which measured 3.04:1 on the
+   card — under the 4.5:1 AA needs at that size — and rendered SMALLER than the six peer names
+   in the match list directly below it. The one company being read was the least prominent
+   name on the page, immediately above a list of companies it could be confused with. It stays
+   a label rather than a second headline: the 26px verdict still leads, this just has to be
+   unmistakable and to beat the peer list. Now 15.14:1. */
 .inv-co {
-  font: 600 11.5px/1.2 var(--r-mono); letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--r-faint);
+  font: 600 15px/1.2 var(--r-mono); letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--r-text);
 }
 .inv-head {
   font-family: var(--r-font); font-size: 26px; font-weight: 600; line-height: 1.15;
   letter-spacing: -0.015em; color: var(--r-text); margin-top: var(--sp-2);
 }
 .inv-numbers { margin-left: auto; white-space: nowrap; }
+/* READING SIZE AND MEASURE. Everything below was set for a desk: 13.5px answers, 11.5px
+   labels, and no cap on the answer column at all, which measured 202 characters per line on a
+   wide monitor — nearly 3x the 45-75 a reader can track without losing their place. Small type
+   on a very long line is what makes text feel unreadable, and the two compounded here. The
+   labels and the footer were also on --r-faint: 3.04:1, under the 4.5:1 AA needs at that size.
+   Nothing on this card is faint any more — it is the one surface built for a reader who does
+   not do this for a living. */
 .inv-lead {
-  margin: var(--sp-5) 0 0; font-size: 14px; line-height: 1.55; color: var(--r-muted);
-  max-width: 78ch;
+  margin: var(--sp-5) 0 0; font-size: 16px; line-height: 1.6; color: var(--r-muted);
+  max-width: 72ch;
 }
 .inv-rows { margin-top: var(--sp-6); border-top: 1px solid var(--r-border); }
 .inv-row {
@@ -3405,20 +3418,27 @@ body.is-presenting .app-main { padding-bottom: 104px; }
   padding: var(--sp-4) 0; border-bottom: 1px solid var(--r-border);
 }
 .inv-k {
-  font: 600 11.5px/1.4 var(--r-font); letter-spacing: 0.02em; color: var(--r-faint);
+  font: 600 12.5px/1.45 var(--r-font); letter-spacing: 0.02em; color: var(--r-muted);
 }
-.inv-v { font-size: 13.5px; line-height: 1.55; color: var(--r-muted); }
+.inv-v { font-size: 15px; line-height: 1.6; color: var(--r-muted); max-width: 68ch; }
 .inv-v b { color: var(--r-text); font-weight: 600; }
-.inv-aside { color: var(--r-faint); font-style: normal; font-size: 12.2px; }
+/* Below ~700px the fixed 190px label column left the ANSWER 109px wide — a 90-word sentence
+   rendered as a 192px-tall ribbon while its label had nearly twice the room. Stack them: the
+   label reads as a heading over its answer, and the answer gets the full width. */
+@media (max-width: 700px) {
+  .inv-row { grid-template-columns: 1fr; gap: var(--sp-2); }
+  .inv-v, .inv-lead, .inv-foot { max-width: none; }
+}
+.inv-aside { color: var(--r-muted); font-style: normal; font-size: 13px; }
 
 .inv-receipts { margin-top: var(--sp-6); }
 .inv-receipt {
   display: grid; grid-template-columns: 92px 1fr auto; gap: var(--sp-4);
   align-items: baseline; padding: var(--sp-3) 0; border-bottom: 1px solid var(--r-border);
-  text-decoration: none; font-size: 12.5px; color: var(--r-muted);
+  text-decoration: none; font-size: 13.5px; color: var(--r-muted);
 }
 .inv-receipt:hover { background: var(--r-inset); }
-.inv-date { font: 500 11.5px/1.4 var(--r-mono); color: var(--r-faint); }
+.inv-date { font: 500 12.5px/1.4 var(--r-mono); color: var(--r-muted); }
 .inv-text { color: var(--r-text); }
 .inv-src {
   font: 600 10.5px/1.4 var(--r-mono); letter-spacing: 0.08em; text-transform: uppercase;
@@ -3428,7 +3448,7 @@ body.is-presenting .app-main { padding-bottom: 104px; }
 .inv-actions { display: flex; gap: var(--sp-3); margin-top: var(--sp-6); flex-wrap: wrap; }
 .inv-foot {
   margin-top: var(--sp-5); padding-top: var(--sp-4); border-top: 1px solid var(--r-border);
-  font-size: 11.5px; line-height: 1.5; color: var(--r-faint); max-width: 88ch;
+  font-size: 12.5px; line-height: 1.6; color: var(--r-muted); max-width: 72ch;
 }
 
 /* Folded desk furniture: present, reachable, out of the way. */

@@ -97,10 +97,14 @@ export const horizonPlain = (halfLifeDays: number) =>
 export function watchLine(loadBearing: number | null, flipSet: number | null, signals: number) {
   if (loadBearing === null) return ''
   if (loadBearing === 0) {
-    return flipSet
-      ? `No single source is holding this up — ${flipSet} of the heaviest would all have to be `
-        + `wrong before the answer changed.`
-      : 'No single source is holding this up.'
+    if (!flipSet) return 'No single source is holding this up.'
+    // Agreement, not decoration: `flipSet` is a live count off the sensitivity report, and the
+    // sentence has to read at 2 as well as at 11. "2 of the heaviest would ALL have to be
+    // wrong" does not agree, and at 1 it would contradict the clause before it.
+    if (flipSet === 1) return 'No single source decides this, but the heaviest one would change it.'
+    const many = flipSet === 2 ? 'both' : 'all'
+    return `No single source is holding this up — the ${flipSet} heaviest would ${many} have `
+      + `to be wrong before the answer changed.`
   }
   if (loadBearing === 1) return 'One source is holding this up. If it were wrong, the answer changes.'
   return `${loadBearing} of the ${signals} sources are load-bearing: pull any one of them out and `

@@ -131,9 +131,11 @@ export default function InvestorCard() {
           )}
           <div className="inv-row">
             <span className="inv-k">When to look again</span>
+            {/* Was one 30-word sentence, the only block on the card above grade 12 and the
+                last thing read. Same content, split at the natural break. */}
             <span className="inv-v">
-              This reads {horizonPlain(half)} of evidence, so it moves as news arrives — a
-              regulator’s action or an exchange filing shifts it fastest, a press release least.
+              This reads {horizonPlain(half)} of evidence, so it moves as news arrives.
+              A regulator’s action or an exchange filing shifts it fastest; a press release least.
             </span>
           </div>
         </div>
@@ -169,10 +171,12 @@ export default function InvestorCard() {
         </button>
       </div>
 
+      {/* The first sentence is load-bearing and stays word for word. The second half used to
+          re-explain source weighting, which "How solid is that" already says above it with this
+          company's own numbers — a general note repeating a specific one it cannot improve on. */}
       <div className="inv-foot">
-        We never say buy, sell or hold, and nothing here is advice — this is a second opinion on a
-        published rating, with the sources attached. Most of what a public search returns is
-        written by the companies themselves, and we cap how far that can ever count.
+        We never say buy, sell or hold, and nothing here is advice. This is a second opinion on a
+        published rating, with the sources attached.
       </div>
     </div>
   )
