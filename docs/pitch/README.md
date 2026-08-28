@@ -1,4 +1,56 @@
-# 1-minute pitch slide
+# The pitch folder
+
+Three artefacts, one set of numbers. Every figure in all three comes from run `1fc384a2fa92499d`
+— the run `data/nmk_frozen.json` is frozen on. **If a number changes in one, change it in all
+three and in `docs/whitepaper/whitepaper.html`**, which the organisers require to match.
+
+| File | What it is | When you use it |
+|---|---|---|
+| `ASEAN_ESG_Momentum_Radar.pptx` | **The 9-slide deck** — editable PowerPoint, speaker notes on every slide | The Category Finals presentation |
+| `slides.md` | The **script** behind the deck: what you say, when, what to say if pushed, and the source of every figure | Rehearsal, and the sheet you hold |
+| `pitch_slide.html` → `.pdf` | The **1-minute** single slide | When you get 60 seconds, not 6 minutes |
+
+---
+
+## The 9-slide deck
+
+```bash
+python -m scripts.build_pitch_pptx          # -> docs/pitch/ASEAN_ESG_Momentum_Radar.pptx
+python -m scripts.build_pitch_pptx --pdf    # also renders the PDF via LibreOffice
+```
+
+**It is generated, not hand-built, and that is the point.** A deck someone edits by hand drifts
+from the run the moment a figure moves. This one re-renders in two seconds: change the figure in
+`scripts/build_pitch_pptx.py`, re-run, and the deck, its notes and the PDF are all current
+together. The output is ordinary editable PowerPoint — every headline, number and caption is a
+real text box, so anyone can still nudge it on the day.
+
+**The nine sections** are the ones in `slides.md`, in order: Hook · Problem · What It Is ·
+Prototype (live) · Why the Number Holds · What Separates Us · Investment · Down to Earth · Close.
+Slide 4 is the live-demo run order — six clicks, ninety seconds — so the deck stays on screen
+while you drive the app beside it.
+
+**Speaker notes carry the script.** The `YOU SAY` and `IF PUSHED` blocks from `slides.md` are in
+the notes pane of each slide, so presenter view is the only thing you need open.
+
+**Typography — IBM Plex, and it must be installed.** Headlines are Plex Sans Condensed, text is
+Plex Sans, every figure is Plex Mono — the same system as `pitch_slide.html` and the whitepaper.
+Line breaks in the headlines are EXPLICIT and measured against the real font file at build time
+(an overflow raises rather than silently landing on the block below). **If Plex is missing on the
+presenting machine PowerPoint substitutes a different face and those breaks move** — install IBM
+Plex (free, OFL) or present `ASEAN_ESG_Momentum_Radar.pdf`, which embeds the fonts.
+
+**Colour means three things and is never decoration:** green is our evidence read, blue is the
+published rating, red is a caution and always has a word beside it. There are no boxes, shadows,
+icons or gradients anywhere in the deck — rules and white space do the structural work.
+
+**Optional dependency.** `python-pptx` (and `Pillow`, for the headline measurement) are commented
+out in `requirements.txt`, like `openpyxl`. Nothing in the app, the engine or the tests imports
+them.
+
+---
+
+## 1-minute pitch slide
 
 **Source:** `pitch_slide.html` — one slide, 16:9, renders to a 13.333in × 7.5in PDF, which is
 exactly the standard PowerPoint widescreen page. Drop the PDF straight into a deck or present the

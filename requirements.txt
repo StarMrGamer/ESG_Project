@@ -19,3 +19,10 @@ httpx>=0.27  # FastAPI TestClient used by the offline API smoke tests
 # Nothing in the app, the engine or the tests imports it; the document's figures are read from
 # data/nmk_frozen.json at build time so the PDF cannot disagree with the engine.
 # reportlab>=4.0
+
+# OPTIONAL — only for `scripts/build_pitch_pptx.py`, which builds the 9-slide judge deck as a
+# real editable .pptx. Nothing in the app, the engine or the tests imports it. Pillow is used
+# only to MEASURE headlines against the actual font file so an overflow fails the build instead
+# of landing on top of the block below it; without it the deck still builds, unmeasured.
+# python-pptx>=1.0
+# Pillow>=10.0
