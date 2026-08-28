@@ -295,8 +295,11 @@ _ENGINE_TONE = {
 }
 
 
-def classify_from_record(record):
+def classify_from_record(record, company=None):
     """The classification card read from a company's ENGINE record. {label, tone, line} or None.
+
+    THE one classifier. `company` is optional and adds only readable DETAIL (`pillar_detail`) —
+    it can never change the label or the tone, both of which come from the engine record alone.
 
     `classify` reads the `momentum` block that only the FICTIONAL demo set carries, so once the
     real basket landed EVERY real company fell through to "AWAITING DATA" — printed directly
@@ -329,6 +332,13 @@ def classify_from_record(record):
                      f"evidence ranks it {_ord(ours)} \u2014 a signed gap of {dis:+.2f}.")
     if not parts:
         return None
+    detail = pillar_detail(company)
+    if detail:
+        parts.append(detail + ".")
+    # The boundary travels with the verdict, not with the page. A classification strip can be
+    # read on its own — lifted into a screenshot, a brief or a client note — and this is the one
+    # sentence that must never be separable from the label.
+    parts.append("We flag the gap — never buy / sell / hold.")
     return {"label": label, "tone": _ENGINE_TONE.get(_clean(r.get("label")).lower(), "neutral"),
             "line": " ".join(parts)}
 
@@ -471,27 +481,40 @@ def compare_companies(companies):
             "momentum_basis": basis}
 
 
-def classify(company):
-    """Classification verdict for ONE focused company (the center 'HIDDEN WINNER' panel).
+#: The card shown when nothing can classify the company — no engine record, no evidence. It is
+#: an honest gap, not a verdict, so it carries no tone and never reads as a negative finding.
+_AWAITING = {
+    "label": "AWAITING DATA",
+    "tone": "neutral",
+    "line": "No scored evidence for this company yet — run a deep dive so the radar can compete "
+            "with its rating.",
+}
 
-    Reads its Digital/AI momentum + controversy flags. Returns {label, tone, line}. Never a
-    buy/sell/hold — it flags the GAP between the stale rating and the live signal."""
-    d = _momentum(company, "digital_ai")
-    g = _momentum(company, "governance")
-    flags = num((company.get("live_signals") or {}).get("controversy_flags")) or 0
-    score = num(company.get("esg_score"))
-    as_of = (company.get("esg_as_of") or "").strip()
 
-    if d is not None and d >= 15 and flags < 1:
-        label, tone = "HIDDEN WINNER", "good"
-    elif (d is not None and d <= -5) or flags >= 1:
-        label, tone = "WATCH — GAP RISK", "bad"
-    elif d is not None:
-        label, tone = "IN LINE", "neutral"
-    else:
-        return {"label": "AWAITING DATA", "tone": "neutral",
-                "line": "No live momentum yet — add data or run a deep dive to compete."}
+def awaiting_card():
+    """A fresh copy of the awaiting-data card, for callers with no engine record to read."""
+    return dict(_AWAITING)
 
+
+def pillar_detail(company):
+    """The readable pillar reading for ONE company: "Rating stale (57.5, 2024); live Digital/AI
+    +18%; Governance -4%". Supporting DETAIL only — it never carries a label or a tone.
+
+    This is what survives of `classify`, which used to publish its own verdict off two of these
+    numbers: `momentum.digital_ai >= 15` and a controversy boolean. That verdict disagreed with
+    the engine's on 19 of the 36 demo companies, including tone flips in both directions — a
+    company drawn as a red warning here while the engine, reading 11 dated signals, had it as
+    Future Leaders. Two definitions of "hidden winner" behind one word, switching on the demo
+    toggle. The engine is the authority now (`classify_from_record`); these numbers stay because
+    "+18%" is readable in a way "+0.56" is not, but they explain a verdict instead of making one.
+
+    Returns "" when the company carries no numbers, so the caller appends nothing.
+    """
+    c = company if isinstance(company, dict) else {}
+    d = _momentum(c, "digital_ai")
+    g = _momentum(c, "governance")
+    score = num(c.get("esg_score"))
+    as_of = (c.get("esg_as_of") or "").strip()
     bits = []
     if score is not None:
         bits.append(f"Rating stale ({score}{', ' + as_of if as_of else ''})")
@@ -499,8 +522,7 @@ def classify(company):
         bits.append(f"live Digital/AI {fmt_pct(d)}")
     if g is not None:
         bits.append(f"Governance {fmt_pct(g)}")
-    line = "; ".join(bits) + ". We flag the gap — never buy / sell / hold."
-    return {"label": label, "tone": tone, "line": line}
+    return "; ".join(bits)
 
 
 # --------------------------------------------------------------------------- #
@@ -882,19 +904,31 @@ def _outlook_word(value):
     return "softening"
 
 
-_PLAIN_NUMERIC = {
-    "HIDDEN WINNER": ("Quietly ahead of its rating",
-                      "The live signals for {name} are improving faster than its older ESG score "
-                      "reflects — worth a closer look."),
-    "WATCH — GAP RISK": ("Watch for a widening gap",
-                         "Some live signals for {name} are slipping or carry red flags, even if the "
-                         "headline rating still looks calm."),
-    "IN LINE": ("Broadly in line",
-                "{name} is moving roughly in step with what its rating already implies — no big "
-                "surprise either way yet."),
-    "AWAITING DATA": ("Not enough live data yet",
-                      "We do not have enough live signals on {name} to take a view — switch on demo "
-                      "data or run a deep dive."),
+#: Engine quadrant -> the plain-language card, keyed on the engine's own label key. These
+#: phrasings are the SAME ones the frontend shows (`web/src/lib/plain.ts` LABEL_PLAIN); one
+#: vocabulary, so the plain card and the deep dive cannot describe one company two ways. This
+#: table used to be keyed on `classify`'s labels, which is why it went stale the moment the
+#: engine became the authority.
+_PLAIN_ENGINE = {
+    "hidden_winners": ("Rated behind its evidence",
+                       "The published rating for {name} sits well below what the dated evidence "
+                       "says — and there is enough evidence, from good enough sources, to mean it."),
+    "future_leaders": ("Improving, and its rating already says so",
+                       "{name} is rated above the middle of this basket, and still improving on "
+                       "the evidence. The rating and our read agree."),
+    "overrated_leaders": ("Flattered by an older score",
+                          "{name} is rated above the middle of the basket while the dated evidence "
+                          "points the other way. This is the gap a score that refreshes slowly "
+                          "cannot show you."),
+    "value_traps": ("Poorly rated, and still slipping",
+                    "{name} is rated below the middle, and the evidence agrees it is getting worse "
+                    "rather than better."),
+    "consensus": ("The rating and the evidence agree",
+                  "Nothing here contradicts the published score for {name}. That is a finding "
+                  "too — most companies land here."),
+    "AWAITING DATA": ("Not enough evidence yet",
+                      "We do not have enough scored evidence on {name} to take a view — run a "
+                      "deep dive so the radar can compete with its rating."),
 }
 _PLAIN_EVIDENCE = {
     "ESG LEADER": ("A documented ESG leader",
@@ -914,15 +948,23 @@ _PLAIN_EVIDENCE = {
 }
 
 
-def plain_summary(company, answer=None):
-    """[2.1] A plain-language, score-free read of the focused company for Simplified mode. tone/label
-    mirror classify (numeric) or classify_evidence (evidence); body is a controlled number-free
-    template; verdict is the cleaned competes_summary (or '' when absent). No I/O."""
+def plain_summary(company, answer=None, record=None):
+    """[2.1] A plain-language, score-free read of the focused company for Simplified mode.
+
+    tone/label come from the ENGINE record (`classify_from_record`) or, failing that, from
+    `classify_evidence`; body is a controlled number-free template; verdict is the cleaned
+    competes_summary (or '' when absent). No I/O.
+
+    It used to read `classify`, which meant the plain card could name a different verdict from
+    the one printed beside it — the plain-language surface is exactly where that is least
+    forgivable, because its reader has no numbers to check it against.
+    """
     c = company or {}
     name = _clean(c.get("company")) or "this company"
-    cls, tmpl = {"label": "AWAITING DATA", "tone": "neutral"}, _PLAIN_NUMERIC
-    if has_numbers([c]):
-        cls, tmpl = classify(c), _PLAIN_NUMERIC
+    cls, tmpl = {"label": "AWAITING DATA", "tone": "neutral"}, _PLAIN_ENGINE
+    rec = record if isinstance(record, dict) else {}
+    if rec.get("label") and classify_from_record(rec):
+        cls = {"label": rec["label"], "tone": _ENGINE_TONE.get(str(rec["label"]).lower(), "neutral")}
     # A CGSI basket row carries a static score AND evidence text but no pillar momentum, so the
     # numeric classifier cannot reach a verdict on it. Falling straight through to "awaiting
     # data" would throw away evidence we hold: try the evidence classifier before giving up.

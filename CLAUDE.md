@@ -38,7 +38,7 @@ esg-momentum-radar/
   rag.py                    # live retrieval: DuckDuckGo search + AI summary + TF-IDF rank (RAG)
   datasource.py             # build a CompanyData LIVE (free-text OR constituent-anchored) / UPLOAD; + snapshot
   universe.py               # ASEAN base DB loader/filter/resolver (the watchlist menu)
-  metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify
+  metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify_from_record
   benchmarks.py             # industry benchmarks: ASEAN peer average + OECD GHG intensity (never merged)
   quotes.py                 # live market quote strip (Yahoo, best-effort) — context only, never a signal
   lseg.py                   # LSEG's REAL published ESG score (public finder, keyless) — the incumbent view

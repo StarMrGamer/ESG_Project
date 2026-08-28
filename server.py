@@ -671,35 +671,59 @@ def _real_momentum_series(demo, horizon, run, points=8):
     return out
 
 
-def _why_wrong(focused):
+def _why_wrong(focused, erec=None):
+    """Where the published rating may be wrong for the focused company.
+
+    Branches on the ENGINE record — the same authority the classification strip reads. It used
+    to branch on `metrics.classify`, so this panel and the verdict beside it were two different
+    classifiers answering the same question on one screen, free to contradict each other. The
+    demo set's readable pillar numbers still appear, as detail under the engine's finding.
+    """
     if not focused:
         return "Add or focus a company to see where its live signal diverges from the stale rating."
     s = focused.get("live_signals") or {}
     d = metrics.num((focused.get("momentum") or {}).get("digital_ai"))
     name = focused.get("company", "This company")
-    score, as_of = focused.get("esg_score"), (focused.get("esg_as_of") or "")
-    if d is None and focused.get("esg_basis"):
+    rec = erec if isinstance(erec, dict) else {}
+    label = (rec.get("label") or "").lower()
+
+    if not label and focused.get("esg_basis"):
         p = metrics.evidence_profile(focused)
-        tags = ", ".join(f'{cr["label"]} {cr["value"]}' for cr in p["credentials"][:2]) or \
-               "documented ESG progress"
+        tags = ", ".join(f'{cr["label"]} {cr["value"]}' for cr in p["credentials"][:2]) or                "documented ESG progress"
         return (f"{name} is a documented ESG improver ({tags}; leadership {p['score']}/100). A "
                 "stale rating may already price that leadership — the radar's edge is the LIVE "
                 "alt-data (AI hiring, patents, news/behaviour) that isn't wired yet. That's where "
                 "a 2023 score gets caught out.")
-    cls = metrics.classify(focused)
-    if cls["label"] == "HIDDEN WINNER":
-        return (f"{name} is hiring hard for AI governance ({s.get('ai_hiring_surge') or 'fast'}) "
-                f"while the static {as_of} score ({score if score is not None else '—'}) sits "
-                f"still — the rating can't see the live Digital/AI {metrics.fmt_pct(d)} trajectory.")
-    if cls["label"].startswith("WATCH"):
-        return (f"{name} carries {int(metrics.num(s.get('controversy_flags')) or 0)} controversy "
-                f"flag(s) with softening signals (Digital/AI {metrics.fmt_pct(d)}); the stale "
-                "score lags the behaviour.")
-    if d is None:
-        return (f"No live momentum for {name} yet — add numeric data (or run a deep dive) so the "
-                "radar can compete with its rating.")
-    return (f"{name}'s live signal (Digital/AI {metrics.fmt_pct(d)}) is roughly in line with its "
-            "rating — watch for divergence.")
+    if not label:
+        return (f"No scored evidence for {name} yet — add numeric data (or run a deep dive) so "
+                "the radar can compete with its rating.")
+
+    n = int(metrics.num(rec.get("signal_count")) or 0)
+    dis = metrics.num(rec.get("disagreement"))
+    gap = f"{dis:+.2f}" if dis is not None else "—"
+    src = f"{n} dated signal{'' if n == 1 else 's'}"
+    # Demo-only colour, appended and never load-bearing: absent on the real basket, so the
+    # sentence in front of it has to read correctly on its own.
+    hiring = s.get("ai_hiring_surge")
+    live = f" Its live Digital/AI reading is {metrics.fmt_pct(d)}." if d is not None else ""
+    tail = (f" It is hiring hard for AI governance ({hiring})."+live) if hiring else live
+
+    if label == "hidden_winners":
+        return (f"{name}'s published score ranks it well below what the evidence says: {src} put "
+                f"the signed gap at {gap}, past the threshold and on enough corroboration to "
+                f"mean it — this is the rating's blind spot.{tail}")
+    if label == "overrated_leaders":
+        return (f"{name} is rated above the middle of the basket while {src} point the other "
+                f"way (gap {gap}) — the stale-score blind spot, in the direction nobody looks "
+                f"for.{tail}")
+    if label == "value_traps":
+        return (f"{name} is rated below the middle and {src} agree it is still deteriorating "
+                f"(gap {gap}); the rating and the evidence are not in conflict here.{tail}")
+    if label == "future_leaders":
+        return (f"{name} is rated above the middle and {src} say it is still improving (gap "
+                f"{gap}); the rating and our read agree, so there is no gap to flag today.{tail}")
+    return (f"{name}'s evidence sits roughly where its rating puts it ({src}, gap {gap}) — "
+            f"nothing here contradicts the published score. Watch for divergence.{tail}")
 
 
 #: A company has to carry at least this much scored evidence to be the one the board OPENS on.
@@ -837,32 +861,33 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         entry = _ENTRIES.get(ft)
         answer = entry.get("answer") if entry else None
         ep = metrics.evidence_profile(focused) if focused.get("esg_basis") else {}
+        erec = _focused_engine_record(demo, horizon, focused.get("ticker"))
         if mode == "evidence":
             cls = metrics.classify_evidence(focused)
             signals = [{"label": cr["label"], "value": cr["value"], "tone": cr["tone"]}
                        for cr in ep.get("credentials", [])]
             signals_kind = "credentials"
+            # Evidence mode keeps its credential-based read — it answers a different question off
+            # a different data shape. A scored record still beats an empty one.
+            if cls.get("label") == "AWAITING DATA" and erec:
+                cls = metrics.classify_from_record(erec, focused) or cls
         else:
-            cls = metrics.classify(focused)
+            # ONE classifier. This used to be `metrics.classify`, which read the demo-only
+            # `momentum` block and published a competing verdict off `digital_ai >= 15` plus a
+            # controversy boolean: on the 36 demo companies it disagreed with the engine on 19,
+            # tone included, so the strip could print a red warning above a rationale panel
+            # calling the same company Future Leaders. The engine record is the authority for
+            # every company; the readable pillar numbers ride along as detail (`pillar_detail`).
+            cls = metrics.classify_from_record(erec, focused) or metrics.awaiting_card()
             signals = metrics.live_signals(focused)
             signals_kind = "signals"
         # The engine holds dated, sourced, SCORED signals for the real basket; `live_signals`
         # only ever finds the demo set's own block. Falling back means a real company with three
         # scored signals stops reporting "0 signals" beside the momentum those signals produced.
-        erec = _focused_engine_record(demo, horizon, focused.get("ticker"))
         if not signals and erec:
             signals = metrics.signals_from_record(erec)
             if signals:
                 signals_kind = "scored signals"
-        # The SAME false negative, one widget over. `metrics.classify` reads the demo-only
-        # `momentum` block, so once the real basket landed every real company read "AWAITING
-        # DATA" in the classification strip and in the RadarHub chip — printed directly above a
-        # rationale panel naming the engine's verdict for that same company. Two adjacent widgets
-        # disagreeing about whether we have data is worse than either answer on its own. The
-        # engine record is the authority whenever there is one; when there is not, the honest
-        # "awaiting data" stands.
-        if isinstance(cls, dict) and cls.get("label") == "AWAITING DATA" and erec:
-            cls = metrics.classify_from_record(erec) or cls
         # The four pillar readings for THIS company. `board["pillars"]` is the average across
         # everything in view, which is the right number when nothing is focused and the wrong one
         # the moment a company's name is printed in the middle of it: the hub drew the 52-company
@@ -903,8 +928,8 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
             # cons are not optional: a case that only lists reasons to agree is marketing.
             "case": (rationale.build(erec, company_metadata.load(demo=demo).get(focused.get("ticker")))
                      if erec else None),
-            "why_wrong": _why_wrong(focused),
-            "plain_summary": metrics.plain_summary(focused, answer),
+            "why_wrong": _why_wrong(focused, erec),
+            "plain_summary": metrics.plain_summary(focused, answer, erec),
             # Real gathered headlines for a real company; the demo set keeps its own seeded,
             # clearly-labelled ones. Display only — nothing here reaches the engine.
             "news": metrics.news_card(

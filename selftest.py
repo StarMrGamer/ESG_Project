@@ -305,9 +305,11 @@ def test_metrics_aggregates():
     assert len(hw) == 5, hw
     assert hw == sorted(hw, key=lambda r: r["value"], reverse=True), hw   # ranked desc by signal
     assert peer == avg and hn == n, (peer, avg, hn, n)                    # peer avg == set average
-    labels = {metrics.classify(c)["label"] for c in banks}
-    assert labels <= {"HIDDEN WINNER", "IN LINE", "WATCH — GAP RISK", "AWAITING DATA"}, labels
-    assert "HIDDEN WINNER" in labels, labels                             # the radar surfaces winners
+    # `pillar_detail` is DETAIL, never a verdict: it must read the numbers and carry no label.
+    details = [metrics.pillar_detail(c) for c in banks]
+    assert all(d for d in details), details                  # every demo bank has numbers to show
+    assert any("Digital/AI" in d for d in details), details
+    assert not any(("WINNER" in d or "WATCH" in d or "buy" in d) for d in details), details
     demo = next(c for c in banks if c["company"] == "DemoBank")
     assert any(s["label"] == "AI hiring surge" for s in metrics.live_signals(demo)), demo
     # filtering to a different industry recomputes the average (the user's key requirement)
@@ -323,7 +325,8 @@ def test_metrics_graceful():
     assert metrics.average_esg(bare) == (None, 0)
     assert all(p["value"] is None for p in metrics.pillar_momentum(bare))
     assert metrics.hidden_winners(bare)[0] == []
-    assert metrics.classify(bare[0])["label"] == "AWAITING DATA"
+    assert metrics.pillar_detail(bare[0]) == ""          # nothing to show, so nothing is shown
+    assert metrics.awaiting_card()["label"] == "AWAITING DATA"
     assert metrics.live_signals(bare[0]) == []
     assert metrics.num("+12%") == 12.0 and metrics.num("−2%") == -2.0 and metrics.num("x") is None
 
@@ -824,14 +827,25 @@ def test_analyst_coverage_fabrication_guard():
 
 # --- 2.1 plain summary --------------------------------------------------------
 def test_plain_summary():
-    hw = _demo_row("Selat Bank")               # a demo hidden winner (classify -> HIDDEN WINNER)
-    ps = metrics.plain_summary(hw)
-    assert ps["tone"] == "good" and ps["label"] == "HIDDEN WINNER", ps["label"]
+    # The plain card reads the ENGINE record, like every other verdict surface. Passing the
+    # company alone can no longer produce a label — that is the point: the plain-language
+    # surface is where a second, disagreeing classifier did the most damage, because its reader
+    # has no numbers to check it against.
+    import server
+    run, _m, _c = server._engine_run(True, "long")
+    recs = {r["company_id"]: r for r in run["records"]}
+    hw = _demo_row("Selat Bank")
+    rec = recs[hw["ticker"]]
+    ps = metrics.plain_summary(hw, None, rec)
+    assert ps["label"] == rec["label"], (ps["label"], rec["label"])
+    assert ps["tone"] == metrics._ENGINE_TONE[rec["label"]], ps["tone"]
     assert "Selat Bank" in ps["body"] and not any(ch.isdigit() for ch in ps["body"])
     assert ps["verdict"] == ""
-    ps2 = metrics.plain_summary(hw, {"competes_summary": "Rating understates the live AI build."})
+    ps2 = metrics.plain_summary(hw, {"competes_summary": "Rating understates the live AI build."}, rec)
     assert ps2["verdict"] == "Rating understates the live AI build."
-    assert metrics.plain_summary(hw, {"competes_summary": "unknown"})["verdict"] == ""
+    assert metrics.plain_summary(hw, {"competes_summary": "unknown"}, rec)["verdict"] == ""
+    # no record -> no verdict invented, even though the company carries numbers
+    assert metrics.plain_summary(hw)["label"] == "AWAITING DATA", metrics.plain_summary(hw)
     real = [c for c in universe.load_universe(universe.UNIVERSE_FILE)["constituents"]
             if c.get("esg_basis")][0]
     psr = metrics.plain_summary(real)
@@ -2096,14 +2110,20 @@ def test_board_never_says_awaiting_data_at_its_own_engine_record():
     cons = universe.constituents()
     hlbk = next(c for c in cons if c["ticker"] == "KLSE:HLBK")
 
-    # the false negative this exists to stop: the raw classifier still cannot see the evidence
-    assert metrics.classify(hlbk)["label"] == "AWAITING DATA", metrics.classify(hlbk)
+    # the false negative this exists to stop: the real basket carries no `momentum` block, so
+    # the readable detail can only report the dated score — no pillar momentum, and above all no
+    # competing verdict. It is DETAIL under the engine's label now, never a label of its own.
+    detail = metrics.pillar_detail(hlbk)
+    assert "Digital/AI" not in detail and "Governance" not in detail, detail
+    assert not any(w in detail for w in ("WINNER", "WATCH", "AWAITING")), detail
 
-    card = metrics.classify_from_record(recs["KLSE:HLBK"])
+    card = metrics.classify_from_record(recs["KLSE:HLBK"], hlbk)
     assert card and card["label"] == recs["KLSE:HLBK"]["label_display"], card
     assert card["label"] != "AWAITING DATA", card
     assert "8 dated signals" in card["line"], card          # the count the engine actually holds
     assert "71st" in card["line"] and "71th" not in card["line"], card   # ordinals, not "71th"
+    # the one sentence that must never be separable from the label
+    assert "never buy / sell / hold" in card["line"], card
 
     # tone is not decoration: the two negative quadrants must never render as good news
     assert metrics.classify_from_record(recs["SET:PTT"])["tone"] == "bad", "PTT is overrated_leaders"
