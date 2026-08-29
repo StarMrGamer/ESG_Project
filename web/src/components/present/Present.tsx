@@ -113,7 +113,20 @@ export default function Present({ onExit, track }: { onExit: () => void; track: 
   // for.
   useEffect(() => { setI(0); shownView.current = null }, [track])
 
-  // Run the step: drive the app, let it paint, then bring the anchor into view.
+  /**
+   * Run the step: drive the app, let it paint, then bring the anchor into view.
+   *
+   * ABANDON THE RUN THE MOMENT THE STEP CHANGES. `establish` awaits a real deep-dive open, which
+   * is a network round trip and can take seconds; without a check after that await, a step the
+   * presenter has already left goes on driving the app and lands its screen on top of the one
+   * they are now on. Measured: jumping backwards on the ticks put a deep dive over the board
+   * while the bar said "02 · Not knowing where to start", which on a stage is the demo appearing
+   * to have a mind of its own.
+   *
+   * `shownView` is claimed BEFORE the await so two rapid steps do not both establish the same
+   * view — and cleared if we were interrupted, because an abandoned establish means nobody knows
+   * what is on screen and the next step has to put it right rather than assume.
+   */
   useEffect(() => {
     let dead = false
     const go = async () => {
@@ -121,8 +134,10 @@ export default function Present({ onExit, track }: { onExit: () => void; track: 
         if (shownView.current !== step.view) {
           shownView.current = step.view
           await establish(step.view, driver)
+          if (dead) { shownView.current = null; return }
         }
         await step.act?.(driver)
+        if (dead) return
       } catch { /* a step must never strand the presenter */ }
       await new Promise(r => setTimeout(r, step.settle ?? 220))
       if (dead || !step.anchor) return

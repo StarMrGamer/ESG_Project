@@ -9,6 +9,7 @@ import SetupLite from './components/setup/SetupLite'
 import EvidencePanel from './components/evidence/EvidencePanel'
 import Present from './components/present/Present'
 import { PITCH } from './components/present/tour'
+import { FEARS } from './components/present/fears'
 import { RECAP } from './components/present/recap'
 import type { Track } from './components/present/tour'
 import Tutorial from './components/tour/Tutorial'
@@ -38,6 +39,7 @@ function Shell() {
   const [track, setTrack] = useState<Track | null>(() => {
     const q = new URLSearchParams(window.location.search)
     if (q.get('present') === '1') return PITCH
+    if (q.get('fears') === '1') return FEARS
     if (q.get('recap') === '1') return RECAP
     return null
   })
@@ -61,7 +63,8 @@ function Shell() {
 
   return (
     <div className="app-shell">
-      <Header onPresent={() => setTrack(PITCH)} onRecap={() => setTrack(RECAP)} />
+      <Header onPresent={() => setTrack(PITCH)} onFears={() => setTrack(FEARS)}
+        onRecap={() => setTrack(RECAP)} />
       <main className="app-main">
         <Router />
         <div className="footer-note">

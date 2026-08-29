@@ -23,8 +23,9 @@ const RADAR_SVG = (
   </svg>
 )
 
-export default function Header({ onPresent, onRecap }:
-                               { onPresent?: () => void; onRecap?: () => void }) {
+export default function Header({ onPresent, onFears, onRecap }:
+                               { onPresent?: () => void; onFears?: () => void
+                                 onRecap?: () => void }) {
   const { settings, setSettings, board, health, loadSample, uploadFile, toast, goDashboard,
     restartSetup } = useStore()
 
@@ -228,6 +229,13 @@ export default function Header({ onPresent, onRecap }:
               <button className="btn" onClick={() => { menuRef.current!.open = false; onPresent?.() }}
                 title="Walk the pitch through the running app, one click per step. Esc to leave.">
                 Present mode
+              </button>
+              {/* The same clicker again, arranged as three fears and their answers — the way
+                  a room listens, rather than the order the pipeline runs in. */}
+              <button className="btn"
+                onClick={() => { menuRef.current!.open = false; onFears?.() }}
+                title="Three worries a private investor already has, each answered by the app doing the thing: the risk tiers, the four corners, and dated evidence against a stale rating.">
+                Why it matters
               </button>
               {/* The same clicker, pointed at the run you are on rather than at a stranger:
                   five stops and a card that consolidates what it passed. */}

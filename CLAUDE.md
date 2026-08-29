@@ -519,6 +519,35 @@ trusted**: `navigator.clipboard.writeText` does not reject when the document has
 hangs — so the write is raced against a 1.2s deadline and a miss reveals the Markdown in a
 selectable block rather than doing nothing at the moment someone is waiting for it.
 
+**A THIRD TRACK: WHY IT MATTERS** (`web/src/components/present/fears.ts`, added 2026-08-29).
+`PITCH` explains the product in the order the work happens, which is the right order to BUILD it
+and the wrong order to hear it. This one is arranged the way a room listens — a worry a private
+investor already has, then the app doing the thing that answers it:
+
+| chapter | the fear | what the board does |
+|---|---|---|
+| 01 | *I'm afraid of losing money* | the three risk tiers, re-segmenting live — and the dimmed names that stay visible |
+| 02 | *I don't know where to start* | 52 names as one plot: the two axes, then the corner the product exists for |
+| 03 | *I'd never have seen it coming* | the zero ring against the live shape, the dated trail, what would change it |
+| 04 | *You don't have to imagine it* | the assistant, and the presenter takes over |
+
+Two decisions worth keeping. It **sets `audience: 'analyst'` in step 1**, because the tier control
+and the run provenance are folded away in the investor view and a walk that stops on the tiers
+would ring an element with no width. And **chapter 03 is EVIDENCE, not the Compete answer** — the
+verdict panel needs a Stage-2 call, a cold one is 40-70 seconds, and the trail plus the
+sensitivity report make the same point harder while being pure engine reads: instant, offline,
+and they are the sources rather than a paragraph about them. The whole track calls no model.
+
+**A step now abandons its run the moment the presenter leaves it** (fixed 2026-08-29, all three
+tracks). `establish` awaits a real deep-dive open — a network round trip that can take seconds —
+and nothing checked afterwards whether the step was still current, so a step the presenter had
+already left went on driving the app and put its screen on top of the one they were now on.
+Measured while building the fears track: jumping backwards on the ticks landed a deep dive over
+the board while the bar read *02 · Not knowing where to start*, which on a stage is the demo
+appearing to have a mind of its own. `shownView` is claimed before the await so two rapid steps
+cannot both establish the same view, and **cleared if the run is abandoned** — nobody knows what
+is on screen after that, so the next step has to put it right rather than assume.
+
 **AN INVESTOR VIEW, BECAUSE THE PRODUCT'S UNIT IS UNREADABLE OUTSIDE A DESK** (added
 2026-08-28). `disagreement +0.80`, `composite_confidence 0.69`, `momentum percentile 97th` are
 exactly right for the analyst this was built for and mean nothing to someone holding forty shares

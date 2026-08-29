@@ -103,13 +103,14 @@ export interface Step {
 /**
  * A TRACK is a named walk. Present mode is the driver; what it drives is data.
  *
- * Two exist: `PITCH` argues the product to a room, `RECAP` reviews the run that is loaded and
+ * Three exist: `PITCH` argues the product in the order the work happens, `FEARS` arranges the
+ * same app as three worries and their answers, and `RECAP` reviews the run that is loaded and
  * hands you the consolidated figures at the end. They share every mechanism — the absolute-state
  * rule, the anchors, the ring, the keys, interact mode — because the difference between "show a
  * stranger why this matters" and "tell me what this run says" is a list of steps, not an engine.
  */
 export interface Track {
-  key: 'pitch' | 'recap'
+  key: 'pitch' | 'fears' | 'recap'
   label: string
   /** The subject a track walks. 'fixed' is the rehearsed one; 'focused' is whatever is on screen. */
   subject: 'fixed' | 'focused'
