@@ -25,29 +25,39 @@ than it is printed is the one thing a judge can catch on a freeze-frame.
 If the app is re-harvested before the take, **re-read every number off the screen and re-cut
 those lines.** Do not trust this document; it is one harvest away from being wrong.
 
-### 2. Scene 10 would overclaim, and there are two honest ways out
+### 2. Scene 10 is now TRUE — the anchor is live
 
-`python anchor.py` reports every run as **`anchor_pending`**:
+This section previously said the reel could not claim a public ledger. That is no longer the
+case. Jayden's `EvidenceAnchor` contract was deployed and verified on Sepolia, and the run this
+reel records is **anchored on chain**:
 
 ```
-real ASEAN base DB · long  run 9680adf087a74dcb  root 69ea18733d3f20d65dcd…  423 leaves
-                           -> anchor_pending
-                           note: no ESG_ANCHOR_RPC configured
+run       9680adf087a74dcb
+root      69ea18733d3f20d65dcd6d8c200a1a2242d6688645895d129238cb2835d0605e
+leaves    423
+tx        0x749800584ae9ee3cc8a654268a2401584a83d11d80ea1907b91767275602ea7b
+contract  0x73649B84B79892EbdFbBF2eeA69C3d82Db5d165a  (Sepolia, chain id 11155111)
 ```
 
-Nothing has been written to Sepolia. The draft line *"matches a public ledger — seventy-two
-bytes, written once, ever"* is false on today's build, in the exact direction this product exists
-to argue against.
+`python anchor.py --verify 9680adf087a74dcb` reports **MATCH**, 423 of 423 leaves, recomputed
+root identical to the anchored one. The board's chip reads `⛓ anchored` and its explorer button
+opens the real transaction.
 
-**Option A — make it true.** Set `ESG_ANCHOR_RPC`, `ESG_ANCHOR_CONTRACT` and `ESG_ANCHOR_KEY`
-(a funded Sepolia testnet key) and re-run `python anchor.py`. The contract is append-only, so
-re-running is safe. Scene 10 then gains a real transaction hash to show. **This needs your
-credentials; I cannot do it.**
+**So Scene 10 speaks the ledger line as written.** Two details to keep honest:
 
-**Option B — narrate what the app actually does.** The verification panel is real without the
-chain: it recomputes every leaf hash, walks the Merkle path, compares the root, and the tamper
-demo genuinely breaks and restores. **Scene 10 below uses Option B** and says the anchor is
-pending out loud — a stronger moment in a competition than a claim a judge can disprove.
+- **"Seventy-two bytes"** is right and worth saying precisely: `run_id` (32) + Merkle root (32) +
+  timestamp (8). No company names, no scores, no signals, no source URLs, and no LSEG data ever
+  go on chain — putting licensed data on a public ledger would be a licence breach independent
+  of everything else.
+- **Do not say the chain verifies anything.** It records a commitment to what the off-chain rules
+  already decided. A closed, deterministic system cannot check a real-world fact, and that is the
+  one framing a judge can dismantle in a sentence. The narration below says "matches", never
+  "verifies".
+
+**ANCHOR LAST, NOT FIRST.** `run_id` hashes every input, so re-harvesting or editing the basket
+after this point produces a new run and leaves the anchor pointing at one nobody can see on
+screen. The data is frozen as of this anchor; if anything changes, re-anchor and re-read the
+figures before recording.
 
 ---
 
@@ -82,8 +92,7 @@ a time. Flip back to **Everything**.
 *(Demonstrate the picker at Preferences, not at Everything: at level 3 almost every module is
 already native, so exactly one chip is offerable and the row has nothing to show.)*
 
-> And the board is hers. Pin the panels she wants, drop the rest, step the whole screen up or
-> down. Same run underneath.
+> And the board is hers. Pin the panels she wants, drop the rest. Same run underneath.
 
 *(Layout only — nothing dims or hides, so it reads as customisation rather than a filter. Keep
 the clicks unhurried; this is the shortest scene and the easiest to fumble.)*
@@ -158,17 +167,13 @@ original filing. Pause on the governance line: **8 up, 1 down**.
 ### Scene 10 · Verification and the tamper demo — 2:07–2:23
 
 **VISUAL** The verification panel.
-**ACTION** **Verify this evidence** → every leaf hash recomputes, root matches, green. **Tamper
+**ACTION** **Verify this evidence** → 423 leaf hashes recompute, root matches, green. **Tamper
 demo** → red, hash mismatch, "one character changed, on purpose". Verify again → green restored.
+If the chip is on screen, let the `⛓ anchored` badge land in frame.
 
-> Then she verifies. Four hundred and twenty-three hashes recompute; the fingerprint matches.
-> Change one character — it breaks. Put it back — it matches. The chain anchor is pending, and
-> the app says so.
-
-**[Option A alternative, only once `anchor.py` reports `anchored`:]**
-
-> Then she verifies. The fingerprint recomputes and matches a public ledger, written once, ever.
-> Change one character — it breaks. Put it back — it matches.
+> Then she verifies. Four hundred and twenty-three hashes recompute, and the fingerprint matches
+> a public ledger — seventy-two bytes, written once, ever. Change one character, it breaks. Put
+> it back, it matches. Every number checkable.
 
 ### Scene 11 · End card — 2:23–2:30
 
@@ -214,7 +219,8 @@ All of this cost a rebuild to learn on the previous reel. Full versions in the h
 ## What to check on the finished cut
 
 1. Every number spoken matches the number on screen at that moment. Freeze-frame and compare.
-2. No scene claims the chain anchor is live unless `anchor.py` says `anchored`.
+2. The chain anchor is live and `anchor.py --verify` says MATCH. If the basket is re-harvested
+   after recording, that stops being true — re-anchor before the final cut.
 3. The hollow dots are visible in Scene 1 — an absence of evidence is part of the argument, and a
    cut that crops them out is selling a cleaner board than we have.
 4. The dimmed names stay visible in Scene 2. A filter that deletes companies makes the decision

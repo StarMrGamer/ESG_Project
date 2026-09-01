@@ -3077,6 +3077,27 @@ def test_anchor_explorer_link_is_one_a_browser_can_open():
 
     # and the local verification behind the button still holds
     assert payload["status"] == "MATCH"
+
+    # THE BOARD'S OWN LINK, which is the one a reader ever clicks.
+    #
+    # This test used to stop at `verify_company` — and that payload was already correct, because
+    # `_0x` lives in `anchor.py`. `server._anchor_summary` built the SAME url by hand, without
+    # it, so the board's chain button stayed broken for as long as this test passed. Two builders
+    # of one string is the bug; `anchor.explorer_url` is now the only one, and this asserts the
+    # board goes through it.
+    import server as _server
+
+    for run_id in ("1fc384a2fa92499d",):
+        rec = _anchor.load_record(run_id)
+        assert rec, run_id
+        board_url = _anchor.explorer_url(rec)
+        assert board_url == url, (board_url, url)
+        tail2 = board_url.split("/tx/")[1]
+        assert len(tail2) == 66 and tail2.startswith("0x"), board_url
+
+    # and the summary the board actually serves carries that same link
+    summary = _server._anchor_summary({"run_id": run_id})
+    assert summary["explorer_url"] == url, summary["explorer_url"]
     assert payload["stored_root"] == payload["recomputed_root"]
 
 

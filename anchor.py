@@ -312,6 +312,22 @@ def _0x(value):
     return v if v.lower().startswith("0x") else "0x" + v
 
 
+def explorer_url(record, cfg=None):
+    """The block-explorer link for one anchor record, or ''. The ONE definition.
+
+    It exists because there were two. `_0x` was added here after a bare tx hash produced a URL
+    Etherscan does not resolve — and `server._anchor_summary` went on building the same URL by
+    hand, without it, so the board's chain link stayed broken while this module's was fixed. The
+    board is the only place a reader ever clicks it.
+    """
+    cfg = cfg or chain_config()
+    if record.get("tx_hash"):
+        return f"{cfg['explorer']}/tx/{_0x(record['tx_hash'])}"
+    if record.get("contract"):
+        return f"{cfg['explorer']}/address/{_0x(record['contract'])}"
+    return ""
+
+
 def _run_id_bytes32(run_id):
     """The 16-hex-char run id, right-padded into bytes32 — stable and collision-free."""
     return bytes.fromhex(run_id.encode("utf-8").hex().ljust(64, "0")[:64])
@@ -468,10 +484,7 @@ def verify_company(run_id, company_id, *, evidence=None, check_chain=True):
         "note": record.get("anchor_note", ""),
     }
     cfg = chain_config()
-    if record.get("tx_hash"):
-        payload["explorer_url"] = f"{cfg['explorer']}/tx/{_0x(record['tx_hash'])}"
-    elif record.get("contract"):
-        payload["explorer_url"] = f"{cfg['explorer']}/address/{_0x(record['contract'])}"
+    payload["explorer_url"] = explorer_url(record, cfg)
 
     if check_chain and cfg["readable"]:  # noqa: PLR0915 - one branch, kept with its payload
         chain = fetch_from_chain(run_id)

@@ -469,10 +469,10 @@ def _anchor_summary(run):
         return {"status": "not_built", "run_id": run["run_id"], "root": "", "leaf_count": 0,
                 "tx_hash": "", "explorer_url": "", "chain": anchor.CHAIN_NAME,
                 "note": "Run not anchored yet — `python anchor.py --run` builds and anchors it."}
-    cfg = anchor.chain_config()
-    explorer = (f"{cfg['explorer']}/tx/{record['tx_hash']}" if record.get("tx_hash")
-                else f"{cfg['explorer']}/address/{record['contract']}" if record.get("contract")
-                else "")
+    # ONE definition of the link, in `anchor.py`. Built by hand here, it omitted the `0x` prefix
+    # that Etherscan requires — so the single button a reader can use to check the chain for
+    # themselves led to a 404, on the one screen where it is ever clicked.
+    explorer = anchor.explorer_url(record)
     return {"status": record.get("status", "anchor_pending"), "run_id": record["run_id"],
             "root": record["root"], "leaf_count": record["leaf_count"],
             "tx_hash": record.get("tx_hash", ""), "block_number": record.get("block_number"),
