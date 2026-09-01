@@ -88,17 +88,25 @@ export const FEARS: Track = {
     {
       chapter: '02 · Not knowing where to start',
       view: 'board',
-      note: 'Side to side is what the published rating thinks. Up and down is what dated evidence '
-        + 'says. Four corners, and they are just those two directions combined.',
+      note: 'Side to side is what the share price has done over the past year. Up and down is '
+        + 'what dated evidence says. Four corners, and they are just those two combined.',
       anchor: 'axis-x',
       act: d => d.set({ tier: 'all', pipelineOnly: false }),
     },
     {
       chapter: '02 · Not knowing where to start',
       view: 'board',
-      note: 'This corner is the one the product exists for: rated low, but improving. The rating '
-        + 'has not caught up with the evidence yet — and that is a place to start looking.',
-      anchor: 'quad-hidden',
+      // Re-pointed 2026-09-02. This step used to ring `quad-hidden` — rated low but improving —
+      // which was a caption on the RATING axis, and that plot was removed. The anchor silently
+      // stopped existing, so the step rang nothing at all while still narrating a corner.
+      //
+      // The replacement is not a like-for-like swap, because the corners now mean something
+      // different: this plot argues with the MARKET, so the corner the product exists for is the
+      // one where the price is running while the dated evidence goes backwards.
+      note: 'This corner is the one the product exists for: the price is running while the dated '
+        + 'evidence goes backwards. That is the shape a rating refreshed once a year cannot show '
+        + 'you.',
+      anchor: 'quad-downside_trap',
       act: d => d.set({ tier: 'all', pipelineOnly: false }),
     },
 
