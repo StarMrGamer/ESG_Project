@@ -1,6 +1,94 @@
 {
  "captured": "2026-09-01",
  "momentum": {
+  "IDX:AADI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 48.19,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "AADI.JK",
+   "window": "12-1"
+  },
+  "IDX:ADMR": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 70.15,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ADMR.JK",
+   "window": "12-1"
+  },
+  "IDX:ADRO": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 52.14,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ADRO.JK",
+   "window": "12-1"
+  },
+  "IDX:AKRA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 14.23,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "AKRA.JK",
+   "window": "12-1"
+  },
+  "IDX:AMMN": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -43.82,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "AMMN.JK",
+   "window": "12-1"
+  },
+  "IDX:AMRT": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -39.09,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "AMRT.JK",
+   "window": "12-1"
+  },
+  "IDX:ANTM": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 3.95,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ANTM.JK",
+   "window": "12-1"
+  },
+  "IDX:ASII": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -12.73,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ASII.JK",
+   "window": "12-1"
+  },
   "IDX:BBCA": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -34,6 +122,17 @@
    "symbol": "BBRI.JK",
    "window": "12-1"
   },
+  "IDX:BBTN": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -5.0,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BBTN.JK",
+   "window": "12-1"
+  },
   "IDX:BMRI": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -45,6 +144,28 @@
    "symbol": "BMRI.JK",
    "window": "12-1"
   },
+  "IDX:BRPT": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -16.44,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BRPT.JK",
+   "window": "12-1"
+  },
+  "IDX:BUMI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 74.31,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BUMI.JK",
+   "window": "12-1"
+  },
   "IDX:CPIN": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -54,6 +175,600 @@
    "source": "Yahoo Finance",
    "start_ts": 1753981200,
    "symbol": "CPIN.JK",
+   "window": "12-1"
+  },
+  "IDX:CUAN": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -48.08,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "CUAN.JK",
+   "window": "12-1"
+  },
+  "IDX:DEWA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 96.43,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "DEWA.JK",
+   "window": "12-1"
+  },
+  "IDX:EMTK": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -57.61,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "EMTK.JK",
+   "window": "12-1"
+  },
+  "IDX:ESSA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 8.85,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ESSA.JK",
+   "window": "12-1"
+  },
+  "IDX:EXCL": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 0.73,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "EXCL.JK",
+   "window": "12-1"
+  },
+  "IDX:GOTO": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -13.79,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "GOTO.JK",
+   "window": "12-1"
+  },
+  "IDX:HRTA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 237.68,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "HRTA.JK",
+   "window": "12-1"
+  },
+  "IDX:ICBP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -11.42,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ICBP.JK",
+   "window": "12-1"
+  },
+  "IDX:INCO": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 39.71,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "INCO.JK",
+   "window": "12-1"
+  },
+  "IDX:INDF": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -2.01,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "INDF.JK",
+   "window": "12-1"
+  },
+  "IDX:INDY": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 113.58,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "INDY.JK",
+   "window": "12-1"
+  },
+  "IDX:INKP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 15.69,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "INKP.JK",
+   "window": "12-1"
+  },
+  "IDX:ISAT": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 25.25,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ISAT.JK",
+   "window": "12-1"
+  },
+  "IDX:ITMG": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 15.93,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "ITMG.JK",
+   "window": "12-1"
+  },
+  "IDX:JPFA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 32.32,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "JPFA.JK",
+   "window": "12-1"
+  },
+  "IDX:KLBF": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -34.16,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "KLBF.JK",
+   "window": "12-1"
+  },
+  "IDX:MAPI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 24.07,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "MAPI.JK",
+   "window": "12-1"
+  },
+  "IDX:MBMA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 30.28,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "MBMA.JK",
+   "window": "12-1"
+  },
+  "IDX:MDKA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 23.08,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "MDKA.JK",
+   "window": "12-1"
+  },
+  "IDX:MEDC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 16.74,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "MEDC.JK",
+   "window": "12-1"
+  },
+  "IDX:PGAS": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -11.7,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "PGAS.JK",
+   "window": "12-1"
+  },
+  "IDX:PGEO": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -29.45,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "PGEO.JK",
+   "window": "12-1"
+  },
+  "IDX:PTBA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 5.42,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "PTBA.JK",
+   "window": "12-1"
+  },
+  "IDX:SCMA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -36.48,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "SCMA.JK",
+   "window": "12-1"
+  },
+  "IDX:TLKM": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -17.89,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TLKM.JK",
+   "window": "12-1"
+  },
+  "IDX:UNTR": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -1.64,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "UNTR.JK",
+   "window": "12-1"
+  },
+  "IDX:UNVR": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 3.24,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "UNVR.JK",
+   "window": "12-1"
+  },
+  "IDX:WIFI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -24.91,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "WIFI.JK",
+   "window": "12-1"
+  },
+  "KLSE:1023": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 7.13,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "1023.KL",
+   "window": "12-1"
+  },
+  "KLSE:1066": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 32.72,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "1066.KL",
+   "window": "12-1"
+  },
+  "KLSE:1082": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 10.85,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "1082.KL",
+   "window": "12-1"
+  },
+  "KLSE:1155": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 7.88,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "1155.KL",
+   "window": "12-1"
+  },
+  "KLSE:1295": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 15.93,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "1295.KL",
+   "window": "12-1"
+  },
+  "KLSE:1961": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 21.24,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "1961.KL",
+   "window": "12-1"
+  },
+  "KLSE:2445": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 11.79,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "2445.KL",
+   "window": "12-1"
+  },
+  "KLSE:3816": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 6.74,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "3816.KL",
+   "window": "12-1"
+  },
+  "KLSE:4065": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 6.42,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "4065.KL",
+   "window": "12-1"
+  },
+  "KLSE:4197": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 25.6,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "4197.KL",
+   "window": "12-1"
+  },
+  "KLSE:4677": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -3.12,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "4677.KL",
+   "window": "12-1"
+  },
+  "KLSE:4707": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 5.35,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "4707.KL",
+   "window": "12-1"
+  },
+  "KLSE:5211": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 4.27,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5211.KL",
+   "window": "12-1"
+  },
+  "KLSE:5225": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 21.5,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5225.KL",
+   "window": "12-1"
+  },
+  "KLSE:5285": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 25.94,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5285.KL",
+   "window": "12-1"
+  },
+  "KLSE:5296": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -6.76,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5296.KL",
+   "window": "12-1"
+  },
+  "KLSE:5326": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 34.92,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5326.KL",
+   "window": "12-1"
+  },
+  "KLSE:5347": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 7.12,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5347.KL",
+   "window": "12-1"
+  },
+  "KLSE:5398": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -18.88,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5398.KL",
+   "window": "12-1"
+  },
+  "KLSE:5681": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -4.15,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5681.KL",
+   "window": "12-1"
+  },
+  "KLSE:6012": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 6.57,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "6012.KL",
+   "window": "12-1"
+  },
+  "KLSE:6033": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -5.36,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "6033.KL",
+   "window": "12-1"
+  },
+  "KLSE:6742": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 42.68,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "6742.KL",
+   "window": "12-1"
+  },
+  "KLSE:6947": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -23.37,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "6947.KL",
+   "window": "12-1"
+  },
+  "KLSE:7084": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -6.59,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "7084.KL",
+   "window": "12-1"
+  },
+  "KLSE:8869": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 43.88,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "8869.KL",
    "window": "12-1"
   },
   "KLSE:AMM": {
@@ -243,6 +958,61 @@
    "symbol": "ADVANC.BK",
    "window": "12-1"
   },
+  "SET:AOT": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 75.69,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "AOT.BK",
+   "window": "12-1"
+  },
+  "SET:AWC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 40.54,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "AWC.BK",
+   "window": "12-1"
+  },
+  "SET:BANPU": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 70.76,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BANPU.BK",
+   "window": "12-1"
+  },
+  "SET:BBL": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 22.19,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BBL.BK",
+   "window": "12-1"
+  },
+  "SET:BCP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 69.77,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BCP.BK",
+   "window": "12-1"
+  },
   "SET:BDMS": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -263,6 +1033,72 @@
    "source": "Yahoo Finance",
    "start_ts": 1753981200,
    "symbol": "BEM.BK",
+   "window": "12-1"
+  },
+  "SET:BH": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 7.87,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BH.BK",
+   "window": "12-1"
+  },
+  "SET:BJC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -8.72,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BJC.BK",
+   "window": "12-1"
+  },
+  "SET:BTS": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -34.18,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "BTS.BK",
+   "window": "12-1"
+  },
+  "SET:CBG": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 7.8,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "CBG.BK",
+   "window": "12-1"
+  },
+  "SET:CCET": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 55.17,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "CCET.BK",
+   "window": "12-1"
+  },
+  "SET:COM7": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 11.76,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "COM7.BK",
    "window": "12-1"
   },
   "SET:CPALL": {
@@ -298,6 +1134,61 @@
    "symbol": "CPN.BK",
    "window": "12-1"
   },
+  "SET:CRC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 30.28,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "CRC.BK",
+   "window": "12-1"
+  },
+  "SET:DELTA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 64.0,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "DELTA.BK",
+   "window": "12-1"
+  },
+  "SET:EGCO": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 14.83,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "EGCO.BK",
+   "window": "12-1"
+  },
+  "SET:GPSC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 27.98,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "GPSC.BK",
+   "window": "12-1"
+  },
+  "SET:GULF": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 34.57,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "GULF.BK",
+   "window": "12-1"
+  },
   "SET:HMPRO": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -307,6 +1198,50 @@
    "source": "Yahoo Finance",
    "start_ts": 1753981200,
    "symbol": "HMPRO.BK",
+   "window": "12-1"
+  },
+  "SET:IVL": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 11.52,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "IVL.BK",
+   "window": "12-1"
+  },
+  "SET:KBANK": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 46.59,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "KBANK.BK",
+   "window": "12-1"
+  },
+  "SET:KCE": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 123.53,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "KCE.BK",
+   "window": "12-1"
+  },
+  "SET:KKP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 100.0,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "KKP.BK",
    "window": "12-1"
   },
   "SET:KTB": {
@@ -320,6 +1255,28 @@
    "symbol": "KTB.BK",
    "window": "12-1"
   },
+  "SET:KTC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 37.61,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "KTC.BK",
+   "window": "12-1"
+  },
+  "SET:LH": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -6.15,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "LH.BK",
+   "window": "12-1"
+  },
   "SET:MINT": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -329,6 +1286,39 @@
    "source": "Yahoo Finance",
    "start_ts": 1753981200,
    "symbol": "MINT.BK",
+   "window": "12-1"
+  },
+  "SET:MTC": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -14.09,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "MTC.BK",
+   "window": "12-1"
+  },
+  "SET:OR": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -5.26,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "OR.BK",
+   "window": "12-1"
+  },
+  "SET:OSP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 1.22,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "OSP.BK",
    "window": "12-1"
   },
   "SET:PTT": {
@@ -364,6 +1354,28 @@
    "symbol": "PTTGC.BK",
    "window": "12-1"
   },
+  "SET:RATCH": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 40.74,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "RATCH.BK",
+   "window": "12-1"
+  },
+  "SET:SCB": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 17.51,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "SCB.BK",
+   "window": "12-1"
+  },
   "SET:SCC": {
    "captured": "2026-09-01",
    "end_ts": 1785517200,
@@ -373,6 +1385,61 @@
    "source": "Yahoo Finance",
    "start_ts": 1753981200,
    "symbol": "SCC.BK",
+   "window": "12-1"
+  },
+  "SET:SCGP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 75.44,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "SCGP.BK",
+   "window": "12-1"
+  },
+  "SET:TCAP": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 68.97,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TCAP.BK",
+   "window": "12-1"
+  },
+  "SET:TIDLOR": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 5.32,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TIDLOR.BK",
+   "window": "12-1"
+  },
+  "SET:TISCO": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 25.74,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TISCO.BK",
+   "window": "12-1"
+  },
+  "SET:TLI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 16.23,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TLI.BK",
    "window": "12-1"
   },
   "SET:TOP": {
@@ -386,6 +1453,182 @@
    "symbol": "TOP.BK",
    "window": "12-1"
   },
+  "SET:TRUE": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 14.04,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TRUE.BK",
+   "window": "12-1"
+  },
+  "SET:TTB": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 53.68,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TTB.BK",
+   "window": "12-1"
+  },
+  "SET:TU": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 4.88,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "TU.BK",
+   "window": "12-1"
+  },
+  "SET:VGI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": -51.9,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "VGI.BK",
+   "window": "12-1"
+  },
+  "SET:WHA": {
+   "captured": "2026-09-01",
+   "end_ts": 1785517200,
+   "live": false,
+   "months": 12,
+   "pct": 35.0,
+   "source": "Yahoo Finance",
+   "start_ts": 1753981200,
+   "symbol": "WHA.BK",
+   "window": "12-1"
+  },
+  "SGX:5E2": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -5.98,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "5E2.SI",
+   "window": "12-1"
+  },
+  "SGX:9CI": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -3.62,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "9CI.SI",
+   "window": "12-1"
+  },
+  "SGX:A17U": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -10.66,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "A17U.SI",
+   "window": "12-1"
+  },
+  "SGX:AJBU": {
+   "captured": "2026-09-01",
+   "end_ts": 1782835200,
+   "live": false,
+   "months": 12,
+   "pct": -5.91,
+   "source": "Yahoo Finance",
+   "start_ts": 1751299200,
+   "symbol": "AJBU.SI",
+   "window": "12-1"
+  },
+  "SGX:BN4": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 30.97,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "BN4.SI",
+   "window": "12-1"
+  },
+  "SGX:BS6": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 68.38,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "BS6.SI",
+   "window": "12-1"
+  },
+  "SGX:BUOU": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 2.2,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "BUOU.SI",
+   "window": "12-1"
+  },
+  "SGX:C09": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 22.65,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "C09.SI",
+   "window": "12-1"
+  },
+  "SGX:C38U": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 3.95,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "C38U.SI",
+   "window": "12-1"
+  },
+  "SGX:D01": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 11.01,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "D01.SI",
+   "window": "12-1"
+  },
+  "SGX:D05": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 50.73,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "D05.SI",
+   "window": "12-1"
+  },
   "SGX:DBS": {
    "captured": "2026-09-01",
    "end_ts": 1785513600,
@@ -395,6 +1638,50 @@
    "source": "Yahoo Finance",
    "start_ts": 1753977600,
    "symbol": "D05.SI",
+   "window": "12-1"
+  },
+  "SGX:G13": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -12.5,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "G13.SI",
+   "window": "12-1"
+  },
+  "SGX:H78": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 32.1,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "H78.SI",
+   "window": "12-1"
+  },
+  "SGX:J36": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -3.1,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "J36.SI",
+   "window": "12-1"
+  },
+  "SGX:J69U": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -7.3,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "J69U.SI",
    "window": "12-1"
   },
   "SGX:KEP": {
@@ -408,6 +1695,50 @@
    "symbol": "BN4.SI",
    "window": "12-1"
   },
+  "SGX:M44U": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -4.92,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "M44U.SI",
+   "window": "12-1"
+  },
+  "SGX:ME8U": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -6.8,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "ME8U.SI",
+   "window": "12-1"
+  },
+  "SGX:N2IU": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -7.97,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "N2IU.SI",
+   "window": "12-1"
+  },
+  "SGX:O39": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 85.6,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "O39.SI",
+   "window": "12-1"
+  },
   "SGX:OCBC": {
    "captured": "2026-09-01",
    "end_ts": 1785513600,
@@ -417,6 +1748,28 @@
    "source": "Yahoo Finance",
    "start_ts": 1753977600,
    "symbol": "O39.SI",
+   "window": "12-1"
+  },
+  "SGX:S58": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 21.15,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "S58.SI",
+   "window": "12-1"
+  },
+  "SGX:S63": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 38.54,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "S63.SI",
    "window": "12-1"
   },
   "SGX:SGX": {
@@ -452,6 +1805,28 @@
    "symbol": "Z74.SI",
    "window": "12-1"
   },
+  "SGX:U14": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 23.49,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "U14.SI",
+   "window": "12-1"
+  },
+  "SGX:U96": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": -0.99,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "U96.SI",
+   "window": "12-1"
+  },
   "SGX:UOB": {
    "captured": "2026-09-01",
    "end_ts": 1785513600,
@@ -463,6 +1838,17 @@
    "symbol": "U11.SI",
    "window": "12-1"
   },
+  "SGX:V03": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 24.96,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "V03.SI",
+   "window": "12-1"
+  },
   "SGX:WIL": {
    "captured": "2026-09-01",
    "end_ts": 1785513600,
@@ -472,6 +1858,17 @@
    "source": "Yahoo Finance",
    "start_ts": 1753977600,
    "symbol": "F34.SI",
+   "window": "12-1"
+  },
+  "SGX:Y92": {
+   "captured": "2026-09-01",
+   "end_ts": 1785513600,
+   "live": false,
+   "months": 12,
+   "pct": 1.09,
+   "source": "Yahoo Finance",
+   "start_ts": 1753977600,
+   "symbol": "Y92.SI",
    "window": "12-1"
   }
  },

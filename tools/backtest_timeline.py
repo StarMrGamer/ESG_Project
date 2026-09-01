@@ -60,9 +60,18 @@ def load_cases():
 
 
 def case_company(case):
-    """A backtest case as a company record the engine can score (its events are its evidence)."""
+    """A backtest case as a company record the engine can score (its events are its evidence).
+
+    `esg_score`/`esg_score_basis` carry the case's MOCKED MEDIAN baseline. A case is scored alone,
+    so its percentile is 0.5 whatever the number is — but stating it matters: without it the
+    baseline reads UNAVAILABLE and `engine.label_for` correctly refuses to give the case a
+    quadrant, because a company with no incumbent rating cannot disagree with one. The cases were
+    always scored against an implied median (the topglove note says so in as many words); this
+    writes it down so a case is distinguishable from a company we genuinely hold no rating for.
+    """
     return {"company": case["company"], "ticker": case["ticker"], "sector": case["sector"],
             "country": case.get("country", "unknown"), "as_of": case["cutoff_date"],
+            "esg_score": case.get("esg_score"), "esg_score_basis": case.get("esg_score_basis"),
             "events": case["events"]}
 
 

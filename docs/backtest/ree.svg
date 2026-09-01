@@ -38,7 +38,7 @@
 <text x="636.0" y="45" font-size="9" fill="#3D3D3A">outcome 2022-08-11</text>
 <text x="58" y="16" font-size="11.5" fill="#3D3D3A" font-weight="600">REE Corporation (HOSE:REE)</text>
 <text x="58" y="290" font-size="9" fill="#3D3D3A">at cutoff: momentum +0.140 · confidence 0.042 · 1 signals · Future Leaders</text>
-<text x="58" y="302" font-size="8" fill="#9A9A93">grey = incumbent baseline, flat: no rating action dated in this window (basis unavailable) · MOCK, not licensed LSEG</text>
+<text x="58" y="302" font-size="8" fill="#9A9A93">grey = incumbent baseline, flat: no rating action dated in this window (basis stored_esg_score) · MOCK, not licensed LSEG</text>
 <text x="58" y="313" font-size="8" fill="#9A9A93">dashed = no evidence yet, not agreement · the drift back toward 0 between signals is time-decay, not recovery · dot size = confidence</text>
 <text x="638" y="137.0" font-size="9" fill="#9A9A93">LSEG baseline</text>
 <text x="638" y="129.6" font-size="9" fill="#2F7D62">our momentum</text>

@@ -258,6 +258,20 @@ def _baseline_score(company):
 def label_for(record, cfg):
     """CGSI quadrant label (A1), evaluated in config order so `hidden_winners` wins overlaps.
     Reads ONLY fields stored on the record — the label is always reproducible from it."""
+    # AN UNRATED COMPANY CANNOT DISAGREE WITH A RATING.
+    #
+    # `_baseline_score` returns None when a company carries neither a stored ESG score nor an
+    # evidence basis, and the percentile assignment above then defaults it to 0.5 — the median.
+    # That default is fine as a coordinate and dangerous as a claim: `disagreement` becomes
+    # `momentum_percentile - 0.5`, so a high-momentum name would clear theta and be labelled a
+    # Hidden Winner — "our evidence is materially more positive than the incumbent rating" —
+    # against a rating that does not exist. A low-momentum one would be labelled Consensus, which
+    # asserts an agreement with nobody.
+    #
+    # Checked FIRST, before every other rule, so no quadrant label can outrank it. It reads a
+    # field already on the record, so the label stays reproducible from the record alone.
+    if record.get("baseline_origin") == "UNAVAILABLE":
+        return "unrated"
     theta = cfg["theta"]
     d = record["disagreement"]
     conf = record["composite_confidence"]

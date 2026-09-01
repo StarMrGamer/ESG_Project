@@ -1,0 +1,76 @@
+{
+ "company_id": "IDX:AADI",
+ "company": "Adaro Andalan Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:AADI-harvest-0",
+   "text": "PT Adaro Andalan Indonesia Tbk's 2025 Sustainability Report reports total energy consumption of 3,456.17 TJ.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-adaro-andalan-indonesia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AADI-harvest-1",
+   "text": "PT Adaro Andalan Indonesia Tbk's 2025 Sustainability Report reports a 35% renewable energy share.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-adaro-andalan-indonesia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AADI-harvest-2",
+   "text": "PT Adaro Andalan Indonesia Tbk's 2025 Sustainability Report reports market-based Scope 1 and 2 emissions of 176,530.15 tCO2e.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-adaro-andalan-indonesia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AADI-harvest-3",
+   "text": "PT Adaro Andalan Indonesia Tbk's 2025 Sustainability Report reports 8,656.91 tons of waste generated.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-adaro-andalan-indonesia/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AADI-harvest-4",
+   "text": "Pada 4 Agustus 2025, Direktur Adaro Indonesia berinisial HG dipanggil Kejaksaan Agung sebagai saksi dalam penyidikan perkara dugaan tindak pidana korupsi tata kelola minyak mentah dan produk kilang pada PT Pertamina (Persero), Sub Holding dan Kontraktor Kontrak Kerjasama (KKKS) 2018-2023.",
+   "published_at": "2025-08-04",
+   "source_url": "https://www.tempo.co/ekonomi/penjelasan-adaro-andalan-usai-direktur-perseroan-diperiksa-kejaksaan-agung-dalam-kasus-pertamina-2058167",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5431
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5538
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5712
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5603
+  }
+ },
+ "prompt_chars": 22284,
+ "kept": 5
+}

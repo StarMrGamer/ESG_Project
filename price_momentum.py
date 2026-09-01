@@ -306,12 +306,18 @@ if __name__ == "__main__":  # pragma: no cover - developer convenience
     ap = argparse.ArgumentParser(description="12-1 price momentum for the real ASEAN basket.")
     ap.add_argument("--snapshot", action="store_true",
                     help="fetch the whole basket ONCE and write data/price_momentum.json")
+    ap.add_argument("--universe", default="", help="cgsi (default) or indexes")
     a = ap.parse_args()
 
-    cons = universe.load_universe(universe.UNIVERSE_FILE)["constituents"]
+    # Both universes write into ONE snapshot, keyed by ticker: a price is a fact about a listing,
+    # not about which list names it, and the 35 companies in both must not end up with two.
+    cons = universe.constituents(universe.active_file(key=a.universe))
     if a.snapshot:
         today = datetime.date.today().isoformat()
-        out, misses = {}, []
+        # Existing rows are KEPT and merged into, so snapshotting a second universe does not
+        # silently drop the first one's prices. A price is a fact about a listing.
+        out = dict((_snapshot() or {}).get("momentum") or {})
+        misses = []
         for c in cons:
             tk = c["ticker"]
             got = fetch(tk)

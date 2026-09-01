@@ -29,6 +29,18 @@ import re
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UNIVERSE_FILE = os.path.join(BASE_DIR, "data", "asean_universe.json")
 DEMO_FILE = os.path.join(BASE_DIR, "data", "demo_universe.json")  # fictional, fully-numeric demo set
+#: The big ASEAN index members — a SECOND real universe, built by
+#: `scripts/build_index_universe.py` and deliberately NOT merged into CGSI's 52. See that
+#: script's header for why: the 52 are a selection with a thesis and these are simply the
+#: largest listings, and merging them would have changed what the universe IS while every
+#: surface went on describing it as "52 companies with consistent ESG improvement".
+INDEX_FILE = os.path.join(BASE_DIR, "data", "asean_indexes.json")
+
+#: Universe key -> file. `demo` stays a separate boolean flag rather than folding in here,
+#: because it means more than "which file": it also gates prices, quotes and the harvest, all of
+#: which must stay off for a FICTIONAL universe (rule 2).
+UNIVERSES = {"cgsi": UNIVERSE_FILE, "indexes": INDEX_FILE, "demo": DEMO_FILE}
+DEFAULT_UNIVERSE = "cgsi"
 
 # The five markets MSCI ASEAN spans. Used to order/group the universe grid.
 ASEAN_COUNTRIES = ("Singapore", "Malaysia", "Indonesia", "Thailand", "Philippines")
@@ -37,9 +49,21 @@ _TOKEN_RE = re.compile(r"[a-z0-9]+")
 _CACHE = {}  # path -> {"mtime", "data"} : per-file mtime cache so Streamlit reruns don't re-read disk
 
 
-def active_file(demo: bool = False) -> str:
-    """Which universe JSON to load — the fictional demo set, or the real ASEAN base DB."""
-    return DEMO_FILE if demo else UNIVERSE_FILE
+def active_file(demo: bool = False, key: str = "") -> str:
+    """Which universe JSON to load.
+
+    `key` selects explicitly ("cgsi", "indexes", "demo"); an unknown or empty key falls back to
+    the original two-way behaviour, so every existing caller is unchanged. `demo` still wins when
+    it is set, because a caller asking for the fictional set must never be handed a real one.
+    """
+    if demo:
+        return DEMO_FILE
+    return UNIVERSES.get(key or DEFAULT_UNIVERSE, UNIVERSE_FILE)
+
+
+def is_real(key: str = "") -> bool:
+    """True for a universe of REAL companies — the only ones that may carry a price or a harvest."""
+    return (key or DEFAULT_UNIVERSE) != "demo"
 
 # Generic corporate-suffix / filler tokens — they match too many names, so they don't count
 # toward a resolve() overlap (otherwise "random corp" spuriously hits "...Banking Corp").
@@ -81,10 +105,19 @@ def _coerce_constituent(c):
     if "data_provenance" in c:
         out["data_provenance"] = c["data_provenance"]
     # Optional DOCUMENTATION fields — the evidence for why a name is an ESG improver.
+    #
+    # `index`, `membership_source`, `membership_source_url` and `baseline_note` belong to the
+    # INDEX universe (see scripts/build_index_universe.py). They travel because they are the
+    # provenance of a row that has no ESG evidence of its own: which index lists the company,
+    # where that membership was read, and — said in words rather than only by omission — that no
+    # incumbent rating exists for it. Dropping them here would leave the board showing 185
+    # unexplained names with no way to say where any of them came from.
     for k in ("esg_basis", "source_url", "source_url_2", "confidence", "esg_score_basis",
-              "as_of"):
+              "as_of", "index", "membership_source", "membership_source_url", "baseline_note"):
         if c.get(k):
             out[k] = str(c[k]).strip()
+    if c.get("also_in_cgsi") is not None:
+        out["also_in_cgsi"] = bool(c["also_in_cgsi"])
     # `events` is the DATED evidence block `signals.from_company` scores: each item carries its
     # own text, source URL, publication date and source type. The CGSI basket ships it (built
     # by `scripts/build_cgsi_basket.py` from their verified rows); dropping it here would leave

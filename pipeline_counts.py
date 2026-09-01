@@ -108,7 +108,19 @@ def counts(run, metadata, cfg=None):
             buckets["N"].append(record["company_id"])
         if in_m:
             buckets["M"].append(record["company_id"])
-        if not in_n and not in_m and record["disagreement"] >= theta:
+        # K IS A DISAGREEMENT, SO IT NEEDS SOMETHING TO DISAGREE WITH.
+        #
+        # `disagreement` is `momentum_percentile - lseg_percentile`, and a company with no
+        # incumbent rating has its percentile DEFAULTED to 0.5 by `engine._percentiles` — so its
+        # "disagreement" is just its momentum rank minus a half, against a rating that does not
+        # exist. On the index universe (185 names, none rated) that put 17 companies on a human
+        # review list for disagreeing with nobody.
+        #
+        # `engine.label_for` already refuses to give these a quadrant for the same reason; this
+        # is the same rule, one module over, so the screen and the money slide cannot disagree
+        # about what a disagreement is.
+        rated = record.get("baseline_origin") != "UNAVAILABLE"
+        if not in_n and not in_m and rated and record["disagreement"] >= theta:
             buckets["K"].append(record["company_id"])
 
     return {

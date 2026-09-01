@@ -361,7 +361,7 @@ def precompute_engine():
     return warmed
 
 
-def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON):
+def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON, key=""):
     """The scored run for a universe at a named decay horizon, metadata joined, tiers stamped.
 
     The horizon is NOT a filter. The risk tiers are — they read flags already stamped on a
@@ -371,13 +371,13 @@ def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON):
     `run_id`. Hence the memo below and the startup precompute — the spec's "<1 second" is met
     by having both answers ready, not by making the flip cheap."""
     cfg = engine_config.for_horizon(horizon)
-    path = universe.active_file(demo)
+    path = universe.active_file(demo, key)
     # The metadata file follows the UNIVERSE, not the preference order: the fictional demo set
     # is keyed on invented tickers and joins nothing against the verified 52.
-    key = (path, cfg["config_hash"], os.path.getmtime(path) if os.path.exists(path) else 0,
-           company_metadata.load_report(demo=demo).get("rows", 0), demo,
-           0 if demo else sum(len(v) for v in harvest.load_overlay().values()))
-    hit = _ENGINE_MEMO.get(key)
+    memo = (path, cfg["config_hash"], os.path.getmtime(path) if os.path.exists(path) else 0,
+            company_metadata.load_report(demo=demo).get("rows", 0), demo,
+            0 if demo else sum(len(v) for v in harvest.load_overlay().values()))
+    hit = _ENGINE_MEMO.get(memo)
     if hit:
         return hit
     meta = company_metadata.load(demo=demo)
@@ -390,10 +390,10 @@ def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON):
         # are committed, so a fresh clone reproduces the same id.
         cons = harvest.apply_overlay(cons)
     run = engine.run_engine(cons, metadata=meta, config=cfg)
-    if len(_ENGINE_MEMO) > 8:      # keys carry mtime+config; 2 universes x 2 horizons live here
+    if len(_ENGINE_MEMO) > 12:     # keys carry mtime+config; 3 universes x 2 horizons live here
         _ENGINE_MEMO.clear()
-    _ENGINE_MEMO[key] = (run, meta, cfg)
-    return _ENGINE_MEMO[key]
+    _ENGINE_MEMO[memo] = (run, meta, cfg)
+    return _ENGINE_MEMO[memo]
 
 
 def _record_summary(record):
@@ -477,11 +477,22 @@ def _anchor_summary(run):
             "note": record.get("anchor_note", "")}
 
 
-def _harvest_summary(demo):
-    """How much live-gathered evidence is in this run, and how much of the basket it touched."""
+def _harvest_summary(demo, tickers=None):
+    """How much live-gathered evidence is in THIS run, and how much of this universe it touched.
+
+    Scoped to `tickers` on purpose. `data/harvest/` is shared across universes — a ticker's dated
+    evidence is a fact about the company, not about which list names it — so once the index
+    universe started harvesting, an unscoped count reported the whole store under the CGSI
+    basket's footer: "+406 harvested across 52" while most of those events belonged to companies
+    the basket has never contained. A count that grows when an unrelated sweep runs is not a
+    statement about the run it sits under.
+    """
     if demo:
         return {"companies": 0, "events": 0, "note": ""}
     overlay = harvest.load_overlay()
+    if tickers is not None:
+        keep = set(tickers)
+        overlay = {t: v for t, v in overlay.items() if t in keep}
     events = sum(len(v) for v in overlay.values())
     return {
         "companies": len(overlay),
@@ -492,9 +503,9 @@ def _harvest_summary(demo):
     }
 
 
-def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
+def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON, key=""):
     """Everything the Build-Spec front-end needs for one filtered view."""
-    run, meta, cfg = _engine_run(demo, horizon)
+    run, meta, cfg = _engine_run(demo, horizon, key)
     tickers = [c["ticker"] for c in filtered]
     by_id = {r["company_id"]: r for r in run["records"]}
     subset = {"records": [by_id[t] for t in tickers if t in by_id],
@@ -532,20 +543,20 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON):
         "metadata": company_metadata.load_report(demo=demo),
         # Say how much of this run's evidence was harvested rather than supplied. A board that
         # silently mixes the two invites exactly the question we would have no answer to.
-        "harvest": _harvest_summary(demo),
+        "harvest": _harvest_summary(demo, tickers),
         "anchor": _anchor_summary(run),
         "records": {t: _record_summary(by_id[t]) for t in tickers if t in by_id},
         "badges": {t: _badges(t, meta, cfg, by_id.get(t), nmk, buckets) for t in tickers},
     }
 
 
-def _focused_engine_record(demo, horizon, ticker):
+def _focused_engine_record(demo, horizon, ticker, key=""):
     """The FULL engine record (signals included) for one ticker, or None. `_record_summary`
     deliberately strips signals for the board payload, so the rail asks the run directly."""
     if not ticker:
         return None
     try:
-        run, _meta, _cfg = _engine_run(demo, horizon)
+        run, _meta, _cfg = _engine_run(demo, horizon, key)
     except Exception:                                   # noqa: BLE001 - never break the board
         return None
     for rec in run.get("records") or []:
@@ -806,8 +817,12 @@ def _board_watchlist(path):
 @app.get("/api/board")
 def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
           focus: str = "", simplified: bool = Query(True),
-          horizon: str = Query(engine_config.DEFAULT_HORIZON)):
-    path = universe.active_file(demo)
+          horizon: str = Query(engine_config.DEFAULT_HORIZON),
+          universe_key: str = Query("", alias="universe")):
+    # WHICH universe. `demo` still wins: a caller asking for the fictional set must never be
+    # handed a real one, whatever key rides alongside it.
+    key = "" if demo else (universe_key or universe.DEFAULT_UNIVERSE)
+    path = universe.active_file(demo, key)
     uni = universe.load_universe(path)
     cons = uni["constituents"]
     sectors = ["All"] + universe.sectors(path)
@@ -821,7 +836,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     # The engine run is memoised, so consulting it here costs nothing — the board
     # builds it a few lines below anyway.
     focused = _cc_focused(focus or None, filtered, path,
-                          _engine_run(demo, horizon)[0].get("records"))
+                          _engine_run(demo, horizon, key)[0].get("records"))
     nt = {focus} if focus else set()
 
     avg_payload = _board_average(filtered, mode, sector)
@@ -833,7 +848,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     hw_basis = "digital_ai"
     if not hw_rows:
         hw_rows, peer_avg, peer_n = metrics.hidden_winners_from_records(
-            filtered, _engine_block(demo, filtered, horizon)["records"],
+            filtered, _engine_block(demo, filtered, horizon, key)["records"],
             top_n=5, new_tickers=nt)
         hw_basis = "disagreement" if hw_rows else hw_basis
     leaders = metrics.evidence_leaders(filtered, top_n=5, new_tickers=nt)
@@ -857,7 +872,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         # The engine holds dated, sourced, SCORED signals for the real basket; `live_signals`
         # only ever finds the demo set's own block. Falling back means a real company with three
         # scored signals stops reporting "0 signals" beside the momentum those signals produced.
-        erec = _focused_engine_record(demo, horizon, focused.get("ticker"))
+        erec = _focused_engine_record(demo, horizon, focused.get("ticker"), key)
         if not signals and erec:
             signals = metrics.signals_from_record(erec)
             if signals:
@@ -905,7 +920,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
             # Why a company WITH evidence can still read zero momentum on this horizon. Empty
             # string when it does not apply, so the UI shows nothing rather than a caveat that
             # does not fit the company in front of the reader.
-            "decay_note": _decay_note(erec, _engine_run(demo, horizon)[2]["decay"]["half_life_days"]),
+            "decay_note": _decay_note(erec, _engine_run(demo, horizon, key)[2]["decay"]["half_life_days"]),
             # WHY this verdict — pros and cons on BOTH axes, derived by rule from the same run.
             # A label without its reasoning is a conclusion the reader cannot argue with, and the
             # cons are not optional: a case that only lists reasons to agree is marketing.
@@ -987,7 +1002,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     # Built once and used TWICE below — the pillar cards fall back to the engine's own
     # per-component momentum when the constituents carry no numeric block, so the board must not
     # score the same filtered view twice (it is cached, but the two copies could still drift).
-    engine_block = _engine_block(demo, filtered, horizon)
+    engine_block = _engine_block(demo, filtered, horizon, key)
 
     # The pillar cards: a constituent's own `momentum` block when it has one (the fictional demo
     # set), otherwise the ENGINE's per-component direction consensus. Before this the cards read
@@ -1011,7 +1026,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     # `components` to one momentum per pillar and drops the evidence weight the shares are built
     # from. Filtered to what is in view, so the panel and the plot describe the same cohort.
     _in_view = set(engine_block["records"])
-    _full = {r["company_id"]: r for r in _engine_run(demo, horizon)[0]["records"]
+    _full = {r["company_id"]: r for r in _engine_run(demo, horizon, key)[0]["records"]
              if r["company_id"] in _in_view}
     ppp_rows = ppp.cohort(_full,
                           lambda cid: (price_momentum.momentum(cid, demo=demo) or {}).get("pct"))
@@ -1034,7 +1049,7 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
 
     # The momentum chart. For the real basket this is not a drawing — it is the engine re-run at
     # each quarter end, which is only possible because the engine is pure.
-    real_series, series_labels = _real_momentum_series(demo, horizon, _engine_run(demo, horizon)[0])
+    real_series, series_labels = _real_momentum_series(demo, horizon, _engine_run(demo, horizon, key)[0])
 
     return {
         "universe": {"note": uni.get("note"), "selection": uni.get("selection"),

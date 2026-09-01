@@ -674,7 +674,12 @@ def main(argv: List[str]) -> int:
               % (out["files"], out["dropped"], out["kept"]))
         return 0
 
-    cons = {c["ticker"]: c for c in universe.constituents()}
+    # WHICH universe to sweep. Evidence is stored per TICKER in `data/harvest/`, so a company
+    # that sits in both baskets is harvested once and both read it — the overlay is shared on
+    # purpose, because a ticker's dated evidence is a fact about the company, not about which
+    # list happens to name it.
+    key = argv[argv.index("--universe") + 1] if "--universe" in argv else ""
+    cons = {c["ticker"]: c for c in universe.constituents(universe.active_file(key=key))}
     overlay = load_overlay()
 
     if "--list" in argv:

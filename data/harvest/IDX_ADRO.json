@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:ADRO",
+ "company": "Alamtri Resources Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:ADRO-harvest-0",
+   "text": "PT Alamtri Resources Indonesia Tbk published its 2025 Sustainability Report on March 26, 2026.",
+   "published_at": "2026-03-26",
+   "source_url": "https://www.publicnow.com/view/EF29EA84710881F9526CAE6F8B19F8EDF39AC339",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ADRO-harvest-1",
+   "text": "As part of its ESG strategy, Alamtri has diversified its business into the renewable energy sector.",
+   "published_at": "2025-03-17",
+   "source_url": "https://indonesiaminer.com/company/detail-news/2025-03-17162035-alamtri-resources-steps-to-implement-esg",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ADRO-harvest-2",
+   "text": "In the last quarter of 2024, Adaro Energy (now Alamtri Resources Indonesia) underwent a drastic restructuring to allegedly pursue more environmentally-friendly projects and position itself as a driver of the energy transition in Indonesia.",
+   "published_at": "2024-10-01",
+   "source_url": "https://www.banktrack.org/article/adaro_s_rebrand_a_fresh_green_look_for_the_same_dirty_coal_business",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5438
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4905
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5614
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5063
+  }
+ },
+ "prompt_chars": 21020,
+ "kept": 3
+}

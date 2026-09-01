@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:BRPT",
+ "company": "Barito Pacific",
+ "events": [
+  {
+   "event_id": "IDX:BRPT-harvest-0",
+   "text": "Star Energy's second green bond issuance in 2020 was Indonesia's first investment-grade green bond.",
+   "published_at": "2020-01-01",
+   "source_url": "https://barito-pacific.com/esg/environment",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BRPT-harvest-1",
+   "text": "Barito Pacific's 2024 achievements include the acquisition of the Sidrap 1 wind power plant by subsidiary Barito Renewables (BREN).",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-barito-pacific/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BRPT-harvest-2",
+   "text": "Barito Pacific's 2024 achievements include Chandra Asri Pacific's agreement to acquire Shell Energy and Chemicals.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-barito-pacific/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 31,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5383
+  },
+  "governance": {
+   "snippets": 7,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4244
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5784
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4892
+  }
+ },
+ "prompt_chars": 20303,
+ "kept": 3
+}

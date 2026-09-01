@@ -37,6 +37,20 @@ export type Focus = 'broad' | 'green'
  * summary line is decoration, and worse than not asking — see the setup note in CLAUDE.md.
  */
 export type PPP = 'profit' | 'balanced' | 'planet'
+
+/**
+ * WHICH universe the board is scoring.
+ *
+ *   cgsi    — CGSI's verified 52, the ESG Momentum foundation basket. The default, and the only
+ *             one the "55.1% vs 6.4%" claim describes.
+ *   indexes — the ~185 largest listings across five ASEAN markets (STI, KLCI, SET50, LQ45,
+ *             PSEi). Selected for size and liquidity with NO ESG screen, so none carries an
+ *             incumbent rating and every one is labelled `unrated` until one is supplied.
+ *
+ * It is deliberately NOT folded into `demo`. `demo` means FICTIONAL and gates prices, quotes and
+ * the harvest — none of which may run against invented companies (rule 2). These are both real.
+ */
+export type UniverseKey = 'cgsi' | 'indexes'
 /**
  * How much of the board is on screen. This is the layering control: every widget declares the
  * level it earns its place at, and nothing above the current level renders. Level 1 is the
@@ -174,6 +188,8 @@ export interface Settings {
   greenFocus: boolean
   /** The PPP trilemma lens. See the `PPP` type for what each one actually does. */
   ppp: PPP
+  /** Which real universe is on the board. Ignored while `demo` is on. */
+  universe: UniverseKey
   /*
    * `matrixPlot` is gone (2026-09-01). The panel briefly carried two plots behind a toggle —
    * incumbent rating across, or price across — and the rating one was removed on instruction.
@@ -209,7 +225,7 @@ const DEFAULTS: Settings = {
   filters: { country: 'All', sector: 'All' },
   leftOpen: false, rightOpen: false,
   ragEnabled: true, ragTopK: 5, tier: 'balanced', horizon: 'long', pipelineOnly: false,
-  greenFocus: false, ppp: 'balanced',
+  greenFocus: false, ppp: 'balanced', universe: 'cgsi',
 }
 
 function loadSettings(): Settings {
@@ -340,14 +356,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     api.board({
       demo: settings.demo, horizon: settings.horizon,
       country: filters.country, sector: filters.sector,
-      focus: focusTicker, simplified: settings.simplified,
+      focus: focusTicker, simplified: settings.simplified, universe: settings.universe,
     })
       .then(b => { if (!cancel) setBoard(b) })
       .catch(e => { if (!cancel) setBoardError(String(e.message || e)) })
       .finally(() => { if (!cancel) setBoardLoading(false) })
     return () => { cancel = true }
-  }, [settings.demo, settings.horizon, settings.simplified, filters.country, filters.sector,
-      focusTicker, boardVersion])
+  }, [settings.demo, settings.horizon, settings.simplified, settings.universe,
+      filters.country, filters.sector, focusTicker, boardVersion])
 
   const saveEntry = useCallback((e: Entry) => {
     setEntries(prev => ({ ...prev, [e.ticker]: e }))

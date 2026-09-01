@@ -48,9 +48,17 @@ def fetch(ticker):
 
 
 def main():
-    cons = universe.load_universe(universe.UNIVERSE_FILE)["constituents"]
+    key = sys.argv[sys.argv.index("--universe") + 1] if "--universe" in sys.argv else ""
+    cons = universe.constituents(universe.active_file(key=key))
     today = datetime.date.today().isoformat()
-    series, misses = {}, []
+    # Merge, never replace: a price series is a fact about a listing, and snapshotting a second
+    # universe must not drop the first one's history out from under the frozen model.
+    try:
+        with open(OUT, encoding="utf-8") as fh:
+            series = json.load(fh).get("series") or {}
+    except Exception:                                   # noqa: BLE001 - first run
+        series = {}
+    misses = []
     for c in cons:
         tk = c["ticker"]
         got = fetch(tk)

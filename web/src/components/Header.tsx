@@ -177,9 +177,21 @@ export default function Header({ onPresent, onFears, onRecap }:
             </div>
 
             <div className="cc-menu-group">
-              <span className="cc-menu-label">Data source</span>
+              <span className="cc-menu-label">Universe</span>
+              {/* TWO REAL UNIVERSES, kept apart on purpose. CGSI's 52 are a selection with a
+                  thesis — index members that also improved their ESG score — and the basket
+                  performance claim describes THAT set. The index universe is simply the largest
+                  listings, with no ESG screen, so nothing about the 52 may be said of it. */}
+              <div className="seg" role="group" aria-label="Universe">
+                <button className={`btn ${!s.demo && s.universe === 'cgsi' ? 'on' : ''}`}
+                  title="CGSI's verified 52 — the ESG Momentum foundation basket. Every name carries a supplied 2023 ESG score, so the board can disagree with a rating."
+                  onClick={() => setSettings({ demo: false, universe: 'cgsi' })}>CGSI 52</button>
+                <button className={`btn ${!s.demo && s.universe === 'indexes' ? 'on' : ''}`}
+                  title="The ~185 largest listings across STI, KLCI, SET50, LQ45 and PSEi. No incumbent ESG rating on file for any of them, so every one is labelled Unrated — the engine will not manufacture a disagreement with a rating that does not exist."
+                  onClick={() => setSettings({ demo: false, universe: 'indexes' })}>ASEAN indexes</button>
+              </div>
               <button className={`btn ${s.demo ? 'btn-amber' : ''}`}
-                title="ON: fictional numeric universe. OFF: real ASEAN base DB."
+                title="ON: fictional numeric universe. OFF: the real universe selected above."
                 onClick={() => setSettings({ demo: !s.demo })}>
                 Demo {s.demo ? 'on' : 'off'}
               </button>

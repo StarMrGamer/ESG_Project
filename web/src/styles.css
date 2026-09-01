@@ -3668,3 +3668,41 @@ body.is-presenting .app-main { padding-bottom: 104px; }
    momentum arrows above it — never a colour alone, always the word beside it. */
 .fc-v.is-up { color: var(--r-pos); }
 .fc-v.is-down { color: var(--r-neg); }
+
+/* ---- the analysis panels as FREE-STANDING CARDS ----
+   They began as inset boxes nested inside the hub's own card: a box, inside a box, inside a
+   panel, all sharing one flat ground. Three panels deep that reads as one dense slab rather than
+   three separable readings, and the eye has nothing to separate "what the two directions say"
+   from "what the model guesses".
+
+   So they lift off the ground instead: their own panel background against the hub's darker one,
+   a real border and shadow, a wider radius, and a gap between them large enough to read as
+   space rather than a seam. Nothing about the content moves — this is elevation and rhythm, not
+   a different information design. */
+.hub-panels > .dual,
+.hub-panels > .tri,
+.hub-panels > .fc {
+  background: linear-gradient(180deg, var(--r-panel2), var(--r-panel));
+  border: 1px solid var(--r-borderStrong);
+  border-radius: var(--r-radius);
+  box-shadow: var(--r-shadow);
+  padding: var(--pad-panel);
+}
+/* The hub itself recedes once the cards carry their own elevation — two competing shadows on
+   the same ground is what makes a board look busy. */
+.hub-core:has(.hub-panels) { box-shadow: none; background: var(--r-panel); }
+
+@container (min-width: 980px) {
+  .hub-core-side .hub-panels { gap: var(--sp-7); }
+}
+
+/* The inner boxes inside those cards drop their own frames — a card in a card in a card was the
+   thing being fixed, so the model estimate and the base rate sit on the card's own ground with
+   only a rule between them. */
+.hub-panels > .fc .fc-model,
+.hub-panels > .fc .fc-base {
+  background: transparent; border: 0; padding: 0;
+  padding-top: var(--sp-5); margin-top: var(--sp-5);
+  border-top: 1px solid var(--r-border);
+}
+.hub-panels > .fc .fc-model:first-of-type { border-top: 0; padding-top: 0; }

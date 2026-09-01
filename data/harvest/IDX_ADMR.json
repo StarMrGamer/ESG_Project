@@ -1,0 +1,52 @@
+{
+ "company_id": "IDX:ADMR",
+ "company": "Alamtri Minerals Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:ADMR-harvest-0",
+   "text": "As of end of 2021, PT Alamtri Minerals Indonesia Tbk held five coal mining concessions covering a total area of 146,579 hectares in Central Kalimantan and East Kalimantan.",
+   "published_at": "2021-12-31",
+   "source_url": "https://id.wikipedia.org/wiki/Alamtri_Minerals_Indonesia",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ADMR-harvest-1",
+   "text": "PT Alamtri Minerals Indonesia (ADMR) spoke up about one of its directors, Heri Gunawan, being examined in an oil corruption case.",
+   "published_at": "2025-08-13",
+   "source_url": "https://www.cnbcindonesia.com/market/20250813101159-17-657578/direktur-diperiksa-dugaan-korupsi-minyak-alamtri--admr--buka-suara",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5320
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4826
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5348
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5106
+  }
+ },
+ "prompt_chars": 20600,
+ "kept": 2
+}

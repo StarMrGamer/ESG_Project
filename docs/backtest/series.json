@@ -15,7 +15,7 @@
    "is_known_failure": false,
    "baseline": {
     "value": 0.0,
-    "basis": "unavailable",
+    "basis": "stored_esg_score",
     "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
    },
    "events": [
@@ -278,7 +278,7 @@
    "is_known_failure": false,
    "baseline": {
     "value": 0.0,
-    "basis": "unavailable",
+    "basis": "stored_esg_score",
     "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
    },
    "events": [
@@ -627,7 +627,7 @@
    "is_known_failure": false,
    "baseline": {
     "value": 0.0,
-    "basis": "unavailable",
+    "basis": "stored_esg_score",
     "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
    },
    "events": [
@@ -885,7 +885,7 @@
    "is_known_failure": true,
    "baseline": {
     "value": 0.0,
-    "basis": "unavailable",
+    "basis": "stored_esg_score",
     "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
    },
    "events": [
@@ -1138,7 +1138,7 @@
    "is_known_failure": false,
    "baseline": {
     "value": 0.0,
-    "basis": "unavailable",
+    "basis": "stored_esg_score",
     "note": "No rating action is dated in our evidence for this window; the incumbent view is drawn as no movement. MOCK stand-in, not a licensed LSEG series."
    },
    "events": [

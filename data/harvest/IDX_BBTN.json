@@ -1,0 +1,92 @@
+{
+ "company_id": "IDX:BBTN",
+ "company": "Bank Tabungan Negara (Persero)",
+ "events": [
+  {
+   "event_id": "IDX:BBTN-harvest-0",
+   "text": "PT Bank Tabungan Negara (Persero) Tbk reported 805.6K tCO2e/year (Scope 3: Financed Emissions) CO2 emissions in 2023.",
+   "published_at": "2023-01-01",
+   "source_url": "https://polluer.com/companies/NzI2NTAwNzU3",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBTN-harvest-1",
+   "text": "Bank Tabungan Negara applied a double materiality assessment and reported a 30% Scope 1 and 2 emissions-reduction target toward net zero by 2030.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-tabungan-negara-persero/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBTN-harvest-2",
+   "text": "Bank Tabungan Negara reported solar deployment that replaced 806.38 GJ of conventional electricity.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-tabungan-negara-persero/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBTN-harvest-3",
+   "text": "Bank Tabungan Negara's low-emission housing initiative includes a target of 150,000 homes by 2029.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-tabungan-negara-persero/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBTN-harvest-4",
+   "text": "Bank Tabungan Negara reported 2024 Scope 1 emissions of 12,054 ton CO2 eq, Scope 2 emissions of 56,074 ton CO2 eq, and Scope 3 emissions of 581,065.32 ton CO2 eq.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bank-tabungan-negara-persero/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBTN-harvest-5",
+   "text": "Sustainable Fitch provided its Second-Party Opinion on the sustainable finance framework of PT Bank Tabungan Negara (Persero) Tbk, considering transactions under the framework to align with the ICMA Green and Social Bond Principles and Sustainability Bond Guidelines.",
+   "published_at": "2025-02-18",
+   "source_url": "https://www.sustainablefitch.com/banks/sustainable-fitch-second-party-opinion-provided-for-bank-tabungan-negara-18-02-2025",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BBTN-harvest-6",
+   "text": "BTN's Sustainable Finance Framework received an 'Excellent' rating from Sustainable Fitch through a Second Party Opinion evaluated on Friday, February 21, 2025.",
+   "published_at": "2025-02-21",
+   "source_url": "https://en.tempo.co/read/1978795/btns-sustainable-finance-framework-receives-excellent-rating-from-sustainable-fitch",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5068
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5075
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6007
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4703
+  }
+ },
+ "prompt_chars": 20853,
+ "kept": 7
+}

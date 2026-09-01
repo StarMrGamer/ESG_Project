@@ -2175,6 +2175,76 @@ def test_the_forecast_reports_its_failure_rather_than_hiding_it():
     assert "weak evidence" in both["line"], "even a win must be stated as weak evidence"
 
 
+def test_an_unrated_company_cannot_disagree_with_a_rating():
+    """The label, and the review list, both refuse to invent an incumbent.
+
+    `engine._percentiles` defaults a company with no baseline to 0.5 — the median — which is a
+    fine COORDINATE and a false CLAIM: `disagreement` becomes `momentum_percentile - 0.5`, so a
+    high-momentum name would clear theta and be labelled a Hidden Winner ("our evidence is
+    materially more positive than the incumbent rating") against a rating that does not exist,
+    and a low-momentum one would be labelled Consensus, asserting agreement with nobody.
+
+    This bit for real: the 185-name index universe carries no ESG ratings at all, and before the
+    `unrated` label every one of them got a quadrant and 17 landed on the human review list (K)
+    for disagreeing with nothing.
+    """
+    import engine
+    import engine_config
+
+    cfg = engine_config.for_horizon("long")
+    unrated = {"company": "No Rating Co", "ticker": "X:NONE", "events": [
+        {"text": "regulator approves emissions plan", "source_url": "https://x",
+         "published_at": "2026-06-01", "source_type": "regulator"}]}
+    rec = engine.run_engine([unrated], config=cfg, use_cache=False)["records"][0]
+    assert rec["baseline_origin"] == "UNAVAILABLE", rec["baseline_origin"]
+    assert rec["label"] == "unrated", f"an unrated company got the quadrant {rec['label']!r}"
+
+    # A SUPPLIED baseline still gets a real quadrant — the rule must not swallow everything.
+    rated = dict(unrated, ticker="X:RATED", esg_score=50.0,
+                 esg_score_basis="a stated basis, so the baseline is real")
+    rrec = engine.run_engine([rated], config=cfg, use_cache=False)["records"][0]
+    assert rrec["baseline_origin"] == "SUPPLIED"
+    assert rrec["label"] != "unrated", "a rated company must still be classified"
+
+    # And K — the human review list — is a disagreement, so it needs something to disagree with.
+    import pipeline_counts
+    import company_metadata
+    run = {"records": [rec], "company_count": 1}
+    counts = pipeline_counts.counts(run, company_metadata.load(demo=False), cfg)
+    assert counts["K"] == 0, "an unrated company was put on the review list for disagreeing with nobody"
+
+
+def test_the_two_real_universes_stay_apart():
+    """CGSI's 52 are a SELECTION; the index members are just the biggest listings.
+
+    Merging them would have changed what the universe IS while every surface went on describing
+    it as "52 companies with consistent ESG improvement" — and would have re-frozen run_id,
+    N/M/K, the golden digest and the anchor along the way. They are separate files, and
+    `active_file` must keep them separate while `demo` still outranks both: a caller asking for
+    the FICTIONAL set must never be handed a real one.
+    """
+    import os
+    import universe as _uni
+
+    assert _uni.active_file(key="cgsi") == _uni.UNIVERSE_FILE
+    assert _uni.active_file(key="indexes") == _uni.INDEX_FILE
+    assert _uni.active_file() == _uni.UNIVERSE_FILE, "the default is still CGSI's basket"
+    assert _uni.active_file(demo=True, key="indexes") == _uni.DEMO_FILE, "demo outranks the key"
+    assert _uni.active_file(key="nonsense") == _uni.UNIVERSE_FILE, "an unknown key falls back"
+
+    if not os.path.exists(_uni.INDEX_FILE):
+        return
+    idx = _uni.constituents(_uni.INDEX_FILE)
+    assert len(idx) > 100, f"only {len(idx)} index constituents"
+    # NOT ONE of them may carry an ESG score: they have no incumbent rating, and inventing one
+    # is what the `unrated` label exists to prevent.
+    scored = [c for c in idx if c.get("esg_score") is not None]
+    assert not scored, f"{len(scored)} index members carry an ESG score they were never given"
+    # Every row says where its membership came from — Wikipedia is a weaker source than a
+    # filing and is named as one rather than passed off.
+    assert all(c.get("membership_source") for c in idx)
+
+
 def test_the_direction_model_names_the_factors_it_does_not_have():
     """Fama-French STYLE is not Fama-French, and the difference has to be on the record.
 
@@ -3130,6 +3200,10 @@ def main():
          lambda: test_a_forecast_never_travels_without_its_skill()),
         ("the forecast reports its failure rather than hiding it",
          lambda: test_the_forecast_reports_its_failure_rather_than_hiding_it()),
+        ("an unrated company cannot disagree with a rating",
+         lambda: test_an_unrated_company_cannot_disagree_with_a_rating()),
+        ("the two real universes stay apart",
+         lambda: test_the_two_real_universes_stay_apart()),
         ("the direction model NAMES the factors it does not have",
          lambda: test_the_direction_model_names_the_factors_it_does_not_have()),
         ("a missing factor falls back to the mean, never to a number",

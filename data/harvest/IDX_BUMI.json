@@ -1,0 +1,52 @@
+{
+ "company_id": "IDX:BUMI",
+ "company": "Bumi Resources",
+ "events": [
+  {
+   "event_id": "IDX:BUMI-harvest-0",
+   "text": "Bumi Resources commits to achieving net zero emission by 2050.",
+   "published_at": "2023-12-06",
+   "source_url": "https://market.bisnis.com/read/20231206/192/1721584/emiten-batu-bara-terbesar-bumi-komitmen-capai-net-zero-emission",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:BUMI-harvest-1",
+   "text": "In 2024, Bumi Resources completed a corporate carbon footprint assessment and publicly disclosed its GHG emissions according to the GHG Protocol, covering Scope 1 and Scope 2.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/bumi-resources/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5253
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5075
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6287
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 16615,
+ "kept": 2
+}

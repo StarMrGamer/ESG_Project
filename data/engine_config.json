@@ -1,16 +1,17 @@
 {
  "_note": "Engine config — Prototype Build Spec v2 (D/Prototype_Build_Spec_v2.md). Every threshold the engine uses lives HERE, never inline in code: A1 labels, A2 sub-weights, A5 risk tiers. Change a number, re-run `python harness.py` — the sensitivity sweep reports the quadrant churn. JSON (not YAML) so the engine adds no dependency.",
- "config_version": "v2.0",
+ "config_version": "v2.1",
  "theta": 0.3,
  "labels": {
   "_order": [
+   "unrated",
    "hidden_winners",
    "future_leaders",
    "overrated_leaders",
    "value_traps",
    "consensus"
   ],
-  "_precedence_note": "hidden_winners is evaluated FIRST and wins where conditions overlap (A1).",
+  "_precedence_note": "unrated is evaluated FIRST: a company with no incumbent baseline cannot disagree with a rating, so it can never be a Hidden Winner. hidden_winners is evaluated next and wins where the remaining conditions overlap (A1).",
   "hidden_winners": {
    "display": "Hidden Winners",
    "rule": "disagreement >= theta AND composite_confidence >= 0.5 AND signal_count >= 10",
@@ -39,6 +40,12 @@
    "display": "Consensus",
    "rule": "everything else",
    "tooltip": "Our read and the incumbent rating agree — nothing to disagree about."
+  },
+  "unrated": {
+   "display": "Unrated",
+   "rule": "baseline_origin == UNAVAILABLE — no incumbent rating on file for this company",
+   "tooltip": "We hold no incumbent ESG rating for this company, so there is nothing to disagree with. Its evidence momentum is still scored and plotted; only the comparison against a rating is withheld.",
+   "_new_in": "v2.1"
   }
  },
  "component_weights": {

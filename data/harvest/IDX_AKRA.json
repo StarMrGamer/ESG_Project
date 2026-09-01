@@ -1,0 +1,68 @@
+{
+ "company_id": "IDX:AKRA",
+ "company": "AKR Corporindo",
+ "events": [
+  {
+   "event_id": "IDX:AKRA-harvest-0",
+   "text": "In 2024, renewable energy reached 21% of AKR Corporindo's total internal energy consumption.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.akr.co.id/esg/esg-environmental-preservation/energy-efficiency",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AKRA-harvest-1",
+   "text": "AKR Corporindo's 2024 Sustainability Report reports Scope 1 and Scope 2 emissions of 53,596 tCO2e for January 1 to December 31, 2024.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-akr-corporindo/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AKRA-harvest-2",
+   "text": "AKR Corporindo's 2024 Sustainability Report reports total energy consumption of 729,290 GJ, with renewable energy representing 21% of internal consumption.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-akr-corporindo/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:AKRA-harvest-3",
+   "text": "On Friday, 24 January 2025, KPK investigators examined PT AKR Corporindo's External Relation, Tri Margono, in the corruption case over SPBU digitalisation.",
+   "published_at": "2025-01-24",
+   "source_url": "https://monitorindonesia.com/investigasi/read/2025/04/606734/kpk-didesak-periksa-presdir-akr-corporindo-haryanto-di-korupsi-digitalisasi-spbu-bertahun-tahun-jadi-badan-usaha-penyedia-jenis-bbm-tertentu",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5250
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5363
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5415
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5365
+  }
+ },
+ "prompt_chars": 21393,
+ "kept": 4
+}

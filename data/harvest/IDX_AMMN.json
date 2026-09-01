@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:AMMN",
+ "company": "Amman Mineral Internasional",
+ "events": [
+  {
+   "event_id": "IDX:AMMN-harvest-0",
+   "text": "AMMAN's 2024 sustainability report reports total energy use of 21,813,002 GJ with a 14% renewable share for the period 1 January-31 December 2024.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-amman-mineral-internasional/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5051
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4590
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5466
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 15107,
+ "kept": 1
+}

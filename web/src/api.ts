@@ -22,9 +22,10 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   health: () => http<Health>('/api/health'),
-  board: (p: { demo: boolean; country: string; sector: string; focus: string; simplified: boolean; horizon: HorizonKey }) => {
+  board: (p: { demo: boolean; country: string; sector: string; focus: string; simplified: boolean; horizon: HorizonKey; universe: string }) => {
     const q = new URLSearchParams({
       demo: String(p.demo), country: p.country, sector: p.sector, horizon: p.horizon,
+      universe: p.universe,
       focus: p.focus, simplified: String(p.simplified),
     })
     return http<Board>(`/api/board?${q}`)

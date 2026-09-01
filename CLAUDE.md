@@ -75,6 +75,8 @@ esg-momentum-radar/
     esg_scoring.py
   scripts/                   # developer-only data builders and the LLM probe
     build_cgsi_basket.py     # CGSI's verified 52 -> the universe + the frozen-shape metadata CSV
+    build_index_universe.py  # STI/KLCI/SET50/LQ45/PSEi constituents -> data/asean_indexes.json
+    build_price_history.py   # 10y monthly closes -> data/price_history.json (forecast training)
     refresh_eurostat_benchmark.py  # verifies/refreshes the industry bar from the free Eurostat API
     sg_day_rates.py          # blended day rates from LIVE MyCareersFuture postings
     build_cost_workbook.py   # writes the cost model as a real, calculating .xlsx
@@ -90,6 +92,7 @@ esg-momentum-radar/
   data/forecast_model.json  # the frozen model: coefficients, the time split, and its MEASURED skill
   data/oecd_industry_benchmark.csv  # REAL OECD GHG intensity per ISIC industry (built by the script below)
   data/asean_universe.json  # BASE DB — CGSI's REAL verified 52 (built by scripts/build_cgsi_basket.py)
+  data/asean_indexes.json   # SECOND universe — ~185 big ASEAN index members, all `unrated` (no ESG rating)
   data/asean_universe_reconstructed.json  # the public-evidence 52 we built while waiting — kept, superseded
   data/company_metadata.csv # the VERIFIED green-bond/profitability rows, frozen 29-column shape
   data/oecd_sector_benchmark.csv  # the industry bar, joined on CGSI's `industry` (Eurostat EU-27 2023)
@@ -478,6 +481,58 @@ put "dual momentum aligned" over a quadrant that has never read a price: `hidden
 rule about a RATING (top-LEFT — rated low while improving) and cannot be evaluated on a price
 axis at all. A caption that does not match its axis is worse than none, because a reader matching
 dots to the nearest label draws a conclusion the data does not support.
+
+**A SECOND REAL UNIVERSE, AND THE LABEL IT FORCED** (`data/asean_indexes.json` +
+`scripts/build_index_universe.py`, added 2026-09-01). The board now switches between **CGSI 52**
+and **ASEAN indexes** — 185 constituents of STI, KLCI, SET50, LQ45 and PSEi, 35 of which are also
+in CGSI's basket. `demo` stays a separate flag because it means FICTIONAL and gates prices,
+quotes and the harvest; these are both real.
+
+**They are separate files, not one merged list.** CGSI's 52 are a SELECTION with a thesis — index
+constituents that also improved their ESG score 2019-2023 — and the 55.1% vs 6.4% claim describes
+that set. Index members are simply the largest listings. Merging would have changed what the
+universe IS while every surface went on calling it "52 companies with consistent ESG improvement",
+and would have re-frozen `run_id`, N/M/K, the golden digest and the anchor on the way past.
+
+**NONE OF THEM HAS AN INCUMBENT ESG RATING, AND THAT BROKE SOMETHING REAL.**
+`engine._baseline_score` returns `UNAVAILABLE` for them, and `_percentiles` then defaults them to
+0.5 — the median. That is a fine COORDINATE and a false CLAIM: `disagreement` becomes
+`momentum_percentile − 0.5`, so a high-momentum name clears theta and is labelled a **Hidden
+Winner** — *"our evidence is materially more positive than the incumbent rating"* — against a
+rating that does not exist, and a low-momentum one is labelled **Consensus**, asserting agreement
+with nobody. Measured before the fix: all 185 got a quadrant and **17 landed on the human review
+list (K)** for disagreeing with nothing.
+
+So there is a new label, `unrated`, evaluated FIRST in `engine_config.json` so no quadrant can
+outrank it, and the same rule is applied one module over in `pipeline_counts` — K is a
+disagreement, so it needs something to disagree with. Index universe now reads **185 unrated,
+N 10 · M 0 · K 0**.
+
+*The obvious fix — fetch LSEG's real score for each — is deliberately NOT taken.* `lseg.py` could,
+but LSEG's terms allow attributed one-at-a-time lookups and forbid systematic reproduction, which
+is why **`data/` never receives an LSEG scrape**. A licence is not an obstacle to route around.
+
+**The backtest cases needed the mirror of that fix.** They are scored ALONE, so their percentile
+is 0.5 by the single-cohort convention — but they carried no baseline either, so `unrated` swept
+all five and the golden set failed. They now carry an explicit `esg_score: 50.0` with a stated
+basis, which changes nothing about their labels (the topglove note already said they were scored
+"against a median-or-better baseline") and makes a CASE distinguishable from a company we simply
+hold no rating for.
+
+**`config_version` went v2.0 → v2.1, so the real basket's `run_id` moved**
+`1fc384a2fa92499d` → **`f0652da192872e1e`**. That is the engine working as designed — a changed
+config must produce a different id, or a re-labelling could happen silently. **Every label and
+count is unchanged** (4 Hidden Winners · 21 Future Leaders · 2 Overrated · 1 Value Trap · 24
+Consensus, and N/M/K still **13 / 10 / 1**), so nothing in the deck is wrong except the id itself.
+`data/nmk_frozen.json` has been re-frozen; anything quoting the old id needs updating, and the
+Sepolia anchor for the new run has to be re-taken.
+
+**One bug the shared harvest store caused.** `data/harvest/` is keyed by TICKER and shared across
+universes on purpose — a company's dated evidence is a fact about the company, not about which
+list names it. But `_harvest_summary` counted the whole store, so the moment the index sweep
+started the CGSI footer read *"+406 harvested across 52"* while most of those events belonged to
+companies the basket has never contained. It is scoped to the universe's own tickers now: a count
+that grows when an unrelated sweep runs is not a statement about the run it sits under.
 
 **THE RATING AXIS WAS DROPPED FROM THE DRAWING, NOT FROM THE ENGINE** (2026-09-01, on
 instruction). The matrix panel briefly carried two plots behind a toggle; the original — x =
@@ -1300,6 +1355,8 @@ python anchor.py                          # build + anchor EVERY (universe x hor
 python pipeline_counts.py --freeze        # B2 — N/M/K frozen with a run id + date
 python tools/llm_cost.py --price-in X --price-out Y   # cost per company (prices must be supplied)
 python -m scripts.build_cgsi_basket       # rebuild the basket from CGSI_52_verified.csv (--check)
+python -m scripts.build_index_universe    # rebuild data/asean_indexes.json from the index pages
+python harvest.py --universe indexes --empty   # gather evidence for the index universe
 python -m scripts.refresh_eurostat_benchmark  # verify the industry bar live (--write to refresh)
 python pipeline_counts.py --real --freeze     # N/M/K on the real basket -> data/nmk_frozen.json
 python tools/phase_b.py --blind data/phase_b/cgsi_picks_17.json --real   # the blind 17-pick test

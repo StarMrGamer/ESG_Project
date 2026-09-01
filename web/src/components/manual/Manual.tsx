@@ -94,10 +94,23 @@ export default function Manual() {
             ? 'You are on the demo universe: fictional companies with invented numbers, labelled illustrative on every panel. It exists so the mechanics can be shown without dressing invented figures up as real ones.'
             : 'The companies are a published research basket: index constituents that stayed in throughout and improved their ESG score over several years. We did not choose the names, and we do not add to them.'}
         </p>
+        <p>
+          There is a <b>second</b> universe you can switch to: the ~185 largest listings across
+          five ASEAN markets. Those were picked for size and liquidity with no ESG screen at all,
+          and — importantly — <b>nobody has given us an ESG rating for them</b>. So every one is
+          labelled <b>Unrated</b> rather than placed in a quadrant: a company with no incumbent
+          rating cannot disagree with one, and the engine will not invent the disagreement. Their
+          evidence momentum is still scored and plotted; only the comparison is withheld.
+        </p>
         <Detail>
           <code>data/asean_universe.json</code>, built by <code>scripts/build_cgsi_basket.py</code>{' '}
           from CGSI's verified sheet. Two delisted names keep their row and wear a badge: a static
-          list going stale is the argument.
+          list going stale is the argument. The second universe is{' '}
+          <code>data/asean_indexes.json</code> (<code>scripts/build_index_universe.py</code>),
+          kept as its own file so the basket's selection claim never gets applied to names it was
+          never about. Fetching a real rating for those 185 would fix the Unrated label, and is
+          deliberately not done: LSEG's terms permit attributed one-at-a-time lookups and forbid
+          systematic reproduction, so <code>data/</code> never receives an LSEG scrape.
         </Detail>
       </Section>
 
@@ -415,6 +428,7 @@ export default function Manual() {
         <ul className="man-list">
           <li><b>Preferences / Everything</b> — how much of the board is on at once; the chips at the foot add one panel at a time.</li>
           <li><b>PPP risk filter</b> — Profit first, Balanced or Sustainability focus, with a live count of what each one dims.</li>
+          <li><b>Universe</b> — CGSI's verified 52, or the ~185 big ASEAN index members (all Unrated). Demo is a third, fictional, set.</li>
           <li><b>The matrix</b> — price momentum across, our evidence up. One dot per company; the corners are the four combinations.</li>
           <li><b>The PPP triangle</b> — where a company&rsquo;s movement sits across Profit, People and Planet.</li>
           <li><b>Forward view</b> — a model estimate of 6-month return, always shown with the skill it actually measured, and CGSI&rsquo;s published base rate beside it.</li>

@@ -123,173 +123,34 @@
    "_origin": "harvest"
   }
  ],
- "status": "q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
- "snippet_count": 120,
+ "status": "emissions: offline; governance: offline; financing: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 8,
  "angles": {
   "emissions": {
-   "snippets": 8,
-   "kept": 5,
-   "status": "live",
-   "prompt_chars": 5297
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 6011
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 6130
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
    "snippets": 8,
    "kept": 0,
    "status": "live",
-   "prompt_chars": 5879
-  },
-  "q_regulator": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5945
-  },
-  "q_exchange": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 4955
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply",
-   "prompt_chars": 5437
-  },
-  "governance:2023": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 5908
-  },
-  "governance:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5978
-  },
-  "financing:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6285
-  },
-  "financing:2024": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 6295
-  },
-  "controversy:2023": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5146
-  },
-  "controversy:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5584
-  },
-  "q_regulator:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5765
-  },
-  "q_regulator:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5735
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "prompt_chars": 5864
   }
  },
- "prompt_chars": 86350,
- "kept": 15,
- "merged_from_prior": 8
+ "prompt_chars": 5864,
+ "kept": 15
 }
