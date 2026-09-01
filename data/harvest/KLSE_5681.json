@@ -1,0 +1,68 @@
+{
+ "company_id": "KLSE:5681",
+ "company": "PETRONAS DAGANGAN",
+ "events": [
+  {
+   "event_id": "KLSE:5681-harvest-0",
+   "text": "Petronas Dagangan's subsidiary Setel Ventures Sdn Bhd was penalised RM637,000 by Bank Negara Malaysia and has implemented remediation measures to address regulatory gaps.",
+   "published_at": "2026-08-27",
+   "source_url": "https://www.malaymail.com/news/money/2026/08/27/petronas-dagangans-setel-says-regulatory-gaps-fixed-after-rm637500-bnm-penalty/232896",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5681-harvest-1",
+   "text": "The High Court awarded RM7.6mil in a fuel terminal dispute after ruling that Petronas Dagangan Bhd wrongfully refused to proceed with the transaction.",
+   "published_at": "2025-11-26",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/11/26/company-awarded-rm7-6mil-in-fuel-terminal-dispute-with-petronas-unit",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5681-harvest-2",
+   "text": "Petronas Dagangan Berhad dismissed Mohd Taufik bin Mohd Aris on December 22, 2022 over alleged misconduct including falsifying attendance records and forging signatures on training documents.",
+   "published_at": "2022-12-22",
+   "source_url": "https://www.scribd.com/document/872572409/INDUSTRIAL-COURT-Terminate-without-just-n-cause-PETRONAS",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5681-harvest-3",
+   "text": "The Industrial Court awarded RM86,450 in compensation and back wages to a former aircraft refueller after ruling his dismissal by Petronas Dagangan Berhad was without just cause or excuse.",
+   "published_at": "2025-05-01",
+   "source_url": "https://www.nst.com.my/news/crime-courts/2025/05/1220221/court-awards-rm86k-ex-aircraft-refueller-over-unjust-dismissal",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5086
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5672
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5453
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5670
+  }
+ },
+ "prompt_chars": 21881,
+ "kept": 4
+}

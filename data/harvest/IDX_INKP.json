@@ -1,0 +1,52 @@
+{
+ "company_id": "IDX:INKP",
+ "company": "Indah Kiat Pulp & Paper",
+ "events": [
+  {
+   "event_id": "IDX:INKP-harvest-0",
+   "text": "Environment Minister Hanif Faisol Nurofiq threatened criminal sanctions against PT Indah Kiat Pulp & Paper for dumping waste.",
+   "published_at": "2024-11-08",
+   "source_url": "https://banten.tribunnews.com/2024/11/08/menteri-lh-ancam-pidanakan-pt-indah-kiat-dan-pt-cipta-paperria-gegara-buang-limbah-sembarangan",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INKP-harvest-1",
+   "text": "PT Indah Kiat Pulp & Paper was proven to have discharged liquid waste into the Ciujung River, Serang Regency, during a KLH inspection.",
+   "published_at": "2024-11-08",
+   "source_url": "https://banten.tribunnews.com/2024/11/08/disidak-klh-pt-indah-kiat-dan-cipta-paperria-terbukti-buang-limbah-ke-sungai-ciujung",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5367
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4681
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5737
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5478
+  }
+ },
+ "prompt_chars": 21263,
+ "kept": 2
+}

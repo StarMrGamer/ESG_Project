@@ -1,0 +1,44 @@
+{
+ "company_id": "PSE:RCR",
+ "company": "RL Commercial REIT",
+ "events": [
+  {
+   "event_id": "PSE:RCR-harvest-0",
+   "text": "RL Commercial REIT President and CEO Jericho P. Go received a 100 percent Renewable Energy plaque from MPower officials marking the transition of 15 Robinsons Offices buildings to clean energy, a move expected to offset 39,000 tons of carbon emissions annually.",
+   "published_at": "2026-03-27",
+   "source_url": "https://mb.com.ph/2026/03/27/robinsons-land-shifts-15-manila-office-towers-to-renewable-power",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5204
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4955
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5027
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4549
+  }
+ },
+ "prompt_chars": 19735,
+ "kept": 1
+}

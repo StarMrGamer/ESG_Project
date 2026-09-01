@@ -1,0 +1,68 @@
+{
+ "company_id": "PSE:SCC",
+ "company": "Semirara Mining and Power",
+ "events": [
+  {
+   "event_id": "PSE:SCC-harvest-0",
+   "text": "Semirara Mining and Power Corp. set aside a lower capital expenditure of P1.9 billion for 2026, mainly as a result of the government's decision to bid out its coal.",
+   "published_at": "2026-05-04",
+   "source_url": "https://businessmirror.com.ph/2026/05/04/semirara-sets-2026-capex-at-%E2%82%A71-9b/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SCC-harvest-1",
+   "text": "SMPC, in partnership with the University of the Philippines and UPERDFI, launched the country's first academe-based failure analysis hub.",
+   "published_at": "2025-08-01",
+   "source_url": "https://powerphilippines.com/tag/semirara-mining-and-power-corporation/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SCC-harvest-2",
+   "text": "PMPI said the Semirara mining pit landslide 'adds to the growing list of lives lost in the operations' of SMPC and called for investigation over occupational safety and environmental impact.",
+   "published_at": "2026-03-01",
+   "source_url": "https://www.pressenza.com/2026/03/statement-of-the-philippine-misereor-partnership-inc-on-the-semirara-mining-pit-landslide-and-the-death-of-a-mining-worker/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SCC-harvest-3",
+   "text": "Semirara Mining and Power Corp. has gone to court to block the Department of Energy's repeated attempts to compel disclosure of proprietary mining information that could be shared with prospective bidders for the Semirara coal mine.",
+   "published_at": "2026-07-17",
+   "source_url": "https://context.ph/2026/07/17/semirara-seeks-court-shield-over-doe-data-demand/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 31,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5032
+  },
+  "governance": {
+   "snippets": 7,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5063
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5470
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5417
+  }
+ },
+ "prompt_chars": 20982,
+ "kept": 4
+}

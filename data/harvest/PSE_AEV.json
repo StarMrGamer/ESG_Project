@@ -1,0 +1,60 @@
+{
+ "company_id": "PSE:AEV",
+ "company": "Aboitiz Equity Ventures",
+ "events": [
+  {
+   "event_id": "PSE:AEV-harvest-0",
+   "text": "For 2023, the Aboitiz Group allocated capital expenditure of almost Php 78 billion, a 10% increase from the Php 70 billion utilized in 2022.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.publicnow.com/view/3210AC407FC5EFD4C9DE9B9FC5CA7BBFED35F1DD",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:AEV-harvest-1",
+   "text": "The Aboitiz Group allocated P153 billion for capital expenditures in 2024, with AboitizPower receiving the largest share of P73 billion, focusing on renewable energy projects.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.rappler.com/business/aboitiz-group-capital-expenditures-2024/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:AEV-harvest-2",
+   "text": "Aboitiz Equity Ventures set a P88.5 billion capital expenditure plan for 2026, focusing on energy expansion through AboitizPower, infrastructure projects, renewable energy investments, and a planned stake in Vietnam's Van Phong Power.",
+   "published_at": "2026-04-27",
+   "source_url": "https://tribune.net.ph/2026/04/27/aboitiz-group-trims-capex-at-p88b",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5135
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5279
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5694
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5264
+  }
+ },
+ "prompt_chars": 21372,
+ "kept": 3
+}

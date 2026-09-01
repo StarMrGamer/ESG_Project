@@ -1,0 +1,35 @@
+{
+ "company_id": "SET:EGCO",
+ "company": "Electricity Generating",
+ "events": [],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5748
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5101
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5901
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 16750,
+ "kept": 0
+}

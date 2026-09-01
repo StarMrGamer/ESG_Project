@@ -1,0 +1,68 @@
+{
+ "company_id": "IDX:MDKA",
+ "company": "Merdeka Copper Gold",
+ "events": [
+  {
+   "event_id": "IDX:MDKA-harvest-0",
+   "text": "An Indonesian citizen born in 1964 was appointed as a member of the Audit Committee of PT Merdeka Copper Gold Tbk in January 2025.",
+   "published_at": "2025-01-01",
+   "source_url": "https://merdekacoppergold.org/en/sustainability/governance/committee/index.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MDKA-harvest-1",
+   "text": "PT Merdeka Copper Gold Tbk received a \"Gold Rank\" award for its 2022 Sustainability Report in its first participation in the Asia Sustainability Reporting Rating (ASRRAT) in 2023.",
+   "published_at": "2023-01-01",
+   "source_url": "https://merdekacoppergold.com/wp-content/uploads/2024/04/Sustainability-Report-2023-PT-Merdeka-Copper-Gold-Tbk.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MDKA-harvest-2",
+   "text": "Merdeka Copper Gold reaffirmed its commitment to supporting the transition to a low-carbon economy at the Maybank Indonesia Sustainable Finance Forum 2026, held at The St. Regis Jakarta on 30 June 2026.",
+   "published_at": "2026-06-30",
+   "source_url": "https://merdekacoppergold.com/en/merdeka-supports-the-acceleration-of-the-low-carbon-economy-transition-at-the-maybank-indonesia-sustainable-finance-forum-2026/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MDKA-harvest-3",
+   "text": "PT Merdeka Copper Gold Tbk is under scrutiny over alleged tax manipulation ('dugaan manipulasi pajak').",
+   "published_at": "2025-09-23",
+   "source_url": "https://pelopormedia.id/2025/09/23/dugaan-manipulasi-pajak-pt-merdeka-copper-gold-saat-keuntungan-mengkhianati-keadilan/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5137
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5627
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5674
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5405
+  }
+ },
+ "prompt_chars": 21843,
+ "kept": 4
+}

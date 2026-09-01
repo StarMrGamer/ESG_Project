@@ -1,0 +1,52 @@
+{
+ "company_id": "IDX:ITMG",
+ "company": "Indo Tambangraya Megah",
+ "events": [
+  {
+   "event_id": "IDX:ITMG-harvest-0",
+   "text": "PT Indo Tambangraya Megah published its Sustainability Report 2024 on March 11, 2025.",
+   "published_at": "2025-03-11",
+   "source_url": "https://www.publicnow.com/view/59DA243DEEF5A96AE640CA1D62BAE65CF51AFF93?1741686461",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ITMG-harvest-1",
+   "text": "Indo Tambangraya Megah's 2024 capex could double to USD 88 million, twice as high as in 2023 when it was around USD 44 million.",
+   "published_at": "2023-12-06",
+   "source_url": "http://indonesiaminer.com/company/detail-news/2023-12-06084445-indo-tambangs-capex-double-to-usd-88-million",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5546
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5349
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5345
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4978
+  }
+ },
+ "prompt_chars": 21218,
+ "kept": 2
+}

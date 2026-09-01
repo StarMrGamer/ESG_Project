@@ -1,0 +1,35 @@
+{
+ "company_id": "SET:BH",
+ "company": "Bumrungrad International Hospital",
+ "events": [],
+ "status": "emissions: offline; governance: offline; financing: offline",
+ "snippet_count": 8,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5000
+  }
+ },
+ "prompt_chars": 5000,
+ "kept": 0
+}

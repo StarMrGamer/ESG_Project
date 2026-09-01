@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:MEDC",
+ "company": "Medco Energi Internasional",
+ "events": [
+  {
+   "event_id": "IDX:MEDC-harvest-0",
+   "text": "Medco Energi spent US$193 million of its US$400 million capex for oil, gas and electricity projects in the first half of 2025.",
+   "published_at": "2025-08-06",
+   "source_url": "https://market.bisnis.com/read/20250806/192/1899942/medco-energi-medc-serap-capex-us193-juta-genjot-proyek-migas-dan-ebt",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MEDC-harvest-1",
+   "text": "Semua pengungsi keracunan aroma gas diduga dari tambang milik PT Medco E&P Malaka yang mengungsi di halaman Kantor Camat Banda Alam, Aceh Timur, sudah kembali ke rumah masing-masing.",
+   "published_at": "2023-09-29",
+   "source_url": "https://regional.kompas.com/read/2023/09/29/062308678/semua-pengungsi-keracunan-gas-diduga-dari-pt-medco-pulang-ke-desa",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MEDC-harvest-2",
+   "text": "Aktivis lingkungan hidup Indonesia mendesak pemerintah melalui Kementerian ESDM dan SKK Migas mencabut izin aktivitas PT Medco Energi Internasional Tbk karena diduga melakukan perusakan lingkungan dan pelanggaran maintenance bahaya kebakaran pipa gas di Kecamatan BTS Ulu.",
+   "published_at": "2024-03-01",
+   "source_url": "https://katanews.id/2024/03/aktivis-lingkungan-hidup-indonesia-desak-tolak-medco/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5751
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5597
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5240
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5505
+  }
+ },
+ "prompt_chars": 22093,
+ "kept": 3
+}

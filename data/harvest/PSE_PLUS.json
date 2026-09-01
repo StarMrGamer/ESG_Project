@@ -1,0 +1,60 @@
+{
+ "company_id": "PSE:PLUS",
+ "company": "DigiPlus Interactive",
+ "events": [
+  {
+   "event_id": "PSE:PLUS-harvest-0",
+   "text": "DigiPlus Interactive Corp. expressed support for tighter regulations on online gambling as calls mount for stricter controls.",
+   "published_at": "2025-07-21",
+   "source_url": "https://www.philstar.com/business/2025/07/21/2459421/digiplus-backs-tighter-rules-online-gaming",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:PLUS-harvest-1",
+   "text": "The arbitration dispute between DigiPlus and former business partner Zaldy Co remains pending before the courts despite a ruling in DigiPlus' favor.",
+   "published_at": "2025-11-30",
+   "source_url": "https://tribune.net.ph/2025/11/30/law-firm-confirms-digiplus-co-dispute",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:PLUS-harvest-2",
+   "text": "DigiPlus said it is regaining momentum in its online gaming business, with revenues improving as it accelerates platform upgrades and bolsters player protection measures.",
+   "published_at": "2025-12-16",
+   "source_url": "https://agbrief.com/news/philippines/16/12/2025/digiplus-signals-resilience-amid-regulatory-shifts/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; governance: offline",
+ "snippet_count": 16,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5289
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5319
+  }
+ },
+ "prompt_chars": 10608,
+ "kept": 3
+}

@@ -1,0 +1,44 @@
+{
+ "company_id": "KLSE:7084",
+ "company": "QL RESOURCES",
+ "events": [
+  {
+   "event_id": "KLSE:7084-harvest-0",
+   "text": "QL Resources Berhad announced arbitration and litigation developments, including a Settlement Agreement reached on 6 March 2026, providing resolution to ongoing disputes.",
+   "published_at": "2026-03-06",
+   "source_url": "https://klse.i3investor.com/web/announcement/detail/2041561",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5480
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4949
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5659
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5703
+  }
+ },
+ "prompt_chars": 21791,
+ "kept": 1
+}

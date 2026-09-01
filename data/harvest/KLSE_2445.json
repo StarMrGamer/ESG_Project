@@ -1,0 +1,84 @@
+{
+ "company_id": "KLSE:2445",
+ "company": "KUALA LUMPUR KEPONG",
+ "events": [
+  {
+   "event_id": "KLSE:2445-harvest-0",
+   "text": "In its 2025 sustainability report, KLK reported completing product carbon footprint calculations for 171 product groups, exceeding the target of 50.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/kuala-lumpur-kepong/2025/sustainability-statement-and-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:2445-harvest-1",
+   "text": "In its 2025 sustainability report, KLK reported achieving 97% traceability to plantations for refineries and kernel crushing plants.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/kuala-lumpur-kepong/2025/sustainability-statement-and-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:2445-harvest-2",
+   "text": "In its 2024 sustainability report, KLK reported reducing Scope 1 and 2 greenhouse gas emissions intensity by 21% compared to the 2019 baseline.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/kuala-lumpur-kepong/2024/sustainability-statement-and-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:2445-harvest-3",
+   "text": "In its 2024 sustainability report, KLK reported achieving 96% traceability to plantations for refineries and 97% traceability to mills.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/kuala-lumpur-kepong/2024/sustainability-statement-and-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:2445-harvest-4",
+   "text": "KLK aims for a 25% reduction in greenhouse gas emission intensity by 2029/2030 (compared to 2018/2019) and net zero emissions by 2050.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.klk.com.my/sustainability/home2023/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:2445-harvest-5",
+   "text": "The Industrial Court upheld Kuala Lumpur Kepong Bhd's decision to sack palm fruit calculator B Inthiran over assault of a foreign worker, calling it a 'necessary and proportionate response' to a serious breach of workplace discipline.",
+   "published_at": "2025-06-24",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/06/24/court-upholds-sacking-over-assault-of-foreign-worker",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "governance: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5330
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5896
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5906
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5028
+  }
+ },
+ "prompt_chars": 22160,
+ "kept": 6
+}

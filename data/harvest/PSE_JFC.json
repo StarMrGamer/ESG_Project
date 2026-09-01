@@ -1,0 +1,108 @@
+{
+ "company_id": "PSE:JFC",
+ "company": "Jollibee Foods",
+ "events": [
+  {
+   "event_id": "PSE:JFC-harvest-0",
+   "text": "In 2023, Jollibee Foods completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas (GHG) emissions according to the GHG Protocol, covering Scope 1 and Scope 2.",
+   "published_at": "2023-01-01",
+   "source_url": "https://tracenable.com/company/jollibee-foods/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-1",
+   "text": "In 2022, Jollibee's scope 1 emissions were 46,295.9 tons of CO2e and scope 2 emissions were 440,564.15 tons CO2e.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.hotelmanagement-network.com/data-insights/jollibee-net-zero-targets/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-2",
+   "text": "The Jollibee Group's 2024 sustainability report reports 31,339 employees, 29.6 average training hours per employee, and 16,800 solar panels generating 9.1 megawatts of clean energy.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/jollibee-foods/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-3",
+   "text": "In 2023, Jollibee Foods Corporation conducted over 15,600 Food Safety audits globally, achieving a 7-star rating for exceptional Food Safety and Quality Practices.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.scribd.com/document/949663653/Jollibee-Foods-SR-2023",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-4",
+   "text": "Jollibee Group's third manufacturing facility, Jollibee Worldwide Services-Logistics, incorporated renewable energy.",
+   "published_at": "2024-06-11",
+   "source_url": "https://www.jollibeegroup.com/news/jollibee-groups-green-efforts-progresses-with-sustained-environmental-programs/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-5",
+   "text": "Jollibee Group switched on 99% renewable electricity to power its commissaries in the Philippines, enabled through renewable electricity from First Gen.",
+   "published_at": "2026-02-25",
+   "source_url": "https://www.abs-cbn.com/news/business/2026/2/25/jollibee-group-powers-commissaries-with-renewable-energy-1657",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-6",
+   "text": "Jollibee Group completed installation of more than 16,800 rooftop solar panels across four facilities in the Philippines, delivering 9.1 megawatts of renewable energy capacity.",
+   "published_at": "2025-11-24",
+   "source_url": "https://mb.com.ph/2025/11/24/jollibee-group-scales-up-renewable-energy-and-water-efficiency-efforts",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-7",
+   "text": "Jollibee Foods Corp. faced backlash for firing workers seeking better pay, amid allegations of worker exploitation.",
+   "published_at": "2023-07-10",
+   "source_url": "https://bilyonaryo.com/2023/07/10/anti-labor-pa-din-jollibee-faces-backlash-for-firing-workers-seeking-better-pay/food-nature/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JFC-harvest-8",
+   "text": "In 2018, the Philippines' Department of Labor and Employment (DOLE) said Jollibee Foods Corp. topped the list of companies with the most contractual employees.",
+   "published_at": "2018-01-01",
+   "source_url": "https://www.business-humanrights.org/en/latest-news/philippines-usa-jollibee-workers-allegedly-fired-after-petitioning-for-better-wages-working-conditions/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5427
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4796
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6081
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5658
+  }
+ },
+ "prompt_chars": 21962,
+ "kept": 9
+}

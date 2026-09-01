@@ -1,6 +1,6 @@
 {
  "company_id": "KLSE:T",
- "company": "Telekom Malaysia",
+ "company": "TELEKOM MALAYSIA",
  "events": [
   {
    "event_id": "KLSE:T-harvest-0",
@@ -65,175 +65,93 @@
    "source_url": "https://theedgemalaysia.com/node/731506",
    "source_type": "news",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-8",
+   "text": "Telekom Malaysia reported 2025 gross Scope 1 emissions of 12,708 tCO2e and location-based Scope 2 emissions of 267,235 tCO2e.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-9",
+   "text": "Telekom Malaysia set a 62% carbon reduction target by 2030 and a net-zero ambition by 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2025/sustainability-statement-part-one",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-10",
+   "text": "Telekom Malaysia achieved a 34% reduction in Scope 1 and Scope 2 emissions compared to the 2019 baseline.",
+   "published_at": "2026-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2026/integrated-annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-11",
+   "text": "Telekom Malaysia expanded its waste and water reporting boundaries to enhance environmental transparency.",
+   "published_at": "2026-01-01",
+   "source_url": "https://www.sustainabilityreports.com/telekom-malaysia/2026/integrated-annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-12",
+   "text": "Telekom Malaysia Berhad reported total carbon emissions of 295,901 t CO2e for 2023.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.roundarc.com/data/telekom-malaysia-berhad-malaysia",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-13",
+   "text": "2025 marks the second year that sustainability metrics and targets have been embedded into the KPIs and remuneration of key leadership positions.",
+   "published_at": "2025-01-01",
+   "source_url": "https://tm.com.my/sites/default/files/2026-05/%5BPages%20100-251%5D%20Telekom%20Malaysia%20Berhad%20IAR25.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:T-harvest-14",
+   "text": "The board together with management takes responsibility for the governance of sustainability in the company including setting the company's sustainability strategies, priorities and targets.",
+   "published_at": "2025-01-01",
+   "source_url": "https://tm.listedcompany.com/newsroom/Telekom_Malaysia_Berhad_CG_Report_2025.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; controversy:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
- "snippet_count": 112,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 4840
   },
   "governance": {
    "snippets": 8,
-   "kept": 1,
+   "kept": 2,
    "status": "live",
-   "prompt_chars": 5151
+   "prompt_chars": 5404
   },
   "financing": {
    "snippets": 8,
    "kept": 0,
    "status": "live",
-   "prompt_chars": 5082
+   "prompt_chars": 5115
   },
   "controversy": {
    "snippets": 8,
    "kept": 1,
    "status": "live",
-   "prompt_chars": 5083
-  },
-  "q_regulator": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5239
-  },
-  "q_exchange": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5938
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 5451
-  },
-  "governance:2023": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 4986
-  },
-  "governance:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5621
-  },
-  "financing:2023": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5641
-  },
-  "financing:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5195
-  },
-  "controversy:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply",
-   "prompt_chars": 5044
-  },
-  "controversy:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5227
-  },
-  "q_regulator:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5485
-  },
-  "q_regulator:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5591
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "prompt_chars": 5770
   }
  },
- "prompt_chars": 74734,
- "kept": 8,
- "merged_from_prior": 2
+ "prompt_chars": 21129,
+ "kept": 15,
+ "merged_from_prior": 8
 }

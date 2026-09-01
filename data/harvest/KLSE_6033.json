@@ -1,0 +1,68 @@
+{
+ "company_id": "KLSE:6033",
+ "company": "PETRONAS GAS",
+ "events": [
+  {
+   "event_id": "KLSE:6033-harvest-0",
+   "text": "PETRONAS Gas Berhad established the Board Sustainability and Risk Committee (BSRC) on 25 May 2021, in line with the Malaysian Code on Corporate Governance 2021 (MCCG 2021) Step Up Practice 10.3.",
+   "published_at": "2021-05-25",
+   "source_url": "https://www.petronas.com/pgb/governance",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:6033-harvest-1",
+   "text": "On 1 April 2025, a gas pipeline explosion and fire destroyed homes in Putra Heights and injured residents, leading to a lawsuit against Petronas Gas.",
+   "published_at": "2025-04-01",
+   "source_url": "https://www.malaymail.com/news/malaysia/2025/10/18/six-months-on-putra-heights-residents-tap-tommy-thomas-to-sue-over-gas-pipeline-blast/195091",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:6033-harvest-2",
+   "text": "On 18 October 2025, 36 residents of Taman Putra Harmoni filed a civil suit at the Shah Alam High Court against Petronas Gas and four other parties over the April 1 gas pipeline explosion.",
+   "published_at": "2025-10-18",
+   "source_url": "https://www.malaymail.com/news/malaysia/2025/10/18/six-months-on-putra-heights-residents-tap-tommy-thomas-to-sue-over-gas-pipeline-blast/195091",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:6033-harvest-3",
+   "text": "On 22 October 2025, Petronas Gas confirmed it was named as a defendant in a RM68 million lawsuit by 36 Putra Heights residents over an alleged gas explosion and fire incident.",
+   "published_at": "2025-10-22",
+   "source_url": "https://www.businesstoday.com.my/2025/10/22/petronas-gas-confirms-rm68-million-lawsuit-by-36-putra-heights-residents/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "financing: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5210
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5387
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5548
+  }
+ },
+ "prompt_chars": 16145,
+ "kept": 4
+}

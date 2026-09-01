@@ -1,0 +1,52 @@
+{
+ "company_id": "SET:KKP",
+ "company": "Kiatnakin Phatra Bank",
+ "events": [
+  {
+   "event_id": "SET:KKP-harvest-0",
+   "text": "In 2023, Kiatnakin Phatra Financial Group established a Sustainability Sub-Committee and implemented a new sustainability governance structure.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/kiatnakin-phatra-bank/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KKP-harvest-1",
+   "text": "In 2023, Kiatnakin Phatra Financial Group disclosed an ESG Lending policy and became a member of the Partnership for Carbon Accounting Financials.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/kiatnakin-phatra-bank/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4985
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5501
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5963
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4933
+  }
+ },
+ "prompt_chars": 21382,
+ "kept": 2
+}

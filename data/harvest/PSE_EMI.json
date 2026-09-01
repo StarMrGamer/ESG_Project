@@ -1,0 +1,60 @@
+{
+ "company_id": "PSE:EMI",
+ "company": "Emperador",
+ "events": [
+  {
+   "event_id": "PSE:EMI-harvest-0",
+   "text": "On June 24, 2026, Emperador Inc.'s Board of Directors elected Andrew L. Tan as Chairman Emeritus, Winston S. Co as Chairman of the Board, and Jesli A. Lapus as Lead Independent Director.",
+   "published_at": "2026-06-24",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=af7be69122bb7fed64d70b69f0a3140b",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:EMI-harvest-1",
+   "text": "Emperador Inc. secured a €300-million sustainability-linked loan to refinance debt and support carbon reduction goals, marking a milestone in ESG financing for the local food and beverage sector.",
+   "published_at": "2026-04-14",
+   "source_url": "https://tribune.net.ph/2026/04/14/emperador-secures-300-m-sustainability-linked-borrowing",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:EMI-harvest-2",
+   "text": "Emperador International Ltd., a wholly owned subsidiary of Emperador Inc., is refinancing a 300-million-euro loan with a sustainability-linked facility, the group's first sustainability-linked loan (SLL) and the first for a Philippine food and beverage group.",
+   "published_at": "2026-04-14",
+   "source_url": "https://mb.com.ph/2026/04/14/emperador-raises-300-million-euros-from-its-first-sustainability-linked-loan",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5275
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5383
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5310
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6178
+  }
+ },
+ "prompt_chars": 22146,
+ "kept": 3
+}

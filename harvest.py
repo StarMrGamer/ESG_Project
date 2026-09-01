@@ -453,13 +453,30 @@ def load_overlay() -> Dict[str, List[Dict[str, Any]]]:
 
 
 def apply_overlay(constituents: List[Dict[str, Any]],
-                  overlay: Optional[Dict[str, List[Dict[str, Any]]]] = None
+                  overlay: Optional[Dict[str, List[Dict[str, Any]]]] = None,
+                  as_of: str = "",
                   ) -> List[Dict[str, Any]]:
     """Return constituents with harvested events APPENDED to their own.
 
     A copy — the verified basket on disk is never touched (guard 4). Harvested events sort after
     the basket's own, and `signals.from_company` dedupes by `signal_id`, so re-running a harvest
-    cannot inflate a company's signal count with the same fact twice."""
+    cannot inflate a company's signal count with the same fact twice.
+
+    GUARD 2b IS RE-APPLIED HERE, PER UNIVERSE, and that is not belt-and-braces.
+
+    `data/harvest/` is keyed by TICKER and shared between universes on purpose — a company's
+    dated evidence is a fact about the company, not about which list names it. But the two
+    universes have different `as_of` dates (CGSI's basket is 2026-08-20; the index file is built
+    today), so an event can be legal in one and illegal in the other. The index sweep gathered a
+    2026-08-27 story about Sunway, which is in BOTH baskets: valid for the index universe, and
+    three weeks past the basket's own horizon.
+
+    Left alone that is the exact failure CLAUDE.md documents at length — one future-dated event
+    moves `engine._as_of_from` forward, decays every genuine signal toward zero and takes the
+    whole basket's momentum with it, while every company still shows its original signal count.
+    So the store keeps the fact and each universe filters to its own horizon, rather than one
+    universe's harvest quietly poisoning another's clock.
+    """
     overlay = load_overlay() if overlay is None else overlay
     if not overlay:
         return constituents
@@ -469,6 +486,11 @@ def apply_overlay(constituents: List[Dict[str, Any]],
         if not extra:
             out.append(c)
             continue
+        if as_of:
+            extra = [e for e in extra if str(e.get("published_at") or "") <= as_of]
+            if not extra:
+                out.append(c)
+                continue
         merged = dict(c)
         merged["events"] = list(c.get("events") or []) + list(extra)
         out.append(merged)

@@ -10,8 +10,8 @@
   "N": 13
  },
  "engine_version": "engine-v2.0",
- "evidence_basis": "verified basket + 391 harvested events across 48 companies",
- "frozen_at": "2026-09-01",
+ "evidence_basis": "verified basket + 737 harvested events across 136 companies",
+ "frozen_at": "2026-09-02",
  "labels": {
   "K": "review list",
   "M": "pipeline (bond-ready)",
@@ -57,6 +57,6 @@
   "M": "below its ASEAN sector-peer ESG average AND positive evidenced momentum AND passes the financial screen (profitable, or loss_making with traction) AND not already a reviewed/certified issuer AND not delisted",
   "N": "green_bond_status in {cbi_certified, labelled_reviewed}"
  },
- "run_id": "f0652da192872e1e",
+ "run_id": "9680adf087a74dcb",
  "universe_size": 52
 }

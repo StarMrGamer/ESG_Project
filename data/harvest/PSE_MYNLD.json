@@ -1,0 +1,92 @@
+{
+ "company_id": "PSE:MYNLD",
+ "company": "Maynilad",
+ "events": [
+  {
+   "event_id": "PSE:MYNLD-harvest-0",
+   "text": "As of March 2025, Maynilad aims to increase its reliance on clean energy to 15% of total power requirements, with a target range of 35% to 50% by 2037.",
+   "published_at": "2025-03-01",
+   "source_url": "https://news.tv5.com.ph/breaking/read/maynilad-partners-with-mpower-to-advance-renewable-energy-shift",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MYNLD-harvest-1",
+   "text": "Maynilad is targeting carbon neutrality by the end of 2027, with plans including additional solar panel systems, more use of electric vehicles, and purchase of electricity from renewable energy sources.",
+   "published_at": "2023-06-05",
+   "source_url": "https://context.ph/2023/06/05/maynilad-transitioning-to-carbon-neutral-status-by-2027/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MYNLD-harvest-2",
+   "text": "With its shift to 15-percent clean energy, Maynilad can reduce its CO2 emissions by nearly 18,000 tons per year, equivalent to 4,284 gas-fueled cars off the roads.",
+   "published_at": "2024-06-18",
+   "source_url": "https://businessmirror.com.ph/2024/06/18/maynilad-hikes-re-use-by-15-thru-deal-with-mpower/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MYNLD-harvest-3",
+   "text": "Maynilad has commissioned a 1-megawatt (MW) solar panel in its La Mesa treatment plant.",
+   "published_at": "2023-06-05",
+   "source_url": "https://www.bworldonline.com/corporate/2023/06/05/526634/maynilad-hastens-initiatives-to-hit-carbon-neutrality/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MYNLD-harvest-4",
+   "text": "EastWest was named Blue Bond of the Year - Philippines at the 2025 ABF Corporate & Investment Banking Awards for Maynilad's inaugural Php 15.0 billion Blue Bond issuance.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.eastwestbanker.com/news-advisories/eastwest-wins-blue-bond-year-philippines-maynilads-inaugural-php-15b-issue",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MYNLD-harvest-5",
+   "text": "Maynilad Water Services, Inc. received a copy of a DENR-PAB Order dated May 5, 2026 imposing a penalty of PHP 37.45434 million for violation of Republic Act No. 9275 (Philippine Clean Water Act of 2004) and its implementing rules and regulations.",
+   "published_at": "2026-05-05",
+   "source_url": "https://www.marketscreener.com/news/maynilad-water-services-inc-receives-penalty-from-department-of-environment-and-natural-resources-p-ce7f5cdadf8efe25",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MYNLD-harvest-6",
+   "text": "On August 6, 2019, the Supreme Court En Banc took up G.R. No. 202897, a petition by Maynilad Water Services, Inc. against the Secretary of the Department of Environment and Natural Resources, the Pollution Adjudication Board, and EMB regional directors.",
+   "published_at": "2019-08-06",
+   "source_url": "https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/1/65416",
+   "source_type": "regulator",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5773
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5281
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6717
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6468
+  }
+ },
+ "prompt_chars": 24239,
+ "kept": 7
+}

@@ -1,0 +1,108 @@
+{
+ "company_id": "SET:AOT",
+ "company": "Airports of Thailand",
+ "events": [
+  {
+   "event_id": "SET:AOT-harvest-0",
+   "text": "As of 2025, Airports of Thailand PCL has disclosed 12 climate targets aimed at reducing its greenhouse gas emissions, including 2 absolute reduction targets and 10 intensity-based targets.",
+   "published_at": "2025-01-01",
+   "source_url": "https://tracenable.com/company/airports-of-thailand-pcl/climate-targets",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-1",
+   "text": "Airports of Thailand reported the resignation of a director on 24 Apr 2026.",
+   "published_at": "2026-04-24",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-2",
+   "text": "Airports of Thailand filed Form F24-1 reporting names and scope of work of the Audit Committee on 24 Apr 2026.",
+   "published_at": "2026-04-24",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-3",
+   "text": "Airports of Thailand appointed an Audit Committee member on 22 Apr 2026.",
+   "published_at": "2026-04-22",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-4",
+   "text": "Airports of Thailand reported a change of directors on 17 Apr 2026.",
+   "published_at": "2026-04-17",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-5",
+   "text": "Airports of Thailand reported the resignation of a director on 25 Mar 2026.",
+   "published_at": "2026-03-25",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-6",
+   "text": "Airports of Thailand appointed a Nomination Committee member on 13 Mar 2026.",
+   "published_at": "2026-03-13",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-7",
+   "text": "Airports of Thailand reported the resignation of directors on 12 Mar 2026.",
+   "published_at": "2026-03-12",
+   "source_url": "https://investor.airportthai.co.th/newsroom_set.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:AOT-harvest-8",
+   "text": "Court dismissed the Bangkok Suvarnabhumi Airport noise pollution case against Airports of Thailand (AoT).",
+   "published_at": "2012-02-01",
+   "source_url": "https://www.thailandnews.co/2012/02/court-dismisses-bangkok-suvarnabhumi-airport-noise-pollution-case/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5494
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 7,
+   "status": "live",
+   "prompt_chars": 5316
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5644
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5889
+  }
+ },
+ "prompt_chars": 22343,
+ "kept": 9
+}

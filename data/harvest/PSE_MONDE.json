@@ -1,0 +1,60 @@
+{
+ "company_id": "PSE:MONDE",
+ "company": "Monde Nissin",
+ "events": [
+  {
+   "event_id": "PSE:MONDE-harvest-0",
+   "text": "Monde Nissin Corporation total emissions: 134,448 t CO2e.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.roundarc.com/data/monde-nissin-corporation-philippines",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MONDE-harvest-1",
+   "text": "Monde Nissin's Board of Directors held its 2025 Organizational Meeting on June 27, 2025.",
+   "published_at": "2025-06-27",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=202acc3c171d3e3bec6e1601ccee8f59",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MONDE-harvest-2",
+   "text": "Monde Nissin published its 2023 Integrated Annual Corporate Governance Report.",
+   "published_at": "2023-05-29",
+   "source_url": "https://mondenissin.com/integrated-annual-corporate-governance-report/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4893
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5050
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5225
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5283
+  }
+ },
+ "prompt_chars": 20451,
+ "kept": 3
+}

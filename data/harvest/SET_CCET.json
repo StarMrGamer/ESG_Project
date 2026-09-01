@@ -1,0 +1,76 @@
+{
+ "company_id": "SET:CCET",
+ "company": "Cal-Comp Electronics (Thailand)",
+ "events": [
+  {
+   "event_id": "SET:CCET-harvest-0",
+   "text": "Cal-Comp's 2024 Annual Report reports total energy consumption of 467,822,968 MJ for the Thailand manufacturing facilities and head office.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/cal-comp-electronics-thailand/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CCET-harvest-1",
+   "text": "Cal-Comp's 2024 Annual Report states its GHG inventory (Scope 1, 2 and 3) for Thailand manufacturing facilities and head office was verified by SGS.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/cal-comp-electronics-thailand/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CCET-harvest-2",
+   "text": "At the Board of Directors' Meeting No.4/2025 held on November 13, 2025, Cal-Comp Electronics (Thailand) approved the establishment of the Sustainability Development and Risk Management Committee.",
+   "published_at": "2025-11-13",
+   "source_url": "https://www.calcomp.co.th/en-US/investor/corporate-disclosure/board-resolutions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CCET-harvest-3",
+   "text": "In October 2025, over 1,400 migrant workers from Myanmar were dismissed without warning by Cal-Comp Electronics in Phetchaburi, allegedly confined, threatened with arrest, and coerced into signing termination papers for a lump sum of around USD308.",
+   "published_at": "2025-10-01",
+   "source_url": "https://www.business-humanrights.org/en/latest-news/thailand-over-1400-migrant-workers-from-myanmar-allegedly-dismissed-subjected-to-threats-at-cal-comp-electronics-supplier-to-major-technology-cos-incl-cos-responses-non-responses/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CCET-harvest-4",
+   "text": "Cal-Comp Thailand had 10,570 migrant workers in two facilities receive full compensation for excessive recruitment fees they had paid.",
+   "published_at": "2020-02-01",
+   "source_url": "https://electronicswatch.org/cal-comp-a-lesson-in-the-importance-of-worker-driven-monitoring-to-end-forced-labour-in-global-supply-chains-february-2020_2569307.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5393
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5189
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5782
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6166
+  }
+ },
+ "prompt_chars": 22530,
+ "kept": 5
+}

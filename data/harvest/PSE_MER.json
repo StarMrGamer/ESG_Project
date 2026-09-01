@@ -1,0 +1,52 @@
+{
+ "company_id": "PSE:MER",
+ "company": "Meral",
+ "events": [
+  {
+   "event_id": "PSE:MER-harvest-0",
+   "text": "A director was elected to Meralco's Board of Directors on January 29, 2024, and to the Audit, RPT, Nomination and Governance, and Sustainability Committees, and as Chairperson of the Risk Management Committee.",
+   "published_at": "2024-01-29",
+   "source_url": "https://www.meralco.com.ph/sites/default/files/inline-files/e030bb2b214ebfc28c326ebceb973c1b.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:MER-harvest-1",
+   "text": "The Manila Electric Co. (Meralco) is setting aside over P100 billion in capital expenditures for its long-term sustainability strategy (LTSS).",
+   "published_at": "2024-02-26",
+   "source_url": "https://businessmirror.com.ph/2024/02/26/meralco-sets-green-capex/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5729
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5505
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6116
+  }
+ },
+ "prompt_chars": 17350,
+ "kept": 2
+}

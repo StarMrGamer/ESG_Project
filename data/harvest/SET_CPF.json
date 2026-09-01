@@ -1,6 +1,6 @@
 {
  "company_id": "SET:CPF",
- "company": "Charoen Pokphand Foods PCL",
+ "company": "Charoen Pokphand Foods",
  "events": [
   {
    "event_id": "SET:CPF-harvest-0",
@@ -89,175 +89,77 @@
    "source_url": "https://www.envirolink.org/2025/11/04/thai-food-giant-sues-activist-over-invasive-fish-crisis-claims/",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-11",
+   "text": "Charoen Pokphand Foods CEO Prasit Boondoungprasert unveiled the company's ESG strategy for the net-zero transition by 2050, focusing on accelerating renewable energy, improving efficiency and phasing out coal use, at Sustainability Forum 2022: The People and the Planet.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.cpfworldwide.com/en/media-center/corporate-sustainability-strategy-to-achieve-Net-Zero-target",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-12",
+   "text": "As of 2025, Charoen Pokphand Foods has disclosed 7 climate targets to reduce its GHG emissions, including 6 absolute reduction targets and 1 intensity-based target.",
+   "published_at": "2025-01-01",
+   "source_url": "https://tracenable.com/company/charoen-pokphand-foods/climate-targets",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-13",
+   "text": "Charoen Pokphand Foods' near- and long-term science-based targets were validated by the SBTi, making it the first food processing company with FLAG targets.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/charoen-pokphand-foods/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-14",
+   "text": "In 2025, Charoen Pokphand Foods conducted a sustainability materiality assessment across its agro-industrial and food value chain.",
+   "published_at": "2025-01-01",
+   "source_url": "https://sustainability.cpfworldwide.com/en/sustainability-at-cpf/sustainability-at-cpf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CPF-harvest-15",
+   "text": "Witoon Lianchamroon, secretary-general of the BIOTHAI Foundation, appeared in court on October 22 to face charges filed by Charoen Pokphand Foods (CPF).",
+   "published_at": "2025-10-22",
+   "source_url": "https://www.envirolink.org/2025/11/04/thai-food-giant-sues-activist-over-invasive-fish-crisis-claims/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: unparsed reply; governance:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
- "snippet_count": 112,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6282
   },
   "governance": {
    "snippets": 8,
-   "kept": 0,
+   "kept": 1,
    "status": "live",
-   "prompt_chars": 5331
+   "prompt_chars": 5242
   },
   "financing": {
    "snippets": 8,
    "kept": 1,
    "status": "live",
-   "prompt_chars": 4973
+   "prompt_chars": 5978
   },
   "controversy": {
    "snippets": 8,
    "kept": 1,
    "status": "live",
-   "prompt_chars": 5993
-  },
-  "q_regulator": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5991
-  },
-  "q_exchange": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5402
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply",
-   "prompt_chars": 6052
-  },
-  "governance:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply",
-   "prompt_chars": 5656
-  },
-  "governance:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5052
-  },
-  "financing:2023": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 4721
-  },
-  "financing:2024": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5038
-  },
-  "controversy:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6213
-  },
-  "controversy:2024": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 6125
-  },
-  "q_regulator:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6091
-  },
-  "q_regulator:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5982
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "prompt_chars": 6066
   }
  },
- "prompt_chars": 78620,
- "kept": 11,
- "merged_from_prior": 6
+ "prompt_chars": 23568,
+ "kept": 16,
+ "merged_from_prior": 11
 }

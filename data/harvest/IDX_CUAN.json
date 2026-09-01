@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:CUAN",
+ "company": "Petrindo Jaya Kreasi",
+ "events": [
+  {
+   "event_id": "IDX:CUAN-harvest-0",
+   "text": "PT Petrindo Jaya Kreasi is conducting a sustainable public offering via its Shelf Registration Bond I with a targeted fundraise of Rp2,000,000,000,000 and Shelf Registration Wakala Sukuk I with a targeted fundraise of Rp1,000,000,000,000.",
+   "published_at": "2025-10-07",
+   "source_url": "https://web.ksei.co.id/Announcement/Files/185944_ksei_5797_dir_1025_202510071428.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5299
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4814
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4747
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4249
+  }
+ },
+ "prompt_chars": 19109,
+ "kept": 1
+}

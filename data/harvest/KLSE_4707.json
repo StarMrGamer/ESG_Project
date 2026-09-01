@@ -1,0 +1,52 @@
+{
+ "company_id": "KLSE:4707",
+ "company": "NESTLE (M)",
+ "events": [
+  {
+   "event_id": "KLSE:4707-harvest-0",
+   "text": "In January 2022, Nestlé Malaysia transitioned to utilising 100% renewable electricity for all Nestlé facilities in both East and West Malaysia, via Tenaga Nasional Berhad's Green Electricity Tariff Programme and Sarawak Energy's Renewable Energy Certificate.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.nestle.com.my/sustainability/climate-change",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4707-harvest-1",
+   "text": "Nestle Manufacturing (Malaysia) Sdn Bhd was fined RM90,000 by the Sessions Court on two counts of releasing industrial effluent in excess of the acceptable limit.",
+   "published_at": "2020-12-24",
+   "source_url": "https://www.malaysianow.com/news/2020/12/24/nestle-fined-rm90000-for-environmental-pollution",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5585
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5754
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5016
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6164
+  }
+ },
+ "prompt_chars": 22519,
+ "kept": 2
+}

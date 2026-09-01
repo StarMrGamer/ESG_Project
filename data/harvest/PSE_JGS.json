@@ -1,0 +1,52 @@
+{
+ "company_id": "PSE:JGS",
+ "company": "JG Summit Holdings",
+ "events": [
+  {
+   "event_id": "PSE:JGS-harvest-0",
+   "text": "JG Summit Holdings Inc. said it will assume the debts of its petrochemicals subsidiary, which will soon have to fire its workers due to its two-year plant shutdown and possible sale.",
+   "published_at": "2025-05-15",
+   "source_url": "https://businessmirror.com.ph/2025/05/15/jg-summit-to-shoulder-debts-of-petrochem-unit/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:JGS-harvest-1",
+   "text": "City of Batangas v. JG Summit Petrochemical Corporation (G.R. Nos. 190266-67) is dated March 15, 2023.",
+   "published_at": "2023-03-15",
+   "source_url": "https://www.studocu.com/ph/document/pontifical-and-royal-university-of-santo-tomas-the-catholic-university-of-the-philippines/constitutional-law-1/city-of-batangas-v-jg-summit/110519023",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5166
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5379
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4909
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4908
+  }
+ },
+ "prompt_chars": 20362,
+ "kept": 2
+}

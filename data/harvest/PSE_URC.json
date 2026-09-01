@@ -1,0 +1,76 @@
+{
+ "company_id": "PSE:URC",
+ "company": "Universal Robina",
+ "events": [
+  {
+   "event_id": "PSE:URC-harvest-0",
+   "text": "Universal Robina Corporation disclosed its 2023 Integrated Annual Corporate Governance Report on May 28, 2024.",
+   "published_at": "2024-05-28",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=c9f51649b1c99729abca0fa0c5b4e4d0",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:URC-harvest-1",
+   "text": "Results of the Organizational Meeting of the Board of Directors of Universal Robina Corporation were disclosed for the meeting held on May 15, 2025.",
+   "published_at": "2025-05-15",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=60afdba58366c200ec6e1601ccee8f59",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:URC-harvest-2",
+   "text": "Universal Robina Corporation's Agro-Industrial Group and Sugar and Renewables Group have been using manure, agricultural and food waste to power its farms with biogas.",
+   "published_at": "2022-05-24",
+   "source_url": "https://www.jgsummit.com.ph/sustainability-highlights/urc-leads-pivot-to-renewable-energy-with-long-running-biogas-initiative-20220524",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:URC-harvest-3",
+   "text": "Oceana demanded the 'harshest legal consequences possible' against Universal Robina Corporation after a massive vinasse spill.",
+   "published_at": "2025-11-12",
+   "source_url": "https://www.philstar.com/the-freeman/cebu-news/2025/11/12/2486684/oceana-demands-harshest-penalties-urc",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:URC-harvest-4",
+   "text": "Universal Robina Corp. may face charges if proven that its Bais distillery violated environmental laws or regulations for spilling wastewater into Bais Bay.",
+   "published_at": "2025-11-05",
+   "source_url": "https://businessmirror.com.ph/2025/11/05/urc-may-face-raps-for-waste-spill/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5308
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5178
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5362
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5571
+  }
+ },
+ "prompt_chars": 21419,
+ "kept": 5
+}

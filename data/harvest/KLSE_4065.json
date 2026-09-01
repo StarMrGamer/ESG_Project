@@ -1,0 +1,60 @@
+{
+ "company_id": "KLSE:4065",
+ "company": "PPB GROUP",
+ "events": [
+  {
+   "event_id": "KLSE:4065-harvest-0",
+   "text": "PPB Group Berhad announced the submission of its Annual Report & CG Report - 2025 for the financial year ended 31 December 2025 on 16 April 2026.",
+   "published_at": "2026-04-16",
+   "source_url": "https://klse.i3investor.com/web/announcement/detail/2053191",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4065-harvest-1",
+   "text": "PPB Group established its Sustainability Steering Committee in 2017 to ensure cohesive implementation of sustainability strategies and initiatives across the Group.",
+   "published_at": "2017-01-01",
+   "source_url": "https://www.ppbgroup.com/governance-sustainability/sustainability/governance/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4065-harvest-2",
+   "text": "In 2024, PPB Group invested RM14.9 million in solar projects, increasing its renewable capacity to 6.2 MWp.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ppb-group/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; controversy: unparsed reply",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5188
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5157
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5824
+  }
+ },
+ "prompt_chars": 16169,
+ "kept": 3
+}

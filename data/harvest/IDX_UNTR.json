@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:UNTR",
+ "company": "United Tractors",
+ "events": [
+  {
+   "event_id": "IDX:UNTR-harvest-0",
+   "text": "In 2024, United Tractors completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas (GHG) emissions according to the GHG Protocol, covering Scope 1 and Scope 2.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/united-tractors/ghg-emissions?_r=1786385077427",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:UNTR-harvest-1",
+   "text": "PT United Tractors Tbk continues to show concrete steps in supporting the government's Net Zero Emissions (NZE) 2060 target through managing greenhouse gas emissions, energy consumption efficiency, and renewable energy utilization.",
+   "published_at": "2025-08-01",
+   "source_url": "https://kabarsdgs.com/sustainability/2025/08/19570/united-tractors-dorong-transisi-energi-dukung-target-net-zero-emissions/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:UNTR-harvest-2",
+   "text": "United Tractors successfully obtained Renewable Energy Certificates (RECs) from PLN across 27 branch offices and sites throughout Indonesia in 2023.",
+   "published_at": "2024-07-02",
+   "source_url": "https://www.marketscreener.com/quote/stock/PT-UNITED-TRACTORS-TBK-6493914/news/PT-United-Tractors-Tbk-United-Tractors-Reaffirms-Commitment-to-Clean-Energy-by-Receiving-Renewable-47317123/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6154
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4777
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5956
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5195
+  }
+ },
+ "prompt_chars": 22082,
+ "kept": 3
+}

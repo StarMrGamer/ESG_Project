@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:EXCL",
+ "company": "XLSMART Telecom Sejahtera",
+ "events": [
+  {
+   "event_id": "IDX:EXCL-harvest-0",
+   "text": "After the merger, XLSMART disclosed Scope 1, Scope 2, and Scope 3 emissions data, including energy use, water, and waste management, and set short-term and long-term emission reduction targets.",
+   "published_at": "2026-03-09",
+   "source_url": "https://urbannews.co/2026/03/09/pasca-merger-xlsmart-perkuat-implementasi-esg/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5270
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4804
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4667
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4894
+  }
+ },
+ "prompt_chars": 19635,
+ "kept": 1
+}

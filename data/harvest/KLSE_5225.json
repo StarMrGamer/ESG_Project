@@ -1,0 +1,52 @@
+{
+ "company_id": "KLSE:5225",
+ "company": "IHH HEALTHCARE",
+ "events": [
+  {
+   "event_id": "KLSE:5225-harvest-0",
+   "text": "In 2024, IHH Healthcare reached 49% women in leadership roles.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5225-harvest-1",
+   "text": "In 2024, IHH Healthcare reported a 3.2% reduction in greenhouse gas emissions intensity per patient-bed-day and a 55% reduction in desflurane.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/ihh-healthcare/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5091
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4979
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6021
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 16091,
+ "kept": 2
+}

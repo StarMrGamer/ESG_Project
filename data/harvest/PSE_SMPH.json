@@ -1,6 +1,6 @@
 {
  "company_id": "PSE:SMPH",
- "company": "SM Prime Holdings Inc",
+ "company": "SM Prime Holdings",
  "events": [
   {
    "event_id": "PSE:SMPH-harvest-0",
@@ -145,175 +145,93 @@
    "source_url": "https://angkaalaman.com/buod/public-hearing-committee-of-the-llda-vs-sm-prime-holdings-inc-2010-09-22/",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-18",
+   "text": "In 2024, SM Prime Holdings completed a corporate carbon footprint assessment and publicly disclosed its Scope 1, Scope 2 and Scope 3 greenhouse gas emissions according to the GHG Protocol.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/sm-prime-holdings/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-19",
+   "text": "SM Prime Holdings commits to achieve net zero greenhouse gas emissions by 2040.",
+   "published_at": "2023-08-05",
+   "source_url": "https://philippinesgraphic.com.ph/2023/08/05/sm-prime-commits-to-net-zero-by-2040/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-20",
+   "text": "SM Prime president Jeffrey Lim said the company is evaluating the viability of issuing green bonds or sustainability-linked financing instruments as part of efforts to diversify funding sources.",
+   "published_at": "2025-08-10",
+   "source_url": "https://www.philstar.com/business/2025/08/10/2464313/sm-prime-looking-green-financing-options",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-21",
+   "text": "The Securities and Exchange Commission has given its green light to SM Prime Holdings' P100-billion bond program.",
+   "published_at": "2024-05-24",
+   "source_url": "https://www.philstar.com/business/2024/05/24/2357373/sec-greenlights-sms-p100-billion-bond-program",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-22",
+   "text": "SM Prime commits to expand its energy source portfolio gearing towards clean energy across all of its business segments over the medium term.",
+   "published_at": "2021-10-01",
+   "source_url": "https://www.sminvestments.com/press_release/sm-prime-targets-to-minimize-operations-carbon-footprint-through-enhanced-sustainability-program/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-23",
+   "text": "At least 10 percent of SM Prime's capital expenditure is allocated to sustainable and resilient designs, including science-based solutions to mitigate natural disaster impacts.",
+   "published_at": "2024-08-13",
+   "source_url": "https://businessmirror.com.ph/2024/08/13/sm-to-focus-on-sustainable-investments/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMPH-harvest-24",
+   "text": "On September 22, 2010, the Supreme Court decided G.R. No. 170599, Public Hearing Committee of the Laguna Lake Development Authority v. SM Prime Holdings, Inc., regarding the LLDA's power to impose fines.",
+   "published_at": "2010-09-22",
+   "source_url": "https://www.coursehero.com/file/44689199/93-LLDA-v-SMdocx/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
- "snippet_count": 109,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5741
   },
   "governance": {
-   "snippets": 6,
+   "snippets": 8,
    "kept": 0,
    "status": "live",
-   "prompt_chars": 4172
+   "prompt_chars": 4849
   },
   "financing": {
    "snippets": 8,
-   "kept": 2,
+   "kept": 4,
    "status": "live",
-   "prompt_chars": 5212
+   "prompt_chars": 5326
   },
   "controversy": {
    "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 6040
-  },
-  "q_regulator": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5514
-  },
-  "q_exchange": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5335
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 8,
    "kept": 3,
    "status": "live",
-   "prompt_chars": 5223
-  },
-  "governance:2023": {
-   "snippets": 7,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 4780
-  },
-  "governance:2024": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5223
-  },
-  "financing:2023": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5106
-  },
-  "financing:2024": {
-   "snippets": 8,
-   "kept": 3,
-   "status": "live",
-   "prompt_chars": 5083
-  },
-  "controversy:2023": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 5840
-  },
-  "controversy:2024": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 6193
-  },
-  "q_regulator:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5700
-  },
-  "q_regulator:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5699
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "prompt_chars": 5913
   }
  },
- "prompt_chars": 75120,
- "kept": 18,
- "merged_from_prior": 7
+ "prompt_chars": 21829,
+ "kept": 25,
+ "merged_from_prior": 18
 }

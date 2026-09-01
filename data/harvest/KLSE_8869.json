@@ -1,0 +1,68 @@
+{
+ "company_id": "KLSE:8869",
+ "company": "PRESS METAL ALUMINIUM HOLDINGS",
+ "events": [
+  {
+   "event_id": "KLSE:8869-harvest-0",
+   "text": "Press Metal Aluminium and its subsidiaries aim to reduce Scope 1 and Scope 2 GHG emissions intensity by 30% by 2030 against their 2020 baseline, and aspire to reach net-zero emissions by 2050.",
+   "published_at": "2025-02-12",
+   "source_url": "https://www.pressreader.com/malaysia/the-sun-malaysia/20250212/281732685196604",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:8869-harvest-1",
+   "text": "Press Metal's 2023 Integrated Report describes achieving a 93.2% waste diversion rate in 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/press-metal-aluminium/2023/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:8869-harvest-2",
+   "text": "RAM Ratings said the fire at Press Metal's smelter would not impact the AA2/Positive rating of its RM5.0 bil Islamic MTN Programme (2019/2049).",
+   "published_at": "2024-09-13",
+   "source_url": "https://www.ram.com.my/pressrelease/?prviewid=6731",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:8869-harvest-3",
+   "text": "Press Metal is investigating a fire at its wooden stick storage facility in Samalaju; no injuries were reported.",
+   "published_at": "2025-07-18",
+   "source_url": "https://www.theborneopost.com/2025/07/18/press-metal-probes-samalaju-facility-fire-no-injuries-reported/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5085
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5396
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5523
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5567
+  }
+ },
+ "prompt_chars": 21571,
+ "kept": 4
+}

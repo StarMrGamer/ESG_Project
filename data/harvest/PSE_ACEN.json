@@ -1,0 +1,52 @@
+{
+ "company_id": "PSE:ACEN",
+ "company": "ACEN",
+ "events": [
+  {
+   "event_id": "PSE:ACEN-harvest-0",
+   "text": "ACEN Corporation's Green Finance Framework, dated August 2025, intends to issue green financing instruments such as loans, bonds, contingent facilities, revolving credit facilities and other debt instruments to fund projects in the Philippines, Australia, Vietnam and India.",
+   "published_at": "2025-08-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/acen-corporation/acen-green-finance-framework-second-party-opinion/acen-green-finance-framework-second-party-opinion",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:ACEN-harvest-1",
+   "text": "ACEN President and CEO Eric T. Francia said the bulk of ACEN's P80-billion capex this year will finance solar, wind, and battery storage projects in the Philippines.",
+   "published_at": "2026-01-21",
+   "source_url": "https://bworldonline.com/corporate/2026/01/21/725466/acen-to-invest-p60b-in-phl-solar-wind-and-battery-projects/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5840
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5645
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5523
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5795
+  }
+ },
+ "prompt_chars": 22803,
+ "kept": 2
+}

@@ -1,0 +1,108 @@
+{
+ "company_id": "IDX:INCO",
+ "company": "Vale Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:INCO-harvest-0",
+   "text": "In 2024, through the REALITAS program, PT Vale Indonesia achieved energy savings of 142,529 GJ and increased renewable energy use by 2%, contributing to reduced carbon emissions.",
+   "published_at": "2024-12-31",
+   "source_url": "https://vale.com/ca/indonesia/sustainability-report-2025",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-1",
+   "text": "PT Vale Indonesia's 2023 sustainability report reports 2,032,313 ton CO2eq of GHG emissions.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-vale-indonesia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-2",
+   "text": "PT Vale Indonesia's 2023 sustainability report sets a target to reduce absolute Scope 1 and 2 emissions by 33% by 2030, toward net zero by 2050.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-vale-indonesia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-3",
+   "text": "PT Vale Indonesia's 2024 sustainability report reports 31,785,655.01 GJ of energy consumption and 30.6% renewable energy.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-vale-indonesia/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-4",
+   "text": "PT Vale Indonesia's 2024 sustainability report reports 2,135,742.00 tons of Scope 1 and Scope 2 GHG emissions and states Scope 3 has not yet been calculated.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-vale-indonesia/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-5",
+   "text": "PT Vale Indonesia's 2024 sustainability report adopted a double materiality approach.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-vale-indonesia/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-6",
+   "text": "In 2025, PTVI faced significant operational challenges including an oil pipeline leak amid market volatility and changing regulatory expectations.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.vale.com/in/indonesia/sustainability-report-2025",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-7",
+   "text": "PT Vale secured a US$750 million ESG-linked syndicated loan facility, structured under its Sustainability-Linked Financing Framework and linked to two performance metrics: reducing carbon emissions intensity and increasing renewable energy use.",
+   "published_at": "2026-04-29",
+   "source_url": "https://www.morningstar.com/news/pr-newswire/20260429hk46469/strengthening-its-sustainable-finance-strategy-pt-vale-secures-us750-million-esg-linked-syndicated-loan-facility",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:INCO-harvest-8",
+   "text": "PT Vale Indonesia secured its first sustainability-linked loan facility worth $750 million.",
+   "published_at": "2026-04-30",
+   "source_url": "https://www.miningweekly.com/article/pt-vale-indonesia-secures-first-sustainability-linked-loan-facility-worth-750m-2026-04-30",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 31,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 6,
+   "status": "live",
+   "prompt_chars": 5352
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5722
+  },
+  "financing": {
+   "snippets": 7,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5340
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5737
+  }
+ },
+ "prompt_chars": 22151,
+ "kept": 9
+}

@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:ISAT",
+ "company": "Indosat",
+ "events": [
+  {
+   "event_id": "IDX:ISAT-harvest-0",
+   "text": "PT Indosat Tbk's 2024 Sustainability Report was officially submitted as an electronic document on 25-04-2025 19:41, per the corporate secretary filing.",
+   "published_at": "2025-04-25",
+   "source_url": "https://id.scribd.com/document/974662472/ESG2024-ISAT",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5047
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4704
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6105
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5596
+  }
+ },
+ "prompt_chars": 21452,
+ "kept": 1
+}

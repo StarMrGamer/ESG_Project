@@ -1,0 +1,68 @@
+{
+ "company_id": "IDX:ESSA",
+ "company": "ESSA Industries Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:ESSA-harvest-0",
+   "text": "In its 2021 annual/sustainability report, ESSA states its Blue Ammonia project is one of the Company's commitments and support in the use of energy with lower emission levels, in line with Indonesia's net-zero emission target of 2060 or earlier.",
+   "published_at": "2022-05-01",
+   "source_url": "https://essa.id/wp-content/uploads/2022/05/ESSA-AR-SR-2021-Finale.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ESSA-harvest-1",
+   "text": "PT Essa Industries Indonesia Tbk published its 2024 Sustainability Report on March 25, 2025.",
+   "published_at": "2025-03-25",
+   "source_url": "https://ebs.publicnow.com/view/35E4A1E779EABEA9CF182014C5B1B06E2AA6B0AB",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ESSA-harvest-2",
+   "text": "ESSA Industries Indonesia Tbk started seriously integrating ESG (Environmental, Social, Governance) principles into its business strategy, given the carbon emission and clean energy transition pressures on the energy and chemical sector.",
+   "published_at": "2026-04-08",
+   "source_url": "https://www.cnbcindonesia.com/research/20260408133246-128-724948/membaca-arah-baru-essa-efisiensi-emisi-dan-masa-depan-amonia-hijau",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:ESSA-harvest-3",
+   "text": "PT ESSA Industries Indonesia Tbk's Sustainability Report presents its sustainability performance and achievements throughout 2025.",
+   "published_at": "2026-04-30",
+   "source_url": "https://essa.id/wp-content/uploads/2026/04/260430-Sustainability-Report-ESSA-2025.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5509
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5235
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5537
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4409
+  }
+ },
+ "prompt_chars": 20690,
+ "kept": 4
+}

@@ -381,14 +381,18 @@ def _engine_run(demo, horizon=engine_config.DEFAULT_HORIZON, key=""):
     if hit:
         return hit
     meta = company_metadata.load(demo=demo)
-    cons = universe.constituents(path)
+    uni = universe.load_universe(path)
+    cons = uni["constituents"]
     if not demo:
         # Harvested evidence merges in for the REAL basket only — searching live news about a
         # fictional company would be nonsense, and the demo set already carries rich momentum.
         # This changes the run's INPUTS, so it changes the run_id, which is correct: a run over
         # more evidence is a different run. The engine itself stays pure, and the harvest files
         # are committed, so a fresh clone reproduces the same id.
-        cons = harvest.apply_overlay(cons)
+        # `as_of` is the universe's OWN horizon — guard 2b, re-applied per universe. See the
+        # note on `apply_overlay`: the harvest store is shared, and the two baskets do not share
+        # a clock.
+        cons = harvest.apply_overlay(cons, as_of=uni.get("as_of") or "")
     run = engine.run_engine(cons, metadata=meta, config=cfg)
     if len(_ENGINE_MEMO) > 12:     # keys carry mtime+config; 3 universes x 2 horizons live here
         _ENGINE_MEMO.clear()

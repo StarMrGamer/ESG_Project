@@ -1,0 +1,52 @@
+{
+ "company_id": "IDX:TLKM",
+ "company": "Telkom Indonesia (Persero)",
+ "events": [
+  {
+   "event_id": "IDX:TLKM-harvest-0",
+   "text": "Laporan Hasil Pemeriksaan BPK RI membongkar 12 masalah yang menyelimuti PT Telkom Indonesia (Telkom), anak usahanya dan inta...",
+   "published_at": "2025-07-01",
+   "source_url": "https://monitorindonesia.com/investigasi/read/2025/07/610644/bongkar-12-temuan-bpk-di-telkom",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:TLKM-harvest-1",
+   "text": "Pada bulan Oktober 2023, Telkom menerima permintaan dokumen dari U.S. Securities and Exchange Commission (SEC) terkait keterlibatan Telkominfra dalam proyek dengan BAKTI Kominfo terkait penyediaan infrastruktur BTS 4G.",
+   "published_at": "2023-10-01",
+   "source_url": "https://eppid.telkom.co.id/data/image_upload/page/1758528731036_Informasi%20Kasus%20Hukum.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "governance: extraction failed (APITimeoutError); financing: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5217
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "extraction failed (APITimeoutError)",
+   "prompt_chars": 0
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 6246
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5156
+  }
+ },
+ "prompt_chars": 16619,
+ "kept": 2
+}

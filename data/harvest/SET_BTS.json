@@ -1,0 +1,108 @@
+{
+ "company_id": "SET:BTS",
+ "company": "BTS Group Holdings",
+ "events": [
+  {
+   "event_id": "SET:BTS-harvest-0",
+   "text": "BTS Group's 2024 Sustainability Report covers FY 2023/24 performance and highlights Board approval of the Group's direction towards Net Zero by 2050.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bts-group-holdings/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-1",
+   "text": "BTS Group's 2024 Sustainability Report states renewable energy procurement covered 14% of total energy consumption.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bts-group-holdings/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-2",
+   "text": "BTS Group's 2025 Sustainability Report reports total greenhouse gas emissions of 237,081 tonnes CO2e for FY 2024/25.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bts-group-holdings/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-3",
+   "text": "BTS Group's 2025 Sustainability Report reports total energy consumption of 264,365 MWh with 12% from renewable energy for FY 2024/25.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bts-group-holdings/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-4",
+   "text": "BTS Group's 2025 Sustainability Report reports 8,493 employees for FY 2024/25.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/bts-group-holdings/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-5",
+   "text": "BTSG's green bond issued in May 2019 and November 2020 raised THB 21.6 billion, fully allocated to Clean Transportation projects in Thailand.",
+   "published_at": "2019-05-01",
+   "source_url": "https://www.btsgroup.co.th/storage/download/sustainability/green-bond/btsg-green-bond-impact-report-2025.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-6",
+   "text": "BTSG is a constituent member of the FTSE4Good Index and Dow Jones Sustainability Index.",
+   "published_at": "2020-10-19",
+   "source_url": "https://www.btsgroup.co.th/storage/download/sustainability/green-bond/20201019-btsgroup-greenbond-framework-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-7",
+   "text": "On July 26, 2024, the Supreme Administrative Court ruled for BMA and KT to jointly pay BTS approximately 11.755 billion THB for the O&M debt for the Green Line Extension Project.",
+   "published_at": "2024-07-26",
+   "source_url": "https://www.btsgroup.co.th/en/update/news-event/982/bts-accepts-supreme-administrative-courts-ruling-on-om-debt-for-green-line-extension-projects-1-and-2-after-over-3-years-of-investigation-and-upholding-integrity",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BTS-harvest-8",
+   "text": "On October 30, 2025, Keeree Kanjanapas, Chairman of BTS Group Holdings, announced that the company had received full payment for the operating costs of the Green Line extension from the Bangkok Metropolitan Administration.",
+   "published_at": "2025-10-30",
+   "source_url": "https://thailand-construction.com/epic-green-line-debt-saga-ends-as-bangkok-metropolitan-administration-bma-settles-%E0%B8%BF36-4-billion-with-bts-group-holdings-bts/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5254
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4979
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6354
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5985
+  }
+ },
+ "prompt_chars": 22572,
+ "kept": 9
+}

@@ -1,0 +1,60 @@
+{
+ "company_id": "SET:BCP",
+ "company": "Bangchak",
+ "events": [
+  {
+   "event_id": "SET:BCP-harvest-0",
+   "text": "Bangchak Group targets becoming Net Zero by 2050, stated by President and CEO Chaiwat Kovavisarach on 15 August 2021.",
+   "published_at": "2021-08-15",
+   "source_url": "https://www.bangchak.co.th/en/newsroom/bangchak-news/746/bangchak-group-targets-net-zero-by-2050",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BCP-harvest-1",
+   "text": "UOB Thailand extended loans under its Transition Finance Framework of five billion baht to Bangchak Corporation PCL and 1.5 billion baht to BSGF Co., Ltd. to finance construction, development, and working capital of Thailand's first Sustainable Aviation Fuel (SAF) project.",
+   "published_at": "2024-12-13",
+   "source_url": "https://www.bangchak.co.th/en/newsroom/bangchak-news/1538/uob-extends-bangchak-group-thb-65-billion-loan-for-thailand-s-first-saf-plant",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BCP-harvest-2",
+   "text": "TTCL filed a lawsuit against Bangchak Corporation (BCP) seeking c.THB3.4bn in damages for breach of the SAF project's EPC construction contract.",
+   "published_at": "2025-08-18",
+   "source_url": "https://www.dbs.com.sg/treasures/aics/templatedata/article/recentdevelopment/data/en/DBSV/082025/BCP_TB_08182025.xml",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5096
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4977
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5702
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5389
+  }
+ },
+ "prompt_chars": 21164,
+ "kept": 3
+}

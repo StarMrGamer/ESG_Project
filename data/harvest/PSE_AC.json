@@ -1,6 +1,6 @@
 {
  "company_id": "PSE:AC",
- "company": "Ayala Corporation",
+ "company": "Ayala",
  "events": [
   {
    "event_id": "PSE:AC-harvest-0",
@@ -33,174 +33,61 @@
    "source_url": "https://www.business-humanrights.org/en/latest-news/philippines-batangas-communities-lauds-ayala-corps-decision-to-discontinue-batangas-clean-energy-bce-project/",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:AC-harvest-4",
+   "text": "In 2024, the Science Based Targets initiative validated that the science-based greenhouse gas emissions reduction targets submitted by Ayala Land conform with the SBTi Corporate Net Zero Standard and classified its scope 1 and 2 target ambitions as in line with the 1.5°C trajectory.",
+   "published_at": "2024-01-01",
+   "source_url": "https://ir.ayalaland.com.ph/sustainability/road-to-net-zero-2/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:AC-harvest-5",
+   "text": "Ayala Land Inc. raised ₱20.5 billion through its Sustainability-Linked Financing Program, comprising a ₱6 billion Sustainability-Linked Bond and a ₱14.5 billion Sustainability-Linked Loan from the International Finance Corporation, announced on July 20, 2024.",
+   "published_at": "2024-07-20",
+   "source_url": "https://ayalaland.com/blog/ayala-land-completes-p20-5-billion-in-sustainability-linked-funding",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:AC-harvest-6",
+   "text": "Ayala Corp's AC Energy unit Ace Enexor disclosed the discontinuation of the proposed Batangas Clean Energy (BCE) Project, a fossil gas project in Batangas City, in a PSE report dated Nov. 14, 2025.",
+   "published_at": "2025-11-14",
+   "source_url": "https://www.business-humanrights.org/ar/%D8%A3%D8%AD%D8%AF%D8%AB-%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/philippines-batangas-communities-lauds-ayala-corps-decision-to-discontinue-batangas-clean-energy-bce-project/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
- "snippet_count": 0,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5151
   },
   "governance": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5384
   },
   "financing": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5639
   },
   "controversy": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5958
   }
  },
- "prompt_chars": 0,
- "kept": 4
+ "prompt_chars": 22132,
+ "kept": 7,
+ "merged_from_prior": 4
 }

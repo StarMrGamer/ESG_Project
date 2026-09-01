@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:INDF",
+ "company": "Indofood Sukses Makmur",
+ "events": [
+  {
+   "event_id": "IDX:INDF-harvest-0",
+   "text": "Mahkamah Agung issued a decision (Putus: 14-05-2020) in the tax case PT Indofood Sukses Makmur Tbk vs Direktur Jenderal Pajak, which was registered on 11-03-2020 and uploaded on 16-10-2020.",
+   "published_at": "2020-05-14",
+   "source_url": "https://putusan3.mahkamahagung.go.id/search.html?q=indofood",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5185
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5177
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5038
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5376
+  }
+ },
+ "prompt_chars": 20776,
+ "kept": 1
+}

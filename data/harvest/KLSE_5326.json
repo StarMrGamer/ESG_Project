@@ -1,0 +1,44 @@
+{
+ "company_id": "KLSE:5326",
+ "company": "99 SPEED MART RETAIL HOLDINGS",
+ "events": [
+  {
+   "event_id": "KLSE:5326-harvest-0",
+   "text": "99 Speed Mart is committed to support the national goal of achieving net-zero earliest by 2050.",
+   "published_at": "2024-10-01",
+   "source_url": "https://99speedmart.com.my/wp-content/uploads/2024/10/Environment-Social-and-Governance-Policy_99-Speed-Mart.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5140
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4966
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4892
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 14998,
+ "kept": 1
+}

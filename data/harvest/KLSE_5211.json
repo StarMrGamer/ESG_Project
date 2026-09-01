@@ -1,0 +1,140 @@
+{
+ "company_id": "KLSE:5211",
+ "company": "SUNWAY",
+ "events": [
+  {
+   "event_id": "KLSE:5211-harvest-0",
+   "text": "In 2021, Sunway established an Internal Carbon Pricing framework at RM15 per tonne of CO2e emitted above a threshold level.",
+   "published_at": "2021-01-01",
+   "source_url": "https://www.sunwayreit.com/wp-content/uploads/2022/06/SR_Page_24.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-1",
+   "text": "Sunway aims to achieve net zero carbon emissions by 2050 and halve emissions by 2030.",
+   "published_at": "2025-04-01",
+   "source_url": "https://www.sunway.com.my/wp-content/uploads/2025/04/Sunway-Berhad-Climate-Change-Policy-240425.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-2",
+   "text": "Sunway Berhad's Board Charter was duly approved and adopted by the Board of Directors at a board meeting held on 10 April 2025.",
+   "published_at": "2025-04-10",
+   "source_url": "https://ir2.chartnexus.com/sunway/doc/cg/Board%20Charter_11042025.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-3",
+   "text": "In 2021, Sunway REIT became the first Malaysian Real Estate Investment Trust to integrate sustainability considerations into its capital management strategy through the issuance of Malaysia's first-ever Sustainability-Linked Medium Term Note (SLMTN) under SUNREIT Bond Berhad.",
+   "published_at": "2021-01-01",
+   "source_url": "https://www.sunwayreit.com/corporate-sustainability/sustainable-finance/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-4",
+   "text": "Sunway Iskandar Development Sdn Bhd published its Sustainable Finance Framework on 22 September 2025.",
+   "published_at": "2025-09-22",
+   "source_url": "https://sustainability.sunway.com.my/wp-content/uploads/2025/09/SIDSB-Sustainable-Finance-Framework-22-September-2025.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-5",
+   "text": "Sunway Iskandar Development Sdn Bhd completed its first issuance of RM230 million Sustainability Medium-Term Notes under its MTN Programme, with proceeds to part-finance land acquisition and earthwork costs related to the development of Pendas Land in Johor.",
+   "published_at": "2025-09-01",
+   "source_url": "https://www.nst.com.my/business/corporate/2025/09/1284542/sunway-unit-launches-maiden-rm230mil-sustainability-bond",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-6",
+   "text": "The Malaysian Communications and Multimedia Commission filed a RM1.8 million lawsuit against Sunway Lagoon following a food poisoning outbreak during its family day event on Oct 4, 2025, alleging breach of contract and negligence.",
+   "published_at": "2025-10-04",
+   "source_url": "https://www.facebook.com/LatestMalaysia/photos/sunway-lagoon-sued-for-rm18-million-over-alleged-food-poisoning-incident-the-mal/1371684541647393/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-7",
+   "text": "Police are investigating possible elements of negligence or sabotage in the Sunway Lagoon roller-coaster incident that left 10 people injured.",
+   "published_at": "2026-08-27",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2026/08/27/cops-probing-for-negligence-sabotage-in-sunway-roller-coaster-case",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-8",
+   "text": "MCMC's RM1.85 million lawsuit against Sunway Lagoon Sdn Bhd has moved a step closer to trial following recent court filings.",
+   "published_at": "2026-04-14",
+   "source_url": "https://newswav.com/article/food-poisoning-row-heads-to-court-as-mcmc-seeks-rm1-85m-from-sunway-lagoon-A2604_At219H",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-9",
+   "text": "Sunway Group founder Jeffrey Cheah confirmed a roller coaster accident at Sunway Lagoon injuring 10 individuals, with metal fatigue suspected as a potential cause.",
+   "published_at": "2026-08-25",
+   "source_url": "https://www.malaymail.com/news/malaysia/2026/08/25/jeffrey-cheah-says-metal-fatigue-possible-cause-of-sunway-lagoon-roller-coaster-incident/232618",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-10",
+   "text": "MCMC has taken its RM1.82mil lawsuit against Sunway Lagoon Sdn Bhd a step closer to trial, with the High Court in Shah Alam set to manage the case on April 29 before Justice Anita Harun.",
+   "published_at": "2026-04-14",
+   "source_url": "https://www.businesstoday.com.my/2026/04/14/mcmc-takes-sunway-lagoon-to-court-in-rm1-82-million-food-poisoning-claim/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-11",
+   "text": "Sunway Construction Group explained that the SPRM investigation launched last month only focuses on personal misconduct of a former employee and does not involve the company or its subsidiaries.",
+   "published_at": "2025-08-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2025/08/1435193/siasatan-sprm-hanya-tumpu-bekas-pekerja-sunway-construction",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5211-harvest-12",
+   "text": "Sunway Construction Group's bidding activities in the RM14 billion data centre segment are expected to be temporarily affected following an SPRM investigation into a staff member's dealings with a subcontractor.",
+   "published_at": "2025-07-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2025/07/1423170/pekerja-disiasat-sprm-aktiviti-bidaan-suncon-dijangka-terganggu",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5547
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4955
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6070
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 7,
+   "status": "live",
+   "prompt_chars": 5668
+  }
+ },
+ "prompt_chars": 22240,
+ "kept": 13
+}

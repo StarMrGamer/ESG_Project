@@ -1,0 +1,60 @@
+{
+ "company_id": "SET:CRC",
+ "company": "Central Retail",
+ "events": [
+  {
+   "event_id": "SET:CRC-harvest-0",
+   "text": "Central Retail's 2025 Sustainability Report sets out an environmental roadmap toward Net Zero emissions by 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/central-retail-corp/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CRC-harvest-1",
+   "text": "Central Retail's 2025 solar projects produced up to 204,818 megawatt-hours of clean electricity.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/central-retail-corp/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:CRC-harvest-2",
+   "text": "Central Retail Corporation Plc (CRC) launched Thailand's first green bond in the retail and wholesale sector, with the proceeds allotted for investment in renewable energy projects.",
+   "published_at": "2025-10-23",
+   "source_url": "https://www.pressreader.com/thailand/bangkok-post/20251023/282050513290860",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5711
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4985
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5556
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5502
+  }
+ },
+ "prompt_chars": 21754,
+ "kept": 3
+}

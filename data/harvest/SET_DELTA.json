@@ -1,0 +1,68 @@
+{
+ "company_id": "SET:DELTA",
+ "company": "Delta Electronics (Thailand)",
+ "events": [
+  {
+   "event_id": "SET:DELTA-harvest-0",
+   "text": "Delta Electronics (Thailand)'s 2025 Sustainability Report outlines the company's commitment to sustainable development and progress toward achieving net-zero emissions by 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/delta-electronics-thailand/2025/sustainable-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:DELTA-harvest-1",
+   "text": "In 2024, Delta Electronics (Thailand) achieved a record revenue of 166.7 billion THB, with 46% derived from green products and solutions.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/delta-electronics-thailand/2025/sustainable-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:DELTA-harvest-2",
+   "text": "Delta Electronics (Thailand) PCL held its Delta ESG Forum 2025 under the theme 'Collaborating for a Sustainable Thailand' on July 17, 2025.",
+   "published_at": "2025-07-17",
+   "source_url": "https://www.publicnow.com/view/68FED480559BFC434D2CC089454E4078C2A84285?1752821232",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:DELTA-harvest-3",
+   "text": "On July 2, 2026, Delta Electronics (Thailand) Public Company Limited announced it is showcasing its integrated energy solutions at Asia Sustainable Energy Week 2026.",
+   "published_at": "2026-07-02",
+   "source_url": "https://www.prnewswire.com/apac/news-releases/delta-thailand-advances-sustainable-growth-through-integrated-energy-solutions-at-asia-sustainable-energy-week-2026-302816807.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4889
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5833
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5423
+  }
+ },
+ "prompt_chars": 16145,
+ "kept": 4
+}

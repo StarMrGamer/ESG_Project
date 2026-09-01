@@ -1,0 +1,68 @@
+{
+ "company_id": "KLSE:1023",
+ "company": "CIMB GROUP HOLDINGS",
+ "events": [
+  {
+   "event_id": "KLSE:1023-harvest-0",
+   "text": "CIMB became the first Malaysian bank to complete its 2030 decarbonisation target setting for high-emitting sectors financing portfolios, such as thermal coal mining, cement, palm oil and power, in pursuit of its broader 2050 net zero commitments.",
+   "published_at": "2024-07-01",
+   "source_url": "https://www.nst.com.my/business/esg/2024/07/1071656/cimb-becomes-first-bank-malaysia-set-2030-carbon-reduction-target-high",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1023-harvest-1",
+   "text": "CIMB Group Holdings Bhd raised its sustainable finance target to RM100 billion by 2024 under the GSSIPS framework, revised from RM60 billion.",
+   "published_at": "2023-09-01",
+   "source_url": "https://www.nst.com.my/business/2023/09/954012/cimb-group-now-targets-rm100bil-green-financing-2024-revised-rm60bil",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1023-harvest-2",
+   "text": "CIMB Group Holdings Berhad announced a new sustainable finance target of RM300 billion by 2030, as part of its 2030 Sustainability Roadmap and Forward30 strategy.",
+   "published_at": "2025-07-18",
+   "source_url": "https://thedigitalbanker.com/cimb-outlines-rm300bn-plan-for-low-carbon-inclusive-asean-growth/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1023-harvest-3",
+   "text": "Bank Negara Malaysia fined CIMB Group Holdings Bhd RM760,000 for prolonged disruptions, and the company has paid the penalty.",
+   "published_at": "2024-08-15",
+   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2024-08-15-story-h-154196037-BNM_Fines_Maybank_CIMB_Over_RM5m_for_Prolonged_Disruptions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5378
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5024
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5719
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5364
+  }
+ },
+ "prompt_chars": 21485,
+ "kept": 4
+}

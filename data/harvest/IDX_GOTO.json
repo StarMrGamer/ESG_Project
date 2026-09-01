@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:GOTO",
+ "company": "GoTo Gojek Tokopedia",
+ "events": [
+  {
+   "event_id": "IDX:GOTO-harvest-0",
+   "text": "GoTo announced that its near and long-term greenhouse gas emissions reduction targets across all the countries it is present in have been validated by the Science Based Targets initiative (SBTi).",
+   "published_at": "2023-12-15",
+   "source_url": "https://technode.global/2023/12/15/goto-receives-validation-from-sbti-on-its-net-zero-target/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:GOTO-harvest-1",
+   "text": "GoTo announced a partnership with IFC to boost financial inclusion and sustainable business across Indonesia on 3 October 2023.",
+   "published_at": "2023-10-03",
+   "source_url": "https://www.ifc.org/en/pressroom/2023/goto-partners-with-ifc-to-drive-sustainable-business-and-financial-inclusion-across-indonesia",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:GOTO-harvest-2",
+   "text": "A South Jakarta District Court hearing in the dispute between GoCar driver partners and PT GoTo Gojek Tokopedia Tbk. entered the expert examination stage on 26 May 2026, covering a partnership, tariff, and app-based transport service fee dispute.",
+   "published_at": "2026-05-26",
+   "source_url": "https://kawanjarinews.com/kasus-pengadilan/2026/05/26/sengketa-mitra-gocar-dan-pt-goto-gojek-tokopedia-tbk-masuki-tahap-pemeriksaan-ahli-di-pn-jakarta-selatan/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5181
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4945
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5522
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5692
+  }
+ },
+ "prompt_chars": 21340,
+ "kept": 3
+}

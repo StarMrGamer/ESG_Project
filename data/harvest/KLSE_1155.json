@@ -1,0 +1,60 @@
+{
+ "company_id": "KLSE:1155",
+ "company": "Malayan Banking",
+ "events": [
+  {
+   "event_id": "KLSE:1155-harvest-0",
+   "text": "Maybank's sustainable finance disclosures for the period 1 January 2024 to 31 December 2024 have been subjected to an independent limited assurance by PricewaterhouseCoopers PLT, Malaysia (PwC).",
+   "published_at": "2025-03-26",
+   "source_url": "https://maybank.listedcompany.com/newsroom/Maybank_Sustainability_Report_2024_20250326.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1155-harvest-1",
+   "text": "Bank Negara Malaysia imposed an Administrative Monetary Penalty of RM4,320,000 on Malayan Banking Berhad and Maybank Islamic Berhad on 29 July 2024 for non-compliance with paragraph 48(1)(a) of the Financial Services Act 2013 and paragraph 58(1)(a) of the Islamic Financial Services Act 2013.",
+   "published_at": "2024-07-29",
+   "source_url": "https://www.bnm.gov.my/-/ea-mybnk24",
+   "source_type": "regulator",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1155-harvest-2",
+   "text": "Bank Negara Malaysia fined Maybank Islamic Bhd RM1.2 million for failing to comply with financial services laws.",
+   "published_at": "2025-05-28",
+   "source_url": "https://klse.i3investor.com/web/blog/detail/ceomorningbrief/2025-05-29-story-h499513667-Bank_Negara_Fines_Four_Lenders_for_Non_compliance_With_Financial_Service",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5223
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5053
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 6023
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5682
+  }
+ },
+ "prompt_chars": 21981,
+ "kept": 3
+}

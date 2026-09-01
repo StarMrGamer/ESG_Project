@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:JPFA",
+ "company": "Japfa Comfeed Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:JPFA-harvest-0",
+   "text": "Japfa's 2023 sustainability report says it completed eight of nine committed water-recycling facilities.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-japfa-comfeed-indonesia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:JPFA-harvest-1",
+   "text": "Japfa's 2023 sustainability report says it made the first live-bird export to Singapore.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-japfa-comfeed-indonesia/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:JPFA-harvest-2",
+   "text": "PT Japfa Comfeed Indonesia's fresh concrete trucks were cracked down by the Sukabumi District Public Works Office for allegedly lacking official permits to cross regency roads in Jampang Tengah on Monday (2/3/2026).",
+   "published_at": "2026-03-02",
+   "source_url": "https://infokowasi.com/truk-over-tonase-pt-japfa-comfeed-indonesia-ditindak-tegas-dpu-kabupaten-sukabumi/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "governance: unparsed reply; financing: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5151
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5804
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5935
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6043
+  }
+ },
+ "prompt_chars": 22933,
+ "kept": 3
+}

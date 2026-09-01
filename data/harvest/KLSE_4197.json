@@ -1,0 +1,76 @@
+{
+ "company_id": "KLSE:4197",
+ "company": "SIME DARBY",
+ "events": [
+  {
+   "event_id": "KLSE:4197-harvest-0",
+   "text": "Sime Darby Property pledged to achieve net zero emissions by 2050 and to reduce Scope 1 and 2 emissions by 40% by 2030.",
+   "published_at": "2023-11-27",
+   "source_url": "https://www.simedarbyproperty.com/sites/default/files/2023-11/20231127%20-%20FOR%20IMMEDIATE%20RELEASE%20-%20SIME%20DARBY%20PROPERTY%20PLEDGES%20TO%20ACHIEVE%20NET%20ZERO%20EMISSION%20BY%202050.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4197-harvest-1",
+   "text": "Sime Darby's FY2025 Scope 1 and 2 emissions were distributed with Malaysia at 54%, Australia at 23% and China at 10%.",
+   "published_at": "2025-12-01",
+   "source_url": "https://www.sime.com/wp-content/uploads/2025/12/Net-Zero-Roadmap.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4197-harvest-2",
+   "text": "Sime Darby Property's FY2023 sustainability report was approved by the Board Sustainability Committee on 27 March 2024.",
+   "published_at": "2024-03-27",
+   "source_url": "https://www.simedarbyproperty.com/sites/default/files/2024-04/Sustainability-Report-2023.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4197-harvest-3",
+   "text": "Sime Darby was fined RM13,000 for discharging effluents into Sungai Linggi, after the chemistry department found biochemical oxygen demand exceeded the legal threshold due to waste discharged from the factory's effluent ponds.",
+   "published_at": "2024-12-10",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2024/12/10/sime-darby-fined-rm13000-for-discharging-effluents-into-sungai-linggi",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4197-harvest-4",
+   "text": "SD Guthrie, formerly Sime Darby Plantation, admitted it fell short of its own standards and said an equipment disruption caused the effluent discharge at its Sua Betong mill, the first such incident there.",
+   "published_at": "2024-12-11",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2024/12/11/equipment-disruption-caused-effluent-discharge-says-sd-guthrie",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "financing: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5642
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5634
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 6060
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5866
+  }
+ },
+ "prompt_chars": 23202,
+ "kept": 5
+}

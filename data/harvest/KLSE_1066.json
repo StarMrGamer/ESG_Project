@@ -1,0 +1,92 @@
+{
+ "company_id": "KLSE:1066",
+ "company": "RHB BANK",
+ "events": [
+  {
+   "event_id": "KLSE:1066-harvest-0",
+   "text": "RHB Banking Group increased its sustainable finance target to RM50 billion by 2026.",
+   "published_at": "2024-04-29",
+   "source_url": "https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Highlights/Media-Release/M20240429-1.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1066-harvest-1",
+   "text": "RHB Banking Group unveiled a comprehensive pathway to achieve net zero emissions by 2050.",
+   "published_at": "2024-04-29",
+   "source_url": "https://www.rhbgroup.com/-/media/Assets/Corporate-Website/Document/Highlights/Media-Release/M20240429-1.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1066-harvest-2",
+   "text": "RHB Bank's SME Green Renewable Energy and Capex Financing covers purchase of energy-efficient equipment and machinery with financing rates from as low as around 4.5% and up to full financing margins.",
+   "published_at": "2026-04-08",
+   "source_url": "https://www.thestar.com.my/starpicks/2026/04/08/rhb-bank-aims-to-lead-in-financing-green-shift",
+   "source_type": "news",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1066-harvest-3",
+   "text": "Sustainalytics opined that RHB's Sustainability Sukuk and Bond Framework aligns with the Sustainability Bond Guidelines 2021, Green Bond Principles 2021, Social Bond Principles 2021 and ASEAN Sustainability Bond Standards 2018.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainalytics.com/corporate-solutions/sustainable-finance-and-lending/published-projects/project/rhb-banking-group/rhb-sustainability-sukuk-and-bond-framework-second-party-opinion-(2023)/rhb-sustainability-sukuk-and-bond-framework-second-party-opinion-(2023)",
+   "source_type": "index_provider",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1066-harvest-4",
+   "text": "RHB launched its Sustainable & Transition Finance Framework, which has been fully validated by an independent second-party opinion from Sustainalytics.",
+   "published_at": "2026-01-01",
+   "source_url": "https://www.nst.com.my/business/corporate/2026/01/1358135/rhb-launches-sustainable-transition-finance-framework-support",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1066-harvest-5",
+   "text": "On 11 July 2024, BNM issued Administrative Monetary Penalties to four financial institutions, including RHB Bank, for failing to comply with reporting and regulatory requirements, with penalties totaling up to RM2.5 million.",
+   "published_at": "2024-07-11",
+   "source_url": "https://fintechnews.my/47909/banking/bnm-fines-maybank-rhb-ambank-rm2-5-million-for-non-compliance/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1066-harvest-6",
+   "text": "On 10 July 2025, the court allowed RHB Bank Berhad's winding-up petition against Dermaga Oil & Gas Sdn Bhd, with the company filing a notice of appeal on 29 July 2025.",
+   "published_at": "2025-07-10",
+   "source_url": "https://supremetoday.ai/doc/judgement/MYS00000120724",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5240
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5522
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 6265
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5783
+  }
+ },
+ "prompt_chars": 22810,
+ "kept": 7
+}

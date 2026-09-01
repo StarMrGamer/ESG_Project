@@ -1,0 +1,44 @@
+{
+ "company_id": "SET:AWC",
+ "company": "Asset World",
+ "events": [
+  {
+   "event_id": "SET:AWC-harvest-0",
+   "text": "In 2024, Asset World completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas (GHG) emissions according to the GHG Protocol, covering Scope 1, Scope 2, and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/asset-world/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "financing: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5728
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4625
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5404
+  }
+ },
+ "prompt_chars": 15757,
+ "kept": 1
+}

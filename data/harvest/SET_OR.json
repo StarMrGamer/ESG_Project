@@ -1,0 +1,35 @@
+{
+ "company_id": "SET:OR",
+ "company": "PTT Oil and Retail Business",
+ "events": [],
+ "status": "emissions: offline; governance: offline",
+ "snippet_count": 16,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5911
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4906
+  }
+ },
+ "prompt_chars": 10817,
+ "kept": 0
+}

@@ -1,0 +1,60 @@
+{
+ "company_id": "SET:GULF",
+ "company": "Gulf Development",
+ "events": [
+  {
+   "event_id": "SET:GULF-harvest-0",
+   "text": "Gulf Development PCL reported total greenhouse gas emissions of 14,624,745.12 tCO2e in its 2023 Sustainability Report.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/gulf-development/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:GULF-harvest-1",
+   "text": "GULF secured 60 billion baht (about $1.9 billion) in loan facilities to accelerate 27 renewable energy projects, spanning a 939-MW portfolio with 843 MW of solar and solar-plus-battery, announced on 10 February 2026.",
+   "published_at": "2026-02-10",
+   "source_url": "https://www.theplatinumcapital.com/article/thailands-gulf-leads-new-wave-of-regional-green-power-financing",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:GULF-harvest-2",
+   "text": "Gulf Development did not respond to allegations concerning the proposed Burapa Power Plant project raised by Fossil Free Thailand over social and environmental concerns.",
+   "published_at": "2025-11-05",
+   "source_url": "https://www.business-humanrights.org/en/latest-news/gulf-development-did-not-respond-to-allegations/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5628
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4404
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6058
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5463
+  }
+ },
+ "prompt_chars": 21553,
+ "kept": 3
+}

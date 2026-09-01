@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:MAPI",
+ "company": "Mitra Adiperkasa",
+ "events": [
+  {
+   "event_id": "IDX:MAPI-harvest-0",
+   "text": "PT Mitra Adiperkasa's Audit Committee was established based on OJK Regulation No. 55/POJK.04/2015, dated 29 December 2015.",
+   "published_at": "2015-12-29",
+   "source_url": "https://www.map.co.id/investor/audit-committee/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MAPI-harvest-1",
+   "text": "PT Mitra Adiperkasa Tbk (MAPI) memberikan penjelasan terkait pemanggilan salah satu petingginya oleh Komisi Pemberantasan Korupsi (KPK).",
+   "published_at": "2025-03-05",
+   "source_url": "https://money.kompas.com/read/2025/03/05/143300426/mitra-adiperkasa-klarifikasi-pemanggilan-gm-nya-oleh-kpk",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:MAPI-harvest-2",
+   "text": "PT Mitra Adiperkasa Tbk. (MAPI) buka suara terkait pemberitaan yang menyebut bahwa Komisi Pemberantasan Korupsi (KPK) telah memeriksa General Manager Perseroan.",
+   "published_at": "2025-03-05",
+   "source_url": "https://www.cnbcindonesia.com/market/20250305085104-17-615738/bos-mitra-adiperkasa--mapi--dipanggil-kpk-manajemen-buka-suara",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4895
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5550
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4397
+  }
+ },
+ "prompt_chars": 14842,
+ "kept": 3
+}

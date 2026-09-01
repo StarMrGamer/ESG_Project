@@ -1,0 +1,60 @@
+{
+ "company_id": "KLSE:1961",
+ "company": "IOI",
+ "events": [
+  {
+   "event_id": "KLSE:1961-harvest-0",
+   "text": "IOI Corporation Berhad first embarked on reducing its GHG emissions in 2019 through the introduction of the Climate Change Action initiative (CCAi).",
+   "published_at": "2019-01-01",
+   "source_url": "https://www.ioigroup.com/Files/sustainability/pdf/IOI'S%20PATHWAY%20TO%20NET%20ZERO.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1961-harvest-1",
+   "text": "In 2021, IOI proceeded to adopt recommendations from the Task Force on Climate-Related Financial Disclosures (TCFD).",
+   "published_at": "2021-01-01",
+   "source_url": "https://www.ioigroup.com/Files/sustainability/pdf/IOI'S%20PATHWAY%20TO%20NET%20ZERO.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1961-harvest-2",
+   "text": "Finnwatch opened an investigation at an IOI estate in Pahang in August 2020 after receiving complaints from a relative of an IOI worker.",
+   "published_at": "2020-08-01",
+   "source_url": "https://hk.marketscreener.com/news/latest/Malaysian-palm-giant-IOI-faces-labour-abuse-allegations-in-new-report-35741420/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 31,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5073
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5810
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5446
+  },
+  "controversy": {
+   "snippets": 7,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5007
+  }
+ },
+ "prompt_chars": 21336,
+ "kept": 3
+}

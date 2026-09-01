@@ -1325,13 +1325,35 @@ def test_harvest_guards_reject_ungrounded_events():
     assert harvest._clean_events(future, allowed, "SGX:TEST", "2026-08-20") == []
     assert len(harvest._clean_events(raw, allowed, "SGX:TEST", "2026-08-20")) == 1
 
-    # and the end-to-end consequence: merging the overlay must not move the run's as_of
+    # AND THE END-TO-END CONSEQUENCE: merging the overlay must not move the run's as_of.
+    #
+    # This used to assert that NOTHING in the shared store post-dated the basket, which stopped
+    # being the right invariant the moment a second universe existed. `data/harvest/` is keyed by
+    # ticker and shared on purpose — a company's dated evidence is a fact about the company, not
+    # about which list names it — and the two baskets do NOT share a clock: CGSI's is 2026-08-20,
+    # the index file is built today. So the store legitimately holds events newer than the basket
+    # (the index sweep found a 2026-08-27 story about Sunway, which sits in both), and the
+    # guarantee worth testing is the one that actually protects the engine: after `apply_overlay`
+    # caps to a universe's own `as_of`, nothing that universe scores is newer than its horizon,
+    # so the decay reference cannot move.
     import engine
     base = universe.constituents()
     cap = max(str(c.get("as_of") or "")[:10] for c in base)
-    for events in harvest.load_overlay().values():
-        for e in events:
-            assert e["published_at"] <= cap, ("harvested event post-dates the basket", e)
+    merged = harvest.apply_overlay(base, as_of=cap)
+    for c in merged:
+        for e in c.get("events") or []:
+            got = str(e.get("published_at") or "")
+            assert got <= cap, ("overlay leaked an event past this universe's horizon", e)
+    assert engine._as_of_from(merged, {}) <= cap, "merging the overlay moved the run's as_of"
+
+    # ...and the cap has to be doing work, or the assertion above proves nothing: an UNCAPPED
+    # merge of the same store is what the index sweep made newer, and it must be caught here.
+    raw_merge = harvest.apply_overlay(base)
+    newest = max((str(e.get("published_at") or "")
+                  for c in raw_merge for e in (c.get("events") or [])), default="")
+    if newest > cap:
+        assert engine._as_of_from(raw_merge, {}) > cap, (
+            "the uncapped merge should move as_of — if it does not, the cap is untested")
 
     # guard 3 — source_type comes from the DOMAIN, never from the model
     assert harvest._source_type_for("https://www.mas.gov.sg/news/x") == "regulator"

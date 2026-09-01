@@ -1,6 +1,6 @@
 {
  "company_id": "PSE:SM",
- "company": "SM Investments Corp",
+ "company": "SM Investments",
  "events": [
   {
    "event_id": "PSE:SM-harvest-0",
@@ -41,174 +41,77 @@
    "source_url": "https://tribune.net.ph/2026/07/24/sm-uses-green-investments-to-cut-costs-lift-resilience",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-5",
+   "text": "SM Investments Corporation said it remains on track to reduce greenhouse gas emissions by 40% by 2040.",
+   "published_at": "2026-07-24",
+   "source_url": "https://www.sminvestments.com/press_release/sm-remains-on-track-to-cut-emissions-by-40-by-2040/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-6",
+   "text": "SM Investments has over 200,000 solar panels, a floating solar farm, geothermal projects and P1.2 trillion in sustainable financing.",
+   "published_at": "2026-07-24",
+   "source_url": "https://tribune.net.ph/2026/07/24/sm-uses-green-investments-to-cut-costs-lift-resilience",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-7",
+   "text": "SM Investments is on track to reduce greenhouse gas emissions by 40 percent by 2040.",
+   "published_at": "2026-07-24",
+   "source_url": "https://tribune.net.ph/2026/07/24/sm-uses-green-investments-to-cut-costs-lift-resilience-2",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-8",
+   "text": "SM Group increased its renewable energy sourcing to 31 percent of total electricity consumption in 2025.",
+   "published_at": "2026-05-22",
+   "source_url": "https://logisticsnews.ph/2026/05/22/sm-group-raises-renewable-energy-sourcing-to-31-in-2025/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SM-harvest-9",
+   "text": "BDO Unibank Inc. and China Banking Corp. extended a total of PHP249 billion to renewable energy projects as of end 2025.",
+   "published_at": "2026-05-22",
+   "source_url": "https://logisticsnews.ph/2026/05/22/sm-group-raises-renewable-energy-sourcing-to-31-in-2025/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
- "snippet_count": 0,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5404
   },
   "governance": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5178
   },
   "financing": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5400
   },
   "controversy": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5968
   }
  },
- "prompt_chars": 0,
- "kept": 5
+ "prompt_chars": 21950,
+ "kept": 10,
+ "merged_from_prior": 5
 }

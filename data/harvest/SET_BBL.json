@@ -1,0 +1,52 @@
+{
+ "company_id": "SET:BBL",
+ "company": "Bangkok Bank",
+ "events": [
+  {
+   "event_id": "SET:BBL-harvest-0",
+   "text": "Bangkok Bank supported 2 green loans with a total credit line of 3 billion baht, in line with the Thailand Taxonomy Phase 2 covering 4 business sectors.",
+   "published_at": "2025-01-01",
+   "source_url": "https://en.moneyandbanking.co.th/2025/163627/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BBL-harvest-1",
+   "text": "Bangkok Bank did not respond to allegations over the proposed Burapa Power Plant project, which raises social and environmental concerns.",
+   "published_at": "2025-11-05",
+   "source_url": "https://www.business-humanrights.org/zh-hans/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF/bangkok-bank-did-not-respond-to-allegations/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5378
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5242
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5349
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5231
+  }
+ },
+ "prompt_chars": 21200,
+ "kept": 2
+}

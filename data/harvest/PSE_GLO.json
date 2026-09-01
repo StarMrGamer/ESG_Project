@@ -1,0 +1,108 @@
+{
+ "company_id": "PSE:GLO",
+ "company": "Globe Telecom",
+ "events": [
+  {
+   "event_id": "PSE:GLO-harvest-0",
+   "text": "In 2024, Globe Telecom completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/globe-telecom/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-1",
+   "text": "Globe's annual share of electricity consumption from renewable energy increased from 14% in 2021 to 24% in 2024.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.gsma.com/solutions-and-impact/connectivity-for-good/external-affairs/gsma_study/globe-telecom-powering-a-sustainable-future-with-renewable-energy/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-2",
+   "text": "Globe Telecom's 2024 Integrated Report states that its net-zero target received SBTi validation.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/globe-telecom/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-3",
+   "text": "Globe Telecom's 2024 Integrated Report sets a 42% near-term reduction target for absolute Scope 1 and 2 emissions.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/globe-telecom/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-4",
+   "text": "Globe Telecom's 2024 Integrated Report reports renewable energy supplying 24.34% of its electricity consumption.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/globe-telecom/2024/integrated-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-5",
+   "text": "Globe Telecom transitioned 171 of its sites to renewable energy through power purchase agreements as of the end of October, up from 29 sites the previous year, as part of its net-zero strategy.",
+   "published_at": "2025-11-12",
+   "source_url": "https://www.bworldonline.com/corporate/2025/11/12/711540/globe-telecom-switches-171-sites-to-renewable-energy-in-net-zero-push/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-6",
+   "text": "Globe Telecom said it is expanding its green network by increasing the share of renewable energy in its electricity use and rolling out renewable-powered cell sites.",
+   "published_at": "2026-04-30",
+   "source_url": "https://www.bworldonline.com/corporate/2026/04/30/746452/globe-expands-green-network/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-7",
+   "text": "The Philippine Supreme Court ordered Globe Telecom to reinstate Kay Abastillas Ebitner to her former position, with forfeiture of backwages as an equitable penalty for her misdeed of making a credit adjustment without following the standard operating procedure.",
+   "published_at": "2023-01-01",
+   "source_url": "https://lawphil.net/judjuris/juri2023/jan2023/gr_242286_2023.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GLO-harvest-8",
+   "text": "The National Telecommunications Commission filed a Petition for Review on Certiorari against Globe Telecom, Inc. and Innove Communications, Inc. (collectively, Globe and Innove), Connectivity Unlimited Resource Enterprise, Inc., Smart Communications, Inc., and Digitel Mobile Philippines, Inc.",
+   "published_at": "2023-02-01",
+   "source_url": "https://lawphil.net/judjuris/juri2023/feb2023/gr_200224_2023.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6032
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5276
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5327
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5659
+  }
+ },
+ "prompt_chars": 22294,
+ "kept": 9
+}

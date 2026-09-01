@@ -1,0 +1,84 @@
+{
+ "company_id": "PSE:GTCAP",
+ "company": "GT Capital",
+ "events": [
+  {
+   "event_id": "PSE:GTCAP-harvest-0",
+   "text": "In 2023, GT Capital Holdings completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2023-01-01",
+   "source_url": "https://tracenable.com/company/gt-capital-holdings/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GTCAP-harvest-1",
+   "text": "In its 2024 Sustainability Report, GT Capital reported Scope 1 and 2 emissions totaling over 2.4 million tons CO2e.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/gt-capital/2024/sustainability-data-book",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GTCAP-harvest-2",
+   "text": "GT Capital's 2024 Sustainability Report highlighted its commitment to transparency through adherence to GRI, SASB and TCFD frameworks.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/gt-capital/2024/sustainability-data-book",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GTCAP-harvest-3",
+   "text": "In its 2024 Integrated Report, GT Capital reported a low-risk rating of 14.8 from Sustainalytics and an upgraded 'A' rating from MSCI.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/gt-capital/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GTCAP-harvest-4",
+   "text": "In its 2024 Integrated Report, GT Capital reported a 31% reduction in waste.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/gt-capital/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:GTCAP-harvest-5",
+   "text": "GT Capital Holdings, Inc. disclosed its Integrated Annual Corporate Governance Report to the Philippine Stock Exchange on May 23, 2024.",
+   "published_at": "2024-05-23",
+   "source_url": "https://edge.pse.com.ph/openDiscViewer.do?edge_no=bd7cd786251b5388abca0fa0c5b4e4d0",
+   "source_type": "exchange_filing",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 5,
+   "status": "live",
+   "prompt_chars": 5737
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5940
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5771
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 17448,
+ "kept": 6
+}

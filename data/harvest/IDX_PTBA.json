@@ -1,0 +1,92 @@
+{
+ "company_id": "IDX:PTBA",
+ "company": "Bukit Asam",
+ "events": [
+  {
+   "event_id": "IDX:PTBA-harvest-0",
+   "text": "In 2024, Bukit Asam (Persero) completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1, Scope 2 and Scope 3.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/bukit-asam-persero/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PTBA-harvest-1",
+   "text": "PT Bukit Asam Tbk reported 323.4K tCO2e reduction in CO2 emissions in 2023.",
+   "published_at": "2023-01-01",
+   "source_url": "https://polluer.com/companies/MTI3MDk0MzU5NQ",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PTBA-harvest-2",
+   "text": "In 2023, PT Bukit Asam Tbk's key initiatives included land reclamation covering 2,222.08 hectares.",
+   "published_at": "2023-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-bukit-asam/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PTBA-harvest-3",
+   "text": "PT Bukit Asam's Conflict of Interest Guidelines were ratified via Joint Decree of the Board of Commissioners and Directors No. 14/SK/PTBADEKOM/IX/2020 and No. 404/0100/2020 concerning the Implementation of Good Corporate Governance Principles and Practices.",
+   "published_at": "2020-09-01",
+   "source_url": "https://id.scribd.com/document/1051961818/ESG2024-PTBA",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PTBA-harvest-4",
+   "text": "Pertamina NRE and PT Bukit Asam (Persero) Tbk (PTBA) signed a Memorandum of Understanding to jointly develop utility-scale solar power projects on PTBA's operational areas and reclaimed post-mining land.",
+   "published_at": "2026-07-02",
+   "source_url": "https://www.pertaminanre.com/publication/news/perluas-portofolio-hijau-nasional-pertamina-nre-siap-akselerasi-pembangunan-plts-di-lahan-pascatambang-pt-bukit-asam",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PTBA-harvest-5",
+   "text": "Pengadilan memerintahkan PT Bukit Asam memulihkan 13,56 Ha lahan atau membayar denda Rp100 juta per hari serta menyetor Rp100 miliar ke Kementerian ESDM, per pernyataan Selasa 6/2/24.",
+   "published_at": "2024-02-06",
+   "source_url": "https://lahathotline.com/2024/02/06/melawan-hukum-pt-bukit-asam-harus-bayar-100-miliyar-pulihkan-lahan-rusak-1365-ha/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PTBA-harvest-6",
+   "text": "General Manager PT Bukit Asam Tbk Tanjung Enim Mining Unit Venpri Sagara dihadirkan sebagai saksi sidang korupsi dan mengakui terjadi kerusakan lingkungan akibat eksplorasi tambang pada PT Andalas Bara Sejahtera tahun 2010 sampai 2014.",
+   "published_at": "2024-12-01",
+   "source_url": "https://www.sumselpers.com/2024/12/ptba-akui-terjadi-kerusakan-lingkungan.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5735
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5104
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5727
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5935
+  }
+ },
+ "prompt_chars": 22501,
+ "kept": 7
+}

@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:WIFI",
+ "company": "Solusi Sinergi Digital",
+ "events": [
+  {
+   "event_id": "IDX:WIFI-harvest-0",
+   "text": "Dua kali kena digembok bursa, Solusi Sinergi Digital (WIFI) atau Surge buka suara soal kronologi UMA dan suspensi yang dikenakan kepada emiten penyedia jasa internet tersebut.",
+   "published_at": "2025-02-05",
+   "source_url": "https://www.cnbcindonesia.com/market/20250205180724-17-608291/dua-kali-kena-digembok-bursa-surge--wifi--buka-suara",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5538
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5103
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5485
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4276
+  }
+ },
+ "prompt_chars": 20402,
+ "kept": 1
+}

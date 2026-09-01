@@ -1,0 +1,52 @@
+{
+ "company_id": "PSE:DMC",
+ "company": "DMCI Holdings",
+ "events": [
+  {
+   "event_id": "PSE:DMC-harvest-0",
+   "text": "DMCI Power Corp., the off-grid energy arm of DMCI Holdings, plans ₱2.4-billion spending to boost off-grid supply, nearly doubling its capital spending this year as it accelerates a mix of renewable and conventional energy projects in missionary areas.",
+   "published_at": "2026-02-02",
+   "source_url": "https://mb.com.ph/2026/02/02/dmci-power-plans-24-billion-spending-to-boost-off-grid-supply",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:DMC-harvest-1",
+   "text": "In 2024, DMCI's Integrated Management System completed its 2nd Recertification to ISO 9001:2015, ISO 14001:2015 and ISO 45001:2018 Standards under Certification International Philippines.",
+   "published_at": "2024-01-01",
+   "source_url": "https://web.dmcinet.com/sustainability/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5435
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5267
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5143
+  }
+ },
+ "prompt_chars": 15845,
+ "kept": 2
+}

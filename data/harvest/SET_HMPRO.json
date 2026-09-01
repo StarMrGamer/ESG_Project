@@ -65,175 +65,69 @@
    "source_url": "https://www.sustainabilityreports.com/home-product-center/2023/sustainability-report",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-8",
+   "text": "Home Product Center's GHG Emission Reduction Plan targets zero waste to landfill by 2030.",
+   "published_at": "2022-07-06",
+   "source_url": "https://hmpro-th.listedcompany.com/misc/presentation/20220706-hmpro-net-zero-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-9",
+   "text": "Home Product Center's GHG Emission Reduction Plan targets producing or using 100% renewable energy in stores with buildings owned by the Company by 2030.",
+   "published_at": "2022-07-06",
+   "source_url": "https://hmpro-th.listedcompany.com/misc/presentation/20220706-hmpro-net-zero-en.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-10",
+   "text": "Home Product Center's 2023 Sustainability Report states 2023 solar electricity production of 73,642,243 kWh.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2023/sustainability-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:HMPRO-harvest-11",
+   "text": "Home Product Center's 2023 Sustainability Report states revised 2023 water consumption of 210,017 m3.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/home-product-center/2023/sustainability-development-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
- "snippet_count": 108,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5355
   },
   "governance": {
-   "snippets": 7,
-   "kept": 1,
+   "snippets": 8,
+   "kept": 2,
    "status": "live",
-   "prompt_chars": 4733
+   "prompt_chars": 5012
   },
   "financing": {
    "snippets": 8,
    "kept": 0,
    "status": "live",
-   "prompt_chars": 5850
+   "prompt_chars": 5624
   },
   "controversy": {
    "snippets": 8,
    "kept": 0,
    "status": "live",
-   "prompt_chars": 5936
-  },
-  "q_regulator": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5783
-  },
-  "q_exchange": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5191
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 8,
-   "kept": 2,
-   "status": "live",
-   "prompt_chars": 5338
-  },
-  "governance:2023": {
-   "snippets": 6,
-   "kept": 3,
-   "status": "live",
-   "prompt_chars": 4295
-  },
-  "governance:2024": {
-   "snippets": 7,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 4264
-  },
-  "financing:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5947
-  },
-  "financing:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5882
-  },
-  "controversy:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5474
-  },
-  "controversy:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5980
-  },
-  "q_regulator:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6191
-  },
-  "q_regulator:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5641
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "prompt_chars": 5551
   }
  },
- "prompt_chars": 76505,
- "kept": 8,
- "merged_from_prior": 3
+ "prompt_chars": 21542,
+ "kept": 12,
+ "merged_from_prior": 8
 }

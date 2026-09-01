@@ -1,6 +1,6 @@
 {
  "company_id": "SET:BDMS",
- "company": "Bangkok Dusit Med Service",
+ "company": "Bangkok Dusit Medical Service",
  "events": [
   {
    "event_id": "SET:BDMS-harvest-0",
@@ -9,174 +9,45 @@
    "source_url": "https://bdms.listedcompany.com/misc/sd-report/20250310-bdms-sdreport2024-en.pdf",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BDMS-harvest-1",
+   "text": "Bangkok Dusit Medical Services published its SD Report 2025 on March 09, 2026.",
+   "published_at": "2026-03-09",
+   "source_url": "https://www.marketscreener.com/news/bangkok-dusit-medical-services-sd-report-2025-ce7e5fd9dd89f025",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
- "snippet_count": 0,
+ "status": "emissions: unparsed reply; controversy: offline",
+ "snippet_count": 24,
  "angles": {
   "emissions": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "unparsed reply",
+   "prompt_chars": 5269
   },
   "governance": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5055
   },
   "financing": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5402
   },
   "controversy": {
    "snippets": 0,
    "kept": 0,
    "status": "offline",
    "prompt_chars": 0
-  },
-  "q_regulator": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
   }
  },
- "prompt_chars": 0,
- "kept": 1
+ "prompt_chars": 15726,
+ "kept": 2,
+ "merged_from_prior": 1
 }

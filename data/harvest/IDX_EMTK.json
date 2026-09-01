@@ -1,0 +1,52 @@
+{
+ "company_id": "IDX:EMTK",
+ "company": "Elang Mahkota Teknologi",
+ "events": [
+  {
+   "event_id": "IDX:EMTK-harvest-0",
+   "text": "PT Elang Mahkota Teknologi Tbk (EMTEK) reported 301.7 tCO2e/year CO2 emissions in 2022.",
+   "published_at": "2022-01-01",
+   "source_url": "https://polluer.com/companies/MjY2MTk4NjQzNg",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:EMTK-harvest-1",
+   "text": "EMTEK commits to achieving net zero emissions for scope 1 and 2 by 2050 in its 2024 Sustainability Report.",
+   "published_at": "2024-01-01",
+   "source_url": "https://www.sustainabilityreports.com/pt-elang-mahkota-teknologi/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4708
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4752
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5729
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4887
+  }
+ },
+ "prompt_chars": 20076,
+ "kept": 2
+}

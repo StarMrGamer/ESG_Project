@@ -1,0 +1,52 @@
+{
+ "company_id": "PSE:AREIT",
+ "company": "AREIT",
+ "events": [
+  {
+   "event_id": "PSE:AREIT-harvest-0",
+   "text": "AREIT Inc. is on track to be the Philippines' first carbon neutral REIT, moving towards net zero operational emissions.",
+   "published_at": "2021-10-28",
+   "source_url": "https://mb.com.ph/2021/10/28/areit-on-track-to-be-phs-first-carbon-neutral-reit/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:AREIT-harvest-1",
+   "text": "Eight AREIT buildings received EDGE Zero Carbon Certification on account of a 45.33 percent improvement in energy efficiency, 49.07 percent in water and 61.88 percent in embodied carbon material reduction.",
+   "published_at": "2024-02-23",
+   "source_url": "https://tribune.net.ph/2024/02/23/areit-buildings-receive-edge-zero-carbon-certification",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5597
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5041
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5912
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 16550,
+ "kept": 2
+}

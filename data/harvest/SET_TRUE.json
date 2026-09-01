@@ -1,0 +1,35 @@
+{
+ "company_id": "SET:TRUE",
+ "company": "TRUE",
+ "events": [],
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline",
+ "snippet_count": 0,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 0,
+ "kept": 0
+}

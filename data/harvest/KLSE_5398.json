@@ -1,0 +1,76 @@
+{
+ "company_id": "KLSE:5398",
+ "company": "GAMUDA",
+ "events": [
+  {
+   "event_id": "KLSE:5398-harvest-0",
+   "text": "In December 2024, Gamuda's near-term and net-zero targets were officially validated by the Science Based Targets initiative (SBTi), making it the first and only construction and engineering company in Malaysia to reach this milestone.",
+   "published_at": "2024-12-01",
+   "source_url": "https://gamuda.com/sustainability-esg/sbti-validation/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5398-harvest-1",
+   "text": "Gamuda Berhad partnered with OCBC Bank Malaysia for its inaugural Shariah-compliant sustainability-linked financing facility totaling up to RM550 million.",
+   "published_at": "2023-01-09",
+   "source_url": "https://www.businesstoday.com.my/2023/01/09/gamuda-partners-ocbc-bank-for-its-first-islamic-esg-linked-financing-of-rm550-million/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5398-harvest-2",
+   "text": "Gamuda remains committed to renewable energy projects with a RM2bn capex budget set aside for the next 5 years, leveraging its 30% stake in ERS Energy Sdn Bhd.",
+   "published_at": "2024-03-15",
+   "source_url": "https://www.businesstoday.com.my/2024/03/15/gamuda-growing-esg-efforts-bearing-fruit-cgs-keeps-add/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5398-harvest-3",
+   "text": "Gamuda halted work at its Sungai Rasau site in Puchong following an embankment collapse at the Sungai Rasau Water Supply Scheme (Stage 1) project.",
+   "published_at": "2024-09-08",
+   "source_url": "https://www.malaymail.com/news/malaysia/2024/09/08/gamuda-halts-work-at-sungai-rasau-site-in-puchongfollowing-embankment-collapse/149657",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5398-harvest-4",
+   "text": "Gamuda issued a media statement on 16 May 2023 on the Penang South Reclamation project, which Sahabat Alam Malaysia, Consumers' Association of Penang and Penang Forum called self-serving and unsustainable.",
+   "published_at": "2023-05-16",
+   "source_url": "https://foe-malaysia.org/articles/ngos-respond-to-gamuda-bhd/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5608
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5734
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5761
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5683
+  }
+ },
+ "prompt_chars": 22786,
+ "kept": 5
+}

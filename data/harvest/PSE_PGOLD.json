@@ -1,0 +1,44 @@
+{
+ "company_id": "PSE:PGOLD",
+ "company": "Puregold",
+ "events": [
+  {
+   "event_id": "PSE:PGOLD-harvest-0",
+   "text": "In 2024, Puregold Price Club completed a corporate carbon footprint assessment and publicly disclosed its greenhouse gas emissions according to the GHG Protocol, covering Scope 1 and Scope 2.",
+   "published_at": "2024-01-01",
+   "source_url": "https://tracenable.com/company/puregold-price-club/ghg-emissions",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "controversy: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5479
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5308
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5572
+  },
+  "controversy": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  }
+ },
+ "prompt_chars": 16359,
+ "kept": 1
+}

@@ -1,6 +1,6 @@
 {
  "company_id": "SET:SCC",
- "company": "Siam Cement",
+ "company": "Siam Cement Group",
  "events": [
   {
    "event_id": "SET:SCC-harvest-0",
@@ -43,8 +43,8 @@
    "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; financing:2023: unparsed reply; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline",
- "snippet_count": 112,
+ "status": "emissions: offline; governance: offline; financing: offline; controversy: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
+ "snippet_count": 0,
  "angles": {
   "emissions": {
    "snippets": 0,
@@ -53,163 +53,24 @@
    "prompt_chars": 0
   },
   "governance": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5104
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
   },
   "financing": {
-   "snippets": 8,
+   "snippets": 0,
    "kept": 0,
-   "status": "live",
-   "prompt_chars": 6340
+   "status": "offline",
+   "prompt_chars": 0
   },
   "controversy": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 4599
-  },
-  "q_regulator": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6011
-  },
-  "q_exchange": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5935
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5449
-  },
-  "governance:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5371
-  },
-  "governance:2024": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 5111
-  },
-  "financing:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "unparsed reply",
-   "prompt_chars": 5906
-  },
-  "financing:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6149
-  },
-  "controversy:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 4628
-  },
-  "controversy:2024": {
-   "snippets": 8,
-   "kept": 1,
-   "status": "live",
-   "prompt_chars": 4854
-  },
-  "q_regulator:2023": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 6335
-  },
-  "q_regulator:2024": {
-   "snippets": 8,
-   "kept": 0,
-   "status": "live",
-   "prompt_chars": 5642
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
    "snippets": 0,
    "kept": 0,
    "status": "offline",
    "prompt_chars": 0
   }
  },
- "prompt_chars": 77434,
- "kept": 5,
- "merged_from_prior": 2
+ "prompt_chars": 0,
+ "kept": 5
 }

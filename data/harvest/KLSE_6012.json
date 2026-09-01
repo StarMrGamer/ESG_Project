@@ -1,0 +1,60 @@
+{
+ "company_id": "KLSE:6012",
+ "company": "MAXIS",
+ "events": [
+  {
+   "event_id": "KLSE:6012-harvest-0",
+   "text": "Maxis showcased its progress in emissions reduction and its initiatives to expand adoption of renewable energy across Malaysia, aiming to integrate environmental benefits through improvements in its network and operations.",
+   "published_at": "2025-06-01",
+   "source_url": "https://www.maxis.com.my/en/about-maxis/newsroom/2025/june/maxis-drives-green-initiatives-with-solar-expansion-and-emissions-efficiency/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:6012-harvest-1",
+   "text": "Maxis expands access to green energy with its Home Solar solution, enabling customers to reduce their carbon footprint and electricity costs.",
+   "published_at": "2025-06-01",
+   "source_url": "https://www.maxis.com.my/en/about-maxis/newsroom/2025/june/maxis-drives-green-initiatives-with-solar-expansion-and-emissions-efficiency/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:6012-harvest-2",
+   "text": "A former Maxis Broadband Sdn Bhd executive obtained compensation of more than RM1 million after the Industrial Court ruled the employer acted with bad intent (unfair dismissal).",
+   "published_at": "2025-01-21",
+   "source_url": "https://blog.jobstore.com/2025/01/21/dipecat-secara-tidak-adil-bekas-eksekutif-maxis-dapat-pampasan-lebih-rm1-juta/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5454
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4512
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5577
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5925
+  }
+ },
+ "prompt_chars": 21468,
+ "kept": 3
+}

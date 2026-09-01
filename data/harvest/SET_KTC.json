@@ -1,0 +1,60 @@
+{
+ "company_id": "SET:KTC",
+ "company": "Krungthai Card",
+ "events": [
+  {
+   "event_id": "SET:KTC-harvest-0",
+   "text": "In 2025, Krungthai Card achieved an AAA rating in the SET ESG Ratings.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/krungthai-card/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KTC-harvest-1",
+   "text": "In 2025, Krungthai Card maintained its inclusion in the FTSE4Good Index Series.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/krungthai-card/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KTC-harvest-2",
+   "text": "Krungthai Card committed to reach net-zero greenhouse gas emissions by 2050.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.sustainabilityreports.com/krungthai-card/2025/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5489
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5353
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5949
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4850
+  }
+ },
+ "prompt_chars": 21641,
+ "kept": 3
+}

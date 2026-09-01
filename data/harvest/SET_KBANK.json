@@ -1,0 +1,68 @@
+{
+ "company_id": "SET:KBANK",
+ "company": "Kasikornbank",
+ "events": [
+  {
+   "event_id": "SET:KBANK-harvest-0",
+   "text": "During the first half of 2023, the Bank's operating performance included implementation of a sector decarbonization strategy for four industries: power plants, oil and natural gas, coal and cement.",
+   "published_at": "2023-06-30",
+   "source_url": "https://www.nationthailand.com/blogs/business/banking-finance/40030855",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KBANK-harvest-1",
+   "text": "KBank began developing a GHG database system and carbon credit-related operations in 2012.",
+   "published_at": "2012-01-01",
+   "source_url": "https://www.thestorythailand.com/en/kbank-climate-strategy-2024/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KBANK-harvest-2",
+   "text": "IFC is investing up to US$100 million in a green bond issued by KBank, marking IFC's first investment in the Thai bank.",
+   "published_at": "2026-01-13",
+   "source_url": "https://news.fundsforngos.org/2026/01/13/thailands-green-economy-ifc-and-kasikornbank-join-forces-for-sustainable-finance/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KBANK-harvest-3",
+   "text": "KBank has set the target called Sustainable financing and Investment at least THB 100-200 billion within 2030.",
+   "published_at": "2025-01-01",
+   "source_url": "https://www.kasikornbank.com/en/sustainable-development/sustainability-bond/SustainableBondFramework/KBank-Green-Finance-Framework.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5539
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4729
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5395
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4922
+  }
+ },
+ "prompt_chars": 20585,
+ "kept": 4
+}

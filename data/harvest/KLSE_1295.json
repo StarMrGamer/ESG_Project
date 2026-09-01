@@ -1,0 +1,52 @@
+{
+ "company_id": "KLSE:1295",
+ "company": "PUBLIC BANK",
+ "events": [
+  {
+   "event_id": "KLSE:1295-harvest-0",
+   "text": "On 18 June 2025, the Federal Court ordered Public Bank Berhad to pay RM90 million in damages to National Feedlot Corporation (NFCorp), its chairman Datuk Mohamad Salleh Ismail, and three subsidiary companies for breach of contract to protect their bank account confidentiality.",
+   "published_at": "2025-06-18",
+   "source_url": "https://www.malaymail.com/news/malaysia/2025/06/18/federal-court-orders-public-bank-to-pay-rm90m-to-nfcorp-salleh-over-data-breach/180775",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1295-harvest-1",
+   "text": "On Aug 30, 2023, the Court of Appeal overturned the High Court's decision, finding Public Bank liable for breaching its duty of confidentiality, awarding only nominal damages of RM10,000 and ordering Public Bank to pay RM500,000 in costs.",
+   "published_at": "2023-08-30",
+   "source_url": "https://theedgemalaysia.com/node/759411",
+   "source_type": "news",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5354
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5268
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4689
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5926
+  }
+ },
+ "prompt_chars": 21237,
+ "kept": 2
+}

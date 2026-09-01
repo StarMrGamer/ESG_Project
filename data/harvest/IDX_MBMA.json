@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:MBMA",
+ "company": "Merdeka Battery Materials",
+ "events": [
+  {
+   "event_id": "IDX:MBMA-harvest-0",
+   "text": "Sustainable Bond I Merdeka Battery Materials Phase II Year 2025 Series B was listed on IDX on 21 August 2025 with nominal IDR 686,140,000,000, an 8.75% interest rate, and a maturity date of 20 August 2028.",
+   "published_at": "2025-08-21",
+   "source_url": "https://web.ksei.co.id/services/registered-securities/corporate-bonds/lc/MBMA01BCN2",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5412
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5155
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5620
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4660
+  }
+ },
+ "prompt_chars": 20847,
+ "kept": 1
+}

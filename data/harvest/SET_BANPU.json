@@ -1,0 +1,52 @@
+{
+ "company_id": "SET:BANPU",
+ "company": "Banpu",
+ "events": [
+  {
+   "event_id": "SET:BANPU-harvest-0",
+   "text": "As of 2025, Banpu has disclosed 3 climate targets, including 1 absolute reduction target and 2 intensity-based targets.",
+   "published_at": "2025-01-01",
+   "source_url": "https://tracenable.com/company/banpu/climate-targets",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:BANPU-harvest-1",
+   "text": "Banpu prepares a 5-year plan with a 3,000 million US dollar investment budget, split 60% into gas energy and 40% into renewable and other energy.",
+   "published_at": "2024-11-03",
+   "source_url": "https://forbesthailand.com/news/finance-and-investment/banpu-q-3-nov-2024",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5674
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5348
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5057
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5093
+  }
+ },
+ "prompt_chars": 21172,
+ "kept": 2
+}

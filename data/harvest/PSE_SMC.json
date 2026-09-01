@@ -1,0 +1,92 @@
+{
+ "company_id": "PSE:SMC",
+ "company": "San Miguel",
+ "events": [
+  {
+   "event_id": "PSE:SMC-harvest-0",
+   "text": "San Miguel Global Power Holdings Corp. has a Sustainability Committee Charter dated 3 August 2023 that sets out the Committee's role, authority, duties, responsibilities and procedures.",
+   "published_at": "2023-08-03",
+   "source_url": "https://smcglobalpower.com.ph/storage/files/reports/Board%20of%20Committees%20and%20Charters/SMGP-Sustainability-Committee-Charter-v-final.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMC-harvest-1",
+   "text": "MUFG Bank's Manila branch completed its first sustainable trade asset finance transactions with San Miguel Global Power and SN Aboitiz Power Magat Inc., supporting more than 1 gigawatt of renewable energy capacity under the Green Energy Auction programme.",
+   "published_at": "2026-01-12",
+   "source_url": "https://bilyonaryo.com/2026/01/12/angs-san-miguel-sn-aboitiz-tap-mufg-for-green-trade-facility/power/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMC-harvest-2",
+   "text": "San Miguel Global Power Holdings Corp. deployed ₱4.5 billion from its latest bond proceeds to accelerate the rollout of renewable energy projects.",
+   "published_at": "2026-04-25",
+   "source_url": "https://mb.com.ph/2026/04/25/san-miguel-power-deploys-45-billion-bond-cash-for-green-shift",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMC-harvest-3",
+   "text": "A priest slammed San Miguel's 'silence' on an oil spill, saying the company cannot be trusted with safety as long as it remains chained to the fossil fuel industry.",
+   "published_at": "2023-03-15",
+   "source_url": "https://www.pressreader.com/philippines/daily-tribune-philippines/20230315/281500755479898",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMC-harvest-4",
+   "text": "San Miguel Aerocity Inc.-owned Navotas landfill fire continued for a week since April 10, raising air pollution and health concerns in Metro Manila.",
+   "published_at": "2026-04-17",
+   "source_url": "https://tribune.net.ph/2026/04/17/san-miguel-owned-navotas-landfill-still-burning-after-a-week",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMC-harvest-5",
+   "text": "In the first quarter of 2022, San Miguel Corporation began preparatory work for a coal mine in the village.",
+   "published_at": "2024-09-01",
+   "source_url": "https://news.mongabay.com/2024/09/philippine-coal-mine-roars-into-production-amid-waves-of-complaints/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:SMC-harvest-6",
+   "text": "The Energy Regulatory Commission approved P31.34B cost recoveries for power firms, including P29.2B for San Miguel Global Power.",
+   "published_at": "2026-01-29",
+   "source_url": "https://tribune.net.ph/2026/01/29/regulatory-capture-back-in-the-saddle",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: unparsed reply",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "unparsed reply",
+   "prompt_chars": 5234
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5955
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5742
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5276
+  }
+ },
+ "prompt_chars": 22207,
+ "kept": 7
+}

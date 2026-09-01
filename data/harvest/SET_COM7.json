@@ -1,0 +1,35 @@
+{
+ "company_id": "SET:COM7",
+ "company": "Com Seven",
+ "events": [],
+ "status": "financing: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5574
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5282
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5643
+  }
+ },
+ "prompt_chars": 16499,
+ "kept": 0
+}

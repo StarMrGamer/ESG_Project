@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:INDY",
+ "company": "Indika Energy",
+ "events": [
+  {
+   "event_id": "IDX:INDY-harvest-0",
+   "text": "A ransomware claim was made against Indika Energy in 2024.",
+   "published_at": "2024-07-01",
+   "source_url": "https://recentbreaches.com/breach/indika-energy-hunters-2024-07",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5748
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5391
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5582
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5732
+  }
+ },
+ "prompt_chars": 22453,
+ "kept": 1
+}

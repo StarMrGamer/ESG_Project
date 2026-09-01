@@ -540,7 +540,8 @@ def _cli(argv):
         cons = universe.constituents(source)
         if not demo:
             import harvest
-            cons = harvest.apply_overlay(cons)
+            cons = harvest.apply_overlay(
+                cons, as_of=universe.load_universe(source).get("as_of") or "")
         for name in horizons:
             cfg = engine_config.for_horizon(name)
             run = engine.run_engine(cons, metadata=metadata, config=cfg)

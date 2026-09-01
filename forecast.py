@@ -306,9 +306,12 @@ def build_panel(demo=False, horizon=HORIZON_MONTHS, verbose=False):
     published before it. `engine.enforce_cutoff` ASSERTS that rather than trusting it.
     """
     cfg = engine_config.for_horizon("long")
-    cons = universe.constituents(universe.active_file(demo))
+    uni = universe.load_universe(universe.active_file(demo))
+    cons = uni["constituents"]
     if not demo:
-        cons = harvest.apply_overlay(cons)
+        # Guard 2b per universe — the harvest store is shared and the baskets have
+        # different horizons. See the note on `harvest.apply_overlay`.
+        cons = harvest.apply_overlay(cons, as_of=uni.get("as_of") or "")
     meta = company_metadata.load(demo=demo)
     tickers = [c["ticker"] for c in cons]
 

@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:ICBP",
+ "company": "Indofood CBP Sukses Makmur",
+ "events": [
+  {
+   "event_id": "IDX:ICBP-harvest-0",
+   "text": "KPK memeriksa Direktur Indofood CBP terkait dugaan korupsi bansos Covid-19 di Kemensos 2020, kasus yang merugikan negara Rp125 miliar.",
+   "published_at": "2025-08-06",
+   "source_url": "https://kabar24.bisnis.com/read/20250806/16/1899866/kpk-periksa-direktur-indofood-cbp-sukses-makmur-icbp-terkait-kasus-bansos-covid-19",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4929
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5067
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4819
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4648
+  }
+ },
+ "prompt_chars": 19463,
+ "kept": 1
+}

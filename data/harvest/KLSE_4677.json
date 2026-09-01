@@ -1,0 +1,76 @@
+{
+ "company_id": "KLSE:4677",
+ "company": "YTL",
+ "events": [
+  {
+   "event_id": "KLSE:4677-harvest-0",
+   "text": "YTL Power International Bhd reported Scope 1 emissions of 3,921 kilotonnes of carbon dioxide equivalent, Scope 2 emissions of 150 ktCO2e, and a first Scope 3 disclosure of 45 ktCO2e for the fiscal year ended June 30, 2023.",
+   "published_at": "2023-06-30",
+   "source_url": "https://www.sustainabilityreports.com/ytl-power-international/2023/esg-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4677-harvest-1",
+   "text": "YTL Power International's 2023 sustainability report sets a Group target to become carbon neutral in operations by 2050.",
+   "published_at": "2023-06-30",
+   "source_url": "https://www.sustainabilityreports.com/ytl-power-international/2023/esg-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4677-harvest-2",
+   "text": "YTL PowerSeraya is targeting a 60% reduction in Scope 1 GHG emissions by 2030 (from 2010 levels) and carbon neutral Scope 2 by 2030.",
+   "published_at": "2024-10-01",
+   "source_url": "https://www.ytlpowerinternational.com/wp-content/uploads/sites/2/2024/10/YTLPI_ESG2024.pdf?x54494",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4677-harvest-3",
+   "text": "Wessex Water aims for net zero operations by 2030 and YTL PowerSeraya targets a 60% emissions reduction by 2030, as reported in YTL Corp's fiscal year ended June 30, 2023 sustainability report.",
+   "published_at": "2023-06-30",
+   "source_url": "https://www.sustainabilityreports.com/ytl-corporation/2023/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:4677-harvest-4",
+   "text": "YTL Power plans to develop Malaysia's first 500MW green data centre park in Kulai, Johor, integrated with on-site solar photovoltaic power.",
+   "published_at": "2023-01-19",
+   "source_url": "https://www.maybank.com/iwov-resources/documents/pdf/corporate-news-release/2023/20230119-Press-Release-YTL-DC.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 5192
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5262
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5867
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5767
+  }
+ },
+ "prompt_chars": 22088,
+ "kept": 5
+}

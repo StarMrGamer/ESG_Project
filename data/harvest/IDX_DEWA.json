@@ -1,0 +1,76 @@
+{
+ "company_id": "IDX:DEWA",
+ "company": "Darma Henwa",
+ "events": [
+  {
+   "event_id": "IDX:DEWA-harvest-0",
+   "text": "In 2024, PT Darma Henwa achieved zero workplace fatalities.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-darma-henwa/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:DEWA-harvest-1",
+   "text": "In 2024, PT Darma Henwa rehabilitated 186.53 hectares of land.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-darma-henwa/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:DEWA-harvest-2",
+   "text": "In 2024, PT Darma Henwa planted 253,534 trees.",
+   "published_at": "2024-12-31",
+   "source_url": "https://www.sustainabilityreports.com/pt-darma-henwa/2024/annual-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:DEWA-harvest-3",
+   "text": "PT Darma Henwa Tbk (DEWA) plans its 2026 capex focused on efficiency and technology without bank loans, using vendor financing.",
+   "published_at": "2026-01-06",
+   "source_url": "https://market.bisnis.com/read/20260106/192/1942095/darma-henwa-dewa-beberkan-kisi-kisi-capex-2026",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:DEWA-harvest-4",
+   "text": "Lahan perkebunan kelapa sawit milik warga Ibu Wati di Desa Kintap Kecil, Kecamatan Kintap, mengalami kerusakan parah diduga akibat terendam air limbah dari aktivitas pertambangan PT Dharma Henwa pada Senin (25/5/2026).",
+   "published_at": "2026-05-25",
+   "source_url": "https://www.mediajurnalinvestigasi.com/2026/05/warga-di-kintap-diduga-tercemar-limbah.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5443
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5271
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6017
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4542
+  }
+ },
+ "prompt_chars": 21273,
+ "kept": 5
+}

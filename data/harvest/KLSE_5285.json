@@ -1,0 +1,68 @@
+{
+ "company_id": "KLSE:5285",
+ "company": "SD GUTHRIE",
+ "events": [
+  {
+   "event_id": "KLSE:5285-harvest-0",
+   "text": "A sessions court acquitted a subsidiary of SD Guthrie Bhd of an environmental pollution charge from four years ago.",
+   "published_at": "2025-02-13",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2025/02/13/sd-guthrie-subsidiary-acquitted-of-environmental-pollution-charge",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5285-harvest-1",
+   "text": "SD Guthrie has been a member of the Roundtable on Sustainable Palm Oil since 2004.",
+   "published_at": "2024-12-16",
+   "source_url": "https://www.klsescreener.com/v2/news/view/1443081/frankly-speaking-no-small-offence",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5285-harvest-2",
+   "text": "SD Guthrie denied allegations that it was involved in illegal logging or forest encroachment in Indonesia, as stated by group managing director Datuk Mohamad Helmy Othman Basha.",
+   "published_at": "2025-08-01",
+   "source_url": "https://www.bharian.com.my/bisnes/korporat/2025/08/1430275/bhplus",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:5285-harvest-3",
+   "text": "SD Guthrie said equipment disruption caused effluent discharge and admitted falling short, adding other steps have been taken to prevent such disruptions in the future.",
+   "published_at": "2024-12-11",
+   "source_url": "https://www.freemalaysiatoday.com/category/nation/2024/12/11/equipment-disruption-caused-effluent-discharge-says-sd-guthrie",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "emissions: offline; governance: offline; financing: offline",
+ "snippet_count": 8,
+ "angles": {
+  "emissions": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "governance": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 4,
+   "status": "live",
+   "prompt_chars": 4951
+  }
+ },
+ "prompt_chars": 4951,
+ "kept": 4
+}

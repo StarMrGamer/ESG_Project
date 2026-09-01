@@ -220,7 +220,10 @@ def main(argv):
         # the money slide and the screen quietly report different M, which is the one thing this
         # module exists to prevent.
         import harvest
-        cons = harvest.apply_overlay(cons)
+        # `as_of` is the universe's own horizon — guard 2b, re-applied per universe, because
+        # the harvest store is shared between baskets that do not share a clock.
+        cons = harvest.apply_overlay(
+            cons, as_of=universe.load_universe(source).get("as_of") or "")
     run = engine.run_engine(cons, metadata=metadata, use_cache=False)
     result = counts(run, metadata, cfg)
 

@@ -1,0 +1,60 @@
+{
+ "company_id": "SET:KCE",
+ "company": "KCE Electronics",
+ "events": [
+  {
+   "event_id": "SET:KCE-harvest-0",
+   "text": "KCE Electronics maintained a capacity utilization rate of approximately 77% in fiscal year 2023.",
+   "published_at": "2023-12-31",
+   "source_url": "https://www.sustainabilityreports.com/kce-electronics/2023/one-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KCE-harvest-1",
+   "text": "KCE Electronics pcl. is included in the '2017 ESG100 Companies' of THAIPAT's ESG Rating Unit.",
+   "published_at": "2017-01-01",
+   "source_url": "https://www.kce.co.th/Eng/index.aspx",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "SET:KCE-harvest-2",
+   "text": "KCE Electronics received 'SET AWARDS 2016 Best Company'.",
+   "published_at": "2016-01-01",
+   "source_url": "https://www.kce.co.th/Eng/index.aspx",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5447
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5115
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5937
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 4113
+  }
+ },
+ "prompt_chars": 20612,
+ "kept": 3
+}

@@ -1,0 +1,60 @@
+{
+ "company_id": "IDX:UNVR",
+ "company": "Unilever Indonesia",
+ "events": [
+  {
+   "event_id": "IDX:UNVR-harvest-0",
+   "text": "The ULE reviews progress against Unilever's Net Zero by 2039 ambition, near-term Scope 1 & 2 GHG reduction target, and near-term Scope 3 GHG reduction targets quarterly.",
+   "published_at": "2023-02-21",
+   "source_url": "https://www.unilever.com/files/8b5df5f6-cb90-40fd-9691-38d06905d81d/unilever-climate-transition-action-plan-accessible-21022023.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:UNVR-harvest-1",
+   "text": "Unilever published its People and Nature Grievance Tracker (November 2025) to report grievances raised about alleged breaches of its People and Nature Policy.",
+   "published_at": "2025-11-01",
+   "source_url": "https://www.unilever.com/files/people-and-nature-grievance-tracker.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:UNVR-harvest-2",
+   "text": "A 2023 brand audit in India, Indonesia, the Philippines, and Vietnam identified Unilever as the top sachet polluter in the region, according to complainants.",
+   "published_at": "2026-04-27",
+   "source_url": "https://businessmirror.com.ph/2026/04/27/csos-file-complaint-against-top-sachet-polluter/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 4759
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5613
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5783
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5702
+  }
+ },
+ "prompt_chars": 21857,
+ "kept": 3
+}

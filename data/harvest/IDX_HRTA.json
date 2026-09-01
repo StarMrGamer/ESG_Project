@@ -1,0 +1,44 @@
+{
+ "company_id": "IDX:HRTA",
+ "company": "Hartadinata Abadi",
+ "events": [
+  {
+   "event_id": "IDX:HRTA-harvest-0",
+   "text": "KPK memeriksa Direktur PT Hartadinata Abadi, Ferriyady Hartadinata, sebagai saksi dalam kasus dugaan korupsi investasi fiktif PT Taspen (Persero) tahun anggaran 2019 pada Rabu (12/2/2025).",
+   "published_at": "2025-02-12",
+   "source_url": "https://www.porosjakarta.com/hukum/065675855/kpk-periksa-direktur-pt-hartadinata-abadi-terkait-korupsi-pt-taspen",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "financing: offline",
+ "snippet_count": 24,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5661
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4836
+  },
+  "financing": {
+   "snippets": 0,
+   "kept": 0,
+   "status": "offline",
+   "prompt_chars": 0
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5129
+  }
+ },
+ "prompt_chars": 15626,
+ "kept": 1
+}

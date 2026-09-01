@@ -1,6 +1,6 @@
 {
  "company_id": "PSE:TEL",
- "company": "PLDT Inc",
+ "company": "PLDT",
  "events": [
   {
    "event_id": "PSE:TEL-harvest-0",
@@ -49,174 +49,69 @@
    "source_url": "https://lawphil.net/judjuris/juri2024/feb2024/gr_244695_2024.html",
    "source_type": "company_pr",
    "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:TEL-harvest-6",
+   "text": "PLDT Group's decarbonization roadmap aims to reduce its Scope 1 and Scope 2 GHG emissions by 40 percent by 2030, from a 2019 baseline.",
+   "published_at": "2024-09-22",
+   "source_url": "https://context.ph/2024/09/22/pldt-transition-to-renewable-energy/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:TEL-harvest-7",
+   "text": "Metrobank approved PLDT's P4 billion green loan, PLDT's first green loan from a local financial institution and its second green loan following the P1 billion secured from HSBC Philippines last March.",
+   "published_at": "2024-05-07",
+   "source_url": "https://mb.com.ph/2024/5/7/pldt-s-p4-b-green-loan-approved-by-metrobank",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:TEL-harvest-8",
+   "text": "PLDT announced through a disclosure to the local bourse that it secured a P4-billion green loan from Metrobank, bringing its total green debt to P5 billion.",
+   "published_at": "2024-05-08",
+   "source_url": "https://businessmirror.com.ph/2024/05/08/pldts-total-green-debt-hits-p5-billion-after-mbtc-loan/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "PSE:TEL-harvest-9",
+   "text": "The Supreme Court backs the ruling of Court of Appeals to regularize employees of PLDT engaged in installation, repair, and maintenance services.",
+   "published_at": "2024-03-08",
+   "source_url": "https://tribune.net.ph/2024/03/08/sc-orders-regularization-of-pldt-workers",
+   "source_type": "company_pr",
+   "_origin": "harvest"
   }
  ],
- "status": "emissions: offline; governance: offline; financing: offline; controversy: offline; q_regulator: offline; q_exchange: offline; q_index: offline; q_watchdog: offline; q_news: offline; emissions:2023: offline; emissions:2024: offline; governance:2023: offline; governance:2024: offline; financing:2023: offline; financing:2024: offline; controversy:2023: offline; controversy:2024: offline; q_regulator:2023: offline; q_regulator:2024: offline; q_exchange:2023: offline; q_exchange:2024: offline; q_index:2023: offline; q_index:2024: offline; q_watchdog:2023: offline; q_watchdog:2024: offline; q_news:2023: offline; q_news:2024: offline | kept prior evidence: this sweep returned nothing (search offline), so stored events were preserved",
- "snippet_count": 0,
+ "status": "ok",
+ "snippet_count": 32,
  "angles": {
   "emissions": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5430
   },
   "governance": {
-   "snippets": 0,
+   "snippets": 8,
    "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "status": "live",
+   "prompt_chars": 5406
   },
   "financing": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5559
   },
   "controversy": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "emissions:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "governance:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "financing:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "controversy:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_regulator:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_exchange:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_index:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_watchdog:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2023": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
-  },
-  "q_news:2024": {
-   "snippets": 0,
-   "kept": 0,
-   "status": "offline",
-   "prompt_chars": 0
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5990
   }
  },
- "prompt_chars": 0,
- "kept": 6
+ "prompt_chars": 22385,
+ "kept": 10,
+ "merged_from_prior": 6
 }

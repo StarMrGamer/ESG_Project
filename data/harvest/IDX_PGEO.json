@@ -1,0 +1,76 @@
+{
+ "company_id": "IDX:PGEO",
+ "company": "Pertamina Geothermal Energy",
+ "events": [
+  {
+   "event_id": "IDX:PGEO-harvest-0",
+   "text": "Pertamina Geothermal Energy recorded revenue from carbon credit for the first time in 2022.",
+   "published_at": "2022-01-01",
+   "source_url": "https://www.pge.pertamina.com/en/siaran-pers/the-aggressive-energy-transition-of-pertamina-geothermal-energy-has-successfully-recorded-revenue-from-carbon-credit",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PGEO-harvest-1",
+   "text": "Disclosure of Information on Changes to the Audit Committee dated 02-December-2025.",
+   "published_at": "2025-12-02",
+   "source_url": "https://www.pge.pertamina.com/en/information-disclosure",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PGEO-harvest-2",
+   "text": "Disclosure of Information on the Resignation of Members of the Board of Directors of PT Pertamina Geothermal Energy Tbk dated 27-Nopember-2025.",
+   "published_at": "2025-11-27",
+   "source_url": "https://www.pge.pertamina.com/en/information-disclosure",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PGEO-harvest-3",
+   "text": "In April 2023 PT Pertamina Geothermal Energy priced its inaugural $400 million five-year green bonds at 5.15%, the first green issuance from a sovereign-linked corporate in Indonesia.",
+   "published_at": "2023-04-01",
+   "source_url": "https://www.environmental-finance.com/content/awards/environmental-finances-sustainable-debt-awards-2024/winners/green-bond-of-the-year-corporate-(apac)-pt-pertamina-geothermal.html",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "IDX:PGEO-harvest-4",
+   "text": "PT Pertamina Geothermal Energy published its Green Financing Framework in May 2022, managing 13 working areas as a leading geothermal energy producer in Indonesia.",
+   "published_at": "2022-05-01",
+   "source_url": "https://www.scribd.com/document/1011290572/Green-Financing-Framework-May-2022-VF",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 5983
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 5001
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 2,
+   "status": "live",
+   "prompt_chars": 6328
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5960
+  }
+ },
+ "prompt_chars": 23272,
+ "kept": 5
+}

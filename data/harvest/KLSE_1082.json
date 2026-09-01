@@ -1,0 +1,68 @@
+{
+ "company_id": "KLSE:1082",
+ "company": "HONG LEONG FINANCIAL GROUP",
+ "events": [
+  {
+   "event_id": "KLSE:1082-harvest-0",
+   "text": "In FY2024, HLFG established a Group-wide Net Zero by 2050 commitment and set short-term targets for all key operating companies to reduce emissions with a 15% to 25% reduction of Scope 1 & 2 GHG emissions by FY2026.",
+   "published_at": "2024-06-30",
+   "source_url": "https://www.hlfg.com.my/sustainability/img/pdf/HLFG_Sustainability_Statement_2024.pdf",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1082-harvest-1",
+   "text": "Hong Leong Financial Group Berhad achieved a 29% reduction in Group-wide Scope 1 and Scope 2 greenhouse gas emissions from the FY2019 baseline in the fiscal year ended June 30, 2025.",
+   "published_at": "2025-06-30",
+   "source_url": "https://www.sustainabilityreports.com/hong-leong-financial/2025/sustainability-statement",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1082-harvest-2",
+   "text": "Hong Leong Financial Group's FY2024 sustainability report highlights a 27% reduction in Scope 1 and 2 emissions since 2019 and achieving 57% female representation on the Board of Directors.",
+   "published_at": "2024-06-30",
+   "source_url": "https://www.sustainabilityreports.com/hong-leong-financial/2024/sustainability-report",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  },
+  {
+   "event_id": "KLSE:1082-harvest-3",
+   "text": "Hong Leong Financial Group's commercial bank inaugurated the Sustainable Finance Framework, mobilising RM20 billion over the next five years for green projects in renewable energy, energy efficiency, green building, clean transportation and logistics, and waste management.",
+   "published_at": "2024-11-28",
+   "source_url": "https://www.businesstoday.com.my/2024/11/28/hong-leong-financial-group-pursues-esg-via-rm20-billion-sff-and-rm900-million-green-bonds-notes/",
+   "source_type": "company_pr",
+   "_origin": "harvest"
+  }
+ ],
+ "status": "ok",
+ "snippet_count": 32,
+ "angles": {
+  "emissions": {
+   "snippets": 8,
+   "kept": 3,
+   "status": "live",
+   "prompt_chars": 5285
+  },
+  "governance": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 5146
+  },
+  "financing": {
+   "snippets": 8,
+   "kept": 1,
+   "status": "live",
+   "prompt_chars": 6460
+  },
+  "controversy": {
+   "snippets": 8,
+   "kept": 0,
+   "status": "live",
+   "prompt_chars": 4289
+  }
+ },
+ "prompt_chars": 21180,
+ "kept": 4
+}
