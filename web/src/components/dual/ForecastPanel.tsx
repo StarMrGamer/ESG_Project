@@ -54,15 +54,19 @@ export default function ForecastPanel({ forecast, company }:
         <span className="cc-muted">two model reads and a published base rate — none is advice</span>
       </div>
 
-      {/* DIRECTION FIRST — it is the question that was actually asked ("which way"), and it is a
-          fairer test than magnitude: a model can be hopeless at how far and still be useful about
-          which way. This one is not, and says so. */}
+      {/* The three blocks are three readings of ONE question, so they lay out side by side in a
+          row rather than stacking — see `.fc-blocks`. DIRECTION comes first: it is the question
+          that was actually asked ("which way"), and it is a fairer test than magnitude, because
+          a model can be hopeless at how far and still be useful about which way. This one is
+          not, and says so. */}
+      <div className="fc-blocks">
       {forecast.available && forecast.direction && (
         <Direction d={forecast.direction} live={forecast.factors_live || []} />
       )}
 
       {forecast.available && forecast.verdict ? (
-        <div className={`fc-model ${TONE[forecast.verdict.word] || 'fc-muted'}`}>
+        <div className={`fc-model ${TONE[forecast.verdict.word] || 'fc-muted'}`}
+          title={`${forecast.not_advice}\n\n${forecast.sample_caveat}`}>
           <div className="fc-row">
             <div className="fc-est">
               <span className="fc-k">Model estimate · {forecast.horizon_months}-month return</span>
@@ -94,8 +98,6 @@ export default function ForecastPanel({ forecast, company }:
               </span>
             </div>
           )}
-          <p className="fc-caveat cc-muted">{forecast.sample_caveat}</p>
-          <p className="fc-caveat cc-muted">{forecast.not_advice}</p>
         </div>
       ) : (
         <p className="fc-line cc-muted">
@@ -104,8 +106,9 @@ export default function ForecastPanel({ forecast, company }:
       )}
 
       {/* The evidenced half. A measured historical frequency, attributed, with its own author's
-          warning that it does not transfer to one stock — printed with it, not beneath a fold. */}
+          warning that it does not transfer to one stock — on the block as a tooltip. */}
       {outlook?.available && <BaseRate outlook={outlook} holding={settings.profile.holding} />}
+      </div>
     </div>
   )
 }
@@ -146,18 +149,19 @@ function Direction({ d, live }: { d: DirectionPayload; live: string[] }) {
           calibration <b>{d.skill.brier.toFixed(3)}</b> vs {d.skill.brier_baseline.toFixed(3)}
         </span>
       </div>
-      {/* Naming the missing factors is the point: this is Fama-French STYLE, and calling it the
-          real thing while two of the canonical factors are absent would be the overclaim. */}
-      <p className="fc-caveat cc-muted">
-        <b>Factors used:</b>{' '}
-        {d.factors_present.map(f => FACTOR_LABEL[f] || f).join(' · ')}
-        {live.length > 0 && <> — market factors read live for this company.</>}
-      </p>
-      <p className="fc-caveat cc-muted">
-        <b>Missing:</b>{' '}
-        {Object.entries(d.factors_missing).map(([k, why]) => `${k} (${why})`).join('; ')}. Neither
-        is proxied — substituting something else for size or value would be inventing a factor.
-      </p>
+      {/* Naming the missing factors is still the point — this is Fama-French STYLE and calling
+          it the real thing would be the overclaim — but it is a chip with the detail on hover
+          rather than two paragraphs of prose under every company. */}
+      <div className="fc-skill">
+        <span title={`Factors used: ${d.factors_present.map(f => FACTOR_LABEL[f] || f).join(' · ')}`
+          + (live.length ? '\n\nMarket factors read live for this company.' : '')}>
+          {d.factors_present.length} factors
+        </span>
+        <span title={Object.entries(d.factors_missing).map(([k, why]) => `${k} — ${why}`).join('\n')
+          + '\n\nNeither is proxied: substituting something else for size or value would be inventing a factor.'}>
+          {Object.keys(d.factors_missing).join(' + ')} missing
+        </span>
+      </div>
     </div>
   )
 }
@@ -174,7 +178,8 @@ function BaseRate({ outlook, holding }: { outlook: OutlookPayload; holding: stri
   const rate = outlook.horizons[key] ?? outlook.rate
 
   return (
-    <div className="fc-base">
+    <div className="fc-base"
+      title={`${outlook.source.publisher}, ${outlook.source.title}, ${outlook.source.date}.\n\n${outlook.not_a_forecast}`}>
       <div className="fc-row">
         <div className="fc-est">
           <span className="fc-k">Published base rate · {HORIZON_WORD[key]}</span>
@@ -192,10 +197,6 @@ function BaseRate({ outlook, holding }: { outlook: OutlookPayload; holding: stri
       </div>
       {/* The author's own caveat, at the same size as the figure it qualifies. */}
       <p className="fc-line">&ldquo;{outlook.caveat}&rdquo;</p>
-      <p className="fc-caveat cc-muted">
-        {outlook.source.publisher}, <i>{outlook.source.title}</i>, {outlook.source.date}.{' '}
-        {outlook.not_a_forecast}
-      </p>
     </div>
   )
 }

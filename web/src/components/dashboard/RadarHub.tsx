@@ -288,13 +288,6 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
               <PPPTriangle shares={focused.ppp} company={focused.constituent.company} />
             )}
 
-            {/* The forward view — a model estimate carrying the skill it actually measured, and
-                beside it the published base rate that IS evidenced. Last in the column on
-                purpose: everything above it is a report of what happened, and this is the only
-                thing on the board that guesses. */}
-            {focused?.forecast && (
-              <ForecastPanel forecast={focused.forecast} company={focused.constituent.company} />
-            )}
             </div>
 
             {summary && (
@@ -385,6 +378,18 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
 
       <Satellite pillar={byKey.social} area="sw" scale={scale} />
       <Satellite pillar={byKey.digital_ai} area="se" scale={scale} />
+
+      {/* THE FORWARD VIEW gets its own full-width row, under the four pillar readings and above
+          the action. That is the order the reader arrives at it in: here is what the evidence
+          says, here is what the market has done, and only THEN the one panel on the board that
+          guesses — with the action it leads to directly beneath. It is horizontal because its
+          three blocks (direction, model estimate, published base rate) are three readings of one
+          question, and stacked in a narrow column they read as three separate findings. */}
+      {focused?.forecast && (
+        <div className="hub-fwd">
+          <ForecastPanel forecast={focused.forecast} company={focused.constituent.company} />
+        </div>
+      )}
 
       {focused && (
         <div className="hub-foot">

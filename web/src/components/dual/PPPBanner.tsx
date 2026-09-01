@@ -57,7 +57,6 @@ export default function PPPBanner() {
 
   if (!dual || !engine) return null
   const c = dual.counts
-  const lens = LENS_COPY[settings.ppp]
 
   return (
     <div className="ppp-banner" data-tour="ppp">
@@ -74,7 +73,11 @@ export default function PPPBanner() {
 
       {/* Measured off this run, every time. No stored statistic, no hit rate, no failure rate —
           see the note at the top of this file for why that is a deliberate absence. */}
-      <div className="ppp-counts">
+      <div className="ppp-counts"
+        title={`Counts measured off run ${engine.run_id}`
+          + (dual.captured ? ` · prices captured ${dual.captured} · ${dual.window} factor` : '')
+          + '\n\nNo accuracy or failure-rate figure is shown, because no backtest in this repo has produced one.'
+          + (dual.unavailable ? `\n\n${dual.unavailable}` : '')}>
         <span className="ppp-pill ppp-good">
           <b>{c.aligned}</b> dual-momentum aligned
         </span>
@@ -89,16 +92,17 @@ export default function PPPBanner() {
         </span>
       </div>
 
-      <div className="ppp-foot cc-muted">
-        {/* A row of zeros with no explanation reads as a broken panel rather than as a demo. */}
-        {dual.unavailable && <><b>No price axis in this universe.</b> {dual.unavailable}{' '}</>}
-        {lens.does}
-        {dimmed > 0 && <> <b>{dimmed}</b> dimmed — {PPP_DIM_REASON[settings.ppp]}. Dimmed, never hidden.</>}
-        {' '}Counts measured off run <b>{engine.run_id}</b>
-        {dual.captured && <> · prices captured {dual.captured} · {dual.window} factor</>}.
-        No accuracy or failure-rate figure is shown, because no backtest in this repo has
-        produced one.
-      </div>
+      {/* The prose that used to sit here — what the lens does, the run id, the capture date and
+          the no-accuracy-figure disclosure — is on the controls and the pills as tooltips. It is
+          the same information; four lines of grey text under every board is not where it earns
+          its place. What stays visible is the ONE thing that changes as you click: how many
+          names this lens is dimming right now. */}
+      {(dimmed > 0 || dual.unavailable) && (
+        <div className="ppp-foot cc-muted">
+          {dual.unavailable && <b>No price axis in this universe. </b>}
+          {dimmed > 0 && <><b>{dimmed}</b> dimmed — {PPP_DIM_REASON[settings.ppp]}. Dimmed, never hidden.</>}
+        </div>
+      )}
     </div>
   )
 }
