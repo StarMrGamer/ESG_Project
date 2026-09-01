@@ -75,15 +75,24 @@ stay on screen.
 
 ### Scene 3 · She builds her own board — 0:23–0:32
 
-**VISUAL** The module chips at the foot of the board, then the level switch and universe control.
-**ACTION** Pin two chips on, drop one off. Flip **Preferences → Everything**. Switch **CGSI 52 →
-ASEAN indexes** and back.
+**VISUAL** The level switch, then the module chips at the foot of the board.
+**ACTION** Flip **Everything → Preferences** — the board contracts. Pin two chips back on, one at
+a time. Flip back to **Everything**.
 
-> And the board is hers. Pin what she wants, drop the rest, swap the universe. Same run
-> underneath.
+*(Demonstrate the picker at Preferences, not at Everything: at level 3 almost every module is
+already native, so exactly one chip is offerable and the row has nothing to show.)*
+
+> And the board is hers. Pin the panels she wants, drop the rest, step the whole screen up or
+> down. Same run underneath.
 
 *(Layout only — nothing dims or hides, so it reads as customisation rather than a filter. Keep
 the clicks unhurried; this is the shortest scene and the easiest to fumble.)*
+
+**The universe control is deliberately not touched.** The whole reel is the CGSI 52 — the only
+selection the basket-performance claim describes. Flipping to the 185-name index universe
+mid-scene, even briefly, puts a board on screen the narration is not describing, and every figure
+spoken over it (fifty-two companies, ten names, plus zero point seven eight) belongs to the other
+one.
 
 ### Scene 4 · Adaptive interrogation — 0:32–0:49
 
