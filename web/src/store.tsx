@@ -19,6 +19,24 @@ export type Holding = 'under_2y' | '2_5y' | '5y_plus'
  * is the same discipline the risk tiers already follow.
  */
 export type Focus = 'broad' | 'green'
+
+/**
+ * The PPP trilemma — how this fund balances Profit, People and Planet. It is a LENS over one
+ * unchanged run, not a second scoring model: no weight in `engine_config.json` moves, no record
+ * is re-scored, and `disagreement` keeps meaning exactly what every surface says it means.
+ * What changes is which names are dimmed and which of the two momentum directions leads.
+ *
+ *   profit  — Profit First. Price momentum leads and ESG is a strict DOWNSIDE GATE: a name
+ *             whose dated evidence is deteriorating dims however well the price has run. That
+ *             is the "Divergence — downside risk" shape, used as a veto rather than a note.
+ *   balanced— the default. Both directions shown, neither leading, nothing dimmed.
+ *   planet  — Sustainability Focus. The labelled green-bond hurdle first, which is the same
+ *             `green_bond_status` field the Conservative tier and the N bucket read.
+ *
+ * Every one of the three DOES something on screen. A question whose answer only changes a
+ * summary line is decoration, and worse than not asking — see the setup note in CLAUDE.md.
+ */
+export type PPP = 'profit' | 'balanced' | 'planet'
 /**
  * How much of the board is on screen. This is the layering control: every widget declares the
  * level it earns its place at, and nothing above the current level renders. Level 1 is the
@@ -51,19 +69,21 @@ export type View =
   | { name: 'compare'; tickers: string[] }
   | { name: 'evidence'; ticker: string }
 
-/**
- * WHO is reading. Not a permission and not a data switch — the same run, the same arithmetic,
- * rendered for two different readers.
+/*
+ * THERE IS NO `audience` SETTING ANY MORE (removed 2026-09-01).
  *
- *   investor — the default, and the one a first-time visitor gets. Findings as sentences, the
- *              desk furniture (percentiles, N/M/K, tiers, run ids, the Merkle root) folded away.
- *   analyst  — the app as built: every number, every control, nothing translated.
+ * The app carried two renderings of one run: an `investor` view that put every finding in plain
+ * sentences and folded the desk furniture away, and the `analyst` view it was built as. That
+ * fork existed for a reader holding forty shares of the bank in question — and that is not who
+ * this is for. The audience is a CGSI ESG investor: someone who reads a research note, knows
+ * what a percentile is, and needs the run id, the cohort, the tiers and the thresholds ON SCREEN
+ * rather than one click behind a "Show the numbers" button.
  *
- * It is deliberately NOT another level. `level` answers "how much of the board", `audience`
- * answers "in whose vocabulary" — and an analyst on Preferences and an investor on Everything
- * are both coherent things to be.
+ * So the plain rendering is gone rather than defaulted-off — `InvestorCard`, `MatchList` and
+ * `lib/plain.ts` with it. Two renderings of one number always drift, and the softer one wins the
+ * drift: it is the one nobody re-checks against the engine. Every surface now states the figure
+ * the engine computed, with its provenance beside it, and says plainly what it cannot answer.
  */
-export type Audience = 'investor' | 'analyst'
 
 /** Which half of the app is on screen. See `Settings.tab`. */
 export type BoardTab = 'board' | 'context' | 'clients' | 'manual'
@@ -103,7 +123,6 @@ export interface Settings {
    * board — and because Reconfigure must be able to re-run one without replaying the other.
    */
   tourDone: boolean
-  audience: Audience
   /**
    * The company on screen, remembered across reloads.
    *
@@ -112,8 +131,6 @@ export interface Settings {
    * back on somebody else's company while the header still says "looking at" theirs.
    */
   focus: string
-  /** Investor view only: reveal the analyst rendering in place. Never a wall, always a click. */
-  showNumbers: boolean
   /**
    * A walkthrough asked for BY NAME, rather than the first-run one. '' is none; 'matrix' explains
    * the disagreement plot corner by corner. It outranks `tourDone` — someone who clicks "What am
@@ -149,8 +166,21 @@ export interface Settings {
   /**
    * Thematic preference from the setup. Like `tier` this DIMS rather than hides: a green-finance
    * mandate still has to be able to see the name it is choosing not to hold.
+   *
+   * DERIVED from `ppp` in setSettings, exactly as `simplified` is derived from `level`: the
+   * Sustainability Focus lens IS the green-bond hurdle, and two controls that can express the
+   * same preference differently will eventually disagree on screen.
    */
   greenFocus: boolean
+  /** The PPP trilemma lens. See the `PPP` type for what each one actually does. */
+  ppp: PPP
+  /*
+   * `matrixPlot` is gone (2026-09-01). The panel briefly carried two plots behind a toggle —
+   * incumbent rating across, or price across — and the rating one was removed on instruction.
+   * With one plot left the setting had nothing to select, so it went rather than persisting a
+   * value nothing reads. The rating percentile is still on every record and still drives every
+   * quadrant LABEL; it is the drawing that was dropped, not the engine.
+   */
 }
 
 /** Everything the setup flow decides, applied in one shot so the board refetches once. */
@@ -164,6 +194,7 @@ export interface SetupChoice {
   tier: TierKey
   horizon: HorizonKey
   level: Level
+  ppp: PPP
   label: string
 }
 
@@ -173,12 +204,12 @@ interface ChatMsg { role: 'user' | 'assistant'; text: string }
 const SETTINGS_KEY = 'esg-radar-settings'
 const DEFAULTS: Settings = {
   demo: true, dark: true, simplified: true, level: 1, tab: 'board', setupDone: false,
-  tourDone: false, extras: [], audience: 'investor', showNumbers: false, focus: '', tourDeck: '',
+  tourDone: false, extras: [], focus: '', tourDeck: '',
   profile: { mandate: '', goal: '', holding: '', focus: '', label: '' },
   filters: { country: 'All', sector: 'All' },
   leftOpen: false, rightOpen: false,
   ragEnabled: true, ragTopK: 5, tier: 'balanced', horizon: 'long', pipelineOnly: false,
-  greenFocus: false,
+  greenFocus: false, ppp: 'balanced',
 }
 
 function loadSettings(): Settings {
@@ -189,6 +220,15 @@ function loadSettings(): Settings {
       // Level 2 is gone. Migrate up, never down — losing panels you had is a worse surprise
       // than gaining the matrix, and every one of them is a chip away either direction.
       if ((stored.level as number) === 2) stored.level = 3
+      // The investor rendering is gone. A browser that stored `audience: 'investor'` also stored
+      // `level: 1`, which was that view's home — leaving it there would open the full analyst
+      // board with most of it switched off, which reads as a broken upgrade rather than a
+      // removed feature. Both keys are dropped and the level comes up with them.
+      if ('audience' in stored) {
+        if (stored.audience === 'investor' && (stored.level as number) === 1) stored.level = 3
+        delete (stored as Record<string, unknown>).audience
+        delete (stored as Record<string, unknown>).showNumbers
+      }
       return stored
     }
   } catch { /* fresh defaults */ }
@@ -222,13 +262,12 @@ interface Store {
   toggleCompare: (ticker: string) => void
   openCompare: () => void
   applySetup: (c: SetupChoice) => void
-  /**
-   * True while RECONFIGURE is running. The one-question start is for a first-time visitor who
-   * has no preferences yet; somebody who deliberately went looking for "Reconfigure" is asking
-   * to choose them, and handing them the same single question back is a dead end wearing a
-   * button's clothes. Not persisted — it describes what the user is doing right now.
+  /*
+   * `setupFull` is gone with the investor rendering. It existed to force the six-step flow for a
+   * reader whose first run was a single question ("which company?"); there is only one setup
+   * now, and it always asks the full set — a CGSI ESG investor is choosing a mandate, an
+   * appetite, a holding period and a PPP balance, and each one changes what the board shows.
    */
-  setupFull: boolean
   restartSetup: () => void
   chatLog: ChatMsg[]
   sendChat: (text: string) => Promise<void>
@@ -251,7 +290,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [health, setHealth] = useState<Health | null>(null)
   const [view, setView] = useState<View>({ name: 'dashboard' })
   const [focusTicker, setFocusTicker] = useState(() => loadSettings().focus)
-  const [setupFull, setSetupFull] = useState(false)
   const [board, setBoard] = useState<Board | null>(null)
   const [boardLoading, setBoardLoading] = useState(false)
   const [boardError, setBoardError] = useState('')
@@ -272,6 +310,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       // predates `level` still lands somewhere coherent.
       if (p.level !== undefined) next.simplified = p.level === 1
       else if (p.simplified !== undefined) next.level = p.simplified ? 1 : 3
+      // Same discipline, one setting over: the Sustainability Focus lens IS the green-bond
+      // hurdle, so `greenFocus` is derived rather than set alongside it. Setting `greenFocus`
+      // directly still works and pulls `ppp` with it, so the older control and the new lens can
+      // never end up describing different preferences on the same screen.
+      if (p.ppp !== undefined) next.greenFocus = p.ppp === 'planet'
+      else if (p.greenFocus !== undefined && prev.ppp !== 'profit') {
+        next.ppp = p.greenFocus ? 'planet' : 'balanced'
+      }
       try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(next)) } catch { /* private mode */ }
       return next
     })
@@ -420,11 +466,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [compareSel])
 
   const applySetup = useCallback((c: SetupChoice) => {
-    setSetupFull(false)
     setSettings({
       filters: { country: c.country, sector: c.sector },
       level: c.level, tier: c.tier, horizon: c.horizon, setupDone: true,
-      greenFocus: c.focus === 'green',
+      // `ppp` is set here rather than `greenFocus`, and setSettings derives the other from it.
+      ppp: c.ppp,
       profile: { mandate: c.mandate, goal: c.goal, holding: c.holding, focus: c.focus,
                  label: c.label },
       // Screening wants the universe rails; investigating one name wants them out of the way.
@@ -434,7 +480,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [setSettings])
 
   const restartSetup = useCallback(() => {
-    setSetupFull(true)
     setSettings({ setupDone: false })
     setView({ name: 'dashboard' })
   }, [setSettings])
@@ -489,11 +534,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     settings, setSettings, health, view, goDashboard, filters, setFilters,
     focusTicker, setFocus, board, boardLoading, boardError, refreshBoard,
     entries, saveEntry, monitorOnly, openDeepDive, openEvidence, buildLiveAndDive, loadSample,
-    uploadFile, unpin, compareSel, toggleCompare, openCompare, applySetup, restartSetup, setupFull,
+    uploadFile, unpin, compareSel, toggleCompare, openCompare, applySetup, restartSetup,
     chatLog, sendChat, toasts, toast,
   }), [settings, setSettings, health, view, goDashboard, filters, setFilters, focusTicker,
     setFocus, board, boardLoading, boardError, refreshBoard, entries, saveEntry, monitorOnly,
-    openDeepDive, openEvidence, buildLiveAndDive, loadSample, uploadFile, unpin, setupFull, compareSel,
+    openDeepDive, openEvidence, buildLiveAndDive, loadSample, uploadFile, unpin, compareSel,
     toggleCompare, openCompare, applySetup, restartSetup, chatLog, sendChat, toasts, toast])
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

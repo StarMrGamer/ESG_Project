@@ -1,4 +1,7 @@
 import { useStore } from '../../store'
+import DualMomentum from '../dual/DualMomentum'
+import PPPTriangle from '../dual/PPPTriangle'
+import ForecastPanel from '../dual/ForecastPanel'
 import { fmtPct, fmtPillar, signClass, Tone, TONE_CLASS } from '../ui'
 import type { Pillar } from '../../types'
 
@@ -265,6 +268,33 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
               <span><i className="k-ring" /> no change · 0%</span>
               <span><i className="k-fill" /> our live momentum</span>
               <span className="hub-scale">outer ring ±{scale.toFixed(1)}%</span>
+            </div>
+
+            {/* THE SECOND AXIS, beside the one this radar draws. The hub answers "which way is
+                the evidence moving"; a reader's very next question is "and what has the market
+                already done about it?" — which the radar cannot answer and a rating cannot see.
+                Nothing here reaches the shape above it: the price is context, never a score. */}
+            {/* The three analysis panels, wrapped so they can become a GRID once the board is
+                wide enough. Stacked in one narrow column they ran the page to three screens with
+                the radar stranded at the top of an empty gutter; source order still sets the
+                reading order, so nothing moves on a narrow screen. */}
+            <div className="hub-panels">
+            {focused?.dual && <DualMomentum row={focused.dual} />}
+
+            {/* WHAT the company's movement is about, as three shares of one whole. A different
+                question from the radar above it: the radar asks which way each pillar is going,
+                the triangle asks which of the three this company's story actually IS. */}
+            {focused?.ppp && (
+              <PPPTriangle shares={focused.ppp} company={focused.constituent.company} />
+            )}
+
+            {/* The forward view — a model estimate carrying the skill it actually measured, and
+                beside it the published base rate that IS evidenced. Last in the column on
+                purpose: everything above it is a report of what happened, and this is the only
+                thing on the board that guesses. */}
+            {focused?.forecast && (
+              <ForecastPanel forecast={focused.forecast} company={focused.constituent.company} />
+            )}
             </div>
 
             {summary && (

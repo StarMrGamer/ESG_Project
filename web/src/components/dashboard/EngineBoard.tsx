@@ -1,7 +1,7 @@
-import { Fragment, useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useStore } from '../../store'
-import type { EngineRecord, HorizonKey, LabelKey, TierKey } from '../../types'
-import { matches } from '../../lib/tierMatch'
+import type { EngineRecord, HorizonKey, TierKey } from '../../types'
+import { dimSplit, matches, passesPPP, PPP_DIM_REASON } from '../../lib/tierMatch'
 import { useCollapsed } from '../ui'
 
 /**
@@ -59,32 +59,62 @@ function heightFor(width: number): number {
   return Math.round(clamp(H_MIN, plotW / PLOT_RATIO + PAD.t + PAD.b, H_MAX))
 }
 
-/** Where the tick marks and gridlines fall on each axis. */
-const X_TICKS = [0, 0.25, 0.5, 0.75, 1]
+/** Where the tick marks and gridlines fall on the y axis. x has its own — see `PX_TICKS`. */
 const Y_TICKS = [1, 0.5, 0, -0.5, -1]
+
+/**
+ * ONE PLOT: price momentum across, our evidence up.
+ *
+ * It used to be two, switchable — the original x was the incumbent RATING percentile, so a Hidden
+ * Winner sat top-LEFT, rated low while improving. That plot was removed on 2026-09-01 on an
+ * explicit instruction, and the toggle with it.
+ *
+ * Worth knowing if you are thinking of bringing it back: the rating percentile is still on every
+ * record as `lseg_percentile`, it still drives `disagreement` and every quadrant label, and the
+ * legend below still counts those labels. So the rating axis was DROPPED FROM THE DRAWING, not
+ * from the engine — nothing about how a company is classified changed. What is lost is the
+ * picture of it, which is why the quadrant captions here now describe price-vs-evidence corners
+ * and the label legend beside them still describes rating-vs-evidence ones. Those are two
+ * different readings of the same 52 companies and the panel says so rather than implying the
+ * captions and the legend are the same axis.
+ */
+const PLOT = {
+  xName: 'financial price momentum — 12-1 factor →',
+  xLow: 'price falling', xHigh: 'price rising',
+  xDivide: 'no price momentum',
+} as const
+
+/** Price momentum in percent, mapped onto the same −1..+1 half-width the plot already draws. */
+const PX_FULL_SCALE = 60
+const pxToUnit = (pct: number) => Math.max(-1, Math.min(1, pct / PX_FULL_SCALE))
+const PX_TICKS = [1, 0.5, 0, -0.5, -1]
+const fmtPx = (u: number) => `${u > 0 ? '+' : u < 0 ? '−' : ''}${Math.abs(u * PX_FULL_SCALE).toFixed(0)}%`
+
+/**
+ * The dual plot's own corners. Named for the combination they ARE, not for a quadrant label
+ * borrowed from the other plot — `hidden_winners` is a rule about a RATING and cannot be
+ * evaluated here at all.
+ */
+const DUAL_QUADRANTS: { key: string; caption: string; tone: string; anchor: 'start' | 'end';
+                        at: (r: Rect) => { x: number; y: number }; title: string }[] = [
+  { key: 'aligned', caption: 'Dual momentum aligned', tone: 'q-hidden', anchor: 'end',
+    at: r => ({ x: r.x1 - 10, y: r.y0 + 16 }),
+    title: 'Price rising and evidence improving. Agreement between the market and our read — not a recommendation, and it says nothing about what is already priced in.' },
+  { key: 'evidence_ahead', caption: 'Evidence ahead of price', tone: 'q-future', anchor: 'start',
+    at: r => ({ x: r.x0 + 10, y: r.y0 + 16 }),
+    title: 'Our dated evidence is improving while the price has fallen over the window. The mirror of the trap.' },
+  { key: 'downside_trap', caption: 'Downside risk · value traps', tone: 'q-trap', anchor: 'end',
+    at: r => ({ x: r.x1 - 10, y: r.y1 - 8 }),
+    title: 'The price is running while our dated evidence deteriorates — the People/Planet side going backwards without the market marking it. This is the shape a static rating cannot see.' },
+  { key: 'both_falling', caption: 'Both deteriorating', tone: 'q-overrated', anchor: 'start',
+    at: r => ({ x: r.x0 + 10, y: r.y1 - 8 }),
+    title: 'Price and evidence both negative over their respective windows.' },
+]
 
 const fmtY = (v: number) => (v > 0 ? `+${v.toFixed(1)}` : v < 0 ? `−${Math.abs(v).toFixed(1)}` : '0')
 
 interface Rect { x0: number; x1: number; y0: number; y1: number; midX: number; midY: number }
 
-// Where each region's caption sits, as a fraction of the plot rect. Three of these ARE their
-// quadrant, exactly: future_leaders, overrated_leaders and value_traps are defined as
-// `lseg_percentile` either side of 0.5 crossed with the sign of momentum, which is precisely the
-// axes drawn here.
-//
-// The top-left corner is not one label but two. `consensus` is the fallback for that quadrant,
-// but `hidden_winners` is evaluated FIRST and carves companies out of it wherever the signed
-// disagreement clears theta — currently about half the dots sitting there. Captioning that
-// corner "Consensus" alone put the product's whole differentiator under the name of something
-// else, and a reader matching green dots to the nearest caption drew the wrong conclusion. So
-// the corner names both, and each half is drawn in the colour of its own dots.
-/** `tour` is the walkthrough's handle on each corner — see the matrix deck in Tutorial.tsx. */
-const QUADRANTS: { keys: LabelKey[]; tour: string; at: (r: Rect) => { x: number; y: number }; anchor: 'start' | 'end' }[] = [
-  { keys: ['hidden_winners', 'consensus'], tour: 'quad-hidden', anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y0 + 16 }) },
-  { keys: ['future_leaders'], tour: 'quad-future', anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y0 + 16 }) },
-  { keys: ['value_traps'], tour: 'quad-traps', anchor: 'start', at: r => ({ x: r.x0 + 10, y: r.y1 - 8 }) },
-  { keys: ['overrated_leaders'], tour: 'quad-overrated', anchor: 'end', at: r => ({ x: r.x1 - 10, y: r.y1 - 8 }) },
-]
 
 /**
  * The A5 discipline: a non-matching company DIMS, it never disappears. A green-finance mandate
@@ -126,11 +156,17 @@ export default function EngineBoard() {
   }, [board])
 
   const rows = useMemo(() => Object.values(engine?.records ?? {}), [engine])
-  const shown = useMemo(
-    () => rows.filter(r => matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
+  // The PPP lens rides alongside the tier and pipeline filters rather than inside `matches`:
+  // Sustainability Focus needs no code here at all (it IS `greenFocus`, derived in the store),
+  // and only Profit First adds a rule. Same A5 discipline either way — a non-matching name DIMS.
+  const base = useCallback((r: EngineRecord) =>
+    matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
       engine?.badges?.[r.company_id]?.green_bond?.status || '',
-      engine?.badges?.[r.company_id]?.pipeline?.bucket || '')),
-    [rows, engine, settings.tier, settings.pipelineOnly, settings.greenFocus])
+      engine?.badges?.[r.company_id]?.pipeline?.bucket || ''),
+    [engine, settings.tier, settings.pipelineOnly, settings.greenFocus])
+  const on = useCallback((r: EngineRecord) => base(r) && passesPPP(settings.ppp, r),
+    [base, settings.ppp])
+  const shown = useMemo(() => rows.filter(on), [rows, on])
   // The 90-second walk has to reach a Hidden Winner without hunting for a dot, so the strongest
   // disagreements get a named, one-click route straight into the evidence trail.
   const hidden = useMemo(
@@ -141,7 +177,12 @@ export default function EngineBoard() {
   if (!engine) return null
   const { nmk, labels, label_counts, label_tooltips, label_rules, tiers, tier_rules, anchor,
     horizons, half_life_days } = engine
-  const dimmed = rows.length - shown.length
+  // WHY a name is dimmed, split by cause — see `dimSplit`, which both this caption and the PPP
+  // strip read, so the two can never report the same control differently.
+  const dim = dimSplit(rows, settings, r => ({
+    greenStatus: engine.badges?.[r.company_id]?.green_bond?.status || '',
+    bucket: engine.badges?.[r.company_id]?.pipeline?.bucket || '',
+  }))
   const blankCount = rows.filter(r => r.signal_count === 0).length
 
   const W = clamp(MIN_W, wide, MAX_W)
@@ -150,13 +191,32 @@ export default function EngineBoard() {
     x0: PAD.l, x1: W - PAD.r, y0: PAD.t, y1: H - PAD.b,
     midX: PAD.l + (W - PAD.r - PAD.l) / 2, midY: PAD.t + (H - PAD.b - PAD.t) / 2,
   }
+  const dual = board?.dual
+
   /** percentile 0..1 -> x */
   const xOf = (p: number) => rect.x0 + p * (rect.x1 - rect.x0)
+  /** −1..+1 -> x, for the dual plot, where 0 is the middle rather than the left edge */
+  const xOfUnit = (u: number) => xOf((Math.max(-1, Math.min(1, u)) + 1) / 2)
+
+  /**
+   * The x coordinate for one company on the CURRENT plot, or null.
+   *
+   * Null is the load-bearing case: on the dual plot a company with no quotable listing has no x
+   * at all — nine of the 52, being the seven Philippine names our audited symbol column does not
+   * cover and the two delisted constituents. They are DROPPED and counted beside the chart
+   * rather than parked at zero, because a dot at x=0 says "the price did not move", which is a
+   * measurement we did not make. The same distinction the hollow dots draw on the y axis.
+   */
+  const xFor = (r: EngineRecord): number | null => {
+    const pct = dual?.rows?.[r.company_id]?.price_pct
+    return pct == null ? null : xOfUnit(pxToUnit(pct))
+  }
+  const unquotable = rows.filter(r => dual?.rows?.[r.company_id]?.price_pct == null).length
   /** momentum -1..+1 -> y, +1 at the top */
   const yOf = (m: number) =>
     rect.y1 - ((Math.max(-1, Math.min(1, m)) + 1) / 2) * (rect.y1 - rect.y0)
 
-  const point = (r: EngineRecord) => ({ cx: xOf(r.lseg_percentile), cy: yOf(r.composite_momentum) })
+
 
   const [open, toggleOpen] = useCollapsed('matrix', true)
 
@@ -169,7 +229,7 @@ export default function EngineBoard() {
           <button className="section-toggle" onClick={toggleOpen} aria-expanded={open}
             title={open ? 'Fold the matrix' : 'Unfold the matrix'}>
             <span className="section-chev" aria-hidden="true">▾</span>
-            <span className="cc-h section-title">Disagreement matrix</span>
+            <span className="cc-h section-title">Dual momentum matrix</span>
           </button>
           {/* The densest thing in the product, one click from its own explanation — and the
               click has to be findable, so it sits on the title line rather than under it. */}
@@ -178,21 +238,22 @@ export default function EngineBoard() {
             title="Walk the plot corner by corner: both directions, the two dividing lines, each quadrant, and what a dimmed or hollow dot means.">
             <span className="matrix-explain-q" aria-hidden>?</span> What am I looking at?
           </button>
-          {settings.audience === 'analyst' && <div className="cc-muted">
-            x = incumbent rating percentile (<b title="A mocked stand-in for the licensed LSEG
-              percentile: the company's stored static rating ranked inside this run's cohort.
-              Never presented as an LSEG figure.">MOCK baseline</b>)
+          <div className="cc-muted">
+            x = 12-1 price momentum (<b title="Twelve months of return ending ONE MONTH ago — the
+              classical momentum factor. The skipped month is deliberate: the one-month reversal
+              is a documented, opposite-signed effect. Read from a dated snapshot, and never an
+              input to any score.">price is context, not a score</b>)
             {' · '}y = our live momentum, <b title="Direction consensus (the weighted mean of
               each signal's +1/-1) scaled by evidence weight, so one thin signal cannot score
               like twelve corroborating ones. Names cluster where the evidence agrees; an
               extreme score has to be earned.">−1 to +1</b>
             {' · '}{shown.length} of {rows.length} in view
-          </div>}
+          </div>
         </div>
-        {/* Run id, as-of, half-life and the chain chip are the provenance an analyst checks
-            first and the four things an investor has no way to read. Folded, not deleted — the
-            claim "every figure re-derives from this id" has to stay reachable from every view. */}
-        <div className={`engine-run ${settings.audience === 'investor' ? 'is-folded' : ''}`}
+        {/* Run id, as-of, half-life and the chain chip — the provenance a reader checks first.
+            It used to fold away for the investor rendering; there is one reader now and this is
+            the line they came for, so it is always on. */}
+        <div className="engine-run"
           title={`config ${engine.config_version} · ${engine.config_hash}`}>
           <span>run <b>{engine.run_id}</b></span>
           <span>as of {engine.as_of}</span>
@@ -207,7 +268,7 @@ export default function EngineBoard() {
 
       {open && (<>
 
-      <div className={`engine-controls ${settings.audience === 'investor' ? 'is-folded' : ''}`}>
+      <div className="engine-controls">
         <div className="seg" role="group" aria-label="Risk appetite" data-tour="tiers">
           <button className={`btn ${settings.tier === 'all' ? 'on' : ''}`}
             title="Show every company, no tier applied."
@@ -265,8 +326,8 @@ export default function EngineBoard() {
           */}
 
           {/* gridlines first, so everything else sits on top of them */}
-          {X_TICKS.map(t => (
-            <line key={`gx${t}`} x1={xOf(t)} y1={rect.y0} x2={xOf(t)} y2={rect.y1}
+          {PX_TICKS.map(u => (
+            <line key={`gx${u}`} x1={xOfUnit(u)} y1={rect.y0} x2={xOfUnit(u)} y2={rect.y1}
               className="matrix-grid" />
           ))}
           {Y_TICKS.map(t => (
@@ -278,7 +339,7 @@ export default function EngineBoard() {
           <line x1={rect.midX} y1={rect.y0} x2={rect.midX} y2={rect.y1} className="matrix-divide" />
           <line x1={rect.x0} y1={rect.midY} x2={rect.x1} y2={rect.midY} className="matrix-divide" />
           <text x={rect.midX + 6} y={rect.y0 + 13} className="matrix-divide-label"
-            data-tour="boundaries">median rating</text>
+            data-tour="boundaries">{PLOT.xDivide}</text>
           <text x={rect.x1 - 6} y={rect.midY - 6} textAnchor="end" className="matrix-divide-label">
             no momentum
           </text>
@@ -297,15 +358,16 @@ export default function EngineBoard() {
             </g>
           ))}
 
-          {/* x ticks + labels */}
-          {X_TICKS.map(t => (
-            <g key={`x${t}`}>
-              <line x1={xOf(t)} y1={rect.y1} x2={xOf(t)} y2={rect.y1 + 6} className="matrix-axis" />
-              <text x={xOf(t)} y={rect.y1 + 20} textAnchor="middle" className="matrix-tick">
-                {`${t * 100}%`}
-              </text>
-            </g>
-          ))}
+          {/* x ticks + labels. x is a SIGNED percent around a zero in the middle, so the ticks
+              run -60%..+60% rather than a 0-100 percentile scale. */}
+          {PX_TICKS.map(u => (
+              <g key={`x${u}`}>
+                <line x1={xOfUnit(u)} y1={rect.y1} x2={xOfUnit(u)} y2={rect.y1 + 6} className="matrix-axis" />
+                <text x={xOfUnit(u)} y={rect.y1 + 20} textAnchor="middle" className="matrix-tick">
+                  {fmtPx(u)}
+                </text>
+              </g>
+            ))}
 
           {/* axis names */}
           <text x={rect.x0 - 62} y={rect.midY} className="matrix-axis-name" data-tour="axis-y"
@@ -314,30 +376,28 @@ export default function EngineBoard() {
           </text>
           <text x={(rect.x0 + rect.x1) / 2} y={rect.y1 + 44} textAnchor="middle"
             className="matrix-axis-name" data-tour="axis-x">
-            what the incumbent rating thinks — percentile →
+            {PLOT.xName}
           </text>
           <text x={rect.x1} y={rect.y0 - 10} textAnchor="end" className="matrix-end">
             click a dot to focus it · click it again for the evidence
           </text>
-          <text x={rect.x0} y={rect.y1 + 44} textAnchor="start" className="matrix-end">laggard</text>
-          <text x={rect.x1} y={rect.y1 + 44} textAnchor="end" className="matrix-end">leader</text>
+          <text x={rect.x0} y={rect.y1 + 44} textAnchor="start" className="matrix-end">{PLOT.xLow}</text>
+          <text x={rect.x1} y={rect.y1 + 44} textAnchor="end" className="matrix-end">{PLOT.xHigh}</text>
 
-          {QUADRANTS.map(q => (
-            <text key={q.keys.join('+')} {...q.at(rect)} textAnchor={q.anchor} className="matrix-quad"
-              data-tour={q.tour}>
-              {q.keys.map((key, i) => (
-                <Fragment key={key}>
-                  {i > 0 && <tspan className="matrix-quad-sep"> · </tspan>}
-                  <tspan className={LABEL_TONE[key]}>{labels[key]}</tspan>
-                </Fragment>
-              ))}
+          {DUAL_QUADRANTS.map(q => (
+            <text key={q.key} {...q.at(rect)} textAnchor={q.anchor}
+              className={`matrix-quad ${q.tone}`} data-tour={`quad-${q.key}`}>
+              {q.caption}
+              <title>{q.title}</title>
             </text>
           ))}
           {rows.map(r => {
-            const { cx, cy } = point(r)
-            const on = matches(r, settings.tier, settings.pipelineOnly, settings.greenFocus,
-              engine.badges?.[r.company_id]?.green_bond?.status || '',
-              engine.badges?.[r.company_id]?.pipeline?.bucket || '')
+            const cx = xFor(r)
+            // No x on this plot means we did not measure it. Drop the dot and say so beside the
+            // chart rather than parking it at zero, which would read as a real reading of zero.
+            if (cx == null) return null
+            const cy = yOf(r.composite_momentum)
+            const lit = on(r)
             // Two-stage click. One click used to focus AND open the evidence trail, which meant
             // every exploratory click on a 52-dot plot threw the reader into a full-screen panel
             // they then had to back out of. First click brings the company onto the board above
@@ -350,11 +410,11 @@ export default function EngineBoard() {
             return (
               <circle key={r.company_id} cx={cx} cy={cy}
                 r={r.label === 'hidden_winners' ? 8 : 6}
-                className={`matrix-dot ${LABEL_TONE[r.label]} ${on ? '' : 'is-dim'} ${isFocus ? 'is-focus' : ''}${blank ? ' is-blank' : ''}`}
+                className={`matrix-dot ${LABEL_TONE[r.label]} ${lit ? '' : 'is-dim'} ${isFocus ? 'is-focus' : ''}${blank ? ' is-blank' : ''}`}
                 onClick={() => { if (isFocus) openEvidence(r.company_id); else setFocus(r.company_id) }}>
                 <title>{`${nameOf[r.company_id] || r.company_id} — ${r.label_display}
-rating percentile ${(r.lseg_percentile * 100).toFixed(0)}% · momentum ${r.composite_momentum >= 0 ? '+' : ''}${r.composite_momentum.toFixed(2)}
-disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · confidence ${r.composite_confidence.toFixed(2)} · ${r.signal_count} signals
+price momentum ${(dual?.rows?.[r.company_id]?.price_pct ?? 0) >= 0 ? '+' : ''}${(dual?.rows?.[r.company_id]?.price_pct ?? 0).toFixed(1)}% (12-1)} · evidence momentum ${r.composite_momentum >= 0 ? '+' : ''}${r.composite_momentum.toFixed(2)}
+disagreement ${r.disagreement >= 0 ? '+' : ''}${r.disagreement.toFixed(2)} · confidence ${r.composite_confidence.toFixed(2)} · ${r.signal_count} signals${lit ? '' : '\ndimmed by the current filter — dimmed, never hidden'}
 
 ${isFocus ? 'Focused above — click again to open its evidence trail.' : 'Click to bring this company onto the board above.'}`}</title>
               </circle>
@@ -372,6 +432,17 @@ ${isFocus ? 'Focused above — click again to open its evidence trail.' : 'Click
           <b>{blankCount}</b> of {rows.length} companies have no scorable evidence yet and sit on
           the zero line, drawn hollow. That is an absence of evidence, not evidence of no
           movement — and closing that gap is what the alt-data feeds are for.
+        </p>
+      )}
+      {/* The x-axis twin of the hollow-dot note. Nine names have no quotable listing, so on the
+          dual plot they have no x at all — the seven Philippine names our audited symbol column
+          does not cover, and the two delisted constituents. Dropping them silently would make
+          the plot quietly smaller than the basket. */}
+      {unquotable > 0 && (
+        <p className="matrix-blank-note">
+          <b>{unquotable}</b> of {rows.length} companies have no quotable listing, so they have no
+          price axis and are not drawn here. Seven are Philippine names our audited symbol column
+          does not cover; two are the delisted constituents. They are all still on the rating plot.
         </p>
       )}
       {hidden.length > 0 && (
@@ -398,10 +469,16 @@ ${isFocus ? 'Focused above — click again to open its evidence trail.' : 'Click
             <i /> {labels[key]} <b>{label_counts[key] ?? 0}</b>
           </button>
         ))}
-        {dimmed > 0 && (
+        {dim.total > 0 && (
           <span className="cc-muted">
-            {dimmed} dimmed by the {settings.pipelineOnly ? 'pipeline filter' : 'tier'} — dimmed,
-            not hidden.
+            {dim.tier > 0 && <>
+              {dim.tier} dimmed by the {settings.pipelineOnly ? 'pipeline filter' : 'risk tier'}
+            </>}
+            {dim.tier > 0 && dim.lens > 0 && ' · '}
+            {dim.lens > 0 && <>
+              {dim.lens} by the PPP lens — {PPP_DIM_REASON[settings.ppp]}
+            </>}
+            {' '}— dimmed, not hidden.
           </span>
         )}
       </div>

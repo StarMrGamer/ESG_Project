@@ -1998,13 +1998,261 @@ def test_financials_never_reach_the_engine():
     `engine.py` and `signals.py` must not import `financials` or `rationale`, directly or
     transitively. If either ever did, momentum would silently carry an earnings term and
     `disagreement` would stop meaning what every surface says it means.
+
+    `price_momentum`, `quotes`, `ppp` and `forecast` are held to the SAME bar. `forecast` most
+    of all: it is the one module in the repo that predicts, and a scoring path that could reach a
+    forecast would turn every quadrant label into a bet on that forecast. The dual-momentum
+    card puts a 12-1 price return beside the evidence read, which is exactly the kind of number
+    that looks harmless to fold in later — and folding it in would turn `disagreement` from "our
+    percentile minus the rating's" into an unnamed composite nobody, including us, could state.
     """
     import engine
     import signals
+    banned = ("financials", "rationale", "price_momentum", "quotes", "ppp", "forecast")
     for mod in (engine, signals):
         names = {getattr(v, "__name__", "") for v in vars(mod).values()}
-        assert "financials" not in names, f"{mod.__name__} imports financials"
-        assert "rationale" not in names, f"{mod.__name__} imports rationale"
+        for bad in banned:
+            assert bad not in names, f"{mod.__name__} imports {bad}"
+
+
+def test_price_momentum_is_12_1_and_refuses_a_short_window():
+    """The factor is the twelve months ending ONE MONTH AGO, and it never guesses.
+
+    Three properties, each of which shipped wrong somewhere else in this repo first:
+
+    * the final bar is DROPPED — a request made mid-month returns an in-progress month, and a
+      partial month is not a month. That drop is also the factor's skipped month, so what is
+      measured runs t-12 -> t-1;
+    * too short a window returns None, never a partial reading. `quotes.change_90d` learned this
+      the same way: a flat line reads as "the price did not move", which is a claim we did not
+      make;
+    * the reading is a plain return over that window, so a doubling reads +100%.
+    """
+    import price_momentum as pm
+
+    assert pm.compute([1.0] * 5) is None, "a short window must not produce a reading"
+    assert pm.compute([]) is None
+    # 15 bars: one in-progress (dropped) leaves 14, of which c[-13]..c[-1] is the window.
+    closes = [100.0] * 15
+    closes[-2] = 200.0                      # t-1, the last COMPLETE month
+    closes[-1] = 999.0                      # the in-progress month, which must be ignored
+    got = pm.compute(closes)
+    assert got is not None
+    assert got["pct"] == 100.0, got         # 999 was dropped; 200 vs 100 is +100%
+    assert got["window"] == "12-1"
+
+
+def test_alignment_never_calls_an_absence_a_divergence():
+    """Zero signals is `unknown`, not `flat` and never a divergence.
+
+    A company with no scorable evidence scores `composite_momentum` exactly 0.000 — 28 of the
+    verified 52 did before the harvest — which is the same NUMBER as "the evidence says flat" and
+    a completely different CLAIM. Reading the first as a divergence would manufacture a finding
+    out of our own coverage gap, which is the failure the hollow dots exist to prevent on the
+    other axis.
+    """
+    import price_momentum as pm
+
+    assert pm.align(12.0, 0.0, 0) == "unknown", "no evidence is not a reading"
+    assert pm.align(12.0, 0.4, 0) == "unknown", "signal_count wins over a stale momentum"
+    assert pm.align(None, 0.4, 5) == "unknown", "no quote is not a reading either"
+    assert pm.align(12.0, 0.0, 5) == "flat"
+    assert pm.align(12.0, 0.4, 5) == "aligned"
+    assert pm.align(12.0, -0.4, 5) == "downside_trap"
+    assert pm.align(-12.0, 0.4, 5) == "evidence_ahead"
+    assert pm.align(-12.0, -0.4, 5) == "both_falling"
+
+
+def test_unknown_says_which_absence_it_is():
+    """Three different absences land on `unknown`, and naming the wrong one is worse than none.
+
+    The demo case is the one that matters: on the FICTIONAL universe the honest answer is "this
+    company does not exist", and blaming the symbol column instead quietly implies the company is
+    real and we merely failed to look it up — a rule-3 breach (label data by origin) delivered as
+    a helpful-sounding caveat.
+    """
+    import price_momentum as pm
+
+    assert "fictional" in pm.why_unknown(None, 0, demo=True)
+    assert "fictional" in pm.why_unknown(12.0, 9, demo=True), "demo wins over every other reason"
+    assert "symbol column" in pm.why_unknown(None, 9)
+    assert "absence of evidence" in pm.why_unknown(12.0, 0)
+    assert pm.why_unknown(12.0, 9) == "", "a readable pair carries no excuse"
+
+
+def test_ppp_shares_refuse_to_place_a_company_with_a_missing_axis():
+    """A missing axis is not a zero share.
+
+    Normalising over the two axes we CAN read would silently redistribute the missing third into
+    the other two — inflating both and putting the dot somewhere no measurement supports. The
+    same trap `align` avoids by consulting the signal count, one panel over.
+    """
+    import ppp
+
+    rec = {"signal_count": 6,
+           "components": {"E": {"momentum": 1.0, "weight": 0.5},
+                          "G": {"momentum": -1.0, "weight": 0.5}}}
+
+    got = ppp.shares(rec, None)                      # no quotable price
+    assert got["known"] is False and "price" in got["missing"]
+    assert got["planet"] is None and got["profit"] is None, "a missing axis is never a 0 share"
+
+    blank = ppp.shares({"signal_count": 0, "components": {}}, 12.0)
+    assert blank["known"] is False and "evidence" in blank["missing"]
+
+    ok = ppp.shares(rec, 30.0)
+    assert ok["known"] is True
+    total = ok["planet"] + ok["people"] + ok["profit"]
+    assert abs(total - 1.0) < 1e-6, f"shares must sum to 1, got {total}"
+    # E is +1 and G is -1: the MAGNITUDE is what places the dot, the sign is reported separately.
+    assert ok["directions"]["planet"] == 1 and ok["directions"]["people"] == -1
+    assert ok["planet"] > 0 and ok["people"] > 0, "a deteriorating pillar still carries the story"
+
+
+def test_ppp_rejects_the_flattened_board_record():
+    """The board's compact summary drops the per-pillar weight, and absorbing that silently would
+    score every company as "no movement" — a wrong answer that looks exactly like a real finding.
+    """
+    import ppp
+
+    flat = {"signal_count": 6, "components": {"E": 1.0, "G": -0.5}}   # server._record_summary shape
+    got = ppp.shares(flat, 30.0)
+    assert got["known"] is False and got["missing"] == ["components"]
+    assert "evidence weight" in got["why"]
+
+
+def test_a_forecast_never_travels_without_its_skill():
+    """The one rule this panel cannot break.
+
+    An estimate whose reliability the reader cannot check is precisely the object this product
+    exists to argue against, so `predict` must return `skill` and `verdict` with every available
+    estimate — and must return `available: False` rather than a 0 when it cannot answer.
+    """
+    import forecast
+
+    mdl = forecast.model()
+    assert mdl and mdl.get("trained"), "the frozen model should be committed and trained"
+
+    rec = {"signal_count": 8, "composite_momentum": 0.4,
+           "components": {"E": {"momentum": 1.0, "weight": 0.6},
+                          "G": {"momentum": 0.5, "weight": 0.4}}}
+    got = forecast.predict(rec, 25.0)
+    assert got["available"] is True
+    assert isinstance(got["estimate_pct"], float)
+    assert got["skill"] and got["verdict"], "an estimate must carry its measured skill"
+    assert got["typical_error_pct"] is not None, "an estimate must carry its typical error"
+    assert got["not_advice"] and got["sample_caveat"]
+
+    # No price -> no estimate, and NOT a zero, which would read as "the model expects no move".
+    none = forecast.predict(rec, None)
+    assert none["available"] is False and none.get("estimate_pct") is None
+
+
+def test_the_forecast_reports_its_failure_rather_than_hiding_it():
+    """The model has no measured skill, and the frozen file has to say so.
+
+    Across nine configurations (three horizons x three time splits) every out-of-sample R^2 came
+    back negative and every hit rate below the majority class. This test pins that the SWEEP is
+    recorded and that `verdict` grades honestly — it is here so a future session cannot quietly
+    re-roll the split until it likes the answer and ship the good one.
+    """
+    import forecast
+
+    mdl = forecast.model()
+    sweep = mdl.get("sweep_summary") or {}
+    assert sweep.get("configurations", 0) >= 9, "the robustness sweep must be recorded"
+    assert sweep["with_skill"] == 0, (
+        "the frozen model claims skill it did not have when this was written — re-read "
+        "forecast.py's header before changing this assertion")
+
+    # `verdict` must be harsh by construction: beating ONE baseline is not skill.
+    one = forecast.verdict({"r2_oos": 0.1, "beats_baseline": True, "beats_majority": False})
+    assert one["word"] == "marginal"
+    none = forecast.verdict({"r2_oos": -0.2, "beats_baseline": False, "beats_majority": False})
+    assert none["word"] == "no measured skill"
+    both = forecast.verdict({"r2_oos": 0.1, "beats_baseline": True, "beats_majority": True})
+    assert both["word"] == "some skill"
+    assert "weak evidence" in both["line"], "even a win must be stated as weak evidence"
+
+
+def test_the_direction_model_names_the_factors_it_does_not_have():
+    """Fama-French STYLE is not Fama-French, and the difference has to be on the record.
+
+    SMB needs market capitalisation and HML needs book-to-market; neither is in this repo and
+    neither is fetchable from a keyless endpoint. Substituting a proxy — price level for size,
+    say — would be inventing a factor, so both are absent and NAMED. A model that quietly called
+    itself Fama-French with two of the canonical factors missing would be the overclaim this
+    whole product argues against.
+    """
+    import forecast
+
+    assert set(forecast.FACTORS_MISSING) == {"SMB", "HML"}
+    assert "market capitalisation" in forecast.FACTORS_MISSING["SMB"]
+    assert "book-to-market" in forecast.FACTORS_MISSING["HML"]
+    assert "STYLE" in forecast.FACTOR_NOTE and "not the real thing" in forecast.FACTOR_NOTE
+
+    dm = (forecast.model() or {}).get("direction") or {}
+    assert dm.get("trained"), "the direction model should be committed and trained"
+    assert dm["factors_missing"] == forecast.FACTORS_MISSING
+    # Graded against the MAJORITY CLASS, never a coin flip.
+    assert "majority_class" in dm["skill"]
+
+    harsh = forecast.direction_verdict({"beats_majority": True, "beats_brier": False})
+    assert harsh["word"] == "marginal", "beating one baseline is not skill"
+    none = forecast.direction_verdict({"beats_majority": False, "beats_brier": False})
+    assert none["word"] == "no measured skill"
+
+
+def test_a_missing_factor_falls_back_to_the_mean_never_to_a_number():
+    """A factor that cannot be formed contributes NOTHING rather than a fabricated value.
+
+    `predict` substitutes the training mean, which standardises to exactly zero, and reports which
+    factors were actually live. Filling a missing beta with 1.0 (or 0.0 raw) would be inventing a
+    market exposure and would move the estimate on the strength of it.
+    """
+    import forecast
+
+    rec = {"signal_count": 8, "composite_momentum": 0.4,
+           "components": {"E": {"momentum": 1.0, "weight": 0.6},
+                          "G": {"momentum": 0.5, "weight": 0.4}}}
+    bare = forecast.predict(rec, 25.0)
+    assert bare["available"] and bare["factors_live"] == [], bare["factors_live"]
+
+    withf = forecast.predict(rec, 25.0, factors={"beta": 1.2, "vol": 0.08, "prof": 0.5})
+    assert set(withf["factors_live"]) == {"beta", "vol", "prof"}
+    # A real factor read must actually move the estimate, or the fallback is doing nothing useful.
+    assert withf["estimate_pct"] != bare["estimate_pct"]
+
+    # And the direction read travels with its skill, exactly as the return estimate does.
+    assert withf["direction"] and withf["direction"]["skill"]
+    assert withf["direction"]["call"] in ("up", "down")
+    assert 0.0 <= withf["direction"]["up_probability"] <= 1.0
+
+
+def test_the_outlook_is_a_published_rate_never_our_own():
+    """The base rates are CGSI's, attributed, and carry their author's own caveat."""
+    import ppp
+
+    got = ppp.outlook("2_5y")
+    assert got["available"] and got["rate"] == "46.2%", got
+    assert ppp.outlook("under_2y")["rate"] == "28.9%"
+    assert ppp.outlook("5y_plus")["rate"] == "61.5%"
+    assert "CGS" in got["source"]["publisher"], "an unattributed base rate is our claim, not theirs"
+    assert "single-stock" in got["caveat"], "the author's own caveat travels with the figure"
+    assert "not a prediction" in got["not_a_forecast"]
+
+
+def test_the_demo_universe_gets_no_price_momentum():
+    """The demo companies are FICTIONAL. A plausible 12-month return beside a made-up name is
+    the most dangerous kind of invented number (HARD RULE 2), so the demo path returns None
+    before it reads anything."""
+    import price_momentum as pm
+
+    assert pm.momentum("DEMO:ANY", demo=True) is None
+    read = pm.read({"DEMO:ANY": {"composite_momentum": 0.5, "signal_count": 9}}, demo=True)
+    assert read["quotable"] == 0
+    assert read["rows"]["DEMO:ANY"]["alignment"] == "unknown"
+    assert read["rows"]["DEMO:ANY"]["price_pct"] is None
 
 
 def test_rationale_always_states_the_case_against():
@@ -2866,6 +3114,28 @@ def main():
          lambda: test_financial_parse_traps()),
         ("the financial read never reaches the engine",
          lambda: test_financials_never_reach_the_engine()),
+        ("price momentum is 12-1 and refuses a short window",
+         lambda: test_price_momentum_is_12_1_and_refuses_a_short_window()),
+        ("an absence of evidence is never called a divergence",
+         lambda: test_alignment_never_calls_an_absence_a_divergence()),
+        ("the fictional demo universe gets no price momentum",
+         lambda: test_the_demo_universe_gets_no_price_momentum()),
+        ("an unreadable pair says WHICH absence it is",
+         lambda: test_unknown_says_which_absence_it_is()),
+        ("a missing PPP axis is never a zero share",
+         lambda: test_ppp_shares_refuse_to_place_a_company_with_a_missing_axis()),
+        ("PPP rejects the flattened board record",
+         lambda: test_ppp_rejects_the_flattened_board_record()),
+        ("a forecast never travels without its measured skill",
+         lambda: test_a_forecast_never_travels_without_its_skill()),
+        ("the forecast reports its failure rather than hiding it",
+         lambda: test_the_forecast_reports_its_failure_rather_than_hiding_it()),
+        ("the direction model NAMES the factors it does not have",
+         lambda: test_the_direction_model_names_the_factors_it_does_not_have()),
+        ("a missing factor falls back to the mean, never to a number",
+         lambda: test_a_missing_factor_falls_back_to_the_mean_never_to_a_number()),
+        ("the outlook is a PUBLISHED rate, never our own",
+         lambda: test_the_outlook_is_a_published_rate_never_our_own()),
         ("every case states the case against itself",
          lambda: test_rationale_always_states_the_case_against()),
         ("a failed harvest cannot erase stored evidence",

@@ -1,0 +1,317 @@
+{
+ "built_at": "2026-09-01",
+ "coefficients": {
+  "beta": 0.999416,
+  "evidence": -2.938046,
+  "momentum": -0.996672,
+  "people": -0.309001,
+  "planet": 1.753849,
+  "price_mom": 4.160897,
+  "prof": -0.351355,
+  "profit": -1.279579,
+  "vol": -2.792641
+ },
+ "companies": 41,
+ "direction": {
+  "coefficients": {
+   "beta": 0.162743,
+   "evidence": -0.410422,
+   "momentum": -0.04162,
+   "people": 0.163605,
+   "planet": 0.186058,
+   "price_mom": 0.292281,
+   "prof": -0.123313,
+   "profit": -0.280624,
+   "vol": -0.53041
+  },
+  "factor_note": "Fama-French STYLE, not the real thing: MKT (beta to the equal-weighted cohort), WML (the 12-1 Carhart momentum factor), realised volatility and a profitability proxy from two audited fiscal years \u2014 plus our own ESG evidence direction and PPP shares. SMB and HML are ABSENT and not proxied: size needs market capitalisation and value needs book-to-market, and neither is in this repo or fetchable from a keyless endpoint.",
+  "factors_missing": {
+   "HML": "needs book-to-market \u2014 no book value on file, same reason",
+   "SMB": "needs market capitalisation \u2014 no shares-outstanding figure on file, and quoteSummary is crumb-gated"
+  },
+  "factors_present": [
+   "MKT",
+   "WML",
+   "VOL",
+   "RMW-proxy",
+   "ESG",
+   "PPP"
+  ],
+  "features": [
+   "planet",
+   "people",
+   "profit",
+   "momentum",
+   "evidence",
+   "price_mom",
+   "beta",
+   "vol",
+   "prof"
+  ],
+  "intercept": -0.046186,
+  "kind": "logistic",
+  "skill": {
+   "accuracy": 0.4244,
+   "beats_brier": false,
+   "beats_majority": false,
+   "brier": 0.3304,
+   "brier_baseline": 0.2526,
+   "majority_class": 0.6537
+  },
+  "standardisation": {
+   "beta": {
+    "mean": 0.92201,
+    "sd": 0.887622
+   },
+   "evidence": {
+    "mean": 1.315226,
+    "sd": 0.574476
+   },
+   "momentum": {
+    "mean": 0.290177,
+    "sd": 0.231697
+   },
+   "people": {
+    "mean": 0.184787,
+    "sd": 0.23538
+   },
+   "planet": {
+    "mean": 0.35964,
+    "sd": 0.274252
+   },
+   "price_mom": {
+    "mean": 0.040964,
+    "sd": 0.214801
+   },
+   "prof": {
+    "mean": 0.635417,
+    "sd": 0.284531
+   },
+   "profit": {
+    "mean": 0.455573,
+    "sd": 0.319061
+   },
+   "vol": {
+    "mean": 0.049116,
+    "sd": 0.02077
+   }
+  },
+  "test": {
+   "cutoffs": [
+    "2025-03",
+    "2025-06",
+    "2025-09",
+    "2025-12",
+    "2026-03"
+   ],
+   "rows": 205
+  },
+  "train": {
+   "cutoffs": [
+    "2023-06",
+    "2023-09",
+    "2023-12",
+    "2024-03",
+    "2024-06",
+    "2024-09",
+    "2024-12"
+   ],
+   "rows": 240
+  },
+  "trained": true
+ },
+ "features": [
+  "planet",
+  "people",
+  "profit",
+  "momentum",
+  "evidence",
+  "price_mom",
+  "beta",
+  "vol",
+  "prof"
+ ],
+ "horizon_months": 6,
+ "intercept": 0.505568,
+ "lambda": 1.0,
+ "not_advice": "A model estimate of 6-month price return, not investment advice and not a recommendation. It is shown with the out-of-sample skill it actually achieved; read that first.",
+ "rows": 445,
+ "sample_caveat": "Trained on ~3 years and ~43 ASEAN companies \u2014 one market regime, with overlapping 6-month returns that make consecutive rows non-independent. The effective sample is far smaller than the row count. Treat any skill figure here as weak evidence, never as validated alpha.",
+ "skill": {
+  "baseline_mae": 14.174,
+  "beats_baseline": false,
+  "beats_majority": false,
+  "hit_rate": 0.522,
+  "mae_oos": 15.635,
+  "majority_class": 0.6537,
+  "r2_oos": -0.3091
+ },
+ "standardisation": {
+  "beta": {
+   "mean": 0.92201,
+   "sd": 0.887622
+  },
+  "evidence": {
+   "mean": 1.315226,
+   "sd": 0.574476
+  },
+  "momentum": {
+   "mean": 0.290177,
+   "sd": 0.231697
+  },
+  "people": {
+   "mean": 0.184787,
+   "sd": 0.23538
+  },
+  "planet": {
+   "mean": 0.35964,
+   "sd": 0.274252
+  },
+  "price_mom": {
+   "mean": 0.040964,
+   "sd": 0.214801
+  },
+  "prof": {
+   "mean": 0.635417,
+   "sd": 0.284531
+  },
+  "profit": {
+   "mean": 0.455573,
+   "sd": 0.319061
+  },
+  "vol": {
+   "mean": 0.049116,
+   "sd": 0.02077
+  }
+ },
+ "sweep": [
+  {
+   "baseline_mae": 9.462,
+   "hit_rate": 0.5629,
+   "horizon_months": 3,
+   "mae_oos": 9.553,
+   "majority_class": 0.5629,
+   "r2_oos": -0.0657,
+   "rows": 487,
+   "train_fraction": 0.5,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 9.714,
+   "hit_rate": 0.5506,
+   "horizon_months": 3,
+   "mae_oos": 10.116,
+   "majority_class": 0.5911,
+   "r2_oos": -0.1772,
+   "rows": 487,
+   "train_fraction": 0.6,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 10.104,
+   "hit_rate": 0.5091,
+   "horizon_months": 3,
+   "mae_oos": 10.414,
+   "majority_class": 0.5939,
+   "r2_oos": -0.0251,
+   "rows": 487,
+   "train_fraction": 0.7,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 13.306,
+   "hit_rate": 0.4918,
+   "horizon_months": 6,
+   "mae_oos": 14.461,
+   "majority_class": 0.5902,
+   "r2_oos": -0.2916,
+   "rows": 445,
+   "train_fraction": 0.5,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 14.174,
+   "hit_rate": 0.522,
+   "horizon_months": 6,
+   "mae_oos": 15.635,
+   "majority_class": 0.6537,
+   "r2_oos": -0.3091,
+   "rows": 445,
+   "train_fraction": 0.6,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 14.134,
+   "hit_rate": 0.5305,
+   "horizon_months": 6,
+   "mae_oos": 14.353,
+   "majority_class": 0.6646,
+   "r2_oos": -0.0324,
+   "rows": 445,
+   "train_fraction": 0.7,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 21.08,
+   "hit_rate": 0.5224,
+   "horizon_months": 12,
+   "mae_oos": 23.786,
+   "majority_class": 0.6318,
+   "r2_oos": -0.3096,
+   "rows": 363,
+   "train_fraction": 0.5,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 22.498,
+   "hit_rate": 0.537,
+   "horizon_months": 12,
+   "mae_oos": 25.073,
+   "majority_class": 0.679,
+   "r2_oos": -0.3273,
+   "rows": 363,
+   "train_fraction": 0.6,
+   "verdict": "no measured skill"
+  },
+  {
+   "baseline_mae": 24.746,
+   "hit_rate": 0.6179,
+   "horizon_months": 12,
+   "mae_oos": 26.696,
+   "majority_class": 0.7073,
+   "r2_oos": -0.2743,
+   "rows": 363,
+   "train_fraction": 0.7,
+   "verdict": "no measured skill"
+  }
+ ],
+ "sweep_summary": {
+  "below_majority": 9,
+  "configurations": 9,
+  "negative_r2": 9,
+  "with_skill": 0
+ },
+ "test": {
+  "cutoffs": [
+   "2025-03",
+   "2025-06",
+   "2025-09",
+   "2025-12",
+   "2026-03"
+  ],
+  "rows": 205
+ },
+ "train": {
+  "cutoffs": [
+   "2023-06",
+   "2023-09",
+   "2023-12",
+   "2024-03",
+   "2024-06",
+   "2024-09",
+   "2024-12"
+  ],
+  "rows": 240
+ },
+ "trained": true
+}

@@ -13,9 +13,9 @@ import type { Track } from './tour'
  *   03  "I'd never have seen it coming."       -> dated sources, and momentum against a stale level
  *   04  "You don't have to imagine it."        -> hand over to the live demo
  *
- * IT SETS `audience: 'analyst'`, and that is not a detail. The tier control and the run
- * provenance are FOLDED AWAY in the investor view, so a walk that stops on the tiers would ring
- * an element with no width and appear broken. Every step is absolute state, so establishing it in
+ * IT SETS `level: 3`, and that is not a detail. The tier control, the run provenance and the
+ * matrix are level-3 furniture, so a walk that stops on the tiers from Preferences would ring an
+ * element with no width and appear broken. Every step is absolute state, so establishing it in
  * step 1 is enough — a presenter who jumps backwards with the ticks still lands on a board that
  * matches the line being spoken over it.
  *
@@ -43,7 +43,7 @@ export const FEARS: Track = {
         // The whole opening state in one call, so this step is a safe place to restart from.
         // `demo` is deliberately absent: which universe to present is the presenter's call.
         d.set({
-          level: 3, tab: 'board', audience: 'analyst', showNumbers: false,
+          level: 3, tab: 'board',
           tier: 'conservative', horizon: 'long', pipelineOnly: false, greenFocus: false,
           filters: { country: 'All', sector: 'All' },
         })

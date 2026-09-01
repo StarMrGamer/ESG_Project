@@ -395,6 +395,12 @@ export interface FocusedPayload {
    *  universe, because a case with no cohort behind it is a verdict about nobody. */
   case?: CompanyCase | null
   why_wrong: string
+  /** The two directions for THIS company, read together. null outside the scored universe. */
+  dual?: DualRow | null
+  /** Where this company's movement sits across Profit / People / Planet. */
+  ppp?: PPPShares | null
+  /** A model estimate of 6-month return, always carrying its measured skill. */
+  forecast?: ForecastPayload | null
   plain_summary: { headline: string; body: string; verdict: string; tone: Tone; label: string }
   news: {
     name: string
@@ -476,11 +482,177 @@ export interface Board {
   }
   constituents: Constituent[]
   engine: EngineBlock
+  /**
+   * The SECOND axis: financial price momentum read beside the ESG evidence momentum the engine
+   * produced. Never inside it — nothing here reaches `composite_momentum`, `disagreement` or a
+   * quadrant label, and `selftest.py` pins that the engine cannot import the module it comes
+   * from. See `price_momentum.py`.
+   */
+  dual: DualBlock
+  ppp: PPPBlock
+  outlook: OutlookPayload
   focused: FocusedPayload | null
   watchlist: WatchlistEntry[]
   followups: { label: string; prompt: string }[]
   built_at: number
   fresh: string
+}
+
+// --------------------------------------------------------------------------- //
+//  Dual momentum: the financial axis, beside the ESG one and never inside it
+// --------------------------------------------------------------------------- //
+/**
+ * The four combinations of two signed directions, plus the two honest non-answers.
+ *
+ * `unknown` is NOT `flat`, and neither is a finding. A company with no scorable evidence scores
+ * `composite_momentum` exactly 0.000 — 28 of the verified 52 did before the harvest — and
+ * calling that a divergence would manufacture a claim out of an absence. Same discipline the
+ * traction screen follows: an unrun test is not a failed one.
+ */
+export type AlignmentKey =
+  | 'aligned' | 'downside_trap' | 'evidence_ahead' | 'both_falling' | 'flat' | 'unknown'
+
+export interface DualRow {
+  /** 12-1 price momentum, in percent. null where the listing is not quotable. */
+  price_pct: number | null
+  price_window: string
+  /** The engine's own direction consensus for the same company, −1..+1. */
+  esg_momentum: number | null
+  signal_count: number
+  alignment: AlignmentKey
+  display: string
+  tone: 'good' | 'bad' | 'warn' | 'muted'
+  /**
+   * WHY the pair cannot be read, when `alignment` is 'unknown'. '' otherwise.
+   *
+   * It comes from the server rather than being derived here because three different absences
+   * land on the same key and only the server knows which universe is loaded — and on the
+   * FICTIONAL demo set the honest answer is "this company does not exist", not "our symbol
+   * column does not cover it", which would imply the company is real.
+   */
+  why?: string
+  /** Focused row only: the date the price snapshot was captured, and the factor's full name. */
+  captured?: string
+  window_label?: string
+  tooltip?: string
+}
+
+/**
+ * Where one company's MOVEMENT sits across Profit / People / Planet — three shares of one whole,
+ * drawn as a ternary plot.
+ *
+ * It is a magnitude, never a verdict: a dot in the Planet corner can mean rapid environmental
+ * progress OR an environmental collapse, so `directions` travels with the shares and the panel
+ * prints both. `known` is false when an axis is unmeasured, and the shares are then null rather
+ * than 0 — sharing two axes over a missing third would inflate both and put the dot somewhere no
+ * measurement supports.
+ */
+export interface PPPShares {
+  known: boolean
+  missing: string[]
+  planet: number | null
+  people: number | null
+  profit: number | null
+  directions: Partial<Record<'planet' | 'people' | 'profit', number | null>>
+  /** Which corner it leans to. '' when not placeable. */
+  lean: '' | 'planet' | 'people' | 'profit'
+  /** The full rule, printed on the panel — a normalising constant chosen in private is how a
+   *  composition quietly becomes an opinion. */
+  basis: string
+  why: string
+}
+
+export interface PPPBlock {
+  rows: Record<string, PPPShares>
+  basis: string
+  placeable: number
+  total: number
+  /** How many lean Profit. NOT a drawing artefact — it is the evidence gap in a third view. */
+  profit_led: number
+  corners: Record<'planet' | 'people' | 'profit', string>
+}
+
+/**
+ * A model estimate of forward price return, WITH the out-of-sample skill it actually achieved.
+ *
+ * `skill` and `verdict` are not optional decoration: this repo's whole argument is that a number
+ * without its reliability is what a stale rating looks like from the outside, so the estimate is
+ * never rendered without them. See `forecast.py`.
+ */
+export interface ForecastSkill {
+  r2_oos: number
+  mae_oos: number
+  baseline_mae: number
+  beats_baseline: boolean
+  hit_rate: number
+  majority_class: number
+  beats_majority: boolean
+}
+
+/** The direction model's read: which way, how far from a coin flip, and how often it is right. */
+export interface DirectionPayload {
+  up_probability: number
+  call: 'up' | 'down'
+  /** Distance from a coin flip, 0..1. Printed instead of the bare probability: 0.52 and 0.94 are
+   *  both "up" and mean entirely different things. */
+  confidence: number
+  skill: {
+    accuracy: number; majority_class: number; beats_majority: boolean
+    brier: number; brier_baseline: number; beats_brier: boolean
+  }
+  verdict: { word: string; line: string }
+  factors_present: string[]
+  factors_missing: Record<string, string>
+  factor_note: string
+}
+
+export interface ForecastPayload {
+  direction?: DirectionPayload | null
+  /** Which market factors were REAL for this company rather than falling back to the mean. */
+  factors_live?: string[]
+  factors_missing?: Record<string, string>
+  factor_note?: string
+  available: boolean
+  why?: string
+  estimate_pct?: number
+  horizon_months?: number
+  skill?: ForecastSkill
+  verdict?: { word: string; line: string }
+  /** The model's typical out-of-sample error. Printed WITH the estimate, always. */
+  typical_error_pct?: number | null
+  sample_caveat?: string
+  not_advice: string
+  tested_on?: string[]
+}
+
+/** CGSI's PUBLISHED base rates. Attributed, historical, and explicitly not a forecast. */
+export interface OutlookPayload {
+  available: boolean
+  horizon: string
+  horizons: Record<string, string | null>
+  rate: string | null
+  caveat: string
+  source: { publisher: string; title: string; date: string }
+  not_a_forecast: string
+  context: string[]
+}
+
+export interface DualBlock {
+  rows: Record<string, DualRow>
+  /** Measured off THIS run and THIS price snapshot — never a remembered statistic. */
+  counts: Record<AlignmentKey, number>
+  quotable: number
+  total: number
+  captured: string
+  demo: boolean
+  /** Set when NOTHING in this universe is readable, so the zero row can say why. */
+  unavailable: string
+  window: string
+  window_label: string
+  alignment: Record<AlignmentKey, {
+    display: string; short: string; tone: string; rule: string; tooltip: string
+  }>
+  note: string
 }
 
 // --------------------------------------------------------------------------- //

@@ -45,22 +45,23 @@ TOUR = "IDX:SATB"           # SatBank — Hidden Winner, 11 signals, dissenting 
 UI_STATE = {
     "demo": True, "dark": True, "simplified": True, "level": 1, "setupDone": True,
     "tourDone": True, "tourDeck": "",
-    # The board as it was before the investor view existed: every number on screen, nothing
-    # translated. The plain rendering is a different recording, and picking it silently here
-    # would change what the camera sees without anyone deciding to.
-    "audience": "analyst", "showNumbers": False, "extras": [], "focus": "",
+    "extras": [], "focus": "",
     "profile": {"mandate": "risk", "goal": "screen",
                 "label": "protect the downside across ASEAN"},
     "filters": {"country": "All", "sector": "All"},
     "leftOpen": False, "rightOpen": False, "ragEnabled": True, "ragTopK": 5,
     "tier": "balanced", "horizon": "long", "pipelineOnly": False,
+    # The PPP lens and which argument the matrix is making. Spelled out for the same reason
+    # everything else here is: an omitted key falls back to the app's default, and a take that
+    # opens on a different plot from the last one is a take that has to be re-shot.
+    "ppp": "balanced", "greenFocus": False,
 }
 
 # The FIRST-RUN state: what a judge handed the laptop should meet. Setup has not run and the
 # tutorial has not been seen, so the app opens on its one question and walks the board afterwards.
 FIRST_RUN_STATE = {
     "demo": True, "dark": True, "setupDone": False, "tourDone": False, "tourDeck": "",
-    "audience": "investor", "showNumbers": False, "extras": [], "focus": "",
+    "extras": [], "focus": "",
 }
 
 

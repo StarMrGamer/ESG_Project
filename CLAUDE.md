@@ -41,6 +41,9 @@ esg-momentum-radar/
   metrics.py                # pure aggregation: avg ESG / pillar momentum / hidden winners / classify
   benchmarks.py             # industry benchmarks: ASEAN peer average + OECD GHG intensity (never merged)
   quotes.py                 # live market quote strip (Yahoo, best-effort) — context only, never a signal
+  price_momentum.py         # the SECOND axis: 12-1 price momentum, beside the ESG read and never inside it
+  ppp.py                    # Profit/People/Planet shares (the triangle) + CGSI's PUBLISHED base rates
+  forecast.py               # the ONE module that predicts — ridge on a replayed panel; reports its own failure
   lseg.py                   # LSEG's REAL published ESG score (public finder, keyless) — the incumbent view
   server.py                 # FastAPI API boundary + static React host: dashboard · chat · relay · evidence
   stage1.py                 # AGENT 1 owns — interrogation loop (+ visible CoT rationale)
@@ -76,11 +79,15 @@ esg-momentum-radar/
     sg_day_rates.py          # blended day rates from LIVE MyCareersFuture postings
     build_cost_workbook.py   # writes the cost model as a real, calculating .xlsx
     build_pitch_pptx.py      # the 9-slide judge deck as an editable .pptx (+ speaker notes)
+    record_demo_reel.mjs     # the 3-min pitch demo VIDEO: drives the real app, cuts 4 chapters
     build_metadata_mock.py   # regenerates the PROVISIONAL metadata CSV (deterministic)
     build_oecd_benchmark.py  # pulls OECD SDMX (emissions x value added) -> the industry benchmark CSV
     demo_reset.py            # puts the running app into a deterministic RECORDING state
     demo_diversify.py        # re-derives ONLY demo momentum/live_signals/news
                             #   (preserves esg_score — the MOCK baseline must not move)
+  data/price_momentum.json  # DATED snapshot: 12-1 price momentum, 43 of 52 (python price_momentum.py --snapshot)
+  data/price_history.json   # 10y monthly closes, 43 of 52 — TRAINING data for forecast.py, not for display
+  data/forecast_model.json  # the frozen model: coefficients, the time split, and its MEASURED skill
   data/oecd_industry_benchmark.csv  # REAL OECD GHG intensity per ISIC industry (built by the script below)
   data/asean_universe.json  # BASE DB — CGSI's REAL verified 52 (built by scripts/build_cgsi_basket.py)
   data/asean_universe_reconstructed.json  # the public-evidence 52 we built while waiting — kept, superseded
@@ -420,6 +427,195 @@ to prevent arriving through the other door. `load(demo=...)` now pins the pairin
 caller that knows which universe it is scoring passes it. Note `_metadata_hash` is an input to
 `run_id`, so swapping the metadata file legitimately changes the run id and the golden digest.
 
+**THE SECOND AXIS, AND THE ONE THING IT IS NOT ALLOWED TO BE** (`price_momentum.py`, added
+2026-09-01). The product argues with a stale rating. The fair question straight back is *and what
+has the market already done about it?* — a name whose price has run may have priced in exactly
+the improvement we are pointing at, and a name whose price is running while our evidence
+deteriorates is a different and far more interesting shape. Neither is answerable from the ESG
+side alone.
+
+So each company now carries **two momentum readings side by side**: our ESG evidence momentum,
+and the classical **12-1 price momentum factor** — twelve months of return ending ONE MONTH ago.
+The skipped month is not a rounding convenience: the one-month reversal is a documented,
+opposite-signed effect, and a twelve-month window that includes it measures two things at once.
+Their combination is named — `aligned`, `downside_trap` (price up, evidence down — the shape a
+static rating cannot see), `evidence_ahead`, `both_falling`.
+
+**It is a GATE, exactly as the financial read is, and for exactly the same reason.** Folding a
+price term into `disagreement` would end the project: the number currently means one defensible
+thing — our evidence percentile minus the incumbent rating's — and blending a return into it
+makes it a composite nobody, including us, could state. `selftest.py` pins that `engine.py` and
+`signals.py` can import neither `price_momentum` nor `quotes`, the same test that already pinned
+`financials` and `rationale`. The scoring path still costs zero tokens and reads zero prices.
+
+**It refuses to carry an accuracy claim.** The brief asked the banner to read *"downside failure
+rate reduced from 10% to 5% on dual-aligned assets"*, with a *"95% accuracy"* badge beside it.
+Neither number is in this repo and neither is derivable from what is: we hold a dated price
+snapshot and dated documentary evidence, and **no forward-return series**, so there is nothing to
+measure a failure rate against. Printing it would be a HARD RULE 2 breach — and the specific one
+this product exists to argue against, since a confident statistic beside a real chart is what a
+stale rating looks like from the outside. The strip therefore states what IS measured off the
+loaded run: **25 aligned · 1 downside divergence · 11 evidence-ahead · 43 of 52 readable on both
+axes**, with the `run_id` and the capture date beside them. When a backtest produces a real hit
+rate it belongs here, with its cutoffs and its cohort.
+
+Three more disciplines. **The snapshot is dated and the card says so** — a stored price shown as
+current is a rule-3 breach for the sake of looking fresher. **43 of 52 resolve**, being exactly
+the audited `market_symbols.csv` coverage; the nine misses are the seven Philippine names and the
+two delisted constituents, and they are DROPPED from the price plot and counted rather than drawn
+at x=0, which would assert a measurement we did not make. And **zero signals is `unknown`, never
+a divergence**: a company with no evidence scores momentum 0.000, which is the same number as
+"the evidence says flat" and a completely different claim — the y-axis twin of the hollow dots.
+On the FICTIONAL demo universe the reason given is that the companies do not exist, not that our
+symbol column missed them; blaming the lookup would imply the company was real.
+
+**A SECOND MATRIX, NOT A RELABELLED ONE** (`settings.matrixPlot`). The dual reading has its own
+plot: same y, and x becomes price momentum instead of the incumbent percentile, so it argues with
+the MARKET rather than with the rating. Its corners therefore mean different things and are
+captioned separately — *dual momentum aligned* top-right, *downside risk · value traps*
+bottom-right. The alternative was renaming the disagreement matrix's corners, and that would have
+put "dual momentum aligned" over a quadrant that has never read a price: `hidden_winners` is a
+rule about a RATING (top-LEFT — rated low while improving) and cannot be evaluated on a price
+axis at all. A caption that does not match its axis is worse than none, because a reader matching
+dots to the nearest label draws a conclusion the data does not support.
+
+**THE RATING AXIS WAS DROPPED FROM THE DRAWING, NOT FROM THE ENGINE** (2026-09-01, on
+instruction). The matrix panel briefly carried two plots behind a toggle; the original — x =
+incumbent rating percentile, Hidden Winners top-LEFT — was removed and only price-vs-evidence
+remains. `settings.matrixPlot` went with it rather than persisting a value nothing reads.
+
+**What did NOT change: `lseg_percentile` is still on every record, still drives `disagreement`,
+and still decides every quadrant label.** So the label legend beside the plot describes
+rating-vs-evidence corners while the captions ON the plot describe price-vs-evidence ones. Those
+are two different readings of the same 52 companies, and the panel says so rather than implying
+they are one axis. If you are tempted to "tidy" that inconsistency by relabelling the legend from
+the plot, don't — the labels are the engine's and the plot is context.
+
+The 12-card matrix walkthrough was REWRITTEN rather than deleted. Deleting the explainer for the
+densest thing on the page would have left `? What am I looking at?` pointing at nothing, and
+keeping twelve cards describing a removed axis would have been worse than either.
+
+**THE PPP TRIANGLE — a composition, and the one shape that suits it** (`ppp.py`, added
+2026-09-01). A ternary plot is right for exactly one kind of quantity: parts of a whole, where
+moving toward a corner necessarily means moving away from the other two. It asks a different
+question from the matrix — the matrix asks *which way is this company going*, the triangle asks
+*what is its story ABOUT*. **Profit sits at the apex** (moved there on instruction; the apex is
+the corner a reader looks at first, so which axis holds it is a statement).
+
+Two of the three shares arrive dimensionless already: Planet is the E pillar's contribution to
+momentum (|direction| x evidence weight — the engine's own aggregation term), People is the same
+for S, G **and Digital/AI**, which is folded in and SAID rather than dropped, because silently
+discarding a pillar the engine weights at 0.15 would make the shares a composition of something
+we never named. Profit cannot come from evidence weight — there is no profit PILLAR — so it is
+|12-1 price momentum| over a stated full scale, deliberately the SAME 60% the matrix draws its x
+axis with, and `BASIS` prints the whole rule on screen. A normalising constant chosen in private
+is how a composition quietly becomes an opinion.
+
+**It is a MAGNITUDE, not a verdict**, and this is the thing to hold onto: a dot in a corner can
+mean rapid progress OR rapid collapse, so the direction of each axis is printed beside the shares
+rather than encoded in the position. Same discipline `RadarHub` already states for its own radar,
+made explicit because a corner LABEL is a far stronger suggestion than a radius.
+
+**A missing axis is never a zero share.** 42 of 52 are placeable; the rest return `known=False`
+with the missing axis named. Normalising over the two we can read would redistribute the missing
+third into them and put the dot somewhere no measurement supports — the trap `align` avoids one
+panel over. And rounded shares are forced to sum to EXACTLY 1 (the residual lands on the last
+one), or the barycentric placement drifts and the composition stops being one.
+
+**24 of 42 lean Profit, and that is the evidence gap, not a fact about ASEAN business.** Their
+E/S/G pulls are small because we hold little dated evidence for them. The panel states it, for
+the same reason the hollow dots are counted: otherwise the plot reads as "these are really just
+price stories", which is a conclusion about the companies drawn from a hole in our own coverage.
+
+**THE FORECAST — asked for, built for real, and it FAILED** (`forecast.py`, added 2026-09-01).
+The brief was a financial-momentum prediction from the PPP system. HARD RULE 4 says the product
+never picks, and the first answer was to offer published base rates instead; the instruction was
+repeated, so a real model was built. Both halves of that matter.
+
+**It is a real model.** Ridge regression on a real panel — the engine replayed at 12 quarterly
+cutoffs (possible only because `run_engine` is pure), PPP shares and evidence read *as they stood
+at each cutoff*, paired against the return each stock actually delivered over the next 6 months.
+445 rows, 41 companies. No coefficient is hand-set; `data/forecast_model.json` rebuilds from
+committed files.
+
+**And it has no measured skill.** Trained on the early cutoffs, graded on the later ones:
+
+| | value | baseline |
+|---|---|---|
+| out-of-sample R² | **−0.150** | 0 (predicting the mean) |
+| mean absolute error | 15.02% | **14.17%** |
+| directional hit rate | 47.8% | **65.4%** (majority class) |
+
+Across **nine configurations** — three horizons x three train splits — **every R² was negative
+and every hit rate below the majority class**. Zero showed skill. The sweep is recorded IN the
+frozen file precisely so a future session cannot re-roll the split until it likes the answer and
+ship that one; `selftest.py` asserts `with_skill == 0` and tells you to re-read the module header
+before changing that assertion.
+
+**The number still ships, and the verdict ships louder.** A failed model that says so is worth
+more than a plausible one that does not — but `predict()` cannot return an estimate without
+`skill`, `verdict` and the typical error attached, and the panel renders the error ON the
+estimate rather than under it. An estimate of −3.1% from a model routinely 15 points out is not a
+forecast of −3.1%. **A number whose reliability the reader cannot check is the exact object this
+entire product exists to argue against**; shipping one here would make the pitch self-refuting.
+
+Five leaks were designed out and are worth knowing if anyone extends this: evidence lookahead
+(the engine's own cutoff, asserted via `enforce_cutoff`, not assumed); scaling lookahead
+(standardisation fitted on TRAIN rows only); split lookahead (split by TIME — random k-fold here
+trains on 2026 to predict 2024); grading against nothing (R² is measured against predicting the
+training mean, and the direction baseline is the MAJORITY CLASS, not 50%, because "always up" is
+strong in a rising market); and overlapping returns, which cannot be engineered away with this
+data and is stated on screen instead.
+
+**Beside it sits the half that IS evidenced.** CGSI's own published frequencies for how often an
+ESG improver in this basket beat the index — **28.9% at 1y, 46.2% at 3y, 61.5% at 5y** — selected
+by the reader's holding period, attributed, and carrying CGSI's own caveat that it does not
+transfer to a single stock, printed at the same size as the figure it qualifies. That is a
+measured historical frequency rather than our guess, and it is the honest answer to "so will it
+make money?".
+
+**THE PPP TRILEMMA IS A LENS, AND EVERY ANSWER DOES SOMETHING** (`settings.ppp`, added
+2026-09-01). Profit / People / Planet is asked once, in the setup, and shown as a strip at the top
+of the board: **Profit first** lets the financial direction lead and runs ESG as a strict
+downside gate (a name whose dated evidence is deteriorating dims however well the price has run);
+**Balanced** dims nothing; **Sustainability focus** puts the labelled green-bond hurdle first. It
+replaced the old two-chip "Broad ESG / Green finance" question rather than joining it — Planet IS
+that question's green answer, and shipping both would have been two controls expressing one
+preference, free to disagree on screen. `greenFocus` is now DERIVED from `ppp` in `setSettings`,
+the same way `simplified` is derived from `level`.
+
+It is a lens, not a second scoring model: no weight moves, nothing is re-scored, and a
+non-matching name **dims rather than disappearing** — the standing A5 discipline.
+
+**One bug worth keeping, because it appeared twice in opposite directions.** The strip and the
+matrix caption both report how many names the lens is dimming, and they disagreed both ways
+before `lib/tierMatch.dimSplit` became the single definition. First the strip counted the lens
+across the whole basket and said "3 dimmed" beside a matrix reporting 0 — the risk tier had
+already dimmed all three. Then the matrix called the green hurdle "the risk tier", because
+`greenFocus` lives INSIDE `matches` and the tier was set to `all`, so 39 names were attributed to
+a filter dimming nothing. **A control that claims an effect it did not have is worse than one
+that says nothing**, and two widgets describing the same control with different numbers on one
+screen is the failure the pillar-cards note already warns about. `dimSplit` attributes each name
+to exactly one cause, in a fixed order, so the parts always sum to the total.
+
+**THE INVESTOR RENDERING IS GONE** (removed 2026-09-01). The app carried two renderings of one
+run: an `investor` view putting every finding in plain sentences with the desk furniture folded
+away, and the `analyst` view it was built as. That fork was for a reader holding forty shares of
+the bank in question, and **that is not who this is for** — the audience is a CGSI ESG investor,
+who reads a research note, knows what a percentile is, and needs the run id, the cohort, the
+tiers and the thresholds ON SCREEN rather than one click behind "Show the numbers".
+
+Deleted rather than defaulted-off: `InvestorCard.tsx`, `MatchList.tsx`, `SetupLite.tsx`,
+`lib/plain.ts`, the `audience` and `showNumbers` settings, `setupFull`, the header's
+Investor/Analyst switch and the tutorial's investor deck. **Two renderings of one number always
+drift, and the softer one wins the drift** — it is the one nobody re-checks against the engine.
+The manual stopped forking with them: every section now shows its `detail` (the formula, the rule
+string, the file that owns it) rather than hiding it behind an audience flag.
+
+`loadSettings` migrates a stored `audience: 'investor'` away **and lifts `level` 1 → 3** with it,
+because level 1 was that view's home: leaving it there would open the full analyst board with
+most of it switched off, which reads as a broken upgrade rather than a removed feature.
+
 **"But what about the future?"** (added 2026-08-19, review feedback). The fair objection to
 everything above is that evidence keeps arriving — so a verdict on screen is a snapshot, which is
 exactly what we criticise a rating for being. Two surfaces answer it, and neither predicts
@@ -438,6 +634,11 @@ and colouring it red would call the thesis a warning. **Backwards** (`/api/backt
 the SVGs come from, where every point is a real engine run at its own cutoff — what the Radar
 would have said on that date — against an incumbent view that did not move. Adaro stays in,
 flagged: a backtest you can only pass is not a backtest.
+
+*(Superseded in part on 2026-09-01: the green-finance question below became the PPP trilemma,
+and the one-question investor start was deleted with the investor rendering — every reader now
+gets the full six-step setup. The reasoning is unchanged and is why the trilemma had to replace
+that question rather than sit beside it.)*
 
 **The setup asks about YOU now** (added 2026-08-19, review feedback). The first version asked
 four questions and DERIVED the risk tier and decay horizon from the mandate alone; the objection
@@ -549,7 +750,9 @@ cannot both establish the same view, and **cleared if the run is abandoned** —
 is on screen after that, so the next step has to put it right rather than assume.
 
 **AN INVESTOR VIEW, BECAUSE THE PRODUCT'S UNIT IS UNREADABLE OUTSIDE A DESK** (added
-2026-08-28). `disagreement +0.80`, `composite_confidence 0.69`, `momentum percentile 97th` are
+2026-08-28, **REMOVED 2026-09-01** — see "THE INVESTOR RENDERING IS GONE" above. Kept here
+because the three rules at the end of it still govern every surface, and because the reason it
+was removed is a decision about AUDIENCE, not a judgement that the rules were wrong.) `disagreement +0.80`, `composite_confidence 0.69`, `momentum percentile 97th` are
 exactly right for the analyst this was built for and mean nothing to someone holding forty shares
 of the bank in question. `settings.audience` is `investor` (the default) or `analyst`, and it is
 NOT another level: `level` answers *how much of the board*, `audience` answers *in whose
@@ -1104,6 +1307,10 @@ python -m scripts.build_metadata_mock    # regenerate the PROVISIONAL metadata C
 python -m scripts.build_oecd_benchmark   # refresh data/oecd_industry_benchmark.csv from OECD SDMX
 python benchmarks.py                     # the per-industry table: ASEAN average vs OECD intensity
 python quotes.py                         # live quotes for one name per ASEAN exchange
+python price_momentum.py --snapshot      # refresh data/price_momentum.json (12-1 factor, 43 of 52)
+python -m scripts.build_price_history    # 10y monthly closes -> data/price_history.json (training data)
+python forecast.py --train               # rebuild the panel, fit, sweep, freeze data/forecast_model.json
+python ppp.py                            # PPP shares for the real basket + the published base rates
 python lseg.py "DBS Group Holdings" SGX  # one company's real LSEG ESG score; no args = all 52
 python sensitivity.py IDX:ASMB           # what would change this verdict (--real, --horizon, --json)
 python harvest.py --empty                # gather evidence for every zero-signal company

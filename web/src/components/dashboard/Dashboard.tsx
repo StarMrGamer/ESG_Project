@@ -5,13 +5,13 @@ import CenterBoard from './CenterBoard'
 import AssistantRail from './AssistantRail'
 import AssistantBar from './AssistantBar'
 import EngineBoard from './EngineBoard'
+import PPPBanner from '../dual/PPPBanner'
 import UniverseGrid from './UniverseGrid'
 import ContextTab from './ContextTab'
 import ClientsTab from '../clients/ClientsTab'
 import Manual from '../manual/Manual'
 import { SHOW_CLIENTS } from '../../features'
 import { MODULES, isNative, isPinned, showModule } from '../../lib/modules'
-import { MODULE_PLAIN } from '../../lib/plain'
 import type { ModuleKey } from '../../store'
 
 /**
@@ -30,9 +30,6 @@ const NEXT: Record<number, string> = {
   1: 'Every panel at once: the disagreement matrix, the risk tiers, the universe grid, the '
     + 'evidence trail and the run provenance.',
 }
-const NEXT_PLAIN = 'Every panel at once — where each company sits, the full list, and the '
-  + 'evidence behind every verdict.'
-
 /**
  * The foot of the board: step up a whole level, or pin one module onto the level you are on.
  *
@@ -71,9 +68,7 @@ function ModuleBar() {
           <div className="step-up-row">
             <div>
               <div className="step-up-h">There is more underneath</div>
-              <div className="cc-muted">
-                {settings.audience === 'investor' ? NEXT_PLAIN : NEXT[lv]}
-              </div>
+              <div className="cc-muted">{NEXT[lv]}</div>
             </div>
             <button className="btn btn-primary"
               onClick={() => setSettings({ level: next, leftOpen: true, rightOpen: true })}>
@@ -89,14 +84,11 @@ function ModuleBar() {
             <div className="step-up-chips">
               {offerable.map(m => {
                 const on = isPinned(m.key, settings)
-                // "Disagreement matrix" is the right name on a desk and a wall to everyone else.
-                const label = settings.audience === 'investor'
-                  ? (MODULE_PLAIN[m.key] ?? m.label) : m.label
                 return (
                   <button key={m.key} aria-pressed={on} title={m.blurb}
                     className={`cc-chip step-up-chip ${on ? 'is-on' : ''}`}
                     onClick={() => toggle(m.key)}>
-                    <span className="step-up-sign" aria-hidden>{on ? '×' : '+'}</span> {label}
+                    <span className="step-up-sign" aria-hidden>{on ? '×' : '+'}</span> {m.label}
                   </button>
                 )
               })}
@@ -135,6 +127,10 @@ export default function Dashboard() {
             ? <ContextTab />
             : (
               <>
+                {/* The lens the setup asked for, and what it is currently doing to the board.
+                    Above the matrix and above the level gate on purpose: it is a control, not a
+                    panel, and a preference whose effect you cannot see is not a preference. */}
+                <PPPBanner />
                 {showModule('matrix', settings) && <EngineBoard />}
                 {/* The one-line assistant is what level 1 has INSTEAD of the rail. With the
                     rail pinned on, showing both would be the same assistant twice. */}

@@ -5,7 +5,6 @@ import Dashboard from './components/dashboard/Dashboard'
 import DeepDive from './components/deepdive/DeepDive'
 import CompareView from './components/compare/CompareView'
 import Setup from './components/setup/Setup'
-import SetupLite from './components/setup/SetupLite'
 import EvidencePanel from './components/evidence/EvidencePanel'
 import Present from './components/present/Present'
 import { PITCH } from './components/present/tour'
@@ -33,7 +32,7 @@ function Router() {
 }
 
 function Shell() {
-  const { settings, board, view, setupFull } = useStore()
+  const { settings, board, view } = useStore()
   // `?present=1` / `?recap=1` so either walk opens straight from a bookmark on the presenting
   // machine, without hunting for the button in front of a room.
   const [track, setTrack] = useState<Track | null>(() => {
@@ -51,11 +50,12 @@ function Shell() {
   // The assistant configures the board before the board exists. Header and footer stay out of
   // the way until it has — a first screen with a settings bar on it is already a dashboard.
   if (!settings.setupDone) {
-    // A first-time investor gets one question; an analyst — and anyone who asked to
-    // Reconfigure — gets the full set of preferences.
+    // The full set of preferences, every time. The one-question start belonged to the removed
+    // investor rendering — a CGSI ESG investor is setting a mandate, a risk appetite, a holding
+    // period and a PPP balance, and every one of those changes what the board shows.
     return (
       <div className="app-shell is-setup">
-        {settings.audience === 'investor' && !setupFull ? <SetupLite /> : <Setup />}
+        <Setup />
         <Toasts />
       </div>
     )

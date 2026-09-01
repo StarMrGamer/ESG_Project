@@ -62,72 +62,6 @@ const ensureMatrix = (s: Settings): Partial<Settings> => ({
   extras: s.extras.includes('matrix') ? s.extras : [...s.extras, 'matrix' as ModuleKey],
 })
 
-/**
- * The investor's four. Same rules, different board: there is no radar and no percentile to
- * explain, so the cards teach what that reader can act on — the verdict, the receipts, the
- * assistant, and the fact that the numbers are one click away rather than gone.
- */
-const INVESTOR_CARDS: Card[] = [
-  {
-    anchor: 'verdict-plain',
-    title: 'What this is',
-    body: 'A published ESG rating is a level, and it refreshes slowly. This says where dated news '
-      + 'and filings disagree with it — in sentences, not scores. It never says buy or sell.',
-  },
-  {
-    anchor: 'receipts',
-    title: 'Every line has a source',
-    body: 'These are the actual filings and news items behind the verdict, with their dates. '
-      + 'Click one to read it yourself — and the ones that argue the other way are in the full '
-      + 'list too, never dropped.',
-  },
-  {
-    anchor: 'assistant',
-    ensure: ensureAssistant,
-    title: 'Just ask',
-    body: '“How is DBS doing?”, “show me banks”, “monitor Maybank” to keep one on your list. It '
-      + 'moves what is on screen and it will not invent an answer.',
-  },
-  {
-    anchor: 'matrix',
-    ensure: ensureMatrix,
-    title: 'The whole basket, in one picture',
-    body: 'Every company we track is a dot here, placed by two different readings at once. Side '
-      + 'to side is what its published rating thinks — left, unimpressed; right, impressed. Up '
-      + 'and down is what dated news and filings say — top, improving; bottom, getting worse.',
-  },
-  {
-    anchor: 'matrix',
-    ensure: ensureMatrix,
-    title: 'The four corners are just those two, combined',
-    body: 'Left + top: rated low but improving — the corner this whole product exists for. Right '
-      + '+ top: rated well and improving, everyone agrees. Right + bottom: rated well but '
-      + 'slipping — what a slow-moving score cannot show you. Left + bottom: rated low and still '
-      + 'slipping. Most companies sit on the agreeing diagonal; the interesting ones do not.',
-  },
-  {
-    anchor: 'explain-matrix',
-    ensure: ensureMatrix,
-    title: 'Corner by corner, whenever you want it',
-    body: 'This button walks the plot properly — both directions, the two dividing lines, each '
-      + 'corner on its own, and what a dimmed or hollow dot means. It is always there on the '
-      + 'chart, so nothing here has to be remembered.',
-  },
-  {
-    anchor: 'show-numbers',
-    title: 'The numbers are right here',
-    body: 'Nothing is hidden from you — this puts the full analyst view back on screen: the '
-      + 'radar, the percentiles and the score record. The Analyst switch at the top keeps it '
-      + 'that way.',
-  },
-  {
-    anchor: 'manual',
-    title: 'And the long version',
-    body: '“How it works” explains the whole thing line by line — where the companies come from, '
-      + 'how a news item becomes evidence, how sure we are and why that is capped, and what this '
-      + 'app cannot do. It reads itself out of the run you are looking at.',
-  },
-]
 
 const CARDS: Card[] = [
   {
@@ -169,18 +103,18 @@ const CARDS: Card[] = [
     anchor: 'matrix',
     ensure: ensureMatrix,
     title: 'The whole basket, in one picture',
-    body: 'Every company we track is a dot here, placed by two different readings at once. Side '
-      + 'to side is what its published rating thinks — left, unimpressed; right, impressed. Up '
-      + 'and down is what dated news and filings say — top, improving; bottom, getting worse.',
+    body: 'Every company we track is a dot here, placed by two readings at once. Side to side is '
+      + 'what the SHARE PRICE has done over the past year — left, fallen; right, risen. Up and '
+      + 'down is what dated news and filings say — top, improving; bottom, getting worse.',
   },
   {
     anchor: 'matrix',
     ensure: ensureMatrix,
     title: 'The four corners are just those two, combined',
-    body: 'Left + top: rated low but improving — the corner this whole product exists for. Right '
-      + '+ top: rated well and improving, everyone agrees. Right + bottom: rated well but '
-      + 'slipping — what a slow-moving score cannot show you. Left + bottom: rated low and still '
-      + 'slipping. Most companies sit on the agreeing diagonal; the interesting ones do not.',
+    body: 'Right + top: the price has risen and the evidence agrees — both pointing the same way. '
+      + 'RIGHT + BOTTOM is the one to know: the price has run while the dated evidence is going '
+      + 'backwards, which is what a slow-moving ESG score cannot show you. Left + top: the '
+      + 'evidence is ahead of the price. Left + bottom: both falling.',
   },
   {
     anchor: 'explain-matrix',
@@ -220,20 +154,20 @@ const MATRIX_CARDS: Card[] = [
   {
     anchor: 'matrix',
     title: 'One dot per company, two questions at once',
-    body: 'Every company we track is on this plot twice over: where its published rating puts it, '
-      + 'and where the dated evidence puts it. The gap between those two is the whole product, '
-      + 'and it is what the position of a dot means.',
+    body: 'Every company we track is on this plot twice over: what the market has already done '
+      + 'about it, and what the dated evidence says about it. Where those two disagree is the '
+      + 'interesting part, and it is what the position of a dot means.',
   },
   {
     anchor: 'axis-x',
-    title: 'Side to side: what the rating thinks',
-    body: 'A dot on the LEFT means the published ESG rating is unimpressed with that company. On '
-      + 'the RIGHT, the rating thinks well of it. That is all this direction says — it is a '
-      + 'level, and it tells you nothing about which way the company is moving.',
+    title: 'Side to side: what the share price did',
+    body: 'A dot on the RIGHT means the share price rose over the year to a month ago. On the '
+      + 'LEFT, it fell. That is all this direction says. The price is context here and never '
+      + 'part of any score — nothing about where a dot sits sideways changes what we call it.',
   },
   {
     anchor: 'axis-y',
-    title: 'Up and down: which way it is moving',
+    title: 'Up and down: which way the evidence is moving',
     body: 'A dot near the TOP means dated news and filings say the company is improving. Near the '
       + 'BOTTOM, they say it is getting worse. That is all this direction says — it is a '
       + 'direction, and it tells you nothing about whether the company is good today.',
@@ -241,59 +175,56 @@ const MATRIX_CARDS: Card[] = [
   {
     anchor: 'boundaries',
     title: 'The two dashed lines cut it into four',
-    body: 'The upright line is the middle of the rating: left of it, rated below average for this '
-      + 'list; right of it, above. The flat line is standing still: above it, improving; below '
-      + 'it, slipping. Crossing either one changes what we call a company — no other line on the '
-      + 'plot does that.',
+    body: 'The upright line is a flat share price: left of it the price fell over the window, '
+      + 'right of it it rose. The flat line is standing still on evidence: above it improving, '
+      + 'below it slipping. Everything else on the plot is just a gridline.',
   },
   {
-    // The card the corners exist for: names like "value trap" are jargon until you can read them
-    // straight off the two directions you were just shown.
+    // The card the corners exist for: a corner name is jargon until you can read it straight off
+    // the two directions you were just shown.
     anchor: 'matrix',
     title: 'Now read the two together',
-    body: 'Every corner is just one combination of those two directions. Side tells you what the '
-      + 'rating thinks; height tells you what the evidence is doing. Left + top: rated low but '
-      + 'improving. Right + top: rated well and improving. Right + bottom: rated well but '
-      + 'slipping. Left + bottom: rated low and slipping. The next four cards are those four, one '
-      + 'at a time.',
+    body: 'Every corner is one combination of those two directions. Side tells you what the '
+      + 'market did; height tells you what the evidence is doing. Right + top: both up. Right + '
+      + 'bottom: price up, evidence down. Left + top: evidence up, price down. Left + bottom: '
+      + 'both down. The next four cards are those four, one at a time.',
   },
   {
-    anchor: 'quad-hidden',
-    title: 'Left and high — rated low, but improving',
-    body: 'The rating is unimpressed while the evidence says things are getting better. This is '
-      + 'the corner the product exists for, and the hardest to earn: a name only gets our '
-      + 'strictest label here with enough evidence, from good enough sources. Otherwise it just '
-      + 'sits here as ordinary agreement.',
+    anchor: 'quad-aligned',
+    title: 'Right and high — price up, evidence up',
+    body: 'The market has marked this company up and our dated evidence agrees it is improving. '
+      + 'Two readings pointing the same way. That is agreement, not a recommendation — and it '
+      + 'says nothing about how much of the improvement the price has already absorbed.',
   },
   {
-    anchor: 'quad-future',
-    title: 'Right and high — rated well, and improving',
-    body: 'The rating thinks well of it and the evidence agrees it is still improving. We are not '
-      + 'disagreeing with anybody here, and that is a finding too: most companies are not an '
-      + 'argument, and a screen that never agrees with anything is not measuring.',
+    anchor: 'quad-downside_trap',
+    title: 'Right and low — price up, evidence down',
+    body: 'The price has run while our dated evidence goes backwards. This is the corner the '
+      + 'product exists to surface: the People and Planet side deteriorating without the market '
+      + 'marking it, which is exactly what a score that refreshes once a year cannot show you.',
   },
   {
-    anchor: 'quad-overrated',
-    title: 'Right and low — rated well, but slipping',
-    body: 'The rating still thinks well of it while the evidence points down. This is the blind '
-      + 'spot of a score that refreshes slowly: nothing in the published number can show you a '
-      + 'company on the way down until its next revision.',
+    anchor: 'quad-evidence_ahead',
+    title: 'Left and high — evidence up, price down',
+    body: 'Our evidence says the company is improving while the share price has fallen over the '
+      + 'window. The mirror of the corner before it, and the reason this plot is not a ranking: '
+      + 'it reports a disagreement with the market, it does not resolve it.',
   },
   {
-    anchor: 'quad-traps',
-    title: 'Left and low — rated low, and still slipping',
-    body: 'The rating is unimpressed and the evidence agrees it is getting worse. Both readings '
-      + 'point the same way, downward — no disagreement to report.',
+    anchor: 'quad-both_falling',
+    title: 'Left and low — both falling',
+    body: 'The price fell and the evidence agrees things are getting worse. Both readings point '
+      + 'the same way, downward — no disagreement to report.',
   },
   {
-    // Anchored to the plot rather than to the tier control: at investor audience that control is
+    // Anchored to the plot rather than to the tier control: below level 3 that control is
     // folded away, and the dimming it causes is exactly the thing a newcomer needs explained.
     anchor: 'matrix',
     title: 'The bright ones fit what you asked for',
-    body: 'Solid dots match the risk setting and focus you chose; dimmed ones do not. They are '
-      + 'dimmed rather than removed on purpose — you still have to be able to see the name you '
-      + 'are choosing not to hold, and a filter that deletes companies is quietly making the '
-      + 'decision for you.',
+    body: 'Solid dots match the risk setting, the Profit/People/Planet balance and the focus you '
+      + 'chose; dimmed ones do not. They are dimmed rather than removed on purpose — you still '
+      + 'have to be able to see the name you are choosing not to hold, and a filter that deletes '
+      + 'companies is quietly making the decision for you.',
   },
   {
     anchor: 'matrix',
@@ -303,10 +234,19 @@ const MATRIX_CARDS: Card[] = [
       + 'and counted beside the plot. An absence is a finding, not a blank.',
   },
   {
-    title: 'The diagonal is the boring one',
-    body: 'Bottom-left to top-right is where the rating and the evidence agree, and most companies '
-      + 'live there. The two opposite corners are where they part company — that is the entire '
-      + 'point of the plot, and every dot in them opens onto its sources.',
+    anchor: 'matrix',
+    title: 'And some companies are not here at all',
+    body: 'Nine of the basket have no share price we can quote — seven Philippine listings our '
+      + 'checked symbol list does not cover, and two companies that went private. They have no '
+      + 'side-to-side position, so they are left off and counted rather than parked in the '
+      + 'middle, which would claim their price did not move.',
+  },
+  {
+    title: 'The names still come from the rating',
+    body: 'One thing this plot does NOT show: the published ESG rating. What we call each company '
+      + '— the labels in the legend — still comes from comparing our evidence against that '
+      + 'rating, and that comparison has not changed. This plot shows the same companies against '
+      + 'the market instead, which is a different question about the same 52 names.',
   },
 ]
 
@@ -317,9 +257,10 @@ export default function Tutorial() {
   const { settings, setSettings } = useStore()
   const [i, setI] = useState(0)
   const stopTracking = useRef<(() => void) | null>(null)
-  const deck = settings.tourDeck === 'matrix' ? MATRIX_CARDS
-    : settings.audience === 'investor' && !settings.showNumbers ? INVESTOR_CARDS
-    : CARDS
+  // Two decks, not three. The investor deck went with the investor rendering (2026-09-01):
+  // it taught a card that no longer exists, and half its cards pointed at a "show the numbers"
+  // button that has nothing left to reveal.
+  const deck = settings.tourDeck === 'matrix' ? MATRIX_CARDS : CARDS
   const card = deck[i]
 
   const close = () => {

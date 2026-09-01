@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../../store'
 import SetupPreview from './SetupPreview'
-import type { Focus, Goal, Holding, Level, Mandate, SetupChoice } from '../../store'
+import type { Focus, Goal, Holding, Level, Mandate, PPP, SetupChoice } from '../../store'
 import type { HorizonKey, TierKey } from '../../types'
 import { shortSector } from '../ui'
 
@@ -65,11 +65,33 @@ const HOLDINGS: { key: Holding; label: string; blurb: string; horizon: HorizonKe
     blurb: 'Signals decay slowly (180 days) — structural change over noise.' },
 ]
 
-/** Thematic focus. `green` is backed by the green-bond metadata, not by sentiment. */
-const FOCUSES: { key: Focus; label: string; blurb: string }[] = [
-  { key: 'broad', label: 'Broad ESG', blurb: 'Every improver in the universe, whatever it funds with.' },
-  { key: 'green', label: 'Green finance', blurb: 'Lean towards issuers carrying a labelled green bond.' },
+/**
+ * THE PPP TRILEMMA — how this fund balances Profit, People and Planet.
+ *
+ * It replaced a two-chip "Broad ESG / Green finance" question rather than joining it, because
+ * Sustainability Focus IS that question's green answer: shipping both would have been two
+ * controls expressing one preference, free to disagree on screen. So `focus` is DERIVED from
+ * this (`planet` -> `green`), the store derives `greenFocus` from `ppp` in turn, and there is
+ * exactly one place a reader states what they are optimising for.
+ *
+ * Each answer does something to the board, which is the standing bar for asking at all:
+ * Profit First dims deteriorating evidence however well the price has run, Sustainability Focus
+ * dims anything without a labelled green bond, and Balanced dims nothing.
+ */
+const PPPS: { key: PPP; label: string; blurb: string; does: string }[] = [
+  { key: 'profit', label: 'Profit first',
+    blurb: 'Financial return leads; ESG is a strict downside warning gate.',
+    does: 'Dims any name whose dated evidence is deteriorating — the price momentum does not excuse it.' },
+  { key: 'balanced', label: 'Balanced',
+    blurb: 'Profit, People and Planet weighted equally — the default.',
+    does: 'Shows both momentum directions side by side and dims nothing.' },
+  { key: 'planet', label: 'Sustainability focus',
+    blurb: 'The labelled green-bond hurdle comes first.',
+    does: 'Dims issuers with no labelled green bond, read from green_bond_status — metadata, not sentiment.' },
 ]
+
+/** `focus` is what the profile records; the PPP lens is what the reader actually chose. */
+const focusOf = (p: PPP): Focus => (p === 'planet' ? 'green' : 'broad')
 
 const GOALS: { key: Goal; label: string; blurb: string }[] = [
   { key: 'screen', label: 'Screen ASEAN companies', blurb: 'Sweep the whole basket for names where we disagree with the rating.' },
@@ -81,12 +103,12 @@ const GOALS: { key: Goal; label: string; blurb: string }[] = [
  * summary card and both stay editable there — a derived default the user cannot see or change
  * is just a hidden setting.
  */
-const DERIVED: Record<Mandate, { tier: TierKey; holding: Holding; focus: Focus; why: string }> = {
-  risk: { tier: 'balanced', holding: 'under_2y', focus: 'broad',
-    why: 'Downside work reacts to what is happening now, so I have started you on a short evidence window and a moderate appetite. Change either.' },
-  return: { tier: 'aggressive', holding: '5y_plus', focus: 'broad',
-    why: 'Upside work needs a longer memory and tolerates thinner evidence, so I have started you high and long. Change either.' },
-  compliance: { tier: 'conservative', holding: '2_5y', focus: 'green',
+const DERIVED: Record<Mandate, { tier: TierKey; holding: Holding; ppp: PPP; why: string }> = {
+  risk: { tier: 'balanced', holding: 'under_2y', ppp: 'profit',
+    why: 'Downside work reacts to what is happening now, so I have started you on a short evidence window, a moderate appetite, and ESG running as a downside gate. Change any of it.' },
+  return: { tier: 'aggressive', holding: '5y_plus', ppp: 'balanced',
+    why: 'Upside work needs a longer memory and tolerates thinner evidence, so I have started you high, long and balanced across the three. Change any of it.' },
+  compliance: { tier: 'conservative', holding: '2_5y', ppp: 'planet',
     why: 'A mandate wants corroboration over reach, so I have started you low, long, and pointed at labelled issuance. Change any of it.' },
 }
 
@@ -113,7 +135,10 @@ export default function Setup() {
   const [level, setLevel] = useState<Level>(1)
   const [tier, setTier] = useState<TierKey>('balanced')
   const [holding, setHolding] = useState<Holding>('2_5y')
-  const [focus, setFocus] = useState<Focus>('broad')
+  const [ppp, setPpp] = useState<PPP>('balanced')
+  // The profile records a thematic focus; the reader chose a PPP lens. One is derived from the
+  // other so the two can never describe different preferences.
+  const focus: Focus = focusOf(ppp)
   // The horizon is not asked for directly — it is what the holding period MEANS in evidence
   // days, so it is derived here and shown with that reason on the summary card.
   const horizon: HorizonKey = HOLDINGS.find(h => h.key === holding)!.horizon
@@ -144,7 +169,7 @@ export default function Setup() {
     setMandate(m)
     setTier(DERIVED[m].tier)
     setHolding(DERIVED[m].holding)
-    setFocus(DERIVED[m].focus)
+    setPpp(DERIVED[m].ppp)
   }
 
   /** Free text, matched locally against whatever the current step is asking for. */
@@ -164,7 +189,8 @@ export default function Setup() {
       if (/high|aggress|risky/.test(low)) setTier('aggressive')
       else if (/low|conserv|safe|cautious/.test(low)) setTier('conservative')
       else if (/mod|balanc|medium/.test(low)) setTier('balanced')
-      if (/green|climate|transition|bond/.test(low)) setFocus('green')
+      if (/green|climate|transition|bond|planet|sustainab/.test(low)) setPpp('planet')
+      else if (/profit|return|financial|price|money/.test(low)) setPpp('profit')
       const yrs = low.match(/(\d+)\s*(?:to|-|–)?\s*(\d+)?\s*year/)
       if (yrs) {
         const n = Number(yrs[2] || yrs[1])
@@ -199,13 +225,13 @@ export default function Setup() {
     goal === 'screen' && sector !== 'All' ? `· ${shortSector(sector)}` : '',
     `· ${RISKS.find(r => r.key === tier)!.label.toLowerCase()} risk`,
     `· ${HOLDINGS.find(h => h.key === holding)!.label.toLowerCase()}`,
-    focus === 'green' ? '· green finance' : '',
+    ppp !== 'balanced' ? `· ${PPPS.find(p => p.key === ppp)!.label.toLowerCase()}` : '',
   ].filter(Boolean).join(' ')
 
   const finish = () => {
     const choice: SetupChoice = {
       mandate: (mandate || 'risk') as Mandate, goal: (goal || 'screen') as Goal,
-      holding, focus,
+      holding, focus, ppp,
       country: goal === 'investigate' ? 'All' : country,
       sector: goal === 'investigate' ? 'All' : sector,
       tier, horizon, level, label,
@@ -221,7 +247,7 @@ export default function Setup() {
   }
 
   const skip = () => applySetup({
-    mandate: 'risk', goal: 'screen', holding: '2_5y', focus: 'broad',
+    mandate: 'risk', goal: 'screen', holding: '2_5y', focus: 'broad', ppp: 'balanced',
     country: 'All', sector: 'All',
     tier: 'balanced', horizon: 'long', level: 3, label: 'everything, unfiltered',
   })
@@ -269,7 +295,7 @@ export default function Setup() {
               <Said>
                 {RISKS.find(r => r.key === tier)!.label} risk ·{' '}
                 {HOLDINGS.find(h => h.key === holding)!.label} ·{' '}
-                {FOCUSES.find(f => f.key === focus)!.label}
+                {PPPS.find(p => p.key === ppp)!.label}
               </Said>
             </>
           )}
@@ -365,14 +391,18 @@ export default function Setup() {
               </div>
 
               <div className="setup-q">
-                <div className="setup-q-h">Anything you are specifically after?</div>
+                <div className="setup-q-h">Profit, People, Planet — where is your balance?</div>
                 <div className="setup-chips">
-                  {FOCUSES.map(f => (
-                    <button key={f.key} className={`setup-chip ${focus === f.key ? 'on' : ''}`}
-                      title={f.blurb} onClick={() => setFocus(f.key)}>{f.label}</button>
+                  {PPPS.map(p => (
+                    <button key={p.key} className={`setup-chip ${ppp === p.key ? 'on' : ''}`}
+                      title={`${p.blurb}\n\n${p.does}`} onClick={() => setPpp(p.key)}>{p.label}</button>
                   ))}
                 </div>
-                <div className="setup-q-f">{FOCUSES.find(f => f.key === focus)!.blurb}</div>
+                {/* Both lines, always: what the choice MEANS and what it will actually do to
+                    the board. A lens whose effect is invisible is a preference nobody can
+                    check, which is how a control quietly becomes decoration. */}
+                <div className="setup-q-f">{PPPS.find(p => p.key === ppp)!.blurb}</div>
+                <div className="setup-q-f cc-muted">{PPPS.find(p => p.key === ppp)!.does}</div>
               </div>
             </div>
 
@@ -467,11 +497,11 @@ export default function Setup() {
                 </div>
               </div>
               <div className="setup-derived-row">
-                <span className="setup-derived-k">Focus</span>
+                <span className="setup-derived-k">Profit · People · Planet</span>
                 <div className="seg">
-                  {FOCUSES.map(f => (
-                    <button key={f.key} className={`btn ${focus === f.key ? 'on' : ''}`}
-                      onClick={() => setFocus(f.key)}>{f.label}</button>
+                  {PPPS.map(p => (
+                    <button key={p.key} className={`btn ${ppp === p.key ? 'on' : ''}`}
+                      title={p.does} onClick={() => setPpp(p.key)}>{p.label}</button>
                   ))}
                 </div>
               </div>

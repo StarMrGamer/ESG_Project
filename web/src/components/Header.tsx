@@ -132,21 +132,6 @@ export default function Header({ onPresent, onFears, onRecap }:
               onClick={() => setSettings({ tab: 'clients' })}>Clients</button>
           )}
         </div>
-        {/* WHO is reading. First, and on its own, because it changes what every other control
-            below it means. */}
-        <div className="seg" role="group" aria-label="Audience">
-          <button className={`btn ${s.audience === 'investor' ? 'on' : ''}`}
-            title="Findings in plain sentences, the desk furniture folded away. The numbers stay one click behind “Show the numbers”."
-            onClick={() => setSettings({ audience: 'investor', showNumbers: false, level: 1 })}>
-            Investor
-          </button>
-          <button className={`btn ${s.audience === 'analyst' ? 'on' : ''}`}
-            title="The board as built: percentiles, tiers, N/M/K, the run id and the evidence trail."
-            onClick={() => setSettings({ audience: 'analyst' })}>
-            Analyst
-          </button>
-        </div>
-
         <div className="seg" role="group" aria-label="Detail level" data-tour="level">
           {LEVELS.map(l => (
             <button key={l.n} className={`btn ${s.level === l.n ? 'on' : ''}`} title={l.hint}

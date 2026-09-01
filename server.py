@@ -45,11 +45,14 @@ import core
 import datasource
 import engine
 import engine_config
+import forecast
 import harvest
 import lseg
 import metrics
-import pipeline_counts
 import news
+import pipeline_counts
+import ppp
+import price_momentum
 import quotes
 import rationale
 import sensitivity
@@ -551,6 +554,11 @@ def _focused_engine_record(demo, horizon, ticker):
     return None
 
 
+def _focused_price_pct(focused, demo):
+    """The focused company's 12-1 price momentum, or None. The FICTIONAL demo set gets None."""
+    return (price_momentum.momentum((focused or {}).get("ticker") or "", demo=demo) or {}).get("pct")
+
+
 def _live_price_90d(focused):
     """The real 90-day price move for a REAL listing, via `quotes.change_90d`. Returns None on
     any failure, an unmapped exchange (PSE and HOSE are documented gaps) or a fictional name —
@@ -933,6 +941,28 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
                                 "source": last_px.get("source"),
                                 "captured": last_px.get("captured")}
                                if last_px and last_px.get("available") else None)},
+            # The two directions for THIS company, read together. `align` consults the signal
+            # count on purpose: a company with no evidence scores momentum 0.000, which is the
+            # same number as "the evidence says flat" and a completely different claim.
+            # This company's own PPP mix, and the MODEL ESTIMATE built on it. The estimate is
+            # never returned without the model's measured out-of-sample skill attached — a
+            # forecast whose reliability the reader cannot check is the object this product
+            # exists to argue against. See the header of `forecast.py`.
+            "ppp": ppp.shares(erec, _focused_price_pct(focused, demo)) if erec else None,
+            "forecast": (forecast.predict(
+                erec, _focused_price_pct(focused, demo),
+                factors=(None if demo else forecast.factors_now(
+                    focused.get("ticker") or "", [c["ticker"] for c in cons],
+                    company_metadata.load(demo=demo).get(focused.get("ticker")))))
+                if erec else None),
+            "dual": ({**price_momentum.read({ft: erec}, demo=demo)["rows"][ft],
+                      "captured": price_momentum.captured(),
+                      "window_label": price_momentum.WINDOW_LABEL,
+                      "tooltip": price_momentum.ALIGNMENT[
+                          price_momentum.align(
+                              (price_momentum.momentum(ft, demo=demo) or {}).get("pct"),
+                              erec.get("composite_momentum"), erec.get("signal_count"))]["tooltip"]}
+                     if erec else None),
             "foundation": ({"basis": focused.get("esg_basis"),
                             "source_url": focused.get("source_url"),
                             "confidence": focused.get("confidence")}
@@ -967,6 +997,40 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
     pillars = metrics.pillar_momentum(filtered)
     if not any(row["value"] is not None for row in pillars):
         pillars = metrics.pillar_momentum_from_records(engine_block["records"])
+
+    # THE SECOND AXIS. Price momentum read beside the ESG momentum the engine just produced —
+    # never inside it. Both directions come from this run and this dated price snapshot, so the
+    # banner's counts are measured rather than remembered: there is no stored accuracy figure
+    # anywhere in this payload, because no backtest in this repo has produced one.
+    dual = price_momentum.read(engine_block["records"], demo=demo)
+
+    # WHERE each company's movement sits across Profit / People / Planet, as three shares of one
+    # whole. `price_of` is passed in rather than looked up inside, so `ppp.py` stays pure and
+    # testable without a price file.
+    # The FULL run records, not `engine_block["records"]` — the board's compact summary flattens
+    # `components` to one momentum per pillar and drops the evidence weight the shares are built
+    # from. Filtered to what is in view, so the panel and the plot describe the same cohort.
+    _in_view = set(engine_block["records"])
+    _full = {r["company_id"]: r for r in _engine_run(demo, horizon)[0]["records"]
+             if r["company_id"] in _in_view}
+    ppp_rows = ppp.cohort(_full,
+                          lambda cid: (price_momentum.momentum(cid, demo=demo) or {}).get("pct"))
+    placeable = [r for r in ppp_rows.values() if r["known"]]
+    # The crowding toward Profit is NOT a drawing artefact and must not be presented as one: it
+    # is the evidence gap showing up in a third view. Counted here so the panel can say it.
+    profit_led = sum(1 for r in placeable if r["lean"] == "profit")
+    ppp_block = {
+        "rows": ppp_rows,
+        "basis": ppp.BASIS,
+        "placeable": len(placeable),
+        "total": len(ppp_rows),
+        "profit_led": profit_led,
+        "corners": {"planet": "Planet", "people": "People", "profit": "Profit"},
+    }
+
+    # A published BASE RATE, not a forecast — see the note above `ppp.NOT_A_FORECAST`. All three
+    # horizons travel; the client picks the one matching the reader's holding period.
+    outlook = ppp.outlook("")
 
     # The momentum chart. For the real basket this is not a drawing — it is the engine re-run at
     # each quarter end, which is only possible because the engine is pure.
@@ -1005,6 +1069,9 @@ def board(demo: bool = Query(True), country: str = "All", sector: str = "All",
         "evidence": {"coverage": metrics.credential_coverage(filtered), "leaders": leaders},
         "constituents": filtered,
         "engine": engine_block,
+        "dual": dual,
+        "ppp": ppp_block,
+        "outlook": outlook,
         "focused": focused_payload,
         "watchlist": wl,
         "followups": followups,

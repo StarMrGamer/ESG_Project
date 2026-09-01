@@ -1,7 +1,5 @@
 import { useStore } from '../../store'
 import { showModule } from '../../lib/modules'
-import InvestorCard from '../investor/InvestorCard'
-import MatchList from '../investor/MatchList'
 import RadarHub from './RadarHub'
 import { PriceChart } from '../charts'
 import { Section, SectionTitle, TONE_CLASS, fmtPct, fmtPillar, signClass } from '../ui'
@@ -53,7 +51,7 @@ function BarsPanel({ title, subtitle, rows, suffix, footer, tier, maxAbs, onFocu
 }
 
 export default function CenterBoard() {
-  const { board, settings, setSettings, setFocus, openDeepDive } = useStore()
+  const { board, settings, setFocus, openDeepDive } = useStore()
   if (!board) return null
   const { mode, focused, hidden_winners, evidence } = board
   // `lv` is the layering control; `simple` stays as the level-1 copy switch the panels below
@@ -61,15 +59,6 @@ export default function CenterBoard() {
   // setup card, so anything that is not the verdict or the action has to earn level 2.
   const lv = settings.level
   const simple = lv === 1
-  /** Investor audience, numbers not asked for: the plain card replaces the numeric centre. */
-  const plainFirst = settings.audience === 'investor' && !settings.showNumbers
-  /**
-   * ...and the way back out of them. "Show the numbers" used to be a one-way door: the plain
-   * card was gone, and with it the only button that opened the interrogation. A reader who
-   * looked at the radar and then wanted to ask a question had to know that the Investor switch
-   * in the header would bring it back.
-   */
-  const numbersShown = settings.audience === 'investor' && settings.showNumbers
   const dark = settings.dark
 
   const focusByTicker = (ticker: string) => setFocus(ticker)
@@ -301,24 +290,7 @@ export default function CenterBoard() {
   const strip = board.pillars.filter(p => ['environment', 'governance', 'digital_ai'].includes(p.key))
   return (
     <div className="center-stack">
-      {/* The investor reads a card, not a radar. `showNumbers` puts the analyst rendering back
-          in place underneath it, so simplifying is a default and never a wall. */}
-      {numbersShown && (
-        <div className="inv-back">
-          <button className="btn" onClick={() => setSettings({ showNumbers: false })}>
-            ← Back to plain English
-          </button>
-          {focused && (
-            <button className="btn btn-primary"
-              onClick={() => openDeepDive(focused.constituent.ticker, 'interrogate')}>
-              Ask about {focused.constituent.company}
-            </button>
-          )}
-        </div>
-      )}
-      {plainFirst
-        ? <><InvestorCard /><MatchList /></>
-        : hasPillars
+      {hasPillars
         ? <RadarHub solo={lv === 1 && !showModule('rails', settings)} />
         : (
           <>
