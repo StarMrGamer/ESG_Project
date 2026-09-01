@@ -1,0 +1,248 @@
+[
+  {
+    "id": "w0",
+    "text": "You",
+    "start": 0.219,
+    "end": 0.28
+  },
+  {
+    "id": "w1",
+    "text": "want",
+    "start": 0.299,
+    "end": 0.419
+  },
+  {
+    "id": "w2",
+    "text": "a",
+    "start": 0.439,
+    "end": 0.459
+  },
+  {
+    "id": "w3",
+    "text": "forecast.",
+    "start": 0.56,
+    "end": 1.179
+  },
+  {
+    "id": "w4",
+    "text": "We",
+    "start": 1.599,
+    "end": 1.719
+  },
+  {
+    "id": "w5",
+    "text": "built",
+    "start": 1.74,
+    "end": 1.959
+  },
+  {
+    "id": "w6",
+    "text": "one.",
+    "start": 2.059,
+    "end": 2.2
+  },
+  {
+    "id": "w7",
+    "text": "It",
+    "start": 2.919,
+    "end": 2.98
+  },
+  {
+    "id": "w8",
+    "text": "has",
+    "start": 3.059,
+    "end": 3.179
+  },
+  {
+    "id": "w9",
+    "text": "no",
+    "start": 3.259,
+    "end": 3.359
+  },
+  {
+    "id": "w10",
+    "text": "measured",
+    "start": 3.46,
+    "end": 3.759
+  },
+  {
+    "id": "w11",
+    "text": "skill",
+    "start": 3.859,
+    "end": 4.259
+  },
+  {
+    "id": "w12",
+    "text": ",",
+    "start": 4.259,
+    "end": 4.259
+  },
+  {
+    "id": "w13",
+    "text": "negative",
+    "start": 4.659,
+    "end": 5.039
+  },
+  {
+    "id": "w14",
+    "text": "R-squared,",
+    "start": 5.159,
+    "end": 5.779
+  },
+  {
+    "id": "w15",
+    "text": "direction",
+    "start": 6.119,
+    "end": 6.639
+  },
+  {
+    "id": "w16",
+    "text": "worse",
+    "start": 6.759,
+    "end": 7
+  },
+  {
+    "id": "w17",
+    "text": "than",
+    "start": 7.059,
+    "end": 7.159
+  },
+  {
+    "id": "w18",
+    "text": "always",
+    "start": 7.219,
+    "end": 7.559
+  },
+  {
+    "id": "w19",
+    "text": "guessing",
+    "start": 7.639,
+    "end": 7.96
+  },
+  {
+    "id": "w20",
+    "text": "up.",
+    "start": 8.039,
+    "end": 8.199
+  },
+  {
+    "id": "w21",
+    "text": "We",
+    "start": 8.659,
+    "end": 8.72
+  },
+  {
+    "id": "w22",
+    "text": "ship",
+    "start": 8.819,
+    "end": 8.979
+  },
+  {
+    "id": "w23",
+    "text": "it",
+    "start": 9.019,
+    "end": 9.139
+  },
+  {
+    "id": "w24",
+    "text": "saying",
+    "start": 9.22,
+    "end": 9.46
+  },
+  {
+    "id": "w25",
+    "text": "so,",
+    "start": 9.539,
+    "end": 9.76
+  },
+  {
+    "id": "w26",
+    "text": "beside",
+    "start": 10.119,
+    "end": 10.46
+  },
+  {
+    "id": "w27",
+    "text": "the",
+    "start": 10.5,
+    "end": 10.579
+  },
+  {
+    "id": "w28",
+    "text": "number",
+    "start": 10.619,
+    "end": 10.8
+  },
+  {
+    "id": "w29",
+    "text": "that",
+    "start": 10.859,
+    "end": 10.92
+  },
+  {
+    "id": "w30",
+    "text": "is",
+    "start": 10.979,
+    "end": 11.059
+  },
+  {
+    "id": "w31",
+    "text": "measured:",
+    "start": 11.139,
+    "end": 11.46
+  },
+  {
+    "id": "w32",
+    "text": "CGSI's",
+    "start": 11.979,
+    "end": 12.779
+  },
+  {
+    "id": "w33",
+    "text": "own",
+    "start": 13.159,
+    "end": 13.34
+  },
+  {
+    "id": "w34",
+    "text": "published",
+    "start": 13.479,
+    "end": 13.88
+  },
+  {
+    "id": "w35",
+    "text": "base",
+    "start": 13.939,
+    "end": 14.139
+  },
+  {
+    "id": "w36",
+    "text": "rate.",
+    "start": 14.199,
+    "end": 14.46
+  },
+  {
+    "id": "w37",
+    "text": "That",
+    "start": 14.939,
+    "end": 15.059
+  },
+  {
+    "id": "w38",
+    "text": "is",
+    "start": 15.119,
+    "end": 15.219
+  },
+  {
+    "id": "w39",
+    "text": "the",
+    "start": 15.259,
+    "end": 15.339
+  },
+  {
+    "id": "w40",
+    "text": "product.",
+    "start": 15.38,
+    "end": 15.799
+  }
+]

@@ -1,0 +1,212 @@
+[
+  {
+    "id": "w0",
+    "text": "Then",
+    "start": 0.159,
+    "end": 0.259
+  },
+  {
+    "id": "w1",
+    "text": "she",
+    "start": 0.319,
+    "end": 0.439
+  },
+  {
+    "id": "w2",
+    "text": "verifies.",
+    "start": 0.479,
+    "end": 1.059
+  },
+  {
+    "id": "w3",
+    "text": "Four",
+    "start": 1.679,
+    "end": 1.879
+  },
+  {
+    "id": "w4",
+    "text": "hundred",
+    "start": 1.959,
+    "end": 2.2
+  },
+  {
+    "id": "w5",
+    "text": "and",
+    "start": 2.24,
+    "end": 2.399
+  },
+  {
+    "id": "w6",
+    "text": "twenty-three",
+    "start": 2.419,
+    "end": 2.98
+  },
+  {
+    "id": "w7",
+    "text": "hashes",
+    "start": 3,
+    "end": 3.359
+  },
+  {
+    "id": "w8",
+    "text": "recompute,",
+    "start": 3.439,
+    "end": 3.98
+  },
+  {
+    "id": "w9",
+    "text": "and",
+    "start": 4.42,
+    "end": 4.519
+  },
+  {
+    "id": "w10",
+    "text": "the",
+    "start": 4.539,
+    "end": 4.579
+  },
+  {
+    "id": "w11",
+    "text": "fingerprint",
+    "start": 4.679,
+    "end": 5.159
+  },
+  {
+    "id": "w12",
+    "text": "matches",
+    "start": 5.259,
+    "end": 5.599
+  },
+  {
+    "id": "w13",
+    "text": "a",
+    "start": 5.619,
+    "end": 5.699
+  },
+  {
+    "id": "w14",
+    "text": "public",
+    "start": 5.759,
+    "end": 6.059
+  },
+  {
+    "id": "w15",
+    "text": "ledger",
+    "start": 6.139,
+    "end": 6.399
+  },
+  {
+    "id": "w16",
+    "text": ",",
+    "start": 6.399,
+    "end": 6.399
+  },
+  {
+    "id": "w17",
+    "text": "seventy-two",
+    "start": 6.819,
+    "end": 7.319
+  },
+  {
+    "id": "w18",
+    "text": "bytes,",
+    "start": 7.44,
+    "end": 7.759
+  },
+  {
+    "id": "w19",
+    "text": "written",
+    "start": 8.039,
+    "end": 8.319
+  },
+  {
+    "id": "w20",
+    "text": "once,",
+    "start": 8.38,
+    "end": 8.659
+  },
+  {
+    "id": "w21",
+    "text": "ever.",
+    "start": 9.019,
+    "end": 9.239
+  },
+  {
+    "id": "w22",
+    "text": "Change",
+    "start": 9.719,
+    "end": 10
+  },
+  {
+    "id": "w23",
+    "text": "one",
+    "start": 10.059,
+    "end": 10.18
+  },
+  {
+    "id": "w24",
+    "text": "character,",
+    "start": 10.26,
+    "end": 10.699
+  },
+  {
+    "id": "w25",
+    "text": "it",
+    "start": 10.979,
+    "end": 11.1
+  },
+  {
+    "id": "w26",
+    "text": "breaks.",
+    "start": 11.119,
+    "end": 11.479
+  },
+  {
+    "id": "w27",
+    "text": "Put",
+    "start": 11.84,
+    "end": 11.92
+  },
+  {
+    "id": "w28",
+    "text": "it",
+    "start": 11.96,
+    "end": 12.039
+  },
+  {
+    "id": "w29",
+    "text": "back,",
+    "start": 12.079,
+    "end": 12.399
+  },
+  {
+    "id": "w30",
+    "text": "it",
+    "start": 12.759,
+    "end": 12.88
+  },
+  {
+    "id": "w31",
+    "text": "matches.",
+    "start": 12.92,
+    "end": 13.439
+  },
+  {
+    "id": "w32",
+    "text": "Every",
+    "start": 13.84,
+    "end": 14.039
+  },
+  {
+    "id": "w33",
+    "text": "number",
+    "start": 14.159,
+    "end": 14.439
+  },
+  {
+    "id": "w34",
+    "text": "checkable.",
+    "start": 14.559,
+    "end": 15
+  }
+]
