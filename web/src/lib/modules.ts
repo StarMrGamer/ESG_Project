@@ -43,12 +43,18 @@ export const MODULES: ModuleDef[] = [
   // names beside the plot, which is where this panel used to duplicate them.
   { key: 'rankings', label: 'Hidden winners vs peers', at: () => false,
     blurb: 'How far our evidence puts each name above its published score.' },
+  { key: 'triangle', label: 'Profit · People · Planet', at: lv => lv === 3,
+    blurb: 'What this company\u2019s movement is about, as three shares of one whole.' },
   { key: 'universe', label: 'Universe grid', at: lv => lv === 3,
     blurb: 'Every company in the filter, as one clickable grid.' },
   { key: 'news', label: 'Recent news', at: lv => lv === 3,
     blurb: 'Dated headlines for the focused company. Context, never a signal.' },
   { key: 'price', label: 'Price strip', at: lv => lv === 3,
     blurb: 'Last price and the 90-day move. Context only — no part of any score.' },
+  { key: 'residual', label: 'The 10% test', at: lv => lv === 3,
+    blurb: 'Does our evidence explain what a factor model leaves over? Two stages, out of sample.' },
+  { key: 'roadmap', label: 'Roadmap · what better sources are worth', at: lv => lv === 3,
+    blurb: 'The same engine re-run on better-sourced evidence. Labelled as a counterfactual.' },
   { key: 'rails', label: 'Side rails', at: lv => lv === 3,
     blurb: 'Filters and the monitored list on the left, the assistant log on the right.' },
 ]

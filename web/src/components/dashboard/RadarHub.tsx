@@ -1,6 +1,5 @@
 import { useStore } from '../../store'
 import DualMomentum from '../dual/DualMomentum'
-import PPPTriangle from '../dual/PPPTriangle'
 import ForecastPanel from '../dual/ForecastPanel'
 import { fmtPct, fmtPillar, signClass, Tone, TONE_CLASS } from '../ui'
 import type { Pillar } from '../../types'
@@ -281,13 +280,14 @@ export default function RadarHub({ solo = false }: { solo?: boolean }) {
             <div className="hub-panels">
             {focused?.dual && <DualMomentum row={focused.dual} />}
 
-            {/* WHAT the company's movement is about, as three shares of one whole. A different
-                question from the radar above it: the radar asks which way each pillar is going,
-                the triangle asks which of the three this company's story actually IS. */}
-            {focused?.ppp && (
-              <PPPTriangle shares={focused.ppp} company={focused.constituent.company} />
-            )}
-
+            {/* THE PPP TRIANGLE USED TO SIT HERE AND NO LONGER DOES (moved 2026-09-02).
+                `hub-panels` is a grid whose `.dual` child spans every column, so with the
+                forecast panel absent the triangle was left alone in one narrow cell with a hole
+                beside it — and `.tri-body` wants ~560px to put its plot and its shares side by
+                side. Below that it wraps, the 300px SVG shrinks, and a ternary plot squeezed
+                into a third of its width stops being readable as a composition at all.
+                It is a board module now (`triangle`, see lib/modules.ts) rendered full width,
+                which is the width the component was designed for. */}
             </div>
 
             {summary && (

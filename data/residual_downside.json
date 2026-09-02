@@ -1,0 +1,113 @@
+{
+ "cells": 9,
+ "cells_improved": 4,
+ "companies": 97,
+ "fit_cutoffs": [
+  "2023-06",
+  "2023-09",
+  "2023-12",
+  "2024-03",
+  "2024-06",
+  "2024-09",
+  "2024-12",
+  "2025-03",
+  "2025-06"
+ ],
+ "grid": [
+  {
+   "change_vs_factor_pp": 0.0,
+   "cohort_rate": 0.4371,
+   "factor_only_rate": 0.6897,
+   "loss_threshold_pct": 0.0,
+   "picked": 29,
+   "top_fraction": 0.1,
+   "with_esg_rate": 0.6897
+  },
+  {
+   "change_vs_factor_pp": -1.39,
+   "cohort_rate": 0.4371,
+   "factor_only_rate": 0.5833,
+   "loss_threshold_pct": 0.0,
+   "picked": 72,
+   "top_fraction": 0.25,
+   "with_esg_rate": 0.5694
+  },
+  {
+   "change_vs_factor_pp": 0.7,
+   "cohort_rate": 0.4371,
+   "factor_only_rate": 0.4685,
+   "loss_threshold_pct": 0.0,
+   "picked": 143,
+   "top_fraction": 0.5,
+   "with_esg_rate": 0.4755
+  },
+  {
+   "change_vs_factor_pp": 0.0,
+   "cohort_rate": 0.3077,
+   "factor_only_rate": 0.6552,
+   "loss_threshold_pct": -5.0,
+   "picked": 29,
+   "top_fraction": 0.1,
+   "with_esg_rate": 0.6552
+  },
+  {
+   "change_vs_factor_pp": -1.39,
+   "cohort_rate": 0.3077,
+   "factor_only_rate": 0.5,
+   "loss_threshold_pct": -5.0,
+   "picked": 72,
+   "top_fraction": 0.25,
+   "with_esg_rate": 0.4861
+  },
+  {
+   "change_vs_factor_pp": 0.0,
+   "cohort_rate": 0.3077,
+   "factor_only_rate": 0.3636,
+   "loss_threshold_pct": -5.0,
+   "picked": 143,
+   "top_fraction": 0.5,
+   "with_esg_rate": 0.3636
+  },
+  {
+   "change_vs_factor_pp": -3.45,
+   "cohort_rate": 0.2063,
+   "factor_only_rate": 0.5517,
+   "loss_threshold_pct": -10.0,
+   "picked": 29,
+   "top_fraction": 0.1,
+   "with_esg_rate": 0.5172
+  },
+  {
+   "change_vs_factor_pp": -1.39,
+   "cohort_rate": 0.2063,
+   "factor_only_rate": 0.4028,
+   "loss_threshold_pct": -10.0,
+   "picked": 72,
+   "top_fraction": 0.25,
+   "with_esg_rate": 0.3889
+  },
+  {
+   "change_vs_factor_pp": 2.1,
+   "cohort_rate": 0.2063,
+   "factor_only_rate": 0.2517,
+   "loss_threshold_pct": -10.0,
+   "picked": 143,
+   "top_fraction": 0.5,
+   "with_esg_rate": 0.2727
+  }
+ ],
+ "holdout_cutoffs": [
+  "2025-09",
+  "2025-12",
+  "2026-03"
+ ],
+ "lambda": 10.0,
+ "panel": "wide \u00b7 CGSI 52 + ASEAN indexes",
+ "ran": true,
+ "rows": 931,
+ "searched": 0,
+ "verdict": {
+  "line": "The ESG block changes the loss rate in 4 of 9 combinations one way and the rest the other, averaging -0.5 points. That is what no effect looks like.",
+  "word": "no clear difference"
+ }
+}\n

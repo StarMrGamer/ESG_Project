@@ -23,9 +23,9 @@ const RADAR_SVG = (
   </svg>
 )
 
-export default function Header({ onPresent, onFears, onRecap }:
+export default function Header({ onPresent, onFears, onRecap, onAnalyst }:
                                { onPresent?: () => void; onFears?: () => void
-                                 onRecap?: () => void }) {
+                                 onRecap?: () => void; onAnalyst?: () => void }) {
   const { settings, setSettings, board, health, loadSample, uploadFile, toast, goDashboard,
     restartSetup } = useStore()
 
@@ -240,6 +240,14 @@ export default function Header({ onPresent, onFears, onRecap }:
                 onClick={() => { menuRef.current!.open = false; onRecap?.() }}
                 title="Walk this run — the quadrants, the pipeline, the focused company, what would change it — and end on one copyable summary.">
                 Recap this run
+              </button>
+              {/* The workflow of the reader this was actually built for, ending on the residual
+                  test — the question a quant asks before any other, and the one the other three
+                  tracks do not stop on. */}
+              <button className="btn"
+                onClick={() => { menuRef.current!.open = false; onAnalyst?.() }}
+                title="The analyst's walk: what the rating sees, what our dated evidence sees, what the market already did — then the two-stage test of whether that evidence explains what a factor model leaves over.">
+                Solving for the 10%
               </button>
             </div>
           </div>

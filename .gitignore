@@ -49,6 +49,12 @@ docs/pitch/video/reel/renders/
 docs/pitch/video/reel/snapshots/
 docs/pitch/video/reel/node_modules/
 
+# Analyst reel intermediates — the raw take and the per-chapter cuts are rebuildable from
+# `record_demo_reel.mjs --analyst` against a running app. The assembled 3:00 mp4 and the
+# narration script beside them are the deliverables and are deliberately NOT ignored.
+docs/pitch/video/analyst/assets/
+docs/pitch/video/analyst/raw/
+
 # Competition reel intermediates — the raw take and the per-scene narration are rebuildable
 # (`record_competition_reel.mjs`, `heygen-tts`). The finished mp4 in competition/ is the
 # deliverable and IS kept.

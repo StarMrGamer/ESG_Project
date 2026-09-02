@@ -10,6 +10,7 @@ import Present from './components/present/Present'
 import { PITCH } from './components/present/tour'
 import { FEARS } from './components/present/fears'
 import { RECAP } from './components/present/recap'
+import { ANALYST } from './components/present/analyst'
 import type { Track } from './components/present/tour'
 import Tutorial from './components/tour/Tutorial'
 import './styles.css'
@@ -40,6 +41,7 @@ function Shell() {
     if (q.get('present') === '1') return PITCH
     if (q.get('fears') === '1') return FEARS
     if (q.get('recap') === '1') return RECAP
+    if (q.get('analyst') === '1') return ANALYST
     return null
   })
 
@@ -64,7 +66,7 @@ function Shell() {
   return (
     <div className="app-shell">
       <Header onPresent={() => setTrack(PITCH)} onFears={() => setTrack(FEARS)}
-        onRecap={() => setTrack(RECAP)} />
+        onRecap={() => setTrack(RECAP)} onAnalyst={() => setTrack(ANALYST)} />
       <main className="app-main">
         <Router />
         <div className="footer-note">

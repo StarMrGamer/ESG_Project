@@ -1,0 +1,443 @@
+{
+ "chosen": {
+  "lambda": 300.0,
+  "shrink": 0.25,
+  "transform": "rank"
+ },
+ "coefficients": {
+  "evidence": -0.285355,
+  "momentum": 0.764734,
+  "people": -0.027786,
+  "planet": 1.272869
+ },
+ "companies": 97,
+ "configs_tried": 48,
+ "esg_block": [
+  "ESG evidence momentum (direction consensus)",
+  "Evidence depth (log signal count)",
+  "PPP \u00b7 Planet share of movement",
+  "PPP \u00b7 People share of movement"
+ ],
+ "factor_block": [
+  "MKT \u00b7 beta to the equal-weighted cohort",
+  "WML \u00b7 12-1 momentum factor",
+  "VOL \u00b7 realised volatility, trailing 12m"
+ ],
+ "holdout": {
+  "ic_cutoffs": 3,
+  "ic_series": [
+   {
+    "cutoff": "2025-09",
+    "ic": -0.1267,
+    "n": 94
+   },
+   {
+    "cutoff": "2025-12",
+    "ic": 0.0544,
+    "n": 95
+   },
+   {
+    "cutoff": "2026-03",
+    "ic": 0.0461,
+    "n": 97
+   }
+  ],
+  "ic_t_stat": -0.148,
+  "mean_ic": -0.0087,
+  "residual_r2": -0.00043,
+  "share_of_residual_pct": -0.043
+ },
+ "holdout_lesson": "On the CGSI panel validation selected a configuration worth +7.6% of the residual and the sealed holdout returned -1.8%. The configuration it chose was the least-regularised corner of the grid. Without the three-way split that +7.6% is what would have been reported, and it would have cleared the target that was set. This is what searching 48 configurations against one evaluation set does, and it is why the holdout is scored once.",
+ "not_advice": "A measurement of whether one block of features explains the part of returns another block does not. It is not a forecast, not a recommendation, and not a claim that any company will do anything.",
+ "panel": "wide \u00b7 CGSI 52 + ASEAN indexes",
+ "ran": true,
+ "rows": 931,
+ "sample_caveat": "Trained on ~3 years and 97 ASEAN companies (931 rows) \u2014 one market regime, with overlapping 6-month returns that make consecutive rows non-independent. The effective sample is far smaller than the row count. Treat any skill figure here as weak evidence, never as validated alpha.",
+ "search": [
+  {
+   "lambda": 1.0,
+   "shrink": 0.25,
+   "transform": "z",
+   "val_mean_ic": -0.0524,
+   "val_residual_r2": -0.00453
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 0.5,
+   "transform": "z",
+   "val_mean_ic": -0.0524,
+   "val_residual_r2": -0.00962
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 0.75,
+   "transform": "z",
+   "val_mean_ic": -0.0524,
+   "val_residual_r2": -0.01525
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 1.0,
+   "transform": "z",
+   "val_mean_ic": -0.0524,
+   "val_residual_r2": -0.02144
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 0.25,
+   "transform": "z",
+   "val_mean_ic": -0.0534,
+   "val_residual_r2": -0.00453
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 0.5,
+   "transform": "z",
+   "val_mean_ic": -0.0534,
+   "val_residual_r2": -0.0096
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 0.75,
+   "transform": "z",
+   "val_mean_ic": -0.0534,
+   "val_residual_r2": -0.01522
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 1.0,
+   "transform": "z",
+   "val_mean_ic": -0.0534,
+   "val_residual_r2": -0.02138
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 0.25,
+   "transform": "z",
+   "val_mean_ic": -0.0547,
+   "val_residual_r2": -0.00451
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 0.5,
+   "transform": "z",
+   "val_mean_ic": -0.0547,
+   "val_residual_r2": -0.00954
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 0.75,
+   "transform": "z",
+   "val_mean_ic": -0.0547,
+   "val_residual_r2": -0.0151
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 1.0,
+   "transform": "z",
+   "val_mean_ic": -0.0547,
+   "val_residual_r2": -0.02118
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 0.25,
+   "transform": "z",
+   "val_mean_ic": -0.061,
+   "val_residual_r2": -0.00445
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 0.5,
+   "transform": "z",
+   "val_mean_ic": -0.061,
+   "val_residual_r2": -0.00938
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 0.75,
+   "transform": "z",
+   "val_mean_ic": -0.061,
+   "val_residual_r2": -0.01477
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 1.0,
+   "transform": "z",
+   "val_mean_ic": -0.061,
+   "val_residual_r2": -0.02064
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 0.25,
+   "transform": "z",
+   "val_mean_ic": -0.0736,
+   "val_residual_r2": -0.00422
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 0.5,
+   "transform": "z",
+   "val_mean_ic": -0.0736,
+   "val_residual_r2": -0.00879
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 0.75,
+   "transform": "z",
+   "val_mean_ic": -0.0736,
+   "val_residual_r2": -0.01372
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 1.0,
+   "transform": "z",
+   "val_mean_ic": -0.0736,
+   "val_residual_r2": -0.01901
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 0.25,
+   "transform": "z",
+   "val_mean_ic": -0.0946,
+   "val_residual_r2": -0.00356
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 0.5,
+   "transform": "z",
+   "val_mean_ic": -0.0946,
+   "val_residual_r2": -0.00733
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 0.75,
+   "transform": "z",
+   "val_mean_ic": -0.0946,
+   "val_residual_r2": -0.01132
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 1.0,
+   "transform": "z",
+   "val_mean_ic": -0.0946,
+   "val_residual_r2": -0.01551
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 0.25,
+   "transform": "rank",
+   "val_mean_ic": -0.0826,
+   "val_residual_r2": -0.00491
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 0.5,
+   "transform": "rank",
+   "val_mean_ic": -0.0826,
+   "val_residual_r2": -0.01036
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 0.75,
+   "transform": "rank",
+   "val_mean_ic": -0.0826,
+   "val_residual_r2": -0.01633
+  },
+  {
+   "lambda": 1.0,
+   "shrink": 1.0,
+   "transform": "rank",
+   "val_mean_ic": -0.0826,
+   "val_residual_r2": -0.02283
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 0.25,
+   "transform": "rank",
+   "val_mean_ic": -0.0794,
+   "val_residual_r2": -0.0049
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 0.5,
+   "transform": "rank",
+   "val_mean_ic": -0.0794,
+   "val_residual_r2": -0.01031
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 0.75,
+   "transform": "rank",
+   "val_mean_ic": -0.0794,
+   "val_residual_r2": -0.01625
+  },
+  {
+   "lambda": 3.0,
+   "shrink": 1.0,
+   "transform": "rank",
+   "val_mean_ic": -0.0794,
+   "val_residual_r2": -0.02271
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 0.25,
+   "transform": "rank",
+   "val_mean_ic": -0.0808,
+   "val_residual_r2": -0.00483
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 0.5,
+   "transform": "rank",
+   "val_mean_ic": -0.0808,
+   "val_residual_r2": -0.01016
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 0.75,
+   "transform": "rank",
+   "val_mean_ic": -0.0808,
+   "val_residual_r2": -0.01599
+  },
+  {
+   "lambda": 10.0,
+   "shrink": 1.0,
+   "transform": "rank",
+   "val_mean_ic": -0.0808,
+   "val_residual_r2": -0.02231
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 0.25,
+   "transform": "rank",
+   "val_mean_ic": -0.0814,
+   "val_residual_r2": -0.00467
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 0.5,
+   "transform": "rank",
+   "val_mean_ic": -0.0814,
+   "val_residual_r2": -0.00979
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 0.75,
+   "transform": "rank",
+   "val_mean_ic": -0.0814,
+   "val_residual_r2": -0.01534
+  },
+  {
+   "lambda": 30.0,
+   "shrink": 1.0,
+   "transform": "rank",
+   "val_mean_ic": -0.0814,
+   "val_residual_r2": -0.02133
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 0.25,
+   "transform": "rank",
+   "val_mean_ic": -0.0903,
+   "val_residual_r2": -0.00423
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 0.5,
+   "transform": "rank",
+   "val_mean_ic": -0.0903,
+   "val_residual_r2": -0.00879
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 0.75,
+   "transform": "rank",
+   "val_mean_ic": -0.0903,
+   "val_residual_r2": -0.01367
+  },
+  {
+   "lambda": 100.0,
+   "shrink": 1.0,
+   "transform": "rank",
+   "val_mean_ic": -0.0903,
+   "val_residual_r2": -0.01887
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 0.25,
+   "transform": "rank",
+   "val_mean_ic": -0.1031,
+   "val_residual_r2": -0.0034
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 0.5,
+   "transform": "rank",
+   "val_mean_ic": -0.1031,
+   "val_residual_r2": -0.00699
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 0.75,
+   "transform": "rank",
+   "val_mean_ic": -0.1031,
+   "val_residual_r2": -0.01077
+  },
+  {
+   "lambda": 300.0,
+   "shrink": 1.0,
+   "transform": "rank",
+   "val_mean_ic": -0.1031,
+   "val_residual_r2": -0.01473
+  }
+ ],
+ "split": {
+  "holdout": [
+   "2025-09",
+   "2025-12",
+   "2026-03"
+  ],
+  "train": [
+   "2023-06",
+   "2023-09",
+   "2023-12",
+   "2024-03",
+   "2024-06",
+   "2024-09"
+  ],
+  "validation": [
+   "2024-12",
+   "2025-03",
+   "2025-06"
+  ]
+ },
+ "stage1_r2_holdout": -0.05076,
+ "validation": {
+  "ic_cutoffs": 3,
+  "ic_series": [
+   {
+    "cutoff": "2024-12",
+    "ic": 0.0254,
+    "n": 83
+   },
+   {
+    "cutoff": "2025-03",
+    "ic": -0.2346,
+    "n": 90
+   },
+   {
+    "cutoff": "2025-06",
+    "ic": -0.1,
+    "n": 94
+   }
+  ],
+  "ic_t_stat": -1.373,
+  "mean_ic": -0.1031,
+  "residual_r2": -0.0034,
+  "share_of_residual_pct": -0.34
+ },
+ "verdict": {
+  "line": "The chosen configuration explains none of the residual on the holdout (-0.04%). Validation preferred it out of 48 candidates and the holdout did not agree, which is what that split is for.",
+  "word": "no"
+ }
+}

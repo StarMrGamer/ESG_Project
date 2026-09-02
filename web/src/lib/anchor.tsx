@@ -11,8 +11,29 @@
  */
 import { useLayoutEffect, useState } from 'react'
 
-/** The sticky header both callers sit under. */
-export const HEADER_H = 62
+/**
+ * The sticky header both callers sit under — MEASURED, not assumed.
+ *
+ * This was a constant 62 and the header is now 124: it grew a second row (the tab strip) and the
+ * number never followed. Nothing broke loudly — every anchored step simply scrolled its target
+ * about sixty pixels too high, so the ring landed correctly and the panel's own TITLE sat under
+ * the tab bar. That is the worst kind of drift for a demo: the step points at the right thing
+ * and the first line of it is covered.
+ *
+ * So it is read off the DOM, the same discipline the matrix uses for its own width. The constant
+ * survives only as the fallback for the moment before the header has painted, and any future row
+ * added to the header is now free.
+ */
+export const HEADER_FALLBACK_H = 124
+
+export function headerH(): number {
+  const h = document.querySelector('.cc-header')
+  if (!h) return HEADER_FALLBACK_H
+  const r = h.getBoundingClientRect()
+  // A header scrolled out of a non-sticky context, or not yet laid out, must not report ~0 and
+  // send every anchor to the top of the document.
+  return r.height > 8 ? r.height : HEADER_FALLBACK_H
+}
 /** Present mode's bar — a control strip since the cue line came off it. */
 export const PRESENT_BAR_H = 104
 
@@ -26,12 +47,13 @@ export const el = (anchor: string) => document.querySelector(`[data-tour="${anch
  * dates. Tall anchors pin their top instead; short ones centre in the free band.
  */
 export function anchorTarget(node: Element, barH = PRESENT_BAR_H): number {
-  const free = window.innerHeight - HEADER_H - barH
+  const head = headerH()
+  const free = window.innerHeight - head - barH
   const r = node.getBoundingClientRect()
   const top = r.top + window.scrollY
   return Math.max(0, r.height > free
-    ? top - HEADER_H - 16
-    : top - HEADER_H - Math.max(12, (free - r.height) / 2))
+    ? top - head - 16
+    : top - head - Math.max(12, (free - r.height) / 2))
 }
 
 /**

@@ -7,6 +7,9 @@ import AssistantBar from './AssistantBar'
 import EngineBoard from './EngineBoard'
 import PPPBanner from '../dual/PPPBanner'
 import UniverseGrid from './UniverseGrid'
+import ResidualPanel from '../dual/ResidualPanel'
+import RoadmapPanel from '../dual/RoadmapPanel'
+import PPPPanel from '../dual/PPPPanel'
 import ContextTab from './ContextTab'
 import ClientsTab from '../clients/ClientsTab'
 import Manual from '../manual/Manual'
@@ -140,7 +143,16 @@ export default function Dashboard() {
                   <div><CenterBoard /></div>
                   {ro && <div><AssistantRail /></div>}
                 </div>
+                {/* Per-company, so it stays with the company content — above the cohort
+                    panels, and full width, which is what the ternary plot needs. */}
+                {showModule('triangle', settings) && <PPPPanel />}
                 {showModule('universe', settings) && <UniverseGrid />}
+                {/* Cohort-level, so it sits under the grid rather than in the company column —
+                    it is a statement about the whole panel, not about the focused name. */}
+                {showModule('residual', settings) && <ResidualPanel />}
+                {/* Forward-looking, so it sits AFTER the measured panels — a reader should meet
+                    what we can show before what we would like to show. */}
+                {showModule('roadmap', settings) && <RoadmapPanel />}
                 <ModuleBar />
               </>
             )}

@@ -3545,6 +3545,26 @@ body.is-presenting .app-main { padding-bottom: 104px; }
 .tri-svg { width: 300px; max-width: 100%; flex: 0 0 auto; margin-top: var(--sp-3); }
 .tri-side { flex: 1 1 240px; min-width: 0; }
 
+/* AS A FULL-WIDTH BOARD MODULE (moved out of `hub-panels`, 2026-09-02).
+   The triangle needs ~560px before `.tri-body` stops wrapping, which the hub grid could not
+   give it. Full width solves that and creates the opposite problem: `.tri-legs` is a 3x1fr grid,
+   so on a 1450px panel each share column stretched to ~380px and three two-digit percentages
+   sat marooned across the page with a quarter of the panel empty on the right.
+   So above 1100px the side becomes two columns of its own — the shares at their natural size,
+   the explanation beside them taking the slack — and the panel fills rather than stretches. */
+@media (min-width: 1100px) {
+  /* The plot is the point of this panel, so at width it becomes the largest thing in it
+     rather than the smallest — it was 300px beside 1100px of text. */
+  .tri-svg { width: 360px; }
+  .tri-side { display: flex; align-items: flex-start; gap: var(--sp-6); flex-wrap: wrap; }
+  .tri-side > * { min-width: 0; }
+  /* The legs keep a fixed, readable measure instead of dividing whatever is there. */
+  .tri-legs { grid-template-columns: repeat(3, minmax(76px, 96px)); flex: 0 0 auto; }
+  .tri-note { flex: 1 1 520px; margin-top: 0; max-width: 80ch; }
+  /* `details` is the last child and should drop under both, full width. */
+  .tri-how { flex: 1 0 100%; }
+}
+
 .tri-grid line { stroke: var(--r-border); stroke-width: 1; }
 .tri-frame { fill: none; stroke: var(--r-muted); stroke-width: 1.5; opacity: 0.7; }
 .tri-corner {
@@ -3590,6 +3610,110 @@ body.is-presenting .app-main { padding-bottom: 104px; }
    The one panel in the product that predicts. Its measured skill is styled to sit BESIDE the
    estimate at the same weight, never below it in smaller type — an estimate whose reliability
    the reader has to go looking for is the object this whole product argues against. */
+/* THE 10% TEST — the two-stage residual panel. Reuses the forecast panel's row/est/verdict
+   grammar on purpose: they answer two halves of the same "so does it predict anything" question
+   and a reader should not have to learn a second layout to read the second half. */
+.rz {
+  margin: var(--sp-5) 0 0; padding: var(--pad-card);
+  background: var(--r-inset); border: 1px solid var(--r-border);
+  border-radius: var(--r-radius-sm);
+}
+.rz-stage {
+  margin-top: var(--sp-4); padding: var(--pad-row);
+  border: 1px solid var(--r-border); border-radius: var(--r-radius-xs);
+  background: var(--r-panel);
+}
+.rz-stage-h { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+.rz-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; border-radius: 50%;
+  border: 1px solid var(--r-border); background: var(--r-inset);
+  font: 600 10px/1 var(--r-mono); color: var(--r-muted);
+}
+.rz-k { font: 600 12.5px/1.4 var(--r-sans); color: var(--r-text); }
+.rz-blocks { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--sp-3); }
+.rz-blocks span {
+  padding: var(--pad-chip); border: 1px solid var(--r-border); border-radius: 999px;
+  font: 400 10.5px/1.3 var(--r-mono); color: var(--r-faint); background: var(--r-inset);
+}
+.rz-ics { margin-top: var(--sp-3); display: flex; flex-direction: column; gap: 3px; }
+.rz-ic { display: flex; align-items: center; gap: var(--sp-2); }
+.rz-ic-cut { font: 400 10.5px/1.3 var(--r-mono); color: var(--r-faint); min-width: 52px; }
+.rz-ic-v { font: 600 11.5px/1.3 var(--r-mono); min-width: 48px; }
+.rz-ic-n { font: 400 10.5px/1.3 var(--r-mono); color: var(--r-faint); }
+/* The bar is measured off a CENTRE zero, so a negative IC reads as a direction and not as a
+   shorter positive one — the same reason the pillar satellites diverge rather than fill. */
+.rz-bar { position: relative; flex: 1 1 auto; height: 9px; min-width: 80px; }
+.rz-bar-zero {
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--r-border);
+}
+.rz-bar-fill { position: absolute; top: 1px; bottom: 1px; border-radius: var(--r-radius-2xs); }
+.rz-bar-fill.is-up { background: var(--r-pos); }
+.rz-bar-fill.is-down { background: var(--r-neg); }
+/* The sealed-holdout block. Bordered in the warning tone, because it is the one part of this
+   panel that contradicts the rest of it and a reader skimming must not take it for a summary. */
+.rz-solve { border-color: var(--r-amber); }
+.rz-solve-row {
+  display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
+  padding: var(--pad-row); margin-top: var(--sp-2);
+  border: 1px solid var(--r-border); border-radius: var(--r-radius-xs);
+}
+.rz-solve-row.is-primary { border-color: var(--r-muted); }
+.rz-solve-name {
+  display: flex; flex-direction: column; gap: 2px; min-width: 190px;
+  font: 600 12.5px/1.3 var(--r-sans); color: var(--r-text);
+}
+.rz-solve-n { font: 400 10.5px/1.3 var(--r-mono); color: var(--r-faint); }
+.rz-solve-arrow { display: flex; flex-direction: column; gap: 2px; min-width: 128px; }
+.rz-solve-arrow b { font: 600 19px/1.2 var(--r-mono); }
+.rz-solve-lbl {
+  font: 600 10px/1.3 var(--r-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--r-faint);
+}
+.rz-solve-to { font: 400 19px/1 var(--r-mono); color: var(--r-faint); }
+.rz-solve-cfg { font: 400 10.5px/1.3 var(--r-mono); color: var(--r-faint); margin-left: auto; }
+.rz-superseded {
+  margin: var(--sp-4) 0 0; padding: var(--pad-row);
+  border-left: 2px solid var(--r-border);
+  font-size: 12.5px; line-height: 1.55; color: var(--r-faint); max-width: 74ch;
+}
+
+/* The roadmap panel. Reuses `.rz` as its shell so it reads as a sibling of the 10% test rather
+   than a different kind of object — they answer the same reader's question from opposite ends
+   (what we can show now, what better data would add). */
+.rm-row {
+  margin-top: var(--sp-3); padding: var(--pad-row);
+  border: 1px solid var(--r-border); border-radius: var(--r-radius-xs);
+  background: var(--r-panel);
+}
+.rm-row.is-now { border-color: var(--r-muted); }
+.rm-head { display: flex; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap; }
+.rm-title { font: 600 13px/1.4 var(--r-sans); color: var(--r-text); }
+.rm-badge {
+  padding: var(--pad-chip); border-radius: 999px; border: 1px solid var(--r-border);
+  font: 600 10px/1.3 var(--r-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--r-amber);
+}
+.rm-badge.is-now { color: var(--r-muted); }
+.rm-unlock {
+  margin: var(--sp-2) 0 0; font-size: 12.5px; line-height: 1.55;
+  color: var(--r-muted); max-width: 78ch;
+}
+.rm-nums { display: flex; gap: var(--sp-5); flex-wrap: wrap; margin-top: var(--sp-3); }
+.rm-num { display: flex; flex-direction: column; gap: 2px; }
+.rm-num b { font: 600 19px/1.2 var(--r-mono); color: var(--r-text); }
+.rm-num.is-key b { color: var(--r-pos); font-size: 22px; }
+.rm-of { font-size: 13px; color: var(--r-faint); font-weight: 400; }
+.rm-lbl {
+  font: 600 10px/1.3 var(--r-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--r-faint);
+}
+
+.rz-caveat {
+  margin: var(--sp-3) 0 0; font-size: 12.5px; line-height: 1.55;
+  color: var(--r-muted); max-width: 68ch;
+}
+
 .fc {
   margin: var(--sp-5) 0 0; padding: var(--pad-card);
   background: var(--r-inset); border: 1px solid var(--r-border);

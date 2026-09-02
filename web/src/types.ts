@@ -781,9 +781,137 @@ export interface EngineBlock {
   }
   /** Live-gathered evidence merged into this run (real universe only). */
   harvest?: { companies: number; events: number; note: string }
+  /**
+   * FORWARD-LOOKING, and labelled so by its own `header`. The real engine re-run over the same
+   * evidence with only the SOURCE TYPE varied — a computed counterfactual, never a measurement
+   * and never a claim about returns. Present on both universes; see `_roadmap_summary`.
+   */
+  roadmap?: RoadmapPayload | null
+  /**
+   * THE 10% TEST — cohort-level, frozen, `null` on the fictional demo universe.
+   *
+   * Two stages: the factor block first, then the ESG block on WHAT IT LEFT OVER. `stage1.r2_oos`
+   * is here on purpose and is the number to read first — a panel that quoted the incremental
+   * result without saying whether the baseline explained anything would be asserting a "90%"
+   * this panel has not measured.
+   */
+  residual?: ResidualTest | null
   anchor: AnchorSummary
   records: Record<string, EngineRecord>
   badges: Record<string, Badges>
+}
+
+export interface ResidualVerdict { word: string; line: string }
+
+export interface ResidualTest {
+  ran: boolean
+  why?: string
+  built_at?: string
+  question?: string
+  /** The specification, declared in `residual.py`'s header BEFORE the first run. */
+  spec?: string
+  spec_note?: string
+  horizon_months?: number
+  rows?: number
+  companies?: number
+  train?: { cutoffs: string[]; rows: number }
+  test?: { cutoffs: string[]; rows: number }
+  stage1?: {
+    block: string[]
+    /** Out-of-sample R2 of the factor model itself. Negative here — read the panel copy. */
+    r2_oos: number | null
+    residual_share: number | null
+  }
+  stage2?: {
+    block: string[]
+    incremental_r2_oos: number | null
+    /** The headline: mean rank correlation between the stage-2 call and the actual residual. */
+    mean_ic: number | null
+    ic_t_stat: number | null
+    ic_cutoffs: number
+    ic_series: { cutoff: string; ic: number; n: number }[]
+  }
+  ablation?: {
+    r2_factors_only: number | null
+    r2_with_esg: number | null
+    delta_r2: number | null
+    mae_factors_only: number
+    mae_with_esg: number
+    esg_helps_mae: boolean
+  } | null
+  verdict?: ResidualVerdict
+  factors_missing?: Record<string, string>
+  bias_note?: string
+  sweep_summary?: {
+    configurations: number
+    with_contribution: number
+    by_horizon: { horizon_months: number; cells: number; positive_verdict: number
+                  mean_ic_positive: number; ic_t_at_least_2: number
+                  mean_ic_across_specs: number | null }[]
+    note: string
+    structure_note?: string
+    horizon_note?: string
+  }
+  sample_caveat?: string
+  not_advice?: string
+  /**
+   * THE SEALED-HOLDOUT RESULT — the stricter test, and the one that OUTRANKS `verdict` above.
+   *
+   * `verdict` comes from a single train/test split. This comes from train / validation / holdout
+   * where the holdout is scored once, and the two DISAGREE. When both are on screen the holdout
+   * leads, because it is the better-designed question and because the gap between them is the
+   * most instructive thing either produced.
+   */
+  solve?: SolveResult | null
+}
+
+export interface RoadmapScenario {
+  key: string
+  title: string
+  unlock: string
+  /** 'measured' for today's row; 'counterfactual' for every forward one. Drives the badge. */
+  reality: 'measured' | 'counterfactual'
+  company_pr_share: number
+  mean_company_confidence: number
+  companies_confident: number
+  companies: number
+  hidden_winners: number
+  confident_delta: number
+}
+
+export interface RoadmapPayload {
+  /** Rendered verbatim. The disclosure lives with the data so the two cannot drift apart. */
+  header: string
+  deck_line: string
+  illustrative: boolean
+  dial: string
+  source_quality: Record<string, number>
+  scenarios: RoadmapScenario[]
+}
+
+export interface SolvePanel {
+  panel: string
+  companies: number
+  rows: number
+  configs_tried: number
+  chosen: { transform: string; lambda: number; shrink: number }
+  split: { train: string[]; validation: string[]; holdout: string[] }
+  stage1_r2_holdout: number | null
+  /** Never rendered alone — only beside the holdout that refuted it. See the panel component. */
+  validation_pct: number | null
+  holdout_pct: number | null
+  holdout_ic: number | null
+  holdout_ic_t: number | null
+  verdict: ResidualVerdict
+  sample_caveat: string
+}
+
+export interface SolveResult {
+  primary: 'wide' | 'narrow'
+  wide?: SolvePanel
+  narrow?: SolvePanel
+  verdict: ResidualVerdict
+  lesson: string
 }
 
 export interface TrailRow {

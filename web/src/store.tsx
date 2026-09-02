@@ -108,7 +108,7 @@ export type BoardTab = 'board' | 'context' | 'clients' | 'manual'
  * `Settings` stays the single description of what is persisted.
  */
 export type ModuleKey = 'matrix' | 'case' | 'classification' | 'rankings' | 'universe'
-  | 'news' | 'price' | 'rails'
+  | 'news' | 'price' | 'rails' | 'residual' | 'roadmap' | 'triangle'
 
 export interface Settings {
   demo: boolean

@@ -299,19 +299,32 @@ def cutoffs(history=None, horizon=HORIZON_MONTHS, start=PANEL_START, step=CUTOFF
     return out
 
 
-def build_panel(demo=False, horizon=HORIZON_MONTHS, verbose=False):
+def build_panel(demo=False, horizon=HORIZON_MONTHS, verbose=False, constituents=None,
+                as_of=None):
     """One row per (company, cutoff) with features knowable then and the return that followed.
 
     The engine is re-run per cutoff with `cutoff=as_of=<date>`, so it sees only evidence
     published before it. `engine.enforce_cutoff` ASSERTS that rather than trusting it.
+
+    `constituents` overrides which names are scored, for a caller that has assembled its own
+    cohort — `residual.py` widens the panel across two real universes, because a cross-sectional
+    factor test gets its power from BREADTH and 41 names is very few. It is an override and not
+    the default on purpose: this module's frozen model was fitted on the CGSI basket, and a
+    default that quietly changed the cohort would change that model's meaning without changing
+    its file. `as_of` travels with it, since the harvest overlay's guard 2b is per universe.
     """
     cfg = engine_config.for_horizon("long")
-    uni = universe.load_universe(universe.active_file(demo))
-    cons = uni["constituents"]
-    if not demo:
-        # Guard 2b per universe — the harvest store is shared and the baskets have
-        # different horizons. See the note on `harvest.apply_overlay`.
-        cons = harvest.apply_overlay(cons, as_of=uni.get("as_of") or "")
+    if constituents is not None:
+        cons = constituents
+        if not demo:
+            cons = harvest.apply_overlay(cons, as_of=as_of or "")
+    else:
+        uni = universe.load_universe(universe.active_file(demo))
+        cons = uni["constituents"]
+        if not demo:
+            # Guard 2b per universe — the harvest store is shared and the baskets have
+            # different horizons. See the note on `harvest.apply_overlay`.
+            cons = harvest.apply_overlay(cons, as_of=uni.get("as_of") or "")
     meta = company_metadata.load(demo=demo)
     tickers = [c["ticker"] for c in cons]
 

@@ -1,1 +1,0 @@
-You want a forecast. We built one. It has no measured skill , negative R-squared, direction worse than always guessing up. We ship it saying so, beside the number that is measured: CGSI's own published base rate. That is the product.

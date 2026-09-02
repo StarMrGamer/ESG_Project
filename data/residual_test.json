@@ -1,0 +1,493 @@
+{
+ "bias_note": "Stage 1 is missing SMB and HML, so it under-explains and leaves a larger residual than a full Fama-French model would. That makes stage 2's job EASIER: a negative result here is stronger than it looks, and a positive one is weaker.",
+ "built_at": "2026-09-02",
+ "companies": 41,
+ "esg_block": {
+  "evidence": "Evidence depth (log signal count)",
+  "momentum": "ESG evidence momentum (direction consensus)",
+  "people": "PPP \u00b7 People share of movement",
+  "planet": "PPP \u00b7 Planet share of movement"
+ },
+ "excluded_from_esg_block": {
+  "profit": "PPP Profit share is |12-1 price momentum| rescaled \u2014 a transform of the WML factor stage 1 removes. Re-entering it at stage 2 would let the ESG block re-explain a controlled factor."
+ },
+ "factor_block": {
+  "beta": "MKT \u00b7 beta to the equal-weighted cohort",
+  "price_mom": "WML \u00b7 12-1 momentum factor",
+  "prof": "RMW-proxy \u00b7 profitability from two audited years",
+  "vol": "VOL \u00b7 realised volatility, trailing 12m"
+ },
+ "factors_missing": {
+  "HML": "needs book-to-market \u2014 no book value on file, same reason",
+  "SMB": "needs market capitalisation \u2014 no shares-outstanding figure on file, and quoteSummary is crumb-gated"
+ },
+ "not_advice": "A measurement of whether one block of features explains the part of returns another block does not. It is not a forecast, not a recommendation, and not a claim that any company will do anything.",
+ "primary_spec": "xs",
+ "question": "Does the ESG evidence block explain the part of forward returns that the factor block does not?",
+ "result": {
+  "ablation": {
+   "delta_r2": 0.0072,
+   "esg_helps_mae": true,
+   "mae_factors_only": 13.583,
+   "mae_with_esg": 13.485,
+   "r2_factors_only": -0.0425,
+   "r2_with_esg": -0.0353
+  },
+  "ran": true,
+  "spec": "xs",
+  "spec_note": "Cross-sectionally demeaned per cutoff: the period's cohort mean is removed from the target and from every feature, so what is graded is relative ranking.",
+  "stage1": {
+   "block": [
+    "beta",
+    "price_mom",
+    "vol",
+    "prof"
+   ],
+   "coefficients": {
+    "beta": 0.32926,
+    "price_mom": 3.925182,
+    "prof": 0.17492,
+    "vol": -1.4365
+   },
+   "r2_oos": -0.0425,
+   "residual_share": 1.0425
+  },
+  "stage2": {
+   "block": [
+    "momentum",
+    "evidence",
+    "planet",
+    "people"
+   ],
+   "coefficients": {
+    "evidence": -1.490294,
+    "momentum": -0.763899,
+    "people": -0.391625,
+    "planet": 1.922047
+   },
+   "ic": {
+    "cutoffs": 5,
+    "mean": 0.1346,
+    "sd": 0.1213,
+    "series": [
+     {
+      "cutoff": "2025-03",
+      "ic": 0.2601,
+      "n": 41
+     },
+     {
+      "cutoff": "2025-06",
+      "ic": 0.2613,
+      "n": 41
+     },
+     {
+      "cutoff": "2025-09",
+      "ic": -0.0113,
+      "n": 41
+     },
+     {
+      "cutoff": "2025-12",
+      "ic": 0.0733,
+      "n": 41
+     },
+     {
+      "cutoff": "2026-03",
+      "ic": 0.0897,
+      "n": 41
+     }
+    ],
+    "t_stat": 2.481
+   },
+   "incremental_r2_oos": 0.0025
+  },
+  "test": {
+   "cutoffs": [
+    "2025-03",
+    "2025-06",
+    "2025-09",
+    "2025-12",
+    "2026-03"
+   ],
+   "rows": 205
+  },
+  "train": {
+   "cutoffs": [
+    "2023-06",
+    "2023-09",
+    "2023-12",
+    "2024-03",
+    "2024-06",
+    "2024-09",
+    "2024-12"
+   ],
+   "rows": 242
+  },
+  "train_fraction": 0.6
+ },
+ "rows": 447,
+ "sample_caveat": "Trained on ~3 years and ~43 ASEAN companies \u2014 one market regime, with overlapping 6-month returns that make consecutive rows non-independent. The effective sample is far smaller than the row count. Treat any skill figure here as weak evidence, never as validated alpha.",
+ "spec_declared_before_run": true,
+ "sweep": [
+  {
+   "delta_r2": -0.0163,
+   "horizon_months": 3,
+   "ic_t_stat": 0.972,
+   "incremental_r2_oos": -0.0129,
+   "mean_ic": 0.0635,
+   "rows": 489,
+   "spec": "raw",
+   "stage1_r2_oos": -0.0473,
+   "train_fraction": 0.5,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0668,
+   "horizon_months": 3,
+   "ic_t_stat": 0.669,
+   "incremental_r2_oos": -0.052,
+   "mean_ic": 0.0517,
+   "rows": 489,
+   "spec": "raw",
+   "stage1_r2_oos": -0.1054,
+   "train_fraction": 0.6,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0238,
+   "horizon_months": 3,
+   "ic_t_stat": -0.021,
+   "incremental_r2_oos": -0.0281,
+   "mean_ic": -0.0015,
+   "rows": 489,
+   "spec": "raw",
+   "stage1_r2_oos": -0.0033,
+   "train_fraction": 0.7,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": 0.0056,
+   "horizon_months": 3,
+   "ic_t_stat": 1.397,
+   "incremental_r2_oos": 0.0034,
+   "mean_ic": 0.0987,
+   "rows": 489,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0564,
+   "train_fraction": 0.5,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": 0.0079,
+   "horizon_months": 3,
+   "ic_t_stat": 0.934,
+   "incremental_r2_oos": 0.0043,
+   "mean_ic": 0.0655,
+   "rows": 489,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0667,
+   "train_fraction": 0.6,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": 0.004,
+   "horizon_months": 3,
+   "ic_t_stat": 0.215,
+   "incremental_r2_oos": -0.0121,
+   "mean_ic": 0.0129,
+   "rows": 489,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0115,
+   "train_fraction": 0.7,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0054,
+   "horizon_months": 3,
+   "ic_t_stat": 0.439,
+   "incremental_r2_oos": -0.0045,
+   "mean_ic": 0.0223,
+   "rows": 489,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.079,
+   "train_fraction": 0.5,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0014,
+   "horizon_months": 3,
+   "ic_t_stat": 0.603,
+   "incremental_r2_oos": -0.0021,
+   "mean_ic": 0.0357,
+   "rows": 489,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.1166,
+   "train_fraction": 0.6,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": 0.0038,
+   "horizon_months": 3,
+   "ic_t_stat": 0.598,
+   "incremental_r2_oos": -0.0047,
+   "mean_ic": 0.0314,
+   "rows": 489,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.0049,
+   "train_fraction": 0.7,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.1015,
+   "horizon_months": 6,
+   "ic_t_stat": 2.593,
+   "incremental_r2_oos": -0.0709,
+   "mean_ic": 0.1575,
+   "rows": 447,
+   "spec": "raw",
+   "stage1_r2_oos": -0.171,
+   "train_fraction": 0.5,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": -0.1525,
+   "horizon_months": 6,
+   "ic_t_stat": 3.826,
+   "incremental_r2_oos": -0.1165,
+   "mean_ic": 0.1242,
+   "rows": 447,
+   "spec": "raw",
+   "stage1_r2_oos": -0.139,
+   "train_fraction": 0.6,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": -0.063,
+   "horizon_months": 6,
+   "ic_t_stat": 2.716,
+   "incremental_r2_oos": -0.0622,
+   "mean_ic": 0.1327,
+   "rows": 447,
+   "spec": "raw",
+   "stage1_r2_oos": 0.0368,
+   "train_fraction": 0.7,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": 0.0124,
+   "horizon_months": 6,
+   "ic_t_stat": 2.297,
+   "incremental_r2_oos": 0.0114,
+   "mean_ic": 0.1535,
+   "rows": 447,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0745,
+   "train_fraction": 0.5,
+   "verdict": "explains part of the residual"
+  },
+  {
+   "delta_r2": 0.0072,
+   "horizon_months": 6,
+   "ic_t_stat": 2.481,
+   "incremental_r2_oos": 0.0025,
+   "mean_ic": 0.1346,
+   "rows": 447,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0425,
+   "train_fraction": 0.6,
+   "verdict": "explains part of the residual"
+  },
+  {
+   "delta_r2": 0.0276,
+   "horizon_months": 6,
+   "ic_t_stat": 2.22,
+   "incremental_r2_oos": 0.0102,
+   "mean_ic": 0.1415,
+   "rows": 447,
+   "spec": "xs",
+   "stage1_r2_oos": 0.0496,
+   "train_fraction": 0.7,
+   "verdict": "explains part of the residual"
+  },
+  {
+   "delta_r2": 0.0149,
+   "horizon_months": 6,
+   "ic_t_stat": 3.039,
+   "incremental_r2_oos": 0.0156,
+   "mean_ic": 0.168,
+   "rows": 447,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.1578,
+   "train_fraction": 0.5,
+   "verdict": "explains part of the residual"
+  },
+  {
+   "delta_r2": 0.0072,
+   "horizon_months": 6,
+   "ic_t_stat": 2.84,
+   "incremental_r2_oos": 0.0056,
+   "mean_ic": 0.1191,
+   "rows": 447,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.0992,
+   "train_fraction": 0.6,
+   "verdict": "explains part of the residual"
+  },
+  {
+   "delta_r2": 0.0323,
+   "horizon_months": 6,
+   "ic_t_stat": 3.431,
+   "incremental_r2_oos": 0.022,
+   "mean_ic": 0.1537,
+   "rows": 447,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": 0.0334,
+   "train_fraction": 0.7,
+   "verdict": "explains part of the residual"
+  },
+  {
+   "delta_r2": -0.1696,
+   "horizon_months": 12,
+   "ic_t_stat": 2.027,
+   "incremental_r2_oos": -0.1338,
+   "mean_ic": 0.1447,
+   "rows": 365,
+   "spec": "raw",
+   "stage1_r2_oos": -0.1083,
+   "train_fraction": 0.5,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": -0.1834,
+   "horizon_months": 12,
+   "ic_t_stat": 1.414,
+   "incremental_r2_oos": -0.1514,
+   "mean_ic": 0.0748,
+   "rows": 365,
+   "spec": "raw",
+   "stage1_r2_oos": -0.1115,
+   "train_fraction": 0.6,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.1423,
+   "horizon_months": 12,
+   "ic_t_stat": 1.065,
+   "incremental_r2_oos": -0.11,
+   "mean_ic": 0.0484,
+   "rows": 365,
+   "spec": "raw",
+   "stage1_r2_oos": -0.1154,
+   "train_fraction": 0.7,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": 0.0033,
+   "horizon_months": 12,
+   "ic_t_stat": 2.134,
+   "incremental_r2_oos": -0.0003,
+   "mean_ic": 0.1346,
+   "rows": 365,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0125,
+   "train_fraction": 0.5,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": -0.0227,
+   "horizon_months": 12,
+   "ic_t_stat": 1.195,
+   "incremental_r2_oos": -0.0293,
+   "mean_ic": 0.074,
+   "rows": 365,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0351,
+   "train_fraction": 0.6,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0185,
+   "horizon_months": 12,
+   "ic_t_stat": 1.17,
+   "incremental_r2_oos": -0.0247,
+   "mean_ic": 0.0466,
+   "rows": 365,
+   "spec": "xs",
+   "stage1_r2_oos": -0.0422,
+   "train_fraction": 0.7,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0003,
+   "horizon_months": 12,
+   "ic_t_stat": 1.514,
+   "incremental_r2_oos": -0.0071,
+   "mean_ic": 0.1046,
+   "rows": 365,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.0243,
+   "train_fraction": 0.5,
+   "verdict": "marginal"
+  },
+  {
+   "delta_r2": -0.0414,
+   "horizon_months": 12,
+   "ic_t_stat": 0.437,
+   "incremental_r2_oos": -0.0442,
+   "mean_ic": 0.026,
+   "rows": 365,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.0575,
+   "train_fraction": 0.6,
+   "verdict": "no measurable contribution"
+  },
+  {
+   "delta_r2": -0.0319,
+   "horizon_months": 12,
+   "ic_t_stat": -0.04,
+   "incremental_r2_oos": -0.0354,
+   "mean_ic": -0.0014,
+   "rows": 365,
+   "spec": "xs_winsor",
+   "stage1_r2_oos": -0.0543,
+   "train_fraction": 0.7,
+   "verdict": "no measurable contribution"
+  }
+ ],
+ "sweep_summary": {
+  "by_horizon": [
+   {
+    "cells": 9,
+    "horizon_months": 3,
+    "ic_t_at_least_2": 0,
+    "mean_ic_across_specs": 0.0422,
+    "mean_ic_positive": 8,
+    "positive_verdict": 0
+   },
+   {
+    "cells": 9,
+    "horizon_months": 6,
+    "ic_t_at_least_2": 9,
+    "mean_ic_across_specs": 0.1428,
+    "mean_ic_positive": 9,
+    "positive_verdict": 6
+   },
+   {
+    "cells": 9,
+    "horizon_months": 12,
+    "ic_t_at_least_2": 2,
+    "mean_ic_across_specs": 0.0725,
+    "mean_ic_positive": 8,
+    "positive_verdict": 0
+   }
+  ],
+  "configurations": 27,
+  "horizon_note": "Every specification at the 6-month horizon clears the IC test, and at every other horizon a minority do. That is robust to the specification and confined to one horizon \u2014 which is a real finding and a real limitation in the same sentence. An effect present at one horizon only is not yet distinguishable from a horizon-shaped artefact of a 3-year panel, and it should be quoted with the horizon attached, never as 'the model works'.",
+  "note": "Every configuration is recorded so that a later session cannot run the grid, pick the cell it prefers and quote that one. A figure is only quotable with its spec, horizon and split attached.",
+  "structure_note": "Read the grid BY HORIZON, not as a flat count. A result that survives every specification at one horizon and appears at no other is a different animal from the same number of scattered hits: the first is robust-but-horizon-specific, the second is noise. Which of those this is, is stated in `horizon_note`.",
+  "with_contribution": 6
+ },
+ "verdict": {
+  "line": "The ESG block improves on the factor model's leftovers out of sample, on both error and rank. On this sample that is weak evidence, not validated alpha \u2014 and stage 1 is missing SMB and HML, which flatters it.",
+  "word": "explains part of the residual"
+ }
+}

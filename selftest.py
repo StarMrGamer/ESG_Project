@@ -2014,6 +2014,37 @@ def test_financial_parse_traps():
     assert v["verdict"] == "unknown", v
 
 
+def test_residual_verdict_reads_the_holdout_never_validation():
+    """The reported number must come from the sealed holdout, not the set that chose the model.
+
+    This is the one property the whole `--solve` protocol exists for, and it is a single
+    attribute lookup away from being wrong. Measured on the CGSI panel: validation selected a
+    configuration worth +7.6% of the residual and the holdout returned -1.8%. A verdict that
+    read `validation` would therefore announce that the target had been beaten, using a number
+    chosen for being the best of 48 candidates.
+
+    So: feed `solve_verdict` a payload whose two sets disagree in opposite directions, and assert
+    it follows the holdout. Also assert the search size travels with it, because "one model
+    worked" and "one of forty-eight worked" are different claims.
+    """
+    import residual
+    payload = {
+        "ran": True,
+        "configs_tried": 48,
+        "validation": {"share_of_residual_pct": 7.575, "mean_ic": 0.21},
+        "holdout": {"share_of_residual_pct": -1.841, "mean_ic": 0.02},
+    }
+    v = residual.solve_verdict(payload)
+    assert v["word"] == "no", f"verdict followed validation, not the holdout: {v}"
+    assert "7.6" not in v["line"] and "7.575" not in v["line"], \
+        "the validation figure leaked into the reported line"
+    assert "48" in v["line"], "the number of configurations searched is not reported"
+
+    # And the mirror: a holdout that genuinely clears the bar must be allowed to say so.
+    payload["holdout"] = {"share_of_residual_pct": 6.0, "mean_ic": 0.2}
+    assert residual.solve_verdict(payload)["word"] == "predicts part of the residual"
+
+
 def test_financials_never_reach_the_engine():
     """The financial read is a GATE and must stay outside the score.
 
@@ -2027,10 +2058,15 @@ def test_financials_never_reach_the_engine():
     card puts a 12-1 price return beside the evidence read, which is exactly the kind of number
     that looks harmless to fold in later — and folding it in would turn `disagreement` from "our
     percentile minus the rating's" into an unnamed composite nobody, including us, could state.
+
+    `residual` is banned for a second, sharper reason: it MEASURES whether the ESG block explains
+    what the factor block leaves over. If the engine could reach it, the thing being measured
+    would be downstream of the measurement, and the test would be grading its own input.
     """
     import engine
     import signals
-    banned = ("financials", "rationale", "price_momentum", "quotes", "ppp", "forecast")
+    banned = ("financials", "rationale", "price_momentum", "quotes", "ppp", "forecast",
+              "residual")
     for mod in (engine, signals):
         names = {getattr(v, "__name__", "") for v in vars(mod).values()}
         for bad in banned:
@@ -3227,6 +3263,8 @@ def main():
          lambda: test_financial_parse_traps()),
         ("the financial read never reaches the engine",
          lambda: test_financials_never_reach_the_engine()),
+    ("the residual verdict reads the holdout, never validation",
+         lambda: test_residual_verdict_reads_the_holdout_never_validation()),
         ("price momentum is 12-1 and refuses a short window",
          lambda: test_price_momentum_is_12_1_and_refuses_a_short_window()),
         ("an absence of evidence is never called a divergence",

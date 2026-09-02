@@ -1,0 +1,120 @@
+{
+ "_note": "ILLUSTRATIVE COUNTERFACTUAL. Rows after the first are the REAL engine re-run over the SAME evidence with only the SOURCE TYPE of some events changed, to show how much of our confidence ceiling is set by where evidence comes from. No event, date, direction or company is invented, and nothing here is a claim about returns, performance or losses avoided.",
+ "deck_line": "Our confidence ceiling is a sourcing problem, not a modelling one \u2014 and we can show you exactly what fixing it is worth, because we ran it.",
+ "dial": "source_type only \u2014 text, dates, directions and companies are untouched",
+ "header": "Roadmap (illustrative \u2014 the real engine re-run over the same evidence under a stated change of source mix; not a measurement and not a return forecast).",
+ "illustrative": true,
+ "scenarios": [
+  {
+   "companies": 52,
+   "companies_confident": 11,
+   "company_pr_share": 0.816,
+   "confident_delta": 0,
+   "hidden_winner_delta": 0,
+   "hidden_winners": 4,
+   "key": "today",
+   "labels": {
+    "consensus": 24,
+    "future_leaders": 21,
+    "hidden_winners": 4,
+    "overrated_leaders": 2,
+    "value_traps": 1
+   },
+   "mean_company_confidence": 0.336,
+   "mean_signal_confidence": 0.56,
+   "reality": "measured",
+   "run_id": "9680adf087a74dcb",
+   "share": 0.0,
+   "signals": 369,
+   "source_types": {
+    "company_pr": 301,
+    "dataset": 8,
+    "exchange_filing": 20,
+    "external_reviewer": 16,
+    "index_provider": 10,
+    "news": 13,
+    "regulator": 1
+   },
+   "title": "Today",
+   "unlock": "What the radar has actually gathered: four-angle live search over public web sources."
+  },
+  {
+   "companies": 52,
+   "companies_confident": 20,
+   "company_pr_share": 0.458,
+   "confident_delta": 9,
+   "hidden_winner_delta": 0,
+   "hidden_winners": 4,
+   "key": "filings",
+   "labels": {
+    "consensus": 24,
+    "future_leaders": 21,
+    "hidden_winners": 4,
+    "overrated_leaders": 2,
+    "value_traps": 1
+   },
+   "mean_company_confidence": 0.4,
+   "mean_signal_confidence": 0.714,
+   "reality": "counterfactual",
+   "run_id": "9680adf087a74dcb",
+   "share": 0.5,
+   "signals": 369,
+   "source_types": {
+    "company_pr": 169,
+    "dataset": 8,
+    "exchange_filing": 48,
+    "external_reviewer": 48,
+    "index_provider": 56,
+    "news": 13,
+    "regulator": 27
+   },
+   "title": "Exchange filings wired in",
+   "unlock": "SGX / Bursa / IDX / SET publish structured sustainability filings. Half of what we currently read as a press release exists there as a filed document."
+  },
+  {
+   "companies": 52,
+   "companies_confident": 22,
+   "company_pr_share": 0.228,
+   "confident_delta": 11,
+   "hidden_winner_delta": 0,
+   "hidden_winners": 4,
+   "key": "altdata",
+   "labels": {
+    "consensus": 24,
+    "future_leaders": 21,
+    "hidden_winners": 4,
+    "overrated_leaders": 2,
+    "value_traps": 1
+   },
+   "mean_company_confidence": 0.444,
+   "mean_signal_confidence": 0.815,
+   "reality": "counterfactual",
+   "run_id": "9680adf087a74dcb",
+   "share": 0.8,
+   "signals": 369,
+   "source_types": {
+    "company_pr": 84,
+    "dataset": 8,
+    "exchange_filing": 73,
+    "external_reviewer": 67,
+    "index_provider": 75,
+    "news": 13,
+    "regulator": 49
+   },
+   "title": "Regulator + index-provider feeds",
+   "unlock": "MAS / SC / OJK enforcement actions and index-provider inclusion decisions. These are the sources the confidence model pays full weight for, and the ones a company cannot author about itself."
+  }
+ ],
+ "source_quality": {
+  "_note": "Confidence multiplier by source type. Company PR is CAPPED at 0.5 \u2014 the Adaro lesson (D/Backtest_Candidates_for_Rai.md case 4).",
+  "company_pr": 0.5,
+  "dataset": 0.6,
+  "exchange_filing": 0.95,
+  "external_reviewer": 0.9,
+  "index_provider": 0.9,
+  "news": 0.65,
+  "ngo": 0.7,
+  "regulator": 1.0,
+  "unknown": 0.4
+ }
+}

@@ -103,14 +103,16 @@ export interface Step {
 /**
  * A TRACK is a named walk. Present mode is the driver; what it drives is data.
  *
- * Three exist: `PITCH` argues the product in the order the work happens, `FEARS` arranges the
- * same app as three worries and their answers, and `RECAP` reviews the run that is loaded and
- * hands you the consolidated figures at the end. They share every mechanism — the absolute-state
- * rule, the anchors, the ring, the keys, interact mode — because the difference between "show a
- * stranger why this matters" and "tell me what this run says" is a list of steps, not an engine.
+ * Four exist: `PITCH` argues the product in the order the work happens, `FEARS` arranges the
+ * same app as three worries and their answers, `RECAP` reviews the run that is loaded and hands
+ * you the consolidated figures at the end, and `ANALYST` walks the workflow of the reader this
+ * was built for — ending on the residual test, which is the one question a quant asks first.
+ * They share every mechanism — the absolute-state rule, the anchors, the ring, the keys,
+ * interact mode — because the difference between "show a stranger why this matters" and "tell me
+ * what this run says" is a list of steps, not an engine.
  */
 export interface Track {
-  key: 'pitch' | 'fears' | 'recap'
+  key: 'pitch' | 'fears' | 'recap' | 'analyst'
   label: string
   /** The subject a track walks. 'fixed' is the rehearsed one; 'focused' is whatever is on screen. */
   subject: 'fixed' | 'focused'

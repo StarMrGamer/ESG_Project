@@ -46,6 +46,7 @@ import datasource
 import engine
 import engine_config
 import forecast
+import residual
 import harvest
 import lseg
 import metrics
@@ -507,6 +508,169 @@ def _harvest_summary(demo, tickers=None):
     }
 
 
+def _roadmap_summary():
+    """THE ROADMAP — the real engine re-run under a stated change of source mix.
+
+    Served on BOTH universes, unlike the residual test. That test needed real prices and so had
+    to be absent on the fictional demo set; this one makes no claim about any company at all. It
+    says one thing about US: our confidence ceiling is set by where our evidence comes from, and
+    here is what the engine does when that changes.
+
+    It is forward-looking, and the payload carries its own `header` saying so, in the same shape
+    `data/claim_vs_evidence.json` uses. The UI renders that header rather than composing its own,
+    so the disclosure cannot drift from the data it describes — the failure mode this repo has
+    hit twice with figures written into prose.
+    """
+    try:
+        with open(os.path.join(BASE_DIR, "data", "roadmap_scenario.json"), "r",
+                  encoding="utf-8") as fh:
+            r = json.load(fh)
+    except (OSError, ValueError):
+        return None
+    if not r.get("scenarios"):
+        return None
+    return {
+        "header": r.get("header"),
+        "deck_line": r.get("deck_line"),
+        "illustrative": bool(r.get("illustrative")),
+        "dial": r.get("dial"),
+        "source_quality": r.get("source_quality"),
+        "scenarios": [{
+            "key": s.get("key"), "title": s.get("title"), "unlock": s.get("unlock"),
+            "reality": s.get("reality"),
+            "company_pr_share": s.get("company_pr_share"),
+            "mean_company_confidence": s.get("mean_company_confidence"),
+            "companies_confident": s.get("companies_confident"),
+            "companies": s.get("companies"),
+            "hidden_winners": s.get("hidden_winners"),
+            "confident_delta": s.get("confident_delta"),
+        } for s in r["scenarios"]],
+    }
+
+
+def _solve_summary():
+    """THE SEALED-HOLDOUT RESULT — the stricter test, read off its own frozen files.
+
+    The two-stage measurement above splits train/test once and reports what it finds. This asks
+    the harder question the reader actually cares about — can the residual be PREDICTED — and it
+    answers it under a protocol the measurement does not have: hyperparameters chosen on a
+    validation block, and a holdout scored exactly once.
+
+    It is carried here, and rendered ABOVE the measurement's own verdict, because the two
+    disagree and this one is better designed. On the CGSI panel validation selected a
+    configuration worth +7.6% of the residual and the holdout returned -1.8%. Showing the
+    measurement's "explains part of the residual" without this beside it would leave the board
+    asserting something its own stricter test refuses — the stale-number drift this repo keeps
+    catching, arriving through a door we built ourselves.
+
+    Both panels are returned. The wide one is the DECLARED primary (breadth is the a-priori
+    argument for a cross-sectional test); the narrow one carries the lesson, and dropping it
+    because it is unflattering would be the exact selection this whole protocol exists to stop.
+    """
+    out = {}
+    for key, name in (("wide", "residual_solve.json"), ("narrow", "residual_solve_narrow.json")):
+        try:
+            with open(os.path.join(BASE_DIR, "data", name), "r", encoding="utf-8") as fh:
+                r = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        if not r.get("ran"):
+            continue
+        out[key] = {
+            "panel": r.get("panel"),
+            "companies": r.get("companies"),
+            "rows": r.get("rows"),
+            "configs_tried": r.get("configs_tried"),
+            "chosen": r.get("chosen"),
+            "split": r.get("split"),
+            "stage1_r2_holdout": r.get("stage1_r2_holdout"),
+            # Validation is shown ONLY next to the holdout that refuted it. On its own it is a
+            # number chosen for being the best of many, and quoting it alone would be the error
+            # the split exists to prevent.
+            "validation_pct": (r.get("validation") or {}).get("share_of_residual_pct"),
+            "holdout_pct": (r.get("holdout") or {}).get("share_of_residual_pct"),
+            "holdout_ic": (r.get("holdout") or {}).get("mean_ic"),
+            "holdout_ic_t": (r.get("holdout") or {}).get("ic_t_stat"),
+            "verdict": r.get("verdict"),
+            "sample_caveat": r.get("sample_caveat"),
+        }
+    if not out:
+        return None
+    primary = out.get("wide") or next(iter(out.values()))
+    out["primary"] = "wide" if "wide" in out else next(iter(out))
+    out["verdict"] = primary.get("verdict")
+    out["lesson"] = HOLDOUT_LESSON_TEXT
+    return out
+
+
+HOLDOUT_LESSON_TEXT = (
+    "Validation selected a configuration worth +7.6% of the residual on the CGSI panel; the "
+    "sealed holdout returned -1.8%. It had chosen the least-regularised corner of the grid. "
+    "Without the three-way split that +7.6% is the number that would have been reported."
+)
+
+
+def _residual_summary(demo):
+    """THE 10% TEST, read off the frozen file — never recomputed to serve a page.
+
+    A cohort-level result, not a per-company one: it asks whether the ESG block explains what the
+    factor block leaves over, across the whole panel. So it rides on the engine block beside the
+    run id rather than on a company record, and it is the SAME frozen artefact `residual.py`
+    prints — a board that re-fitted a model per request could show a different answer from the
+    CLI on the same day, which is the drift this repo keeps designing out.
+
+    `None` on the demo universe, for the reason `price_momentum` is: those companies are
+    fictional, they have no returns, and a residual test over invented prices is not a weaker
+    finding, it is not a finding.
+    """
+    if demo:
+        return None
+    payload = residual.frozen()
+    if not payload:
+        return None
+    r = payload.get("result") or {}
+    if not r.get("ran"):
+        return {"ran": False, "why": r.get("why", "not run"),
+                "verdict": payload.get("verdict")}
+    ic = r["stage2"]["ic"]
+    return {
+        "ran": True,
+        "built_at": payload.get("built_at"),
+        "question": payload.get("question"),
+        "spec": r["spec"],
+        "spec_note": r["spec_note"],
+        "horizon_months": residual.HORIZONS_PRIMARY,
+        "rows": payload.get("rows"),
+        "companies": payload.get("companies"),
+        "train": r["train"],
+        "test": r["test"],
+        # Stage 1 is reported even though — especially though — it has no skill here. A reader
+        # told "we explain the 10%" is entitled to see whether the 90% was ever established.
+        "stage1": {
+            "block": [residual.BLOCK_LABEL[k] for k in r["stage1"]["block"]],
+            "r2_oos": r["stage1"]["r2_oos"],
+            "residual_share": r["stage1"]["residual_share"],
+        },
+        "stage2": {
+            "block": [residual.BLOCK_LABEL[k] for k in r["stage2"]["block"]],
+            "incremental_r2_oos": r["stage2"]["incremental_r2_oos"],
+            "mean_ic": ic.get("mean"),
+            "ic_t_stat": ic.get("t_stat"),
+            "ic_cutoffs": ic.get("cutoffs"),
+            "ic_series": ic.get("series"),
+        },
+        "ablation": r.get("ablation"),
+        "verdict": payload.get("verdict"),
+        "factors_missing": payload.get("factors_missing"),
+        "bias_note": payload.get("bias_note"),
+        "sweep_summary": payload.get("sweep_summary"),
+        "sample_caveat": payload.get("sample_caveat"),
+        "not_advice": payload.get("not_advice"),
+        # The stricter test, and the one that OUTRANKS everything above it. See `_solve_summary`.
+        "solve": _solve_summary(),
+    }
+
+
 def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON, key=""):
     """Everything the Build-Spec front-end needs for one filtered view."""
     run, meta, cfg = _engine_run(demo, horizon, key)
@@ -549,6 +713,11 @@ def _engine_block(demo, filtered, horizon=engine_config.DEFAULT_HORIZON, key="")
         # silently mixes the two invites exactly the question we would have no answer to.
         "harvest": _harvest_summary(demo, tickers),
         "anchor": _anchor_summary(run),
+        # Cohort-level, frozen, and absent on the demo universe. See `_residual_summary`.
+        "residual": _residual_summary(demo),
+        # Forward-looking and LABELLED so — see `_roadmap_summary`. Present on both universes:
+        # it is a statement about OUR sourcing, not about any company on the board.
+        "roadmap": _roadmap_summary(),
         "records": {t: _record_summary(by_id[t]) for t in tickers if t in by_id},
         "badges": {t: _badges(t, meta, cfg, by_id.get(t), nmk, buckets) for t in tickers},
     }
